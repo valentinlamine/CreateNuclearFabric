@@ -13,6 +13,5 @@
   "block.createnuclear.uranium_ore": "Uranium Ore",
 
 
-  "itemgroup.uranium": "Uranium Group"
-
+  "itemGroup.createnuclear": "Create Nuclear"
 }

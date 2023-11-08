@@ -18,6 +18,8 @@ import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.ynov.createnuclear.CreateNuclear;
+import net.ynov.createnuclear.item.ModItemsGroups;
+import net.ynov.createnuclear.item.ModItemsGroups;
 
 public class ModBlocks {
 
@@ -45,6 +47,6 @@ public class ModBlocks {
 
     public static void registerModBlocks() {
         CreateNuclear.LOGGER.info("Registering ModBlocks for " + CreateNuclear.MOD_ID);
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(ModBlocks::AddBlockToBuildingBlockItemGroup);
+        ItemGroupEvents.modifyEntriesEvent(ModItemsGroups.getBaseTabKey()).register(ModBlocks::AddBlockToBuildingBlockItemGroup);
     }
 }

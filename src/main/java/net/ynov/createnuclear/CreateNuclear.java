@@ -16,6 +16,6 @@ public class CreateNuclear implements ModInitializer {
 	public void onInitialize() {
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
-		ModItemsGroups.registerItemGroups();
+		ModItemsGroups.registerModItems();
 	}
 }

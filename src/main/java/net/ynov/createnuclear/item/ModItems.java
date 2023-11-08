@@ -10,6 +10,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.ynov.createnuclear.CreateNuclear;
+import net.ynov.createnuclear.item.ModItemsGroups;
 
 public class ModItems {
     public static final Item URANIUM_POWDER = registerItem("uranium_powder", new Item(new FabricItemSettings()));
@@ -40,6 +41,6 @@ public class ModItems {
 
     public static void registerModItems() {
         CreateNuclear.LOGGER.info("Registering mod items for " + CreateNuclear.MOD_ID);
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(ModItems::AddItemToIngredientItemGroup);
+        ItemGroupEvents.modifyEntriesEvent(ModItemsGroups.getBaseTabKey()).register(ModItems::AddItemToIngredientItemGroup);
     }
 }
