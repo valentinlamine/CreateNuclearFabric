@@ -29,6 +29,7 @@ public class ModItems {
     public static final Item SEAL_URANIUM_ROD = registerItem("seal_uranium_rod", new Item(new FabricItemSettings()));
     public static final Item ENRICHED_FLINT_AND_STEEL = registerItem("enriched_flint_and_steel", new EnrichedFlintAndSteel(new Item.Properties().durability(100)));
     public static final Item GRAPHITE_ROD = registerItem("graphite_rod", new Item(new FabricItemSettings()));
+    public static final Item RAW_URANIUM = registerItem("raw_uranium", new Item(new FabricItemSettings()));
 
     private static void AddItemToIngredientItemGroup(FabricItemGroupEntries entries) {
         entries.accept(URANIUM_POWDER, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
@@ -42,6 +43,7 @@ public class ModItems {
         entries.accept(SEAL_URANIUM_ROD, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
         entries.accept(ENRICHED_FLINT_AND_STEEL, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
         entries.accept(GRAPHITE_ROD, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
+        entries.accept(RAW_URANIUM,CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
     }
 
     private static Item registerItem(String name, Item item) {
