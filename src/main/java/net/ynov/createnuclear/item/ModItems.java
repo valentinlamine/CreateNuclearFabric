@@ -21,6 +21,7 @@ public class ModItems {
     public static final Item YELLOW_CAKE_NETHER_STAR = registerItem("yellow_cake_nether_star_wip", new Item(new FabricItemSettings()));
     public static final Item URANIUM_ROD = registerItem("uranium_rod", new Item(new FabricItemSettings()));
     public static final Item SEAL_URANIUM_ROD = registerItem("seal_uranium_rod", new Item(new FabricItemSettings()));
+    public static final Item GRAPHITE_ROD = registerItem("graphite_rod", new Item(new FabricItemSettings()));
 
     private static void AddItemToIngredientItemGroup(FabricItemGroupEntries entries) {
         entries.accept(URANIUM_POWDER, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
@@ -32,6 +33,7 @@ public class ModItems {
         entries.accept(YELLOW_CAKE_NETHER_STAR, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
         entries.accept(URANIUM_ROD, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
         entries.accept(SEAL_URANIUM_ROD, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
+        entries.accept(GRAPHITE_ROD, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
     }
 
     private static Item registerItem(String name, Item item) {
