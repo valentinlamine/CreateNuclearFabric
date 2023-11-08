@@ -1,0 +1,15 @@
+{
+  "type": "create:mixing",
+  "heatRequirement": "superheated",
+  "ingredients": [
+    {
+      "item": "createnuclear:uranium_powder"
+    }
+  ],
+  "results": [
+    {
+      "amount": 2025,
+      "fluid": "minecraft:lava"
+    }
+  ]
+}

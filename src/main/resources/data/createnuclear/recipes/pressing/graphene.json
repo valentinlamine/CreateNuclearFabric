@@ -1,0 +1,13 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "createnuclear:coal_dust"
+    }
+  ],
+  "results": [
+    {
+      "item": "createnuclear:graphene"
+    }
+  ]
+}

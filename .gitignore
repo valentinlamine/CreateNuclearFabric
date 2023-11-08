@@ -1,0 +1,55 @@
+# gradle
+
+.gradle/
+build/
+out/
+classes/
+
+# eclipse
+
+*.launch
+
+# idea
+
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# vscode
+
+.settings/
+.vscode/
+bin/
+.classpath
+.project
+
+# macos
+
+*.DS_Store
+
+# fabric
+
+# run/
+run/.fabric/
+run/config/
+run/crash-reports/
+run/data/
+run/defaultconfigs/
+run/logs/*
+run/resourcepacks/
+run/resources/
+run/saves/
+run/schematics/
+run/screenshots/
+run/fabricloader.log
+run/options.txt
+run/usercache.json
+run/usernamecache.json
+
+# java
+
+hs_err_*.log
+replay_*.log
+*.hprof
+*.jfr

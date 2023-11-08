@@ -1,0 +1,13 @@
+{
+  "type": "create:haunting",
+  "ingredients": [
+    {
+      "item": "createnuclear:yellow_cake_nether_star_wip"
+    }
+  ],
+  "results": [
+    {
+      "item": "createnuclear:yellow_cake_enriched"
+    }
+  ]
+}

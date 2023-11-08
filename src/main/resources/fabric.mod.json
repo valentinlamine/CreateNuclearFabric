@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "createnuclear",
+	"version": "${minecraft_version}",
+	"name": "CreateNuclear",
+	"description": "This is an addon of Create mod, it adds nuclear power to the game.",
+	"authors": [
+		"Mathis"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/createnuclear/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.ynov.createnuclear.CreateNuclear"
+		],
+		"client": [
+			"net.ynov.createnuclear.CreateNuclearClient"
+		],
+		"fabric-datagen": [
+			"net.ynov.createnuclear.CreateNuclearDataGenerator"
+		]
+	},
+	"mixins": [
+		"createnuclear.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.14.22",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "0.87.0+1.20.1"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

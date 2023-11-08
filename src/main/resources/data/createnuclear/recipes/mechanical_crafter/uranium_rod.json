@@ -1,0 +1,20 @@
+{
+  "type": "create:mechanical_crafting",
+  "acceptMirrored": false,
+  "key": {
+    "u": {
+      "item": "createnuclear:yellow_cake_enriched"
+    }
+  },
+  "pattern": [
+    "    u",
+    "   u ",
+    "  u  ",
+    " u   ",
+    "u    "
+  ],
+  "result": {
+    "count": 1,
+    "item": "createnuclear:uranium_rod"
+  }
+}

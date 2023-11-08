@@ -1,0 +1,18 @@
+{
+  "item.createnuclear.uranium_powder": "Nuclear Powder",
+  "item.createnuclear.yellow_cake": "Yellow Cake",
+  "item.createnuclear.yellow_cake_enriched": "Yellow Cake Enriched",
+  "item.createnuclear.coal_dust": "Coal Dust",
+  "item.createnuclear.graphene": "Graphene",
+  "item.createnuclear.steel_ingot": "Steel Ingot",
+  "item.createnuclear.yellow_cake_nether_star_wip": "Mixed Yellow Cake and Nether Start WIP",
+  "item.createnuclear.uranium_rod": "Uranium Rod",
+  "item.createnuclear.seal_uranium_rod": "WIP idée de craft possible",
+
+  "block.createnuclear.deepslate_uranium_ore": "Deepslate Uranium Ore",
+  "block.createnuclear.uranium_ore": "Uranium Ore",
+
+
+  "itemgroup.uranium": "Uranium Group"
+
+}
