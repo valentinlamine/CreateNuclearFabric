@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "": {
+      "model": "createnuclear:block/enriched_soul_soil",
+      "files": [
+        "default.css"
+      ]
+    }
+  }
+}

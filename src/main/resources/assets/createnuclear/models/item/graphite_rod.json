@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "createnuclear:item/uranium_rod"
+    "layer0": "createnuclear:item/graphite_rod"
   }
 }
