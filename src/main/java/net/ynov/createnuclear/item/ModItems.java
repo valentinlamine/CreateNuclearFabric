@@ -52,7 +52,7 @@ public class ModItems {
 
     public static void registerModItems() {
         CreateNuclear.LOGGER.info("Registering mod items for " + CreateNuclear.MOD_ID);
-        ItemGroupEvents.modifyEntriesEvent(ModItemsGroups.getBaseTabKey()).register(ModItems::AddItemToIngredientItemGroup);
+        ItemGroupEvents.modifyEntriesEvent(ModGroup.MAIN_KEY).register(ModItems::AddItemToIngredientItemGroup);
     }
 
 }

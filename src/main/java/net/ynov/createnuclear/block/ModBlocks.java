@@ -26,6 +26,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.scores.criteria.ObjectiveCriteria;
 import net.ynov.createnuclear.CreateNuclear;
+import net.ynov.createnuclear.item.ModGroup;
 import net.ynov.createnuclear.item.ModItemsGroups;
 import net.ynov.createnuclear.item.ModItemsGroups;
 
@@ -58,7 +59,7 @@ public class ModBlocks {
 
     public static void registerModBlocks() {
         CreateNuclear.LOGGER.info("Registering ModBlocks for " + CreateNuclear.MOD_ID);
-        ItemGroupEvents.modifyEntriesEvent(ModItemsGroups.getBaseTabKey()).register(ModBlocks::AddBlockToCreateNuclearItemGroup);
+        ItemGroupEvents.modifyEntriesEvent(ModGroup.MAIN_KEY).register(ModBlocks::AddBlockToCreateNuclearItemGroup);
     }
 
 
