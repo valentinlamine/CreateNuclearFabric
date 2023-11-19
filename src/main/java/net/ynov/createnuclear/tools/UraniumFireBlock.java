@@ -1,6 +1,5 @@
 package net.ynov.createnuclear.tools;
 
-import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -22,7 +21,16 @@ public class UraniumFireBlock extends BaseFireBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return BaseFireBlock.getState(context.getLevel(), context.getClickedPos());
+        return UraniumFireBlock.getState(context.getLevel(), context.getClickedPos());
+    }
+
+    public static BlockState getState(BlockGetter reader, BlockPos pos) {
+        BlockPos blockPos = pos.below();
+        BlockState blockState = reader.getBlockState(blockPos);
+
+        return ModBlocks.URANIUM_RAW_BLOCK.defaultBlockState();
+        //return UraniumFireBlock.canSurviveBlock(blockState) ?  ModBlocks.ENRICHING_FLAME.defaultBlockState() : Blocks.SOUL_FIRE.defaultBlockState();
+
     }
 
     @Override
@@ -36,27 +44,13 @@ public class UraniumFireBlock extends BaseFireBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        BlockPos below = pos.below();
-        return level.getBlockState(below).isFaceSturdy(level, pos, Direction.UP);
+        return UraniumFireBlock.canSurviveBlock(level.getBlockState(pos.below()));
+
     }
 
     public static boolean canSurviveBlock(BlockState state) {
         return state.is(ModTag.URANIUM_FIRE_BASE_BLOCKS);
     }
 
-
-    public static BlockState getState(BlockGetter reader, BlockPos pos) {
-        BlockPos blockPos = pos.below();
-        BlockState blockState = reader.getBlockState(blockPos);
-        if (UraniumFireBlock.canSurviveBlock(blockState)){
-            return ModBlocks.ENRICHING_FLAME.defaultBlockState();
-        }
-
-        if (SoulFireBlock.canSurviveOnBlock(blockState)) {
-            return Blocks.SOUL_FIRE.defaultBlockState();
-        }
-        return Blocks.FIRE.defaultBlockState();
-    }
 }
