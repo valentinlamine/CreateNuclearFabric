@@ -12,7 +12,7 @@ public class CreateNuclearClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ENRICHING_FLAME, RenderType.translucent());
+            BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ENRICHING_FLAME, RenderType.cutout());
 
     }
 }
