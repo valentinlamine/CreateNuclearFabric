@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "pattern": [
+    "III",
+    "NIN",
+    "III"
+  ],
+  "result": {
+    "item": "createnuclear:reactor_controller"
+  },
+  "show_notification": true
+}
