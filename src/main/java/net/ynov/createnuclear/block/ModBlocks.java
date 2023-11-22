@@ -29,6 +29,7 @@ public class ModBlocks {
     //nouvelle flamme plus feu de camp enrichime flame
     public static final Block REACTOR_CORE = registerBlock("reactor_core", new Block(FabricBlockSettings.copyOf(Blocks.COBBLESTONE).strength(4f)));
 
+
     private static void AddBlockToBuildingBlockItemGroup(FabricItemGroupEntries entries) {
         entries.accept(DEEPSLATE_URANIUM_ORE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
         entries.accept(URANIUM_ORE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
