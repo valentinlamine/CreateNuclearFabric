@@ -27,11 +27,17 @@ public class ModBlocks {
     public static final Block REACTOR_CONTROLLER = registerBlock("reactor_controller", new Block(FabricBlockSettings.copyOf(Blocks.STONE).strength(4f)));
 
     //nouvelle flamme plus feu de camp enrichime flame
+    public static final Block REACTOR_CORE = registerBlock("reactor_core", new Block(FabricBlockSettings.copyOf(Blocks.COBBLESTONE).strength(4f)));
+
 
     private static void AddBlockToBuildingBlockItemGroup(FabricItemGroupEntries entries) {
         entries.accept(DEEPSLATE_URANIUM_ORE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
         entries.accept(URANIUM_ORE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
+<<<<<<< HEAD
         entries.accept(REACTOR_CONTROLLER, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
+=======
+        entries.accept(REACTOR_CORE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
+>>>>>>> 4679b5c (block Reactor_core creation)
     }
 
     private static Block registerBlock(String name, Block block) {
