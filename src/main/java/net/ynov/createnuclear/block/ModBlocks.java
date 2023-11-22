@@ -33,11 +33,7 @@ public class ModBlocks {
     private static void AddBlockToBuildingBlockItemGroup(FabricItemGroupEntries entries) {
         entries.accept(DEEPSLATE_URANIUM_ORE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
         entries.accept(URANIUM_ORE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
-<<<<<<< HEAD
         entries.accept(REACTOR_CONTROLLER, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
-=======
-        entries.accept(REACTOR_CORE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
->>>>>>> 4679b5c (block Reactor_core creation)
     }
 
     private static Block registerBlock(String name, Block block) {

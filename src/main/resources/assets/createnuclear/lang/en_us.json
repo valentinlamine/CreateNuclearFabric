@@ -11,11 +11,8 @@
 
   "block.createnuclear.deepslate_uranium_ore": "Deepslate Uranium Ore",
   "block.createnuclear.uranium_ore": "Uranium Ore",
-<<<<<<< HEAD
   "block.createnuclear.reactor_controller": "Reactor Controller",
-=======
-  "block.createnuclear.reactor_core": "Reactor Core",
->>>>>>> 4679b5c (block Reactor_core creation)
+
 
 
   "itemgroup.uranium": "Uranium Group"
