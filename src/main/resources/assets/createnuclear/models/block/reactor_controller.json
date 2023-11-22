@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "createnuclear:block/reactor_controller_panel",
+    "side": "createnuclear:block/reactor_controller",
+    "top": "createnuclear:block/reactor_controller",
+    "bottom": "createnuclear:block/reactor_controller"
+  }
+}

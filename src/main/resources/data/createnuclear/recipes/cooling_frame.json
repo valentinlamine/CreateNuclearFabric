@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:redstone_torch"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "minecraft:diamond_block"
+    }
+  },
+  "pattern": [
+    "XS#",
+    "XS#",
+    "XS#"
+  ],
+  "result": {
+    "count": 1,
+    "item": "createnuclear:cooling_frame"
+  },
+  "show_notification": true
+}
