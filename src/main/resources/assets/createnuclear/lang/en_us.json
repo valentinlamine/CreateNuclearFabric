@@ -11,6 +11,7 @@
 
   "block.createnuclear.deepslate_uranium_ore": "Deepslate Uranium Ore",
   "block.createnuclear.uranium_ore": "Uranium Ore",
+  "block.createnuclear.reactor_controller": "Reactor Controller",
 
 
   "itemgroup.uranium": "Uranium Group"

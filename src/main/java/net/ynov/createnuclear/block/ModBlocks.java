@@ -24,12 +24,14 @@ public class ModBlocks {
 
     public static final Block DEEPSLATE_URANIUM_ORE = registerBlock("deepslate_uranium_ore", new DropExperienceBlock(FabricBlockSettings.copyOf(Blocks.DEEPSLATE).strength(4f), UniformInt.of(2, 4)));
     public static final Block URANIUM_ORE = registerBlock("uranium_ore", new DropExperienceBlock(FabricBlockSettings.copyOf(Blocks.STONE).strength(4f), UniformInt.of(2, 4)));
+    public static final Block REACTOR_CONTROLLER = registerBlock("reactor_controller", new Block(FabricBlockSettings.copyOf(Blocks.STONE).strength(4f)));
 
     //nouvelle flamme plus feu de camp enrichime flame
 
     private static void AddBlockToBuildingBlockItemGroup(FabricItemGroupEntries entries) {
         entries.accept(DEEPSLATE_URANIUM_ORE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
         entries.accept(URANIUM_ORE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
+        entries.accept(REACTOR_CONTROLLER, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
     }
 
     private static Block registerBlock(String name, Block block) {
