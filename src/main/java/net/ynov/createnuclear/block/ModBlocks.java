@@ -38,15 +38,17 @@ public class ModBlocks {
     public static final Block URANIUM_ORE = registerBlock("uranium_ore", new DropExperienceBlock(FabricBlockSettings.copyOf(Blocks.STONE).strength(4f), UniformInt.of(2, 4)));
     public static final Block URANIUM_RAW_BLOCK = registerBlock("uranium_raw_block", new DropExperienceBlock(FabricBlockSettings.copyOf(Blocks.STONE).strength(4f), UniformInt.of(2, 4)));
     public static final Block ENRICHED_SOUL_SOIL = registerBlock("enriched_soul_soil", new DropExperienceBlock(FabricBlockSettings.copyOf(Blocks.SOUL_SOIL).strength(4f), UniformInt.of(2, 4)));
-    //public static final Block ENRICHING_FLAME = registerBlock("enriching_flame", new FireBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).replaceable().noCollission().instabreak().lightLevel(state -> 15).sound(SoundType.MOSS).pushReaction(PushReaction.DESTROY)));
-    public static final Block ENRICHING_FLAME = registerBlock("enriching_flame", new UraniumFireBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).replaceable().noCollission().instabreak().lightLevel(state -> 15).sound(SoundType.MOSS).pushReaction(PushReaction.DESTROY)));
+    public static final Block ENRICHING_FLAME = registerBlockNoItem("enriching_flame", new UraniumFireBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).replaceable().noCollission().instabreak().lightLevel(state -> 15).sound(SoundType.MOSS).pushReaction(PushReaction.DESTROY)));
 
     private static void AddBlockToCreateNuclearItemGroup(FabricItemGroupEntries entries) {
         entries.accept(DEEPSLATE_URANIUM_ORE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
         entries.accept(URANIUM_ORE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
         entries.accept(URANIUM_RAW_BLOCK, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
         entries.accept(ENRICHED_SOUL_SOIL, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
-        entries.accept(ENRICHING_FLAME, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
+    }
+
+    private static Block registerBlockNoItem(String name, Block block) {
+        return Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(CreateNuclear.MOD_ID, name), block);
     }
 
     private static Block registerBlock(String name, Block block) {

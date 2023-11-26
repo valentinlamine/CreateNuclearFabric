@@ -5,6 +5,7 @@ import net.fabricmc.api.ModInitializer;
 import net.ynov.createnuclear.block.ModBlocks;
 import net.ynov.createnuclear.item.ModGroup;
 import net.ynov.createnuclear.item.ModItems;
+import net.ynov.createnuclear.item.ModItemsGroups;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +20,6 @@ public class CreateNuclear implements ModInitializer {
 	public void onInitialize() {
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
-		//ModItemsGroups.registerModItems();
 		ModGroup.registrer();
 	}
 }
