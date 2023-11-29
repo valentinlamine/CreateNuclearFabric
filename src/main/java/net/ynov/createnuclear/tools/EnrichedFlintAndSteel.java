@@ -1,4 +1,4 @@
-package net.ynov.createnuclear.tools;
+/*package net.ynov.createnuclear.tools;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -50,3 +50,4 @@ public class EnrichedFlintAndSteel extends FlintAndSteelItem {
         return InteractionResult.FAIL;
     }
 }
+*/
