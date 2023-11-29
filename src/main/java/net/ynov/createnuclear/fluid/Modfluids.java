@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributeHandler;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.ynov.createnuclear.CreateNuclear;
 
 import javax.annotation.Nullable;
@@ -17,12 +18,13 @@ public class Modfluids {
 
     public static void register() {
         var uranium = CreateNuclear.REGISTRATE.fluid("uranium", new ResourceLocation("createnuclear","block/fluid/uranium_still"), new ResourceLocation("createnuclear","block/fluid/uranium_flow"))
-                .fluidAttributes(() -> new CreateNuclearAttributeHandler("fluid.createanuclear.uranium", 2500, 1600))
+                .fluidAttributes(() -> new CreateNuclearAttributeHandler("fluid.createnuclear.uranium", 2500, 1600))
                 .fluidProperties(p -> p.levelDecreasePerBlock(2)
                         .tickRate(15)
                         .flowSpeed(6)
                         .blastResistance(100f))
                 .source(SimpleFlowableFluid.Source::new);
+
         URANIUM = uranium.register();
     }
 
