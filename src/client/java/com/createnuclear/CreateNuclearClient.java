@@ -1,10 +1,14 @@
 package com.createnuclear;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.minecraft.client.renderer.RenderLayer;
+import com.createnuclear.block.ModBlocks;
+
 
 public class CreateNuclearClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ENRICHING_FLAME, RenderLayer.getCutout());
 	}
 }

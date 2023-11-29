@@ -10,12 +10,9 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.FlintAndSteelItem;
 import net.minecraft.world.item.Item;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.tools.EnrichedFlintAndSteel;
-import net.ynov.createnuclear.item.ModItemsGroups;
 
 public class ModItems {
     public static final Item URANIUM_POWDER = registerItem("uranium_powder", new Item(new FabricItemSettings()));
@@ -32,18 +29,18 @@ public class ModItems {
     public static final Item RAW_URANIUM = registerItem("raw_uranium", new Item(new FabricItemSettings()));
 
     private static void AddItemToIngredientItemGroup(FabricItemGroupEntries entries) {
-        entries.accept(URANIUM_POWDER, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
-        entries.accept(YELLOW_CAKE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
-        entries.accept(YELLOW_CAKE_ENRICHED, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
-        entries.accept(COAL_DUST, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
-        entries.accept(GRAPHENE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
-        entries.accept(STEEL_INGOT, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
-        entries.accept(YELLOW_CAKE_NETHER_STAR, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
-        entries.accept(URANIUM_ROD, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
-        entries.accept(SEAL_URANIUM_ROD, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
-        entries.accept(ENRICHED_FLINT_AND_STEEL, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
-        entries.accept(GRAPHITE_ROD, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
-        entries.accept(RAW_URANIUM,CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
+        entries.accept(URANIUM_POWDER, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(YELLOW_CAKE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(YELLOW_CAKE_ENRICHED, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(COAL_DUST, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(GRAPHENE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(STEEL_INGOT, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(YELLOW_CAKE_NETHER_STAR, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(URANIUM_ROD, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(SEAL_URANIUM_ROD, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(ENRICHED_FLINT_AND_STEEL, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(GRAPHITE_ROD, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(RAW_URANIUM,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
     }
 
     private static Item registerItem(String name, Item item) {
@@ -52,7 +49,7 @@ public class ModItems {
 
     public static void registerModItems() {
         CreateNuclear.LOGGER.info("Registering mod items for " + CreateNuclear.MOD_ID);
-        ItemGroupEvents.modifyEntriesEvent(ModItemsGroups.getBaseTabKey()).register(ModItems::AddItemToIngredientItemGroup);
+        ItemGroupEvents.modifyEntriesEvent(ModGroup.MAIN_KEY).register(ModItems::AddItemToIngredientItemGroup);
     }
 
 }
