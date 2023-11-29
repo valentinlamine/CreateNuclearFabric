@@ -58,7 +58,7 @@ public class UraniumFireBlock extends BaseFireBlock {
     }
 
     public static boolean canSurviveOnBlock(BlockState state) {
-        return state.is(ModTag.URANIUM_FIRE_BASE_BLOCKS);
+        return state.is(ModBlocks.ENRICHED_SOUL_SOIL);
     }
 
 }
