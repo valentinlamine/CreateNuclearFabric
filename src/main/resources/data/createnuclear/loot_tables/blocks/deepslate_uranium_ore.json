@@ -47,7 +47,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "createnuclear:uranium_powder"
+              "name": "createnuclear:raw_uranium"
             }
           ]
         }
