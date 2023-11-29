@@ -16,11 +16,12 @@
 
   "block.createnuclear.deepslate_uranium_ore": "Deepslate Uranium Ore",
   "block.createnuclear.uranium_ore": "Uranium Ore",
-  "block.createnuclear.uranium_raw_block": "Uranium Raw Block",
   "block.createnuclear.enriched_soul_soil": "Enriched Soul Soil",
   "block.createnuclear.enriching_fire": "Enriched Fire",
   "block.createnuclear.uranium": "Uranium",
 
+  "block.createnuclear.raw_uranium_block": "Raw Uranium Block",
+  "block.createnuclear.enriching_campfire": "Enriching Campfire",
 
   "itemGroup.createnuclear.main": "Create Nuclear"
 }
