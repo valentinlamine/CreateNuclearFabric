@@ -1,5 +1,9 @@
 {
   "replace": false,
   "values": [
+    "createnuclear:enriched_soul_soil",
+    "createnuclear:uranium_ore",
+    "createnuclear:deepslate_uranium_ore",
+    "createnuclear:raw_uranium_block"
   ]
 }

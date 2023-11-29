@@ -1,6 +1,3 @@
 {
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "createnuclear:block/enriched_soul_soil"
-  }
+  "parent": "createnuclear:block/enriched_soul_soil"
 }

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "createnuclear:block/uranium_raw_block",
+      "model": "createnuclear:block/raw_uranium_block",
       "files": [
         "default.css"
       ]

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "createnuclear:enriched_soul_soil"
+    },
+    "L": {
+      "tag": "minecraft:logs"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "pattern": [
+    " E ",
+    "ENE",
+    "LLL"
+  ],
+  "result": {
+    "item": "createnuclear:enriching_campfire"
+  },
+  "show_notification": true
+}

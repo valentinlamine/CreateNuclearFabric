@@ -3,7 +3,8 @@
 	"package": "net.ynov.createnuclear.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ExampleMixin"
+		"ExampleMixin",
+		"ModMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
