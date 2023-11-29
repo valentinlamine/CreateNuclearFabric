@@ -1,6 +1,15 @@
 package net.ynov.createnuclear.block;
 
+import com.simibubi.create.AllItems;
+import com.simibubi.create.AllMovementBehaviours;
+import com.simibubi.create.AllTags;
+import com.simibubi.create.Create;
+import com.simibubi.create.content.kinetics.BlockStressDefaults;
+import com.simibubi.create.foundation.data.SharedProperties;
+import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.entry.BlockEntry;
+import com.tterrag.registrate.util.entry.ItemEntry;
+import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -14,16 +23,20 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.scores.criteria.ObjectiveCriteria;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.item.ModGroup;
@@ -44,6 +57,7 @@ public class ModBlocks {
         entries.accept(URANIUM_RAW_BLOCK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ENRICHED_SOUL_SOIL, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
     }
+
     private static Block registerBlockNoItem(String name, Block block) {
         return Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(CreateNuclear.MOD_ID, name), block);
     }
