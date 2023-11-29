@@ -44,6 +44,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.scores.criteria.ObjectiveCriteria;
 import net.ynov.createnuclear.CreateNuclear;
+import net.ynov.createnuclear.item.ModGroup;
 import net.ynov.createnuclear.tools.UraniumFireBlock;
 
 import static com.simibubi.create.Create.REGISTRATE;
@@ -62,7 +63,7 @@ public class ModBlocks {
     private static void AddBlockToCreateNuclearItemGroup(FabricItemGroupEntries entries) {
         entries.accept(DEEPSLATE_URANIUM_ORE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(URANIUM_ORE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(URANIUM_RAW_BLOCK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(RAW_URANIUM_BLOCK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ENRICHED_SOUL_SOIL, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ENRICHING_CAMPFIRE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
 
@@ -86,6 +87,6 @@ public class ModBlocks {
 
     public static void registerModBlocks() {
         CreateNuclear.LOGGER.info("Registering ModBlocks for " + CreateNuclear.MOD_ID);
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(ModBlocks::AddBlockToBuildingBlockItemGroup);
+        ItemGroupEvents.modifyEntriesEvent(ModGroup.MAIN_KEY).register(ModBlocks::AddBlockToCreateNuclearItemGroup);
     }
 }
