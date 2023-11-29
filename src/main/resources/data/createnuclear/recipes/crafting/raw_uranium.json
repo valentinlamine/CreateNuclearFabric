@@ -3,11 +3,11 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "minecraft:raw_uranium_block"
+      "item": "createnuclear:raw_uranium_block"
     }
   ],
   "result": {
     "count": 9,
-    "item": "minecraft:raw_uranium"
+    "item": "createnuclear:raw_uranium"
   }
 }
