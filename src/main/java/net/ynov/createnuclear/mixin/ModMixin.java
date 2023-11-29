@@ -1,8 +1,10 @@
 package net.ynov.createnuclear.mixin;
 
 
+import com.simibubi.create.foundation.utility.BlockFace;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -34,6 +36,7 @@ public class ModMixin {
         Player player = context.getPlayer();
         Level level = context.getLevel();
         BlockState blockState = level.getBlockState(blockPos = context.getClickedPos());
+
         if (CampfireBlock.canLight(blockState) || CandleBlock.canLight(blockState) || CandleCakeBlock.canLight(blockState)) {
             level.playSound(player, blockPos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0f, level.getRandom().nextFloat() * 0.4f + 0.8f);
             level.setBlock(blockPos, (BlockState)blockState.setValue(BlockStateProperties.LIT, true), 11);
@@ -44,7 +47,8 @@ public class ModMixin {
             cir.setReturnValue(InteractionResult.sidedSuccess(level.isClientSide()));
         }
         BlockPos blockPos2 = blockPos.relative(context.getClickedFace());
-        if (BaseFireBlock.canBePlacedAt(level, blockPos2, context.getHorizontalDirection())) {
+        if (context.getClickedFace() == Direction.UP) {
+            if (BaseFireBlock.canBePlacedAt(level, blockPos2, context.getHorizontalDirection())) {
             level.playSound(player, blockPos2, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0f, level.getRandom().nextFloat() * 0.4f + 0.8f);
             BlockState stateBelow = context.getLevel().getBlockState(context.getClickedPos().below(0));
 
@@ -63,6 +67,9 @@ public class ModMixin {
             cir.setReturnValue(InteractionResult.sidedSuccess(level.isClientSide()));
         }
         //cir.setReturnValue(InteractionResult.FAIL);
+
+        }
+
 
     }
 }
