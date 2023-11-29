@@ -40,7 +40,7 @@ public class ModBlocks {
     public static final Block URANIUM_ORE = registerBlock("uranium_ore", new DropExperienceBlock(FabricBlockSettings.copyOf(Blocks.STONE).strength(4f), UniformInt.of(2, 4)));
     public static final Block RAW_URANIUM_BLOCK = registerBlock("raw_uranium_block", new Block(FabricBlockSettings.copyOf(Blocks.RAW_IRON_BLOCK).strength(4f)));
     public static final Block ENRICHED_SOUL_SOIL = registerBlock("enriched_soul_soil", new Block(FabricBlockSettings.copyOf(Blocks.DIAMOND_BLOCK).strength(4f)));
-    public static final Block ENRICHING_CAMPFIRE = registerBlock("enriching_campfire", new CampfireBlock(true, 4, FabricBlockSettings.of().mapColor(MapColor.PODZOL).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lightLevel(litBlockEmission(10)).noOcclusion().ignitedByLava()));
+    //public static final Block ENRICHING_CAMPFIRE = registerBlock("enriching_campfire", new CampfireBlock(false, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lightLevel(litBlockEmission(10)).noOcclusion().ignitedByLava()));
     //nouvelle flamme plus feu de camp enrichime flame
 
 
@@ -52,7 +52,7 @@ public class ModBlocks {
         entries.accept(URANIUM_ORE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
         entries.accept(RAW_URANIUM_BLOCK, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
         entries.accept(ENRICHED_SOUL_SOIL, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
-        entries.accept(ENRICHING_CAMPFIRE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
+        //entries.accept(ENRICHING_CAMPFIRE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
     }
 
     private static Block registerBlock(String name, Block block) {
