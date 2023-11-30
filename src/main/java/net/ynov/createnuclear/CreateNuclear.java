@@ -2,14 +2,12 @@ package net.ynov.createnuclear;
 
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.fabricmc.api.ModInitializer;
-import net.ynov.createnuclear.block.ModBlocks;
-import net.ynov.createnuclear.fluid.Modfluids;
-import net.ynov.createnuclear.item.ModGroup;
-import net.ynov.createnuclear.item.ModItems;
+import net.ynov.createnuclear.block.CNBlocks;
+import net.ynov.createnuclear.fluid.CNFluids;
+import net.ynov.createnuclear.groups.CNGroup;
+import net.ynov.createnuclear.item.CNItems;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static com.simibubi.create.Create.REGISTRATE;
 
 
 public class CreateNuclear implements ModInitializer {
@@ -20,10 +18,10 @@ public class CreateNuclear implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		ModItems.registerModItems();
-		ModBlocks.registerModBlocks();
-		ModGroup.registrer();
-		Modfluids.register();
+		CNItems.registerModItems();
+		CNBlocks.registerModBlocks();
+		CNGroup.registrer();
+		CNFluids.register();
 		REGISTRATE.register();
 	}
 }

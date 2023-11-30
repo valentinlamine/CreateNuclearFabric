@@ -12,9 +12,10 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.ynov.createnuclear.CreateNuclear;
+import net.ynov.createnuclear.groups.CNGroup;
 //import net.ynov.createnuclear.tools.EnrichedFlintAndSteel;
 
-public class ModItems {
+public class CNItems {
     public static final Item URANIUM_POWDER = registerItem("uranium_powder", new Item(new FabricItemSettings()));
     public static final Item YELLOW_CAKE = registerItem("yellow_cake", new Item(new FabricItemSettings().food(new FoodProperties.Builder().nutrition(20).alwaysEat().saturationMod(0.3F).effect(new MobEffectInstance(MobEffects.POISON, 6000, 25), 1.0F).effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 6000, 5), 1.0F).effect(new MobEffectInstance(MobEffects.HUNGER, 6000, 1000), 1.0F).effect(new MobEffectInstance(MobEffects.CONFUSION, 6000, 5), 1.0F).effect(new MobEffectInstance(MobEffects.WITHER, 6000, 8), 1.0F).effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 6000, 5), 1.0F).build())));
     public static final Item YELLOW_CAKE_ENRICHED = registerItem("yellow_cake_enriched", new Item(new FabricItemSettings()));
@@ -51,7 +52,7 @@ public class ModItems {
 
     public static void registerModItems() {
         CreateNuclear.LOGGER.info("Registering mod items for " + CreateNuclear.MOD_ID);
-        ItemGroupEvents.modifyEntriesEvent(ModGroup.MAIN_KEY).register(ModItems::AddItemToIngredientItemGroup);
+        ItemGroupEvents.modifyEntriesEvent(CNGroup.MAIN_KEY).register(CNItems::AddItemToIngredientItemGroup);
     }
 
 }

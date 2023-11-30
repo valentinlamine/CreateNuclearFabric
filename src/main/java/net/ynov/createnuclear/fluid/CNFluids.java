@@ -7,12 +7,11 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributeHandler;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.ynov.createnuclear.CreateNuclear;
 
 import javax.annotation.Nullable;
 
-public class Modfluids {
+public class CNFluids {
 
     public static FluidEntry<SimpleFlowableFluid.Flowing> URANIUM;
 
