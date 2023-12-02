@@ -4,6 +4,7 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.ynov.createnuclear.Tags.CNTag;
+import net.ynov.createnuclear.Tags.CNTags2;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.fluid.CNFluids;
 import net.ynov.createnuclear.groups.CNGroup;
@@ -26,6 +27,7 @@ public class CreateNuclear implements ModInitializer {
 		CNFluids.register();
 		REGISTRATE.register();
 		CNTag.registerModItems();
+		CNTags2.register();
 
 		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);
 	}

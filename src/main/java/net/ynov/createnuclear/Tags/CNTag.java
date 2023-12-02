@@ -54,7 +54,8 @@ public class CNTag {
     }
 
     public enum FluidTag {
-        URANIUM(NameSpace.MOD);
+        //URANIUM(NameSpace.MOD),
+        URANIUM(NameSpace.COMMON);
 
         public final TagKey<Fluid> tag;
         public final boolean alwayDatagen;
@@ -95,6 +96,19 @@ public class CNTag {
 
         private static void init() {}
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public static void registerModItems() {
         CreateNuclear.LOGGER.info("Registering mod tags for " + CreateNuclear.MOD_ID);
