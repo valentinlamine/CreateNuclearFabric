@@ -6,8 +6,13 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributeHandler;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.ynov.createnuclear.CreateNuclear;
+import net.ynov.createnuclear.Tags.CNTag;
 
 import javax.annotation.Nullable;
 
@@ -45,6 +50,17 @@ public class CNFluids {
         @Override
         public boolean isLighterThanAir(FluidVariant variant) {
             return lighterThanAir;
+        }
+    }
+
+    public static void handleFluidEffect(ServerLevel world) {
+        for (var entity: world.getAllEntities()) {
+            if (entity instanceof LivingEntity livingEntity && livingEntity.isAlive() && !livingEntity.isSpectator()) {
+                if (entity.tickCount % 20 != 0) return;
+                if (livingEntity.isSwimming()/*isEyeInFluid(CNTag.FluidTag.URANIUM.tag)*/) {
+                    livingEntity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 100, 3, true, true, true));
+                }
+            }
         }
     }
 }
