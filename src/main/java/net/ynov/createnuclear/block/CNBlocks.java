@@ -1,5 +1,10 @@
 package net.ynov.createnuclear.block;
 
+import com.simibubi.create.foundation.data.SharedProperties;
+import com.tterrag.registrate.builders.BlockBuilder;
+import com.tterrag.registrate.util.entry.BlockEntry;
+import com.tterrag.registrate.util.nullness.NonNullFunction;
+import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -20,29 +25,56 @@ import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.groups.CNGroup;
 import net.ynov.createnuclear.tools.UraniumFireBlock;
 
+import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 import static net.minecraft.world.level.block.Blocks.litBlockEmission;
 
 public class CNBlocks {
 
-    public static final Block DEEPSLATE_URANIUM_ORE = registerBlock("deepslate_uranium_ore", new DropExperienceBlock(FabricBlockSettings.copyOf(Blocks.DEEPSLATE).strength(5f, 3f), UniformInt.of(2, 4)));
-    public static final Block URANIUM_ORE = registerBlock("uranium_ore", new DropExperienceBlock(FabricBlockSettings.copyOf(Blocks.STONE).strength(5f, 3f), UniformInt.of(2, 4)));
-    public static final Block RAW_URANIUM_BLOCK = registerBlock("raw_uranium_block", new Block(FabricBlockSettings.copyOf(Blocks.STONE).strength(6f, 6.5f)));
-    public static final Block ENRICHED_SOUL_SOIL = registerBlock("enriched_soul_soil", new Block(FabricBlockSettings.copyOf(Blocks.SOUL_SOIL).strength(8f, 7f)));
+    static {
+        CreateNuclear.REGISTRATE.useCreativeTab(CNGroup.MAIN_KEY);
+    }
+
+    public static final BlockEntry<Block> DEEPSLATE_URANIUM_ORE =
+            CreateNuclear.REGISTRATE.block("deepslate_uranium_ore", Block::new)
+                    .initialProperties(SharedProperties::netheriteMetal)
+                    .simpleItem()
+                    .transform(pickaxeOnly())
+                    .register();
+
+    public static final BlockEntry<Block> URANIUM_ORE =
+            CreateNuclear.REGISTRATE.block("uranium_ore", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .simpleItem()
+                    .transform(pickaxeOnly())
+                    .register();
+
+    public static final BlockEntry<Block> RAW_URANIUM_BLOCK =
+            CreateNuclear.REGISTRATE.block("raw_uranium_block", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .simpleItem()
+                    .transform(pickaxeOnly())
+                    .register();
+
+    public static final BlockEntry<Block> ENRICHED_SOUL_SOIL =
+            CreateNuclear.REGISTRATE.block("enriched_soul_soil", Block::new)
+                    .initialProperties(CNBlocks::SOUL_SOIL)
+                    .simpleItem()
+                    .transform(pickaxeOnly())
+                    .register();
+
     public static final Block ENRICHING_FIRE = registerBlockNoItem("enriching_fire", new UraniumFireBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).replaceable().noCollission().instabreak().lightLevel(state -> 15).sound(SoundType.MOSS).pushReaction(PushReaction.DESTROY)));
     public static final Block ENRICHING_CAMPFIRE = registerBlock("enriching_campfire", new CampfireBlock(false, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lightLevel(litBlockEmission(10)).noOcclusion().ignitedByLava()));
 
+
+    public static Block SOUL_SOIL() { return Blocks.SOUL_SOIL; }
+
     private static void AddBlockToCreateNuclearItemGroup(FabricItemGroupEntries entries) {
-        entries.accept(DEEPSLATE_URANIUM_ORE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(URANIUM_ORE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(RAW_URANIUM_BLOCK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ENRICHED_SOUL_SOIL, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ENRICHING_CAMPFIRE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
 
     }
 
-    // COBBLESTONE = register("cobblestone", new Block(Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(2.0F, 6.0F)));
 
- 
+
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
         return Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(CreateNuclear.MOD_ID, name), block);

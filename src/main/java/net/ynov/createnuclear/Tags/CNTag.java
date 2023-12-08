@@ -15,9 +15,7 @@ import javax.naming.Name;
 import java.util.Locale;
 
 public class CNTag {
-    /*public static final TagKey<Block> URANIUM_FIRE_BASE_BLOCKS = TagKey.create(Registries.BLOCK, new ResourceLocation(CreateNuclear.MOD_ID, "tags/uranium_fire_base_blocks"));
 
-     */
 
     public static <T> TagKey<T> optionalTag(Registry<T> registry, ResourceLocation id) {
         return TagKey.create(registry.key(), id);

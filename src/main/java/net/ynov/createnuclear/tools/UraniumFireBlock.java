@@ -52,7 +52,7 @@ public class UraniumFireBlock extends BaseFireBlock {
     }
 
     public static boolean canSurviveOnBlock(BlockState state) {
-        return state.is(CNBlocks.ENRICHED_SOUL_SOIL);
+        return state.is(CNBlocks.ENRICHED_SOUL_SOIL.get());
     }
 
 }

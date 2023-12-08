@@ -1,9 +1,7 @@
-/*package net.ynov.createnuclear.tools;
+package net.ynov.createnuclear.tools;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.ChatType;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -14,12 +12,10 @@ import net.minecraft.world.item.FlintAndSteelItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.ynov.createnuclear.Tags.ModTag;
-import net.ynov.createnuclear.block.ModBlocks;
+import net.ynov.createnuclear.block.CNBlocks;
 
 public class EnrichedFlintAndSteel extends FlintAndSteelItem {
     public EnrichedFlintAndSteel(Properties properties) {
@@ -37,7 +33,7 @@ public class EnrichedFlintAndSteel extends FlintAndSteelItem {
         BlockPos blockPos2 = blockPos.relative(context.getClickedFace());
         if (UraniumFireBlock.canBePlacedAt(level, blockPos2, context.getHorizontalDirection())) {
             level.playSound(player, blockPos2, SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 1.0f, level.getRandom().nextFloat() * 0.4f + 0.8f);
-            BlockState blockState2 = blockState.is(ModBlocks.ENRICHED_SOUL_SOIL) ? ModBlocks.ENRICHING_FIRE.defaultBlockState() : Blocks.FIRE.defaultBlockState();
+            BlockState blockState2 = blockState.is(CNBlocks.ENRICHED_SOUL_SOIL.get()) ? CNBlocks.ENRICHING_FIRE.defaultBlockState() : Blocks.FIRE.defaultBlockState();
             level.setBlock(blockPos2, blockState2, 11);
             level.gameEvent((Entity)player, GameEvent.BLOCK_PLACE, blockPos);
             ItemStack itemStack = context.getItemInHand();
@@ -50,4 +46,3 @@ public class EnrichedFlintAndSteel extends FlintAndSteelItem {
         return InteractionResult.FAIL;
     }
 }
-*/
