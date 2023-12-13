@@ -50,7 +50,7 @@ public class CNMixin {
             BlockState stateBelow = context.getLevel().getBlockState(context.getClickedPos().below(0));
 
             BlockState blockState2 = stateBelow.is(CNBlocks.ENRICHED_SOUL_SOIL.get())
-                    ? CNBlocks.ENRICHING_FIRE.defaultBlockState()
+                    ? CNBlocks.ENRICHING_FIRE.get().defaultBlockState()
                     : stateBelow.is(Blocks.SOUL_SOIL)
                         ? Blocks.SOUL_FIRE.defaultBlockState()
                         : Blocks.FIRE.defaultBlockState();

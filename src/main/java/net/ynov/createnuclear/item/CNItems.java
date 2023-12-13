@@ -50,7 +50,7 @@ public class CNItems {
         return Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(CreateNuclear.MOD_ID, name), item);
     }
 
-    public static void registerModItems() {
+    public static void registerCNItems() {
         CreateNuclear.LOGGER.info("Registering mod items for " + CreateNuclear.MOD_ID);
         ItemGroupEvents.modifyEntriesEvent(CNGroup.MAIN_KEY).register(CNItems::AddItemToIngredientItemGroup);
     }

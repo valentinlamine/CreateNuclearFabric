@@ -97,17 +97,6 @@ public class CNTag {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
     public static void registerModItems() {
         CreateNuclear.LOGGER.info("Registering mod tags for " + CreateNuclear.MOD_ID);
         FluidTag.init();

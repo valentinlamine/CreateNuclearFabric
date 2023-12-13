@@ -17,6 +17,7 @@ import net.minecraft.world.level.Level;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.Tags.CNTag;
 import net.ynov.createnuclear.block.CNBlocks;
+import net.ynov.createnuclear.effects.CNEffects;
 import net.ynov.createnuclear.item.CNItems;
 
 import javax.annotation.Nullable;
@@ -67,7 +68,7 @@ public class CNFluids {
             if (player.isAlive() && !player.isSpectator()) {
                 if (player.tickCount % 20 != 0) return;
                 if (player.updateFluidHeightAndDoFluidPushing(CNTag.FluidTag.URANIUM.tag, 0.014)) {
-                    player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 300, 3, true, true, true));
+                    player.addEffect(new MobEffectInstance(CNEffects.RADIATION.get(), 100, 0));
                 }
             }});
 

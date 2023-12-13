@@ -5,6 +5,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.ynov.createnuclear.Tags.CNTag;
 import net.ynov.createnuclear.block.CNBlocks;
+import net.ynov.createnuclear.effects.CNEffects;
 import net.ynov.createnuclear.fluid.CNFluids;
 import net.ynov.createnuclear.groups.CNGroup;
 import net.ynov.createnuclear.item.CNItems;
@@ -20,10 +21,11 @@ public class CreateNuclear implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		CNItems.registerModItems();
-		CNBlocks.registerModBlocks();
+		CNItems.registerCNItems();
+		CNBlocks.registerCNBlocks();
 		CNGroup.registrer();
 		CNFluids.register();
+		CNEffects.register();
 		CNTag.registerModItems();
 		REGISTRATE.register();
 
