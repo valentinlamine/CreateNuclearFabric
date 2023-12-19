@@ -18,6 +18,9 @@ public class CreateNuclear implements ModInitializer {
 
 	public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID);
 
+
+
+
 	@Override
 	public void onInitialize() {
 		CNItems.registerModItems();
@@ -28,5 +31,9 @@ public class CreateNuclear implements ModInitializer {
 		REGISTRATE.register();
 
 		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);
+
+
+
 	}
+
 }

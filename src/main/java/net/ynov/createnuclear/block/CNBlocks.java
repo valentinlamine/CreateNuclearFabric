@@ -1,6 +1,10 @@
 package net.ynov.createnuclear.block;
 
+import com.chocohead.mm.api.ClassTinkerers;
+import com.simibubi.create.AllRecipeTypes;
+import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.data.SharedProperties;
+import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
@@ -20,6 +24,7 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.ynov.createnuclear.CreateNuclear;
+import net.ynov.createnuclear.TestEnum;
 import net.ynov.createnuclear.groups.CNGroup;
 import net.ynov.createnuclear.tools.UraniumFireBlock;
 
@@ -51,6 +56,8 @@ public class CNBlocks {
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
+                    .transform(BlockStressDefaults.setCapacity(16384.0))
+                    .transform(BlockStressDefaults.setGeneratorSpeed(() -> Couple.create(0, 256)))
                     .register();
 
     public static final BlockEntry<Block> ENRICHED_SOUL_SOIL =
@@ -85,6 +92,7 @@ public class CNBlocks {
 
     public static void registerModBlocks() {
         CreateNuclear.LOGGER.info("Registering ModBlocks for " + CreateNuclear.MOD_ID);
+
         ItemGroupEvents.modifyEntriesEvent(CNGroup.MAIN_KEY).register(CNBlocks::AddBlockToCreateNuclearItemGroup);
     }
 }
