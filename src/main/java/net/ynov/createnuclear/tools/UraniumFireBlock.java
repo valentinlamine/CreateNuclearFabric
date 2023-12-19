@@ -46,7 +46,7 @@ public class UraniumFireBlock extends BaseFireBlock {
         BlockPos blockPos = pos.below();
         BlockState blockState = reader.getBlockState(blockPos);
         if (UraniumFireBlock.canSurviveOnBlock(blockState)) {
-            return CNBlocks.ENRICHING_FIRE.defaultBlockState();
+            return CNBlocks.ENRICHING_FIRE.get().defaultBlockState();
         }
         return Blocks.AIR.defaultBlockState();
     }
