@@ -1,5 +1,6 @@
 package net.ynov.createnuclear.tools;
 
+import com.simibubi.create.content.processing.burner.LitBlazeBurnerBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -55,4 +56,7 @@ public class UraniumFireBlock extends BaseFireBlock {
         return state.is(CNBlocks.ENRICHED_SOUL_SOIL.get());
     }
 
+    public static int getLight(BlockState blockState) {
+        return 15;
+    }
 }

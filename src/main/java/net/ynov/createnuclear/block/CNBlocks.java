@@ -3,9 +3,11 @@ package net.ynov.createnuclear.block;
 import com.chocohead.mm.api.ClassTinkerers;
 import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
+import com.simibubi.create.content.processing.burner.LitBlazeBurnerBlock;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
+import com.tterrag.registrate.util.nullness.NonNullUnaryOperator;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
@@ -69,6 +71,9 @@ public class CNBlocks {
 
     public static final BlockEntry<UraniumFireBlock> ENRICHING_FIRE =
             CreateNuclear.REGISTRATE.block("enriching_fire", UraniumFireBlock::new)
+                    .properties(BlockBehaviour.Properties::replaceable)
+                    .properties(BlockBehaviour.Properties::noCollission)
+                    .properties(p -> p.lightLevel(UraniumFireBlock::getLight))
                     .register();
 
 
