@@ -6,24 +6,39 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributeHandler;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.ynov.createnuclear.CreateNuclear;
+import net.ynov.createnuclear.Tags.CNTag;
+import net.ynov.createnuclear.block.CNBlocks;
+import net.ynov.createnuclear.effects.CNEffects;
+import net.ynov.createnuclear.item.CNItems;
 
 import javax.annotation.Nullable;
 
-public class Modfluids {
+
+public class CNFluids {
 
     public static FluidEntry<SimpleFlowableFluid.Flowing> URANIUM;
 
     public static void register() {
         var uranium = CreateNuclear.REGISTRATE.fluid("uranium", new ResourceLocation("createnuclear","block/fluid/uranium_still"), new ResourceLocation("createnuclear","block/fluid/uranium_flow"))
-                .fluidAttributes(() -> new CreateNuclearAttributeHandler("fluid.createanuclear.uranium", 2500, 1600))
+                .fluidAttributes(() -> new CreateNuclearAttributeHandler("fluid.createnuclear.uranium", 2500, 1600))
                 .fluidProperties(p -> p.levelDecreasePerBlock(2)
                         .tickRate(15)
                         .flowSpeed(6)
                         .blastResistance(100f))
+                .tag(CNTag.FluidTag.URANIUM.tag)
                 .source(SimpleFlowableFluid.Source::new);
+
         URANIUM = uranium.register();
+
     }
 
     private record CreateNuclearAttributeHandler(Component name, int viscosity, boolean lighterThanAir) implements FluidVariantAttributeHandler {
@@ -45,5 +60,17 @@ public class Modfluids {
         public boolean isLighterThanAir(FluidVariant variant) {
             return lighterThanAir;
         }
+    }
+
+    public static void handleFluidEffect(ServerLevel world) {
+        world.players().forEach(player -> {
+            //CreateNuclear.LOGGER.info("In fluid ? " + pla.updateFluidHeightAndDoFluidPushing(CNTag.FluidTag.URANIUM.tag, 0.014));
+            if (player.isAlive() && !player.isSpectator()) {
+                if (player.tickCount % 20 != 0) return;
+                if (player.updateFluidHeightAndDoFluidPushing(CNTag.FluidTag.URANIUM.tag, 0.014)) {
+                    player.addEffect(new MobEffectInstance(CNEffects.RADIATION.get(), 100, 0));
+                }
+            }});
+
     }
 }

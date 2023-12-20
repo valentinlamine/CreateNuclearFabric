@@ -1,0 +1,37 @@
+package net.ynov.createnuclear.tools;
+
+
+
+import javax.annotation.ParametersAreNonnullByDefault;
+
+import com.simibubi.create.AllRecipeTypes;
+import com.simibubi.create.content.kinetics.fan.FanProcessing;
+import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
+import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder.ProcessingRecipeParams;
+
+import net.minecraft.world.level.Level;
+
+@ParametersAreNonnullByDefault
+public class EnrichedRecipe extends ProcessingRecipe<FanProcessing.HauntingWrapper> {
+
+    public EnrichedRecipe(ProcessingRecipeParams params) {
+        super(AllRecipeTypes.HAUNTING, params);
+    }
+
+    @Override
+    public boolean matches(FanProcessing.HauntingWrapper inv, Level worldIn) {
+        if (inv.isEmpty()) return false;
+        return ingredients.get(0).test(inv.getItem(0));
+    }
+
+    @Override
+    protected int getMaxInputCount() {
+        return 1;
+    }
+
+    @Override
+    protected int getMaxOutputCount() {
+        return 12;
+    }
+
+}

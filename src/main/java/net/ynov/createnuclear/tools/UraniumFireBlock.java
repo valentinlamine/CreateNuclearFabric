@@ -1,8 +1,8 @@
 package net.ynov.createnuclear.tools;
 
+import com.simibubi.create.content.processing.burner.LitBlazeBurnerBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -10,12 +10,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.ynov.createnuclear.Tags.ModTag;
-import net.ynov.createnuclear.block.ModBlocks;
+import net.ynov.createnuclear.block.CNBlocks;
 
 public class UraniumFireBlock extends BaseFireBlock {
     public UraniumFireBlock(Properties properties) {
@@ -52,13 +47,16 @@ public class UraniumFireBlock extends BaseFireBlock {
         BlockPos blockPos = pos.below();
         BlockState blockState = reader.getBlockState(blockPos);
         if (UraniumFireBlock.canSurviveOnBlock(blockState)) {
-            return ModBlocks.ENRICHING_FIRE.defaultBlockState();
+            return CNBlocks.ENRICHING_FIRE.get().defaultBlockState();
         }
         return Blocks.AIR.defaultBlockState();
     }
 
     public static boolean canSurviveOnBlock(BlockState state) {
-        return state.is(ModBlocks.ENRICHED_SOUL_SOIL);
+        return state.is(CNBlocks.ENRICHED_SOUL_SOIL.get());
     }
 
+    public static int getLight(BlockState blockState) {
+        return 15;
+    }
 }

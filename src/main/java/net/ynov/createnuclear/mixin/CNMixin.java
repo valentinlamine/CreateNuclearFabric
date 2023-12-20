@@ -1,14 +1,12 @@
 package net.ynov.createnuclear.mixin;
 
 
-import com.simibubi.create.foundation.utility.BlockFace;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -20,20 +18,15 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.ynov.createnuclear.CreateNuclear;
-import net.ynov.createnuclear.block.ModBlocks;
-import net.ynov.createnuclear.tools.UraniumFireBlock;
+import net.ynov.createnuclear.block.CNBlocks;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.minecraft.world.level.block.CampfireBlock.LIT;
-import static net.minecraft.world.level.block.CampfireBlock.WATERLOGGED;
-
 
 @Mixin(FlintAndSteelItem.class)
-public class ModMixin {
+public class CNMixin {
     @Inject(at = @At("HEAD"), method = "useOn", cancellable=true)
     public void useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
         BlockPos blockPos;
@@ -56,8 +49,8 @@ public class ModMixin {
             level.playSound(player, blockPos2, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0f, level.getRandom().nextFloat() * 0.4f + 0.8f);
             BlockState stateBelow = context.getLevel().getBlockState(context.getClickedPos().below(0));
 
-            BlockState blockState2 = stateBelow.is(ModBlocks.ENRICHED_SOUL_SOIL)
-                    ? ModBlocks.ENRICHING_FIRE.defaultBlockState()
+            BlockState blockState2 = stateBelow.is(CNBlocks.ENRICHED_SOUL_SOIL.get())
+                    ? CNBlocks.ENRICHING_FIRE.get().defaultBlockState()
                     : stateBelow.is(Blocks.SOUL_SOIL)
                         ? Blocks.SOUL_FIRE.defaultBlockState()
                         : Blocks.FIRE.defaultBlockState();
