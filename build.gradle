@@ -119,6 +119,11 @@ dependencies {
 	// at runtime, use the full JEI jar for Fabric
 	modRuntimeOnly("mezz.jei:jei-${jei_minecraft_version}-fabric:${jei_version}")
 
+	// Fabric ASM (enum extension etc)
+	modImplementation("com.github.Chocohead:Fabric-ASM:v2.3") {
+		exclude (group: "net.fabricmc.fabric-api")
+	}
+	include "com.github.Chocohead:Fabric-ASM:v2.3"
 }
 
 processResources {
