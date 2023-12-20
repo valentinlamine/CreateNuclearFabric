@@ -1,14 +1,9 @@
 package net.ynov.createnuclear.block;
 
-import com.chocohead.mm.api.ClassTinkerers;
-import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
-import com.simibubi.create.content.processing.burner.LitBlazeBurnerBlock;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
-import com.tterrag.registrate.util.nullness.NonNullUnaryOperator;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -19,13 +14,10 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
 import net.ynov.createnuclear.CreateNuclear;
-import net.ynov.createnuclear.TestEnum;
 import net.ynov.createnuclear.groups.CNGroup;
 import net.ynov.createnuclear.tools.UraniumFireBlock;
 import net.ynov.createnuclear.tools.UraniumOreBlock;
@@ -41,14 +33,14 @@ public class CNBlocks {
 
     public static final BlockEntry<UraniumOreBlock> DEEPSLATE_URANIUM_ORE =
             CreateNuclear.REGISTRATE.block("deepslate_uranium_ore", UraniumOreBlock::new)
-                    .initialProperties(SharedProperties::netheriteMetal)
+                    .initialProperties(CNBlocks::DEEPSLATE_URANIUM_ORE)
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .register();
 
     public static final BlockEntry<UraniumOreBlock> URANIUM_ORE =
             CreateNuclear.REGISTRATE.block("uranium_ore", UraniumOreBlock::new)
-                    .initialProperties(SharedProperties::stone)
+                    .initialProperties(CNBlocks::URANIUM_ORE)
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .register();
@@ -69,7 +61,6 @@ public class CNBlocks {
                     .transform(pickaxeOnly())
                     .register();
 
-
     public static final BlockEntry<UraniumFireBlock> ENRICHING_FIRE =
             CreateNuclear.REGISTRATE.block("enriching_fire", UraniumFireBlock::new)
                     .properties(BlockBehaviour.Properties::replaceable)
@@ -84,6 +75,8 @@ public class CNBlocks {
     public static final Block ENRICHING_CAMPFIRE = registerBlock("enriching_campfire", new CampfireBlock(false, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lightLevel(litBlockEmission(10)).noOcclusion().ignitedByLava()));
 
     public static Block SOUL_SOIL() { return Blocks.SOUL_SOIL; }
+    public static Block URANIUM_ORE() { return Blocks.REDSTONE_ORE; }
+    public static Block DEEPSLATE_URANIUM_ORE() { return Blocks.DEEPSLATE_REDSTONE_ORE; }
 
     private static void AddBlockToCreateNuclearItemGroup(FabricItemGroupEntries entries) {
         entries.accept(ENRICHING_CAMPFIRE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
