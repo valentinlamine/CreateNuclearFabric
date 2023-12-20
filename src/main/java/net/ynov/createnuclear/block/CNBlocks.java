@@ -28,6 +28,7 @@ import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.TestEnum;
 import net.ynov.createnuclear.groups.CNGroup;
 import net.ynov.createnuclear.tools.UraniumFireBlock;
+import net.ynov.createnuclear.tools.UraniumOreBlock;
 
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 import static net.minecraft.world.level.block.Blocks.litBlockEmission;
@@ -38,15 +39,15 @@ public class CNBlocks {
         CreateNuclear.REGISTRATE.useCreativeTab(CNGroup.MAIN_KEY);
     }
 
-    public static final BlockEntry<Block> DEEPSLATE_URANIUM_ORE =
-            CreateNuclear.REGISTRATE.block("deepslate_uranium_ore", Block::new)
+    public static final BlockEntry<UraniumOreBlock> DEEPSLATE_URANIUM_ORE =
+            CreateNuclear.REGISTRATE.block("deepslate_uranium_ore", UraniumOreBlock::new)
                     .initialProperties(SharedProperties::netheriteMetal)
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .register();
 
-    public static final BlockEntry<Block> URANIUM_ORE =
-            CreateNuclear.REGISTRATE.block("uranium_ore", Block::new)
+    public static final BlockEntry<UraniumOreBlock> URANIUM_ORE =
+            CreateNuclear.REGISTRATE.block("uranium_ore", UraniumOreBlock::new)
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
