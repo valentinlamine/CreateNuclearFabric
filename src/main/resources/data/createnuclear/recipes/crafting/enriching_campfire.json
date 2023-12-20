@@ -8,13 +8,13 @@
     "L": {
       "tag": "minecraft:logs"
     },
-    "N": {
-      "item": "minecraft:nether_star"
+    "S": {
+      "item": "minecraft:stick"
     }
   },
   "pattern": [
-    " E ",
-    "ENE",
+    " S ",
+    "SES",
     "LLL"
   ],
   "result": {

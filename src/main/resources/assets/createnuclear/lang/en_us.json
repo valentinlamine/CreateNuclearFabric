@@ -19,9 +19,9 @@
   "block.createnuclear.enriched_soul_soil": "Enriched Soul Soil",
   "block.createnuclear.enriching_fire": "Enriched Fire",
   "block.createnuclear.uranium": "Uranium",
-
   "block.createnuclear.raw_uranium_block": "Raw Uranium Block",
   "block.createnuclear.enriching_campfire": "Enriching Campfire",
+  "block.createnuclear.reinforced_glass": "Reinforced Glass",
 
   "itemGroup.createnuclear.main": "Create Nuclear"
 }
