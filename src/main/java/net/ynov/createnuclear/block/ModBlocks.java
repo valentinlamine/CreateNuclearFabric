@@ -45,16 +45,17 @@ import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.scores.criteria.ObjectiveCriteria;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.item.ModGroup;
-import net.ynov.createnuclear.tools.UraniumFireBlock;
 
 import static com.simibubi.create.Create.REGISTRATE;
 import static net.minecraft.world.level.block.Blocks.litBlockEmission;
 import net.minecraft.world.level.material.PushReaction;
+import net.ynov.createnuclear.tools.UraniumFireBlock;
+import net.ynov.createnuclear.tools.UraniumOreBlock;
 
 public class ModBlocks {
 
-    public static final Block DEEPSLATE_URANIUM_ORE = registerBlock("deepslate_uranium_ore", new DropExperienceBlock(FabricBlockSettings.copyOf(Blocks.DEEPSLATE).strength(5f, 3f), UniformInt.of(2, 4)));
-    public static final Block URANIUM_ORE = registerBlock("uranium_ore", new DropExperienceBlock(FabricBlockSettings.copyOf(Blocks.STONE).strength(5f, 3f), UniformInt.of(2, 4)));
+    public static final Block DEEPSLATE_URANIUM_ORE = registerBlock("deepslate_uranium_ore", new UraniumOreBlock(FabricBlockSettings.copyOf(Blocks.DEEPSLATE).strength(5f, 3f)));
+    public static final Block URANIUM_ORE = registerBlock("uranium_ore", new UraniumOreBlock(FabricBlockSettings.copyOf(Blocks.STONE).strength(5f, 3f)));
     public static final Block RAW_URANIUM_BLOCK = registerBlock("raw_uranium_block", new Block(FabricBlockSettings.copyOf(Blocks.STONE).strength(6f, 6.5f)));
     public static final Block ENRICHED_SOUL_SOIL = registerBlock("enriched_soul_soil", new Block(FabricBlockSettings.copyOf(Blocks.SOUL_SOIL).strength(8f, 7f)));
     public static final Block ENRICHING_FIRE = registerBlockNoItem("enriching_fire", new UraniumFireBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WATER).replaceable().noCollission().instabreak().lightLevel(state -> 15).sound(SoundType.MOSS).pushReaction(PushReaction.DESTROY)));
