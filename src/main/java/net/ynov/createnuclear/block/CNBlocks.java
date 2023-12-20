@@ -77,6 +77,16 @@ public class CNBlocks {
                     .properties(p -> p.lightLevel(UraniumFireBlock::getLight))
                     .register();
 
+    public static final BlockEntry<Block> REINFORCED_GLASS =
+            CreateNuclear.REGISTRATE.block("reinforced_glass", Block::new)
+                    .initialProperties(CNBlocks::GLASS)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .simpleItem()
+                    .register();
+
+
+
 
 // public static final Block DEEPSLATE_URANIUM_ORE = registerBlock("deepslate_uranium_ore", new UraniumOreBlock(FabricBlockSettings.copyOf(Blocks.DEEPSLATE_REDSTONE_ORE).strength(5f, 3f)));
 //     public static final Block URANIUM_ORE = registerBlock("uranium_ore", new UraniumOreBlock(FabricBlockSettings.copyOf(Blocks.REDSTONE_ORE).strength(5f, 3f)));
@@ -84,6 +94,7 @@ public class CNBlocks {
     public static final Block ENRICHING_CAMPFIRE = registerBlock("enriching_campfire", new CampfireBlock(false, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lightLevel(litBlockEmission(10)).noOcclusion().ignitedByLava()));
 
     public static Block SOUL_SOIL() { return Blocks.SOUL_SOIL; }
+    public static Block GLASS() { return Blocks.GLASS; }
 
     private static void AddBlockToCreateNuclearItemGroup(FabricItemGroupEntries entries) {
         entries.accept(ENRICHING_CAMPFIRE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
