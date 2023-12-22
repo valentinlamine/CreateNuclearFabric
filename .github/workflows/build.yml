@@ -55,9 +55,8 @@ jobs:
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-          VERSION=`${{github.event.inputs.minecraft_version}}`
-          git tag -a $VERSION -m "version du mod"
-          echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
+          git tag -a ${{github.event.inputs.minecraft_version}} -m "version du mod"
+          echo "VERSION=${{github.event.inputs.minecraft_version}}" >> "$GITHUB_OUTPUT"
       
       - name: Push Tag
         run: git push --follow-tags
