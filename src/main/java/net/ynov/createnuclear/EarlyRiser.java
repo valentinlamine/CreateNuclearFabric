@@ -1,10 +1,18 @@
 package net.ynov.createnuclear;
 
 import com.chocohead.mm.api.ClassTinkerers;
+import net.ynov.createnuclear.tools.EnrichedRecipe;
 
-public class EarlyRiser implements Runnable{
+import java.util.function.Supplier;
+
+public class EarlyRiser implements Runnable {
     @Override
     public void run() {
-        ClassTinkerers.enumBuilder("net.ynov.createnuclear.TestEnum", long.class, int[].class).addEnum("TEST", 0L, new int[0]).build();
+        ClassTinkerers.enumBuilder("com.simibubi.create.AllRecipeTypes$AllRecipeTypes")
+                .addEnum("ENRICHED", () -> {
+                    Supplier<Supplier<Object[]>> supplier = (() -> () -> new Object[] {EnrichedRecipe.class});
+                    return supplier.get().get();
+                }).build();
+
     }
 }

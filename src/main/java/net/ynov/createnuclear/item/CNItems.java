@@ -13,7 +13,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.groups.CNGroup;
-//import net.ynov.createnuclear.tools.EnrichedFlintAndSteel;
 
 public class CNItems {
     public static final Item URANIUM_POWDER = registerItem("uranium_powder", new Item(new FabricItemSettings()));
