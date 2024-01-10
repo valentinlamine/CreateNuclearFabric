@@ -2,20 +2,20 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:redstone_torch"
+    "B": {
+      "item": "minecraft:blue_ice"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
     },
     "S": {
-      "item": "minecraft:stick"
-    },
-    "X": {
-      "item": "minecraft:diamond_block"
+      "item": "createnuclear:steel_ingot"
     }
   },
   "pattern": [
-    "XS#",
-    "XS#",
-    "XS#"
+    "SGS",
+    "BGB",
+    "SGS"
   ],
   "result": {
     "count": 1,

@@ -4,6 +4,9 @@
     "createnuclear:uranium_ore",
     "createnuclear:deepslate_uranium_ore",
     "createnuclear:reactor_controller",
-    "createnuclear:reactor_core"
+    "createnuclear:reactor_core",
+    "createnuclear:reactor_main_frame",
+    "createnuclear:reactor_casing",
+    "createnuclear:cooling_frame"
   ]
 }

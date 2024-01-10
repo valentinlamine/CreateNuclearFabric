@@ -2,20 +2,20 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:redstone_torch"
+    "N": {
+      "item": "minecraft:netherite_ingot"
     },
-    "S": {
-      "item": "minecraft:stick"
+    "G": {
+      "item": "minecraft:glass_pane"
     },
-    "X": {
-      "item": "minecraft:gold_block"
+    "C": {
+      "item": "minecraft:copper_block"
     }
   },
   "pattern": [
-    "XS#",
-    "XS#",
-    "XS#"
+    "NCN",
+    "CGC",
+    "NCN"
   ],
   "result": {
     "count": 1,

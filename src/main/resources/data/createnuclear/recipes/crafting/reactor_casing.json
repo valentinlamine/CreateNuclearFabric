@@ -2,20 +2,17 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "minecraft:redstone_torch"
+    "C": {
+      "item": "create:copper_casing"
     },
-    "S": {
-      "item": "minecraft:stick"
-    },
-    "X": {
-      "item": "minecraft:iron_block"
+    "P": {
+      "item": "create:precision_mechanism"
     }
   },
   "pattern": [
-    "XS#",
-    "XS#",
-    "XS#"
+    "CCC",
+    "CPC",
+    "CCC"
   ],
   "result": {
     "count": 1,

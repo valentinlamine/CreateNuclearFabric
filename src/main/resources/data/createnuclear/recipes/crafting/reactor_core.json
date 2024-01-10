@@ -2,17 +2,20 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": {
-      "item": "minecraft:iron_ingot"
+    "S": {
+      "item": "createnuclear:steel_ingot"
+    },
+    "P": {
+      "item": "create:precision_mechanism"
     },
     "N": {
-      "item": "minecraft:nether_star"
+      "item": "minecraft:netherite_block"
     }
   },
   "pattern": [
-    "III",
-    "INI",
-    "III"
+    "SSS",
+    "PNP",
+    "SSS"
   ],
   "result": {
     "item": "createnuclear:reactor_core"

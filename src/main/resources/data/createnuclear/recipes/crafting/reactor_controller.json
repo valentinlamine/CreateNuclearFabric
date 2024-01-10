@@ -3,16 +3,22 @@
   "category": "misc",
   "key": {
     "I": {
-      "item": "minecraft:iron_ingot"
+      "item": "minecraft:iron_block"
     },
     "N": {
-      "item": "minecraft:nether_star"
+      "item": "minecraft:netherite_ingot"
+    },
+    "R": {
+      "item": "create:rotation_speed_controller"
+    },
+    "E": {
+      "item": "create:electron_tube"
     }
   },
   "pattern": [
-    "III",
-    "NIN",
-    "III"
+    "INI",
+    "ERE",
+    "INI"
   ],
   "result": {
     "item": "createnuclear:reactor_controller"
