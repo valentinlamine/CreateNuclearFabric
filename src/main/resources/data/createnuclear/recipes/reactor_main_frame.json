@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:redstone_torch"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "minecraft:gold_block"
+    }
+  },
+  "pattern": [
+    "XS#",
+    "XS#",
+    "XS#"
+  ],
+  "result": {
+    "count": 1,
+    "item": "createnuclear:reactor_main_frame"
+  },
+  "show_notification": true
+}
