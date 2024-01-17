@@ -1,14 +1,9 @@
 package net.ynov.createnuclear.block;
 
-import com.chocohead.mm.api.ClassTinkerers;
-import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
-import com.simibubi.create.content.processing.burner.LitBlazeBurnerBlock;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
-import com.tterrag.registrate.util.nullness.NonNullUnaryOperator;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -18,14 +13,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
 import net.ynov.createnuclear.CreateNuclear;
-import net.ynov.createnuclear.TestEnum;
 import net.ynov.createnuclear.groups.CNGroup;
 import net.ynov.createnuclear.tools.UraniumFireBlock;
 import net.ynov.createnuclear.tools.UraniumOreBlock;
@@ -41,7 +36,7 @@ public class CNBlocks {
 
     public static final BlockEntry<UraniumOreBlock> DEEPSLATE_URANIUM_ORE =
             CreateNuclear.REGISTRATE.block("deepslate_uranium_ore", UraniumOreBlock::new)
-                    .initialProperties(SharedProperties::netheriteMetal)
+                    .initialProperties(CNBlocks::DIAMOND_ORE)
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .register();
@@ -95,6 +90,7 @@ public class CNBlocks {
 
     public static Block SOUL_SOIL() { return Blocks.SOUL_SOIL; }
     public static Block GLASS() { return Blocks.GLASS; }
+    public static Block DIAMOND_ORE() { return Blocks.DIAMOND_BLOCK; }
 
     private static void AddBlockToCreateNuclearItemGroup(FabricItemGroupEntries entries) {
         entries.accept(ENRICHING_CAMPFIRE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);

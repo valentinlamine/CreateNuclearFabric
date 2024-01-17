@@ -3,15 +3,12 @@ package net.ynov.createnuclear.Tags;
 import com.simibubi.create.foundation.utility.Lang;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.ynov.createnuclear.CreateNuclear;
 
-import javax.naming.Name;
 import java.util.Locale;
 
 public class CNTag {
