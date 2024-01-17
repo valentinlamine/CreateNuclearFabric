@@ -2,14 +2,16 @@ package net.ynov.createnuclear;
 
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.fabricmc.api.ModInitializer;
-import net.ynov.createnuclear.block.ModBlocks;
-import net.ynov.createnuclear.fluid.Modfluids;
-import net.ynov.createnuclear.item.ModGroup;
-import net.ynov.createnuclear.item.ModItems;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.ynov.createnuclear.Tags.CNTag;
+import net.ynov.createnuclear.block.CNBlocks;
+import net.ynov.createnuclear.effects.CNEffects;
+import net.ynov.createnuclear.fluid.CNFluids;
+import net.ynov.createnuclear.groups.CNGroup;
+import net.ynov.createnuclear.item.CNItems;
+import net.ynov.createnuclear.world.gen.CNWorldGeneration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static com.simibubi.create.Create.REGISTRATE;
 
 
 public class CreateNuclear implements ModInitializer {
@@ -18,12 +20,24 @@ public class CreateNuclear implements ModInitializer {
 
 	public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID);
 
+
+
+
 	@Override
 	public void onInitialize() {
-		ModItems.registerModItems();
-		ModBlocks.registerModBlocks();
-		ModGroup.registrer();
-		Modfluids.register();
+		CNItems.registerCNItems();
+		CNBlocks.registerCNBlocks();
+		CNGroup.registrer();
+		CNFluids.register();
+		CNEffects.register();
+		CNTag.registerModItems();
+		CNWorldGeneration.generateModWorldGen();
 		REGISTRATE.register();
+
+		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);
+
+
+
 	}
+
 }

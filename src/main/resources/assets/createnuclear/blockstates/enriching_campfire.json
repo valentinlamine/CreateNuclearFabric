@@ -20,6 +20,7 @@
       "model": "minecraft:block/campfire_off"
     },
     "facing=south,lit=true": {
+      "signal_fire": "true",
       "model": "createnuclear:block/enriching_campfire"
     },
     "facing=west,lit=false": {
