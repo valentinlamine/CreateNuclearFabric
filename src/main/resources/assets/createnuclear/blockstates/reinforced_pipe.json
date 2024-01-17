@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "": {
+      "model": "createnuclear:block/reinforced_pipe",
+      "files": [
+        "default.css"
+      ]
+    }
+  }
+}

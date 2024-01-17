@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:blue_ice"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "S": {
+      "item": "createnuclear:steel_ingot"
+    }
+  },
+  "pattern": [
+    "SGS",
+    "BGB",
+    "SGS"
+  ],
+  "result": {
+    "count": 1,
+    "item": "createnuclear:cooling_frame"
+  },
+  "show_notification": true
+}

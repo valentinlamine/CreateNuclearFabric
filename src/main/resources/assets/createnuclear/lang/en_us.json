@@ -16,6 +16,7 @@
   "block.createnuclear.deepslate_uranium_ore": "Deepslate Uranium Ore",
   "block.createnuclear.uranium_ore": "Uranium Ore",
   "block.createnuclear.enriched_soul_soil": "Enriched Soul Soil",
+  "block.createnuclear.reactor_core": "Reactor Core",
 
   "block.createnuclear.enriching_fire": "Enriching Fire",
   "block.createnuclear.uranium": "Liquid Uranium",
@@ -27,7 +28,13 @@
 
   "itemGroup.createnuclear.main": "Create Nuclear",
 
-  "fluid.createnuclear.uranium": "Liquid Uranium"
+  "fluid.createnuclear.uranium": "Liquid Uranium",
 
+  "block.createnuclear.reactor_casing": "Reactor Casing",
+  "block.createnuclear.reactor_main_frame": "Reactor Main Frame",
+  "block.createnuclear.cooling_frame": "Cooling Frame",
+  "block.createnuclear.reinforced_pipe": "Reinforced Pipe",
+  "block.createnuclear.reactor_controller": "Reactor Controller",
 
+  "itemgroup.uranium": "Uranium Group"
 }

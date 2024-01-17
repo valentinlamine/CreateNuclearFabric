@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "": {
+      "model": "createnuclear:block/reactor_core",
+      "files": [
+        "default.css"
+      ]
+    }
+  }
+}
