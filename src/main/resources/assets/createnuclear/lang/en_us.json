@@ -1,5 +1,5 @@
 {
-  "item.createnuclear.uranium_powder": "Nuclear Powder",
+  "item.createnuclear.uranium_powder": "Uranium Powder",
   "item.createnuclear.yellow_cake": "Yellow Cake",
   "item.createnuclear.yellow_cake_enriched": "Yellow Cake Enriched",
   "item.createnuclear.coal_dust": "Coal Dust",
@@ -10,7 +10,6 @@
   "item.createnuclear.uranium_rod": "Uranium Rod",
   "item.createnuclear.graphite_rod": "Graphite Rod",
   "item.createnuclear.enriched_flint_and_steel": "Enriched Flint and Steel",
-  "item.createnuclear.seal_uranium_rod": "WIP idée de craft possible",
   "item.createnuclear.raw_uranium": "Raw uranium",
   "item.createnuclear.uranium_bucket": "Uranium Bucket",
   "block.createnuclear.deepslate_uranium_ore": "Deepslate Uranium Ore",
