@@ -45,6 +45,13 @@ public class CNBlocks {
                     .transform(pickaxeOnly())
                     .register();
 
+    public static final BlockEntry<Block> LEAD_ORE =
+            CreateNuclear.REGISTRATE.block("lead_ore", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .simpleItem()
+                    .transform(pickaxeOnly())
+                    .register();
+
     public static final BlockEntry<Block> RAW_URANIUM_BLOCK =
             CreateNuclear.REGISTRATE.block("raw_uranium_block", Block::new)
                     .initialProperties(SharedProperties::stone)
@@ -52,6 +59,13 @@ public class CNBlocks {
                     .transform(pickaxeOnly())
                     .transform(BlockStressDefaults.setCapacity(16384.0))
                     .transform(BlockStressDefaults.setGeneratorSpeed(() -> Couple.create(0, 256)))
+                    .register();
+
+    public static final BlockEntry<Block> RAW_LEAD_BLOCK =
+            CreateNuclear.REGISTRATE.block("raw_lead_block", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .simpleItem()
+                    .transform(pickaxeOnly())
                     .register();
 
     public static final BlockEntry<Block> ENRICHED_SOUL_SOIL =

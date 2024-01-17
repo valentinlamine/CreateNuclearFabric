@@ -29,6 +29,7 @@ public class CNItems {
     //public static final Item ENRICHED_FLINT_AND_STEEL = registerItem("enriched_flint_and_steel", new EnrichedFlintAndSteel(new Item.Properties().durability(100)));
     public static final Item GRAPHITE_ROD = registerItem("graphite_rod", new Item(new FabricItemSettings()));
     public static final Item RAW_URANIUM = registerItem("raw_uranium", new Item(new FabricItemSettings()));
+    public static final Item RAW_LEAD = registerItem("raw_lead", new Item(new FabricItemSettings()));
 
     private static void AddItemToIngredientItemGroup(FabricItemGroupEntries entries) {
         entries.accept(URANIUM_POWDER, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
@@ -44,6 +45,7 @@ public class CNItems {
         //entries.accept(ENRICHED_FLINT_AND_STEEL, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(GRAPHITE_ROD, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(RAW_URANIUM,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(RAW_LEAD,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
     }
 
     private static Item registerItem(String name, Item item) {
