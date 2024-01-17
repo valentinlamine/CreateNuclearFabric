@@ -36,7 +36,7 @@ public class CNBlocks {
 
     public static final BlockEntry<UraniumOreBlock> DEEPSLATE_URANIUM_ORE =
             CreateNuclear.REGISTRATE.block("deepslate_uranium_ore", UraniumOreBlock::new)
-                    .initialProperties(SharedProperties::netheriteMetal)
+                    .initialProperties(CNBlocks::DIAMOND_ORE)
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .register();
@@ -75,6 +75,7 @@ public class CNBlocks {
     public static final Block ENRICHING_CAMPFIRE = registerBlock("enriching_campfire", new CampfireBlock(false, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lightLevel(litBlockEmission(10)).noOcclusion().ignitedByLava()));
 
     public static Block SOUL_SOIL() { return Blocks.SOUL_SOIL; }
+    public static Block DIAMOND_ORE() { return Blocks.DIAMOND_BLOCK; }
 
     private static void AddBlockToCreateNuclearItemGroup(FabricItemGroupEntries entries) {
         entries.accept(ENRICHING_CAMPFIRE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);

@@ -9,6 +9,7 @@ import net.ynov.createnuclear.effects.CNEffects;
 import net.ynov.createnuclear.fluid.CNFluids;
 import net.ynov.createnuclear.groups.CNGroup;
 import net.ynov.createnuclear.item.CNItems;
+import net.ynov.createnuclear.world.gen.CNWorldGeneration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +31,7 @@ public class CreateNuclear implements ModInitializer {
 		CNFluids.register();
 		CNEffects.register();
 		CNTag.registerModItems();
+		CNWorldGeneration.generateModWorldGen();
 		REGISTRATE.register();
 
 		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);
