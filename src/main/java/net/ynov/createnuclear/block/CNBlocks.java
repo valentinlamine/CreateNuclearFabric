@@ -1,45 +1,29 @@
 package net.ynov.createnuclear.block;
 
-import com.chocohead.mm.api.ClassTinkerers;
-import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
-import com.simibubi.create.content.processing.burner.LitBlazeBurnerBlock;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
-import com.tterrag.registrate.util.nullness.NonNullUnaryOperator;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.client.particle.CampfireSmokeParticle;
-import net.minecraft.client.particle.SmokeParticle;
-import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Registry;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.CampfireBlockEntity;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
-import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
 import net.ynov.createnuclear.CreateNuclear;
-import net.ynov.createnuclear.TestEnum;
 import net.ynov.createnuclear.groups.CNGroup;
 import net.ynov.createnuclear.tools.UraniumFireBlock;
 import net.ynov.createnuclear.tools.UraniumOreBlock;
 
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
-import static net.minecraft.world.level.block.Blocks.litBlockEmission;
 
 public class CNBlocks {
 
@@ -88,6 +72,46 @@ public class CNBlocks {
     public static final BlockEntry<Block> REINFORCED_GLASS =
             CreateNuclear.REGISTRATE.block("reinforced_glass", Block::new)
                     .initialProperties(CNBlocks::GLASS)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .simpleItem()
+                    .register();
+
+    public static final BlockEntry<Block> REACTOR_CONTROLLER =
+            CreateNuclear.REGISTRATE.block("reactor_controller", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .simpleItem()
+                    .register();
+
+    public static final BlockEntry<Block> REACTOR_CORE =
+            CreateNuclear.REGISTRATE.block("reactor_core", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .simpleItem()
+                    .register();
+
+    public static final BlockEntry<Block> COOLING_FRAME =
+            CreateNuclear.REGISTRATE.block("cooling_frame", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .simpleItem()
+                    .register();
+
+    public static final BlockEntry<Block> REACTOR_CASING =
+            CreateNuclear.REGISTRATE.block("reactor_casing", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .simpleItem()
+                    .register();
+
+    public static final BlockEntry<Block> REACTOR_MAIN_FRAME =
+            CreateNuclear.REGISTRATE.block("reactor_main_frame", Block::new)
+                    .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(2F))
                     .simpleItem()

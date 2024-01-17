@@ -6,7 +6,7 @@
       "item": "minecraft:blue_ice"
     },
     "G": {
-      "item": "minecraft:glass_pane"
+      "item": "createnuclear:reinforced_glass"
     },
     "S": {
       "item": "createnuclear:steel_ingot"
