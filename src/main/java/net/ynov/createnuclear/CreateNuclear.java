@@ -21,8 +21,6 @@ public class CreateNuclear implements ModInitializer {
 	public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID);
 
 
-
-
 	@Override
 	public void onInitialize() {
 		CNItems.registerCNItems();
