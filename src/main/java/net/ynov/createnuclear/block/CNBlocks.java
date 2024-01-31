@@ -16,7 +16,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -91,8 +90,6 @@ public class CNBlocks {
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(pickaxeOnly())
             .register();
-
-    //public static final Block ENRICHING_CAMPFIRE = registerBlock("enriching_campfire", new CampfireBlock(false, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lightLevel(litBlockEmission(10)).noOcclusion().ignitedByLava()));
     public static final BlockEntry<Block> REACTOR_CONTROLLER =
             CreateNuclear.REGISTRATE.block("reactor_controller", Block::new)
                     .initialProperties(SharedProperties::stone)
@@ -133,21 +130,17 @@ public class CNBlocks {
                     .simpleItem()
                     .register();
 
-    /*public static final BlockEntry<Block> ENRICHING_CAMPFIRE =
-            CreateNuclear.REGISTRATE.block("enriching_campfire", Block::new)
-                    .initialProperties(CNBlocks::CAMPFIRE)
-                    .simpleItem()
-                    .register();*/
+    public static Block SOUL_SOIL() {
+        return Blocks.SOUL_SOIL;
+    }
 
+    public static Block GLASS() {
+        return Blocks.GLASS;
+    }
 
-// public static final Block DEEPSLATE_URANIUM_ORE = registerBlock("deepslate_uranium_ore", new UraniumOreBlock(FabricBlockSettings.copyOf(Blocks.DEEPSLATE_REDSTONE_ORE).strength(5f, 3f)));
-//     public static final Block URANIUM_ORE = registerBlock("uranium_ore", new UraniumOreBlock(FabricBlockSettings.copyOf(Blocks.REDSTONE_ORE).strength(5f, 3f)));
-//public static final Block ENRICHING_CAMPFIRE = registerBlock("enriching_campfire", new CampfireBlock(false, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lightLevel(litBlockEmission(10)).noOcclusion().ignitedByLava()));
-public static final Block ENRICHING_CAMPFIRE = registerBlock("enriching_campfire", new CampfireBlock(true, 5, FabricBlockSettings.copyOf(Blocks.SOUL_CAMPFIRE)));
-
-    public static Block SOUL_SOIL() { return Blocks.SOUL_SOIL; }
-    public static Block GLASS() { return Blocks.GLASS; }
-    public static Block DIAMOND_ORE() { return Blocks.DIAMOND_BLOCK; }
+    public static Block DIAMOND_ORE() {
+        return Blocks.DIAMOND_BLOCK;
+    }
 
     private static void AddBlockToCreateNuclearItemGroup(FabricItemGroupEntries entries) {
         entries.accept(ENRICHING_CAMPFIRE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
