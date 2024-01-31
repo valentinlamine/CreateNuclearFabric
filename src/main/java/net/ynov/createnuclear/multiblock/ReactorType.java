@@ -1,7 +1,7 @@
 package net.ynov.createnuclear.multiblock;
 
 import net.minecraft.util.StringRepresentable;
-
+/*
 public enum ReactorType implements StringRepresentable {
     FUSION("fusion"),
     FISSION("fission");
@@ -19,4 +19,4 @@ public enum ReactorType implements StringRepresentable {
     public String getSerializedName() {
         return this.name;
     }
-}
+}*/

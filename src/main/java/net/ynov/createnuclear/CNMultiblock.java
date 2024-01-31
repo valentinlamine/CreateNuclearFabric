@@ -17,7 +17,7 @@ public class CNMultiblock {
                     .aisle("AAAAA", "AAAAA", "AAAAA", "AAAAA", "AAAAA")
                     .aisle("AABAA", "ADADA", "BACAB", "ADADA", "AABAA")
                     .aisle("AABAA", "ADADA", "BACAB", "ADADA", "AABAA")
-                        .aisle("AABAA", "ADADA", "BACAB", "ADADA", "AA*AA")
+                    .aisle("AABAA", "ADADA", "BACAB", "ADADA", "AA*AA")
                     .aisle("AABAA", "ADADA", "BACAB", "ADADA", "AABAA")
                     .aisle("AABAA", "ADADA", "BACAB", "ADADA", "AABAA")
                     .aisle("AAAAA", "AAAAA", "AAAAA", "AAAAA", "AAAAA")
