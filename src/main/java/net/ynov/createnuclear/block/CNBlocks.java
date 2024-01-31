@@ -93,6 +93,57 @@ public class CNBlocks {
             .register();
 
     //public static final Block ENRICHING_CAMPFIRE = registerBlock("enriching_campfire", new CampfireBlock(false, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lightLevel(litBlockEmission(10)).noOcclusion().ignitedByLava()));
+    public static final BlockEntry<Block> REACTOR_CONTROLLER =
+            CreateNuclear.REGISTRATE.block("reactor_controller", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .simpleItem()
+                    .register();
+
+    public static final BlockEntry<Block> REACTOR_CORE =
+            CreateNuclear.REGISTRATE.block("reactor_core", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .simpleItem()
+                    .register();
+
+    public static final BlockEntry<Block> COOLING_FRAME =
+            CreateNuclear.REGISTRATE.block("cooling_frame", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .simpleItem()
+                    .register();
+
+    public static final BlockEntry<Block> REACTOR_CASING =
+            CreateNuclear.REGISTRATE.block("reactor_casing", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .simpleItem()
+                    .register();
+
+    public static final BlockEntry<Block> REACTOR_MAIN_FRAME =
+            CreateNuclear.REGISTRATE.block("reactor_main_frame", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .simpleItem()
+                    .register();
+
+    /*public static final BlockEntry<Block> ENRICHING_CAMPFIRE =
+            CreateNuclear.REGISTRATE.block("enriching_campfire", Block::new)
+                    .initialProperties(CNBlocks::CAMPFIRE)
+                    .simpleItem()
+                    .register();*/
+
+
+// public static final Block DEEPSLATE_URANIUM_ORE = registerBlock("deepslate_uranium_ore", new UraniumOreBlock(FabricBlockSettings.copyOf(Blocks.DEEPSLATE_REDSTONE_ORE).strength(5f, 3f)));
+//     public static final Block URANIUM_ORE = registerBlock("uranium_ore", new UraniumOreBlock(FabricBlockSettings.copyOf(Blocks.REDSTONE_ORE).strength(5f, 3f)));
+//public static final Block ENRICHING_CAMPFIRE = registerBlock("enriching_campfire", new CampfireBlock(false, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lightLevel(litBlockEmission(10)).noOcclusion().ignitedByLava()));
+public static final Block ENRICHING_CAMPFIRE = registerBlock("enriching_campfire", new CampfireBlock(true, 5, FabricBlockSettings.copyOf(Blocks.SOUL_CAMPFIRE)));
 
     public static Block SOUL_SOIL() { return Blocks.SOUL_SOIL; }
     public static Block GLASS() { return Blocks.GLASS; }
