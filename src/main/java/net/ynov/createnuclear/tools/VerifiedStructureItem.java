@@ -27,26 +27,26 @@ public class VerifiedStructureItem extends Item {
             var pos = context.getClickedPos();
             var player = context.getPlayer();
 
-            if (level.getBlockState(pos).is(CNBlocks.REINFORCED_GLASS.get())) {
+            if (level.getBlockState(pos).is(CNBlocks.REACTOR_CONTROLLER.get())) {
                 if (player != null) {
-                    player.sendSystemMessage(Component.literal("Start multiBlock"));
+                    player.sendSystemMessage(Component.literal("Analyse multiBlock"));
                     boolean structureFound = false;
 
                     var result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(context.getLevel(), pos);
                     if (result != null) {
                         String id = result.id().replace("createnuclear:", "");
                         MutableComponent translatedID = Component.translatable("jei_pattern." + id);
-                        player.sendSystemMessage(Component.literal("Structure trouvé: " + translatedID.getString()).withStyle(ChatFormatting.BLUE));
+                        player.sendSystemMessage(Component.literal("MultiBlock assemblé: " + translatedID.getString()).withStyle(ChatFormatting.BLUE));
                         structureFound = true;
                     }
 
                     if (!structureFound) {
-                        player.sendSystemMessage(Component.literal("Structure non trouver").withStyle(ChatFormatting.RED));
+                        player.sendSystemMessage(Component.literal("Erreur dans l'assemblage du multiBlock").withStyle(ChatFormatting.RED));
                     }
                 }
             }else {
                 assert player != null;
-                player.sendSystemMessage(Component.literal("Click droit sur le Reinforced Glass (pour l'instant"));
+                player.sendSystemMessage(Component.literal("Click droit sur le REACTOR_CONTROLLER"));
 
             }
         }

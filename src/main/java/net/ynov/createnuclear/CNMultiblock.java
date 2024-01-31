@@ -21,11 +21,11 @@ public class CNMultiblock {
                     .aisle("AABAA", "ADADA", "BACAB", "ADADA", "AABAA")
                     .aisle("AABAA", "ADADA", "BACAB", "ADADA", "AABAA")
                     .aisle("AAAAA", "AAAAA", "AAAAA", "AAAAA", "AAAAA")
-                    .where('A', a -> a.getState().is(Blocks.DIAMOND_BLOCK))
-                    .where('B', a -> a.getState().is(Blocks.GOLD_BLOCK))
-                    .where('C', a -> a.getState().is(Blocks.NETHERITE_BLOCK))
-                    .where('D', a -> a.getState().is(Blocks.AMETHYST_BLOCK))
-                    .where('*', a -> a.getState().is(CNBlocks.REINFORCED_GLASS.get()))
+                    .where('A', a -> a.getState().is(CNBlocks.REACTOR_CASING.get()))
+                    .where('B', a -> a.getState().is(CNBlocks.REACTOR_MAIN_FRAME.get()))
+                    .where('C', a -> a.getState().is(CNBlocks.REACTOR_CORE.get()))
+                    .where('D', a -> a.getState().is(CNBlocks.COOLING_FRAME.get()))
+                    .where('*', a -> a.getState().is(CNBlocks.REACTOR_CONTROLLER.get()))
                 .build()
         );
     }
