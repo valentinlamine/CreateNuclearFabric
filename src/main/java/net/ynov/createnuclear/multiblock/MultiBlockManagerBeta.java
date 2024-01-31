@@ -17,9 +17,9 @@ public class MultiBlockManagerBeta<T> {
         structures.add(new CNBlockPattern<>(id, data, blockPattern));
     }
 
-    public CNBlockPattern<T> findStructure(Level level, BlockPos pos, Rotation rotation) {
+    public CNBlockPattern<T> findStructure(Level level, BlockPos pos) {
         for (CNBlockPattern<T> structure : structures) {
-            var result = structure.structure().matches(level, pos, rotation);
+            var result = structure.structure().matches(level, pos);
             if (result) return structure;
         }
         return null;

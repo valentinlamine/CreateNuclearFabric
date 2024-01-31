@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.ynov.createnuclear.CreateNuclear;
+import net.ynov.createnuclear.blockentity.ReinforcedGlassBlock;
 import net.ynov.createnuclear.groups.CNGroup;
 import net.ynov.createnuclear.tools.EnrichingCampfire;
 import net.ynov.createnuclear.tools.UraniumFireBlock;
@@ -74,8 +75,8 @@ public class CNBlocks {
                     .properties(p -> p.lightLevel(UraniumFireBlock::getLight))
                     .register();
 
-    public static final BlockEntry<Block> REINFORCED_GLASS =
-            CreateNuclear.REGISTRATE.block("reinforced_glass", Block::new)
+    public static final BlockEntry<ReinforcedGlassBlock> REINFORCED_GLASS =
+            CreateNuclear.REGISTRATE.block("reinforced_glass", ReinforcedGlassBlock::new)
                     .initialProperties(CNBlocks::GLASS)
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(2F))

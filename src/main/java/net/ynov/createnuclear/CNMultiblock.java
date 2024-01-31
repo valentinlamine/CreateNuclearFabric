@@ -16,7 +16,7 @@ public class CNMultiblock {
                 Exemple.EXEMPLE,
                 SimpleMultiBlockAislePatternBuilder.start()
                     .aisle("LLL", "L*L", "LLL")
-                    .where('L', a -> a.getState().getFluidState().is(CNFluids.URANIUM.get()))
+                    .where('L', a -> a.getState().is(CNBlocks.DEEPSLATE_URANIUM_ORE.get()))
                     .where('*', a -> a.getState().is(CNBlocks.REINFORCED_GLASS.get()))
                 .build()
         );
