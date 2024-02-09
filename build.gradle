@@ -46,6 +46,10 @@ repositories {
 	maven { url = "https://maven.quiltmc.org/repository/release" } // Quilt Mappings
 	maven { url = "https://maven.cafeteria.dev/releases" } // Fake Player API
 	maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM
+	maven {
+        name = "AlexIIL"
+        url = "https://maven.alexiil.uk/"
+    }
 
 
 
@@ -118,7 +122,6 @@ dependencies {
 	modCompileOnlyApi("mezz.jei:jei-${jei_minecraft_version}-fabric-api:${jei_version}")
 	// at runtime, use the full JEI jar for Fabric
 	modRuntimeOnly("mezz.jei:jei-${jei_minecraft_version}-fabric:${jei_version}")
-
 	// Fabric ASM (enum extension etc)
 	modImplementation("com.github.Chocohead:Fabric-ASM:v2.3") {
 		exclude (group: "net.fabricmc.fabric-api")
