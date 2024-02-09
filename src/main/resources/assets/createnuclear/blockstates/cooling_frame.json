@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "": {
+      "model": "createnuclear:block/cooling_frame",
+      "files": [
+        "default.css"
+      ]
+    }
+  }
+}

@@ -7,18 +7,23 @@ import com.tterrag.registrate.util.entry.BlockEntry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.ynov.createnuclear.CreateNuclear;
+import net.ynov.createnuclear.blockentity.ReinforcedGlassBlock;
 import net.ynov.createnuclear.groups.CNGroup;
+import net.ynov.createnuclear.tools.EnrichingCampfire;
 import net.ynov.createnuclear.tools.UraniumFireBlock;
 import net.ynov.createnuclear.tools.UraniumOreBlock;
 
@@ -33,7 +38,7 @@ public class CNBlocks {
 
     public static final BlockEntry<UraniumOreBlock> DEEPSLATE_URANIUM_ORE =
             CreateNuclear.REGISTRATE.block("deepslate_uranium_ore", UraniumOreBlock::new)
-                    .initialProperties(CNBlocks::DEEPSLATE_URANIUM_ORE)
+                    .initialProperties(CNBlocks::DIAMOND_ORE)
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .register();
@@ -82,15 +87,73 @@ public class CNBlocks {
                     .properties(p -> p.lightLevel(UraniumFireBlock::getLight))
                     .register();
 
+    public static final BlockEntry<ReinforcedGlassBlock> REINFORCED_GLASS =
+            CreateNuclear.REGISTRATE.block("reinforced_glass", ReinforcedGlassBlock::new)
+                    .initialProperties(CNBlocks::GLASS)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .simpleItem()
+                    .register();
 
-// public static final Block DEEPSLATE_URANIUM_ORE = registerBlock("deepslate_uranium_ore", new UraniumOreBlock(FabricBlockSettings.copyOf(Blocks.DEEPSLATE_REDSTONE_ORE).strength(5f, 3f)));
-//     public static final Block URANIUM_ORE = registerBlock("uranium_ore", new UraniumOreBlock(FabricBlockSettings.copyOf(Blocks.REDSTONE_ORE).strength(5f, 3f)));
-    
-    public static final Block ENRICHING_CAMPFIRE = registerBlock("enriching_campfire", new CampfireBlock(false, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lightLevel(litBlockEmission(10)).noOcclusion().ignitedByLava()));
+    public static final BlockEntry<EnrichingCampfire> ENRICHING_CAMPFIRE = CreateNuclear.REGISTRATE
+            .block("enriching_campfire", (properties) -> new EnrichingCampfire(true, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lightLevel(litBlockEmission(10)).noOcclusion().ignitedByLava()))
+            .properties(BlockBehaviour.Properties::replaceable)
+            //.initialProperties(CNBlocks::DIAMOND_ORE)
+            .simpleItem()
+            .addLayer(() -> RenderType::cutoutMipped)
+            .transform(pickaxeOnly())
+            .register();
+    public static final BlockEntry<Block> REACTOR_CONTROLLER =
+            CreateNuclear.REGISTRATE.block("reactor_controller", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .simpleItem()
+                    .register();
 
-    public static Block SOUL_SOIL() { return Blocks.SOUL_SOIL; }
-    public static Block URANIUM_ORE() { return Blocks.REDSTONE_ORE; }
-    public static Block DEEPSLATE_URANIUM_ORE() { return Blocks.DEEPSLATE_REDSTONE_ORE; }
+    public static final BlockEntry<Block> REACTOR_CORE =
+            CreateNuclear.REGISTRATE.block("reactor_core", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .simpleItem()
+                    .register();
+
+    public static final BlockEntry<Block> COOLING_FRAME =
+            CreateNuclear.REGISTRATE.block("cooling_frame", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .simpleItem()
+                    .register();
+
+    public static final BlockEntry<Block> REACTOR_CASING =
+            CreateNuclear.REGISTRATE.block("reactor_casing", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .simpleItem()
+                    .register();
+
+    public static final BlockEntry<Block> REACTOR_MAIN_FRAME =
+            CreateNuclear.REGISTRATE.block("reactor_main_frame", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .simpleItem()
+                    .register();
+
+    public static Block SOUL_SOIL() {
+        return Blocks.SOUL_SOIL;
+    }
+
+    public static Block GLASS() {
+        return Blocks.GLASS;
+    }
+
+    public static Block DIAMOND_ORE() {
+        return Blocks.DIAMOND_BLOCK;
+    }
 
     private static void AddBlockToCreateNuclearItemGroup(FabricItemGroupEntries entries) {
         entries.accept(ENRICHING_CAMPFIRE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);

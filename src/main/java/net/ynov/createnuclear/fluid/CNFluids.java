@@ -7,18 +7,11 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributeHandler;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.Tags.CNTag;
-import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.effects.CNEffects;
-import net.ynov.createnuclear.item.CNItems;
 
 import javax.annotation.Nullable;
 
