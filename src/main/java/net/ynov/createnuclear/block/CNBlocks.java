@@ -72,7 +72,12 @@ public class CNBlocks {
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .register();
-
+    public static final BlockEntry<Block> LEAD_BLOCK =
+            CreateNuclear.REGISTRATE.block("lead_block", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .simpleItem()
+                    .transform(pickaxeOnly())
+                    .register();
     public static final BlockEntry<Block> ENRICHED_SOUL_SOIL =
             CreateNuclear.REGISTRATE.block("enriched_soul_soil", Block::new)
                     .initialProperties(CNBlocks::SOUL_SOIL)

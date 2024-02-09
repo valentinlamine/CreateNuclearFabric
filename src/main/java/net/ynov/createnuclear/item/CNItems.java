@@ -30,6 +30,8 @@ public class CNItems {
     public static final Item RAW_URANIUM = registerItem("raw_uranium", new Item(new FabricItemSettings()));
     public static final Item WAND_VERIFIED_MULTIBLOCK = registerItem("wand_verified_multiblock", new VerifiedStructureItem(new Item.Properties()));
     public static final Item RAW_LEAD = registerItem("raw_lead", new Item(new FabricItemSettings()));
+    public static final Item LEAD_INGOT = registerItem("lead_ingot", new Item(new FabricItemSettings()));
+    public static final Item LEAD_NUGGET = registerItem("lead_nugget", new Item(new FabricItemSettings()));
 
     private static void AddItemToIngredientItemGroup(FabricItemGroupEntries entries) {
         entries.accept(URANIUM_POWDER, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
@@ -46,6 +48,8 @@ public class CNItems {
         entries.accept(RAW_URANIUM,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(WAND_VERIFIED_MULTIBLOCK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(RAW_LEAD,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(LEAD_INGOT,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(LEAD_NUGGET,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
     }
 
     private static Item registerItem(String name, Item item) {

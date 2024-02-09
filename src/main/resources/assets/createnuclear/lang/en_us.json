@@ -13,11 +13,14 @@
   "item.createnuclear.raw_uranium": "Raw uranium",
   "item.createnuclear.uranium_bucket": "Uranium Bucket",
   "item.createnuclear.raw_lead": "Raw Lead",
+  "item.createnuclear.lead_ingot": "Lead Ingot",
+  "item.createnuclear.lead_nugget": "Lead Nugget",
+
+
   "block.createnuclear.deepslate_uranium_ore": "Deepslate Uranium Ore",
   "block.createnuclear.uranium_ore": "Uranium Ore",
   "block.createnuclear.enriched_soul_soil": "Enriched Soul Soil",
   "block.createnuclear.reactor_core": "Reactor Core",
-
   "block.createnuclear.enriching_fire": "Enriching Fire",
   "block.createnuclear.uranium": "Liquid Uranium",
   "block.createnuclear.raw_uranium_block": "Raw Uranium Block",
@@ -25,6 +28,8 @@
   "block.createnuclear.reinforced_glass": "Reinforced Glass",
   "block.createnuclear.lead_ore": "Lead Ore",
   "block.createnuclear.raw_lead_block": "Raw Lead Block",
+  "block.createnuclear.lead_block": "Lead Block",
+
 
   "effect.createnuclear.radiation": "Radiation",
 
