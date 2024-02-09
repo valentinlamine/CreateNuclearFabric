@@ -45,7 +45,7 @@ public class CNBlocks {
 
     public static final BlockEntry<UraniumOreBlock> URANIUM_ORE =
             CreateNuclear.REGISTRATE.block("uranium_ore", UraniumOreBlock::new)
-                    .initialProperties(CNBlocks::URANIUM_ORE)
+                    .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .register();
