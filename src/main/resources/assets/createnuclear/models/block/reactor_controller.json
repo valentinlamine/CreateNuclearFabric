@@ -1,9 +1,22 @@
 {
-  "parent": "minecraft:block/orientable",
-  "textures": {
-    "front": "createnuclear:block/reactor_controller_panel",
-    "side": "createnuclear:block/reactor_controller",
-    "top": "createnuclear:block/reactor_controller",
-    "bottom": "createnuclear:block/reactor_controller"
-  }
+	"parent": "block/cube",
+	"textures": {
+		"particle": "createnuclear:block/reactor_controller",
+		"side": "createnuclear:block/reactor_controller",
+		"font": "createnuclear:block/reactor_controller_panel"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#font"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#side"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#side"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#side"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#side"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#side"}
+			}
+		}
+	]
 }

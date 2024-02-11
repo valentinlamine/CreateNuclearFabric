@@ -26,6 +26,7 @@ import net.ynov.createnuclear.groups.CNGroup;
 import net.ynov.createnuclear.tools.EnrichingCampfire;
 import net.ynov.createnuclear.tools.UraniumFireBlock;
 import net.ynov.createnuclear.tools.UraniumOreBlock;
+import net.ynov.createnuclear.tools.reactor.ReactorController;
 
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 import static net.minecraft.world.level.block.Blocks.litBlockEmission;
@@ -33,7 +34,7 @@ import static net.minecraft.world.level.block.Blocks.litBlockEmission;
 public class CNBlocks {
 
     static {
-        CreateNuclear.REGISTRATE.useCreativeTab(CNGroup.MAIN_KEY);
+        CreateNuclear.REGISTRATE.setCreativeTab(CNGroup.MAIN_KEY);
     }
 
     public static final BlockEntry<UraniumOreBlock> DEEPSLATE_URANIUM_ORE =
@@ -103,8 +104,9 @@ public class CNBlocks {
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(pickaxeOnly())
             .register();
-    public static final BlockEntry<Block> REACTOR_CONTROLLER =
-            CreateNuclear.REGISTRATE.block("reactor_controller", Block::new)
+
+    public static final BlockEntry<ReactorController> REACTOR_CONTROLLER =
+            CreateNuclear.REGISTRATE.block("reactor_controller", ReactorController::new)
                     .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(2F))

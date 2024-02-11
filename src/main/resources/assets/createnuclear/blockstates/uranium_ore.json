@@ -1,10 +1,10 @@
 {
   "variants": {
-    "": {
-      "model": "createnuclear:block/uranium_ore",
-      "files": [
-        "default.css"
-      ]
+    "lit=false": {
+      "model": "createnuclear:block/uranium_ore"
+    },
+    "lit=true": {
+      "model": "createnuclear:block/uranium_ore"
     }
   }
 }

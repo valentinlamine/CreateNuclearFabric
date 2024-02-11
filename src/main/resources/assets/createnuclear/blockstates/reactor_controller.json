@@ -1,10 +1,34 @@
 {
   "variants": {
-    "": {
+    "facing=north,power=false": {
       "model": "createnuclear:block/reactor_controller",
-      "files": [
-        "default.css"
-      ]
+      "y": 180
+    },
+    "facing=north,power=true": {
+      "model": "createnuclear:block/reactor_controller",
+      "y": 180
+    },
+    "facing=east,power=true": {
+      "model": "createnuclear:block/reactor_controller",
+      "y": 270
+    },
+    "facing=east,power=false": {
+      "model": "createnuclear:block/reactor_controller",
+      "y": 270
+    },
+    "facing=south,power=true": {
+      "model": "createnuclear:block/reactor_controller"
+    },
+    "facing=south,power=false": {
+      "model": "createnuclear:block/reactor_controller"
+    },
+    "facing=west,power=true": {
+      "model": "createnuclear:block/reactor_controller",
+      "y": 90
+    },
+    "facing=west,power=false": {
+      "model": "createnuclear:block/reactor_controller",
+      "y": 90
     }
   }
 }
