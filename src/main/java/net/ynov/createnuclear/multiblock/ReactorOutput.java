@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.ynov.createnuclear.blockentity.CNEntityTypes;
 
 public class ReactorOutput extends DirectionalKineticBlock implements IBE<ReactorOutputEntity> {
 
@@ -67,7 +68,7 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 
 	@Override
 	public BlockEntityType<? extends ReactorOutputEntity> getBlockEntityType() {
-		return AllBlockEntityTypes.MOTOR.get();
+		return CNEntityTypes.MOTOR2.get();
 	}
 
 }

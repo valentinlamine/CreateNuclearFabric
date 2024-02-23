@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.simibubi.create.content.kinetics.motor.CreativeMotorBlock;
 import com.simibubi.create.content.kinetics.motor.KineticScrollValueBehaviour;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
