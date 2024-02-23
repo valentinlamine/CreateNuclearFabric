@@ -1,6 +1,8 @@
 package net.ynov.createnuclear.block;
 
 import com.simibubi.create.content.fluids.pipes.FluidPipeBlock;
+import com.simibubi.create.content.kinetics.motor.CreativeMotorBlock;
+import com.simibubi.create.content.kinetics.waterwheel.WaterWheelBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -27,6 +29,7 @@ public class ModBlocks {
     public static final Block COOLING_FRAME = registerBlock("cooling_frame", new Block(FabricBlockSettings.copyOf(Blocks.STONE).strength(4f)));
     public static final Block REINFORCED_PIPE = registerBlock("reinforced_pipe", new FluidPipeBlock(FabricBlockSettings.copyOf(Blocks.STONE).strength(4f)));
     public static final Block REACTOR_CORE = registerBlock("reactor_core", new Block(FabricBlockSettings.copyOf(Blocks.COBBLESTONE).strength(4f)));
+    public static final Block REACTOR_OUTPUT = registerBlock("reactor_output", new CreativeMotorBlock(FabricBlockSettings.copyOf(Blocks.STONE).strength(4f)));
 
     private static void AddBlockToBuildingBlockItemGroup(FabricItemGroupEntries entries) {
         entries.accept(DEEPSLATE_URANIUM_ORE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
@@ -38,6 +41,7 @@ public class ModBlocks {
         entries.accept(COOLING_FRAME, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
         entries.accept(REINFORCED_PIPE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
         entries.accept(REACTOR_CONTROLLER, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
+        entries.accept(REACTOR_OUTPUT, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
     }
 
     private static Block registerBlock(String name, Block block) {

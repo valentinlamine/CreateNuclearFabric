@@ -18,6 +18,7 @@
 
   "block.createnuclear.reactor_casing": "Reactor Casing",
   "block.createnuclear.reactor_main_frame": "Reactor Main Frame",
+  "block.createnuclear.reactor_output": "Reactor Output",
   "block.createnuclear.cooling_frame": "Cooling Frame",
   "block.createnuclear.reinforced_pipe": "Reinforced Pipe",
   "block.createnuclear.reactor_controller": "Reactor Controller",
