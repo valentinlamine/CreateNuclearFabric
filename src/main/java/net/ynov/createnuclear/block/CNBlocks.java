@@ -4,16 +4,10 @@ import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -26,6 +20,7 @@ import net.ynov.createnuclear.groups.CNGroup;
 import net.ynov.createnuclear.tools.EnrichingCampfire;
 import net.ynov.createnuclear.tools.UraniumFireBlock;
 import net.ynov.createnuclear.tools.UraniumOreBlock;
+import net.ynov.createnuclear.tools.reactor.ReactorController;
 
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 import static net.minecraft.world.level.block.Blocks.litBlockEmission;
@@ -33,12 +28,12 @@ import static net.minecraft.world.level.block.Blocks.litBlockEmission;
 public class CNBlocks {
 
     static {
-        CreateNuclear.REGISTRATE.useCreativeTab(CNGroup.MAIN_KEY);
+        CreateNuclear.REGISTRATE.setCreativeTab(CNGroup.MAIN_KEY);
     }
 
     public static final BlockEntry<UraniumOreBlock> DEEPSLATE_URANIUM_ORE =
             CreateNuclear.REGISTRATE.block("deepslate_uranium_ore", UraniumOreBlock::new)
-                    .initialProperties(CNBlocks::DIAMOND_ORE)
+                    .initialProperties(CNBlocks::getDiamondOre)
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .register();
@@ -75,7 +70,7 @@ public class CNBlocks {
 
     public static final BlockEntry<Block> ENRICHED_SOUL_SOIL =
             CreateNuclear.REGISTRATE.block("enriched_soul_soil", Block::new)
-                    .initialProperties(CNBlocks::SOUL_SOIL)
+                    .initialProperties(CNBlocks::getSoulSoil)
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .register();
@@ -89,22 +84,24 @@ public class CNBlocks {
 
     public static final BlockEntry<ReinforcedGlassBlock> REINFORCED_GLASS =
             CreateNuclear.REGISTRATE.block("reinforced_glass", ReinforcedGlassBlock::new)
-                    .initialProperties(CNBlocks::GLASS)
+                    .initialProperties(CNBlocks::getGlass)
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(2F))
                     .simpleItem()
                     .register();
 
-    public static final BlockEntry<EnrichingCampfire> ENRICHING_CAMPFIRE = CreateNuclear.REGISTRATE
-            .block("enriching_campfire", (properties) -> new EnrichingCampfire(true, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lightLevel(litBlockEmission(10)).noOcclusion().ignitedByLava()))
+    public static final BlockEntry<EnrichingCampfire> ENRICHING_CAMPFIRE =
+            CreateNuclear.REGISTRATE.block("enriching_campfire", properties -> new EnrichingCampfire(true, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL)
+                            .instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lightLevel(litBlockEmission(10)).noOcclusion().ignitedByLava()))
             .properties(BlockBehaviour.Properties::replaceable)
             //.initialProperties(CNBlocks::DIAMOND_ORE)
             .simpleItem()
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(pickaxeOnly())
             .register();
-    public static final BlockEntry<Block> REACTOR_CONTROLLER =
-            CreateNuclear.REGISTRATE.block("reactor_controller", Block::new)
+
+    public static final BlockEntry<ReactorController> REACTOR_CONTROLLER =
+            CreateNuclear.REGISTRATE.block("reactor_controller", ReactorController::new)
                     .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(2F))
@@ -119,8 +116,8 @@ public class CNBlocks {
                     .simpleItem()
                     .register();
 
-    public static final BlockEntry<Block> COOLING_FRAME =
-            CreateNuclear.REGISTRATE.block("cooling_frame", Block::new)
+    public static final BlockEntry<Block> REACTOR_COOLING_FRAME =
+            CreateNuclear.REGISTRATE.block("reactor_cooling_frame", Block::new)
                     .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(2F))
@@ -143,34 +140,25 @@ public class CNBlocks {
                     .simpleItem()
                     .register();
 
-    public static Block SOUL_SOIL() {
+    public static Block getSoulSoil() {
         return Blocks.SOUL_SOIL;
     }
 
-    public static Block GLASS() {
+    public static Block getGlass() {
         return Blocks.GLASS;
     }
 
-    public static Block DIAMOND_ORE() {
-        return Blocks.DIAMOND_BLOCK;
+    public static Block getDiamondOre() {
+        return Blocks.DIAMOND_ORE;
     }
 
-    private static void AddBlockToCreateNuclearItemGroup(FabricItemGroupEntries entries) {
+    private static void addBlockToCreateNuclearItemGroup(FabricItemGroupEntries entries) {
         entries.accept(ENRICHING_CAMPFIRE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
-    }
-
-    private static Block registerBlock(String name, Block block) {
-        registerBlockItem(name, block);
-        return Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(CreateNuclear.MOD_ID, name), block);
-    }
-
-    private static Item registerBlockItem(String name, Block block) {
-        return Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(CreateNuclear.MOD_ID, name), new BlockItem(block, new FabricItemSettings()));
     }
 
     public static void registerCNBlocks() {
         CreateNuclear.LOGGER.info("Registering ModBlocks for " + CreateNuclear.MOD_ID);
 
-        ItemGroupEvents.modifyEntriesEvent(CNGroup.MAIN_KEY).register(CNBlocks::AddBlockToCreateNuclearItemGroup);
+        ItemGroupEvents.modifyEntriesEvent(CNGroup.MAIN_KEY).register(CNBlocks::addBlockToCreateNuclearItemGroup);
     }
 }
