@@ -1,6 +1,10 @@
 package net.ynov.createnuclear.block;
 
+import com.simibubi.create.AllTags;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
+import com.simibubi.create.content.kinetics.base.KineticBlock;
+import com.simibubi.create.content.kinetics.motor.CreativeMotorGenerator;
+import com.simibubi.create.content.kinetics.waterwheel.WaterWheelBlock;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
@@ -13,6 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
@@ -22,9 +27,11 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.groups.CNGroup;
+import net.ynov.createnuclear.multiblock.ReactorOutput;
 import net.ynov.createnuclear.tools.UraniumFireBlock;
 import net.ynov.createnuclear.tools.UraniumOreBlock;
 
+import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 import static net.minecraft.world.level.block.Blocks.litBlockEmission;
 
@@ -79,6 +86,18 @@ public class CNBlocks {
                     .properties(p -> p.destroyTime(2F))
                     .simpleItem()
                     .register();
+
+    public static final BlockEntry<ReactorOutput> REACTOR_OUTPUT =
+            CreateNuclear.REGISTRATE.block("reactor_output", ReactorOutput::new)
+                    .initialProperties(SharedProperties::stone)
+			.tag(AllTags.AllBlockTags.SAFE_NBT.tag)
+			.transform(pickaxeOnly())
+			.blockstate(new CreativeMotorGenerator()::generate)
+			.transform(BlockStressDefaults.setCapacity(16384.0))
+			.transform(BlockStressDefaults.setGeneratorSpeed(() -> Couple.create(0, 256)))
+			.item()
+			.transform(customItemModel())
+			.register();
 
 
 
