@@ -13,6 +13,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.groups.CNGroup;
+import net.ynov.createnuclear.tools.VerifiedStructureItem;
 
 public class CNItems {
     public static final Item URANIUM_POWDER = registerItem("uranium_powder", new Item(new FabricItemSettings()));
@@ -27,6 +28,8 @@ public class CNItems {
     //public static final Item ENRICHED_FLINT_AND_STEEL = registerItem("enriched_flint_and_steel", new EnrichedFlintAndSteel(new Item.Properties().durability(100)));
     public static final Item GRAPHITE_ROD = registerItem("graphite_rod", new Item(new FabricItemSettings()));
     public static final Item RAW_URANIUM = registerItem("raw_uranium", new Item(new FabricItemSettings()));
+    public static final Item WAND_VERIFIED_MULTIBLOCK = registerItem("wand_verified_multiblock", new VerifiedStructureItem(new Item.Properties()));
+    public static final Item RAW_LEAD = registerItem("raw_lead", new Item(new FabricItemSettings()));
 
     private static void AddItemToIngredientItemGroup(FabricItemGroupEntries entries) {
         entries.accept(URANIUM_POWDER, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
@@ -41,6 +44,8 @@ public class CNItems {
         //entries.accept(ENRICHED_FLINT_AND_STEEL, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(GRAPHITE_ROD, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(RAW_URANIUM,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(WAND_VERIFIED_MULTIBLOCK, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(RAW_LEAD,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
     }
 
     private static Item registerItem(String name, Item item) {

@@ -12,28 +12,23 @@
   "item.createnuclear.enriched_flint_and_steel": "Enriched Flint and Steel",
   "item.createnuclear.raw_uranium": "Raw uranium",
   "item.createnuclear.uranium_bucket": "Uranium Bucket",
+  "item.createnuclear.raw_lead": "Raw Lead",
   "block.createnuclear.deepslate_uranium_ore": "Deepslate Uranium Ore",
   "block.createnuclear.uranium_ore": "Uranium Ore",
-<<<<<<< HEAD
-  "block.createnuclear.reactor_controller": "Reactor Controller",
-  "block.createnuclear.reactor_core": "Reactor Core",
-=======
-  "block.createnuclear.enriched_soul_soil": "Enriched Soul Soil",
->>>>>>> main
 
   "block.createnuclear.enriching_fire": "Enriching Fire",
   "block.createnuclear.uranium": "Liquid Uranium",
   "block.createnuclear.raw_uranium_block": "Raw Uranium Block",
   "block.createnuclear.enriching_campfire": "Enriching Campfire",
   "block.createnuclear.reinforced_glass": "Reinforced Glass",
+  "block.createnuclear.lead_ore": "Lead Ore",
+  "block.createnuclear.raw_lead_block": "Raw Lead Block",
 
   "effect.createnuclear.radiation": "Radiation",
 
   "itemGroup.createnuclear.main": "Create Nuclear",
 
-  "fluid.createnuclear.uranium": "Liquid Uranium"
-
-<<<<<<< HEAD
+  "fluid.createnuclear.uranium": "Liquid Uranium",
 
   "block.createnuclear.reactor_casing": "Reactor Casing",
   "block.createnuclear.reactor_main_frame": "Reactor Main Frame",
@@ -43,7 +38,4 @@
   "block.createnuclear.reactor_controller": "Reactor Controller",
 
   "itemgroup.uranium": "Uranium Group"
-=======
->>>>>>> main
-
 }
