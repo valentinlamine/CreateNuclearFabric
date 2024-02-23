@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "": {
+      "model": "createnuclear:block/reinforced_glass",
+      "files": [
+        "default.css"
+      ]
+    }
+  }
+}

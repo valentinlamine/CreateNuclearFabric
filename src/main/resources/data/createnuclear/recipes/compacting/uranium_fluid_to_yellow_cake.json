@@ -3,7 +3,7 @@
   "ingredients": [
     {
       "amount": 8100,
-      "fluid": "minecraft:lava",
+      "fluid": "createnuclear:uranium",
       "nbt": {}
     }
   ],

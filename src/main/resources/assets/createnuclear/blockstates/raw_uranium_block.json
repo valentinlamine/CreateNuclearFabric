@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "": {
+      "model": "createnuclear:block/raw_uranium_block",
+      "files": [
+        "default.css"
+      ]
+    }
+  }
+}
