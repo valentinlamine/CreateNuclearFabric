@@ -23,9 +23,6 @@
 		],
 		"fabric-datagen": [
 			"net.ynov.createnuclear.CreateNuclearDataGenerator"
-		],
-		"mm:EarlyRiser": [
-			"net.ynov.createnuclear.EarlyRiser"
 		]
 	},
 	"mixins": [

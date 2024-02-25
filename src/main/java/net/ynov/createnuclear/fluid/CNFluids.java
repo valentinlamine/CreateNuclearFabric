@@ -10,7 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.level.Level;
 import net.ynov.createnuclear.CreateNuclear;
-import net.ynov.createnuclear.Tags.CNTag;
+import net.ynov.createnuclear.tags.CNTag;
 import net.ynov.createnuclear.effects.CNEffects;
 
 import javax.annotation.Nullable;
@@ -27,7 +27,7 @@ public class CNFluids {
                         .tickRate(15)
                         .flowSpeed(6)
                         .blastResistance(100f))
-                .tag(CNTag.FluidTag.URANIUM.tag)
+                .tag(CNTag.forgeFluidTag("uranium"))
                 .source(SimpleFlowableFluid.Source::new);
 
         URANIUM = uranium.register();

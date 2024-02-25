@@ -23,6 +23,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.blockentity.ReinforcedGlassBlock;
 import net.ynov.createnuclear.groups.CNGroup;
+import net.ynov.createnuclear.tags.CNTag;
 import net.ynov.createnuclear.tools.EnrichingCampfire;
 import net.ynov.createnuclear.tools.UraniumFireBlock;
 import net.ynov.createnuclear.tools.UraniumOreBlock;
@@ -103,6 +104,7 @@ public class CNBlocks {
             .simpleItem()
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(pickaxeOnly())
+            .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
             .register();
 
     public static final BlockEntry<ReactorController> REACTOR_CONTROLLER =

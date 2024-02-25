@@ -1,0 +1,13 @@
+{
+  "type": "create:enriched",
+  "ingredients": [
+    {
+      "tag": "c:cobblestone"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:blackstone"
+    }
+  ]
+}
