@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 
-public enum RecipeTypes implements IRecipeTypeInfo {
+public enum CNRecipeTypes implements IRecipeTypeInfo {
     ENRICHED(EnrichedRecipe::new);
 
     private final ResourceLocation id;
@@ -28,7 +28,7 @@ public enum RecipeTypes implements IRecipeTypeInfo {
     private final RecipeType<?> typeObject;
     private final Supplier<RecipeType<?>> type;
 
-    RecipeTypes(Supplier<RecipeSerializer<?>> serializerSupplier, Supplier<RecipeType<?>> typeSupplier, boolean registerType) {
+    CNRecipeTypes(Supplier<RecipeSerializer<?>> serializerSupplier, Supplier<RecipeType<?>> typeSupplier, boolean registerType) {
         String name = Lang.asId(name());
         id = CreateNuclear.asResource(name);
         serializerObject = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, id, serializerSupplier.get());
@@ -42,7 +42,7 @@ public enum RecipeTypes implements IRecipeTypeInfo {
         }
     }
 
-    RecipeTypes(Supplier<RecipeSerializer<?>> serializerSupplier) {
+    CNRecipeTypes(Supplier<RecipeSerializer<?>> serializerSupplier) {
         String name = Lang.asId(name());
         id = CreateNuclear.asResource(name);
         serializerObject = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, id, serializerSupplier.get());
@@ -53,7 +53,7 @@ public enum RecipeTypes implements IRecipeTypeInfo {
 
     }
 
-    RecipeTypes(ProcessingRecipeBuilder.ProcessingRecipeFactory<?> processingFactory) {
+    CNRecipeTypes(ProcessingRecipeBuilder.ProcessingRecipeFactory<?> processingFactory) {
         this(() -> new ProcessingRecipeSerializer<>(processingFactory));
     }
 

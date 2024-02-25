@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.resources.ResourceLocation;
 //import net.ynov.createnuclear.fan.FanProcessingTypes;
 //import net.ynov.createnuclear.fan.RecipeTypes;
+import net.ynov.createnuclear.fan.CNRecipeTypes;
 import net.ynov.createnuclear.tags.CNTag;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.effects.CNEffects;
@@ -34,7 +35,7 @@ public class CreateNuclear implements ModInitializer {
 		CNTag.registerModItems();
 		CNWorldGeneration.generateModWorldGen();
 		REGISTRATE.register();
-		//RecipeTypes.register();
+		CNRecipeTypes.register();
 		//FanProcessingTypes.register();
 		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);
 	}

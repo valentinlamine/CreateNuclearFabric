@@ -30,7 +30,7 @@ import java.util.Optional;
 
 import static net.ynov.createnuclear.tags.CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED;
 
-public class FanProcessingTypes extends AllFanProcessingTypes {
+public class CNFanProcessingTypes extends AllFanProcessingTypes {
     public static final EnrichedType ENRICHED = register("enriched", new EnrichedType());
     private static final Map<String, FanProcessingType> LEGACY_NAME_MAP;
 
@@ -84,14 +84,14 @@ public class FanProcessingTypes extends AllFanProcessingTypes {
         @Override
         public boolean canProcess(ItemStack stack, Level level) {
             ENRICHED_WRAPPER.setItem(0, stack);
-            Optional<EnrichedRecipe> recipe =  RecipeTypes.ENRICHED.find(ENRICHED_WRAPPER, level);
+            Optional<EnrichedRecipe> recipe =  CNRecipeTypes.ENRICHED.find(ENRICHED_WRAPPER, level);
             return recipe.isPresent();
         }
         @Override
         @Nullable
         public List<ItemStack> process(ItemStack stack, Level level) {
             ENRICHED_WRAPPER.setItem(0, stack);
-            Optional<EnrichedRecipe> recipe = RecipeTypes.ENRICHED.find(ENRICHED_WRAPPER, level);
+            Optional<EnrichedRecipe> recipe = CNRecipeTypes.ENRICHED.find(ENRICHED_WRAPPER, level);
             return recipe.map(enrichedRecipe -> RecipeApplier.applyRecipeOn(level, stack, enrichedRecipe)).orElse(null);
         }
 

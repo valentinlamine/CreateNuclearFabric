@@ -87,6 +87,7 @@ public class CNBlocks {
                     .properties(BlockBehaviour.Properties::replaceable)
                     .properties(BlockBehaviour.Properties::noCollission)
                     .properties(p -> p.lightLevel(UraniumFireBlock::getLight))
+                    .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
                     .register();
 
     public static final BlockEntry<ReinforcedGlassBlock> REINFORCED_GLASS =

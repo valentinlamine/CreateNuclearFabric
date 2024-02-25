@@ -6,10 +6,13 @@ import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandle
 import net.minecraft.world.level.Level;
 import net.ynov.createnuclear.fan.EnrichedRecipe.EnrichedWrapper;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 public class EnrichedRecipe extends ProcessingRecipe<EnrichedWrapper> {
 
     public EnrichedRecipe(ProcessingRecipeParams params) {
-        super(RecipeTypes.ENRICHED, params);
+        super(CNRecipeTypes.ENRICHED, params);
     }
     @Override
     public boolean matches(EnrichedWrapper inv, Level worldIn) {
