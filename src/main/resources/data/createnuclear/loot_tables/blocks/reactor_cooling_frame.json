@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "createnuclear:cooling_frame"
+          "name": "createnuclear:reactor_cooling_frame"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "createnuclear:blocks/cooling_frame"
+  "random_sequence": "createnuclear:blocks/reactor_cooling_frame"
 }
