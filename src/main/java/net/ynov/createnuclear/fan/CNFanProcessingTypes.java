@@ -52,7 +52,6 @@ public class CNFanProcessingTypes extends AllFanProcessingTypes {
     }
 
     public static void register() {
-        CreateNuclear.LOGGER.warn("test 121 " );
     }
 
    public static FanProcessingType parseLegacy(String str) {
