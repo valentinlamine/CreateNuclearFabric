@@ -52,15 +52,16 @@ public class CNFanProcessingTypes extends AllFanProcessingTypes {
     }
 
     public static void register() {
+        CreateNuclear.LOGGER.warn("test 121 " );
     }
 
-    public static FanProcessingType parseLegacy(String str) {
+   public static FanProcessingType parseLegacy(String str) {
         FanProcessingType type = ofLegacyName(str);
         if (type != null) {
             return type;
         }
         return FanProcessingType.parse(str);
-    }
+   }
 
     public static class EnrichedType implements FanProcessingType {
         private static final EnrichedWrapper ENRICHED_WRAPPER = new EnrichedWrapper();
@@ -78,7 +79,7 @@ public class CNFanProcessingTypes extends AllFanProcessingTypes {
         }
         @Override
         public int getPriority() {
-            return 300;
+            return 301;
         }
 
         @Override

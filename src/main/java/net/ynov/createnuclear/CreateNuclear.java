@@ -4,8 +4,7 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.resources.ResourceLocation;
-//import net.ynov.createnuclear.fan.FanProcessingTypes;
-//import net.ynov.createnuclear.fan.RecipeTypes;
+import net.ynov.createnuclear.fan.CNFanProcessingTypes;
 import net.ynov.createnuclear.fan.CNRecipeTypes;
 import net.ynov.createnuclear.tags.CNTag;
 import net.ynov.createnuclear.block.CNBlocks;
@@ -36,7 +35,7 @@ public class CreateNuclear implements ModInitializer {
 		CNWorldGeneration.generateModWorldGen();
 		REGISTRATE.register();
 		CNRecipeTypes.register();
-		//FanProcessingTypes.register();
+		CNFanProcessingTypes.register();
 		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);
 	}
 
