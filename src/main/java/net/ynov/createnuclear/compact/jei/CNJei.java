@@ -1,13 +1,10 @@
 package net.ynov.createnuclear.compact.jei;
 
-import com.simibubi.create.AllFluids;
 import com.simibubi.create.AllItems;
-import com.simibubi.create.Create;
 import com.simibubi.create.compat.jei.*;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.compat.jei.category.ProcessingViaFanCategory;
 import com.simibubi.create.content.equipment.blueprint.BlueprintScreen;
-import com.simibubi.create.content.fluids.potion.PotionFluid;
 import com.simibubi.create.content.logistics.filter.AbstractFilterScreen;
 import com.simibubi.create.content.redstone.link.controller.LinkedControllerScreen;
 import com.simibubi.create.content.trains.schedule.ScheduleScreen;
@@ -20,11 +17,8 @@ import com.simibubi.create.infrastructure.config.AllConfigs;
 import com.simibubi.create.infrastructure.config.CRecipes;
 import io.github.fabricators_of_create.porting_lib.mixin.accessors.common.accessor.RecipeManagerAccessor;
 import mezz.jei.api.IModPlugin;
-import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.helpers.IPlatformFluidHelper;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.registration.*;
 import mezz.jei.api.runtime.IIngredientManager;
@@ -32,28 +26,25 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.ynov.createnuclear.CreateNuclear;
-import net.ynov.createnuclear.fan.CNFanProcessingTypes;
-import net.ynov.createnuclear.fan.EnrichedRecipe;
+import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.compact.jei.category.FanEnrichedCategory;
+import net.ynov.createnuclear.fan.CNRecipeTypes;
+import net.ynov.createnuclear.fan.EnrichedRecipe;
 
 import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-@JeiPlugin
-@SuppressWarnings("unused")
-@ParametersAreNonnullByDefault
+
 public class CNJei implements IModPlugin {
     private static final ResourceLocation JEIID = CreateNuclear.asResource("jei_plugin");
-
     private final List<CreateRecipeCategory<?>> allCategories = new ArrayList<>();
     private IIngredientManager ingredientManager;
 
@@ -62,12 +53,17 @@ public class CNJei implements IModPlugin {
 
         CreateRecipeCategory<?>
 
-        enriched = builder(EnrichedRecipe.class)
-            .addTypedRecipes((IRecipeTypeInfo) CNFanProcessingTypes.ENRICHED)
-            .catalystStack(ProcessingViaFanCategory.getFan("fan_enriched"))
-            .doubleItemIcon(AllItems.PROPELLER.get(), Items.SOUL_CAMPFIRE)
-            .emptyBackground(178, 72)
-            .build("fan_enriched", FanEnrichedCategory::new);
+
+
+                enriched = builder(EnrichedRecipe.class)
+                        .addTypedRecipes(CNRecipeTypes.ENRICHED)
+                        .catalystStack(ProcessingViaFanCategory.getFan("fan_enriched"))
+                        .doubleItemIcon(AllItems.PROPELLER.get(), CNBlocks.ENRICHING_CAMPFIRE)
+                        .emptyBackground(178, 72)
+                        .build("fan_enriched", FanEnrichedCategory::new)
+
+               ;
+
     }
 
     private <T extends Recipe<?>> CategoryBuilder<T> builder(Class<? extends T> recipeClass) {
@@ -80,6 +76,41 @@ public class CNJei implements IModPlugin {
         return JEIID;
     }
 
+    @Override
+    public void registerCategories(IRecipeCategoryRegistration registration) {
+        loadCategories();
+        registration.addRecipeCategories(allCategories.toArray(IRecipeCategory[]::new));
+    }
+
+    @Override
+    public void registerRecipes(IRecipeRegistration registration) {
+        ingredientManager = registration.getIngredientManager();
+
+        allCategories.forEach(c -> c.registerRecipes(registration));
+
+        registration.addRecipes(RecipeTypes.CRAFTING, ToolboxColoringRecipeMaker.createRecipes().toList());
+    }
+
+    @Override
+    public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+        allCategories.forEach(c -> c.registerCatalysts(registration));
+    }
+
+    @Override
+    public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
+        registration.addRecipeTransferHandler(new BlueprintTransferHandler(), RecipeTypes.CRAFTING);
+    }
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Override
+    public void registerGuiHandlers(IGuiHandlerRegistration registration) {
+        registration.addGenericGuiContainerHandler(AbstractSimiContainerScreen.class, new SlotMover());
+
+        registration.addGhostIngredientHandler(AbstractFilterScreen.class, new GhostIngredientHandler());
+        registration.addGhostIngredientHandler(BlueprintScreen.class, new GhostIngredientHandler());
+        registration.addGhostIngredientHandler(LinkedControllerScreen.class, new GhostIngredientHandler());
+        registration.addGhostIngredientHandler(ScheduleScreen.class, new GhostIngredientHandler());
+    }
 
     private class CategoryBuilder<T extends Recipe<?>> {
         private final Class<? extends T> recipeClass;
@@ -135,13 +166,35 @@ public class CNJei implements IModPlugin {
         }
 
         public CategoryBuilder<T> addTypedRecipes(Supplier<RecipeType<? extends T>> recipeType) {
-            return addRecipeListConsumer(recipes -> CNJei.<T>consumeTypedRecipes(recipes::add, recipeType.get()));
+            return addRecipeListConsumer(recipes -> CreateJEI.<T>consumeTypedRecipes(recipes::add, recipeType.get()));
         }
 
         public CategoryBuilder<T> addTypedRecipes(Supplier<RecipeType<? extends T>> recipeType, Function<Recipe<?>, T> converter) {
-            return addRecipeListConsumer(recipes -> CNJei.<T>consumeTypedRecipes(recipe -> recipes.add(converter.apply(recipe)), recipeType.get()));
+            return addRecipeListConsumer(recipes -> CreateJEI.<T>consumeTypedRecipes(recipe -> recipes.add(converter.apply(recipe)), recipeType.get()));
         }
 
+        public CategoryBuilder<T> addTypedRecipesIf(Supplier<RecipeType<? extends T>> recipeType, Predicate<Recipe<?>> pred) {
+            return addRecipeListConsumer(recipes -> CreateJEI.<T>consumeTypedRecipes(recipe -> {
+                if (pred.test(recipe)) {
+                    recipes.add(recipe);
+                }
+            }, recipeType.get()));
+        }
+
+        public CategoryBuilder<T> addTypedRecipesExcluding(Supplier<RecipeType<? extends T>> recipeType,
+                                                           Supplier<RecipeType<? extends T>> excluded) {
+            return addRecipeListConsumer(recipes -> {
+                List<Recipe<?>> excludedRecipes = getTypedRecipes(excluded.get());
+                CreateJEI.<T>consumeTypedRecipes(recipe -> {
+                    for (Recipe<?> excludedRecipe : excludedRecipes) {
+                        if (doInputsMatch(recipe, excludedRecipe)) {
+                            return;
+                        }
+                    }
+                    recipes.add(recipe);
+                }, recipeType.get());
+            });
+        }
 
         public CategoryBuilder<T> removeRecipes(Supplier<RecipeType<? extends T>> recipeType) {
             return addRecipeListConsumer(recipes -> {
@@ -205,25 +258,12 @@ public class CNJei implements IModPlugin {
 
             CreateRecipeCategory.Info<T> info = new CreateRecipeCategory.Info<>(
                     new mezz.jei.api.recipe.RecipeType<>(CreateNuclear.asResource(name), recipeClass),
-                    Lang.translateDirect("recipe." + name), background, icon, recipesSupplier, catalysts);
+                    Lang.translateDirect(CreateNuclear.MOD_ID + ".recipe." + name), background, icon, recipesSupplier, catalysts);
             CreateRecipeCategory<T> category = factory.create(info);
             allCategories.add(category);
             return category;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public static void consumeAllRecipes(Consumer<Recipe<?>> consumer) {
         Minecraft.getInstance()
@@ -276,4 +316,5 @@ public class CNJei implements IModPlugin {
         RegistryAccess registryAccess = Minecraft.getInstance().level.registryAccess();
         return ItemHelper.sameItem(recipe1.getResultItem(registryAccess), recipe2.getResultItem(registryAccess));
     }
+
 }

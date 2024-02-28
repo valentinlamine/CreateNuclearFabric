@@ -29,7 +29,7 @@ import static net.minecraft.world.level.block.Blocks.litBlockEmission;
 public class CNBlocks {
 
     static {
-        CreateNuclear.REGISTRATE.setCreativeTab(CNGroup.MAIN_KEY);
+        //CreateNuclear.REGISTRATE.setCreativeTab(CNGroup.MAIN_KEY);
     }
 
     public static final BlockEntry<UraniumOreBlock> DEEPSLATE_URANIUM_ORE =
@@ -156,12 +156,12 @@ public class CNBlocks {
     }
 
     private static void addBlockToCreateNuclearItemGroup(FabricItemGroupEntries entries) {
-        entries.accept(ENRICHING_CAMPFIRE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
+        //entries.accept(ENRICHING_CAMPFIRE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
     }
 
     public static void registerCNBlocks() {
         CreateNuclear.LOGGER.info("Registering ModBlocks for " + CreateNuclear.MOD_ID);
 
-        ItemGroupEvents.modifyEntriesEvent(CNGroup.MAIN_KEY).register(CNBlocks::addBlockToCreateNuclearItemGroup);
+        //ItemGroupEvents.modifyEntriesEvent(CNGroup.MAIN_KEY).register(CNBlocks::addBlockToCreateNuclearItemGroup);
     }
 }

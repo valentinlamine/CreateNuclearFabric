@@ -1,7 +1,9 @@
 package net.ynov.createnuclear.compact.jei.category;
 
+import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.compat.jei.category.ProcessingViaFanCategory;
 import com.simibubi.create.compat.jei.category.animations.AnimatedKinetics;
+import com.simibubi.create.content.kinetics.fan.processing.HauntingRecipe;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.element.GuiGameElement;
 import net.minecraft.client.gui.GuiGraphics;
@@ -14,6 +16,7 @@ public class FanEnrichedCategory extends ProcessingViaFanCategory.MultiOutput<En
         super(info);
     }
 
+
     @Override
     protected AllGuiTextures getBlockShadow() {
         return AllGuiTextures.JEI_LIGHT;
@@ -21,7 +24,7 @@ public class FanEnrichedCategory extends ProcessingViaFanCategory.MultiOutput<En
 
     @Override
     protected void renderAttachedBlock(GuiGraphics graphics) {
-        GuiGameElement.of(CNBlocks.ENRICHING_CAMPFIRE.getDefaultState())
+        GuiGameElement.of(CNBlocks.ENRICHED_SOUL_SOIL)
                 .scale(SCALE)
                 .atLocal(0, 0, 2)
                 .lighting(AnimatedKinetics.DEFAULT_LIGHTING)
