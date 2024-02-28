@@ -28,7 +28,7 @@ import static net.minecraft.world.level.block.Blocks.litBlockEmission;
 public class CNBlocks {
 
     static {
-        CreateNuclear.REGISTRATE.setCreativeTab(CNGroup.MAIN_KEY);
+       // CreateNuclear.REGISTRATE.setCreativeTab(CNGroup.MAIN_KEY);
     }
 
     public static final BlockEntry<UraniumOreBlock> DEEPSLATE_URANIUM_ORE =
