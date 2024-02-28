@@ -21,6 +21,7 @@ import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollVa
 import com.simibubi.create.foundation.utility.AngleHelper;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.VecHelper;
+import net.ynov.createnuclear.block.CNBlocks;
 
 public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 
@@ -37,7 +38,7 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 	public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
 		super.addBehaviours(behaviours);
 		int max = MAX_SPEED;
-		generatedSpeed = new KineticScrollValueBehaviour(Lang.translateDirect("kinetics.creative_motor.rotation_speed"),
+		generatedSpeed = new KineticScrollValueBehaviour(Lang.translateDirect("kinetics.reactor_output.rotation_speed"),
 			this, new net.ynov.createnuclear.multiblock.ReactorOutputEntity.MotorValueBox());
 		generatedSpeed.between(-max, max);
 		generatedSpeed.value = DEFAULT_SPEED;
@@ -54,9 +55,9 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 
 	@Override
 	public float getGeneratedSpeed() {
-		if (!AllBlocks.CREATIVE_MOTOR.has(getBlockState()))
+		if (!CNBlocks.REACTOR_OUTPUT.has(getBlockState()))
 			return 0;
-		return convertToDirection(generatedSpeed.getValue(), getBlockState().getValue(CreativeMotorBlock.FACING));
+		return convertToDirection(generatedSpeed.getValue(), getBlockState().getValue(ReactorOutput.FACING));
 	}
 
 	class MotorValueBox extends ValueBoxTransform.Sided {
@@ -68,7 +69,7 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 
 		@Override
 		public Vec3 getLocalOffset(BlockState state) {
-			Direction facing = state.getValue(CreativeMotorBlock.FACING);
+			Direction facing = state.getValue(ReactorOutput.FACING);
 			return super.getLocalOffset(state).add(Vec3.atLowerCornerOf(facing.getNormal())
 				.scale(-1 / 16f));
 		}
@@ -76,7 +77,7 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 		@Override
 		public void rotate(BlockState state, PoseStack ms) {
 			super.rotate(state, ms);
-			Direction facing = state.getValue(CreativeMotorBlock.FACING);
+			Direction facing = state.getValue(ReactorOutput.FACING);
 			if (facing.getAxis() == Axis.Y)
 				return;
 			if (getSide() != Direction.UP)
@@ -87,7 +88,7 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 
 		@Override
 		protected boolean isSideActive(BlockState state, Direction direction) {
-			Direction facing = state.getValue(CreativeMotorBlock.FACING);
+			Direction facing = state.getValue(ReactorOutput.FACING);
 			if (facing.getAxis() != Axis.Y && direction == Direction.DOWN)
 				return false;
 			return direction.getAxis() != facing.getAxis();
