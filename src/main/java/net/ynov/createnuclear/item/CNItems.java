@@ -1,5 +1,6 @@
 package net.ynov.createnuclear.item;
 
+import com.tterrag.registrate.util.entry.ItemEntry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -23,8 +24,10 @@ public class CNItems {
     public static final Item GRAPHENE = registerItem("graphene", new Item(new FabricItemSettings()));
     public static final Item STEEL_INGOT = registerItem("steel_ingot", new Item(new FabricItemSettings()));
     public static final Item YELLOW_CAKE_NETHER_STAR = registerItem("yellow_cake_nether_star_wip", new Item(new FabricItemSettings()));
-    public static final Item URANIUM_ROD = registerItem("uranium_rod", new Item(new FabricItemSettings()));
-    public static final Item GRAPHITE_ROD = registerItem("graphite_rod", new Item(new FabricItemSettings()));
+//    public static final Item URANIUM_ROD = registerItem("uranium_rod", new Item(new FabricItemSettings()));
+    public static final ItemEntry<Item> URANIUM_ROD = CreateNuclear.REGISTRATE.item("uranium_rod", Item::new).register();
+//    public static final Item GRAPHITE_ROD = registerItem("graphite_rod", new Item(new FabricItemSettings()));
+    public static final ItemEntry<Item> GRAPHITE_ROD = CreateNuclear.REGISTRATE.item("graphite_rod", Item::new).register();
     public static final Item RAW_URANIUM = registerItem("raw_uranium", new Item(new FabricItemSettings()));
     public static final Item WELDING_KIT = registerItem("welding_kit", new Item(new FabricItemSettings()));
     public static final Item RAW_LEAD = registerItem("raw_lead", new Item(new FabricItemSettings()));

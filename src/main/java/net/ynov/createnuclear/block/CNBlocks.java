@@ -16,11 +16,11 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.blockentity.ReinforcedGlassBlock;
+import net.ynov.createnuclear.content.reactor.controller.ReactorControllerBlock;
 import net.ynov.createnuclear.groups.CNGroup;
 import net.ynov.createnuclear.tools.EnrichingCampfire;
 import net.ynov.createnuclear.tools.UraniumFireBlock;
 import net.ynov.createnuclear.tools.UraniumOreBlock;
-import net.ynov.createnuclear.tools.reactor.ReactorController;
 
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 import static net.minecraft.world.level.block.Blocks.litBlockEmission;
@@ -100,11 +100,13 @@ public class CNBlocks {
             .transform(pickaxeOnly())
             .register();
 
-    public static final BlockEntry<ReactorController> REACTOR_CONTROLLER =
-            CreateNuclear.REGISTRATE.block("reactor_controller", ReactorController::new)
+    public static final BlockEntry<ReactorControllerBlock> REACTOR_CONTROLLER =
+            CreateNuclear.REGISTRATE.block("reactor_controller", ReactorControllerBlock::new)
                     .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(2F))
+                    .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models()
+                            .getExistingFile(ctx.getId()), 0))
                     .simpleItem()
                     .register();
 
