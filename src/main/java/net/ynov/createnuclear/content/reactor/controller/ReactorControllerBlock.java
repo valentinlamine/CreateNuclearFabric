@@ -27,7 +27,7 @@ import net.ynov.createnuclear.item.CNItems;
 public class ReactorControllerBlock extends HorizontalDirectionalBlock implements IBE<ReactorControllerBlockEntity> {
 //    public static final BooleanProperty POWERED = BooleanProperty.create("powered");
     public static final BooleanProperty ASSEMBLED = BooleanProperty.create("assembled");
-    public  boolean powered;
+    public boolean powered;
 
     public ReactorControllerBlock(Properties properties) {
         super(properties);

@@ -78,14 +78,14 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         graphics.drawString(font, title, x + 15, y + 4, 0x592424, false);
 
         int width = PROGRESS_BAR.width;
-        int heightStart = (int) (PROGRESS_BAR.height
+        int heightProgress = (int) (PROGRESS_BAR.height
                 * Mth.lerp(partialTicks, lastChasingProgress, chasingProgress));
-        System.out.println("PartialTicks : " + partialTicks);
-        System.out.println("lastChasingProgress : " + lastChasingProgress);
-        System.out.println("chaisingProgress : " + chasingProgress);
-        System.out.println("HEIGHT START = " + heightStart);
-        graphics.blit(PROGRESS_BAR.location, x + 179, y + 39 + (PROGRESS_BAR.height - heightStart), PROGRESS_BAR.startX,
-                (160 - heightStart), width, heightStart);
+//        System.out.println("PartialTicks : " + partialTicks);
+//        System.out.println("lastChasingProgress : " + lastChasingProgress);
+//        System.out.println("chaisingProgress : " + chasingProgress);
+//        System.out.println("HEIGHT START = " + heightStart);
+        graphics.blit(PROGRESS_BAR.location, x + 179, y + 40 + (PROGRESS_BAR.height - heightProgress), PROGRESS_BAR.startX,
+                (176 - heightProgress), width, heightProgress);
     }
 
 
@@ -96,9 +96,9 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         boolean hasUranium = menu.getSlot(0).hasItem();
         boolean hasGraphene = menu.getSlot(1).hasItem();
 
-        if ((menu.contentHolder.isPowered() && hasUranium && hasGraphene) || progress <= 1) {
+        if (menu.contentHolder.isPowered() && hasUranium && hasGraphene && progress <= 1) {
             lastChasingProgress = chasingProgress;
-            progress += 0.1F;
+            progress += 0.01F;
             chasingProgress += (progress - chasingProgress) * .5f;
 
         } else {
