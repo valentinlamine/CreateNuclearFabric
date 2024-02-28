@@ -38,5 +38,7 @@
   "block.createnuclear.reactor_core": "Reactor Core",
 
   "block.createnuclear.reinforced_pipe": "Reinforced Pipe",
-  "itemgroup.uranium": "Uranium Group"
+  "itemgroup.uranium": "Uranium Group",
+
+  "createnuclear.enriched.fan.recipe": "Bulk Enriched"
 }
