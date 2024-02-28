@@ -22,12 +22,15 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.ynov.createnuclear.CNMultiblock;
 import net.ynov.createnuclear.blockentity.CNBlockEntities;
+import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.item.CNItems;
 
+import java.util.List;
+
 public class ReactorControllerBlock extends HorizontalDirectionalBlock implements IBE<ReactorControllerBlockEntity> {
-//    public static final BooleanProperty POWERED = BooleanProperty.create("powered");
     public static final BooleanProperty ASSEMBLED = BooleanProperty.create("assembled");
-    public boolean powered;
+    private boolean powered;
+    private List<CNIconButton> switchButtons;
 
     public ReactorControllerBlock(Properties properties) {
         super(properties);
@@ -35,7 +38,6 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-//        builder.add(FACING).add(POWERED).add(ASSEMBLED);
         builder.add(FACING).add(ASSEMBLED);
         super.createBlockStateDefinition(builder);
     }
@@ -44,7 +46,6 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState()
                 .setValue(FACING, context.getHorizontalDirection())
-//                .setValue(POWERED, false)
                 .setValue(ASSEMBLED, false);
     }
 
@@ -108,5 +109,13 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
     public void setPowered(boolean power) {
         powered = power;
 //        worldIn.setBlockAndUpdate(pos, state.setValue(POWERED, power));
+    }
+
+    public List<CNIconButton> getSwitchButtons() {
+        return switchButtons;
+    }
+
+    public void setSwitchButtons(List<CNIconButton> switchButtons) {
+        this.switchButtons = switchButtons;
     }
 }

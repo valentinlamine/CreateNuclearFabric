@@ -1,12 +1,11 @@
 package net.ynov.createnuclear.content.reactor.controller;
 
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
-import com.simibubi.create.foundation.utility.NBTHelper;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
+import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.gui.CNGuiTextures;
 import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.gui.CNIcons;
@@ -18,8 +17,6 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     protected static final CNGuiTextures BG = CNGuiTextures.REACTOR_CONTROLLER;
     protected static final CNGuiTextures PROGRESS_BAR = CNGuiTextures.REACTOR_CONTROLLER_PROGRESS;
     private CNIconButton powerButton;
-    private List<CNIconButton> switchButtons;
-//    protected static final AllGuiTextures PLAYER = AllGuiTextures.PLAYER_INVENTORY;
     private float progress;
     private float chasingProgress;
     private float lastChasingProgress;
@@ -36,7 +33,10 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         clearWidgets();
 
         //S'initialise a chaque fois que l'on click sur le block
+
+
         placeSwitchItem();
+
 
         powerButton = menu.contentHolder.isPowered() ? new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.OFF_NORMAL) : new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.ON_NORMAL);
         powerButton.withCallback(() -> {// Quand le button est appuyé il fait ca
@@ -48,7 +48,6 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
                 menu.contentHolder.setPowered(false);
                 powerButton.setIcon(CNIcons.ON_NORMAL);
             }
-//            minecraft.player.closeContainer();
         });
         addRenderableWidget(powerButton);
     }
@@ -85,14 +84,18 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         } else {
             progress = chasingProgress = lastChasingProgress = 0;
         }
-
     }
 
     private void placeSwitchItem() {
         int startWidth = 7;
         int startHeight = 39;
         int incr = 18;
-        switchButtons = new ArrayList<>(57);
+        if (menu.contentHolder.getSwitchButtons() != null && !menu.contentHolder.getSwitchButtons().isEmpty()) {
+            addRenderableWidgets(menu.contentHolder.getSwitchButtons());
+            return;
+        }
+
+        List<CNIconButton> switchButtons = new ArrayList<>();
 
         switchButtons.add(new CNIconButton(leftPos + startWidth + incr*3, topPos + startHeight, CNIcons.EMPTY_ICON));
         switchButtons.add(new CNIconButton(leftPos + startWidth + incr*4, topPos + startHeight, CNIcons.EMPTY_ICON));
@@ -148,13 +151,15 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
                 }
             });
         }
+        menu.contentHolder.setSwitchButtons(switchButtons);
         addRenderableWidgets(switchButtons);
     }
 
+
     public int countGraphiteRod() {
-        return (int) switchButtons.stream().filter(e -> e.getIcon().equals(CNIcons.GRAPHITE_ROD_ICON)).count();
+        return (int) menu.contentHolder.getSwitchButtons().stream().filter(e -> e.getIcon().equals(CNIcons.GRAPHITE_ROD_ICON)).count();
     }
     public int countUraniumRod() {
-        return (int) switchButtons.stream().filter(e -> e.getIcon().equals(CNIcons.URANIUM_ROD_ICON)).count();
+        return (int) menu.contentHolder.getSwitchButtons().stream().filter(e -> e.getIcon().equals(CNIcons.URANIUM_ROD_ICON)).count();
     }
 }

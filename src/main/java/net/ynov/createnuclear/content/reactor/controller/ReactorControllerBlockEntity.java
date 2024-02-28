@@ -1,13 +1,9 @@
 package net.ynov.createnuclear.content.reactor.controller;
 
-import com.simibubi.create.Create;
-import com.simibubi.create.content.equipment.toolbox.ToolboxBlock;
-import com.simibubi.create.content.schematics.table.SchematicTableMenu;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.Components;
 import com.simibubi.create.foundation.utility.IInteractionChecker;
-import com.simibubi.create.foundation.utility.Lang;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -22,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.ynov.createnuclear.gui.CNIconButton;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -89,6 +86,18 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         BlockState blockState = getBlockState();
         if (blockState.getBlock() instanceof ReactorControllerBlock)
             ((ReactorControllerBlock) blockState.getBlock()).setPowered(power);
+    }
+
+    public void setSwitchButtons(List<CNIconButton> switchButtons) {
+        BlockState blockState = getBlockState();
+        if (blockState.getBlock() instanceof ReactorControllerBlock)
+            ((ReactorControllerBlock) blockState.getBlock()).setSwitchButtons(switchButtons);
+    }
+    public List<CNIconButton> getSwitchButtons() {
+        BlockState blockState = getBlockState();
+        if (blockState.getBlock() instanceof ReactorControllerBlock)
+            return ((ReactorControllerBlock) blockState.getBlock()).getSwitchButtons();
+        return null;
     }
 
 //    @Override
