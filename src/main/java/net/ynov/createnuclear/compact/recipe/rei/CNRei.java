@@ -1,69 +1,48 @@
-package net.ynov.createnuclear.compact.jei;
+package net.ynov.createnuclear.compact.recipe.rei;
 
 import com.simibubi.create.AllItems;
-import com.simibubi.create.compat.jei.*;
+import com.simibubi.create.compat.jei.GhostIngredientHandler;
+import com.simibubi.create.compat.jei.SlotMover;
+import com.simibubi.create.compat.jei.ToolboxColoringRecipeMaker;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.compat.jei.category.ProcessingViaFanCategory;
-import com.simibubi.create.content.equipment.blueprint.BlueprintScreen;
-import com.simibubi.create.content.logistics.filter.AbstractFilterScreen;
-import com.simibubi.create.content.redstone.link.controller.LinkedControllerScreen;
-import com.simibubi.create.content.trains.schedule.ScheduleScreen;
-import com.simibubi.create.foundation.config.ConfigBase;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
-import com.simibubi.create.foundation.item.ItemHelper;
-import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
-import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.infrastructure.config.AllConfigs;
-import com.simibubi.create.infrastructure.config.CRecipes;
-import io.github.fabricators_of_create.porting_lib.mixin.accessors.common.accessor.RecipeManagerAccessor;
-import mezz.jei.api.IModPlugin;
-import mezz.jei.api.constants.RecipeTypes;
-import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.recipe.category.IRecipeCategory;
-import mezz.jei.api.registration.*;
-import mezz.jei.api.runtime.IIngredientManager;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.RegistryAccess;
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.Display;
+import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.ItemLike;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
-import net.ynov.createnuclear.compact.jei.category.FanEnrichedCategory;
+import net.ynov.createnuclear.compact.recipe.category.FanEnrichedCategory;
 import net.ynov.createnuclear.fan.CNRecipeTypes;
 import net.ynov.createnuclear.fan.EnrichedRecipe;
 
-import javax.annotation.Nonnull;
-import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+/*
+@SuppressWarnings("unused")
+@ParametersAreNonnullByDefault
+public class CNRei implements REIClientPlugin{
+    private static final ResourceLocation REIID = CreateNuclear.asResource("rei_plugin");
 
-
-public class CNJei implements IModPlugin {
-    private static final ResourceLocation JEIID = CreateNuclear.asResource("jei_plugin");
     private final List<CreateRecipeCategory<?>> allCategories = new ArrayList<>();
-    private IIngredientManager ingredientManager;
 
     private void loadCategories() {
         allCategories.clear();
 
         CreateRecipeCategory<?>
-
-
-
                 enriched = builder(EnrichedRecipe.class)
-                        .addTypedRecipes(CNRecipeTypes.ENRICHED)
-                        .catalystStack(ProcessingViaFanCategory.getFan("fan_enriched"))
-                        .doubleItemIcon(AllItems.PROPELLER.get(), CNBlocks.ENRICHING_CAMPFIRE)
-                        .emptyBackground(178, 72)
-                        .build("fan_enriched", FanEnrichedCategory::new)
+                .addTypedRecipes(CNRecipeTypes.ENRICHED)
+                .catalystStack(ProcessingViaFanCategory.getFan("fan_enriched"))
+                .doubleItemIcon(AllItems.PROPELLER.get(), CNBlocks.ENRICHING_CAMPFIRE)
+                .emptyBackground(178, 72)
+                .build("fan_enriched", FanEnrichedCategory::new)
 
-               ;
-
+                ;
     }
 
     private <T extends Recipe<?>> CategoryBuilder<T> builder(Class<? extends T> recipeClass) {
@@ -71,53 +50,85 @@ public class CNJei implements IModPlugin {
     }
 
     @Override
-    @Nonnull
-    public ResourceLocation getPluginUid() {
-        return JEIID;
+    public String getPluginProviderName() {
+        return REIID.toString();
     }
 
     @Override
-    public void registerCategories(IRecipeCategoryRegistration registration) {
+    public void registerCategories(CategoryRegistry registry) {
         loadCategories();
-        registration.addRecipeCategories(allCategories.toArray(IRecipeCategory[]::new));
+        allCategories.forEach(category -> {
+            registry.add(category);
+            category.registerCatalysts(registry);
+        });
     }
 
     @Override
-    public void registerRecipes(IRecipeRegistration registration) {
-        ingredientManager = registration.getIngredientManager();
+    public void registerDisplays(DisplayRegistry registry) {
+        allCategories.forEach(c -> c.registerRecipes(registry));
 
-        allCategories.forEach(c -> c.registerRecipes(registration));
+        List<CraftingRecipe> recipes = ToolboxColoringRecipeMaker.createRecipes().toList();
 
-        registration.addRecipes(RecipeTypes.CRAFTING, ToolboxColoringRecipeMaker.createRecipes().toList());
+        for (CraftingRecipe recipe : recipes) {
+            Collection<Display> displays = registry.tryFillDisplay(recipe);
+            for (Display display : displays) {
+                if (Objects.equals(display.getCategoryIdentifier(), BuiltinPlugin.CRAFTING)) {
+                    registry.add(display, recipe);
+                }
+            }
+        }
     }
 
     @Override
-    public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        allCategories.forEach(c -> c.registerCatalysts(registration));
+    public void registerExclusionZones(ExclusionZones zones) {
+        zones.register(AbstractSimiContainerScreen.class, new SlotMover());
     }
 
     @Override
-    public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-        registration.addRecipeTransferHandler(new BlueprintTransferHandler(), RecipeTypes.CRAFTING);
+    public void registerScreens(ScreenRegistry registry) {
+        registry.registerDraggableStackVisitor(new GhostIngredientHandler<>());
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public void registerGuiHandlers(IGuiHandlerRegistration registration) {
-        registration.addGenericGuiContainerHandler(AbstractSimiContainerScreen.class, new SlotMover());
+    public void registerTransferHandlers(TransferHandlerRegistry registry) {
+        registry.register(new BlueprintTransferHandler());
+    }
 
-        registration.addGhostIngredientHandler(AbstractFilterScreen.class, new GhostIngredientHandler());
-        registration.addGhostIngredientHandler(BlueprintScreen.class, new GhostIngredientHandler());
-        registration.addGhostIngredientHandler(LinkedControllerScreen.class, new GhostIngredientHandler());
-        registration.addGhostIngredientHandler(ScheduleScreen.class, new GhostIngredientHandler());
+//	@Override // FIXME RECIPE VIEWERS
+//	public void registerFluidSubtypes(ISubtypeRegistration registration) {
+//		PotionFluidSubtypeInterpreter interpreter = new PotionFluidSubtypeInterpreter();
+//		PotionFluid potionFluid = AllFluids.POTION.get();
+//		registration.registerSubtypeInterpreter(FabricTypes.FLUID_STACK, potionFluid.getSource(), interpreter);
+//		registration.registerSubtypeInterpreter(FabricTypes.FLUID_STACK, potionFluid.getFlowing(), interpreter);
+//	}
+
+    @Override
+    public void registerEntries(EntryRegistry registry) {
+        registry.removeEntryIf(entryStack -> {
+            if(entryStack.getType() == VanillaEntryTypes.ITEM) {
+                ItemStack itemStack = entryStack.castValue();
+                if(itemStack.getItem() instanceof TagDependentIngredientItem tagItem) {
+                    return tagItem.shouldHide();
+                }
+            } else if(entryStack.getType() == VanillaEntryTypes.FLUID) {
+                FluidStack fluidStack = entryStack.castValue();
+                return fluidStack.getFluid() instanceof VirtualFluid;
+            }
+            return false;
+        });
     }
 
     private class CategoryBuilder<T extends Recipe<?>> {
         private final Class<? extends T> recipeClass;
         private Predicate<CRecipes> predicate = cRecipes -> true;
 
-        private IDrawable background;
-        private IDrawable icon;
+        private Renderer background;
+        private Renderer icon;
+
+        private int width;
+        private int height;
+
+        private Function<T, ? extends CreateDisplay<T>> displayFactory;
 
         private final List<Consumer<List<T>>> recipeListConsumers = new ArrayList<>();
         private final List<Supplier<? extends ItemStack>> catalysts = new ArrayList<>();
@@ -131,7 +142,7 @@ public class CNJei implements IModPlugin {
             return this;
         }
 
-        public CategoryBuilder<T> enableWhen(Function<CRecipes, ConfigBase.ConfigBool> configValue) {
+        public CategoryBuilder<T> enableWhen(Function<CRecipes, ConfigBool> configValue) {
             predicate = c -> configValue.apply(c).get();
             return this;
         }
@@ -166,15 +177,15 @@ public class CNJei implements IModPlugin {
         }
 
         public CategoryBuilder<T> addTypedRecipes(Supplier<RecipeType<? extends T>> recipeType) {
-            return addRecipeListConsumer(recipes -> CreateJEI.<T>consumeTypedRecipes(recipes::add, recipeType.get()));
+            return addRecipeListConsumer(recipes -> CreateREI.<T>consumeTypedRecipes(recipes::add, recipeType.get()));
         }
 
         public CategoryBuilder<T> addTypedRecipes(Supplier<RecipeType<? extends T>> recipeType, Function<Recipe<?>, T> converter) {
-            return addRecipeListConsumer(recipes -> CreateJEI.<T>consumeTypedRecipes(recipe -> recipes.add(converter.apply(recipe)), recipeType.get()));
+            return addRecipeListConsumer(recipes -> CreateREI.<T>consumeTypedRecipes(recipe -> recipes.add(converter.apply(recipe)), recipeType.get()));
         }
 
         public CategoryBuilder<T> addTypedRecipesIf(Supplier<RecipeType<? extends T>> recipeType, Predicate<Recipe<?>> pred) {
-            return addRecipeListConsumer(recipes -> CreateJEI.<T>consumeTypedRecipes(recipe -> {
+            return addRecipeListConsumer(recipes -> CreateREI.<T>consumeTypedRecipes(recipe -> {
                 if (pred.test(recipe)) {
                     recipes.add(recipe);
                 }
@@ -185,7 +196,7 @@ public class CNJei implements IModPlugin {
                                                            Supplier<RecipeType<? extends T>> excluded) {
             return addRecipeListConsumer(recipes -> {
                 List<Recipe<?>> excludedRecipes = getTypedRecipes(excluded.get());
-                CreateJEI.<T>consumeTypedRecipes(recipe -> {
+                CreateREI.<T>consumeTypedRecipes(recipe -> {
                     for (Recipe<?> excludedRecipe : excludedRecipes) {
                         if (doInputsMatch(recipe, excludedRecipe)) {
                             return;
@@ -200,9 +211,11 @@ public class CNJei implements IModPlugin {
             return addRecipeListConsumer(recipes -> {
                 List<Recipe<?>> excludedRecipes = getTypedRecipes(recipeType.get());
                 recipes.removeIf(recipe -> {
-                    for (Recipe<?> excludedRecipe : excludedRecipes)
-                        if (doInputsMatch(recipe, excludedRecipe) && doOutputsMatch(recipe, excludedRecipe))
+                    for (Recipe<?> excludedRecipe : excludedRecipes) {
+                        if (doInputsMatch(recipe, excludedRecipe)) {
                             return true;
+                        }
+                    }
                     return false;
                 });
             });
@@ -218,7 +231,7 @@ public class CNJei implements IModPlugin {
                     .asItem()));
         }
 
-        public CategoryBuilder<T> icon(IDrawable icon) {
+        public CategoryBuilder<T> icon(Renderer icon) {
             this.icon = icon;
             return this;
         }
@@ -233,13 +246,35 @@ public class CNJei implements IModPlugin {
             return this;
         }
 
-        public CategoryBuilder<T> background(IDrawable background) {
+        public CategoryBuilder<T> background(Renderer background) {
             this.background = background;
             return this;
         }
 
         public CategoryBuilder<T> emptyBackground(int width, int height) {
             background(new EmptyBackground(width, height));
+            dimensions(width, height);
+            return this;
+        }
+
+        public CategoryBuilder<T> width(int width) {
+            this.width = width;
+            return this;
+        }
+
+        public CategoryBuilder<T> height(int height) {
+            this.height = height;
+            return this;
+        }
+
+        public CategoryBuilder<T> dimensions(int width, int height) {
+            width(width);
+            height(height);
+            return this;
+        }
+
+        public CategoryBuilder<T> displayFactory(Function<T, ? extends CreateDisplay<T>> factory) {
+            this.displayFactory = factory;
             return this;
         }
 
@@ -248,17 +283,23 @@ public class CNJei implements IModPlugin {
             if (predicate.test(AllConfigs.server().recipes)) {
                 recipesSupplier = () -> {
                     List<T> recipes = new ArrayList<>();
-                    for (Consumer<List<T>> consumer : recipeListConsumers)
-                        consumer.accept(recipes);
+                    if (predicate.test(AllConfigs.server().recipes)) {
+                        for (Consumer<List<T>> consumer : recipeListConsumers)
+                            consumer.accept(recipes);
+                    }
                     return recipes;
                 };
             } else {
                 recipesSupplier = () -> Collections.emptyList();
             }
 
+            if (width <= 0 || height <= 0) {
+                Create.LOGGER.warn("Create REI category [{}] has weird dimensions: {}x{}", name, width, height);
+            }
+
             CreateRecipeCategory.Info<T> info = new CreateRecipeCategory.Info<>(
-                    new mezz.jei.api.recipe.RecipeType<>(CreateNuclear.asResource(name), recipeClass),
-                    Lang.translateDirect(CreateNuclear.MOD_ID + ".recipe." + name), background, icon, recipesSupplier, catalysts);
+                    CategoryIdentifier.of(Create.asResource(name)),
+                    Lang.translateDirect("recipe." + name), background, icon, recipesSupplier, catalysts, width, height, displayFactory == null ? (recipe) -> new CreateDisplay<>(recipe, CategoryIdentifier.of(Create.asResource(name))) : displayFactory);
             CreateRecipeCategory<T> category = factory.create(info);
             allCategories.add(category);
             return category;
@@ -266,9 +307,7 @@ public class CNJei implements IModPlugin {
     }
 
     public static void consumeAllRecipes(Consumer<Recipe<?>> consumer) {
-        Minecraft.getInstance()
-                .getConnection()
-                .getRecipeManager()
+        Minecraft.getInstance().level.getRecipeManager()
                 .getRecipes()
                 .forEach(consumer);
     }
@@ -311,10 +350,5 @@ public class CNJei implements IModPlugin {
                 .get(0)
                 .test(matchingStacks[0]);
     }
-
-    public static boolean doOutputsMatch(Recipe<?> recipe1, Recipe<?> recipe2) {
-        RegistryAccess registryAccess = Minecraft.getInstance().level.registryAccess();
-        return ItemHelper.sameItem(recipe1.getResultItem(registryAccess), recipe2.getResultItem(registryAccess));
-    }
-
 }
+*/

@@ -25,7 +25,7 @@
 			"net.ynov.createnuclear.CreateNuclearDataGenerator"
 		],
 		"jei_mod_plugin": [
-			"net.ynov.createnuclear.compact.jei.CNJei"
+			"net.ynov.createnuclear.compact.recipe.jei.CNJei"
 		]
 	},
 	"mixins": [

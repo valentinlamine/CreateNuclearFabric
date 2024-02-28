@@ -40,5 +40,6 @@
   "block.createnuclear.reinforced_pipe": "Reinforced Pipe",
   "itemgroup.uranium": "Uranium Group",
 
-  "createnuclear.enriched.fan.recipe": "Bulk Enriched"
+  "createnuclear.enriched.fan.recipe": "Bulk Enriched",
+  "create.recipe.fan_enriched.fan": "Fan behing Enriched"
 }
