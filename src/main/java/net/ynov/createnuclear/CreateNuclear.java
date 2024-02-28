@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import net.ynov.createnuclear.Tags.CNTag;
 import net.ynov.createnuclear.block.CNBlocks;
+import net.ynov.createnuclear.blockentity.CNEntityTypes;
 import net.ynov.createnuclear.effects.CNEffects;
 import net.ynov.createnuclear.fluid.CNFluids;
 import net.ynov.createnuclear.groups.CNGroup;
@@ -32,6 +33,7 @@ public class CreateNuclear implements ModInitializer {
 	public void onInitialize() {
 		CNItems.registerCNItems();
 		CNBlocks.registerCNBlocks();
+		CNEntityTypes.register();
 		CNGroup.registrer();
 		CNFluids.register();
 		CNEffects.register();
