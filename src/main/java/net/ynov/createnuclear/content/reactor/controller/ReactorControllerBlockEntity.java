@@ -30,6 +30,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
 
     public ReactorControllerInventory inventory;
 
+
     public class ReactorControllerInventory extends ItemStackHandler {
         public ReactorControllerInventory() {
             super(2);
