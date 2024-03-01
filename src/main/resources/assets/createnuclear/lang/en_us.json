@@ -32,11 +32,13 @@
 
   "item.createnuclear.lead_ingot": "Lead Ingot",
   "item.createnuclear.lead_nugget": "Lead Nugget",
+  "item.createnuclear.cloth": "Cloth",
 
   "item.createnuclear.anti_radiation_helmet": "Anti Radiation Helmet",
   "item.createnuclear.anti_radiation_chestplate": "Anti Radiation Chestplate",
   "item.createnuclear.anti_radiation_leggings": "Anti Radiation Leggings",
   "item.createnuclear.anti_radiation_boots": "Anti Radiation Boots",
+
 
 
   "block.createnuclear.deepslate_uranium_ore": "Deepslate Uranium Ore",
