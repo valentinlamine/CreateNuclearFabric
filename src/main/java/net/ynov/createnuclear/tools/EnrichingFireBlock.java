@@ -13,9 +13,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.tags.CNTag;
 
-public class UraniumFireBlock extends BaseFireBlock {
-    public UraniumFireBlock(Properties properties) {
-        super(properties, 3.0f);
+public class EnrichingFireBlock extends BaseFireBlock {
+    public EnrichingFireBlock(Properties properties, float fireDamage) {
+        super(properties, fireDamage);
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
@@ -34,20 +34,21 @@ public class UraniumFireBlock extends BaseFireBlock {
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
-        BlockPos below = pos.below();
-        return worldIn.getBlockState(below).isFaceSturdy(worldIn, pos, Direction.UP);
+        /*BlockPos below = pos.below();
+        return worldIn.getBlockState(below).isFaceSturdy(worldIn, pos, Direction.UP);*/
+        return EnrichingFireBlock.canSurviveOnBlock(worldIn.getBlockState(pos.below()));
     }
 
     public static boolean canBePlacedAt(Level level, BlockPos pos, Direction direction) {
         BlockState blockState = level.getBlockState(pos);
         if (!blockState.isAir()) { return false; }
-        return UraniumFireBlock.getState(level, pos).canSurvive(level, pos);
+        return EnrichingFireBlock.getState(level, pos).canSurvive(level, pos);
     }
 
     public static BlockState getState(BlockGetter reader, BlockPos pos) {
         BlockPos blockPos = pos.below();
         BlockState blockState = reader.getBlockState(blockPos);
-        if (UraniumFireBlock.canSurviveOnBlock(blockState)) {
+        if (EnrichingFireBlock.canSurviveOnBlock(blockState)) {
             return CNBlocks.ENRICHING_FIRE.get().defaultBlockState();
         }
         return Blocks.AIR.defaultBlockState();

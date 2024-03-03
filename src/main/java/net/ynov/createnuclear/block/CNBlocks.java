@@ -8,9 +8,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.entity.CampfireBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
@@ -19,7 +17,7 @@ import net.ynov.createnuclear.blockentity.ReinforcedGlassBlock;
 import net.ynov.createnuclear.tags.CNTag;
 //import net.ynov.createnuclear.tools.EnrichingCampfire;
 import net.ynov.createnuclear.tools.EnrichingCampfire;
-import net.ynov.createnuclear.tools.UraniumFireBlock;
+import net.ynov.createnuclear.tools.EnrichingFireBlock;
 import net.ynov.createnuclear.tools.UraniumOreBlock;
 import net.ynov.createnuclear.tools.reactor.ReactorController;
 
@@ -77,11 +75,11 @@ public class CNBlocks {
                     .tag(CNTag.BlockTags.ENRICHEING_FIRE_BASE_BLOCKS.tag)
                     .register();
 
-    public static final BlockEntry<UraniumFireBlock> ENRICHING_FIRE =
-            CreateNuclear.REGISTRATE.block("enriching_fire", UraniumFireBlock::new)
+    public static final BlockEntry<EnrichingFireBlock> ENRICHING_FIRE =
+            CreateNuclear.REGISTRATE.block("enriching_fire", properties ->  new EnrichingFireBlock(properties, 3.0f))
                     .properties(BlockBehaviour.Properties::replaceable)
                     .properties(BlockBehaviour.Properties::noCollission)
-                    .properties(p -> p.lightLevel(UraniumFireBlock::getLight))
+                    .properties(p -> p.lightLevel(EnrichingFireBlock::getLight))
                     .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
                     .register();
 
@@ -94,8 +92,16 @@ public class CNBlocks {
                     .register();
 
     public static final BlockEntry<EnrichingCampfire> ENRICHING_CAMPFIRE =
-            CreateNuclear.REGISTRATE.block("enriching_campfire", properties -> new EnrichingCampfire(true, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL)
-                            .instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lightLevel(litBlockEmission(10)).noOcclusion().ignitedByLava()))
+            CreateNuclear.REGISTRATE.block("enriching_campfire", properties -> new EnrichingCampfire(true, 5, BlockBehaviour.Properties.of()
+                .mapColor(MapColor.PODZOL)
+                .instrument(NoteBlockInstrument.BASS)
+                .strength(2.0F)
+                .sound(SoundType.WOOD)
+                .lightLevel(litBlockEmission(10))
+                .noOcclusion()
+                .ignitedByLava()
+
+            ))
             .properties(BlockBehaviour.Properties::replaceable)
             //.initialProperties(CNBlocks::DIAMOND_ORE)
             .simpleItem()

@@ -31,7 +31,7 @@ public class EnrichedFlintAndSteel extends FlintAndSteelItem {
         BlockState blockState = level.getBlockState(blockPos = context.getClickedPos());
 
         BlockPos blockPos2 = blockPos.relative(context.getClickedFace());
-        if (UraniumFireBlock.canBePlacedAt(level, blockPos2, context.getHorizontalDirection())) {
+        if (EnrichingFireBlock.canBePlacedAt(level, blockPos2, context.getHorizontalDirection())) {
             level.playSound(player, blockPos2, SoundEvents.ANVIL_BREAK, SoundSource.BLOCKS, 1.0f, level.getRandom().nextFloat() * 0.4f + 0.8f);
             BlockState blockState2 = blockState.is(CNBlocks.ENRICHED_SOUL_SOIL.get()) ? CNBlocks.ENRICHING_FIRE.getDefaultState() : Blocks.FIRE.defaultBlockState();
             level.setBlock(blockPos2, blockState2, 11);
