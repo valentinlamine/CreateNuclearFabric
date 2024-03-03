@@ -49,6 +49,23 @@ public class CNItems {
     public static final Item ANTI_RADIATION_LEGGINGS = registerItem("anti_radiation_leggings", new ArmorItem(CNArmorMaterials.ANTI_RADIATION_SUIT, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
     public static final Item ANTI_RADIATION_BOOTS = registerItem("anti_radiation_boots", new ArmorItem(CNArmorMaterials.ANTI_RADIATION_SUIT, ArmorItem.Type.BOOTS, new FabricItemSettings()));
     public static final Item WHITE_CLOTH = registerItem("white_cloth", new Item(new FabricItemSettings()));
+    public static final Item YELLOW_CLOTH = registerItem("yellow_cloth", new Item(new FabricItemSettings()));
+    public static final Item RED_CLOTH = registerItem("red_cloth", new Item(new FabricItemSettings()));
+    public static final Item BLUE_CLOTH = registerItem("blue_cloth", new Item(new FabricItemSettings()));
+    public static final Item GREEN_CLOTH = registerItem("green_cloth", new Item(new FabricItemSettings()));
+    public static final Item BLACK_CLOTH = registerItem("black_cloth", new Item(new FabricItemSettings()));
+    public static final Item ORANGE_CLOTH = registerItem("orange_cloth", new Item(new FabricItemSettings()));
+    public static final Item PURPLE_CLOTH = registerItem("purple_cloth", new Item(new FabricItemSettings()));
+    public static final Item BROWN_CLOTH = registerItem("brown_cloth", new Item(new FabricItemSettings()));
+    public static final Item PINK_CLOTH = registerItem("pink_cloth", new Item(new FabricItemSettings()));
+    public static final Item CYAN_CLOTH = registerItem("cyan_cloth", new Item(new FabricItemSettings()));
+    public static final Item LIGHT_GREY_CLOTH = registerItem("light_grey_cloth", new Item(new FabricItemSettings()));
+    public static final Item GREY_CLOTH = registerItem("grey_cloth", new Item(new FabricItemSettings()));
+    public static final Item LIGHT_BLUE_CLOTH = registerItem("light_blue_cloth", new Item(new FabricItemSettings()));
+    public static final Item LIME_CLOTH = registerItem("lime_cloth", new Item(new FabricItemSettings()));
+    public static final Item MAGENTA_CLOTH = registerItem("magenta_cloth", new Item(new FabricItemSettings()));
+
+
 
     private static void addItemToIngredientItemGroup(FabricItemGroupEntries entries) {
         entries.accept(URANIUM_POWDER, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
@@ -71,6 +88,21 @@ public class CNItems {
         entries.accept(ANTI_RADIATION_LEGGINGS,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ANTI_RADIATION_BOOTS,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(WHITE_CLOTH,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(YELLOW_CLOTH,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(RED_CLOTH,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(BLUE_CLOTH,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(GREEN_CLOTH,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(BLACK_CLOTH,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(ORANGE_CLOTH,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(PURPLE_CLOTH,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(BROWN_CLOTH,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(PINK_CLOTH,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(CYAN_CLOTH,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(LIGHT_GREY_CLOTH,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(GREY_CLOTH,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(LIGHT_BLUE_CLOTH,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(LIME_CLOTH,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(MAGENTA_CLOTH,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
     }
 
     private static Item registerItem(String name, Item item) {
