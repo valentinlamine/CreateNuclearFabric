@@ -2,6 +2,7 @@ package net.ynov.createnuclear.world.item;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.DyeableLeatherItem;
 import net.ynov.createnuclear.world.item.DyeableArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -45,7 +46,9 @@ public interface DyeableAntiRadiationItem {
         int k;
         float h;
         int n;
-        if (item instanceof DyeableAntiRadiationItem dyeableAntiRadiationItem) {
+        DyeableAntiRadiationItem dyeableAntiRadiationItem = null;
+        if (item instanceof DyeableAntiRadiationItem) {
+            dyeableAntiRadiationItem = (DyeableAntiRadiationItem) ((Object) item);
             itemStack = stack.copyWithCount(1);
             if (dyeableAntiRadiationItem.hasCustomColor(stack)) {
                 k = dyeableAntiRadiationItem.getColor(itemStack);
