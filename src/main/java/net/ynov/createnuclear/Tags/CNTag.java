@@ -21,8 +21,6 @@ import static net.ynov.createnuclear.tags.CNTag.NameSpace.CREATE;
 import static net.ynov.createnuclear.tags.CNTag.NameSpace.MOD;
 
 public class CNTag {
-
-
     public static <T> TagKey<T> optionalTag(Registry<T> registry, ResourceLocation id) {
         return TagKey.create(registry.key(), id);
     }
@@ -99,8 +97,9 @@ public class CNTag {
     }
 
     public enum BlockTags {
-        FAN_PROCESSING_CATALYSTS_ENRICHED(MOD, "fan_processing_catalysts/enriched");
-
+        FAN_PROCESSING_CATALYSTS_ENRICHED(MOD, "fan_processing_catalysts/enriched"),
+        ENRICHEING_FIRE_BASE_BLOCKS("uranium_fire_base_blocks"),
+        ;
         public final TagKey<Block> tag;
         public final boolean alwaysDatagen;
 
@@ -114,6 +113,10 @@ public class CNTag {
 
         BlockTags(NameSpace namespace, String path) {
             this(namespace, path, namespace.optionalDefault, namespace.alwayDatagenDefault);
+        }
+
+        BlockTags(String path) {
+            this(MOD, path, MOD.optionalDefault, MOD.alwayDatagenDefault);
         }
 
         BlockTags(NameSpace namespace, boolean optional, boolean alwaysDatagen) {

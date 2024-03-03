@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.ynov.createnuclear.block.CNBlocks;
+import net.ynov.createnuclear.tags.CNTag;
 
 public class UraniumFireBlock extends BaseFireBlock {
     public UraniumFireBlock(Properties properties) {
@@ -53,7 +54,8 @@ public class UraniumFireBlock extends BaseFireBlock {
     }
 
     public static boolean canSurviveOnBlock(BlockState state) {
-        return state.is(CNBlocks.ENRICHED_SOUL_SOIL.get());
+        //return state.is(CNBlocks.ENRICHED_SOUL_SOIL.get());
+        return state.is(CNTag.BlockTags.ENRICHEING_FIRE_BASE_BLOCKS.tag);
     }
 
     public static int getLight(BlockState blockState) {

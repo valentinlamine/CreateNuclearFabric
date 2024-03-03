@@ -55,7 +55,7 @@ public class CNJei implements IModPlugin {
             enriched = builder(EnrichedRecipe.class)
                     .addTypedRecipes(CNRecipeTypes.ENRICHED)
                     .catalystStack(ProcessingViaFanCategory.getFan("fan_enriched"))
-                    .doubleItemIcon(AllItems.PROPELLER.get(), CNBlocks.ENRICHING_CAMPFIRE)
+                    .doubleItemIcon(AllItems.PROPELLER.get(), CNBlocks.ENRICHING_CAMPFIRE.get())
                     .emptyBackground(178, 72)
                     .build("fan_enriched", FanEnrichedCategory::new)
        ;

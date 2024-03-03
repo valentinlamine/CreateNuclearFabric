@@ -5,19 +5,19 @@ import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.CampfireBlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.blockentity.ReinforcedGlassBlock;
-import net.ynov.createnuclear.groups.CNGroup;
 import net.ynov.createnuclear.tags.CNTag;
+//import net.ynov.createnuclear.tools.EnrichingCampfire;
 import net.ynov.createnuclear.tools.EnrichingCampfire;
 import net.ynov.createnuclear.tools.UraniumFireBlock;
 import net.ynov.createnuclear.tools.UraniumOreBlock;
@@ -74,6 +74,7 @@ public class CNBlocks {
                     .initialProperties(CNBlocks::getSoulSoil)
                     .simpleItem()
                     .transform(pickaxeOnly())
+                    .tag(CNTag.BlockTags.ENRICHEING_FIRE_BASE_BLOCKS.tag)
                     .register();
 
     public static final BlockEntry<UraniumFireBlock> ENRICHING_FIRE =

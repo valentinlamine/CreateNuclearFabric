@@ -6,9 +6,11 @@ import com.simibubi.create.compat.jei.category.animations.AnimatedKinetics;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.element.GuiGameElement;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.block.Blocks;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.fan.EnrichedRecipe;
@@ -28,12 +30,11 @@ public class FanEnrichedCategory extends ProcessingViaFanCategory.MultiOutput<En
 
     @Override
     protected void renderAttachedBlock(GuiGraphics graphics) {
-        GuiGameElement.of(CNBlocks.ENRICHING_FIRE.getDefaultState())
+        GuiGameElement.of(CNBlocks.ENRICHING_CAMPFIRE.getDefaultState())
                 .scale(SCALE)
                 .atLocal(0, 0, 2)
                 .lighting(AnimatedKinetics.DEFAULT_LIGHTING)
                 .render(graphics);
-        CreateNuclear.LOGGER.warn("" + graphics);
     }
 
     @Override
