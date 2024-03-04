@@ -1,7 +1,5 @@
 package net.ynov.createnuclear.tags;
 
-import com.simibubi.create.AllTags;
-import com.simibubi.create.Create;
 import com.simibubi.create.foundation.utility.Lang;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -15,9 +13,6 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.ynov.createnuclear.CreateNuclear;
 
-import java.util.Locale;
-
-import static net.ynov.createnuclear.tags.CNTag.NameSpace.CREATE;
 import static net.ynov.createnuclear.tags.CNTag.NameSpace.MOD;
 
 public class CNTag {
@@ -98,7 +93,7 @@ public class CNTag {
 
     public enum BlockTags {
         FAN_PROCESSING_CATALYSTS_ENRICHED(MOD, "fan_processing_catalysts/enriched"),
-        ENRICHEING_FIRE_BASE_BLOCKS("uranium_fire_base_blocks"),
+        ENRICHING_FIRE_BASE_BLOCKS(MOD, "uranium_fire_base_blocks"),
         ;
         public final TagKey<Block> tag;
         public final boolean alwaysDatagen;

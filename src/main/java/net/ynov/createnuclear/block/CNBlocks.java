@@ -72,7 +72,7 @@ public class CNBlocks {
                     .initialProperties(CNBlocks::getSoulSoil)
                     .simpleItem()
                     .transform(pickaxeOnly())
-                    .tag(CNTag.BlockTags.ENRICHEING_FIRE_BASE_BLOCKS.tag)
+                    .tag(CNTag.BlockTags.ENRICHING_FIRE_BASE_BLOCKS.tag)
                     .register();
 
     public static final BlockEntry<EnrichingFireBlock> ENRICHING_FIRE =

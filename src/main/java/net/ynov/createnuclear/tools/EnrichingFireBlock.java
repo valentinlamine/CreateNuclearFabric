@@ -56,7 +56,7 @@ public class EnrichingFireBlock extends BaseFireBlock {
 
     public static boolean canSurviveOnBlock(BlockState state) {
         //return state.is(CNBlocks.ENRICHED_SOUL_SOIL.get());
-        return state.is(CNTag.BlockTags.ENRICHEING_FIRE_BASE_BLOCKS.tag);
+        return state.is(CNTag.BlockTags.ENRICHING_FIRE_BASE_BLOCKS.tag);
     }
 
     public static int getLight(BlockState blockState) {
