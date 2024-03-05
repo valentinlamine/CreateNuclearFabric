@@ -17,13 +17,24 @@
   "item.createnuclear.lead_nugget": "Lead Nugget",
   "item.createnuclear.white_cloth": "White Cloth",
   "item.createnuclear.black_cloth": "Black Cloth",
-
-
+  "item.createnuclear.yellow_cloth": "Yellow Cloth",
+  "item.createnuclear.red_cloth": "Red Cloth",
+  "item.createnuclear.green_cloth": "Green Cloth",
+  "item.createnuclear.blue_cloth": "Blue Cloth",
+  "item.createnuclear.purple_cloth": "Purple Cloth",
+  "item.createnuclear.orange_cloth": "Orange Cloth",
+  "item.createnuclear.cyan_cloth": "Cyan Cloth",
+  "item.createnuclear.light_blue_cloth": "Light Blue Cloth",
+  "item.createnuclear.magenta_cloth": "Magenta Cloth",
+  "item.createnuclear.pink_cloth": "Pink Cloth",
+  "item.createnuclear.brown_cloth": "Brown Cloth",
+  "item.createnuclear.grey_cloth": "Grey Cloth",
+  "item.createnuclear.light_grey_cloth": "Light Grey Cloth",
+  "item.createnuclear.lime_cloth": "Lime Cloth",
   "item.createnuclear.anti_radiation_helmet": "Anti Radiation Helmet",
   "item.createnuclear.anti_radiation_chestplate": "Anti Radiation Chestplate",
   "item.createnuclear.anti_radiation_leggings": "Anti Radiation Leggings",
   "item.createnuclear.anti_radiation_boots": "Anti Radiation Boots",
-
 
 
   "block.createnuclear.deepslate_uranium_ore": "Deepslate Uranium Ore",
@@ -38,19 +49,18 @@
   "block.createnuclear.lead_ore": "Lead Ore",
   "block.createnuclear.raw_lead_block": "Raw Lead Block",
   "block.createnuclear.lead_block": "Lead Block",
-
-
-  "effect.createnuclear.radiation": "Radiation",
-
-  "itemGroup.createnuclear.main": "Create Nuclear",
-
-  "fluid.createnuclear.uranium": "Liquid Uranium",
-
   "block.createnuclear.reactor_casing": "Reactor Casing",
   "block.createnuclear.reactor_main_frame": "Reactor Main Frame",
   "block.createnuclear.cooling_frame": "Cooling Frame",
   "block.createnuclear.reinforced_pipe": "Reinforced Pipe",
   "block.createnuclear.reactor_controller": "Reactor Controller",
 
+
+  "effect.createnuclear.radiation": "Radiation",
+
+  "fluid.createnuclear.uranium": "Liquid Uranium",
+
+
+  "itemGroup.createnuclear.main": "Create Nuclear",
   "itemgroup.uranium": "Uranium Group"
 }

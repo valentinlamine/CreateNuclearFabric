@@ -100,14 +100,14 @@ public class CNBlocks {
                     .simpleItem()
                     .register();
 
-    public static final BlockEntry<EnrichingCampfire> ENRICHING_CAMPFIRE = CreateNuclear.REGISTRATE
-            .block("enriching_campfire", (properties) -> new EnrichingCampfire(true, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lightLevel(litBlockEmission(10)).noOcclusion().ignitedByLava()))
-            .properties(BlockBehaviour.Properties::replaceable)
-            //.initialProperties(CNBlocks::DIAMOND_ORE)
-            .simpleItem()
-            .addLayer(() -> RenderType::cutoutMipped)
-            .transform(pickaxeOnly())
-            .register();
+    public static final BlockEntry<EnrichingCampfire> ENRICHING_CAMPFIRE =
+            CreateNuclear.REGISTRATE.block("enriching_campfire", (properties) -> new EnrichingCampfire(true, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL).instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lightLevel(litBlockEmission(10)).noOcclusion().ignitedByLava()))
+                .properties(BlockBehaviour.Properties::replaceable)
+                .simpleItem()
+                .addLayer(() -> RenderType::cutoutMipped)
+                .transform(pickaxeOnly())
+                .register();
+
     public static final BlockEntry<Block> REACTOR_CONTROLLER =
             CreateNuclear.REGISTRATE.block("reactor_controller", Block::new)
                     .initialProperties(SharedProperties::stone)
