@@ -25,7 +25,7 @@ public class FanEnrichedCategory extends ProcessingViaFanCategory.MultiOutput<En
 
     @Override
     protected void renderAttachedBlock(GuiGraphics graphics) {
-        GuiGameElement.of(CNBlocks.ENRICHING_FIRE.get().defaultBlockState())
+        GuiGameElement.of(CNBlocks.ENRICHING_CAMPFIRE.get().defaultBlockState())
                 .scale(SCALE)
                 .atLocal(0, 0, 2)
                 .lighting(AnimatedKinetics.DEFAULT_LIGHTING)
