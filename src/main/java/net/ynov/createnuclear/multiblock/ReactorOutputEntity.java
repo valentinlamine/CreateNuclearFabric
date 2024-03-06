@@ -25,16 +25,13 @@ import net.ynov.createnuclear.block.CNBlocks;
 
 public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 
-	public static final int DEFAULT_SPEED = 16;
-	public static final int MAX_SPEED = 256;
-
-	protected ScrollValueBehaviour generatedSpeed;
+	public static final int DEFAULT_SPEED = 64;
 
 	public ReactorOutputEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
 
-	@Override
+	/*@Override
 	public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
 		super.addBehaviours(behaviours);
 		int max = MAX_SPEED;
@@ -44,7 +41,7 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 		generatedSpeed.value = DEFAULT_SPEED;
 		generatedSpeed.withCallback(i -> this.updateGeneratedRotation());
 		behaviours.add(generatedSpeed);
-	}
+	}*/
 
 	@Override
 	public void initialize() {
@@ -57,45 +54,8 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 	public float getGeneratedSpeed() {
 		if (!CNBlocks.REACTOR_OUTPUT.has(getBlockState()))
 			return 0;
-		return convertToDirection(generatedSpeed.getValue(), getBlockState().getValue(ReactorOutput.FACING));
+		return convertToDirection(DEFAULT_SPEED, getBlockState().getValue(ReactorOutput.FACING));
 	}
-
-	class MotorValueBox extends ValueBoxTransform.Sided {
-
-		@Override
-		protected Vec3 getSouthLocation() {
-			return VecHelper.voxelSpace(8, 8, 12.5);
-		}
-
-		@Override
-		public Vec3 getLocalOffset(BlockState state) {
-			Direction facing = state.getValue(ReactorOutput.FACING);
-			return super.getLocalOffset(state).add(Vec3.atLowerCornerOf(facing.getNormal())
-				.scale(-1 / 16f));
-		}
-
-		@Override
-		public void rotate(BlockState state, PoseStack ms) {
-			super.rotate(state, ms);
-			Direction facing = state.getValue(ReactorOutput.FACING);
-			if (facing.getAxis() == Axis.Y)
-				return;
-			if (getSide() != Direction.UP)
-				return;
-			TransformStack.cast(ms)
-				.rotateZ(-AngleHelper.horizontalAngle(facing) + 180);
-		}
-
-		@Override
-		protected boolean isSideActive(BlockState state, Direction direction) {
-			Direction facing = state.getValue(ReactorOutput.FACING);
-			if (facing.getAxis() != Axis.Y && direction == Direction.DOWN)
-				return false;
-			return direction.getAxis() != facing.getAxis();
-		}
-
-	}
-
 }
 
 
