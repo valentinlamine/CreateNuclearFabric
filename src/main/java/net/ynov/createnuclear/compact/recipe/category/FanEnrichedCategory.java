@@ -6,8 +6,6 @@ import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.element.GuiGameElement;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.level.block.BaseFireBlock;
-import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.fan.EnrichedRecipe;
 
@@ -25,7 +23,7 @@ public class FanEnrichedCategory extends ProcessingViaFanCategory.MultiOutput<En
 
     @Override
     protected void renderAttachedBlock(GuiGraphics graphics) {
-        GuiGameElement.of(CNBlocks.ENRICHING_CAMPFIRE.get().defaultBlockState())
+        GuiGameElement.of(CNBlocks.ENRICHING_FIRE.getDefaultState())
                 .scale(SCALE)
                 .atLocal(0, 0, 2)
                 .lighting(AnimatedKinetics.DEFAULT_LIGHTING)

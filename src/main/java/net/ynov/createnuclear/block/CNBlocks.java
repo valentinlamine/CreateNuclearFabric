@@ -6,6 +6,7 @@ import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -77,8 +78,10 @@ public class CNBlocks {
 
     public static final BlockEntry<EnrichingFireBlock> ENRICHING_FIRE =
             CreateNuclear.REGISTRATE.block("enriching_fire", properties ->  new EnrichingFireBlock(properties, 3.0f))
+                    .initialProperties(() -> Blocks.FIRE)
                     .properties(BlockBehaviour.Properties::replaceable)
                     .properties(BlockBehaviour.Properties::noCollission)
+                    .properties(BlockBehaviour.Properties::noOcclusion)
                     .properties(p -> p.lightLevel(EnrichingFireBlock::getLight))
                     .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
                     .register();

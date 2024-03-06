@@ -49,8 +49,6 @@ public enum CNRecipeTypes implements IRecipeTypeInfo {
         typeObject = simpleType(id);
         Registry.register(BuiltInRegistries.RECIPE_TYPE, id, typeObject);
         type = () -> typeObject;
-        CreateNuclear.LOGGER.warn("test 10 " + id + "  " + serializerObject + "   " + typeObject + "   " + type);
-
     }
 
     CNRecipeTypes(ProcessingRecipeBuilder.ProcessingRecipeFactory<?> processingFactory) {
