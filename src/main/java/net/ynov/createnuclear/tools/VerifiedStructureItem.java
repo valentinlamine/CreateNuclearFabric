@@ -13,12 +13,14 @@ import net.minecraft.world.level.block.Rotation;
 import net.ynov.createnuclear.CNMultiblock;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.blockentity.ReinforcedGlassBlock;
+import net.ynov.createnuclear.energy.ReactorOutputEntity;
 import org.jetbrains.annotations.NotNull;
 
 public class VerifiedStructureItem extends Item {
     public VerifiedStructureItem(Properties properties) {
         super(properties);
     }
+    public static int SPEED;
 
     @Override
     public @NotNull InteractionResult useOn(UseOnContext context) {
@@ -42,6 +44,13 @@ public class VerifiedStructureItem extends Item {
 
                     if (!structureFound) {
                         player.sendSystemMessage(Component.literal("Erreur dans l'assemblage du multiBlock").withStyle(ChatFormatting.RED));
+                    }
+
+                    if (structureFound) {
+                        SPEED = 10;
+                    }
+                    if (!structureFound) {
+                        SPEED = 0;
                     }
                 }
             }else {

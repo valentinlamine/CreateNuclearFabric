@@ -1,9 +1,7 @@
-package net.ynov.createnuclear.multiblock;
+package net.ynov.createnuclear.energy;
 
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
 
-import com.simibubi.create.AllBlockEntityTypes;
-import com.simibubi.create.AllShapes;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,6 +15,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.ynov.createnuclear.blockentity.CNEntityTypes;
+import net.ynov.createnuclear.shape.CNShapes;
 
 public class ReactorOutput extends DirectionalKineticBlock implements IBE<ReactorOutputEntity> {
 
@@ -26,7 +25,7 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 
 	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
-		return AllShapes.MOTOR_BLOCK.get(state.getValue(FACING));
+		return CNShapes.REACTOR_OUTPUT.get(state.getValue(FACING));
 	}
 
 	@Override
