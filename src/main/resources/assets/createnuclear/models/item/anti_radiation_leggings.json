@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "createnuclear:item/anti_radiation_leggings"
+    "layer0": "minecraft:item/leather_leggings",
+    "layer1": "minecraft:item/leather_leggings_overlay"
   }
 }
