@@ -10,10 +10,12 @@ import net.ynov.createnuclear.fan.CNFanProcessingTypes;
 import net.ynov.createnuclear.fan.CNRecipeTypes;
 import net.ynov.createnuclear.tags.CNTag;
 import net.ynov.createnuclear.block.CNBlocks;
+import net.ynov.createnuclear.blockentity.CNBlockEntities;
 import net.ynov.createnuclear.effects.CNEffects;
 import net.ynov.createnuclear.fluid.CNFluids;
 import net.ynov.createnuclear.groups.CNGroup;
 import net.ynov.createnuclear.item.CNItems;
+import net.ynov.createnuclear.menu.CNMenus;
 import net.ynov.createnuclear.world.gen.CNWorldGeneration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,8 +32,8 @@ public class CreateNuclear implements ModInitializer {
 	public void onInitialize() {
 		CNItems.registerCNItems();
 		CNBlocks.registerCNBlocks();
-		//CNBlockEntityType.register();
-		//CNBlockEntity.register();
+		CNMenus.register();
+		CNBlockEntities.register();
 		CNGroup.registrer();
 		CNFluids.register();
 		CNEffects.register();
