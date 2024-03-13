@@ -100,7 +100,8 @@ public class CNBlocks {
                     .register();
     public static final BlockEntry<ReactorOutput> REACTOR_OUTPUT =
             CreateNuclear.REGISTRATE.block("reactor_output", ReactorOutput::new)
-                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(4F))
 			.tag(AllTags.AllBlockTags.SAFE_NBT.tag)
 			.transform(pickaxeOnly())
 			.blockstate(new CreativeMotorGenerator()::generate)
@@ -119,40 +120,35 @@ public class CNBlocks {
             .register();
     public static final BlockEntry<ReactorController> REACTOR_CONTROLLER =
             CreateNuclear.REGISTRATE.block("reactor_controller", ReactorController::new)
-                    .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(1200F))
-                    .properties(p -> p.destroyTime(2F))
+                    .properties(p -> p.destroyTime(4F))
                     .simpleItem()
                     .register();
     public static final BlockEntry<ReactorBlock> REACTOR_CORE =
             CreateNuclear.REGISTRATE.block("reactor_core", ReactorBlock::new)
-                    .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(1200F))
-                    .properties(p -> p.destroyTime(2F))
+                    .properties(p -> p.destroyTime(4F))
                     .simpleItem()
                     .register();
 
     public static final BlockEntry<ReactorBlock> COOLING_FRAME =
             CreateNuclear.REGISTRATE.block("cooling_frame", ReactorBlock::new)
-                    .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(1200F))
-                    .properties(p -> p.destroyTime(2F))
+                    .properties(p -> p.destroyTime(4F))
                     .simpleItem()
                     .register();
 
     public static final BlockEntry<ReactorBlock> REACTOR_CASING =
             CreateNuclear.REGISTRATE.block("reactor_casing", ReactorBlock::new)
-                    .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(1200F))
-                    .properties(p -> p.destroyTime(2F))
+                    .properties(p -> p.destroyTime(4F))
                     .simpleItem()
                     .register();
 
     public static final BlockEntry<ReactorBlock> REACTOR_MAIN_FRAME =
             CreateNuclear.REGISTRATE.block("reactor_main_frame", ReactorBlock::new)
-                    .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(1200F))
-                    .properties(p -> p.destroyTime(2F))
+                    .properties(p -> p.destroyTime(4F))
                     .simpleItem()
                     .register();
 
