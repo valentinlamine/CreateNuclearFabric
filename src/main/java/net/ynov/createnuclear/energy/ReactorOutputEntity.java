@@ -24,7 +24,9 @@ import java.util.List;
 
 public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 
-	public static int DEFAULT_SPEED = 0;
+	public static final int DEFAULT_SPEED = 0;
+	public static boolean structure;
+	public int speed = 0;
 	protected ScrollValueBehaviour generatedSpeed;
 
 	public ReactorOutputEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -35,7 +37,8 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 		super.addBehaviours(behaviours);
 		generatedSpeed = new KineticScrollValueBehaviour(Lang.translateDirect("kinetics.reactor_output.rotation_speed"),
 			this, new net.ynov.createnuclear.energy.ReactorOutputEntity.MotorValueBox());
-		generatedSpeed.value = VerifiedStructureItem.SPEED;
+		generatedSpeed.between(-speed, speed);
+		generatedSpeed.value = speed;
 		generatedSpeed.withCallback(i -> this.updateGeneratedRotation());
 		behaviours.add(generatedSpeed);
 	}
@@ -51,7 +54,7 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 	public float getGeneratedSpeed() {
 		if (!CNBlocks.REACTOR_OUTPUT.has(getBlockState()))
 			return 0;
-		return convertToDirection(generatedSpeed.getValue(), getBlockState().getValue(ReactorOutput.FACING));
+		return convertToDirection(speed, getBlockState().getValue(ReactorOutput.FACING));
 	}
 
 	@Override

@@ -18,6 +18,7 @@ import net.ynov.createnuclear.blockentity.CNEntityTypes;
 import net.ynov.createnuclear.shape.CNShapes;
 
 public class ReactorOutput extends DirectionalKineticBlock implements IBE<ReactorOutputEntity> {
+	public boolean structureBlock;
 
 	public ReactorOutput(Properties properties) {
 		super(properties);
