@@ -95,7 +95,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
             return;
         }
 
-        List<CNIconButton> switchButtons = new ArrayList<>();
+        List<CNIconButton> switchButtons = new ArrayList<>(); //57 icon sur l'interface
 
         switchButtons.add(new CNIconButton(leftPos + startWidth + incr*3, topPos + startHeight, CNIcons.EMPTY_ICON));
         switchButtons.add(new CNIconButton(leftPos + startWidth + incr*4, topPos + startHeight, CNIcons.EMPTY_ICON));
