@@ -5,9 +5,8 @@ import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -17,9 +16,11 @@ import net.minecraft.world.level.material.MapColor;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.blockentity.ReinforcedGlassBlock;
 import net.ynov.createnuclear.content.reactor.controller.ReactorControllerBlock;
+import net.ynov.createnuclear.tags.CNTag;
+//import net.ynov.createnuclear.tools.EnrichingCampfire;
 import net.ynov.createnuclear.groups.CNGroup;
 import net.ynov.createnuclear.tools.EnrichingCampfire;
-import net.ynov.createnuclear.tools.UraniumFireBlock;
+import net.ynov.createnuclear.tools.EnrichingFireBlock;
 import net.ynov.createnuclear.tools.UraniumOreBlock;
 
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
@@ -28,7 +29,7 @@ import static net.minecraft.world.level.block.Blocks.litBlockEmission;
 public class CNBlocks {
 
     static {
-        CreateNuclear.REGISTRATE.setCreativeTab(CNGroup.MAIN_KEY);
+        //CreateNuclear.REGISTRATE.setCreativeTab(CNGroup.MAIN_KEY);
     }
 
     public static final BlockEntry<UraniumOreBlock> DEEPSLATE_URANIUM_ORE =
@@ -73,13 +74,17 @@ public class CNBlocks {
                     .initialProperties(CNBlocks::getSoulSoil)
                     .simpleItem()
                     .transform(pickaxeOnly())
+                    .tag(CNTag.BlockTags.ENRICHING_FIRE_BASE_BLOCKS.tag)
                     .register();
 
-    public static final BlockEntry<UraniumFireBlock> ENRICHING_FIRE =
-            CreateNuclear.REGISTRATE.block("enriching_fire", UraniumFireBlock::new)
+    public static final BlockEntry<EnrichingFireBlock> ENRICHING_FIRE =
+            CreateNuclear.REGISTRATE.block("enriching_fire", properties ->  new EnrichingFireBlock(properties, 3.0f))
+                    .initialProperties(() -> Blocks.FIRE)
                     .properties(BlockBehaviour.Properties::replaceable)
                     .properties(BlockBehaviour.Properties::noCollission)
-                    .properties(p -> p.lightLevel(UraniumFireBlock::getLight))
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .properties(p -> p.lightLevel(EnrichingFireBlock::getLight))
+                    .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
                     .register();
 
     public static final BlockEntry<ReinforcedGlassBlock> REINFORCED_GLASS =
@@ -91,13 +96,22 @@ public class CNBlocks {
                     .register();
 
     public static final BlockEntry<EnrichingCampfire> ENRICHING_CAMPFIRE =
-            CreateNuclear.REGISTRATE.block("enriching_campfire", properties -> new EnrichingCampfire(true, 5, BlockBehaviour.Properties.of().mapColor(MapColor.PODZOL)
-                            .instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).lightLevel(litBlockEmission(10)).noOcclusion().ignitedByLava()))
+            CreateNuclear.REGISTRATE.block("enriching_campfire", properties -> new EnrichingCampfire(true, 5, BlockBehaviour.Properties.of()
+                .mapColor(MapColor.PODZOL)
+                .instrument(NoteBlockInstrument.BASS)
+                .strength(2.0F)
+                .sound(SoundType.WOOD)
+                .lightLevel(litBlockEmission(10))
+                .noOcclusion()
+                .ignitedByLava()
+
+            ))
             .properties(BlockBehaviour.Properties::replaceable)
             //.initialProperties(CNBlocks::DIAMOND_ORE)
             .simpleItem()
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(pickaxeOnly())
+            .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
             .register();
 
     public static final BlockEntry<ReactorControllerBlock> REACTOR_CONTROLLER =
@@ -155,12 +169,12 @@ public class CNBlocks {
     }
 
     private static void addBlockToCreateNuclearItemGroup(FabricItemGroupEntries entries) {
-        entries.accept(ENRICHING_CAMPFIRE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
+        //entries.accept(ENRICHING_CAMPFIRE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
     }
 
     public static void registerCNBlocks() {
         CreateNuclear.LOGGER.info("Registering ModBlocks for " + CreateNuclear.MOD_ID);
 
-        ItemGroupEvents.modifyEntriesEvent(CNGroup.MAIN_KEY).register(CNBlocks::addBlockToCreateNuclearItemGroup);
+        //ItemGroupEvents.modifyEntriesEvent(CNGroup.MAIN_KEY).register(CNBlocks::addBlockToCreateNuclearItemGroup);
     }
 }
