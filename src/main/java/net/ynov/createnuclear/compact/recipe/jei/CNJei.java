@@ -31,7 +31,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
-import net.ynov.createnuclear.compact.recipe.category.FanEnrichedCategory;
+import net.ynov.createnuclear.compact.recipe.category.FanEnrichedCategoryJEI;
 import net.ynov.createnuclear.fan.CNRecipeTypes;
 import net.ynov.createnuclear.fan.EnrichedRecipe;
 
@@ -57,7 +57,7 @@ public class CNJei implements IModPlugin {
                     .catalystStack(ProcessingViaFanCategory.getFan("fan_enriched"))
                     .doubleItemIcon(AllItems.PROPELLER.get(), CNBlocks.ENRICHING_CAMPFIRE.get())
                     .emptyBackground(178, 72)
-                    .build("fan_enriched", FanEnrichedCategory::new)
+                    .build("fan_enriched", FanEnrichedCategoryJEI::new)
        ;
     }
 

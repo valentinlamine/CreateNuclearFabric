@@ -9,9 +9,9 @@ import net.minecraft.network.chat.Component;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.fan.EnrichedRecipe;
 
-public class FanEnrichedCategory extends ProcessingViaFanCategory.MultiOutput<EnrichedRecipe>{
+public class FanEnrichedCategoryJEI extends ProcessingViaFanCategory.MultiOutput<EnrichedRecipe>{
 
-    public FanEnrichedCategory(Info<EnrichedRecipe> info) {
+    public FanEnrichedCategoryJEI(Info<EnrichedRecipe> info) {
         super(info);
     }
 

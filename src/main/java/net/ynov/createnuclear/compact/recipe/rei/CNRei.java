@@ -1,32 +1,55 @@
 package net.ynov.createnuclear.compact.recipe.rei;
 
 import com.simibubi.create.AllItems;
-import com.simibubi.create.compat.jei.GhostIngredientHandler;
-import com.simibubi.create.compat.jei.SlotMover;
-import com.simibubi.create.compat.jei.ToolboxColoringRecipeMaker;
-import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
-import com.simibubi.create.compat.jei.category.ProcessingViaFanCategory;
+import com.simibubi.create.compat.rei.*;
+import com.simibubi.create.compat.rei.category.CreateRecipeCategory;
+import com.simibubi.create.compat.rei.category.ProcessingViaFanCategory;
+import com.simibubi.create.compat.rei.display.CreateDisplay;
+import com.simibubi.create.content.fluids.VirtualFluid;
+import com.simibubi.create.foundation.config.ConfigBase;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
-import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
+import com.simibubi.create.foundation.item.TagDependentIngredientItem;
+import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
+import com.simibubi.create.foundation.utility.Lang;
+import com.simibubi.create.infrastructure.config.AllConfigs;
+import com.simibubi.create.infrastructure.config.CRecipes;
+import dev.architectury.fluid.FluidStack;
+import io.github.fabricators_of_create.porting_lib.mixin.accessors.common.accessor.RecipeManagerAccessor;
+import me.shedaniel.rei.api.client.gui.Renderer;
+import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
+import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
+import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
+import me.shedaniel.rei.api.client.registry.entry.EntryRegistry;
+import me.shedaniel.rei.api.client.registry.screen.ExclusionZones;
+import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
+import me.shedaniel.rei.api.client.registry.transfer.TransferHandlerRegistry;
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.display.Display;
+import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
+import me.shedaniel.rei.plugin.common.BuiltinPlugin;
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Display;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.ItemLike;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
-import net.ynov.createnuclear.compact.recipe.category.FanEnrichedCategory;
+import net.ynov.createnuclear.compact.recipe.category.FanEnrichedCategoryREI;
 import net.ynov.createnuclear.fan.CNRecipeTypes;
 import net.ynov.createnuclear.fan.EnrichedRecipe;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-/*
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+
 @SuppressWarnings("unused")
 @ParametersAreNonnullByDefault
-public class CNRei implements REIClientPlugin{
+public class CNRei implements REIClientPlugin {
     private static final ResourceLocation REIID = CreateNuclear.asResource("rei_plugin");
 
     private final List<CreateRecipeCategory<?>> allCategories = new ArrayList<>();
@@ -40,7 +63,7 @@ public class CNRei implements REIClientPlugin{
                 .catalystStack(ProcessingViaFanCategory.getFan("fan_enriched"))
                 .doubleItemIcon(AllItems.PROPELLER.get(), CNBlocks.ENRICHING_CAMPFIRE)
                 .emptyBackground(178, 72)
-                .build("fan_enriched", FanEnrichedCategory::new)
+                .build("fan_enriched", FanEnrichedCategoryREI::new)
 
                 ;
     }
@@ -142,7 +165,7 @@ public class CNRei implements REIClientPlugin{
             return this;
         }
 
-        public CategoryBuilder<T> enableWhen(Function<CRecipes, ConfigBool> configValue) {
+        public CategoryBuilder<T> enableWhen(Function<CRecipes, ConfigBase.ConfigBool> configValue) {
             predicate = c -> configValue.apply(c).get();
             return this;
         }
@@ -294,12 +317,12 @@ public class CNRei implements REIClientPlugin{
             }
 
             if (width <= 0 || height <= 0) {
-                Create.LOGGER.warn("Create REI category [{}] has weird dimensions: {}x{}", name, width, height);
+                CreateNuclear.LOGGER.warn("Create REI category [{}] has weird dimensions: {}x{}", name, width, height);
             }
 
             CreateRecipeCategory.Info<T> info = new CreateRecipeCategory.Info<>(
-                    CategoryIdentifier.of(Create.asResource(name)),
-                    Lang.translateDirect("recipe." + name), background, icon, recipesSupplier, catalysts, width, height, displayFactory == null ? (recipe) -> new CreateDisplay<>(recipe, CategoryIdentifier.of(Create.asResource(name))) : displayFactory);
+                    CategoryIdentifier.of(CreateNuclear.asResource(name)),
+                    Lang.translateDirect("recipe." + name), background, icon, recipesSupplier, catalysts, width, height, displayFactory == null ? (recipe) -> new CreateDisplay<>(recipe, CategoryIdentifier.of(CreateNuclear.asResource(name))) : displayFactory);
             CreateRecipeCategory<T> category = factory.create(info);
             allCategories.add(category);
             return category;
@@ -351,4 +374,3 @@ public class CNRei implements REIClientPlugin{
                 .test(matchingStacks[0]);
     }
 }
-*/

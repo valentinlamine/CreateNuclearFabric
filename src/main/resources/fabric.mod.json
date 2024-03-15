@@ -26,6 +26,12 @@
 		],
 		"jei_mod_plugin": [
 			"net.ynov.createnuclear.compact.recipe.jei.CNJei"
+		],
+		"rei_client": [
+			"net.ynov.createnuclear.compact.recipe.rei.CNRei"
+		],
+		"emi": [
+			"net.ynov.createnuclear.compact.recipe.emi.CNEmi"
 		]
 	},
 	"mixins": [

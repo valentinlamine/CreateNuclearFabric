@@ -43,5 +43,6 @@
   "gui.createnuclear.reactor_controller.title": "Reactor Controller",
 
   "createnuclear.enriched.fan.recipe": "Bulk Enriched",
+  "emi.category.createnuclear.fan_enriched": "Bulk Enriched",
   "create.recipe.fan_enriched.fan": "Fan behing Enriched"
 }
