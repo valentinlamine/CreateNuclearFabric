@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "group": "coal",
+  "ingredient": {
+    "item": "createnuclear:lead_ore"
+  },
+  "result": "createnuclear:raw_lead"
+}
