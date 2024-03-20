@@ -38,6 +38,7 @@ jobs:
           distribution: 'temurin'
       
       - name: make gradle wrapper executable
+        if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
       
       - name: build
@@ -60,6 +61,29 @@ jobs:
       
       - name: Push Tag
         run: git push --follow-tags
+
+      - name: Publish (CurseForge) test
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          curseforge-id: createnuclear
+          curseforge-token: f1b2d81d-3db5-4279-8b69-c02248a081bb
+          name: createnuclear 1.0.0rc01-1.20.1
+          version: 1.0.0rc01-1.20.1
+          version-type: alpha
+          changelog: "TEST Push with github action"
+          loaders: fabric
+          game-versions: 1.20.1
+          dependencies: |
+            fabricloader@>=0.14.22(required)
+            minecraft@~1.20.1(required)
+            create@*(required)
+            fabric-api@>=0.87.0+1.20.1(required)
+            JEI@15.2.0.27(optional)
+            REI@12.0.684(optional)
+            EMI@1.1.2+1.20.1(optional)
+          java: |
+            Java 17
+
       
       - name: Create Release
         uses: ncipollo/release-action@v1
