@@ -24,6 +24,7 @@
   "block.createnuclear.reinforced_glass": "Reinforced Glass",
   "block.createnuclear.lead_ore": "Lead Ore",
   "block.createnuclear.raw_lead_block": "Raw Lead Block",
+  "block.createnuclear.reactor_output": "Reactor Output",
 
   "effect.createnuclear.radiation": "Radiation",
 

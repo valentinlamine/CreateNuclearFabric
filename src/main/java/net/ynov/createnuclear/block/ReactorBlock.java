@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
+import net.ynov.createnuclear.content.reactor.controller.ReactorControllerBlock;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class ReactorBlock extends Block {
         FindController(pos, level, players, false);
     }
 
-    public ReactorController FindController(BlockPos blockPos, Level level, List<? extends Player> players, boolean first){ // Function that checks the surrounding blocks in order
+    public ReactorControllerBlock FindController(BlockPos blockPos, Level level, List<? extends Player> players, boolean first){ // Function that checks the surrounding blocks in order
         BlockPos newBlock;                                                   // to find the controller and verify the pattern
         Vec3i pos = new Vec3i(blockPos.getX(), blockPos.getY(), blockPos.getZ());
         for (int y = pos.getY()-3; y != pos.getY()+4; y+=1) {
@@ -48,9 +49,10 @@ public class ReactorBlock extends Block {
                     newBlock = new BlockPos(x, y, z);
                     if (level.getBlockState(newBlock).is(CNBlocks.REACTOR_CONTROLLER.get())) { // verifying the pattern
                         CreateNuclear.LOGGER.info("ReactorController FOUND!!!!!!!!!!: ");      // from the controller
-                        ReactorController controller = (ReactorController) level.getBlockState(newBlock).getBlock();
+                        ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(newBlock).getBlock();
                         controller.Verify(newBlock, level, players, first);
-                        return controller;
+                        if (controller.created)
+                            return controller;
                     }
                     //else CreateNuclear.LOGGER.info("newBlock: " + level.getBlockState(newBlock).getBlock());
                 }

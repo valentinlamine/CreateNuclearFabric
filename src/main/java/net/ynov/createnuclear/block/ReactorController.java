@@ -24,10 +24,23 @@ public class ReactorController extends Block {
     public boolean destroyed = false;
     public boolean created = false;
     public int speed = 16; // This is the result speed of the reactor, change this to change the total capacity
+    //public ReactorController controller;
 
     public ReactorController(Properties properties) {
         super(properties);
     }
+
+    /*@Override
+    protected void read(CompoundTag compound, boolean clientPacket) { //Permet de stocker les item 1/2
+
+        super.read(compound, clientPacket);
+    }
+
+    @Override
+    protected void write(CompoundTag compound, boolean clientPacket) { //Permet de stocker les item 2/2
+        compound.put("Inventory", inventory.serializeNBT());
+        super.write(compound, clientPacket);
+    }*/
 
     // this is the Function that verifies if the pattern is correct (as a test, we added the energy output)
     public void Verify(BlockPos pos, Level level, List<? extends Player> players, boolean create){
@@ -70,15 +83,14 @@ public class ReactorController extends Block {
                 Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos)).speed = rotation;
                 Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos)).updateSpeed = true;
                 Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos)).updateGeneratedRotation();
-            } else if (!ReactorOutputEntity.structure) { // stopping the energy
+            } else { // stopping the energy
                 ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
                 Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos)).speed = 0;
                 Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos)).updateSpeed = true;
                 Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos)).updateGeneratedRotation();
             }
-            if (level.getBlockState(pos).is(CNBlocks.REACTOR_OUTPUT.get())) { // Starting the energy
-                ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
-            }
+
+            ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
 
             //CompoundTag compoundtag =
         }

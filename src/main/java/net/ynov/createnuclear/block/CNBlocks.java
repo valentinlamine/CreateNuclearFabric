@@ -128,12 +128,6 @@ public class CNBlocks {
             .transform(pickaxeOnly())
             .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
             .register();
-            public static final BlockEntry<ReactorController> REACTOR_CONTROLLER2 =
-            CreateNuclear.REGISTRATE.block("reactor_controller", ReactorController::new)
-                    .properties(p -> p.explosionResistance(1200F))
-                    .properties(p -> p.destroyTime(4F))
-                    .simpleItem()
-                    .register();
 
     public static final BlockEntry<ReactorControllerBlock> REACTOR_CONTROLLER =
             CreateNuclear.REGISTRATE.block("reactor_controller", ReactorControllerBlock::new)

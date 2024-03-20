@@ -9,7 +9,7 @@
     "createnuclear:reactor_core",
     "createnuclear:reactor_main_frame",
     "createnuclear:reactor_casing",
-    "createnuclear:cooling_frame",
+    "createnuclear:reactor_cooling_frame",
     "createnuclear:reactor_output"
   ]
 }

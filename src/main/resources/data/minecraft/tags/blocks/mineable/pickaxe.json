@@ -11,9 +11,6 @@
     "createnuclear:reactor_core",
     "createnuclear:reactor_casing",
     "createnuclear:reactor_main_frame",
-    "createnuclear:cooling_frame",
-    "createnuclear:raw_uranium_block",
-    "createnuclear:enriched_soul_soil",
     "createnuclear:reactor_output",
     "createnuclear:reactor_cooling_frame"
   ]

@@ -7,13 +7,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Vec3i;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -24,8 +27,10 @@ import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.block.ReactorController;
 import net.ynov.createnuclear.blockentity.CNEntityTypes;
+import net.ynov.createnuclear.content.reactor.controller.ReactorControllerBlock;
 import net.ynov.createnuclear.shape.CNShapes;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
@@ -41,10 +46,15 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 		if (level.isClientSide)
 			return InteractionResult.SUCCESS;
 		else {
-			List<? extends Player> players = level.players();
-			ReactorController controller = FindController(pos, level, players, false);
-			controller.speed = -controller.speed;
-			controller.Rotate(pos, level, controller.speed);
+			ReactorControllerBlock controller = FindController(pos, level);
+			if (controller != null){
+				player.sendSystemMessage(Component.literal("controller is " + controller.created + " " + controller.speed));
+				if (controller.created){
+					controller.speed = -controller.speed;
+					controller.Rotate(pos, level, controller.speed);
+				}
+				else controller.Rotate(pos, level, 0);
+			}
 			return InteractionResult.CONSUME;
 		}
 	}
@@ -53,7 +63,18 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 	public void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
 		super.onPlace(state, worldIn, pos, oldState, isMoving);
 		List<? extends Player> players = worldIn.players();
-		FindController(pos, worldIn, players, true);
+		ReactorControllerBlock controller = FindController(pos, worldIn);
+		if (controller != null)
+			controller.Verify(pos, worldIn, players, true);
+	}
+
+	@Override
+	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
+		super.playerDestroy(level, player, pos, state, blockEntity, tool);
+		List<? extends Player> players = level.players();
+		ReactorControllerBlock controller = FindController(pos, level);
+		if (controller != null)
+			controller.Verify(pos, level, players, false);
 	}
 
 	@Override
@@ -103,24 +124,11 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 		return CNEntityTypes.MOTOR2.get();
 	}
 
-	public ReactorController FindController(BlockPos blockPos, Level level, List<? extends Player> players, boolean first){
-        BlockPos newBlock;
-        Vec3i pos = new Vec3i(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-        CreateNuclear.LOGGER.info("blockPos: " +pos.toString());
-        for (int y = pos.getY()-3; y != pos.getY()+4; y+=1) {
-            for (int x = pos.getX()-5; x != pos.getX()+5; x+=1) {
-                for (int z = pos.getZ()-5; z != pos.getZ()+5; z+=1) {
-                    newBlock = new BlockPos(x, y, z);
-                    if (level.getBlockState(newBlock).is(CNBlocks.REACTOR_CONTROLLER.get())) {
-                        CreateNuclear.LOGGER.info("ReactorController FOUND!!!!!!!!!!: ");
-                        ReactorController controller = (ReactorController) level.getBlockState(newBlock).getBlock();
-                        controller.Verify(newBlock, level, players, first);
-						return controller;
-                    }
-                    //else CreateNuclear.LOGGER.info("newBlock: " + level.getBlockState(newBlock).getBlock());
-                }
-            }
-        }
+	public ReactorControllerBlock FindController(BlockPos pos, Level level){
+		if (level.getBlockState(pos.above(3)).getBlock() == CNBlocks.REACTOR_CONTROLLER.get()){
+			ReactorControllerBlock controller = (ReactorControllerBlock)level.getBlockState(pos.above(3)).getBlock();
+			return controller;
+		}
 		return null;
 	}
 
