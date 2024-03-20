@@ -85,6 +85,7 @@ jobs:
           version: ${{ github.event.inputs.version }}
           version-type: ${{ github.event.inputs.version-type }}
           # changelog: "TEST Push with github action"
+          changelog-file: CHANGELOG.md
           loaders: fabric
           github-generate-changelog: true
           game-versions: 1.20.1
