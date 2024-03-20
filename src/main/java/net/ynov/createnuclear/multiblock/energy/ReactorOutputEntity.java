@@ -1,4 +1,4 @@
-package net.ynov.createnuclear.energy;
+package net.ynov.createnuclear.multiblock.energy;
 
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -17,7 +17,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
 import net.minecraft.world.phys.Vec3;
 import net.ynov.createnuclear.block.CNBlocks;
-import net.ynov.createnuclear.tools.EnrichingCampfireBlock;
 
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 	public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
 		super.addBehaviours(behaviours);
 		generatedSpeed = new KineticScrollValueBehaviour(Lang.translateDirect("kinetics.reactor_output.rotation_speed"),
-			this, new net.ynov.createnuclear.energy.ReactorOutputEntity.MotorValueBox());
+			this, new net.ynov.createnuclear.multiblock.energy.ReactorOutputEntity.MotorValueBox());
 		generatedSpeed.between(-speed, speed);
 		generatedSpeed.value = speed;
 		generatedSpeed.withCallback(i -> this.updateGeneratedRotation());

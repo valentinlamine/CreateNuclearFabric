@@ -1,4 +1,4 @@
-package net.ynov.createnuclear.energy;
+package net.ynov.createnuclear.multiblock.energy;
 
 
 import com.simibubi.create.AllPartialModels;

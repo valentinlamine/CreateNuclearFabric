@@ -4,8 +4,8 @@ import com.simibubi.create.content.kinetics.base.HalfShaftInstance;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
-import net.ynov.createnuclear.energy.ReactorOutputEntity;
-import net.ynov.createnuclear.energy.ReactorOutputRenderer;
+import net.ynov.createnuclear.multiblock.energy.ReactorOutputEntity;
+import net.ynov.createnuclear.multiblock.energy.ReactorOutputRenderer;
 
 public class CNEntityTypes {
     public static final BlockEntityEntry<ReactorOutputEntity> MOTOR2 = CreateNuclear.REGISTRATE

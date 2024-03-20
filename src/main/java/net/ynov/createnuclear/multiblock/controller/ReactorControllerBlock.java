@@ -1,4 +1,4 @@
-package net.ynov.createnuclear.content.reactor.controller;
+package net.ynov.createnuclear.multiblock.controller;
 
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.item.ItemHelper;
@@ -26,8 +26,8 @@ import net.ynov.createnuclear.CNMultiblock;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.blockentity.CNBlockEntities;
-import net.ynov.createnuclear.energy.ReactorOutput;
-import net.ynov.createnuclear.energy.ReactorOutputEntity;
+import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
+import net.ynov.createnuclear.multiblock.energy.ReactorOutputEntity;
 import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.item.CNItems;
 import org.jetbrains.annotations.Nullable;
