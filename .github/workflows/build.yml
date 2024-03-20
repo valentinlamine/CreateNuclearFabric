@@ -67,12 +67,13 @@ jobs:
         with:
           curseforge-id: 989797
           curseforge-token: f1b2d81d-3db5-4279-8b69-c02248a081bb
-          name: createnuclear 1.0.0rc01-1.20.1
-          version: 1.0.0rc01-1.20.1
+          name: createnuclear 1.0.0rc02-1.20.1
+          version: 1.0.0rc02-1.20.1
           version-type: alpha
           changelog: "TEST Push with github action"
           loaders: fabric
           game-versions: 1.20.1
+          files: build/libs/*.jar 
           dependencies: |
             fabricloader@>=0.14.22(required)
             minecraft@~1.20.1(required)
