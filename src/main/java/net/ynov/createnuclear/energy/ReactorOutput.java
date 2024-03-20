@@ -7,6 +7,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Vec3i;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -14,30 +17,47 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
-import net.ynov.createnuclear.block.ReactorBlock;
 import net.ynov.createnuclear.block.ReactorController;
 import net.ynov.createnuclear.blockentity.CNEntityTypes;
 import net.ynov.createnuclear.shape.CNShapes;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+import java.util.Objects;
 
 public class ReactorOutput extends DirectionalKineticBlock implements IBE<ReactorOutputEntity> {
-	public boolean structureBlock;
 
 	public ReactorOutput(Properties properties) {
 		super(properties);
 	}
 
 	@Override
-	public void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
-		super.onPlace(state, worldIn, pos, oldState, isMoving);
-		FindController(pos, worldIn);
+	public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		if (level.isClientSide)
+			return InteractionResult.SUCCESS;
+		else {
+			List<? extends Player> players = level.players();
+			ReactorController controller = FindController(pos, level, players, false);
+			controller.speed = -controller.speed;
+			controller.Rotate(pos, level, controller.speed);
+			return InteractionResult.CONSUME;
+		}
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+	public void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+		super.onPlace(state, worldIn, pos, oldState, isMoving);
+		List<? extends Player> players = worldIn.players();
+		FindController(pos, worldIn, players, true);
+	}
+
+	@Override
+	public @NotNull VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
 		return CNShapes.REACTOR_OUTPUT.get(state.getValue(FACING));
 	}
 
@@ -83,7 +103,7 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 		return CNEntityTypes.MOTOR2.get();
 	}
 
-	public void FindController(BlockPos blockPos, Level level){
+	public ReactorController FindController(BlockPos blockPos, Level level, List<? extends Player> players, boolean first){
         BlockPos newBlock;
         Vec3i pos = new Vec3i(blockPos.getX(), blockPos.getY(), blockPos.getZ());
         CreateNuclear.LOGGER.info("blockPos: " +pos.toString());
@@ -94,14 +114,15 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
                     if (level.getBlockState(newBlock).is(CNBlocks.REACTOR_CONTROLLER.get())) {
                         CreateNuclear.LOGGER.info("ReactorController FOUND!!!!!!!!!!: ");
                         ReactorController controller = (ReactorController) level.getBlockState(newBlock).getBlock();
-                        controller.Verify(newBlock, level);
-                        return;
+                        controller.Verify(newBlock, level, players, first);
+						return controller;
                     }
                     //else CreateNuclear.LOGGER.info("newBlock: " + level.getBlockState(newBlock).getBlock());
                 }
             }
         }
-    }
+		return null;
+	}
 
 }
 
