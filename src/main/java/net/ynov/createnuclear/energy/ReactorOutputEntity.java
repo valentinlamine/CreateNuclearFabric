@@ -18,7 +18,6 @@ import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
 import net.minecraft.world.phys.Vec3;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.tools.EnrichingCampfireBlock;
-import net.ynov.createnuclear.tools.VerifiedStructureItem;
 
 import java.util.List;
 

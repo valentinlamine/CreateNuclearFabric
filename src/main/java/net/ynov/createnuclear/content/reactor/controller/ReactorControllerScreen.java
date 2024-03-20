@@ -20,6 +20,8 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     private float progress;
     private float chasingProgress;
     private float lastChasingProgress;
+    private final int maxHeat = 100;
+    private int heat = 0;
 
     public ReactorControllerScreen(ReactorControllerMenu container, Inventory inv, Component title) {
         super(container, inv, title);
@@ -62,8 +64,9 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         int width = PROGRESS_BAR.width;
         int heightProgress = (int) (PROGRESS_BAR.height
                 * Mth.lerp(partialTicks, lastChasingProgress, chasingProgress));
-        System.out.println("count Graphite : " + countGraphiteRod());
-        System.out.println("count Uranium : " + countUraniumRod());
+        //System.out.println("count Graphite : " + countGraphiteRod());
+        //System.out.println("count Uranium : " + countUraniumRod());
+        System.out.println("current heat : " + heatManager());
         graphics.blit(PROGRESS_BAR.location, x + 179, y + 40 + (PROGRESS_BAR.height - heightProgress), PROGRESS_BAR.startX,
                 (176 - heightProgress), width, heightProgress);
     }
@@ -150,6 +153,9 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
                     button.setIcon(CNIcons.EMPTY_ICON);
                 }
             });
+
+
+            //CreateNuclear.LOGGER.info(String.valueOf(heatManager()));
         }
         menu.contentHolder.setSwitchButtons(switchButtons);
         addRenderableWidgets(switchButtons);
@@ -161,5 +167,26 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     }
     public int countUraniumRod() {
         return (int) menu.contentHolder.getSwitchButtons().stream().filter(e -> e.getIcon().equals(CNIcons.URANIUM_ROD_ICON)).count();
+    }
+
+    public int heatManager() {
+        heat = countUraniumRod() * 4 - countGraphiteRod() * 6;
+
+        List<CNIconButton> switchButtons = menu.contentHolder.getSwitchButtons();
+        for (int i = 0; i < switchButtons.size(); i++) {
+            CNIconButton button = switchButtons.get(i);
+            if (button.getIcon().equals(CNIcons.GRAPHITE_ROD_ICON)) {
+                CreateNuclear.LOGGER.info("Graphite Rod at index: " + i);
+            } else if (button.getIcon().equals(CNIcons.URANIUM_ROD_ICON)) {
+                CreateNuclear.LOGGER.info("Uranium Rod at index: " + i);
+            } else {
+                CreateNuclear.LOGGER.info("Empty at index: " + i);
+            }
+        }
+
+        /*if (heat >= 100) {
+            CreateNuclear.LOGGER.info("oulala il est chaud un peu la, attenti... BOOOOM");
+        }*/
+        return heat;
     }
 }
