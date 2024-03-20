@@ -1,0 +1,35 @@
+# Automatically build the project and run any configured tests for every push
+# and submitted pull request. This can help catch issues that only occur on
+# certain platforms or Java versions, and provides a first line of defence
+# against bad commits.
+
+name: build
+on:
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        # Use these Java versions
+        java: [
+          21,    # Current Java LTS & minimum supported by Minecraft
+        ]
+        # and run on both Linux and Windows
+        os: [ubuntu-22.04]
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run Changelog CI
+        uses: saadmk11/changelog-ci@v1.1.2
+        id: changelog-ci
+
+      - name: Get Changelog Output
+        run: |
+          echo ${{ steps.changelog-ci.outputs.changelog }}
+          pwd ${{ steps.changelog-ci.outputs.changelog }}
