@@ -2,6 +2,7 @@ package net.ynov.createnuclear;
 
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import io.github.tropheusj.milk.mixin.BrewingRecipeRegistryMixin;
+import io.github.tropheusj.milk.mixin.BrewingRecipeRegistryMixin;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.resources.ResourceLocation;
