@@ -76,6 +76,30 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         return ReactorControllerMenu.create(id, inv, this);
     }
 
+    public Boolean isPowered() {
+        BlockState blockState = getBlockState();
+        if (blockState.getBlock() instanceof ReactorControllerBlock)
+            return ((ReactorControllerBlock) blockState.getBlock()).isPowered();
+        return null;
+    }
+    public void setPowered(boolean power) {
+        BlockState blockState = getBlockState();
+        if (blockState.getBlock() instanceof ReactorControllerBlock)
+            ((ReactorControllerBlock) blockState.getBlock()).setPowered(power);
+    }
+
+    public void setSwitchButtons(List<CNIconButton> switchButtons) {
+        BlockState blockState = getBlockState();
+        if (blockState.getBlock() instanceof ReactorControllerBlock)
+            ((ReactorControllerBlock) blockState.getBlock()).setSwitchButtons(switchButtons);
+    }
+    public List<CNIconButton> getSwitchButtons() {
+        BlockState blockState = getBlockState();
+        if (blockState.getBlock() instanceof ReactorControllerBlock)
+            return ((ReactorControllerBlock) blockState.getBlock()).getSwitchButtons();
+        return null;
+    }
+
 //    @Override
 //    public boolean canPlayerUse(Player player) {
 //        if (level == null || level.getBlockEntity(worldPosition) != this) {

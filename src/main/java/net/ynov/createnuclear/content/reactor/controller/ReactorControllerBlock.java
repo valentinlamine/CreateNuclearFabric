@@ -40,9 +40,85 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
     public boolean created = false;
     public int speed = 16; // This is the result speed of the reactor, change this to change the total capacity
     //public ReactorController controller;
+    public static final BooleanProperty ASSEMBLED = BooleanProperty.create("assembled");
+    private boolean powered;
+    private List<CNIconButton> switchButtons;
 
     public ReactorControllerBlock(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(FACING).add(ASSEMBLED);
+        super.createBlockStateDefinition(builder);
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return this.defaultBlockState()
+                .setValue(FACING, context.getHorizontalDirection())
+                .setValue(ASSEMBLED, false);
+    }
+
+    @Override
+    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn,
+                                 BlockHitResult hit) {
+        if (worldIn.isClientSide)
+            return InteractionResult.SUCCESS;
+
+        Item item = player.getItemInHand(handIn).getItem();
+
+        if (item.getDescriptionId().equals(CNItems.WELDING_KIT.getDescriptionId())) { //Si le weldingKit est dans la main
+            if (Boolean.TRUE.equals(state.getValue(ASSEMBLED))) {
+                player.sendSystemMessage(Component.literal("Multiblock déjà assemblé").withStyle(ChatFormatting.YELLOW));
+                return InteractionResult.SUCCESS;
+            }
+            player.sendSystemMessage(Component.literal("Analyse multiBlock"));
+
+            var result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(worldIn, pos);
+            if (result != null) {
+                player.sendSystemMessage(Component.literal("MultiBlock assemblé.").withStyle(ChatFormatting.BLUE));
+                worldIn.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, true));
+            } else {
+                player.sendSystemMessage(Component.literal("Erreur dans l'assemblage du multiBlock").withStyle(ChatFormatting.RED));
+            }
+            return InteractionResult.SUCCESS;
+        }
+
+
+        if (Boolean.FALSE.equals(state.getValue(ASSEMBLED))) {
+            player.sendSystemMessage(Component.literal("Multiblock not assembled").withStyle(ChatFormatting.RED));
+        }else {
+            withBlockEntityDo(worldIn, pos, be -> NetworkHooks.openScreen((ServerPlayer) player, be, be::sendToMenu)); // Ouvre le menu de reactor controller
+        }
+
+        return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (!state.hasBlockEntity() || state.getBlock() == newState.getBlock())
+            return;
+
+        withBlockEntityDo(worldIn, pos, be -> ItemHelper.dropContents(worldIn, pos, be.inventory));
+        worldIn.removeBlockEntity(pos);
+    }
+
+    public boolean isPowered() {
+       return powered; // les variables ne sont pas sauvegarder lors d'un déchargement/rechargement de monde (donc passer par le blockState/ou trouver une autre methode)
+    }
+    public void setPowered(boolean power) {
+        powered = power;
+//        worldIn.setBlockAndUpdate(pos, state.setValue(POWERED, power));
+    }
+
+    public List<CNIconButton> getSwitchButtons() {
+        return switchButtons;
+    }
+
+    public void setSwitchButtons(List<CNIconButton> switchButtons) {
+        this.switchButtons = switchButtons;
     }
 
     @Override

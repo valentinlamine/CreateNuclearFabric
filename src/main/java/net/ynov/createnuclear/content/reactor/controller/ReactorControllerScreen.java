@@ -38,7 +38,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         placeSwitchItem();
 
 
-        /*powerButton = menu.contentHolder.isPowered() ? new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.OFF_NORMAL) : new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.ON_NORMAL);
+        powerButton = menu.contentHolder.isPowered() ? new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.OFF_NORMAL) : new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.ON_NORMAL);
         powerButton.withCallback(() -> {// Quand le button est appuyé il fait ca
             Boolean powered = menu.contentHolder.isPowered();
             if (powered!= null && !powered) {
@@ -48,7 +48,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
                 menu.contentHolder.setPowered(false);
                 powerButton.setIcon(CNIcons.ON_NORMAL);
             }
-        });*/
+        });
         addRenderableWidget(powerButton);
     }
     @Override
@@ -76,7 +76,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         boolean hasUranium = menu.getSlot(0).hasItem();
         boolean hasGraphite = menu.getSlot(1).hasItem();
 
-        if (/*menu.contentHolder.isPowered() && */hasUranium && hasGraphite && progress <= 1) {
+        if (menu.contentHolder.isPowered() && hasUranium && hasGraphite && progress <= 1) {
             lastChasingProgress = chasingProgress;
             progress += 0.01F;
             chasingProgress += (progress - chasingProgress) * .5f;
@@ -90,10 +90,10 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         int startWidth = 7;
         int startHeight = 39;
         int incr = 18;
-        /*if (menu.contentHolder.getSwitchButtons() != null && !menu.contentHolder.getSwitchButtons().isEmpty()) {
+        if (menu.contentHolder.getSwitchButtons() != null && !menu.contentHolder.getSwitchButtons().isEmpty()) {
             addRenderableWidgets(menu.contentHolder.getSwitchButtons());
             return;
-        }*/
+        }
 
         List<CNIconButton> switchButtons = new ArrayList<>();
 
@@ -151,17 +151,15 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
                 }
             });
         }
-        // menu.contentHolder.setSwitchButtons(switchButtons);
+        menu.contentHolder.setSwitchButtons(switchButtons);
         addRenderableWidgets(switchButtons);
     }
 
 
     public int countGraphiteRod() {
-        //return (int) menu.contentHolder.getSwitchButtons().stream().filter(e -> e.getIcon().equals(CNIcons.GRAPHITE_ROD_ICON)).count();
-        return 1;
+        return (int) menu.contentHolder.getSwitchButtons().stream().filter(e -> e.getIcon().equals(CNIcons.GRAPHITE_ROD_ICON)).count();
     }
     public int countUraniumRod() {
-        //return (int) menu.contentHolder.getSwitchButtons().stream().filter(e -> e.getIcon().equals(CNIcons.URANIUM_ROD_ICON)).count();
-        return 1;
+        return (int) menu.contentHolder.getSwitchButtons().stream().filter(e -> e.getIcon().equals(CNIcons.URANIUM_ROD_ICON)).count();
     }
 }
