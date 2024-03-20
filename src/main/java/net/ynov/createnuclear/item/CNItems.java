@@ -38,7 +38,6 @@ public class CNItems {
     public static final ItemEntry<Item> URANIUM_ROD = CreateNuclear.REGISTRATE.item("uranium_rod", Item::new).register();
     public static final ItemEntry<Item> GRAPHITE_ROD = CreateNuclear.REGISTRATE.item("graphite_rod", Item::new).register();
     public static final Item RAW_URANIUM = registerItem("raw_uranium", new Item(new FabricItemSettings()));
-    public static final Item WELDING_KIT = registerItem("welding_kit", new Item(new FabricItemSettings()));
     public static final Item RAW_LEAD = registerItem("raw_lead", new Item(new FabricItemSettings()));
     public static final Item LEAD_INGOT = registerItem("lead_ingot", new Item(new FabricItemSettings()));
     public static final Item LEAD_NUGGET = registerItem("lead_nugget", new Item(new FabricItemSettings()));
@@ -82,7 +81,6 @@ public class CNItems {
         entries.accept(URANIUM_ROD, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(GRAPHITE_ROD, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(RAW_URANIUM,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(WELDING_KIT,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(RAW_LEAD,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(LEAD_INGOT,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(LEAD_NUGGET,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);

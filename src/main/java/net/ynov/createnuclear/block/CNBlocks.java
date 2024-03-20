@@ -116,7 +116,6 @@ public class CNBlocks {
                 .lightLevel(litBlockEmission(10))
                 .noOcclusion()
                 .ignitedByLava()
-
             ))
             .properties(BlockBehaviour.Properties::replaceable)
             //.initialProperties(CNBlocks::DIAMOND_ORE)
