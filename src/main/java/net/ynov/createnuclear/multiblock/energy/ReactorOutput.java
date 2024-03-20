@@ -63,7 +63,7 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 		List<? extends Player> players = worldIn.players();
 		ReactorControllerBlock controller = FindController(pos, worldIn);
 		if (controller != null)
-			controller.Verify(pos, worldIn, players, true);
+			controller.Verify(pos.above(3), worldIn, players, true);
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 		List<? extends Player> players = level.players();
 		ReactorControllerBlock controller = FindController(pos, level);
 		if (controller != null)
-			controller.Verify(pos, level, players, false);
+			controller.Verify(pos.above(3), level, players, false);
 	}
 
 	@Override
