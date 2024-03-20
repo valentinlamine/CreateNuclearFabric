@@ -7,9 +7,20 @@ name: build
 on:
   workflow_dispatch:
     inputs:
-      minecraft_version:
+      modtag:
         required: false
-        description: Version mod Create Nuclear to release 
+        description: "Mod Version: Create Nuclear for Release"
+      name:
+        required: true
+        default: CreateNuclear
+        description: Mod file name
+      version: 
+        required: false
+        description: Mod version
+      version-type:
+        required: true
+        default: alpha
+        description: Version type
 
 jobs:
   build:
@@ -45,33 +56,37 @@ jobs:
         run: ./gradlew clean build
       
       - name: capture build artifacts
-        if: ${{ runner.os == 'Linux' && matrix.java == '21' }} # Only upload artifacts built from latest java on one OS
+        if: ${{ runner.os == 'Linux' && matrix.java == '21' && github.event.inputs.modtag != '' }} # Only upload artifacts built from latest java on one OS
         uses: actions/upload-artifact@v3
         with:
           name: Artifacts
           path: build/libs/
       
       - name: Release
+        if: ${{ github.event.inputs.modtag != '' }}
         id: release
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-          git tag -a ${{github.event.inputs.minecraft_version}} -m "version du mod"
-          echo "VERSION=${{github.event.inputs.minecraft_version}}" >> "$GITHUB_OUTPUT"
+          git tag -a ${{github.event.inputs.modtag}} -m "version du mod"
+          echo "VERSION=${{github.event.inputs.modtag}}" >> "$GITHUB_OUTPUT"
       
       - name: Push Tag
+        if: ${{ github.event.inputs.modtag != '' }}
         run: git push --follow-tags
 
-      - name: Publish (CurseForge) test
+      - name: Publish (CurseForge)
+        if: ${{ github.event.inputs.modtag != '' && github.event.inputs.name != '' && github.event.inputs.version != '' && github.event.inputs.version-type != '' }}
         uses: Kir-Antipov/mc-publish@v3.3
         with:
           curseforge-id: 989797
           curseforge-token: f1b2d81d-3db5-4279-8b69-c02248a081bb
-          name: createnuclear 1.0.0rc02-1.20.1
-          version: 1.0.0rc02-1.20.1
-          version-type: alpha
-          changelog: "TEST Push with github action"
+          name: ${{ github.event.inputs.name }} ${{ github.event.inputs.version }}
+          version: ${{ github.event.inputs.version }}
+          version-type: ${{ github.event.inputs.version-type }}
+          # changelog: "TEST Push with github action"
           loaders: fabric
+          github-generate-changelog: true
           game-versions: 1.20.1
           files: build/libs/*.jar 
           dependencies: |
