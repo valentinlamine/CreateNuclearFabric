@@ -170,10 +170,19 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     }
 
     public int heatManager() {
+        int nextColValue = 0;
+        int prevColValue = 0;
         heat = countUraniumRod() * 4 - countGraphiteRod() * 6;
-
+        int [] step = new int[] {1, 1, 0, 0, 0, -1, -1};
+        int [][] list = new int[][] {{0,1,2}, {3,4,5,6, 7}, {8,9,10,11,12,13, 14}, {15, 16, 17, 18, 19, 20, 21}, {22, 23, 24, 25, 26, 27, 28}, {29, 30, 31, 32, 33}, {34, 35, 36}};
         List<CNIconButton> switchButtons = menu.contentHolder.getSwitchButtons();
         for (int i = 0; i < switchButtons.size(); i++) {
+            for (int j = 0; j != list.length; j++) {
+                for (int k = 0; k != list[j].length; k++) {
+                    nextColValue = list[j+1][k+step[j]];
+                    prevColValue = list[j-1][k+step[j]];
+                }
+            }
             CNIconButton button = switchButtons.get(i);
             if (button.getIcon().equals(CNIcons.GRAPHITE_ROD_ICON)) {
                 CreateNuclear.LOGGER.info("Graphite Rod at index: " + i);
