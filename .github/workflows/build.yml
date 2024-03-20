@@ -42,7 +42,7 @@ jobs:
         run: chmod +x ./gradlew
       
       - name: build
-        run: ./gradlew build
+        run: ./gradlew clean build
       
       - name: capture build artifacts
         if: ${{ runner.os == 'Linux' && matrix.java == '21' }} # Only upload artifacts built from latest java on one OS
@@ -65,7 +65,7 @@ jobs:
       - name: Publish (CurseForge) test
         uses: Kir-Antipov/mc-publish@v3.3
         with:
-          curseforge-id: create-nuclear
+          curseforge-id: 989797
           curseforge-token: f1b2d81d-3db5-4279-8b69-c02248a081bb
           name: createnuclear 1.0.0rc01-1.20.1
           version: 1.0.0rc01-1.20.1
