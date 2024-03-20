@@ -112,6 +112,30 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
         powered = power;
 //        worldIn.setBlockAndUpdate(pos, state.setValue(POWERED, power));
     }
+    public boolean GetCreated(){
+        return created;
+    }
+
+    public boolean GetDestroyed(){
+        return destroyed;
+    }
+
+    public int GetSpeed(){
+        return speed;
+    }
+
+    public void SetCreated(boolean d){
+        created = d;
+    }
+
+    public void SetDestroyed(boolean d){
+        destroyed = d;
+    }
+
+    public void SetSpeed(int s){
+        speed = s;
+    }
+
 
     public List<CNIconButton> getSwitchButtons() {
         return switchButtons;
@@ -125,68 +149,59 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         super.onPlace(state, level, pos, oldState, movedByPiston);
         List<? extends Player> players = level.players();
-        this.Verify(pos, level, players, true);
+        ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
+        controller.Verify(pos, level, players, true);
+        for (Player p : players) {
+            p.sendSystemMessage(Component.literal("controller is " + controller.GetCreated()));
+        }
     }
 
     @Override
     public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
-        if (!created)
+        super.playerDestroy(level, player, pos, state, blockEntity, tool);
+        ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
+        if (!controller.GetCreated())
             return;
-        ReactorOutputEntity.structure = false;
-        Rotate(pos.below(3), level, 0);
+        controller.Rotate(pos.below(3), level, 0);
         List<? extends Player> players = level.players();
         for (Player p : players) {
             p.sendSystemMessage(Component.literal("CRITICAL : Reactor Destroyed"));
         }
-        super.playerDestroy(level, player, pos, state, blockEntity, tool);
     }
-
-    /*@Override
-    protected void read(CompoundTag compound, boolean clientPacket) { //Permet de stocker les item 1/2
-
-        super.read(compound, clientPacket);
-    }
-
-    @Override
-    protected void write(CompoundTag compound, boolean clientPacket) { //Permet de stocker les item 2/2
-        compound.put("Inventory", inventory.serializeNBT());
-        super.write(compound, clientPacket);
-    }*/
 
     // this is the Function that verifies if the pattern is correct (as a test, we added the energy output)
     public void Verify(BlockPos pos, Level level, List<? extends Player> players, boolean create){
+        ReactorControllerBlock controller = (ReactorControllerBlock)level.getBlockState(pos).getBlock();
         var result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(level, pos); // control the pattern
         if (result != null) { // the pattern is correct
             CreateNuclear.LOGGER.info("structure verified, SUCCESS to create multiblock");
 
             for (Player player : players) {
-                if (create && !created)
+                if (create && !controller.GetCreated())
                 {
                     player.sendSystemMessage(Component.literal("WARNING : Reactor Assembled"));
-                    created = true;
-                    destroyed = false;
+                    controller.SetCreated(true);
+                    controller.SetDestroyed(false);
                 }
             }
-            ReactorOutputEntity.structure = true;
             return;
         }
 
         // the pattern is incorrect
         CreateNuclear.LOGGER.info("structure not verified, FAILED to create multiblock");
         for (Player player : players) {
-            if (!create && !destroyed)
+            if (!create && !GetDestroyed())
             {
                 player.sendSystemMessage(Component.literal("CRITICAL : Reactor Destroyed"));
-                destroyed = true;
-                created = false;
+                controller.SetCreated(false);
+                controller.SetDestroyed(true);
             }
         }
-        ReactorOutputEntity.structure = false;
-        Rotate(pos.below(3), level, 0);
+        controller.Rotate(pos.below(3), level, 0);
     }
     public void Rotate(BlockPos pos, Level level, int rotation) {
         if (level.getBlockState(pos).is(CNBlocks.REACTOR_OUTPUT.get())) {
-            if (ReactorOutputEntity.structure) { // Starting the energy
+            if (GetCreated()) { // Starting the energy
                 ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
                 Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos)).speed = rotation;
                 Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos)).updateSpeed = true;

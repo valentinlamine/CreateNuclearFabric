@@ -44,10 +44,10 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 		else {
 			ReactorControllerBlock controller = FindController(pos, level);
 			if (controller != null){
-				player.sendSystemMessage(Component.literal("controller is " + controller.created + " " + controller.speed));
-				if (controller.created){
-					controller.speed = -controller.speed;
-					controller.Rotate(pos, level, controller.speed);
+				player.sendSystemMessage(Component.literal("controller is " + controller.GetCreated() + " " + controller.speed));
+				if (controller.GetCreated()){
+					controller.SetSpeed(-controller.GetSpeed());
+					controller.Rotate(pos, level, controller.GetSpeed());
 				}
 				else controller.Rotate(pos, level, 0);
 			}
@@ -122,8 +122,7 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 
 	public ReactorControllerBlock FindController(BlockPos pos, Level level){
 		if (level.getBlockState(pos.above(3)).getBlock() == CNBlocks.REACTOR_CONTROLLER.get()){
-			ReactorControllerBlock controller = (ReactorControllerBlock)level.getBlockState(pos.above(3)).getBlock();
-			return controller;
+            return (ReactorControllerBlock)level.getBlockState(pos.above(3)).getBlock();
 		}
 		return null;
 	}

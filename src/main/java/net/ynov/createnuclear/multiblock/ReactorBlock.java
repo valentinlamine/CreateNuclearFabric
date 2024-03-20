@@ -45,7 +45,7 @@ public class ReactorBlock extends Block {
                         CreateNuclear.LOGGER.info("ReactorController FOUND!!!!!!!!!!: ");      // from the controller
                         ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(newBlock).getBlock();
                         controller.Verify(newBlock, level, players, first);
-                        if (controller.created)
+                        if (controller.GetCreated())
                             return controller;
                     }
                     //else CreateNuclear.LOGGER.info("newBlock: " + level.getBlockState(newBlock).getBlock());
