@@ -20,6 +20,13 @@ repositories {
 	maven { url = "https://api.modrinth.com/maven" } 	// LazyDFU
 	maven { url = "https://jitpack.io" }				// Mixin Extras, fabric ASM
 	maven { url = "https://mvn.devos.one/snapshots/" } 	// Create, Porting Lib, Forge Tags, Milk Lib, Registrate
+	maven { // Flywheel
+		url = "https://maven.tterrag.com/"
+		content {
+			// need to be specific here due to version overlaps
+			includeGroup("com.jozufozu.flywheel")
+		}
+	}
 	maven {
 		url 'https://www.cursemaven.com'
 		content {
@@ -34,49 +41,25 @@ repositories {
 		}
 	}	// Reach Entity Attributes
 	maven { url = "https://maven.terraformersmc.com/releases/" } // Mod Menu
-	maven { // Flywheel
-		url = "https://maven.tterrag.com/"
-		content {
-			// need to be specific here due to version overlaps
-			includeGroup("com.jozufozu.flywheel")
-		}
-	}
+
 	// location of the maven that hosts JEI files since January 2023
 	maven { url = "https://maven.blamejared.com/" }
 	maven { url = "https://maven.quiltmc.org/repository/release" } // Quilt Mappings
 	maven { url = "https://maven.cafeteria.dev/releases" } // Fake Player API
-	maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM
-	maven {
-        name = "AlexIIL"
-        url = "https://maven.alexiil.uk/"
-    }
 
-
-
-	// location of the maven that hosts JEI files before January 2023
-	/*maven { url = "https://dvs1.progwml6.com/files/maven/" }
-
-
-	// location of a maven mirror for JEI files, as a fallback
-	maven { url = "https://modmaven.dev" }
-	maven { url = "https://maven.theillusivec4.top/" }*/
-
-
-
-
-
-
+	maven { url "https://maven.shedaniel.me/" }
+	//maven { url "<https://maven.architectury.dev/>" }
 }
 
 loom {
-    runs {
+	runs {
 		datagen {
 			inherit server
 			name "Data Generator"
 			vmArg "-Dfabric-api.datagen"
 			vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
 			vmArg "-Dfabric-api.datagen.modid=createnuclear"
- 
+
 			runDir "build/datagen"
 		}
 	}
@@ -118,11 +101,30 @@ dependencies {
 	modLocalRuntime("com.terraformersmc:modmenu:${modmenu_version}")
 	modLocalRuntime("maven.modrinth:lazydfu:${lazydfu_version}")
 
+
+	/** JEI api **/
 	modCompileOnlyApi("mezz.jei:jei-${jei_minecraft_version}-common-api:${jei_version}")
 	modCompileOnlyApi("mezz.jei:jei-${jei_minecraft_version}-fabric-api:${jei_version}")
+	/** 	    **/
+	/** REI API **/
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:$rei_version"
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:$rei_version"
+	/** 	    **/
+	/** EMI API **/
+	modCompileOnly("dev.emi:emi-fabric:${emi_version}:api")
+	/** 	    **/
+
+
+	switch (recipe_viewer.toLowerCase(Locale.ROOT)) {
 	// at runtime, use the full JEI jar for Fabric
-	modRuntimeOnly("mezz.jei:jei-${jei_minecraft_version}-fabric:${jei_version}")
-	modCompileOnlyApi "alexiil.mc.lib:libmultipart-all:0.8.0"
+		case "jei": modRuntimeOnly("mezz.jei:jei-${jei_minecraft_version}-fabric:${jei_version}");  break// <- pour avoir le JEI in game
+		case "rei": modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:$rei_version"; break// <- pour avoir le REI in game
+		case "emi": modLocalRuntime("dev.emi:emi-fabric:${emi_version}"); break// <- pour avoir le EMI in game
+		case "disabled": break
+		default: println("Unknown recipe viewer specified: $recipe_viewer. Must be JEI, REI, EMI, or disabled.")
+	}
+
+
 	// Fabric ASM (enum extension etc)
 	modImplementation("com.github.Chocohead:Fabric-ASM:v2.3") {
 		exclude (group: "net.fabricmc.fabric-api")

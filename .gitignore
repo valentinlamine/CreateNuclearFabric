@@ -46,6 +46,7 @@ run/fabricloader.log
 run/options.txt
 run/usercache.json
 run/usernamecache.json
+run/emi.json
 
 # java
 

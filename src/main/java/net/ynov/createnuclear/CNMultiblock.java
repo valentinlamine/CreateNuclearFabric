@@ -9,22 +9,26 @@ import net.ynov.createnuclear.multiblock.MultiBlockManagerBeta;
 
 public class CNMultiblock {
     public static final MultiBlockManagerBeta<Exemple> REGISTRATE_MULTIBLOCK = new MultiBlockManagerBeta<>();
+    private static final String AAAAA = "AAAAA";
+    private static final String AABAA = "AABAA";
+    private static final String ADADA = "ADADA";
+    private static final String BACAB = "BACAB";
 
     static {
         REGISTRATE_MULTIBLOCK.register("createnuclear:test",
                 Exemple.EXEMPLE,
                 SimpleMultiBlockAislePatternBuilder.start()
-                    .aisle("AAAAA", "AAAAA", "AAAAA", "AAAAA", "AAAAA")
-                    .aisle("AABAA", "ADADA", "BACAB", "ADADA", "AABAA")
-                    .aisle("AABAA", "ADADA", "BACAB", "ADADA", "AABAA")
-                    .aisle("AABAA", "ADADA", "BACAB", "ADADA", "AA*AA")
-                    .aisle("AABAA", "ADADA", "BACAB", "ADADA", "AABAA")
-                    .aisle("AABAA", "ADADA", "BACAB", "ADADA", "AABAA")
-                    .aisle("AAAAA", "AAAAA", "AAAAA", "AAAAA", "AAOAA")
+                    .aisle(AAAAA, AAAAA, AAAAA, AAAAA, AAAAA)
+                    .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
+                    .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
+                    .aisle(AABAA, ADADA, BACAB, ADADA, "AA*AA")
+                    .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
+                    .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
+                    .aisle(AAAAA, AAAAA, AAAAA, AAAAA, AAAAA)
                     .where('A', a -> a.getState().is(CNBlocks.REACTOR_CASING.get()))
                     .where('B', a -> a.getState().is(CNBlocks.REACTOR_MAIN_FRAME.get()))
                     .where('C', a -> a.getState().is(CNBlocks.REACTOR_CORE.get()))
-                    .where('D', a -> a.getState().is(CNBlocks.COOLING_FRAME.get()))
+                    .where('D', a -> a.getState().is(CNBlocks.REACTOR_COOLING_FRAME.get()))
                     .where('*', a -> a.getState().is(CNBlocks.REACTOR_CONTROLLER.get()))
                     .where('O', a -> a.getState().is(CNBlocks.REACTOR_OUTPUT.get()))
                 .build()

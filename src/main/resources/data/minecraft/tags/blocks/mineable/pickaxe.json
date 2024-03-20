@@ -15,6 +15,6 @@
     "createnuclear:raw_uranium_block",
     "createnuclear:enriched_soul_soil",
     "createnuclear:reactor_output",
-    "createnuclear:cooling_frame"
+    "createnuclear:reactor_cooling_frame"
   ]
 }

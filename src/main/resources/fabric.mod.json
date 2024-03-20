@@ -24,8 +24,14 @@
 		"fabric-datagen": [
 			"net.ynov.createnuclear.CreateNuclearDataGenerator"
 		],
-		"mm:EarlyRiser": [
-			"net.ynov.createnuclear.EarlyRiser"
+		"jei_mod_plugin": [
+			"net.ynov.createnuclear.compact.recipe.jei.CNJei"
+		],
+		"rei_client": [
+			"net.ynov.createnuclear.compact.recipe.rei.CNRei"
+		],
+		"emi": [
+			"net.ynov.createnuclear.compact.recipe.emi.CNEmi"
 		]
 	},
 	"mixins": [
@@ -39,6 +45,8 @@
 		"fabric-api": ">=0.87.0+1.20.1"
 	},
 	"suggests": {
-		"JEI": "*"
+		"JEI": "15.2.0.27",
+		"REI": "12.0.684",
+		"EMI": "1.1.2+1.20.1"
 	}
 }

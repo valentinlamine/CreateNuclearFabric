@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "createnuclear:block/cooling_frame",
+      "model": "createnuclear:block/reactor_cooling_frame",
       "files": [
         "default.css"
       ]

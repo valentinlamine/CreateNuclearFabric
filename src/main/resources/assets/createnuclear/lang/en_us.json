@@ -8,14 +8,15 @@
   "item.createnuclear.steel_ingot": "Steel Ingot",
   "item.createnuclear.yellow_cake_nether_star_wip": "Mixed Yellow Cake and Nether Start WIP",
   "item.createnuclear.uranium_rod": "Uranium Rod",
+  "item.createnuclear.welding_kit": "Welding Kit",
   "item.createnuclear.graphite_rod": "Graphite Rod",
-  "item.createnuclear.enriched_flint_and_steel": "Enriched Flint and Steel",
   "item.createnuclear.raw_uranium": "Raw uranium",
   "item.createnuclear.uranium_bucket": "Uranium Bucket",
   "item.createnuclear.raw_lead": "Raw Lead",
+
   "block.createnuclear.deepslate_uranium_ore": "Deepslate Uranium Ore",
   "block.createnuclear.uranium_ore": "Uranium Ore",
-
+  "block.createnuclear.enriched_soul_soil": "Enriched Soul Soil",
   "block.createnuclear.enriching_fire": "Enriching Fire",
   "block.createnuclear.uranium": "Liquid Uranium",
   "block.createnuclear.raw_uranium_block": "Raw Uranium Block",
@@ -32,10 +33,16 @@
 
   "block.createnuclear.reactor_casing": "Reactor Casing",
   "block.createnuclear.reactor_main_frame": "Reactor Main Frame",
-  "block.createnuclear.reactor_output": "Reactor Output",
-  "block.createnuclear.cooling_frame": "Cooling Frame",
-  "block.createnuclear.reinforced_pipe": "Reinforced Pipe",
+  "block.createnuclear.reactor_cooling_frame": "Cooling Frame",
   "block.createnuclear.reactor_controller": "Reactor Controller",
+  "block.createnuclear.reactor_core": "Reactor Core",
 
-  "itemgroup.uranium": "Uranium Group"
+  "block.createnuclear.reinforced_pipe": "Reinforced Pipe",
+  "itemgroup.uranium": "Uranium Group",
+
+  "gui.createnuclear.reactor_controller.title": "Reactor Controller",
+
+  "createnuclear.enriched.fan.recipe": "Bulk Enriched",
+  "emi.category.createnuclear.fan_enriched": "Bulk Enriched",
+  "create.recipe.fan_enriched.fan": "Fan behing Enriched"
 }
