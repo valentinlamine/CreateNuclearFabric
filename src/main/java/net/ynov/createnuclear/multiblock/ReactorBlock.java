@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
+import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -45,7 +46,8 @@ public class ReactorBlock extends Block {
                         CreateNuclear.LOGGER.info("ReactorController FOUND!!!!!!!!!!: ");      // from the controller
                         ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(newBlock).getBlock();
                         controller.Verify(newBlock, level, players, first);
-                        if (controller.GetCreated())
+                        ReactorControllerBlockEntity entity = controller.getBlockEntity(level, newBlock);
+                        if (entity.created)
                             return controller;
                     }
                     //else CreateNuclear.LOGGER.info("newBlock: " + level.getBlockState(newBlock).getBlock());

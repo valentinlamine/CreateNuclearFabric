@@ -36,10 +36,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class ReactorControllerBlock extends HorizontalDirectionalBlock implements IBE<ReactorControllerBlockEntity> {
-    public boolean destroyed = false;
-    public boolean created = false;
-    public int speed = 16; // This is the result speed of the reactor, change this to change the total capacity
-    //public ReactorController controller;
     public static final BooleanProperty ASSEMBLED = BooleanProperty.create("assembled");
     private boolean powered;
     private List<CNIconButton> switchButtons;
@@ -112,30 +108,6 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
         powered = power;
 //        worldIn.setBlockAndUpdate(pos, state.setValue(POWERED, power));
     }
-    public boolean GetCreated(){
-        return created;
-    }
-
-    public boolean GetDestroyed(){
-        return destroyed;
-    }
-
-    public int GetSpeed(){
-        return speed;
-    }
-
-    public void SetCreated(boolean d){
-        created = d;
-    }
-
-    public void SetDestroyed(boolean d){
-        destroyed = d;
-    }
-
-    public void SetSpeed(int s){
-        speed = s;
-    }
-
 
     public List<CNIconButton> getSwitchButtons() {
         return switchButtons;
@@ -152,7 +124,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
         ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
         controller.Verify(pos, level, players, true);
         for (Player p : players) {
-            p.sendSystemMessage(Component.literal("controller is " + controller.GetCreated()));
+            p.sendSystemMessage(Component.literal("controller is "));
         }
     }
 
@@ -160,9 +132,10 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
     public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
         super.playerDestroy(level, player, pos, state, blockEntity, tool);
         ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
-        if (!controller.GetCreated())
+        ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos);
+        if (!entity.created)
             return;
-        controller.Rotate(pos.below(3), level, 0);
+        controller.Rotate(pos.below(3), level, 0, false);
         List<? extends Player> players = level.players();
         for (Player p : players) {
             p.sendSystemMessage(Component.literal("CRITICAL : Reactor Destroyed"));
@@ -171,17 +144,18 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
 
     // this is the Function that verifies if the pattern is correct (as a test, we added the energy output)
     public void Verify(BlockPos pos, Level level, List<? extends Player> players, boolean create){
-        ReactorControllerBlock controller = (ReactorControllerBlock)level.getBlockState(pos).getBlock();
+        ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(pos).getBlock();
+        ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos);
         var result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(level, pos); // control the pattern
         if (result != null) { // the pattern is correct
             CreateNuclear.LOGGER.info("structure verified, SUCCESS to create multiblock");
 
             for (Player player : players) {
-                if (create && !controller.GetCreated())
+                if (create && !entity.created)
                 {
                     player.sendSystemMessage(Component.literal("WARNING : Reactor Assembled"));
-                    controller.SetCreated(true);
-                    controller.SetDestroyed(false);
+                    entity.created = true;
+                    entity.destroyed = false;
                 }
             }
             return;
@@ -190,18 +164,18 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
         // the pattern is incorrect
         CreateNuclear.LOGGER.info("structure not verified, FAILED to create multiblock");
         for (Player player : players) {
-            if (!create && !GetDestroyed())
+            if (!create && !entity.destroyed)
             {
                 player.sendSystemMessage(Component.literal("CRITICAL : Reactor Destroyed"));
-                controller.SetCreated(false);
-                controller.SetDestroyed(true);
+                entity.created = false;
+                entity.destroyed = true;
             }
         }
-        controller.Rotate(pos.below(3), level, 0);
+        controller.Rotate(pos.below(3), level, 0, entity.created);
     }
-    public void Rotate(BlockPos pos, Level level, int rotation) {
+    public void Rotate(BlockPos pos, Level level, int rotation, boolean created) {
         if (level.getBlockState(pos).is(CNBlocks.REACTOR_OUTPUT.get())) {
-            if (GetCreated()) { // Starting the energy
+            if (created) { // Starting the energy
                 ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
                 Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos)).speed = rotation;
                 Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos)).updateSpeed = true;

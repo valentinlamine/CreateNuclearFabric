@@ -24,6 +24,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ReactorControllerBlockEntity extends SmartBlockEntity implements MenuProvider, IInteractionChecker, SidedStorageBlockEntity {
+    public boolean destroyed = false;
+    public boolean created = false;
+    public int speed = 16; // This is the result speed of the reactor, change this to change the total capacity
+    public ReactorControllerBlock controller;
 
     public ReactorControllerInventory inventory;
 

@@ -25,6 +25,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.blockentity.CNEntityTypes;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
+import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
 import net.ynov.createnuclear.shape.CNShapes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -44,12 +45,13 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 		else {
 			ReactorControllerBlock controller = FindController(pos, level);
 			if (controller != null){
-				player.sendSystemMessage(Component.literal("controller is " + controller.GetCreated() + " " + controller.speed));
-				if (controller.GetCreated()){
-					controller.SetSpeed(-controller.GetSpeed());
-					controller.Rotate(pos, level, controller.GetSpeed());
+				ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos.above(3));
+				player.sendSystemMessage(Component.literal("controller is " + entity.created + " " + entity.speed));
+				if (entity.created){
+					entity.speed = -entity.speed;
+					controller.Rotate(pos, level, entity.speed, true);
 				}
-				else controller.Rotate(pos, level, 0);
+				else controller.Rotate(pos, level, 0, false);
 			}
 			return InteractionResult.CONSUME;
 		}
@@ -126,6 +128,5 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 		}
 		return null;
 	}
-
 }
 
