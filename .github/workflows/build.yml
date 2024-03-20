@@ -87,7 +87,6 @@ jobs:
           # changelog: "TEST Push with github action"
           changelog-file: CHANGELOG.md
           loaders: fabric
-          github-generate-changelog: true
           game-versions: 1.20.1
           files: build/libs/*.jar 
           dependencies: |
