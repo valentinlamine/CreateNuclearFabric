@@ -35,9 +35,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
       
-      - name: Checkout Repository
+      - name: Change version file
         run: |
-          sed -i s/mod_version=0.1-1.20.1/mod_version=${{github.event.inputs.modtag}}/ gradle.properties
+          sed -i s/mod_version=.*/mod_version=${{github.event.inputs.modtag}}/ gradle.properties
           cat gradle.properties
       - name: init git
         run: |
