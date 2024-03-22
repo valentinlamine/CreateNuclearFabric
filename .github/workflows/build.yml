@@ -34,9 +34,18 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-      - run: |
+      
+      - name: Checkout Repository
+        run: |
           sed -i s/mod_version=0.1-1.20.1/mod_version=${{github.event.inputs.modtag}}/ gradle.properties
           cat gradle.properties
+      - name: init git
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "CreateNucleair[bot]"
+          git add gradle.properties
+          git commit -m "change mod version"
+          git push
   # build:
   #   strategy:
   #     matrix:
