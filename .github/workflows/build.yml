@@ -51,10 +51,15 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
           distribution: 'temurin'
-      
+          
       - name: make gradle wrapper executable
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
+      
+      - name: Change version file
+        run: |
+          sed -i s/mod_version=.*/mod_version=${{github.event.inputs.modtag}}/ gradle.properties
+          cat gradle.properties
       
       - name: build
         run: ./gradlew clean build
@@ -66,10 +71,6 @@ jobs:
           name: Artifacts
           path: build/libs/
       
-      - name: Change version file
-        run: |
-          sed -i s/mod_version=.*/mod_version=${{github.event.inputs.modtag}}/ gradle.properties
-          cat gradle.properties
 
       - name: Release
         if: ${{ github.event.inputs.modtag != '' }}
