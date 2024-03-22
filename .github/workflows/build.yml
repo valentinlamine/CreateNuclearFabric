@@ -27,27 +27,7 @@ on:
         description: Changelog for version
 
 jobs:
-  version:
-    runs-on: ubuntu-22.04
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-      
-      - name: Change version file
-        run: |
-          sed -i s/mod_version=.*/mod_version=${{github.event.inputs.modtag}}/ gradle.properties
-          cat gradle.properties
-      - name: init git
-        run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "CreateNucleair[bot]"
-          git add gradle.properties
-          git commit -m "change mod version"
-          git push
   build:
-    needs: [ version ]
     strategy:
       matrix:
         # Use these Java versions
@@ -86,12 +66,19 @@ jobs:
           name: Artifacts
           path: build/libs/
       
+      - name: Change version file
+        run: |
+          sed -i s/mod_version=.*/mod_version=${{github.event.inputs.modtag}}/ gradle.properties
+          cat gradle.properties
+
       - name: Release
         if: ${{ github.event.inputs.modtag != '' }}
         id: release
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
+          git add gradle.properties
+          git commit -m "change mod version"
           git tag -a ${{github.event.inputs.modtag}} -m "version du mod"
           echo "VERSION=${{github.event.inputs.modtag}}" >> "$GITHUB_OUTPUT"
       
