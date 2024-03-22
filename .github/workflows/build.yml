@@ -47,6 +47,7 @@ jobs:
           git commit -m "change mod version"
           git push
   build:
+    needs: [ version ]
     strategy:
       matrix:
         # Use these Java versions
