@@ -51,10 +51,15 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
           distribution: 'temurin'
-      
+          
       - name: make gradle wrapper executable
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
+      
+      - name: Change version file
+        run: |
+          sed -i s/mod_version=.*/mod_version=${{github.event.inputs.modtag}}/ gradle.properties
+          cat gradle.properties
       
       - name: build
         run: ./gradlew clean build
@@ -66,12 +71,15 @@ jobs:
           name: Artifacts
           path: build/libs/
       
+
       - name: Release
         if: ${{ github.event.inputs.modtag != '' }}
         id: release
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
+          git add gradle.properties
+          git commit -m "change mod version"
           git tag -a ${{github.event.inputs.modtag}} -m "version du mod"
           echo "VERSION=${{github.event.inputs.modtag}}" >> "$GITHUB_OUTPUT"
       
@@ -89,6 +97,8 @@ jobs:
           version: ${{ github.event.inputs.version }}
           version-type: ${{ github.event.inputs.version-type }}
           changelog: ${{ github.event.inputs.changelog }}
+          github-tag: ${{ github.event.inputs.version }}
+          github-generate-changelog: true
           loaders: fabric
           game-versions: 1.20.1
           files: build/libs/*.jar 
@@ -98,11 +108,11 @@ jobs:
             create@*(required)
             fabric-api@>=0.87.0+1.20.1(required)
             JEI@15.2.0.27(optional)
-            REI@12.0.684(optional)
-            EMI@1.1.2+1.20.1(optional)
+            REI@12.0.684(optional){curseforge:310111}
+            EMI@1.1.2+1.20.1(optional){curseforge:580555}
           java: |
             Java 17
-
+          
       
       - name: Create Release
         uses: ncipollo/release-action@v1
