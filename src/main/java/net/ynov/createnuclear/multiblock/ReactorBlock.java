@@ -45,7 +45,7 @@ public class ReactorBlock extends Block {
                     if (level.getBlockState(newBlock).is(CNBlocks.REACTOR_CONTROLLER.get())) { // verifying the pattern
                         CreateNuclear.LOGGER.info("ReactorController FOUND!!!!!!!!!!: ");      // from the controller
                         ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(newBlock).getBlock();
-                        controller.Verify(newBlock, level, players, first);
+                        controller.Verify(controller.defaultBlockState(), newBlock, level, players, first);
                         ReactorControllerBlockEntity entity = controller.getBlockEntity(level, newBlock);
                         if (entity.created)
                             return controller;

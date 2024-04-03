@@ -2,6 +2,7 @@ package net.ynov.createnuclear.multiblock.controller;
 
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.item.ItemHelper;
+import io.github.fabricators_of_create.porting_lib.util.BlockSnapshot;
 import io.github.fabricators_of_create.porting_lib.util.NetworkHooks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -21,6 +22,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.ynov.createnuclear.CNMultiblock;
 import net.ynov.createnuclear.CreateNuclear;
@@ -120,9 +122,11 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
     @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         super.onPlace(state, level, pos, oldState, movedByPiston);
+        if (Boolean.TRUE.equals(state.getValue(ASSEMBLED)))
+            return;
         List<? extends Player> players = level.players();
         ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
-        controller.Verify(pos, level, players, true);
+        controller.Verify(state, pos, level, players, true);
         for (Player p : players) {
             p.sendSystemMessage(Component.literal("controller is "));
         }
@@ -135,7 +139,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
         ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos);
         if (!entity.created)
             return;
-        controller.Rotate(pos.below(3), level, 0, false);
+        controller.Rotate(state, pos.below(3), level, 0);
         List<? extends Player> players = level.players();
         for (Player p : players) {
             p.sendSystemMessage(Component.literal("CRITICAL : Reactor Destroyed"));
@@ -143,7 +147,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
     }
 
     // this is the Function that verifies if the pattern is correct (as a test, we added the energy output)
-    public void Verify(BlockPos pos, Level level, List<? extends Player> players, boolean create){
+    public void Verify(BlockState state, BlockPos pos, Level level, List<? extends Player> players, boolean create){
         ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(pos).getBlock();
         ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos);
         var result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(level, pos); // control the pattern
@@ -154,6 +158,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
                 if (create && !entity.created)
                 {
                     player.sendSystemMessage(Component.literal("WARNING : Reactor Assembled"));
+                    level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, true));
                     entity.created = true;
                     entity.destroyed = false;
                 }
@@ -167,15 +172,16 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
             if (!create && !entity.destroyed)
             {
                 player.sendSystemMessage(Component.literal("CRITICAL : Reactor Destroyed"));
+                level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, false));
                 entity.created = false;
                 entity.destroyed = true;
+                Rotate(state, pos.below(3), level, 0);
             }
         }
-        controller.Rotate(pos.below(3), level, 0, entity.created);
     }
-    public void Rotate(BlockPos pos, Level level, int rotation, boolean created) {
+    public void Rotate(BlockState state, BlockPos pos, Level level, int rotation) {
         if (level.getBlockState(pos).is(CNBlocks.REACTOR_OUTPUT.get())) {
-            if (created) { // Starting the energy
+            if (Boolean.TRUE.equals(state.getValue(ASSEMBLED))) { // Starting the energy
                 ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
                 Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos)).speed = rotation;
                 Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos)).updateSpeed = true;

@@ -18,10 +18,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.gui.CNIconButton;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+
+import static net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
 
 public class ReactorControllerBlockEntity extends SmartBlockEntity implements MenuProvider, IInteractionChecker, SidedStorageBlockEntity {
     public boolean destroyed = false;
@@ -50,6 +53,11 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
 
+    }
+
+    public boolean getAssembled() { // permet de savoir si le réacteur est formé ou pas.
+        BlockState state = getBlockState();
+        return Boolean.TRUE.equals(state.getValue(ASSEMBLED));
     }
 
     @Override

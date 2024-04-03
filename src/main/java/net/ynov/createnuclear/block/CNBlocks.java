@@ -8,6 +8,7 @@ import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -101,12 +102,15 @@ public class CNBlocks {
             CreateNuclear.REGISTRATE.block("reactor_output", ReactorOutput::new)
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(4F))
+			.initialProperties(SharedProperties::stone)
+			.properties(p -> p.mapColor(MapColor.COLOR_PURPLE).forceSolidOn())
 			.tag(AllTags.AllBlockTags.SAFE_NBT.tag)
 			.transform(pickaxeOnly())
 			.blockstate(new CreativeMotorGenerator()::generate)
-			.transform(BlockStressDefaults.setCapacity(200))
+			.transform(BlockStressDefaults.setCapacity(500))
 			.transform(BlockStressDefaults.setGeneratorSpeed(() -> Couple.create(0, 256)))
 			.item()
+			.properties(p -> p.rarity(Rarity.EPIC))
 			.transform(customItemModel())
 			.register();
     public static final BlockEntry<EnrichingCampfire> ENRICHING_CAMPFIRE =

@@ -1,5 +1,6 @@
 package net.ynov.createnuclear.multiblock.energy;
 
+import com.simibubi.create.Create;
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
 
 import com.simibubi.create.foundation.block.IBE;
@@ -22,6 +23,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.blockentity.CNEntityTypes;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
@@ -47,11 +49,13 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 			if (controller != null){
 				ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos.above(3));
 				player.sendSystemMessage(Component.literal("controller is " + entity.created + " " + entity.speed));
-				if (entity.created){
+				if (entity.getAssembled()){
 					entity.speed = -entity.speed;
-					controller.Rotate(pos, level, entity.speed, true);
+					controller.Rotate(controller.defaultBlockState(), pos, level, entity.speed);
 				}
-				else controller.Rotate(pos, level, 0, false);
+				else {
+					controller.Rotate(controller.defaultBlockState(), pos, level, 0);
+				}
 			}
 			return InteractionResult.CONSUME;
 		}
@@ -63,7 +67,7 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 		List<? extends Player> players = worldIn.players();
 		ReactorControllerBlock controller = FindController(pos, worldIn);
 		if (controller != null)
-			controller.Verify(pos.above(3), worldIn, players, true);
+			controller.Verify(controller.defaultBlockState(), pos.above(3), worldIn, players, true);
 	}
 
 	@Override
@@ -72,7 +76,7 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 		List<? extends Player> players = level.players();
 		ReactorControllerBlock controller = FindController(pos, level);
 		if (controller != null)
-			controller.Verify(pos.above(3), level, players, false);
+			controller.Verify(controller.defaultBlockState(), pos.above(3), level, players, false);
 	}
 
 	@Override
