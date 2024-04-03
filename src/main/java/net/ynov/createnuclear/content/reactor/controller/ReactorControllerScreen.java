@@ -19,8 +19,8 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     protected static final CNGuiTextures PROGRESS_BAR = CNGuiTextures.REACTOR_CONTROLLER_PROGRESS;
     private CNIconButton powerButton;
     private float progress;
-    private float chasingProgress;
-    private float lastChasingProgress;
+    private float reactorPower;
+    private float lastReactorPower;
 
     public ReactorControllerScreen(ReactorControllerMenu container, Inventory inv, Component title) {
         super(container, inv, title);
@@ -51,6 +51,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
             }
         });
         addRenderableWidget(powerButton);
+        reactorPower = lastReactorPower = heatManager();
     }
     @Override
     protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
@@ -62,11 +63,9 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         graphics.drawString(font, title, x + 15, y + 4, 0x592424, false);
 
         int width = PROGRESS_BAR.width;
-        if (menu.contentHolder.isPowered()) {
-            heightProgress = (int) (PROGRESS_BAR.height * Mth.lerp(partialTicks, (float) heatManager() / 100, (float) heatManager() / 100));
-        } else {
-            heightProgress = 0;
-        }
+
+        heightProgress = (int) (PROGRESS_BAR.height * Mth.lerp(partialTicks, lastReactorPower / 100, lastReactorPower / 100));
+
         //System.out.println("count Graphite : " + countGraphiteRod());
         //System.out.println("count Uranium : " + countUraniumRod());
         //System.out.println("current heat : " + heatManager());
@@ -77,17 +76,24 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
 
     @Override
     protected void containerTick() {
+        float coef = 0.1F;
         super.containerTick();
-
+        reactorPower = heatManager();
         boolean hasUranium = menu.getSlot(0).hasItem();
         boolean hasGraphite = menu.getSlot(1).hasItem();
-        if (menu.contentHolder.isPowered() && hasUranium && hasGraphite && progress <= 1) {
-            lastChasingProgress = chasingProgress;
-            progress += 0.01F;
-            chasingProgress += (progress - chasingProgress) * .5f;
+        if (menu.contentHolder.isPowered() && hasUranium && hasGraphite) {
+            if (reactorPower < lastReactorPower - coef || reactorPower > lastReactorPower + coef) {
+                if (reactorPower < lastReactorPower) {
+                    lastReactorPower -= 0.2F;
+                }else {
+                    lastReactorPower += 0.2F;
+                }
+            }else {
+                lastReactorPower = reactorPower;
+            }
 
         } else {
-            progress = chasingProgress = lastChasingProgress = 0;
+            lastReactorPower = 0;
         }
     }
 
