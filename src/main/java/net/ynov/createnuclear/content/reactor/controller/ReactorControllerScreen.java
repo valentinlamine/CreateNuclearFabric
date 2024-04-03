@@ -9,6 +9,7 @@ import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.gui.CNGuiTextures;
 import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.gui.CNIcons;
+import net.ynov.createnuclear.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +21,6 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     private float progress;
     private float chasingProgress;
     private float lastChasingProgress;
-    private final int maxHeat = 100;
-    private int heat = 0;
 
     public ReactorControllerScreen(ReactorControllerMenu container, Inventory inv, Component title) {
         super(container, inv, title);
@@ -57,16 +56,20 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
         int x = leftPos + imageWidth - BG.width;
         int y = topPos;
+        int heightProgress;
 
         BG.render(graphics, x, y);
         graphics.drawString(font, title, x + 15, y + 4, 0x592424, false);
 
         int width = PROGRESS_BAR.width;
-        int heightProgress = (int) (PROGRESS_BAR.height
-                * Mth.lerp(partialTicks, lastChasingProgress, chasingProgress));
+        if (menu.contentHolder.isPowered()) {
+            heightProgress = (int) (PROGRESS_BAR.height * Mth.lerp(partialTicks, (float) heatManager() / 100, (float) heatManager() / 100));
+        } else {
+            heightProgress = 0;
+        }
         //System.out.println("count Graphite : " + countGraphiteRod());
         //System.out.println("count Uranium : " + countUraniumRod());
-        System.out.println("current heat : " + heatManager());
+        //System.out.println("current heat : " + heatManager());
         graphics.blit(PROGRESS_BAR.location, x + 179, y + 40 + (PROGRESS_BAR.height - heightProgress), PROGRESS_BAR.startX,
                 (176 - heightProgress), width, heightProgress);
     }
@@ -78,7 +81,6 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
 
         boolean hasUranium = menu.getSlot(0).hasItem();
         boolean hasGraphite = menu.getSlot(1).hasItem();
-
         if (menu.contentHolder.isPowered() && hasUranium && hasGraphite && progress <= 1) {
             lastChasingProgress = chasingProgress;
             progress += 0.01F;
@@ -170,19 +172,104 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     }
 
     public int heatManager() {
-        int nextColValue = 0;
-        int prevColValue = 0;
-        heat = countUraniumRod() * 4 - countGraphiteRod() * 6;
-        int [] step = new int[] {1, 1, 0, 0, 0, -1, -1};
-        int [][] list = new int[][] {{0,1,2}, {3,4,5,6, 7}, {8,9,10,11,12,13, 14}, {15, 16, 17, 18, 19, 20, 21}, {22, 23, 24, 25, 26, 27, 28}, {29, 30, 31, 32, 33}, {34, 35, 36}};
-        List<CNIconButton> switchButtons = menu.contentHolder.getSwitchButtons();
-        for (int i = 0; i < switchButtons.size(); i++) {
-            for (int j = 0; j != list.length; j++) {
-                for (int k = 0; k != list[j].length; k++) {
-                    nextColValue = list[j+1][k+step[j]];
-                    prevColValue = list[j-1][k+step[j]];
+        int colDown;
+        int colUp;
+        int colLeft;
+        int colRight;
+        int heat = countUraniumRod() * 10 - countGraphiteRod() * 5;
+
+        int [][] list = new int[][] {{99,99,99,0,1,2,99,99,99}, {99,99,3,4,5,6,7,99,99}, {99,8,9,10,11,12,13,14,99}, {15,16,17,18,19,20,21,22,23}, {24,25,26,27,28,29,30,31,32}, {33,34,35,36,37,38,39,40,41}, {99,42,43,44,45,46,47,48,99}, {99,99,49,50,51,52,53,99,99}, {99,99,99,54,55,56,99,99,99}};
+        for (int j = 0; j != list.length; j++) {
+            for (int k = 0; k != list[j].length; k++) {
+                if (j == 0) {
+                    colUp = 99;
+                    colDown = list[j+1][k];
+                } else if (j == list.length-1) {
+                    colUp = list[j-1][k];
+                    colDown = 99;
+                } else {
+                    colUp = list[j-1][k];
+                    colDown = list[j+1][k];
+                }
+                if (k == 0) {
+                    colLeft = 99;
+                    colRight = list[j][k+1];
+                } else if (k == list[j].length-1) {
+                    colLeft = list[j][k-1];
+                    colRight = 99;
+                } else {
+                    colLeft = list[j][k-1];
+                    colRight = list[j][k+1];
+                }
+                if (list[j][k] != 99) {
+                    heat += ProximityManager(list[j][k], colUp, colDown, colLeft, colRight);
                 }
             }
+        }
+
+        if (heat >= 100) {
+            CreateNuclear.LOGGER.info("oulala il est chaud un peu la, attenti... BOOOOM");
+        }
+        return heat;
+    }
+
+    private int addTmpHeat(CNIconButton button, int isUranium) {
+        if (isUranium == 0) {
+            if (button.getIcon().equals(CNIcons.GRAPHITE_ROD_ICON)) {
+                return 0;
+            } else if (button.getIcon().equals(CNIcons.URANIUM_ROD_ICON)) {
+                return 4;
+            }
+        } else if (isUranium == 1) {
+            if (button.getIcon().equals(CNIcons.GRAPHITE_ROD_ICON)) {
+                return 0;
+            } else if (button.getIcon().equals(CNIcons.URANIUM_ROD_ICON)) {
+                return -5;
+            }
+        }
+        return 0;
+    }
+    public int ProximityManager(int current, int up, int down, int left, int right) {
+        List<CNIconButton> switchButtons = menu.contentHolder.getSwitchButtons();
+        CNIconButton button = switchButtons.get(current);
+        CNIconButton buttonDown;
+        CNIconButton buttonUp;
+        CNIconButton buttonLeft;
+        CNIconButton buttonRight;
+        int isUranium = 2;
+
+        int tmpHeat = 0;
+
+        if (button.getIcon().equals(CNIcons.EMPTY_ICON)) {
+            return 0;
+        } else if (button.getIcon().equals(CNIcons.GRAPHITE_ROD_ICON)) {
+            isUranium = 1;
+        } else if (button.getIcon().equals(CNIcons.URANIUM_ROD_ICON)) {
+            isUranium = 0;
+        }
+        if (up != 99) {
+            buttonUp = switchButtons.get(up);
+            tmpHeat = addTmpHeat(buttonUp, isUranium);
+        }
+        if (down != 99) {
+            buttonDown = switchButtons.get(down);
+            tmpHeat = addTmpHeat(buttonDown, isUranium);
+        }
+        if (left != 99) {
+            buttonLeft = switchButtons.get(left);
+            tmpHeat = addTmpHeat(buttonLeft, isUranium);
+        }
+        if (right != 99) {
+            buttonRight = switchButtons.get(right);
+            tmpHeat = addTmpHeat(buttonRight, isUranium);
+        }
+        //CreateNuclear.LOGGER.info("Heat at index: " + current + " is " + tmpHeat);
+        return tmpHeat;
+    }
+
+    public void showAllItemsInTab() {
+        List<CNIconButton> switchButtons = menu.contentHolder.getSwitchButtons();
+        for (int i = 0; i < switchButtons.size(); i++) {
             CNIconButton button = switchButtons.get(i);
             if (button.getIcon().equals(CNIcons.GRAPHITE_ROD_ICON)) {
                 CreateNuclear.LOGGER.info("Graphite Rod at index: " + i);
@@ -192,10 +279,5 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
                 CreateNuclear.LOGGER.info("Empty at index: " + i);
             }
         }
-
-        /*if (heat >= 100) {
-            CreateNuclear.LOGGER.info("oulala il est chaud un peu la, attenti... BOOOOM");
-        }*/
-        return heat;
     }
 }
