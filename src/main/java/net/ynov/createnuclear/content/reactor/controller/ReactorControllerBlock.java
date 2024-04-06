@@ -106,6 +106,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
     public boolean isPowered() {
        return powered; // les variables ne sont pas sauvegarder lors d'un déchargement/rechargement de monde (donc passer par le blockState/ou trouver une autre methode)
     }
+
     public void setPowered(boolean power) {
         powered = power;
 //        worldIn.setBlockAndUpdate(pos, state.setValue(POWERED, power));
