@@ -11,6 +11,7 @@
     "createnuclear:reactor_core",
     "createnuclear:reactor_casing",
     "createnuclear:reactor_main_frame",
-    "createnuclear:reactor_cooling_frame"
+    "createnuclear:reactor_cooling_frame",
+    "createnuclear:reactor_gauge_block"
   ]
 }

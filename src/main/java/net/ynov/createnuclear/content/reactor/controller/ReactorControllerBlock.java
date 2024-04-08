@@ -78,7 +78,14 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
         if (Boolean.FALSE.equals(state.getValue(ASSEMBLED))) {
             player.sendSystemMessage(Component.literal("Multiblock not assembled").withStyle(ChatFormatting.RED));
         }else {
-            withBlockEntityDo(worldIn, pos, be -> NetworkHooks.openScreen((ServerPlayer) player, be, be::sendToMenu)); // Ouvre le menu de reactor controller
+            var result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(worldIn, pos);
+            if (result != null) {
+                withBlockEntityDo(worldIn, pos, be -> NetworkHooks.openScreen((ServerPlayer) player, be, be::sendToMenu)); // Ouvre le menu de reactor controller
+            }
+            else {
+                worldIn.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, false));
+                player.sendSystemMessage(Component.literal("Erreur dans l'assemblage du multiBlock").withStyle(ChatFormatting.RED));
+            }
         }
 
         return InteractionResult.SUCCESS;

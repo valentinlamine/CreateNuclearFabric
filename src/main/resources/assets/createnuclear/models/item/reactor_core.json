@@ -1,10 +1,10 @@
 {
   "parent": "block/block",
   "textures": {
-    "1": "createnuclear:block/reactor/reactor_core_casing",
-    "2": "createnuclear:block/reactor/reactor_core_center",
-    "3": "createnuclear:block/reactor/reactor_core_bars",
-    "particle": "createnuclear:block/reactor/reactor_core_center"
+    "1": "createnuclear:block/reactor/core/reactor_core_casing",
+    "2": "createnuclear:block/reactor/core/reactor_core_center",
+    "3": "createnuclear:block/reactor/core/reactor_core_bars",
+    "particle": "createnuclear:block/reactor/core/reactor_core_center"
   },
   "elements": [
     {

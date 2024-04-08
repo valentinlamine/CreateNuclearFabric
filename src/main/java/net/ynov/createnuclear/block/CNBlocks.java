@@ -1,6 +1,10 @@
 package net.ynov.createnuclear.block;
 
+import com.simibubi.create.AllBlocks;
+import com.simibubi.create.AllBogeyStyles;
+import com.simibubi.create.AllSpriteShifts;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
+import com.simibubi.create.foundation.block.connected.HorizontalCTBehaviour;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
@@ -12,10 +16,12 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.DarkOakTrunkPlacer;
 import net.minecraft.world.level.material.MapColor;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.blockentity.ReinforcedGlassBlock;
 import net.ynov.createnuclear.content.reactor.controller.ReactorControllerBlock;
+import net.ynov.createnuclear.content.reactor.gauge.ReactorGaugeBlock;
 import net.ynov.createnuclear.tags.CNTag;
 //import net.ynov.createnuclear.tools.EnrichingCampfire;
 import net.ynov.createnuclear.groups.CNGroup;
@@ -24,6 +30,7 @@ import net.ynov.createnuclear.tools.EnrichingFireBlock;
 import net.ynov.createnuclear.tools.UraniumOreBlock;
 
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
+import static net.minecraft.world.level.block.Blocks.STONE;
 import static net.minecraft.world.level.block.Blocks.litBlockEmission;
 
 public class CNBlocks {
@@ -161,6 +168,16 @@ public class CNBlocks {
                     .simpleItem()
                     .register();
 
+    public static final BlockEntry<ReactorGaugeBlock> REACTOR_GAUGE_BLOCK =
+            CreateNuclear.REGISTRATE.block("reactor_gauge_block", ReactorGaugeBlock::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .transform(pickaxeOnly())
+                    .simpleItem()
+                    .register();
+
     public static Block getSoulSoil() {
         return Blocks.SOUL_SOIL;
     }
@@ -182,4 +199,6 @@ public class CNBlocks {
 
         //ItemGroupEvents.modifyEntriesEvent(CNGroup.MAIN_KEY).register(CNBlocks::addBlockToCreateNuclearItemGroup);
     }
+
+
 }
