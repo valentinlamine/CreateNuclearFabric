@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -59,8 +60,9 @@ public class ReactorGaugeBlock extends HorizontalDirectionalBlock {
         if (part != Part.NONE) {
             return state;
         }
+        return state.setValue(PART, getCollumShape(level, currentPos));
 
-        BlockState pastBlock = level.getBlockState(currentPos.below(1));
+       /* BlockState pastBlock = level.getBlockState(currentPos.below(1));
         BlockState postBlock = level.getBlockState(currentPos.above(1));
 
         if (pastBlock.getBlock() instanceof ReactorGaugeBlock && !(postBlock.getBlock() instanceof ReactorGaugeBlock)) {
@@ -74,9 +76,8 @@ public class ReactorGaugeBlock extends HorizontalDirectionalBlock {
         }
         else {
             return state.setValue(PART, Part.NONE);
-        }
+        }*/
     }
-
 
 
     @Override
@@ -87,5 +88,18 @@ public class ReactorGaugeBlock extends HorizontalDirectionalBlock {
     @Override
     public BlockState mirror(BlockState state, Mirror mirror) {
         return super.mirror(state, mirror);
+    }
+
+    private static Part getCollumShape(LevelAccessor level, BlockPos pos) {
+        BlockState downState = level.getBlockState(pos.below());
+        BlockState upState = level.getBlockState(pos.above());
+
+        BlockState downState2 = level.getBlockState(pos.below(1));
+        BlockState upState2 = level.getBlockState(pos.above(1));
+        return (downState.getBlock() instanceof ReactorGaugeBlock && upState.getBlock() instanceof ReactorGaugeBlock) || upState.getBlock() instanceof ReactorGaugeBlock
+                ? Part.END
+                : downState.getBlock() instanceof ReactorGaugeBlock
+                    ? Part.START
+                    : Part.MIDDLE;
     }
 }
