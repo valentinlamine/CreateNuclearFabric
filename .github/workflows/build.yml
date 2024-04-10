@@ -76,8 +76,8 @@ jobs:
         if: ${{ github.event.inputs.modtag != '' }}
         id: release
         run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github@valentinlamine.fr"
+          git config --global user.name "CreateNuclear[bot]"
           git add gradle.properties
           git commit -m "change mod version"
           git tag -a ${{github.event.inputs.modtag}} -m "version du mod"
