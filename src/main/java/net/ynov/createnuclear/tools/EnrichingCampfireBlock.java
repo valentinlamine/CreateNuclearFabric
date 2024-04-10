@@ -3,7 +3,6 @@ package net.ynov.createnuclear.tools;
 
 import java.util.Optional;
 
-import com.simibubi.create.content.kinetics.base.IRotate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -48,8 +47,6 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.ynov.createnuclear.energy.ReactorOutput;
-import net.ynov.createnuclear.energy.ReactorOutputEntity;
 import org.jetbrains.annotations.Nullable;
 
 public class EnrichingCampfireBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {

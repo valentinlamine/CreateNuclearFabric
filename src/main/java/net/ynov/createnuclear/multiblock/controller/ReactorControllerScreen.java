@@ -1,4 +1,4 @@
-package net.ynov.createnuclear.content.reactor.controller;
+package net.ynov.createnuclear.multiblock.controller;
 
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;

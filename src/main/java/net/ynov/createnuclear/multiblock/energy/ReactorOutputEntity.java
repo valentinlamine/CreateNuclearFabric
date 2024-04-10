@@ -1,4 +1,4 @@
-package net.ynov.createnuclear.energy;
+package net.ynov.createnuclear.multiblock.energy;
 
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -11,20 +11,24 @@ import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.VecHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
 import net.minecraft.world.phys.Vec3;
+import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
-import net.ynov.createnuclear.tools.EnrichingCampfireBlock;
+import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
 
 import java.util.List;
+import java.util.Objects;
+
+import static net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
+import static net.ynov.createnuclear.multiblock.energy.ReactorOutput.DIR;
+import static net.ynov.createnuclear.multiblock.energy.ReactorOutput.SPEED;
 
 public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
-
-	public static final int DEFAULT_SPEED = 0;
-	public static boolean structure;
 	public int speed = 0;
 	protected ScrollValueBehaviour generatedSpeed;
 
@@ -35,7 +39,7 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 	public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
 		super.addBehaviours(behaviours);
 		generatedSpeed = new KineticScrollValueBehaviour(Lang.translateDirect("kinetics.reactor_output.rotation_speed"),
-			this, new net.ynov.createnuclear.energy.ReactorOutputEntity.MotorValueBox());
+			this, new net.ynov.createnuclear.multiblock.energy.ReactorOutputEntity.MotorValueBox());
 		generatedSpeed.between(-speed, speed);
 		generatedSpeed.value = speed;
 		generatedSpeed.withCallback(i -> this.updateGeneratedRotation());
@@ -46,8 +50,38 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 	public void initialize() {
 		super.initialize();
 		if (!hasSource() || getGeneratedSpeed() > getTheoreticalSpeed())
-			updateGeneratedRotation();
+		{
+			FindController(getBlockPos(), Objects.requireNonNull(getLevel()));
+		}
 	}
+
+	public void FindController(BlockPos pos, Level level){
+		if (level.getBlockState(pos.above(3)).getBlock() == CNBlocks.REACTOR_CONTROLLER.get()){
+            ReactorControllerBlock controller = (ReactorControllerBlock)level.getBlockState(pos.above(3)).getBlock();
+			controller.Verify(controller.defaultBlockState(), pos.above(3), level, level.players(), false);
+			controller.Rotate(controller.defaultBlockState(), pos, level, getSpeed2());
+		}
+	}
+
+	public Integer getSpeed2() {
+        BlockState state = getBlockState();
+        return state.getValue(SPEED);
+    }
+
+	public void setSpeed2(int speed, Level level, BlockPos pos) {
+        BlockState state = getBlockState();
+        level.setBlockAndUpdate(pos, state.setValue(SPEED, speed));
+    }
+
+	public int getDir() {
+        BlockState state = getBlockState();
+        return state.getValue(DIR);
+    }
+
+	public void setDir(int dir, Level level, BlockPos pos) {
+        BlockState state = getBlockState();
+		level.setBlockAndUpdate(pos, state.setValue(DIR, dir));
+    }
 
 	@Override
 	public float getGeneratedSpeed() {
