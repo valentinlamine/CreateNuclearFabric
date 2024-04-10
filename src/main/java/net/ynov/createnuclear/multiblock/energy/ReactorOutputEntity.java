@@ -24,6 +24,7 @@ import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
 import java.util.List;
 import java.util.Objects;
 
+import static net.minecraft.world.level.block.Block.getId;
 import static net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
 import static net.ynov.createnuclear.multiblock.energy.ReactorOutput.DIR;
 import static net.ynov.createnuclear.multiblock.energy.ReactorOutput.SPEED;
@@ -51,6 +52,7 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 		super.initialize();
 		if (!hasSource() || getGeneratedSpeed() > getTheoreticalSpeed())
 		{
+			CreateNuclear.LOGGER.info("Init SPEED : " + getSpeed2() + "  pos : " + getBlockPos());
 			FindController(getBlockPos(), Objects.requireNonNull(getLevel()));
 		}
 	}
@@ -67,11 +69,10 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
         BlockState state = getBlockState();
         return state.getValue(SPEED);
     }
-
 	public void setSpeed2(int speed, Level level, BlockPos pos) {
-        BlockState state = getBlockState();
-        level.setBlockAndUpdate(pos, state.setValue(SPEED, speed));
-    }
+		BlockState state = getBlockState();
+		level.setBlockAndUpdate(pos, state.setValue(SPEED, speed));
+	}
 
 	public int getDir() {
         BlockState state = getBlockState();
