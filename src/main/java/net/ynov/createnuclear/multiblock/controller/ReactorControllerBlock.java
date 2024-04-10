@@ -101,6 +101,16 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
 
         withBlockEntityDo(worldIn, pos, be -> ItemHelper.dropContents(worldIn, pos, be.inventory));
         worldIn.removeBlockEntity(pos);
+
+        ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
+        ReactorControllerBlockEntity entity = controller.getBlockEntity(worldIn, pos);
+        if (!entity.created)
+            return;
+        controller.Rotate(state, pos.below(3), worldIn, 0);
+        List<? extends Player> players = worldIn.players();
+        for (Player p : players) {
+            p.sendSystemMessage(Component.literal("CRITICAL : Reactor Destroyed"));
+        }
     }
 
     public boolean isPowered() {
@@ -181,21 +191,25 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
     }
     public void Rotate(BlockState state, BlockPos pos, Level level, int rotation) {
         if (level.getBlockState(pos).is(CNBlocks.REACTOR_OUTPUT.get())) {
-            if (Boolean.TRUE.equals(state.getValue(ASSEMBLED))) { // Starting the energy
-                ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
-                Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos)).speed = rotation;
-                Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos)).updateSpeed = true;
-                Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos)).updateGeneratedRotation();
+            ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
+            ReactorOutputEntity entity = Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos));
+
+            if (entity.getDir() == 1)
+                rotation = -rotation;
+
+            if (Boolean.TRUE.equals(state.getValue(ASSEMBLED)) && rotation != 0) { // Starting the energy
+                entity.speed = rotation;
+                entity.setSpeed2(Math.abs(entity.speed), level, pos.below(3));
+                entity.updateSpeed = true;
+                entity.updateGeneratedRotation();
             } else { // stopping the energy
-                ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
-                Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos)).speed = 0;
-                Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos)).updateSpeed = true;
-                Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos)).updateGeneratedRotation();
+                entity.setSpeed2(0, level, pos.below(3));
+                entity.speed = 0;
+                entity.updateSpeed = true;
+                entity.updateGeneratedRotation();
             }
 
-            ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
-
-            //CompoundTag compoundtag =
+            CreateNuclear.LOGGER.info("SPEED : " + entity.getSpeed2() + "DIR : " + entity.getDir());
         }
     }
 

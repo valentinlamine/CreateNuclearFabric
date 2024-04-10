@@ -3,6 +3,7 @@ package net.ynov.createnuclear.multiblock.energy;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
 
+import com.simibubi.create.content.kinetics.base.flwdata.KineticData;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,9 +17,13 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -33,11 +38,21 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ReactorOutput extends DirectionalKineticBlock implements IBE<ReactorOutputEntity> {
 
+	public static final IntegerProperty SPEED = IntegerProperty.create("speed", 0, 64);
+	public static final IntegerProperty DIR = IntegerProperty.create("dir", 0, 2);
+
 	public ReactorOutput(Properties properties) {
 		super(properties);
+	}
+
+	@Override
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(SPEED).add(DIR);
+		super.createBlockStateDefinition(builder);
 	}
 
 	@Override
@@ -48,13 +63,13 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 			ReactorControllerBlock controller = FindController(pos, level);
 			if (controller != null){
 				ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos.above(3));
-				player.sendSystemMessage(Component.literal("controller is " + entity.created + " " + entity.speed));
-				if (entity.getAssembled()){
-					entity.speed = -entity.speed;
+                assert entity != null;
+                if (entity.getAssembled()){
+					ReactorOutputEntity control = Objects.requireNonNull(getBlockEntity(level, pos));
+					if (control.getDir() == 0)
+						control.setDir(1, level, pos);
+					else control.setDir(0, level, pos);
 					controller.Rotate(controller.defaultBlockState(), pos, level, entity.speed);
-				}
-				else {
-					controller.Rotate(controller.defaultBlockState(), pos, level, 0);
 				}
 			}
 			return InteractionResult.CONSUME;
@@ -80,6 +95,15 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 	}
 
 	@Override
+	public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+		super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
+		List<? extends Player> players = pLevel.players();
+		ReactorControllerBlock controller = FindController(pPos, pLevel);
+		if (controller != null)
+			controller.Verify(controller.defaultBlockState(), pPos.above(3), pLevel, players, false);
+	}
+
+	@Override
 	public @NotNull VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
 		return CNShapes.REACTOR_OUTPUT.get(state.getValue(FACING));
 	}
@@ -90,7 +114,7 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 		if ((context.getPlayer() != null && context.getPlayer()
 			.isShiftKeyDown()) || preferred == null)
 			return super.getStateForPlacement(context);
-		return defaultBlockState().setValue(FACING, preferred);
+		return defaultBlockState().setValue(FACING, preferred).setValue(SPEED, 0).setValue(DIR, 0);
 	}
 
 	// IRotate:
