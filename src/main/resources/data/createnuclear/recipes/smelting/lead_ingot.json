@@ -2,9 +2,9 @@
   "type": "minecraft:smelting",
   "category": "misc",
   "cookingtime": 200,
-  "experience": 0.1,
+  "experience": 1.0,
   "ingredient": {
-    "item": "createnuclear:uranium_ore"
+    "item": "createnuclear:raw_lead"
   },
-  "result": "createnuclear:raw_uranium"
+  "result": "createnuclear:lead_ingot"
 }

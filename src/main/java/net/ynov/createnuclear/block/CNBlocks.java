@@ -50,6 +50,13 @@ public class CNBlocks {
                     .transform(pickaxeOnly())
                     .register();
 
+    public static final BlockEntry<Block> DEEPSLATE_LEAD_ORE =
+            CreateNuclear.REGISTRATE.block("deepslate_lead_ore", Block::new)
+                    .initialProperties(CNBlocks::getDiamondOre)
+                    .simpleItem()
+                    .transform(pickaxeOnly())
+                    .register();
+
     public static final BlockEntry<Block> LEAD_ORE =
             CreateNuclear.REGISTRATE.block("lead_ore", Block::new)
                     .initialProperties(SharedProperties::stone)
@@ -124,7 +131,6 @@ public class CNBlocks {
                 .lightLevel(litBlockEmission(10))
                 .noOcclusion()
                 .ignitedByLava()
-
             ))
             .properties(BlockBehaviour.Properties::replaceable)
             //.initialProperties(CNBlocks::DIAMOND_ORE)

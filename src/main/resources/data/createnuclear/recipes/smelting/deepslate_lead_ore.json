@@ -4,7 +4,7 @@
   "cookingtime": 200,
   "experience": 0.1,
   "ingredient": {
-    "item": "createnuclear:deepslate_uranium_ore"
+    "item": "createnuclear:deepslate_lead_ore"
   },
-  "result": "createnuclear:raw_uranium"
+  "result": "createnuclear:raw_lead"
 }

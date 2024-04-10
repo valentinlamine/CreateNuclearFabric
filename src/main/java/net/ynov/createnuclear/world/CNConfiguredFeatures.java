@@ -27,7 +27,7 @@ public class CNConfiguredFeatures {
         RuleTest stoneReplacables = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
         RuleTest deepslateReplacables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
 
-        List<OreConfiguration> overworldUraniumOres =
+        List<OreConfiguration> overworldOres =
                 List.of(new OreConfiguration(stoneReplacables, CNBlocks.URANIUM_ORE.getDefaultState(), 12),
                         new OreConfiguration(deepslateReplacables, CNBlocks.DEEPSLATE_URANIUM_ORE.getDefaultState(), 12));
 
