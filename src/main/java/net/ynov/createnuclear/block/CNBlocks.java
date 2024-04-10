@@ -8,6 +8,7 @@ import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -16,12 +17,12 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.blockentity.ReinforcedGlassBlock;
-import net.ynov.createnuclear.content.reactor.controller.ReactorControllerBlock;
 import net.ynov.createnuclear.content.reactor.gauge.ReactorGaugeBlock;
+import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
+import net.ynov.createnuclear.multiblock.ReactorBlock;
 import net.ynov.createnuclear.tags.CNTag;
 //import net.ynov.createnuclear.tools.EnrichingCampfire;
-import net.ynov.createnuclear.groups.CNGroup;
-import net.ynov.createnuclear.energy.ReactorOutput;
+import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
 import net.ynov.createnuclear.tools.EnrichingCampfire;
 import net.ynov.createnuclear.tools.EnrichingFireBlock;
 import net.ynov.createnuclear.tools.UraniumOreBlock;
@@ -115,12 +116,15 @@ public class CNBlocks {
             CreateNuclear.REGISTRATE.block("reactor_output", ReactorOutput::new)
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(4F))
+			.initialProperties(SharedProperties::stone)
+			.properties(p -> p.mapColor(MapColor.COLOR_PURPLE).forceSolidOn())
 			.tag(AllTags.AllBlockTags.SAFE_NBT.tag)
 			.transform(pickaxeOnly())
 			.blockstate(new CreativeMotorGenerator()::generate)
-			.transform(BlockStressDefaults.setCapacity(200))
+			.transform(BlockStressDefaults.setCapacity(500))
 			.transform(BlockStressDefaults.setGeneratorSpeed(() -> Couple.create(0, 256)))
 			.item()
+			.properties(p -> p.rarity(Rarity.EPIC))
 			.transform(customItemModel())
 			.register();
     public static final BlockEntry<EnrichingCampfire> ENRICHING_CAMPFIRE =
@@ -140,12 +144,6 @@ public class CNBlocks {
             .transform(pickaxeOnly())
             .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
             .register();
-            public static final BlockEntry<ReactorController> REACTOR_CONTROLLER2 =
-            CreateNuclear.REGISTRATE.block("reactor_controller", ReactorController::new)
-                    .properties(p -> p.explosionResistance(1200F))
-                    .properties(p -> p.destroyTime(4F))
-                    .simpleItem()
-                    .register();
 
     public static final BlockEntry<ReactorControllerBlock> REACTOR_CONTROLLER =
             CreateNuclear.REGISTRATE.block("reactor_controller", ReactorControllerBlock::new)

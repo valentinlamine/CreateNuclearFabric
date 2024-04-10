@@ -24,6 +24,7 @@ import net.ynov.createnuclear.CNMultiblock;
 import net.ynov.createnuclear.blockentity.CNBlockEntities;
 import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.item.CNItems;
+import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
 
 import java.util.List;
 
