@@ -57,7 +57,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
 
         Item item = player.getItemInHand(handIn).getItem();
 
-        if (item.getDescriptionId().equals(CNItems.WELDING_KIT.getDescriptionId())) { //Si le weldingKit est dans la main
+        if (CNItems.WELDING_KIT.is(item)) { //Si le weldingKit est dans la main
             if (Boolean.TRUE.equals(state.getValue(ASSEMBLED))) {
                 player.sendSystemMessage(Component.literal("Multiblock déjà assemblé").withStyle(ChatFormatting.YELLOW));
                 return InteractionResult.SUCCESS;
