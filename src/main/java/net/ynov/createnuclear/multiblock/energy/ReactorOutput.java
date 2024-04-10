@@ -61,6 +61,8 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 		if (level.isClientSide)
 			return InteractionResult.SUCCESS;
 		else {
+			if (!player.getItemInHand(hand).toString().equals("0 air"))
+				return InteractionResult.PASS;
 			ReactorControllerBlock controller = FindController(pos, level);
 			if (controller != null){
 				ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos.above(3));
