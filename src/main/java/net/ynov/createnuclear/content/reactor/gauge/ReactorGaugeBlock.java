@@ -6,24 +6,20 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Property;
-import net.ynov.createnuclear.CreateNuclear;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ReactorGaugeBlock extends HorizontalDirectionalBlock {
+public class ReactorGaugeBlock extends Block {
 
     public static final Property<Part> PART = EnumProperty.create("part", Part.class);
-    // public static final BooleanProperty
+
 
     public ReactorGaugeBlock(Properties properties) {
         super(properties);
@@ -50,35 +46,45 @@ public class ReactorGaugeBlock extends HorizontalDirectionalBlock {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(PART, Part.NONE);
+        Level level = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+        Direction.Axis axis = context.getClickedFace().getAxis();
+
+        if (axis == Direction.Axis.X || axis == Direction.Axis.Z) axis = Direction.Axis.Y;
+
+        return this.defaultBlockState().setValue(PART, getType(this.defaultBlockState(), getRelativeTop(level, pos, axis), getRelativeBottom(level, pos, axis)));
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
-        Part part = state.getValue(PART);
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
+        if (level.isClientSide) return;
 
-        if (part != Part.NONE) {
-            return state;
-        }
-        return state.setValue(PART, getCollumShape(level, currentPos));
+        Direction.Axis axis = Direction.Axis.Y;
+        Part part = getType(state, getRelativeTop(level, pos, axis), getRelativeBottom(level, pos, axis));
 
-       /* BlockState pastBlock = level.getBlockState(currentPos.below(1));
-        BlockState postBlock = level.getBlockState(currentPos.above(1));
+        if (state.getValue(PART) == part) return;
 
-        if (pastBlock.getBlock() instanceof ReactorGaugeBlock && !(postBlock.getBlock() instanceof ReactorGaugeBlock)) {
-            return state.setValue(PART, Part.START);
-        }
-        else if (!(pastBlock.getBlock() instanceof ReactorGaugeBlock) && postBlock.getBlock() instanceof ReactorGaugeBlock) {
-            return state.setValue(PART, Part.END);
-        }
-        else if (pastBlock.getBlock() instanceof ReactorGaugeBlock && postBlock.getBlock() instanceof ReactorGaugeBlock) {
-            return state.setValue(PART, Part.MIDDLE);
-        }
-        else {
-            return state.setValue(PART, Part.NONE);
-        }*/
+        state = state.setValue(PART, part);
+        level.setBlock(pos, state, 3);
     }
 
+    public BlockState getRelativeTop(Level level, BlockPos pos, Direction.Axis axis) {
+        return level.getBlockState(pos.relative(Direction.fromAxisAndDirection(axis, Direction.AxisDirection.POSITIVE)));
+    }
+
+    public  BlockState getRelativeBottom(Level level, BlockPos pos, Direction.Axis axis) {
+        return level.getBlockState(pos.relative(Direction.fromAxisAndDirection(axis, Direction.AxisDirection.NEGATIVE)));
+    }
+
+    public Part getType(BlockState state, BlockState above, BlockState below) {
+        boolean shapeAboveSame = above.is(state.getBlock());
+        boolean shapeBelowSame = below.is(state.getBlock());
+
+        if (shapeAboveSame && ! shapeBelowSame) return  Part.END;
+        else if (!shapeAboveSame && shapeBelowSame) return  Part.START;
+        else if (shapeAboveSame) return Part.MIDDLE;
+        return Part.NONE;
+    }
 
     @Override
     public BlockState rotate(BlockState state, Rotation rotation) {
@@ -88,18 +94,5 @@ public class ReactorGaugeBlock extends HorizontalDirectionalBlock {
     @Override
     public BlockState mirror(BlockState state, Mirror mirror) {
         return super.mirror(state, mirror);
-    }
-
-    private static Part getCollumShape(LevelAccessor level, BlockPos pos) {
-        BlockState downState = level.getBlockState(pos.below());
-        BlockState upState = level.getBlockState(pos.above());
-
-        BlockState downState2 = level.getBlockState(pos.below(1));
-        BlockState upState2 = level.getBlockState(pos.above(1));
-        return (downState.getBlock() instanceof ReactorGaugeBlock && upState.getBlock() instanceof ReactorGaugeBlock) || upState.getBlock() instanceof ReactorGaugeBlock
-                ? Part.END
-                : downState.getBlock() instanceof ReactorGaugeBlock
-                    ? Part.START
-                    : Part.MIDDLE;
     }
 }
