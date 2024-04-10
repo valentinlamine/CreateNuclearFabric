@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.blockentity.ReinforcedGlassBlock;
+import net.ynov.createnuclear.content.reactor.gauge.ReactorGaugeBlock;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.ynov.createnuclear.multiblock.ReactorBlock;
 import net.ynov.createnuclear.tags.CNTag;
@@ -28,6 +29,7 @@ import net.ynov.createnuclear.tools.UraniumOreBlock;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
+import static net.minecraft.world.level.block.Blocks.STONE;
 import static net.minecraft.world.level.block.Blocks.litBlockEmission;
 
 public class CNBlocks {
@@ -46,6 +48,13 @@ public class CNBlocks {
     public static final BlockEntry<UraniumOreBlock> URANIUM_ORE =
             CreateNuclear.REGISTRATE.block("uranium_ore", UraniumOreBlock::new)
                     .initialProperties(SharedProperties::stone)
+                    .simpleItem()
+                    .transform(pickaxeOnly())
+                    .register();
+
+    public static final BlockEntry<Block> DEEPSLATE_LEAD_ORE =
+            CreateNuclear.REGISTRATE.block("deepslate_lead_ore", Block::new)
+                    .initialProperties(CNBlocks::getDiamondOre)
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .register();
@@ -72,7 +81,12 @@ public class CNBlocks {
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .register();
-
+    public static final BlockEntry<Block> LEAD_BLOCK =
+            CreateNuclear.REGISTRATE.block("lead_block", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .simpleItem()
+                    .transform(pickaxeOnly())
+                    .register();
     public static final BlockEntry<Block> ENRICHED_SOUL_SOIL =
             CreateNuclear.REGISTRATE.block("enriched_soul_soil", Block::new)
                     .initialProperties(CNBlocks::getSoulSoil)
@@ -122,7 +136,6 @@ public class CNBlocks {
                 .lightLevel(litBlockEmission(10))
                 .noOcclusion()
                 .ignitedByLava()
-
             ))
             .properties(BlockBehaviour.Properties::replaceable)
             //.initialProperties(CNBlocks::DIAMOND_ORE)
@@ -170,6 +183,16 @@ public class CNBlocks {
                     .simpleItem()
                     .register();
 
+    public static final BlockEntry<ReactorGaugeBlock> REACTOR_GAUGE_BLOCK =
+            CreateNuclear.REGISTRATE.block("reactor_gauge_block", ReactorGaugeBlock::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .transform(pickaxeOnly())
+                    .simpleItem()
+                    .register();
+
     public static Block getSoulSoil() {
         return Blocks.SOUL_SOIL;
     }
@@ -191,4 +214,6 @@ public class CNBlocks {
 
         //ItemGroupEvents.modifyEntriesEvent(CNGroup.MAIN_KEY).register(CNBlocks::addBlockToCreateNuclearItemGroup);
     }
+
+
 }

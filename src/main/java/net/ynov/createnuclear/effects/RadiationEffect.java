@@ -3,6 +3,8 @@ package net.ynov.createnuclear.effects;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
+import net.ynov.createnuclear.CreateNuclear;
+import net.ynov.createnuclear.item.CNItems;
 
 public class RadiationEffect extends MobEffect {
     public RadiationEffect() {
@@ -16,9 +18,24 @@ public class RadiationEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-        if (this == CNEffects.RADIATION.get()) {
-            livingEntity.hurt(livingEntity.damageSources().magic(), 1.0F);
-        }
-    }
+        //Si le joueur porte l'armure anti_radiation_suit alors il ne prend pas de dégâts
+        livingEntity.getArmorSlots().forEach(e -> {
+            if (e.getItem() == CNItems.ANTI_RADIATION_BOOTS
+                    || e.getItem() == CNItems.ANTI_RADIATION_CHESTPLATE
+                    || e.getItem() == CNItems.ANTI_RADIATION_HELMET
+                    || e.getItem() == CNItems.ANTI_RADIATION_LEGGINGS) {
+                livingEntity.hurt(livingEntity.damageSources().magic(), 0.0F);
 
+            } else {
+                livingEntity.hurt(livingEntity.damageSources().magic(), 1.0F);
+            }
+        });
+
+
+//        if (this == CNEffects.RADIATION.get() && !armored) {
+//            CreateNuclear.LOGGER.warn("RadiationEffect: ArmorSlots is null   " + livingEntity.getArmorSlots());
+//
+//            livingEntity.hurt(livingEntity.damageSources().magic(), 1.0F);
+//        }
+    }
 }

@@ -1,2 +1,0 @@
-pour avoir le niveau du fluid qu'on veut dans les craft de create c'est '~81*'comment j'ai trouvé:
-- Pour le craft de la *Bar of Chocolate* c'est 333mB *Chocolate* et dans le fichier la quantité et de 27000 donc 27000/333 ~= 81
