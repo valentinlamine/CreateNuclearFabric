@@ -1,10 +1,16 @@
 {
   "variants": {
-    "": {
-      "model": "createnuclear:block/reactor_main_frame",
-      "files": [
-        "default.css"
-      ]
+    "part=none": {
+      "model": "createnuclear:block/reactor_gauge_none"
+    },
+    "part=middle": {
+      "model": "createnuclear:block/reactor_gauge_middle"
+    },
+    "part=start": {
+      "model": "createnuclear:block/reactor_gauge_top"
+    },
+    "part=end": {
+      "model": "createnuclear:block/reactor_gauge_bottom"
     }
   }
 }
