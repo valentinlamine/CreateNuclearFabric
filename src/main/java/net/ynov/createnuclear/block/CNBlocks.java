@@ -112,6 +112,7 @@ public class CNBlocks {
                     .properties(p -> p.destroyTime(2F))
                     .simpleItem()
                     .register();
+
     public static final BlockEntry<ReactorOutput> REACTOR_OUTPUT =
             CreateNuclear.REGISTRATE.block("reactor_output", ReactorOutput::new)
                     .properties(p -> p.explosionResistance(1200F))
@@ -127,6 +128,7 @@ public class CNBlocks {
 			.properties(p -> p.rarity(Rarity.EPIC))
 			.transform(customItemModel())
 			.register();
+
     public static final BlockEntry<EnrichingCampfire> ENRICHING_CAMPFIRE =
             CreateNuclear.REGISTRATE.block("enriching_campfire", properties -> new EnrichingCampfire(true, 5, BlockBehaviour.Properties.of()
                 .mapColor(MapColor.PODZOL)
@@ -176,15 +178,15 @@ public class CNBlocks {
                     .simpleItem()
                     .register();
 
-    public static final BlockEntry<ReactorBlock> REACTOR_MAIN_FRAME =
+    /*public static final BlockEntry<ReactorBlock> REACTOR_MAIN_FRAME =
             CreateNuclear.REGISTRATE.block("reactor_main_frame", ReactorBlock::new)
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(4F))
                     .simpleItem()
-                    .register();
+                    .register();*/
 
-    public static final BlockEntry<ReactorGaugeBlock> REACTOR_GAUGE_BLOCK =
-            CreateNuclear.REGISTRATE.block("reactor_gauge_block", ReactorGaugeBlock::new)
+    public static final BlockEntry<ReactorGaugeBlock> REACTOR_MAIN_FRAME =
+            CreateNuclear.REGISTRATE.block("reactor_main_frame", ReactorGaugeBlock::new)
                     .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(2F))
