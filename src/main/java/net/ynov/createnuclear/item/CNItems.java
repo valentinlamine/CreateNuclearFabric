@@ -82,7 +82,6 @@ public class CNItems {
         entries.accept(URANIUM_ROD, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(GRAPHITE_ROD, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(RAW_URANIUM,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(WELDING_KIT,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(RAW_LEAD,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(LEAD_INGOT,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(LEAD_NUGGET,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
