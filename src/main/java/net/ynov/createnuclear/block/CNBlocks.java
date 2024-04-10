@@ -8,7 +8,6 @@ import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -18,6 +17,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.blockentity.ReinforcedGlassBlock;
 import net.ynov.createnuclear.content.reactor.controller.ReactorControllerBlock;
+import net.ynov.createnuclear.content.reactor.gauge.ReactorGaugeBlock;
 import net.ynov.createnuclear.tags.CNTag;
 //import net.ynov.createnuclear.tools.EnrichingCampfire;
 import net.ynov.createnuclear.groups.CNGroup;
@@ -28,6 +28,7 @@ import net.ynov.createnuclear.tools.UraniumOreBlock;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
+import static net.minecraft.world.level.block.Blocks.STONE;
 import static net.minecraft.world.level.block.Blocks.litBlockEmission;
 
 public class CNBlocks {
@@ -184,6 +185,16 @@ public class CNBlocks {
                     .simpleItem()
                     .register();
 
+    public static final BlockEntry<ReactorGaugeBlock> REACTOR_GAUGE_BLOCK =
+            CreateNuclear.REGISTRATE.block("reactor_gauge_block", ReactorGaugeBlock::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .transform(pickaxeOnly())
+                    .simpleItem()
+                    .register();
+
     public static Block getSoulSoil() {
         return Blocks.SOUL_SOIL;
     }
@@ -205,4 +216,6 @@ public class CNBlocks {
 
         //ItemGroupEvents.modifyEntriesEvent(CNGroup.MAIN_KEY).register(CNBlocks::addBlockToCreateNuclearItemGroup);
     }
+
+
 }

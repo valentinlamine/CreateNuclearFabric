@@ -78,7 +78,14 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
         if (Boolean.FALSE.equals(state.getValue(ASSEMBLED))) {
             player.sendSystemMessage(Component.literal("Multiblock not assembled").withStyle(ChatFormatting.RED));
         }else {
-            withBlockEntityDo(worldIn, pos, be -> NetworkHooks.openScreen((ServerPlayer) player, be, be::sendToMenu)); // Ouvre le menu de reactor controller
+            var result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(worldIn, pos);
+            if (result != null) {
+                withBlockEntityDo(worldIn, pos, be -> NetworkHooks.openScreen((ServerPlayer) player, be, be::sendToMenu)); // Ouvre le menu de reactor controller
+            }
+            else {
+                worldIn.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, false));
+                player.sendSystemMessage(Component.literal("Erreur dans l'assemblage du multiBlock").withStyle(ChatFormatting.RED));
+            }
         }
 
         return InteractionResult.SUCCESS;
@@ -106,6 +113,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
     public boolean isPowered() {
        return powered; // les variables ne sont pas sauvegarder lors d'un déchargement/rechargement de monde (donc passer par le blockState/ou trouver une autre methode)
     }
+
     public void setPowered(boolean power) {
         powered = power;
 //        worldIn.setBlockAndUpdate(pos, state.setValue(POWERED, power));

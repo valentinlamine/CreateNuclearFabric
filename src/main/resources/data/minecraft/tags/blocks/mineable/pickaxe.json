@@ -12,6 +12,7 @@
     "createnuclear:reactor_core",
     "createnuclear:reactor_casing",
     "createnuclear:reactor_main_frame",
+    "createnuclear:reactor_gauge_block"
     "createnuclear:raw_uranium_block",
     "createnuclear:enriched_soul_soil",
     "createnuclear:reactor_output",
