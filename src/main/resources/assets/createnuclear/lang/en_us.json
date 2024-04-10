@@ -13,37 +13,88 @@
   "item.createnuclear.raw_uranium": "Raw uranium",
   "item.createnuclear.uranium_bucket": "Uranium Bucket",
   "item.createnuclear.raw_lead": "Raw Lead",
+  "item.createnuclear.lead_ingot": "Lead Ingot",
+  "item.createnuclear.lead_nugget": "Lead Nugget",
+  "item.createnuclear.white_cloth": "White Cloth",
+  "item.createnuclear.black_cloth": "Black Cloth",
+  "item.createnuclear.yellow_cloth": "Yellow Cloth",
+  "item.createnuclear.red_cloth": "Red Cloth",
+  "item.createnuclear.green_cloth": "Green Cloth",
+  "item.createnuclear.blue_cloth": "Blue Cloth",
+  "item.createnuclear.purple_cloth": "Purple Cloth",
+  "item.createnuclear.orange_cloth": "Orange Cloth",
+  "item.createnuclear.cyan_cloth": "Cyan Cloth",
+  "item.createnuclear.light_blue_cloth": "Light Blue Cloth",
+  "item.createnuclear.magenta_cloth": "Magenta Cloth",
+  "item.createnuclear.pink_cloth": "Pink Cloth",
+  "item.createnuclear.brown_cloth": "Brown Cloth",
+  "item.createnuclear.gray_cloth": "Gray Cloth",
+  "item.createnuclear.light_gray_cloth": "Light Gray Cloth",
+  "item.createnuclear.lime_cloth": "Lime Cloth",
+  "item.createnuclear.anti_radiation_helmet": "Anti Radiation Helmet",
+  "item.createnuclear.anti_radiation_chestplate": "Anti Radiation Chestplate",
+  "item.createnuclear.anti_radiation_leggings": "Anti Radiation Leggings",
+  "item.createnuclear.anti_radiation_boots": "Anti Radiation Boots",
+
+  "item.minecraft.potion.effect.potion_of_radiation_1": "Potion of Radiation",
+  "item.minecraft.splash_potion.effect.potion_of_radiation_1": "Splash Potion of Radiation",
+  "item.minecraft.lingering_potion.effect.potion_of_radiation_1": "Lingering Potion of Radiation",
+
+  "item.minecraft.potion.effect.potion_of_radiation_augment_1": "Potion of Radiation",
+  "item.minecraft.splash_potion.effect.potion_of_radiation_augment_1": "Splash Potion of Radiation",
+  "item.minecraft.lingering_potion.effect.potion_of_radiation_augment_1": "Lingering Potion of Radiation",
+
+  "item.minecraft.potion.effect.potion_of_radiation_2": "Potion of Radiation",
+  "item.minecraft.splash_potion.effect.potion_of_radiation_2": "Splash Potion of Radiation",
+  "item.minecraft.lingering_potion.effect.potion_of_radiation_2": "Lingering Potion of Radiation",
+
+  "item.minecraft.tipped_arrow.effect.potion_of_radiation_1": "Arrow of Radiation",
+  "item.minecraft.tipped_arrow.effect.potion_of_radiation_augment_1": "Arrow of Radiation",
+  "item.minecraft.tipped_arrow.effect.potion_of_radiation_2": "Arrow of Radiation",
 
   "block.createnuclear.deepslate_uranium_ore": "Deepslate Uranium Ore",
   "block.createnuclear.uranium_ore": "Uranium Ore",
   "block.createnuclear.enriched_soul_soil": "Enriched Soul Soil",
+  "block.createnuclear.reactor_core": "Reactor Core",
   "block.createnuclear.enriching_fire": "Enriching Fire",
   "block.createnuclear.uranium": "Liquid Uranium",
   "block.createnuclear.raw_uranium_block": "Raw Uranium Block",
   "block.createnuclear.enriching_campfire": "Enriching Campfire",
   "block.createnuclear.reinforced_glass": "Reinforced Glass",
   "block.createnuclear.lead_ore": "Lead Ore",
+  "block.createnuclear.deepslate_lead_ore": "Deepslate Lead Ore",
   "block.createnuclear.raw_lead_block": "Raw Lead Block",
   "block.createnuclear.reactor_output": "Reactor Output",
-
-  "effect.createnuclear.radiation": "Radiation",
-
-  "itemGroup.createnuclear.main": "Create Nuclear",
-
-  "fluid.createnuclear.uranium": "Liquid Uranium",
-
+  "block.createnuclear.lead_block": "Lead Block",
   "block.createnuclear.reactor_casing": "Reactor Casing",
   "block.createnuclear.reactor_main_frame": "Reactor Main Frame",
   "block.createnuclear.reactor_cooling_frame": "Cooling Frame",
   "block.createnuclear.reactor_controller": "Reactor Controller",
-  "block.createnuclear.reactor_core": "Reactor Core",
 
   "block.createnuclear.reinforced_pipe": "Reinforced Pipe",
+
+  "effect.createnuclear.radiation": "Radiation",
+
+  "fluid.createnuclear.uranium": "Liquid Uranium",
+
+
+  "itemGroup.createnuclear.main": "Create Nuclear",
   "itemgroup.uranium": "Uranium Group",
 
   "gui.createnuclear.reactor_controller.title": "Reactor Controller",
 
   "createnuclear.enriched.fan.recipe": "Bulk Enriched",
   "emi.category.createnuclear.fan_enriched": "Bulk Enriched",
-  "create.recipe.fan_enriched.fan": "Fan behing Enriched"
+  "create.recipe.fan_enriched.fan": "Fan behing Enriched",
+
+  "createnuclear.ponder.reactor.header": "Reactor Controller",
+  "createnuclear.ponder.reactor.text_5": "Reactor Controller",
+
+  "createnuclear.ponder.reactor.text_1": "Floor 1",
+  "createnuclear.ponder.reactor.text_2": "Floor 2",
+  "createnuclear.ponder.reactor.text_3": "Floor 3",
+  "createnuclear.ponder.reactor.text_4": "Floor 4",
+  "createnuclear.ponder.reactor.text_6": "Floor 5",
+  "createnuclear.ponder.reactor.text_7": "Floor 6",
+  "createnuclear.ponder.reactor.text_8": "Floor 7"
 }

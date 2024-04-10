@@ -6,6 +6,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -141,11 +142,52 @@ public class CNTag {
         private static void init() {}
     }
 
+    public enum ItemTags {
+        CLOTH(MOD);
+
+        public  final  TagKey<Item> tag;
+        public final boolean alwaysDatagen;
+
+        ItemTags() {
+            this(MOD);
+        }
+
+        ItemTags(NameSpace namespace) {
+            this(namespace, namespace.optionalDefault, namespace.alwayDatagenDefault);
+        }
+
+        ItemTags(NameSpace nameSpace, String path) {
+            this(nameSpace, nameSpace.optionalDefault, nameSpace.alwayDatagenDefault);
+        }
+        
+        ItemTags(NameSpace nameSpace, boolean optional, boolean alwaysDatagen) {
+            this(nameSpace, null, optional, alwaysDatagen);
+        }
+
+        ItemTags(NameSpace nameSpace, String path, boolean optional, boolean alwaysDatagen) {
+            ResourceLocation id = new ResourceLocation(nameSpace.id, path == null ? Lang.asId(name()) : path);
+            tag = optionalTag(BuiltInRegistries.ITEM, id);
+            this.alwaysDatagen = alwaysDatagen;
+        }
+
+        @SuppressWarnings("deprecation")
+        public boolean matches(Item item) {
+            return item.builtInRegistryHolder()
+                    .is(tag);
+        }
+
+        public boolean matches(ItemStack stack) {
+            return stack.is(tag);
+        }
+
+        private static void init() {}
+    }
 
 
     public static void registerModItems() {
         CreateNuclear.LOGGER.info("Registering mod tags for " + CreateNuclear.MOD_ID);
         FluidTag.init();
         BlockTags.init();
+        ItemTags.init();
     }
 }

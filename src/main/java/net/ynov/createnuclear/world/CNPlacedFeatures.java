@@ -17,6 +17,7 @@ import java.util.List;
 public class CNPlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> URANIUM_ORE_PLACED_KEY = registerKey("uranium_ore_placed");
+    public static final ResourceKey<PlacedFeature> LEAD_ORE_PLACED_KEY = registerKey("lead_ore_placed");
 
 
     public static void boostrap(BootstapContext<PlacedFeature> context) {
@@ -24,7 +25,7 @@ public class CNPlacedFeatures {
 
         register(context, URANIUM_ORE_PLACED_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(CNConfiguredFeatures.URANIUM_ORE_KEY),
                 CNOrePlacement.modifiersWithCount(6, // Veins per Chunk
-                        HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(-64), VerticalAnchor.belowTop(64)))); // Height Range));
+                        HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(-64), VerticalAnchor.belowTop(64)))); // Height Range
 
 
     }
