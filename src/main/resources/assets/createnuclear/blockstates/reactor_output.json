@@ -1,10 +1,26 @@
 {
   "variants": {
-    "": {
-      "model": "createnuclear:block/reactor_main_frame",
-      "files": [
-        "default.css"
-      ]
+    "facing=north":  {
+      "model": "createnuclear:block/reactor_output"
+    },
+    "facing=south":  {
+      "model": "createnuclear:block/reactor_output",
+      "y": 180
+    },
+    "facing=west":  {
+      "model": "createnuclear:block/reactor_output",
+      "y": 270
+    },
+    "facing=east":  {
+      "model": "createnuclear:block/reactor_output",
+      "y": 90
+    },
+    "facing=up": {
+      "model": "createnuclear:block/reactor_output"
+    },
+    "facing=down":  {
+      "model": "createnuclear:block/reactor_output",
+      "x": 180
     }
   }
 }

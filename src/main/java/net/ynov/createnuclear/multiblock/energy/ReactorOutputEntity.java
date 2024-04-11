@@ -39,17 +39,18 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 	@Override
 	public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
 		super.addBehaviours(behaviours);
-		generatedSpeed = new KineticScrollValueBehaviour(Lang.translateDirect("kinetics.reactor_output.rotation_speed"),
+		/*generatedSpeed = new KineticScrollValueBehaviour(Lang.translateDirect("kinetics.reactor_output.rotation_speed"),
 			this, new net.ynov.createnuclear.multiblock.energy.ReactorOutputEntity.MotorValueBox());
 		generatedSpeed.between(-speed, speed);
 		generatedSpeed.value = speed;
 		generatedSpeed.withCallback(i -> this.updateGeneratedRotation());
-		behaviours.add(generatedSpeed);
+		behaviours.add(generatedSpeed);*/
 	}
 
 	@Override
 	public void initialize() {
 		super.initialize();
+
 		if (!hasSource() || getGeneratedSpeed() > getTheoreticalSpeed())
 		{
 			CreateNuclear.LOGGER.info("Init SPEED : " + getSpeed2() + "  pos : " + getBlockPos());
