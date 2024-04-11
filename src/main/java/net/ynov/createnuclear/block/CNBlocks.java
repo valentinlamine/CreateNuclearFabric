@@ -124,7 +124,8 @@ public class CNBlocks {
 			.blockstate(new CreativeMotorGenerator()::generate)
 			.transform(BlockStressDefaults.setCapacity(500))
 			.transform(BlockStressDefaults.setGeneratorSpeed(() -> Couple.create(0, 256)))
-			.item()
+                        .addLayer(() -> RenderType::cutoutMipped)
+                        .item()
 			.properties(p -> p.rarity(Rarity.EPIC))
 			.transform(customItemModel())
 			.register();
