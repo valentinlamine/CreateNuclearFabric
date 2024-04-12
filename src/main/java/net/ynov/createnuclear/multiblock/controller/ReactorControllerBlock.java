@@ -32,6 +32,7 @@ import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutputEntity;
 import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.item.CNItems;
+import net.ynov.createnuclear.tools.HorizontalDirectionalReactorBlock;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -39,7 +40,7 @@ import java.util.Objects;
 
 import static net.ynov.createnuclear.multiblock.energy.ReactorOutput.SPEED;
 
-public class ReactorControllerBlock extends HorizontalDirectionalBlock implements IBE<ReactorControllerBlockEntity> {
+public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock implements IBE<ReactorControllerBlockEntity> {
     public static final BooleanProperty ASSEMBLED = BooleanProperty.create("assembled");
     private boolean powered;
     private List<CNIconButton> switchButtons;
@@ -165,8 +166,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
             CreateNuclear.LOGGER.info("structure verified, SUCCESS to create multiblock");
 
             for (Player player : players) {
-                if (create && !entity.created)
-                {
+                if (create && !entity.created)                 {
                     player.sendSystemMessage(Component.literal("WARNING : Reactor Assembled"));
                     level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, true));
                     entity.created = true;

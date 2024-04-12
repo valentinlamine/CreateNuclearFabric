@@ -1,23 +1,26 @@
-package net.ynov.createnuclear.multiblock;
+package net.ynov.createnuclear.multiblock.frame;
 
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
+import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
+import net.ynov.createnuclear.blockentity.CNBlockEntities;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ReactorBlock extends Block {
+public class ReactorBlock extends Block implements IWrenchable/*, IBE<ReactorBlockEntity>*/ {
     public ReactorBlock(Properties properties) {
         super(properties);
     }
@@ -64,4 +67,14 @@ public class ReactorBlock extends Block {
         }
         return null;
     }
+
+    /*@Override
+    public Class<ReactorBlockEntity> getBlockEntityClass() {
+        return ReactorBlockEntity.class;
+    }
+
+    @Override
+    public BlockEntityType<? extends ReactorBlockEntity> getBlockEntityType() {
+        return CNBlockEntities.REACTOR_BLOCK.get();
+    }*/
 }

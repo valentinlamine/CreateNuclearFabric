@@ -1,4 +1,4 @@
-package net.ynov.createnuclear.content.reactor.gauge;
+package net.ynov.createnuclear.multiblock.gauge;
 
 import com.simibubi.create.foundation.utility.Lang;
 import net.minecraft.core.BlockPos;

@@ -17,9 +17,11 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.blockentity.ReinforcedGlassBlock;
-import net.ynov.createnuclear.content.reactor.gauge.ReactorGaugeBlock;
+import net.ynov.createnuclear.multiblock.gauge.ReactorGaugeBlock;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
-import net.ynov.createnuclear.multiblock.ReactorBlock;
+import net.ynov.createnuclear.multiblock.frame.ReactorBlock;
+//import net.ynov.createnuclear.multiblock.input.ReactorInput;
+import net.ynov.createnuclear.multiblock.input.ReactorInput;
 import net.ynov.createnuclear.tags.CNTag;
 //import net.ynov.createnuclear.tools.EnrichingCampfire;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
@@ -29,7 +31,6 @@ import net.ynov.createnuclear.tools.UraniumOreBlock;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
-import static net.minecraft.world.level.block.Blocks.STONE;
 import static net.minecraft.world.level.block.Blocks.litBlockEmission;
 
 public class CNBlocks {
@@ -157,6 +158,7 @@ public class CNBlocks {
                             .getExistingFile(ctx.getId()), 0))
                     .simpleItem()
                     .register();
+
     public static final BlockEntry<ReactorBlock> REACTOR_CORE =
             CreateNuclear.REGISTRATE.block("reactor_core", ReactorBlock::new)
                     .properties(p -> p.explosionResistance(1200F))
@@ -193,6 +195,12 @@ public class CNBlocks {
                     .properties(p -> p.destroyTime(2F))
                     .addLayer(() -> RenderType::cutoutMipped)
                     .transform(pickaxeOnly())
+                    .simpleItem()
+                    .register();
+
+    public static final BlockEntry<ReactorInput> REACTOR_INPUT =
+            CreateNuclear.REGISTRATE.block("reactor_input", ReactorInput::new)
+                    .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .register();
 

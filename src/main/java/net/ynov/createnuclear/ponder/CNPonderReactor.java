@@ -4,14 +4,12 @@ import com.simibubi.create.foundation.ponder.SceneBuilder;
 import com.simibubi.create.foundation.ponder.SceneBuildingUtil;
 import com.simibubi.create.foundation.ponder.element.InputWindowElement;
 import com.simibubi.create.foundation.utility.Pointing;
-import com.simibubi.create.infrastructure.ponder.AllPonderTags;
-import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.ynov.createnuclear.CreateNuclear;
-import net.ynov.createnuclear.content.reactor.controller.ReactorControllerBlock;
 import net.ynov.createnuclear.item.CNItems;
+import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
 
 public class CNPonderReactor {
 
@@ -22,7 +20,6 @@ public class CNPonderReactor {
         scene.configureBasePlate(0,0,7);
         scene.showBasePlate();
 
-        //BlockPos Controller = util.grid.at(3,4,5);
 
         for (int y = 1; y < 8; y++) {
             scene.overlay.showText(10)
