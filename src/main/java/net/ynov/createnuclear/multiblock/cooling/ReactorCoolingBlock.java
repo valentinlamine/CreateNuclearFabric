@@ -1,35 +1,24 @@
-package net.ynov.createnuclear.multiblock.frame;
+package net.ynov.createnuclear.multiblock.cooling;
 
-import com.simibubi.create.AllItems;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
-import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.phys.BlockHitResult;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
-import net.ynov.createnuclear.blockentity.CNBlockEntities;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ReactorBlock extends Block implements IWrenchable {
-    public ReactorBlock(Properties properties) {
+public class ReactorCoolingBlock extends Block implements IWrenchable {
+    public ReactorCoolingBlock(Properties properties) {
         super(properties);
     }
 
@@ -53,21 +42,6 @@ public class ReactorBlock extends Block implements IWrenchable {
         super.onRemove(state, level, pos, newState, movedByPiston);
         List<? extends Player> players = level.players();
         FindController(pos, level, players, false);
-    }
-
-    @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (level.isClientSide()) return InteractionResult.SUCCESS;
-
-        Item item = player.getItemInHand(hand).getItem();
-
-        if (AllItems.WRENCH.is(item)){
-            level.setBlock(pos, CNBlocks.REACTOR_INPUT.getDefaultState(), 2);
-            player.sendSystemMessage(Component.literal("changement"));
-            return InteractionResult.SUCCESS;
-        }
-        //CreateNuclear.LOGGER.warn("d " + FindController(pos, level, level.players(), false) + "  " + tag);
-        return InteractionResult.PASS;
     }
 
     public ReactorControllerBlock FindController(BlockPos blockPos, Level level, List<? extends Player> players, boolean first){ // Function that checks the surrounding blocks in order

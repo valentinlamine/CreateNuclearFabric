@@ -1,5 +1,6 @@
 package net.ynov.createnuclear.multiblock.controller;
 
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.item.ItemHelper;
 import io.github.fabricators_of_create.porting_lib.util.BlockSnapshot;
@@ -40,7 +41,7 @@ import java.util.Objects;
 
 import static net.ynov.createnuclear.multiblock.energy.ReactorOutput.SPEED;
 
-public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock implements IBE<ReactorControllerBlockEntity> {
+public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock implements IWrenchable, IBE<ReactorControllerBlockEntity> {
     public static final BooleanProperty ASSEMBLED = BooleanProperty.create("assembled");
     private boolean powered;
     private List<CNIconButton> switchButtons;

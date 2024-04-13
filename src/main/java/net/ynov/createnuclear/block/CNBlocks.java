@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.blockentity.ReinforcedGlassBlock;
+import net.ynov.createnuclear.multiblock.cooling.ReactorCoolingBlock;
 import net.ynov.createnuclear.multiblock.gauge.ReactorGaugeBlock;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.ynov.createnuclear.multiblock.frame.ReactorBlock;
@@ -166,8 +167,8 @@ public class CNBlocks {
                     .simpleItem()
                     .register();
 
-    public static final BlockEntry<Block> REACTOR_COOLING_FRAME =
-            CreateNuclear.REGISTRATE.block("reactor_cooling_frame", Block::new)
+    public static final BlockEntry<ReactorCoolingBlock> REACTOR_COOLING_FRAME =
+            CreateNuclear.REGISTRATE.block("reactor_cooling_frame", ReactorCoolingBlock::new)
                     .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(4F))

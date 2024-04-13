@@ -50,21 +50,6 @@ public class ReactorInput extends HorizontalDirectionalReactorBlock implements I
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if (worldIn.isClientSide()) return InteractionResult.SUCCESS;
 
-        List<? extends Player> players = worldIn.players();
-        ReactorControllerBlock controller = FindController(worldIn, pos);
-        if (controller != null) {
-            controller.Verify(controller.defaultBlockState(), new BlockPos(pos.getX(), pos.getY(), pos.getZ()+4), worldIn, players, false);
-            BlockEntity blockEntity = worldIn.getBlockEntity(new BlockPos(pos.getX(), pos.getY(), pos.getZ()+4));
-            if (blockEntity instanceof ReactorControllerBlockEntity controllerBlockEntity) {
-                ItemStack item = new ItemStack(CNItems.GRAPHITE_ROD);
-                item.setCount(3);
-                controllerBlockEntity.inventory.setStackInSlot(1, item);
-                CreateNuclear.LOGGER.warn(controllerBlockEntity.inventory.getSlots() + "  " +
-                        controllerBlockEntity.inventory.getStackInSlot(0).getItem().getDescriptionId() + "  " +
-                        controllerBlockEntity.inventory.serializeNBT());
-            }
-        }
-
         return InteractionResult.PASS;
     }
 
