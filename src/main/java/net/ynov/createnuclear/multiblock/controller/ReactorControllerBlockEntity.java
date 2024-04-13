@@ -45,6 +45,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
             setChanged();
         }
     }
+
     public ReactorControllerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         inventory = new ReactorControllerInventory();
@@ -94,6 +95,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
             return ((ReactorControllerBlock) blockState.getBlock()).isPowered();
         return null;
     }
+
     public void setPowered(boolean power) {
         BlockState blockState = getBlockState();
         if (blockState.getBlock() instanceof ReactorControllerBlock)
@@ -105,6 +107,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         if (blockState.getBlock() instanceof ReactorControllerBlock)
             ((ReactorControllerBlock) blockState.getBlock()).setSwitchButtons(switchButtons);
     }
+
     public List<CNIconButton> getSwitchButtons() {
         BlockState blockState = getBlockState();
         if (blockState.getBlock() instanceof ReactorControllerBlock)
