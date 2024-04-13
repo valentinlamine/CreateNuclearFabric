@@ -32,7 +32,7 @@ public class ReactorBlockEntity extends SmartBlockEntity implements SidedStorage
     public ReactorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
 
-        setController(FindController(pos == null ? new BlockPos(0,0,0) : pos, level));
+        setController(FindController(new BlockPos(0,0,0), level));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ReactorBlockEntity extends SmartBlockEntity implements SidedStorage
     }
 
     public void setController(BlockPos pos) {
-        controller = pos;
+        controller = FindController(pos, level);
     }
     public BlockPos getController() {
         return controller;
@@ -49,9 +49,12 @@ public class ReactorBlockEntity extends SmartBlockEntity implements SidedStorage
 
     public BlockPos FindController(BlockPos pos, Level level) {
         BlockPos newBlock;
-
+        CompoundTag t = new CompoundTag();
+        CreateNuclear.LOGGER.warn("gf " + pos + " " + level + " " + t.get("controller"));
+        return null;
+/*
         if (level == null || pos == null) return null;
-        else {
+        else {*/
 
             /*if (pos != null) {
                 Vec3i Vpos = new Vec3i(pos.getX(), pos.getY(), pos.getZ());
@@ -73,42 +76,41 @@ public class ReactorBlockEntity extends SmartBlockEntity implements SidedStorage
                 }
             }
             */
-            CreateNuclear.LOGGER.warn("f " + pos);
-            return null;
-        }
+            /*return null;
+        }*/
     }
 
     @Override
     protected void read(CompoundTag tag, boolean clientPacket) {
-        BlockPos controllerBlock = getController();
+       /* BlockPos controllerBlock = getController();
         assert level != null;
         BlockEntity blockEntity = level.getBlockEntity(controllerBlock);
         if (blockEntity instanceof ReactorControllerBlockEntity controllerBlockEntity) {
             controllerBlockEntity.inventory.deserializeNBT(tag.merge(controllerBlockEntity.inventory.serializeNBT()));
 
-        }
+        }*/
         super.read(tag, clientPacket);
     }
 
     @Override
     protected void write(CompoundTag tag, boolean clientPacket) {
-        BlockPos controllerBlock = getController();
+        /*BlockPos controllerBlock = getController();
         assert level != null;
         BlockEntity blockEntity = level.getBlockEntity(controllerBlock);
         if (blockEntity instanceof ReactorControllerBlockEntity controllerBlockEntity) {
             tag.merge(controllerBlockEntity.inventory.serializeNBT());
-        }
+        }*/
         super.write(tag, clientPacket);
     }
 
     @Override
     public Storage<ItemVariant> getItemStorage(@Nullable Direction face) {
-        BlockPos controllerBlock = getController();
+        /*BlockPos controllerBlock = getController();
         assert level != null;
         BlockEntity blockEntity = level.getBlockEntity(controllerBlock);
         if (blockEntity instanceof ReactorControllerBlockEntity controllerBlockEntity) {
             inventory = controllerBlockEntity.inventory;
-        }
+        }*/
         return inventory;
     }
 }

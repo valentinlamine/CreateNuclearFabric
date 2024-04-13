@@ -20,10 +20,10 @@ public class CNBlockEntities {
                     .validBlocks(CNBlocks.REACTOR_INPUT)
                     .register();
 
-    /*public static final BlockEntityEntry<ReactorBlockEntity> REACTOR_BLOCK =
+    public static final BlockEntityEntry<ReactorBlockEntity> REACTOR_BLOCK =
             CreateNuclear.REGISTRATE.blockEntity("reactor_casing", ReactorBlockEntity::new)
                     .validBlocks(CNBlocks.REACTOR_CASING)
-                    .register();*/
+                    .register();
 
     public static void register() {
     }

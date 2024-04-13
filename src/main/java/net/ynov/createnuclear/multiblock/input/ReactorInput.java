@@ -1,24 +1,35 @@
 package net.ynov.createnuclear.multiblock.input;
 
 
+import com.simibubi.create.AllItems;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.ynov.createnuclear.CreateNuclear;
+import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.blockentity.CNBlockEntities;
 import net.ynov.createnuclear.item.CNItems;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
+import net.ynov.createnuclear.shape.CNShapes;
 import net.ynov.createnuclear.tools.HorizontalDirectionalReactorBlock;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -30,8 +41,14 @@ public class ReactorInput extends HorizontalDirectionalReactorBlock implements I
     }
 
     @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(FACING);
+        super.createBlockStateDefinition(builder);
+    }
+
+    @Override
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-        /*if (worldIn.isClientSide()) return InteractionResult.SUCCESS;
+        if (worldIn.isClientSide()) return InteractionResult.SUCCESS;
 
         List<? extends Player> players = worldIn.players();
         ReactorControllerBlock controller = FindController(worldIn, pos);
@@ -46,7 +63,7 @@ public class ReactorInput extends HorizontalDirectionalReactorBlock implements I
                         controllerBlockEntity.inventory.getStackInSlot(0).getItem().getDescriptionId() + "  " +
                         controllerBlockEntity.inventory.serializeNBT());
             }
-        }*/
+        }
 
         return InteractionResult.PASS;
     }
@@ -83,6 +100,16 @@ public class ReactorInput extends HorizontalDirectionalReactorBlock implements I
             return (ReactorControllerBlock) level.getBlockState(new BlockPos(pos.getX(), pos.getY(), pos.getZ()+4)).getBlock();
         }
         return null;
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return this.defaultBlockState()
+                .setValue(FACING, context.getHorizontalDirection());
+    }
+    @Override
+    public @NotNull VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+        return CNShapes.REACTOR_INPUT.get(state.getValue(FACING));
     }
 
     @Override

@@ -181,13 +181,6 @@ public class CNBlocks {
                     .simpleItem()
                     .register();
 
-    /*public static final BlockEntry<ReactorBlock> REACTOR_MAIN_FRAME =
-            CreateNuclear.REGISTRATE.block("reactor_main_frame", ReactorBlock::new)
-                    .properties(p -> p.explosionResistance(1200F))
-                    .properties(p -> p.destroyTime(4F))
-                    .simpleItem()
-                    .register();*/
-
     public static final BlockEntry<ReactorGaugeBlock> REACTOR_MAIN_FRAME =
             CreateNuclear.REGISTRATE.block("reactor_main_frame", ReactorGaugeBlock::new)
                     .initialProperties(SharedProperties::stone)
@@ -201,6 +194,10 @@ public class CNBlocks {
     public static final BlockEntry<ReactorInput> REACTOR_INPUT =
             CreateNuclear.REGISTRATE.block("reactor_input", ReactorInput::new)
                     .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.destroyTime(2F))
+                    .addLayer(() -> RenderType::cutoutMipped)
+                    .transform(pickaxeOnly())
                     .simpleItem()
                     .register();
 

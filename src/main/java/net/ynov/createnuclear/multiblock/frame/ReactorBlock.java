@@ -1,16 +1,24 @@
 package net.ynov.createnuclear.multiblock.frame;
 
+import com.simibubi.create.AllItems;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.BlockHitResult;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.blockentity.CNBlockEntities;
@@ -20,7 +28,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ReactorBlock extends Block implements IWrenchable/*, IBE<ReactorBlockEntity>*/ {
+public class ReactorBlock extends Block implements IWrenchable, IBE<ReactorBlockEntity> {
+    private BlockPos controllerPos;
     public ReactorBlock(Properties properties) {
         super(properties);
     }
@@ -46,6 +55,21 @@ public class ReactorBlock extends Block implements IWrenchable/*, IBE<ReactorBlo
         FindController(pos, level, players, false);
     }
 
+    @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (level.isClientSide()) return InteractionResult.SUCCESS;
+
+        Item item = player.getItemInHand(hand).getItem();
+
+        if (AllItems.WRENCH.is(item)){
+            level.setBlock(pos, CNBlocks.REACTOR_INPUT.getDefaultState(), 2);
+            player.sendSystemMessage(Component.literal("changement"));
+            return InteractionResult.SUCCESS;
+        }
+        //CreateNuclear.LOGGER.warn("d " + FindController(pos, level, level.players(), false) + "  " + tag);
+        return InteractionResult.PASS;
+    }
+
     public ReactorControllerBlock FindController(BlockPos blockPos, Level level, List<? extends Player> players, boolean first){ // Function that checks the surrounding blocks in order
         BlockPos newBlock;                                                   // to find the controller and verify the pattern
         Vec3i pos = new Vec3i(blockPos.getX(), blockPos.getY(), blockPos.getZ());
@@ -58,8 +82,16 @@ public class ReactorBlock extends Block implements IWrenchable/*, IBE<ReactorBlo
                         ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(newBlock).getBlock();
                         controller.Verify(controller.defaultBlockState(), newBlock, level, players, first);
                         ReactorControllerBlockEntity entity = controller.getBlockEntity(level, newBlock);
-                        if (entity.created)
+                        if (entity.created) {
+                            controllerPos = newBlock;
+                            /*CompoundTag tag = new CompoundTag();
+                            tag.putInt("controllerPosX", controllerPos.getX());
+                            tag.putInt("controllerPosY", controllerPos.getY());
+                            tag.putInt("controllerPosZ", controllerPos.getZ());
+                            CompoundTag controllerXYZ = new CompoundTag();
+                            controllerXYZ.put("controller", tag);*/
                             return controller;
+                        }
                     }
                     //else CreateNuclear.LOGGER.info("newBlock: " + level.getBlockState(newBlock).getBlock());
                 }
@@ -68,7 +100,7 @@ public class ReactorBlock extends Block implements IWrenchable/*, IBE<ReactorBlo
         return null;
     }
 
-    /*@Override
+    @Override
     public Class<ReactorBlockEntity> getBlockEntityClass() {
         return ReactorBlockEntity.class;
     }
@@ -76,5 +108,5 @@ public class ReactorBlock extends Block implements IWrenchable/*, IBE<ReactorBlo
     @Override
     public BlockEntityType<? extends ReactorBlockEntity> getBlockEntityType() {
         return CNBlockEntities.REACTOR_BLOCK.get();
-    }*/
+    }
 }
