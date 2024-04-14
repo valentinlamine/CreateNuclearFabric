@@ -23,7 +23,9 @@ public class CNShapes {
 
 	// Independent Shapers
 	public static final VoxelShaper
-            REACTOR_OUTPUT = shape(0, 0, 0, 16, 16, 16).forDirectional();
+            REACTOR_OUTPUT = shape(0, 0, 0, 16, 16, 16).forDirectional(),
+			REACTOR_INPUT = shape(0,0,0,16,16,16).forDirectional()
+			;
 
 	private static com.simibubi.create.AllShapes.Builder shape(VoxelShape shape) {
 		return new com.simibubi.create.AllShapes.Builder(shape);

@@ -1,5 +1,6 @@
 package net.ynov.createnuclear.multiblock.controller;
 
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.item.ItemHelper;
 import io.github.fabricators_of_create.porting_lib.util.BlockSnapshot;
@@ -32,12 +33,13 @@ import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutputEntity;
 import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.item.CNItems;
+import net.ynov.createnuclear.tools.HorizontalDirectionalReactorBlock;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
 
-public class ReactorControllerBlock extends HorizontalDirectionalBlock implements IBE<ReactorControllerBlockEntity> {
+public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock implements IWrenchable, IBE<ReactorControllerBlockEntity> {
     public static final BooleanProperty ASSEMBLED = BooleanProperty.create("assembled");
     private boolean powered;
     private List<CNIconButton> switchButtons;
@@ -60,8 +62,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn,
-                                 BlockHitResult hit) {
+    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if (worldIn.isClientSide)
             return InteractionResult.SUCCESS;
 
@@ -165,8 +166,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
             CreateNuclear.LOGGER.info("structure verified, SUCCESS to create multiblock");
 
             for (Player player : players) {
-                if (create && !entity.created)
-                {
+                if (create && !entity.created)                 {
                     player.sendSystemMessage(Component.literal("WARNING : Reactor Assembled"));
                     level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, true));
                     entity.created = true;
