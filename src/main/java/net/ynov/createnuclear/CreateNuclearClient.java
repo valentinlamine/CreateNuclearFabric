@@ -1,5 +1,6 @@
 package net.ynov.createnuclear;
 
+import com.simibubi.create.content.decoration.encasing.CasingConnectivity;
 import net.fabricmc.api.ClientModInitializer;
 
 import net.fabricmc.api.EnvType;
@@ -11,6 +12,8 @@ import net.ynov.createnuclear.ponder.CNPonderIndex;
 
 @Environment(EnvType.CLIENT)
 public class CreateNuclearClient implements ClientModInitializer {
+
+    public static final CasingConnectivity CASING_CONNECTIVITY = new CasingConnectivity();
 
     @Override
     public void onInitializeClient() {

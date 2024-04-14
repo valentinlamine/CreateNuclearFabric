@@ -37,8 +37,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-import static net.ynov.createnuclear.multiblock.energy.ReactorOutput.SPEED;
-
 public class ReactorControllerBlock extends HorizontalDirectionalBlock implements IBE<ReactorControllerBlockEntity> {
     public static final BooleanProperty ASSEMBLED = BooleanProperty.create("assembled");
     private boolean powered;
@@ -105,7 +103,9 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
         worldIn.removeBlockEntity(pos);
 
         ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
-
+        ReactorControllerBlockEntity entity = controller.getBlockEntity(worldIn, pos);
+        if (!entity.created)
+            return;
         controller.Rotate(state, pos.below(3), worldIn, 0);
         List<? extends Player> players = worldIn.players();
         for (Player p : players) {
@@ -194,27 +194,22 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
             ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
             ReactorOutputEntity entity = Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos));
 
+            if (entity.getDir() == 1)
+                rotation = -rotation;
+
             if (Boolean.TRUE.equals(state.getValue(ASSEMBLED)) && rotation != 0) { // Starting the energy
-                CreateNuclear.LOGGER.info("Change " + pos);
-                if (entity.getDir() == 1)
-                    rotation = -rotation;
                 entity.speed = rotation;
-                // entity.setSpeed2(Math.abs(entity.speed), level, pos.below(3));
+                entity.setSpeed2(Math.abs(entity.speed), level, pos.below(3));
                 entity.updateSpeed = true;
                 entity.updateGeneratedRotation();
             } else { // stopping the energy
-
-                // entity.setSpeed2(0, level, pos.below(3));
+                entity.setSpeed2(0, level, pos.below(3));
                 entity.speed = 0;
                 entity.updateSpeed = true;
                 entity.updateGeneratedRotation();
-                CreateNuclear.LOGGER.info("Unchanged " + pos);
             }
-            if (rotation < 0)
-                rotation = -rotation;
-            entity.setSpeed2(rotation, level, pos);
 
-            CreateNuclear.LOGGER.info("SPEED : " + entity.getSpeed2() + " - DIR : " + entity.getDir() + "  pos : " + pos);
+            CreateNuclear.LOGGER.info("SPEED : " + entity.getSpeed2() + "DIR : " + entity.getDir());
         }
     }
 

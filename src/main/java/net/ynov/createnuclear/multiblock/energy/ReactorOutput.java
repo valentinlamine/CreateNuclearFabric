@@ -51,8 +51,7 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(SPEED);
-		builder.add(DIR);
+		builder.add(SPEED).add(DIR);
 		super.createBlockStateDefinition(builder);
 	}
 
@@ -70,7 +69,7 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 					if (control.getDir() == 0)
 						control.setDir(1, level, pos);
 					else control.setDir(0, level, pos);
-					controller.Rotate(controller.defaultBlockState(), pos, level, 16);
+					controller.Rotate(controller.defaultBlockState(), pos, level, entity.speed);
 				}
 			}
 			return InteractionResult.CONSUME;

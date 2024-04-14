@@ -1,8 +1,11 @@
 package net.ynov.createnuclear.block;
 
+import com.simibubi.create.AllSpriteShifts;
 import com.simibubi.create.AllTags;
+import com.simibubi.create.content.decoration.encasing.CasingBlock;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.content.kinetics.motor.CreativeMotorGenerator;
+import com.simibubi.create.foundation.data.BuilderTransformers;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
@@ -124,8 +127,7 @@ public class CNBlocks {
 			.blockstate(new CreativeMotorGenerator()::generate)
 			.transform(BlockStressDefaults.setCapacity(500))
 			.transform(BlockStressDefaults.setGeneratorSpeed(() -> Couple.create(0, 256)))
-                        .addLayer(() -> RenderType::cutoutMipped)
-                        .item()
+			.item()
 			.properties(p -> p.rarity(Rarity.EPIC))
 			.transform(customItemModel())
 			.register();
@@ -172,10 +174,11 @@ public class CNBlocks {
                     .simpleItem()
                     .register();
 
-    public static final BlockEntry<ReactorBlock> REACTOR_CASING =
-            CreateNuclear.REGISTRATE.block("reactor_casing", ReactorBlock::new)
+    public static final BlockEntry<CasingBlock> REACTOR_CASING =
+            CreateNuclear.REGISTRATE.block("reactor_casing", CasingBlock::new)
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(4F))
+                    .transform(BuilderTransformers.casing(() -> CNSpriteShifts.REACTOR_CASING))
                     .simpleItem()
                     .register();
 
