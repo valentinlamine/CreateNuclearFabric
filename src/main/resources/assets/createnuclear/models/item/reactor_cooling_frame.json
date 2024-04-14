@@ -1,6 +1,4 @@
 {
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "createnuclear:block/reactor_cooling_frame"
-  }
+  "parent": "createnuclear:block/reactor_cooling"
+
 }

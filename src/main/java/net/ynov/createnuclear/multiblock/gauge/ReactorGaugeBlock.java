@@ -1,5 +1,6 @@
-package net.ynov.createnuclear.content.reactor.gauge;
+package net.ynov.createnuclear.multiblock.gauge;
 
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.utility.Lang;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -25,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ReactorGaugeBlock extends Block {
+public class ReactorGaugeBlock extends Block implements IWrenchable {
 
     public static final Property<Part> PART = EnumProperty.create("part", Part.class);
 

@@ -1,6 +1,7 @@
 package net.ynov.createnuclear.multiblock.energy;
 
 import com.simibubi.create.Create;
+import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
 
 import com.simibubi.create.content.kinetics.base.flwdata.KineticData;
@@ -40,7 +41,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-public class ReactorOutput extends DirectionalKineticBlock implements IBE<ReactorOutputEntity> {
+public class ReactorOutput extends DirectionalKineticBlock implements IWrenchable, IBE<ReactorOutputEntity> {
 
 	public static final IntegerProperty SPEED = IntegerProperty.create("speed", 0, 64);
 	public static final IntegerProperty DIR = IntegerProperty.create("dir", 0, 2);
