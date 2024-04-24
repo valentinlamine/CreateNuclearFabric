@@ -1,8 +1,11 @@
 package net.ynov.createnuclear.blockentity;
 
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
+import net.ynov.createnuclear.entity.IrradiatedChicken;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutputEntity;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutputRenderer;
