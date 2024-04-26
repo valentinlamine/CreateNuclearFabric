@@ -10,7 +10,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.attributes.DefaultAttributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
@@ -22,7 +21,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
-import net.ynov.createnuclear.mobentity.CNMobEntityType;
 import org.jetbrains.annotations.Nullable;
 
 public class IrradiatedChicken extends Animal {
@@ -38,6 +36,7 @@ public class IrradiatedChicken extends Animal {
 
     public IrradiatedChicken(EntityType<? extends IrradiatedChicken> entityType, Level level) {
         super(entityType, level);
+        //./gradlew genSources
         // TODO regler l'erreur
         //Cannot invoke "net.minecraft.world.entity.ai.attributes.AttributeSupplier.getValue(net.minecraft.world.entity.ai.attributes.Attribute)" because "this.supplier" is null
 
@@ -49,6 +48,7 @@ public class IrradiatedChicken extends Animal {
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
     }
 
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.4));
@@ -65,7 +65,9 @@ public class IrradiatedChicken extends Animal {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 4.0).add(Attributes.MOVEMENT_SPEED, 0.25);
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 4.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.25);
     }
 
     public void aiStep() {

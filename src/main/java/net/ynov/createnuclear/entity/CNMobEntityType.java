@@ -1,4 +1,4 @@
-package net.ynov.createnuclear.mobentity;
+package net.ynov.createnuclear.entity;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -6,7 +6,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.ynov.createnuclear.CreateNuclear;
-import net.ynov.createnuclear.entity.IrradiatedChicken;
 
 public class CNMobEntityType {
     private static <T extends Entity> EntityType<T> register(String key, EntityType.Builder<T> builder) {

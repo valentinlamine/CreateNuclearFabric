@@ -1,5 +1,6 @@
 package net.ynov.createnuclear.blockentity;
 
+import com.simibubi.create.content.kinetics.base.HalfShaftInstance;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -27,6 +28,13 @@ public class CNBlockEntities {
                     .validBlocks(CNBlocks.REACTOR_OUTPUT)
                     .renderer(() -> ReactorOutputRenderer::new)
                     .register();
+
+    public static final BlockEntityEntry<ReactorOutputEntity> MOTOR2 = CreateNuclear.REGISTRATE
+            .blockEntity("motor2", ReactorOutputEntity::new)
+            .instance(() -> HalfShaftInstance::new, false)
+            .validBlocks(CNBlocks.REACTOR_OUTPUT)
+            .renderer(() -> ReactorOutputRenderer::new)
+            .register();
 
     public static void register() {
     }

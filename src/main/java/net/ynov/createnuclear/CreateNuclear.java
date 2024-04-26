@@ -1,21 +1,19 @@
 package net.ynov.createnuclear;
 
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import io.github.tropheusj.milk.mixin.BrewingRecipeRegistryMixin;
-import io.github.tropheusj.milk.mixin.BrewingRecipeRegistryMixin;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.resources.ResourceLocation;
 //import net.ynov.createnuclear.block.CNBlockEntityType;
 //import net.ynov.createnuclear.blockentity.CNBlockEntity;
-import net.ynov.createnuclear.entity.CNModelLayers;
+import net.ynov.createnuclear.entity.IrradiatedChicken;
 import net.ynov.createnuclear.fan.CNFanProcessingTypes;
 import net.ynov.createnuclear.fan.CNRecipeTypes;
-import net.ynov.createnuclear.mobentity.CNMobEntityType;
+import net.ynov.createnuclear.entity.CNMobEntityType;
 import net.ynov.createnuclear.tags.CNTag;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.blockentity.CNBlockEntities;
-import net.ynov.createnuclear.blockentity.CNEntityTypes;
 import net.ynov.createnuclear.effects.CNEffects;
 import net.ynov.createnuclear.fluid.CNFluids;
 import net.ynov.createnuclear.groups.CNGroup;
@@ -40,11 +38,11 @@ public class CreateNuclear implements ModInitializer {
 		CNBlocks.registerCNBlocks();
 		CNMenus.register();
 		CNBlockEntities.register();
-		CNEntityTypes.register();
 		CNGroup.registrer();
 		CNFluids.register();
 		CNTag.registerModItems();
 		CNMobEntityType.registerCNMod();
+		FabricDefaultAttributeRegistry.register(CNMobEntityType.IRRADIATED_CHICKEN, IrradiatedChicken.createAttributes());
 		CNWorldGeneration.generateModWorldGen();
 		REGISTRATE.register();
 		CNRecipeTypes.register();
