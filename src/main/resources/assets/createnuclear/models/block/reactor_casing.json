@@ -1,6 +1,23 @@
 {
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "createnuclear:block/reactor_casing"
-  }
+	"credit": "Made with Blockbench",
+	"parent": "block/cube",
+	"textures": {
+		"casing": "createnuclear:block/reactor/casing/reactor_casing",
+		"top": "createnuclear:block/reactor/casing/reactor_casing_top",
+		"particle": "createnuclear:block/reactor/casing/reactor_casing"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#casing"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#casing"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#casing"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#casing"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#top"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#top"}
+			}
+		}
+	]
 }
