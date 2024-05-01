@@ -27,10 +27,10 @@ public class CNBlockEntities {
                     .renderer(() -> ReactorOutputRenderer::new)
                     .register();
 
-    public static final BlockEntityEntry<ReactorBlockEntity> REACTOR_BLOCK =
+   /* public static final BlockEntityEntry<ReactorBlockEntity> REACTOR_BLOCK =
             CreateNuclear.REGISTRATE.blockEntity("reactor_block", ReactorBlockEntity::new)
                     .validBlocks(CNBlocks.REACTOR_CASING)
-                    .register();
+                    .register();*/
 
     public static void register() {
     }

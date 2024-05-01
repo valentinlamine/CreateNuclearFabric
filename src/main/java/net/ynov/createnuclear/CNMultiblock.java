@@ -9,10 +9,13 @@ import net.ynov.createnuclear.multiblock.MultiBlockManagerBeta;
 public class CNMultiblock {
 
     public static final MultiBlockManagerBeta<TypeMutliblock> REGISTRATE_MULTIBLOCK = new MultiBlockManagerBeta<>();
-    private static final String AAAAA = "AAAAA";
-    private static final String AABAA = "AABAA";
-    private static final String ADADA = "ADADA";
-    private static final String BACAB = "BACAB";
+    public static final String AAAAA = "AAAAA";
+    public static final String AABAA = "AABAA";
+    public static final String ADADA = "ADADA";
+    public static final String BACAB = "BACAB";
+    public static final String AAIAA = "AAIAA";
+    public static final String AAAA = "AA*AA";
+    public static final String AAOAA = "AAOAA";
 
     static {
         REGISTRATE_MULTIBLOCK.register("createnuclear:reactor",
@@ -21,10 +24,10 @@ public class CNMultiblock {
                     .aisle(AAAAA, AAAAA, AAAAA, AAAAA, AAAAA)
                     .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
                     .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
-                    .aisle("AAIAA", ADADA, BACAB, ADADA, "AA*AA")
+                    .aisle(AAIAA, ADADA, BACAB, ADADA, AAAA)
                     .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
                     .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
-                    .aisle(AAAAA, AAAAA, AAAAA, AAAAA, "AAOAA")
+                    .aisle(AAAAA, AAAAA, AAAAA, AAAAA, AAOAA)
                     .where('A', a -> a.getState().is(CNBlocks.REACTOR_CASING.get()))
                     .where('B', a -> a.getState().is(CNBlocks.REACTOR_MAIN_FRAME.get()))
                     .where('C', a -> a.getState().is(CNBlocks.REACTOR_CORE.get()))

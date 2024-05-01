@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ReactorBlock extends Block implements IWrenchable, IBE<ReactorBlockEntity> {
+public class ReactorBlock extends Block implements IWrenchable/*, IBE<ReactorBlockEntity>*/ {
     public ReactorBlock(Properties properties) {
         super(properties);
     }
@@ -93,7 +93,7 @@ public class ReactorBlock extends Block implements IWrenchable, IBE<ReactorBlock
         return null;
     }
 
-    @Override
+    /*@Override
     public Class<ReactorBlockEntity> getBlockEntityClass() {
         return ReactorBlockEntity.class;
     }
@@ -101,5 +101,5 @@ public class ReactorBlock extends Block implements IWrenchable, IBE<ReactorBlock
     @Override
     public BlockEntityType<? extends ReactorBlockEntity> getBlockEntityType() {
         return CNBlockEntities.REACTOR_BLOCK.get();
-    }
+    }*/
 }

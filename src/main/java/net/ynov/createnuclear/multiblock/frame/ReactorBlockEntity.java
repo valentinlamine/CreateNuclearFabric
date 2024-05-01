@@ -38,7 +38,7 @@ public class ReactorBlockEntity extends SmartBlockEntity implements SidedStorage
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) { }
 
-    @Override
+    /*@Override
     protected void read(CompoundTag tag, boolean clientPacket) {
         BlockPos controllerBlock = getController();
         BlockEntity blockEntity = level.getBlockEntity(controllerBlock);
@@ -67,11 +67,10 @@ public class ReactorBlockEntity extends SmartBlockEntity implements SidedStorage
             inventory = controllerBlockEntity.inventory;
         }
         return inventory;
-    }
+    }*/
 
     public void setController(BlockPos pos) {
-        controller = FindController(pos, level, level.players(), true);
-                //new BlockPos(pos.getX(), pos.getY(), pos.getZ()+4);
+        controller = new BlockPos(pos.getX()+4, pos.getY(), pos.getZ()+4);
     }
 
     public BlockPos getController() {
