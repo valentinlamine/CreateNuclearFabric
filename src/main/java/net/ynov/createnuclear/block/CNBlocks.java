@@ -1,8 +1,10 @@
 package net.ynov.createnuclear.block;
 
 import com.simibubi.create.AllTags;
+import com.simibubi.create.content.decoration.encasing.EncasedCTBehaviour;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.content.kinetics.motor.CreativeMotorGenerator;
+import com.simibubi.create.foundation.data.BuilderTransformers;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
@@ -30,9 +32,12 @@ import net.ynov.createnuclear.tools.EnrichingCampfire;
 import net.ynov.createnuclear.tools.EnrichingFireBlock;
 import net.ynov.createnuclear.tools.UraniumOreBlock;
 
+import static com.simibubi.create.foundation.data.CreateRegistrate.casingConnectivity;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
+import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 import static net.minecraft.world.level.block.Blocks.litBlockEmission;
+import static com.simibubi.create.foundation.data.CreateRegistrate.connectedTextures;
 
 public class CNBlocks {
 
@@ -177,8 +182,11 @@ public class CNBlocks {
 
     public static final BlockEntry<ReactorBlock> REACTOR_CASING =
             CreateNuclear.REGISTRATE.block("reactor_casing", ReactorBlock::new)
-                    .properties(p -> p.explosionResistance(1200F))
-                    .properties(p -> p.destroyTime(4F))
+                    .properties(p -> p.explosionResistance(1200F).destroyTime(4F))
+                    .transform(axeOrPickaxe())
+                    .blockstate((c,p) -> p.simpleBlock(c.get()))
+                    .onRegister(connectedTextures(() -> new EncasedCTBehaviour(CNSpriteShifts.REACTOR_CASING)))
+                    .onRegister(casingConnectivity((block,cc) -> cc.makeCasing(block, CNSpriteShifts.REACTOR_CASING)))
                     .simpleItem()
                     .register();
 
