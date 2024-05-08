@@ -7,8 +7,10 @@ import lib.multiblock.test.impl.IMultiBlockPatternBuilder;
 import lib.multiblock.test.impl.IPatternBuilder;
 import lib.multiblock.test.misc.MultiBlockOffsetPos;
 import lib.multiblock.test.misc.Util;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
+import net.ynov.createnuclear.CreateNuclear;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -74,5 +76,11 @@ public class SimpleMultiBlockAislePatternBuilder implements IMultiBlockPatternBu
         List<MultiBlockOffsetPos> list = Lists.newArrayList();
         data.forEach((k,v)-> list.addAll(v));
         return builder.make(list, lookup, blockProvider);
+    }
+    
+    public BlockPos getDistanceController(char character) {
+        var data = Util.parseBlockPattern(pattern, lookup.keySet());
+        var coreList = data.get(character);
+        return coreList.get(0).pos();
     }
 }
