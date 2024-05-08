@@ -69,6 +69,10 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
 
         Item item = player.getItemInHand(handIn).getItem();
 
+        ReactorControllerScreen.pos = pos;
+        ReactorControllerScreen.state = state;
+        ReactorControllerScreen.level = worldIn;
+
         if (CNItems.WELDING_KIT.is(item)) { //Si le weldingKit est dans la main
             if (Boolean.TRUE.equals(state.getValue(ASSEMBLED))) {
                 player.sendSystemMessage(Component.literal("Multiblock déjà assemblé").withStyle(ChatFormatting.YELLOW));
@@ -190,8 +194,10 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
         }
     }
     public void Rotate(BlockState state, BlockPos pos, Level level, int rotation) {
+        CreateNuclear.LOGGER.info(state + " " + pos + " " + level + "_______________________________________");
         if (level.getBlockState(pos).is(CNBlocks.REACTOR_OUTPUT.get())) {
             ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
+            CreateNuclear.LOGGER.info(block.getBlockEntityType().getBlockEntity(level, pos).toString());
             ReactorOutputEntity entity = Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos));
 
             if (Boolean.TRUE.equals(state.getValue(ASSEMBLED)) && rotation != 0) { // Starting the energy

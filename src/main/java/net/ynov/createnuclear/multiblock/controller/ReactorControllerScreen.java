@@ -2,9 +2,15 @@ package net.ynov.createnuclear.multiblock.controller;
 
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.gui.CNGuiTextures;
 import net.ynov.createnuclear.gui.CNIconButton;
@@ -20,6 +26,11 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     private CNIconButton powerButton;
     private float progress;
     private float reactorPower;
+
+    public static BlockPos pos;
+    public static BlockState state;
+    public static Level level;
+
     private float lastReactorPower;
 
     public ReactorControllerScreen(ReactorControllerMenu container, Inventory inv, Component title) {
@@ -82,6 +93,9 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         boolean hasUranium = menu.getSlot(0).hasItem();
         boolean hasGraphite = menu.getSlot(1).hasItem();
         if (menu.contentHolder.isPowered() && hasUranium && hasGraphite) {
+            ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
+            CreateNuclear.LOGGER.info(controller.toString() + "_________________________________________________");
+            controller.Rotate(state, pos.below(3), level, heatManager());
             if (reactorPower < lastReactorPower - coef || reactorPower > lastReactorPower + coef) {
                 if (reactorPower < lastReactorPower) {
                     lastReactorPower -= 0.2F;
