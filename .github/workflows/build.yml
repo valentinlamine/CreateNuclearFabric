@@ -3,7 +3,7 @@
 # certain platforms or Java versions, and provides a first line of defence
 # against bad commits.
 
-name: Publish
+name: Build
 on:
   workflow_dispatch:
     inputs:
