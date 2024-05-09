@@ -42,9 +42,9 @@ jobs:
     steps:
       - name: checkout repository
         uses: actions/checkout@v3
-        
+
       - name: Run a multi-line script
         run: |
           echo ${{ github.ref_name }}
-          name=$(git --no-pager tag --sort=creatordate --merged ${{ github.ref_name }} | tail -2 | head -1)
+          name=$(git --no-pager tag --sort=creatordate --merged main | tail -2 | head -1)
           echo "previousTag: $name"
