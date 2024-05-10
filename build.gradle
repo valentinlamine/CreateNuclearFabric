@@ -3,12 +3,15 @@ plugins {
 	id 'maven-publish'
 }
 
-version = project.mod_version
-group = project.maven_group
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
-base {
-	archivesName = project.archives_base_name
-}
+String runNumber = System.getenv("GITHUB_RUN_NUMBER")
+String build = runNumber != null ? "build.$runNumber" : "local"
+version = "$mod_version-$build+$minecraft_version"
+
+group = project.maven_group
+archivesBaseName="createnuclear"
 
 repositories {
 	// Add repositories to retrieve artifacts from in here.
@@ -51,33 +54,9 @@ repositories {
 	//maven { url "<https://maven.architectury.dev/>" }
 }
 
-loom {
-	runs {
-		datagen {
-			inherit server
-			name "Data Generator"
-			vmArg "-Dfabric-api.datagen"
-			vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
-			vmArg "-Dfabric-api.datagen.modid=createnuclear"
-
-			runDir "build/datagen"
-		}
-	}
-
-}
-
-sourceSets {
-	main {
-		resources {
-			srcDirs += [
-					'src/main/generated'
-			]
-		}
-	}
-}
-
 dependencies {
 
+	/** Setup **/
 	// To change the versions² see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	//mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
@@ -90,29 +69,26 @@ dependencies {
 	})
 
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	/**       **/
 
+	/** DevEnv **/
+	modLocalRuntime("com.terraformersmc:modmenu:${modmenu_version}")
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+	/**        **/
 
-
-	// Create - dependencies are added transitively
-	modImplementation("com.simibubi.create:create-fabric-1.20.1:${create_version}")
-
-	modLocalRuntime("com.terraformersmc:modmenu:${modmenu_version}")
-	modLocalRuntime("maven.modrinth:lazydfu:${lazydfu_version}")
-
-
-	/** JEI api **/
+	/** Compact **/
+		/** JEI api **/
 	modCompileOnlyApi("mezz.jei:jei-${jei_minecraft_version}-common-api:${jei_version}")
 	modCompileOnlyApi("mezz.jei:jei-${jei_minecraft_version}-fabric-api:${jei_version}")
-	/** 	    **/
-	/** REI API **/
+		/** 	    **/
+		/** REI API **/
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:$rei_version"
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:$rei_version"
-	/** 	    **/
-	/** EMI API **/
+		/** 	    **/
+		/** EMI API **/
 	modCompileOnly("dev.emi:emi-fabric:${emi_version}:api")
-	/** 	    **/
+		/** 	    **/
 
 
 	switch (recipe_viewer.toLowerCase(Locale.ROOT)) {
@@ -124,6 +100,16 @@ dependencies {
 		default: println("Unknown recipe viewer specified: $recipe_viewer. Must be JEI, REI, EMI, or disabled.")
 	}
 
+	// Create - dependencies are added transitively
+	modImplementation("com.simibubi.create:create-fabric-1.20.1:${create_version}")
+	modLocalRuntime("maven.modrinth:lazydfu:${lazydfu_version}")
+	/**         **/
+
+	/** Dep **/
+	for (String module in port_lib_modules.split(",")) {
+		modApi(include("io.github.fabricators_of_create.Porting-Lib:$module:$port_lib_version"))
+	}
+	/**     **/
 
 	// Fabric ASM (enum extension etc)
 	modImplementation("com.github.Chocohead:Fabric-ASM:v2.3") {
@@ -132,19 +118,70 @@ dependencies {
 	include "com.github.Chocohead:Fabric-ASM:v2.3"
 }
 
+
+loom {
+	runs {
+		datagen {
+			client()
+
+			name "Data Generator"
+			vmArg "-Dfabric-api.datagen"
+			vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
+			vmArg "-Dfabric-api.datagen.modid=createnuclear"
+			vmArg "-Dporting_lib.datagen.existing_resources=${file("src/main/resources")}"
+
+
+			runDir "build/datagen"
+		}
+
+		/*server {
+			runDir "run/server"
+		}*/
+	}
+
+}
+
+sourceSets {
+	main {
+		resources {
+			srcDir("src/generated/resources")
+			exclude("src/generated/resources/.cache")
+		}
+	}
+}
+
+
+
 processResources {
 
 	// require dependencies to be the version compiled against or newer
-	Map<String, String> properties = new HashMap<>()
+	/*Map<String, String> properties = new HashMap<>()
 	properties.put("version", minecraft_version)
 	properties.put("create_version", create_version)
-	properties.put("minecraft_version", minecraft_version)
+	properties.put("minecraft_version", minecraft_version)*/
+
+	Map<String, Object> properties = [
+			"version": minecraft_version,
+			"create_version": create_version,
+			"minecraft_version": minecraft_version,
+	]
+
+	for (String module in port_lib_modules.split(","))
+		properties.put("port_lib_${module}_version".toString(), port_lib_version)
+	properties.put("port_lib_tags_version", "3.0") // the weird one
+
 
 	properties.forEach((k, v) -> inputs.property(k, v))
 
 	filesMatching("fabric.mod.json") {
 		expand properties
 	}
+
+	filesMatching("createnuclear.mixins.json") {
+		expand "archivesBaseName": archivesBaseName
+	}
+
+	duplicatesStrategy = DuplicatesStrategy.WARN
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -157,13 +194,12 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+
 }
 
 jar {
 	from("LICENSE") {
-		rename { "${it}_${project.base.archivesName.get()}"}
+		rename { "${it}_$archivesBaseName"}
 	}
 }
 
