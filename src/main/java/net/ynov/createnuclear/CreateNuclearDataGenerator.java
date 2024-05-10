@@ -14,8 +14,7 @@ public class CreateNuclearDataGenerator implements DataGeneratorEntrypoint {
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		ExistingFileHelper helper = ExistingFileHelper.withResourcesFromArg();
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
-		//CreateNuclear.REGISTRATE.setupDatagen(pack, helper);
-		CreateNuclear.LOGGER.warn(System.getProperty("porting_lib.datagen.existing_resources") + " " + System.getProperty("porting_lib.datagen") + " " + System.getProperty("porting_lib"));
+		CreateNuclear.REGISTRATE.setupDatagen(pack, helper);
 		//pack.addProvider(CNWorldGenerator::new);
 	}
 
