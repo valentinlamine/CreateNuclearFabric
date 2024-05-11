@@ -20,6 +20,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.ynov.createnuclear.CreateNuclear;
@@ -159,20 +161,23 @@ public class CNBlocks {
             .transform(pickaxeOnly())
             .blockstate((c, p) ->
                 p.getVariantBuilder(c.getEntry())
-                .forAllStates(state -> ConfiguredModel.builder()
-                    .modelFile(p.models()
-                        .getExistingFile(
-                            p.modLoc("block/enriching_campfire/" +
-                                (
-                                    state.getValue(EnrichingCampfireBlock.LIT)
-                                        ? "block"
-                                        : "block_off"
-                                )
-                            )
-                        )
+                    .forAllStatesExcept(state -> {
+                        Direction facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
+                        return ConfiguredModel.builder()
+                            .modelFile(p.models().getExistingFile(p.modLoc("block/enriching_campfire/" +
+                                    (state.getValue(EnrichingCampfireBlock.LIT) ? "block" : "block_off")
+                            )))
+                            .uvLock(false)
+                            .rotationY(switch (facing) {
+                                case NORTH -> 180;
+                                case SOUTH -> 0;
+                                case WEST -> 90;
+                                case EAST -> 270;
+                                default -> 0;
+                            })
+                            .build();
+                        }, BlockStateProperties.SIGNAL_FIRE, BlockStateProperties.WATERLOGGED
                     )
-                    .build()
-                )
             )
             .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
             .register();
