@@ -2,7 +2,10 @@ package net.ynov.createnuclear.block;
 
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
+import com.simibubi.create.content.kinetics.motor.CreativeMotorBlock;
 import com.simibubi.create.content.kinetics.motor.CreativeMotorGenerator;
+import com.simibubi.create.foundation.data.AssetLookup;
+import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
@@ -18,6 +21,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.blockentity.ReinforcedGlassBlock;
 import net.ynov.createnuclear.multiblock.cooling.ReactorCoolingBlock;
+import net.ynov.createnuclear.multiblock.energy.ReactorOutputGenerator;
 import net.ynov.createnuclear.multiblock.gauge.ReactorGaugeBlock;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.ynov.createnuclear.multiblock.frame.ReactorBlock;
@@ -27,9 +31,11 @@ import net.ynov.createnuclear.tags.CNTag;
 //import net.ynov.createnuclear.tools.EnrichingCampfire;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
 import net.ynov.createnuclear.tools.EnrichingCampfire;
+//import net.ynov.createnuclear.tools.EnrichingFireBlock;
 import net.ynov.createnuclear.tools.EnrichingFireBlock;
 import net.ynov.createnuclear.tools.UraniumOreBlock;
 
+import static com.simibubi.create.foundation.data.BlockStateGen.simpleCubeAll;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 import static net.minecraft.world.level.block.Blocks.litBlockEmission;
@@ -73,8 +79,6 @@ public class CNBlocks {
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
-                    .transform(BlockStressDefaults.setCapacity(16384.0))
-                    .transform(BlockStressDefaults.setGeneratorSpeed(() -> Couple.create(0, 256)))
                     .register();
 
     public static final BlockEntry<Block> RAW_LEAD_BLOCK =
@@ -83,12 +87,14 @@ public class CNBlocks {
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .register();
+
     public static final BlockEntry<Block> LEAD_BLOCK =
             CreateNuclear.REGISTRATE.block("lead_block", Block::new)
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .register();
+
     public static final BlockEntry<Block> ENRICHED_SOUL_SOIL =
             CreateNuclear.REGISTRATE.block("enriched_soul_soil", Block::new)
                     .initialProperties(CNBlocks::getSoulSoil)
@@ -105,6 +111,7 @@ public class CNBlocks {
                     .properties(BlockBehaviour.Properties::noOcclusion)
                     .properties(p -> p.lightLevel(EnrichingFireBlock::getLight))
                     .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
+                    .blockstate((c,p) -> BlockStateGen.cubeAll(c,p, "", "enrinching_flame"))
                     .register();
 
     public static final BlockEntry<ReinforcedGlassBlock> REINFORCED_GLASS =
@@ -117,20 +124,18 @@ public class CNBlocks {
 
     public static final BlockEntry<ReactorOutput> REACTOR_OUTPUT =
             CreateNuclear.REGISTRATE.block("reactor_output", ReactorOutput::new)
-                    .properties(p -> p.explosionResistance(1200F))
-                    .properties(p -> p.destroyTime(4F))
-			.initialProperties(SharedProperties::stone)
-			.properties(p -> p.mapColor(MapColor.COLOR_PURPLE).forceSolidOn())
-			.tag(AllTags.AllBlockTags.SAFE_NBT.tag)
-			.transform(pickaxeOnly())
-			.blockstate(new CreativeMotorGenerator()::generate)
-			.transform(BlockStressDefaults.setCapacity(500))
-			.transform(BlockStressDefaults.setGeneratorSpeed(() -> Couple.create(0, 256)))
-                        .addLayer(() -> RenderType::cutoutMipped)
-                        .item()
-			.properties(p -> p.rarity(Rarity.EPIC))
-			.transform(customItemModel())
-			.register();
+                .properties(p -> p.explosionResistance(1200F).destroyTime(4F))
+                .initialProperties(SharedProperties::stone)
+                .properties(p -> p.mapColor(MapColor.COLOR_PURPLE).forceSolidOn())
+                .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
+                .transform(pickaxeOnly())
+                .blockstate(new ReactorOutputGenerator()::generate)
+                .transform(BlockStressDefaults.setCapacity(500))
+                .transform(BlockStressDefaults.setGeneratorSpeed(() -> Couple.create(0, 256)))
+                .item()
+                .properties(p -> p.rarity(Rarity.EPIC))
+                .transform(customItemModel())
+                .register();
 
     public static final BlockEntry<EnrichingCampfire> ENRICHING_CAMPFIRE =
             CreateNuclear.REGISTRATE.block("enriching_campfire", properties -> new EnrichingCampfire(true, 5, BlockBehaviour.Properties.of()
@@ -147,6 +152,7 @@ public class CNBlocks {
             .simpleItem()
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(pickaxeOnly())
+            .blockstate((c, p) -> p.simpleBlock(c.getEntry(), AssetLookup.partialBaseModel(c, p)))
             .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
             .register();
 
@@ -155,8 +161,7 @@ public class CNBlocks {
                     .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(4F))
-                    .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models()
-                            .getExistingFile(ctx.getId()), 0))
+                    .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models().getExistingFile(ctx.getId()), 0))
                     .simpleItem()
                     .register();
 
@@ -165,6 +170,7 @@ public class CNBlocks {
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(4F))
                     .simpleItem()
+                    .blockstate((c,p) -> BlockStateGen.cubeAll(c,p, "reactor/core/"))
                     .register();
 
     public static final BlockEntry<ReactorCoolingBlock> REACTOR_COOLING_FRAME =
@@ -199,6 +205,7 @@ public class CNBlocks {
                     .properties(p -> p.destroyTime(2F))
                     .addLayer(() -> RenderType::cutoutMipped)
                     .transform(pickaxeOnly())
+                    .blockstate((c,p) -> BlockStateGen.cubeAll(c,p, "reactor/input/"))
                     .simpleItem()
                     .register();
 

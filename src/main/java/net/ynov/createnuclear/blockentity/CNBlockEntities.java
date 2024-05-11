@@ -1,6 +1,7 @@
 package net.ynov.createnuclear.blockentity;
 
 import com.simibubi.create.Create;
+import com.simibubi.create.content.kinetics.base.HalfShaftInstance;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
@@ -23,6 +24,7 @@ public class CNBlockEntities {
 
     public static final BlockEntityEntry<ReactorOutputEntity> REACTOR_OUTPUT =
             CreateNuclear.REGISTRATE.blockEntity("reactor_output", ReactorOutputEntity::new)
+                    .instance(() -> HalfShaftInstance::new, false)
                     .validBlocks(CNBlocks.REACTOR_OUTPUT)
                     .renderer(() -> ReactorOutputRenderer::new)
                     .register();

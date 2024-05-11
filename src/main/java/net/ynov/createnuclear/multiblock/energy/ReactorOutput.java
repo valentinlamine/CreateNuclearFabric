@@ -1,15 +1,12 @@
 package net.ynov.createnuclear.multiblock.energy;
 
-import com.simibubi.create.Create;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
 
-import com.simibubi.create.content.kinetics.base.flwdata.KineticData;
 import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -23,15 +20,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
-import net.ynov.createnuclear.blockentity.CNEntityTypes;
+import net.ynov.createnuclear.blockentity.CNBlockEntities;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
 import net.ynov.createnuclear.shape.CNShapes;
@@ -149,7 +144,7 @@ public class ReactorOutput extends DirectionalKineticBlock implements IWrenchabl
 
 	@Override
 	public BlockEntityType<? extends ReactorOutputEntity> getBlockEntityType() {
-		return CNEntityTypes.MOTOR2.get();
+		return CNBlockEntities.REACTOR_OUTPUT.get();
 	}
 
 	public ReactorControllerBlock FindController(BlockPos pos, Level level){

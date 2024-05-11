@@ -1,8 +1,6 @@
 package net.ynov.createnuclear;
 
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import io.github.tropheusj.milk.mixin.BrewingRecipeRegistryMixin;
-import io.github.tropheusj.milk.mixin.BrewingRecipeRegistryMixin;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.resources.ResourceLocation;
@@ -13,7 +11,6 @@ import net.ynov.createnuclear.fan.CNRecipeTypes;
 import net.ynov.createnuclear.tags.CNTag;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.blockentity.CNBlockEntities;
-import net.ynov.createnuclear.blockentity.CNEntityTypes;
 import net.ynov.createnuclear.effects.CNEffects;
 import net.ynov.createnuclear.fluid.CNFluids;
 import net.ynov.createnuclear.groups.CNGroup;
@@ -38,7 +35,6 @@ public class CreateNuclear implements ModInitializer {
 		CNBlocks.registerCNBlocks();
 		CNMenus.register();
 		CNBlockEntities.register();
-		CNEntityTypes.register();
 		CNGroup.registrer();
 		CNFluids.register();
 		CNTag.registerModItems();
@@ -55,8 +51,3 @@ public class CreateNuclear implements ModInitializer {
 
 
 }
-/**
- * "jei_mod_plugin": [
- * 			"net.ynov.createnuclear.compat.jei.CreateNucleairJei"
- * 		]
- */

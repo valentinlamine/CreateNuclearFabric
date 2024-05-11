@@ -38,6 +38,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Properties;
 
 import static net.ynov.createnuclear.multiblock.energy.ReactorOutput.SPEED;
 
