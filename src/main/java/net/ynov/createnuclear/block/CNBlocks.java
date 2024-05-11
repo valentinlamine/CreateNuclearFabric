@@ -1,16 +1,20 @@
 package net.ynov.createnuclear.block;
 
+import com.simibubi.create.AllItems;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.content.kinetics.motor.CreativeMotorBlock;
 import com.simibubi.create.content.kinetics.motor.CreativeMotorGenerator;
+import com.simibubi.create.content.processing.burner.LitBlazeBurnerBlock;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
+import io.github.fabricators_of_create.porting_lib.models.generators.ConfiguredModel;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -32,6 +36,7 @@ import net.ynov.createnuclear.tags.CNTag;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
 import net.ynov.createnuclear.tools.EnrichingCampfire;
 //import net.ynov.createnuclear.tools.EnrichingFireBlock;
+import net.ynov.createnuclear.tools.EnrichingCampfireBlock;
 import net.ynov.createnuclear.tools.EnrichingFireBlock;
 import net.ynov.createnuclear.tools.UraniumOreBlock;
 
@@ -137,8 +142,8 @@ public class CNBlocks {
                 .transform(customItemModel())
                 .register();
 
-    public static final BlockEntry<EnrichingCampfire> ENRICHING_CAMPFIRE =
-            CreateNuclear.REGISTRATE.block("enriching_campfire", properties -> new EnrichingCampfire(true, 5, BlockBehaviour.Properties.of()
+    public static final BlockEntry<EnrichingCampfireBlock> ENRICHING_CAMPFIRE =
+            CreateNuclear.REGISTRATE.block("enriching_campfire", properties -> new EnrichingCampfireBlock(true, 5, BlockBehaviour.Properties.of()
                 .mapColor(MapColor.PODZOL)
                 .instrument(NoteBlockInstrument.BASS)
                 .strength(2.0F)
@@ -152,9 +157,27 @@ public class CNBlocks {
             .simpleItem()
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(pickaxeOnly())
-            .blockstate((c, p) -> p.simpleBlock(c.getEntry(), AssetLookup.partialBaseModel(c, p)))
+            .blockstate((c, p) ->
+                p.getVariantBuilder(c.getEntry())
+                .forAllStates(state -> ConfiguredModel.builder()
+                    .modelFile(p.models()
+                        .getExistingFile(
+                            p.modLoc("block/enriching_campfire/" +
+                                (
+                                    state.getValue(EnrichingCampfireBlock.LIT)
+                                        ? "block"
+                                        : "block_off"
+                                )
+                            )
+                        )
+                    )
+                    .build()
+                )
+            )
             .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
             .register();
+
+
 
     public static final BlockEntry<ReactorControllerBlock> REACTOR_CONTROLLER =
             CreateNuclear.REGISTRATE.block("reactor_controller", ReactorControllerBlock::new)
