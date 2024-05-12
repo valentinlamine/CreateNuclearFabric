@@ -1,17 +1,13 @@
 package net.ynov.createnuclear.block;
 
-import com.simibubi.create.AllItems;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
-import com.simibubi.create.content.kinetics.motor.CreativeMotorBlock;
-import com.simibubi.create.content.kinetics.motor.CreativeMotorGenerator;
-import com.simibubi.create.content.processing.burner.LitBlazeBurnerBlock;
-import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import io.github.fabricators_of_create.porting_lib.models.generators.ConfiguredModel;
+import io.github.fabricators_of_create.porting_lib.models.generators.ModelFile;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
@@ -21,7 +17,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.ynov.createnuclear.CreateNuclear;
@@ -31,18 +26,13 @@ import net.ynov.createnuclear.multiblock.energy.ReactorOutputGenerator;
 import net.ynov.createnuclear.multiblock.gauge.ReactorGaugeBlock;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.ynov.createnuclear.multiblock.frame.ReactorBlock;
-//import net.ynov.createnuclear.multiblock.input.ReactorInput;
 import net.ynov.createnuclear.multiblock.input.ReactorInput;
 import net.ynov.createnuclear.tags.CNTag;
-//import net.ynov.createnuclear.tools.EnrichingCampfire;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
-import net.ynov.createnuclear.tools.EnrichingCampfire;
-//import net.ynov.createnuclear.tools.EnrichingFireBlock;
 import net.ynov.createnuclear.tools.EnrichingCampfireBlock;
 import net.ynov.createnuclear.tools.EnrichingFireBlock;
 import net.ynov.createnuclear.tools.UraniumOreBlock;
 
-import static com.simibubi.create.foundation.data.BlockStateGen.simpleCubeAll;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 import static net.minecraft.world.level.block.Blocks.litBlockEmission;
@@ -118,7 +108,56 @@ public class CNBlocks {
                     .properties(BlockBehaviour.Properties::noOcclusion)
                     .properties(p -> p.lightLevel(EnrichingFireBlock::getLight))
                     .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
-                    .blockstate((c,p) -> BlockStateGen.cubeAll(c,p, "", "enrinching_flame"))
+                    .blockstate((c,p) -> {
+                        String baseFolder = "block/enriching_fire/";
+                        ModelFile Floor0 = p.models().getExistingFile(p.modLoc(baseFolder + "floor0"));
+                        ModelFile Floor1 = p.models().getExistingFile(p.modLoc(baseFolder + "floor1"));
+                        ModelFile Side0 = p.models().getExistingFile(p.modLoc(baseFolder + "side0"));
+                        ModelFile Side1 = p.models().getExistingFile(p.modLoc(baseFolder + "side1"));
+                        ModelFile SideAlt0 = p.models().getExistingFile(p.modLoc(baseFolder + "side_alt0"));
+                        ModelFile SideAlt1 = p.models().getExistingFile(p.modLoc(baseFolder + "side_alt1"));
+
+
+                        p.getMultipartBuilder(c.get())
+                            .part()
+                            .modelFile(Floor0)
+                            .nextModel()
+                            .modelFile(Floor1)
+                            .addModel()
+                            .end()
+                            .part()
+                            .modelFile(Side0)
+                            .nextModel()
+                            .modelFile(Side1)
+                            .nextModel()
+                            .modelFile(SideAlt0)
+                            .nextModel()
+                            .modelFile(SideAlt1)
+                            .addModel()
+                            .end()
+                            .part()
+                            .modelFile(Side0).rotationY(90).nextModel()
+                            .modelFile(Side1).rotationY(90).nextModel()
+                            .modelFile(SideAlt0).rotationY(90).nextModel()
+                            .modelFile(SideAlt1).rotationY(90)
+                            .addModel()
+                            .end()
+                            .part()
+                            .modelFile(Side0).rotationY(180).nextModel()
+                            .modelFile(Side1).rotationY(180).nextModel()
+                            .modelFile(SideAlt0).rotationY(180).nextModel()
+                            .modelFile(SideAlt1).rotationY(180)
+                            .addModel()
+                            .end()
+                            .part()
+                            .modelFile(Side0).rotationY(270).nextModel()
+                            .modelFile(Side1).rotationY(270).nextModel()
+                            .modelFile(SideAlt0).rotationY(270).nextModel()
+                            .modelFile(SideAlt1).rotationY(270)
+                            .addModel()
+                            .end()
+                        ;
+                    })
                     .register();
 
     public static final BlockEntry<ReinforcedGlassBlock> REINFORCED_GLASS =
