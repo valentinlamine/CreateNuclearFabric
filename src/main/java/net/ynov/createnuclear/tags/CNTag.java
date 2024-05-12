@@ -34,9 +34,9 @@ public class CNTag {
 
     public enum NameSpace {
         MOD(CreateNuclear.MOD_ID, false, true),
-        CREATE("c"),
-        FORGE(CreateNuclear.MOD_ID)
-
+        CREATE("create"),
+        FORGE("c"),
+        FABRIC("f")
         ;
 
         public final String id;
@@ -55,7 +55,7 @@ public class CNTag {
 
     public enum FluidTag {
         //URANIUM(NameSpace.MOD),
-        URANIUM(NameSpace.CREATE);
+        URANIUM;
 
         public final TagKey<Fluid> tag;
         public final boolean alwayDatagen;
@@ -93,8 +93,8 @@ public class CNTag {
     }
 
     public enum BlockTags {
-        FAN_PROCESSING_CATALYSTS_ENRICHED(MOD, "fan_processing_catalysts/enriched"),
-        ENRICHING_FIRE_BASE_BLOCKS(MOD, "uranium_fire_base_blocks"),
+        FAN_PROCESSING_CATALYSTS_ENRICHED("fan_processing_catalysts/enriched"),
+        ENRICHING_FIRE_BASE_BLOCKS("uranium_fire_base_blocks"),
         ;
         public final TagKey<Block> tag;
         public final boolean alwaysDatagen;
@@ -143,7 +143,7 @@ public class CNTag {
     }
 
     public enum ItemTags {
-        CLOTH(MOD);
+        CLOTH;
 
         public  final  TagKey<Item> tag;
         public final boolean alwaysDatagen;

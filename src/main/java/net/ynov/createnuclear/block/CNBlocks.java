@@ -4,13 +4,16 @@ import com.simibubi.create.AllTags;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.utility.Couple;
+import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import io.github.fabricators_of_create.porting_lib.models.generators.ConfiguredModel;
 import io.github.fabricators_of_create.porting_lib.models.generators.ModelFile;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
+import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -18,8 +21,10 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.blockentity.ReinforcedGlassBlock;
+import net.ynov.createnuclear.item.CNItems;
 import net.ynov.createnuclear.multiblock.cooling.ReactorCoolingBlock;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutputGenerator;
 import net.ynov.createnuclear.multiblock.gauge.ReactorGaugeBlock;
@@ -31,6 +36,8 @@ import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
 import net.ynov.createnuclear.tools.EnrichingCampfireBlock;
 import net.ynov.createnuclear.tools.EnrichingFireBlock;
 import net.ynov.createnuclear.tools.UraniumOreBlock;
+
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
@@ -47,6 +54,11 @@ public class CNBlocks {
                     .initialProperties(CNBlocks::getDiamondOre)
                     .simpleItem()
                     .transform(pickaxeOnly())
+                    .loot((lt, b) -> lt.add(b,
+                        RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
+                            lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_URANIUM)
+                                .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
+                    ))))
                     .register();
 
     public static final BlockEntry<UraniumOreBlock> URANIUM_ORE =
@@ -54,6 +66,11 @@ public class CNBlocks {
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
+                    .loot((lt, b) -> lt.add(b,
+                        RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
+                            lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_URANIUM)
+                                .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
+                    ))))
                     .register();
 
     public static final BlockEntry<Block> DEEPSLATE_LEAD_ORE =
@@ -61,6 +78,11 @@ public class CNBlocks {
                     .initialProperties(CNBlocks::getDiamondOre)
                     .simpleItem()
                     .transform(pickaxeOnly())
+                    .loot((lt, b) -> lt.add(b,
+                        RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
+                            lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_LEAD)
+                                .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
+                    ))))
                     .register();
 
     public static final BlockEntry<Block> LEAD_ORE =
@@ -68,6 +90,11 @@ public class CNBlocks {
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
+                    .loot((lt, b) -> lt.add(b,
+                        RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
+                            lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_LEAD)
+                                .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
+                    ))))
                     .register();
 
     public static final BlockEntry<Block> RAW_URANIUM_BLOCK =
@@ -107,6 +134,7 @@ public class CNBlocks {
                     .properties(BlockBehaviour.Properties::noOcclusion)
                     .properties(p -> p.lightLevel(EnrichingFireBlock::getLight))
                     .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
+                    .loot((lt, b) -> lt.add(b, BlockLootSubProvider.noDrop()))
                     .blockstate((c,p) -> {
                         String baseFolder = "block/enriching_fire/";
                         ModelFile Floor0 = p.models().getExistingFile(p.modLoc(baseFolder + "floor0"));
@@ -161,8 +189,8 @@ public class CNBlocks {
     public static final BlockEntry<ReinforcedGlassBlock> REINFORCED_GLASS =
             CreateNuclear.REGISTRATE.block("reinforced_glass", ReinforcedGlassBlock::new)
                     .initialProperties(CNBlocks::getGlass)
-                    .properties(p -> p.explosionResistance(1200F))
-                    .properties(p -> p.destroyTime(2F))
+                    .properties(p -> p.explosionResistance(1200F).destroyTime(2F))
+                    .loot(RegistrateBlockLootTables::dropWhenSilkTouch)
                     .simpleItem()
                     .register();
 
@@ -196,14 +224,12 @@ public class CNBlocks {
             .simpleItem()
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(pickaxeOnly())
+            .loot((lt, b) -> lt.add(b, RegistrateBlockLootTables.createSilkTouchDispatchTable(b, lt.applyExplosionDecay(b, LootItem.lootTableItem(CNBlocks.ENRICHED_SOUL_SOIL)))))
             .blockstate((c, p) ->
-                p.getVariantBuilder(c.getEntry())
-                .forAllStatesExcept(state -> {
+                p.getVariantBuilder(c.getEntry()).forAllStatesExcept(state -> {
                     Direction facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
                     return ConfiguredModel.builder()
-                        .modelFile(p.models().getExistingFile(p.modLoc("block/enriching_campfire/" +
-                                (state.getValue(EnrichingCampfireBlock.LIT) ? "block" : "block_off")
-                        )))
+                        .modelFile(p.models().getExistingFile(p.modLoc("block/enriching_campfire/" + (state.getValue(EnrichingCampfireBlock.LIT) ? "block" : "block_off"))))
                         .uvLock(false)
                         .rotationY(switch (facing) {
                             case NORTH -> 180;
