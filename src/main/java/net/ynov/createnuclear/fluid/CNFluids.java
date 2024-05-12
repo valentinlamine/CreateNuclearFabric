@@ -32,7 +32,7 @@ public class CNFluids {
                         .tickRate(15)
                         .flowSpeed(6)
                         .blastResistance(100f))
-                .tag(CNTag.forgeFluidTag("uranium"))
+                .tag(CNTag.forgeFluidTag("uranium"), CNTag.FluidTag.LAVA.tag)
                 .source(SimpleFlowableFluid.Source::new);
 
         URANIUM = uranium.register();

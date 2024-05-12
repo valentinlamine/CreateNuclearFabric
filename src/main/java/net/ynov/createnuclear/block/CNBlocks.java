@@ -40,6 +40,7 @@ import net.ynov.createnuclear.tools.UraniumOreBlock;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
+import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 import static net.minecraft.world.level.block.Blocks.litBlockEmission;
 
@@ -59,6 +60,7 @@ public class CNBlocks {
                             lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_URANIUM)
                                 .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
                     ))))
+                    .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag, CNTag.BlockTags.NEEDS_IRON_TOOL.tag)
                     .register();
 
     public static final BlockEntry<UraniumOreBlock> URANIUM_ORE =
@@ -71,6 +73,7 @@ public class CNBlocks {
                             lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_URANIUM)
                                 .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
                     ))))
+                    .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag, CNTag.BlockTags.NEEDS_IRON_TOOL.tag)
                     .register();
 
     public static final BlockEntry<Block> DEEPSLATE_LEAD_ORE =
@@ -83,6 +86,7 @@ public class CNBlocks {
                             lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_LEAD)
                                 .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
                     ))))
+                    .tag(CNTag.BlockTags.NEEDS_IRON_TOOL.tag)
                     .register();
 
     public static final BlockEntry<Block> LEAD_ORE =
@@ -95,6 +99,7 @@ public class CNBlocks {
                             lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_LEAD)
                                 .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
                     ))))
+                    .tag(CNTag.BlockTags.NEEDS_IRON_TOOL.tag)
                     .register();
 
     public static final BlockEntry<Block> RAW_URANIUM_BLOCK =
@@ -102,6 +107,7 @@ public class CNBlocks {
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
+                    .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
                     .register();
 
     public static final BlockEntry<Block> RAW_LEAD_BLOCK =
@@ -109,6 +115,7 @@ public class CNBlocks {
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
+                    .tag(CNTag.BlockTags.NEEDS_IRON_TOOL.tag)
                     .register();
 
     public static final BlockEntry<Block> LEAD_BLOCK =
@@ -122,8 +129,8 @@ public class CNBlocks {
             CreateNuclear.REGISTRATE.block("enriched_soul_soil", Block::new)
                     .initialProperties(CNBlocks::getSoulSoil)
                     .simpleItem()
-                    .transform(pickaxeOnly())
-                    .tag(CNTag.BlockTags.ENRICHING_FIRE_BASE_BLOCKS.tag)
+                    .tag(CNTag.BlockTags.SHOVEL.tag)
+                    .tag(CNTag.BlockTags.ENRICHING_FIRE_BASE_BLOCKS.tag, CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
                     .register();
 
     public static final BlockEntry<EnrichingFireBlock> ENRICHING_FIRE =
@@ -133,7 +140,7 @@ public class CNBlocks {
                     .properties(BlockBehaviour.Properties::noCollission)
                     .properties(BlockBehaviour.Properties::noOcclusion)
                     .properties(p -> p.lightLevel(EnrichingFireBlock::getLight))
-                    .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
+                    .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag, CNTag.BlockTags.FIRE.tag, CNTag.BlockTags.DRAGON_TRANSPARENT.tag)
                     .loot((lt, b) -> lt.add(b, BlockLootSubProvider.noDrop()))
                     .blockstate((c,p) -> {
                         String baseFolder = "block/enriching_fire/";
@@ -199,7 +206,7 @@ public class CNBlocks {
                 .properties(p -> p.explosionResistance(1200F).destroyTime(4F))
                 .initialProperties(SharedProperties::stone)
                 .properties(p -> p.mapColor(MapColor.COLOR_PURPLE).forceSolidOn())
-                .tag(AllTags.AllBlockTags.SAFE_NBT.tag)
+                .tag(AllTags.AllBlockTags.SAFE_NBT.tag, CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
                 .transform(pickaxeOnly())
                 .blockstate(new ReactorOutputGenerator()::generate)
                 .transform(BlockStressDefaults.setCapacity(500))
@@ -223,7 +230,8 @@ public class CNBlocks {
             //.initialProperties(CNBlocks::DIAMOND_ORE)
             .simpleItem()
             .addLayer(() -> RenderType::cutoutMipped)
-            .transform(pickaxeOnly())
+            .transform(axeOrPickaxe())
+            .tag(CNTag.BlockTags.CAMPFIRE.tag, CNTag.BlockTags.ALL_CAMPFIRE.tag)
             .loot((lt, b) -> lt.add(b, RegistrateBlockLootTables.createSilkTouchDispatchTable(b, lt.applyExplosionDecay(b, LootItem.lootTableItem(CNBlocks.ENRICHED_SOUL_SOIL)))))
             .blockstate((c, p) ->
                 p.getVariantBuilder(c.getEntry()).forAllStatesExcept(state -> {
@@ -252,6 +260,8 @@ public class CNBlocks {
                     .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(4F))
+                    .transform(pickaxeOnly())
+                    .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
                     .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models().getExistingFile(ctx.getId()), 0))
                     .simpleItem()
                     .register();
@@ -260,6 +270,7 @@ public class CNBlocks {
             CreateNuclear.REGISTRATE.block("reactor_core", ReactorBlock::new)
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(4F))
+                    .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
                     .blockstate((c, p) ->
                         p.getVariantBuilder(c.getEntry())
                         .forAllStates(state -> ConfiguredModel.builder()
@@ -267,6 +278,7 @@ public class CNBlocks {
                                 .uvLock(false)
                                 .build())
                     )
+                    .transform(pickaxeOnly())
                     .simpleItem()
                     .register();
 
@@ -275,14 +287,18 @@ public class CNBlocks {
                     .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(4F))
+                    .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
                     .simpleItem()
+                    .transform(pickaxeOnly())
                     .register();
 
     public static final BlockEntry<ReactorBlock> REACTOR_CASING =
             CreateNuclear.REGISTRATE.block("reactor_casing", ReactorBlock::new)
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(4F))
+                    .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
                     .simpleItem()
+                    .transform(pickaxeOnly())
                     .register();
 
     public static final BlockEntry<ReactorGaugeBlock> REACTOR_MAIN_FRAME =
@@ -292,6 +308,7 @@ public class CNBlocks {
                     .properties(p -> p.destroyTime(2F))
                     .addLayer(() -> RenderType::cutoutMipped)
                     .transform(pickaxeOnly())
+                    .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
                     .blockstate((c, p) ->
                         p.getVariantBuilder(c.getEntry())
                         .forAllStatesExcept(state -> {
@@ -323,6 +340,7 @@ public class CNBlocks {
                     .properties(p -> p.destroyTime(2F))
                     .addLayer(() -> RenderType::cutoutMipped)
                     .transform(pickaxeOnly())
+                    .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
                     .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models().getExistingFile(ctx.getId()), 0))
                     .simpleItem()
                     .register();

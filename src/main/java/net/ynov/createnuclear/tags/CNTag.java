@@ -14,6 +14,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.ynov.createnuclear.CreateNuclear;
 
+import static net.ynov.createnuclear.tags.CNTag.NameSpace.MINECRAFT;
 import static net.ynov.createnuclear.tags.CNTag.NameSpace.MOD;
 
 public class CNTag {
@@ -36,7 +37,8 @@ public class CNTag {
         MOD(CreateNuclear.MOD_ID, false, true),
         CREATE("create"),
         FORGE("c"),
-        FABRIC("f")
+        FABRIC("f"),
+        MINECRAFT("minecraft")
         ;
 
         public final String id;
@@ -55,7 +57,9 @@ public class CNTag {
 
     public enum FluidTag {
         //URANIUM(NameSpace.MOD),
-        URANIUM;
+        URANIUM,
+        LAVA(MINECRAFT)
+        ;
 
         public final TagKey<Fluid> tag;
         public final boolean alwayDatagen;
@@ -95,6 +99,14 @@ public class CNTag {
     public enum BlockTags {
         FAN_PROCESSING_CATALYSTS_ENRICHED("fan_processing_catalysts/enriched"),
         ENRICHING_FIRE_BASE_BLOCKS("uranium_fire_base_blocks"),
+        CAMPFIRE(MINECRAFT),
+        ALL_CAMPFIRE(MINECRAFT, "all/campfires"),
+        DRAGON_TRANSPARENT(MINECRAFT),
+        FIRE(MINECRAFT),
+        NEEDS_DIAMOND_TOOL(MINECRAFT),
+        NEEDS_IRON_TOOL(MINECRAFT),
+        NEEDS_STONE_TOOL(MINECRAFT),
+        SHOVEL(MINECRAFT, "mineable/shovel"),
         ;
         public final TagKey<Block> tag;
         public final boolean alwaysDatagen;
