@@ -2,7 +2,6 @@ package net.ynov.createnuclear.block;
 
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
-import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.util.entry.BlockEntry;
@@ -116,7 +115,6 @@ public class CNBlocks {
                         ModelFile Side1 = p.models().getExistingFile(p.modLoc(baseFolder + "side1"));
                         ModelFile SideAlt0 = p.models().getExistingFile(p.modLoc(baseFolder + "side_alt0"));
                         ModelFile SideAlt1 = p.models().getExistingFile(p.modLoc(baseFolder + "side_alt1"));
-
 
                         p.getMultipartBuilder(c.get())
                             .part()
@@ -236,8 +234,21 @@ public class CNBlocks {
             CreateNuclear.REGISTRATE.block("reactor_core", ReactorBlock::new)
                     .properties(p -> p.explosionResistance(1200F))
                     .properties(p -> p.destroyTime(4F))
+                    .blockstate((c, p) ->
+                        p.getVariantBuilder(c.getEntry())
+                        .forAllStates(state -> ConfiguredModel.builder()
+                                .modelFile(p.models().getExistingFile(p.modLoc("block/reactor_core")))
+                                .uvLock(false)
+                                .build())
+                    )
                     .simpleItem()
-                    .blockstate((c,p) -> BlockStateGen.cubeAll(c,p, "reactor/core/"))
+                    /*.model((c, p) -> {
+                        p.withExistingParent("block/reactor_core", p.modLoc("block/reactor_core"))
+                                .texture("1", p.modLoc("block/reactor/core/reactor_core_casing"))
+                                .texture("2", p.modLoc("block/reactor/core/reactor_core_center"))
+                                .texture("3", p.modLoc("block/reactor/core/reactor_core_bars"))
+                                .texture("particle", p.modLoc("block/reactor/core/reactor_core_center"));
+                    })*/
                     .register();
 
     public static final BlockEntry<ReactorCoolingBlock> REACTOR_COOLING_FRAME =

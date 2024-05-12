@@ -1,4 +1,4 @@
-// 1.20.1	2024-05-12T10:29:39.5733449	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2024-05-12T13:42:36.0266116	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 6793dd91b730f4c9abea29215de16cd0751d8cbd assets\createnuclear\models\block\deepslate_uranium_ore.json
 0998d5a55f2dc10e85e83dd74bd91d4a3913f61f data\createnuclear\loot_tables\blocks\raw_uranium_block.json
 78a9e80073512a111cb936a516d290a824846ff2 assets\createnuclear\models\item\reinforced_glass.json
@@ -17,7 +17,6 @@ dbacf6654362d8c5dc108cbb3abdb2cbfd59f753 assets\createnuclear\models\item\light_
 3f640d08090b0a54aecd40c74a452e76cb708797 data\createnuclear\loot_tables\blocks\deepslate_lead_ore.json
 cb90a0a4a9afbc7b9367a66696be77942078a9f4 assets\createnuclear\models\item\reactor_casing.json
 3c0e762c21fa4fa5724f5570c190e89d247ee71b assets\createnuclear\models\item\graphite_rod.json
-03e13d4b8cba2101b0e6f48ceebbf60cb88792ed assets\createnuclear\models\block\reactor_core.json
 b17f5a62776619767218b407c09596c3ed924a9e data\minecraft\tags\blocks\mineable\pickaxe.json
 e9ec36ea6e628ab277609ef05dd30b4f68832fd6 assets\createnuclear\models\item\pink_cloth.json
 01035d91131e05f9b8bee84b86bf0ebb4d71c598 assets\createnuclear\models\item\enriching_campfire.json
