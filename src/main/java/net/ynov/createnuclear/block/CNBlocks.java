@@ -272,7 +272,7 @@ public class CNBlocks {
                     .properties(p -> p.destroyTime(2F))
                     .addLayer(() -> RenderType::cutoutMipped)
                     .transform(pickaxeOnly())
-                    .blockstate((c,p) -> BlockStateGen.cubeAll(c,p, "reactor/input/"))
+                    .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models().getExistingFile(ctx.getId()), 0))
                     .simpleItem()
                     .register();
 

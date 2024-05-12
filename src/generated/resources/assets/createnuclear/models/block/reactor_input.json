@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "createnuclear:block/reactor/input/reactor_input"
-  }
-}
