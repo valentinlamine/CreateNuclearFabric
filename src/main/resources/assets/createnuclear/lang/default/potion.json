@@ -1,0 +1,19 @@
+{
+  "effect.createnuclear.radiation": "Radiation",
+
+  "item.minecraft.potion.effect.potion_of_radiation_1": "Potion of Radiation",
+  "item.minecraft.splash_potion.effect.potion_of_radiation_1": "Splash Potion of Radiation",
+  "item.minecraft.lingering_potion.effect.potion_of_radiation_1": "Lingering Potion of Radiation",
+
+  "item.minecraft.potion.effect.potion_of_radiation_augment_1": "Potion of Radiation",
+  "item.minecraft.splash_potion.effect.potion_of_radiation_augment_1": "Splash Potion of Radiation",
+  "item.minecraft.lingering_potion.effect.potion_of_radiation_augment_1": "Lingering Potion of Radiation",
+
+  "item.minecraft.potion.effect.potion_of_radiation_2": "Potion of Radiation",
+  "item.minecraft.splash_potion.effect.potion_of_radiation_2": "Splash Potion of Radiation",
+  "item.minecraft.lingering_potion.effect.potion_of_radiation_2": "Lingering Potion of Radiation",
+
+  "item.minecraft.tipped_arrow.effect.potion_of_radiation_1": "Arrow of Radiation",
+  "item.minecraft.tipped_arrow.effect.potion_of_radiation_augment_1": "Arrow of Radiation",
+  "item.minecraft.tipped_arrow.effect.potion_of_radiation_2": "Arrow of Radiation"
+}

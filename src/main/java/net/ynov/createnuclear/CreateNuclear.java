@@ -1,5 +1,6 @@
 package net.ynov.createnuclear;
 
+import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -28,6 +29,7 @@ public class CreateNuclear implements ModInitializer {
 	public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID);
 
 
+
 	@Override
 	public void onInitialize() {
 		CNEffects.register();
@@ -43,6 +45,7 @@ public class CreateNuclear implements ModInitializer {
 		CNRecipeTypes.register();
 		CNFanProcessingTypes.register();
 		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);
+		CreateNuclear.LOGGER.warn("je ne sais pas" + Create.asResource("clipboard_type"));
 	}
 
 	public static ResourceLocation asResource(String path) {

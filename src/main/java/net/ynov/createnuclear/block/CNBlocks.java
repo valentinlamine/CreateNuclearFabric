@@ -1,7 +1,9 @@
 package net.ynov.createnuclear.block;
 
 import com.simibubi.create.AllTags;
+import com.simibubi.create.content.equipment.clipboard.ClipboardOverrides;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
+import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
@@ -30,6 +32,8 @@ import net.ynov.createnuclear.multiblock.energy.ReactorOutputGenerator;
 import net.ynov.createnuclear.multiblock.gauge.ReactorGaugeBlock;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.ynov.createnuclear.multiblock.frame.ReactorBlock;
+import net.ynov.createnuclear.multiblock.gauge.ReactorGaugeBlockItem;
+import net.ynov.createnuclear.multiblock.gauge.ReactorGaugeBlockOverrides;
 import net.ynov.createnuclear.multiblock.input.ReactorInput;
 import net.ynov.createnuclear.tags.CNTag;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
@@ -290,6 +294,13 @@ public class CNBlocks {
                     .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
                     .simpleItem()
                     .transform(pickaxeOnly())
+                    .blockstate((c, p) ->
+                        p.getVariantBuilder(c.getEntry())
+                            .forAllStatesExcept(state -> ConfiguredModel.builder()
+                                .modelFile(p.models().getExistingFile(p.modLoc("block/reactor_cooling_frame/reactor_cooling_frame")))
+                                .uvLock(false)
+                                .build())
+                    )
                     .register();
 
     public static final BlockEntry<ReactorBlock> REACTOR_CASING =
@@ -323,14 +334,17 @@ public class CNBlocks {
                                     case START -> start;
                                     case MIDDLE -> middle;
                                     case END -> bottom;
-                                    case NONE -> none;
+                                    default -> none;
                                 }
                             )
                             .uvLock(false)
                             .build();
                         })
                     )
-                    .simpleItem()
+                    .item(ReactorGaugeBlockItem::new)
+                    //.model(ReactorGaugeBlockOverrides::addOverrideModels)
+                    .model(AssetLookup::customItemModel)
+                    .build()
                     .register();
 
     public static final BlockEntry<ReactorInput> REACTOR_INPUT =
