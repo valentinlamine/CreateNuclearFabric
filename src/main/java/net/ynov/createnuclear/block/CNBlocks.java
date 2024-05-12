@@ -242,13 +242,6 @@ public class CNBlocks {
                                 .build())
                     )
                     .simpleItem()
-                    /*.model((c, p) -> {
-                        p.withExistingParent("block/reactor_core", p.modLoc("block/reactor_core"))
-                                .texture("1", p.modLoc("block/reactor/core/reactor_core_casing"))
-                                .texture("2", p.modLoc("block/reactor/core/reactor_core_center"))
-                                .texture("3", p.modLoc("block/reactor/core/reactor_core_bars"))
-                                .texture("particle", p.modLoc("block/reactor/core/reactor_core_center"));
-                    })*/
                     .register();
 
     public static final BlockEntry<ReactorCoolingBlock> REACTOR_COOLING_FRAME =
