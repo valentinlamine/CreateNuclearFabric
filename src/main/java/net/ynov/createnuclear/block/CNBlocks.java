@@ -200,23 +200,23 @@ public class CNBlocks {
             .transform(pickaxeOnly())
             .blockstate((c, p) ->
                 p.getVariantBuilder(c.getEntry())
-                    .forAllStatesExcept(state -> {
-                        Direction facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
-                        return ConfiguredModel.builder()
-                            .modelFile(p.models().getExistingFile(p.modLoc("block/enriching_campfire/" +
-                                    (state.getValue(EnrichingCampfireBlock.LIT) ? "block" : "block_off")
-                            )))
-                            .uvLock(false)
-                            .rotationY(switch (facing) {
-                                case NORTH -> 180;
-                                case SOUTH -> 0;
-                                case WEST -> 90;
-                                case EAST -> 270;
-                                default -> 0;
-                            })
-                            .build();
-                        }, BlockStateProperties.SIGNAL_FIRE, BlockStateProperties.WATERLOGGED
-                    )
+                .forAllStatesExcept(state -> {
+                    Direction facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
+                    return ConfiguredModel.builder()
+                        .modelFile(p.models().getExistingFile(p.modLoc("block/enriching_campfire/" +
+                                (state.getValue(EnrichingCampfireBlock.LIT) ? "block" : "block_off")
+                        )))
+                        .uvLock(false)
+                        .rotationY(switch (facing) {
+                            case NORTH -> 180;
+                            case SOUTH -> 0;
+                            case WEST -> 90;
+                            case EAST -> 270;
+                            default -> 0;
+                        })
+                        .build();
+                    }, BlockStateProperties.SIGNAL_FIRE, BlockStateProperties.WATERLOGGED
+                )
             )
             .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
             .register();
@@ -262,6 +262,27 @@ public class CNBlocks {
                     .properties(p -> p.destroyTime(2F))
                     .addLayer(() -> RenderType::cutoutMipped)
                     .transform(pickaxeOnly())
+                    .blockstate((c, p) ->
+                        p.getVariantBuilder(c.getEntry())
+                        .forAllStatesExcept(state -> {
+                            ReactorGaugeBlock.Part part = state.getValue(ReactorGaugeBlock.PART);
+                            String baseFile = "block/reactor_main_frame/reactor_gauge_";
+                            ModelFile start = p.models().getExistingFile(p.modLoc(baseFile + "top"));
+                            ModelFile middle = p.models().getExistingFile(p.modLoc(baseFile + "middle"));
+                            ModelFile bottom = p.models().getExistingFile(p.modLoc(baseFile + "bottom"));
+                            ModelFile none = p.models().getExistingFile(p.modLoc(baseFile + "none"));
+                            return ConfiguredModel.builder()
+                                .modelFile(switch (part) {
+                                    case START -> start;
+                                    case MIDDLE -> middle;
+                                    case END -> bottom;
+                                    case NONE -> none;
+                                }
+                            )
+                            .uvLock(false)
+                            .build();
+                        })
+                    )
                     .simpleItem()
                     .register();
 
