@@ -1,4 +1,4 @@
-// 1.20.1	2024-05-12T10:19:41.3859596	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2024-05-12T10:29:39.5733449	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 6793dd91b730f4c9abea29215de16cd0751d8cbd assets\createnuclear\models\block\deepslate_uranium_ore.json
 0998d5a55f2dc10e85e83dd74bd91d4a3913f61f data\createnuclear\loot_tables\blocks\raw_uranium_block.json
 78a9e80073512a111cb936a516d290a824846ff2 assets\createnuclear\models\item\reinforced_glass.json
@@ -13,7 +13,7 @@ dbacf6654362d8c5dc108cbb3abdb2cbfd59f753 assets\createnuclear\models\item\light_
 861dc6b6489b22277c08fb339cd01427bc1c524b assets\createnuclear\models\item\white_cloth.json
 9bc70eb8dd02dcf819ae292f2f3784f4ea298c90 data\createnuclear\loot_tables\blocks\enriching_fire.json
 689c4deb7512210bbd5137230dd92696172b5edd assets\createnuclear\models\item\magenta_cloth.json
-319e961822f925dedc6991f8dd0023d431fae1ca assets\createnuclear\blockstates\reactor_output.json
+1efd45d810a6ddfd4cea0b1a66def1a4ac5bfed1 assets\createnuclear\blockstates\reactor_output.json
 3f640d08090b0a54aecd40c74a452e76cb708797 data\createnuclear\loot_tables\blocks\deepslate_lead_ore.json
 cb90a0a4a9afbc7b9367a66696be77942078a9f4 assets\createnuclear\models\item\reactor_casing.json
 3c0e762c21fa4fa5724f5570c190e89d247ee71b assets\createnuclear\models\item\graphite_rod.json

@@ -8,9 +8,16 @@ import io.github.fabricators_of_create.porting_lib.models.generators.ModelFile;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.ynov.createnuclear.CreateNuclear;
 
 public class ReactorOutputGenerator extends SpecialBlockStateGen {
+
+    @Override
+    protected Property<?>[] getIgnoredProperties() {
+        return new Property<?>[] {ReactorOutput.SPEED, ReactorOutput.DIR};
+    }
+
     @Override
     protected int getXRotation(BlockState state) {
         return state.getValue(ReactorOutput.FACING) == Direction.DOWN ? 180 : 0;
