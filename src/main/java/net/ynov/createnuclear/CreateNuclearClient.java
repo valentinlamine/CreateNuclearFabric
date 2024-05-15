@@ -11,8 +11,8 @@ import net.minecraft.client.renderer.RenderType;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.entity.CNMobEntityType;
 import net.ynov.createnuclear.entity.CNModelLayers;
-import net.ynov.createnuclear.entity.IrradiatedChickenModel;
-import net.ynov.createnuclear.entity.IrradiatedChickenRenderer;
+import net.ynov.createnuclear.entity.irradiatedchicken.IrradiatedChickenModel;
+import net.ynov.createnuclear.entity.irradiatedchicken.IrradiatedChickenRenderer;
 import net.ynov.createnuclear.ponder.CNPonderIndex;
 
 @Environment(EnvType.CLIENT)

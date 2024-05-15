@@ -1,4 +1,4 @@
-package net.ynov.createnuclear.entity;
+package net.ynov.createnuclear.entity.irradiatedchicken;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -6,8 +6,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.animal.Chicken;
 import net.ynov.createnuclear.CreateNuclear;
+import net.ynov.createnuclear.entity.CNModelLayers;
 
 @Environment(EnvType.CLIENT)
 public class IrradiatedChickenRenderer extends MobRenderer<IrradiatedChicken, IrradiatedChickenModel<IrradiatedChicken>> {

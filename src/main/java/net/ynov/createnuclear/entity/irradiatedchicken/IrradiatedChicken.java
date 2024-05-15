@@ -1,4 +1,4 @@
-package net.ynov.createnuclear.entity;
+package net.ynov.createnuclear.entity.irradiatedchicken;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import net.ynov.createnuclear.entity.CNMobEntityType;
 import org.jetbrains.annotations.Nullable;
 
 public class IrradiatedChicken extends Animal {
