@@ -25,7 +25,7 @@ import net.ynov.createnuclear.entity.CNMobEntityType;
 import org.jetbrains.annotations.Nullable;
 
 public class IrradiatedChicken extends Animal {
-    private static final Ingredient FOOD_ITEMS;
+    private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS, Items.TORCHFLOWER_SEEDS, Items.PITCHER_POD);
     public float flap;
     public float flapSpeed;
     public float oFlapSpeed;
@@ -37,14 +37,6 @@ public class IrradiatedChicken extends Animal {
 
     public IrradiatedChicken(EntityType<? extends IrradiatedChicken> entityType, Level level) {
         super(entityType, level);
-        //./gradlew genSources
-        // TODO regler l'erreur
-        //Cannot invoke "net.minecraft.world.entity.ai.attributes.AttributeSupplier.getValue(net.minecraft.world.entity.ai.attributes.Attribute)" because "this.supplier" is null
-
-        //Voir class livingEntity
-        // L'erreur arrive ligne 249 il y a this.getMaxHealth qui pete
-        // Il y a l'erreur car les attributes sont vides car le DefaultAttributes.getSupplier(entityType) retourne RIEN !
-
         this.eggTime = this.random.nextInt(6000) + 6000;
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
     }
@@ -60,7 +52,7 @@ public class IrradiatedChicken extends Animal {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
     }
-
+    @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
         return this.isBaby() ? dimensions.height * 0.85F : dimensions.height * 0.92F;
     }
@@ -70,7 +62,7 @@ public class IrradiatedChicken extends Animal {
                 .add(Attributes.MAX_HEALTH, 4.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.25);
     }
-
+    @Override
     public void aiStep() {
         super.aiStep();
         this.oFlap = this.flap;
@@ -96,27 +88,28 @@ public class IrradiatedChicken extends Animal {
         }
 
     }
-
+    @Override
     protected boolean isFlapping() {
         return this.flyDist > this.nextFlap;
     }
-
+    @Override
     protected void onFlap() {
         this.nextFlap = this.flyDist + this.flapSpeed / 2.0F;
     }
-
+    @Override
     protected SoundEvent getAmbientSound() {
         return SoundEvents.CHICKEN_AMBIENT;
     }
-
+    @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
         return SoundEvents.CHICKEN_HURT;
     }
-
+    @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.CHICKEN_DEATH;
     }
 
+    @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.CHICKEN_STEP, 0.15F, 1.0F);
     }
@@ -126,14 +119,17 @@ public class IrradiatedChicken extends Animal {
         return CNMobEntityType.IRRADIATED_CHICKEN.create(level);
     }
 
+    @Override
     public boolean isFood(ItemStack stack) {
         return FOOD_ITEMS.test(stack);
     }
 
+    @Override
     public int getExperienceReward() {
         return this.isChickenJockey() ? 10 : super.getExperienceReward();
     }
 
+    @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.isChickenJockey = compound.getBoolean("IsChickenJockey");
@@ -143,16 +139,19 @@ public class IrradiatedChicken extends Animal {
 
     }
 
+    @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("IsChickenJockey", this.isChickenJockey);
         compound.putInt("EggLayTime", this.eggTime);
     }
 
+    @Override
     public boolean removeWhenFarAway(double distanceToClosestPlayer) {
         return this.isChickenJockey();
     }
 
+    @Override
     protected void positionRider(Entity passenger, Entity.MoveFunction callback) {
         super.positionRider(passenger, callback);
         float f = Mth.sin(this.yBodyRot * 0.017453292F);
@@ -172,9 +171,5 @@ public class IrradiatedChicken extends Animal {
 
     public void setChickenJockey(boolean isChickenJockey) {
         this.isChickenJockey = isChickenJockey;
-    }
-
-    static {
-        FOOD_ITEMS = Ingredient.of(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS, Items.TORCHFLOWER_SEEDS, Items.PITCHER_POD);
     }
 }

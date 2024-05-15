@@ -1,5 +1,6 @@
 package net.ynov.createnuclear.entity;
 
+import com.tterrag.registrate.util.entry.EntityEntry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;
@@ -12,7 +13,6 @@ public class CNMobEntityType {
     private static <T extends Entity> EntityType<T> register(String key, EntityType.Builder<T> builder) {
         return Registry.register(BuiltInRegistries.ENTITY_TYPE, key, builder.build(key));
     }
-
     public static final EntityType<IrradiatedChicken> IRRADIATED_CHICKEN =
             CNMobEntityType.register("irradiated_chicken", EntityType.Builder.of(IrradiatedChicken::new, MobCategory.CREATURE));
 
