@@ -95,5 +95,7 @@
   "createnuclear.ponder.reactor.text_4": "Floor 4",
   "createnuclear.ponder.reactor.text_6": "Floor 5",
   "createnuclear.ponder.reactor.text_7": "Floor 6",
-  "createnuclear.ponder.reactor.text_8": "Floor 7"
+  "createnuclear.ponder.reactor.text_8": "Floor 7",
+
+  "entity.minecraft.irradiated_chicken": "Irradiated Chicken"
 }

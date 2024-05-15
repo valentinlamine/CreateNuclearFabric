@@ -5,9 +5,12 @@ import io.github.tropheusj.milk.mixin.BrewingRecipeRegistryMixin;
 import io.github.tropheusj.milk.mixin.BrewingRecipeRegistryMixin;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.resources.ResourceLocation;
 //import net.ynov.createnuclear.block.CNBlockEntityType;
 //import net.ynov.createnuclear.blockentity.CNBlockEntity;
+import net.ynov.createnuclear.entity.CNMobEntityType;
+import net.ynov.createnuclear.entity.irradiatedchicken.IrradiatedChicken;
 import net.ynov.createnuclear.fan.CNFanProcessingTypes;
 import net.ynov.createnuclear.fan.CNRecipeTypes;
 import net.ynov.createnuclear.tags.CNTag;
@@ -42,9 +45,11 @@ public class CreateNuclear implements ModInitializer {
 		CNGroup.registrer();
 		CNFluids.register();
 		CNTag.registerModItems();
+		FabricDefaultAttributeRegistry.register(CNMobEntityType.IRRADIATED_CHICKEN, IrradiatedChicken.createAttributes());
 		CNWorldGeneration.generateModWorldGen();
 		REGISTRATE.register();
 		CNRecipeTypes.register();
+
 		CNFanProcessingTypes.register();
 		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);
 	}
