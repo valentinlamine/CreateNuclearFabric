@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 //import net.ynov.createnuclear.blockentity.CNBlockEntity;
 import net.ynov.createnuclear.entity.CNMobEntityType;
 import net.ynov.createnuclear.entity.irradiatedchicken.IrradiatedChicken;
+import net.ynov.createnuclear.entity.irradiatedwolf.IrradiatedWolf;
 import net.ynov.createnuclear.fan.CNFanProcessingTypes;
 import net.ynov.createnuclear.fan.CNRecipeTypes;
 import net.ynov.createnuclear.tags.CNTag;
@@ -46,6 +47,7 @@ public class CreateNuclear implements ModInitializer {
 		CNFluids.register();
 		CNTag.registerModItems();
 		FabricDefaultAttributeRegistry.register(CNMobEntityType.IRRADIATED_CHICKEN, IrradiatedChicken.createAttributes());
+		FabricDefaultAttributeRegistry.register(CNMobEntityType.IRRADIATED_WOLF, IrradiatedWolf.createAttributes());
 		CNWorldGeneration.generateModWorldGen();
 		REGISTRATE.register();
 		CNRecipeTypes.register();

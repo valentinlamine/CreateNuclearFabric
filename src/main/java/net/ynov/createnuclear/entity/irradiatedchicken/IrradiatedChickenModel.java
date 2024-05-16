@@ -1,7 +1,9 @@
 package net.ynov.createnuclear.entity.irradiatedchicken;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.AgeableListModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -11,8 +13,9 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import org.jetbrains.annotations.NotNull;
 
-public class IrradiatedChickenModel<T extends Entity> extends EntityModel<T> {
+public class IrradiatedChickenModel<T extends Entity> extends AgeableListModel<T> {
 
     private final ModelPart head;
     private final ModelPart body;
@@ -62,7 +65,7 @@ public class IrradiatedChickenModel<T extends Entity> extends EntityModel<T> {
     }
 
     @Override
-    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.head.xRot = headPitch * ((float)Math.PI / 180);
         this.head.yRot = netHeadYaw * ((float)Math.PI / 180);
         this.pustule1.xRot = this.head.xRot;
@@ -78,7 +81,7 @@ public class IrradiatedChickenModel<T extends Entity> extends EntityModel<T> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         beak.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         redThing.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
@@ -87,9 +90,16 @@ public class IrradiatedChickenModel<T extends Entity> extends EntityModel<T> {
         leftLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         rightWing.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         leftWing.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        leftLeg.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         pustule1.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         pustule2.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         pustule3.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    }
+
+    protected Iterable<ModelPart> headParts() {
+        return ImmutableList.of(this.head, this.beak, this.redThing, this.pustule1);
+    }
+
+    protected Iterable<ModelPart> bodyParts() {
+        return ImmutableList.of(this.body, this.rightLeg, this.leftLeg, this.rightWing, this.leftWing, this.pustule2, this.pustule3);
     }
 }
