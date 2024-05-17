@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.AgeableListModel;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -15,7 +14,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
-public class IrradiatedChickenModel<T extends Entity> extends AgeableListModel<T> {
+public class IrradiatedChickenModel<T extends IrradiatedChicken> extends AgeableListModel<T> {
 
     private final ModelPart head;
     private final ModelPart body;

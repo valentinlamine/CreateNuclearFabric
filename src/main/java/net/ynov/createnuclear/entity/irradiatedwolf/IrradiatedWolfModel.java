@@ -80,14 +80,13 @@ public class IrradiatedWolfModel<T extends IrradiatedWolf> extends ColorableAgea
 		partdefinition.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(9, 18).addBox(0.0F, 0.0F, -1.0F, 2.0F, 8.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-1.0F, 12.0F, 10.0F));
 
 
-		PartDefinition croc2 = partdefinition.addOrReplaceChild("croc2", CubeListBuilder.create().texOffs(47, 16).addBox(-0.6F, -1.4F, -1.6F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.3F, 16.4F, -9.8F, 0.1745F, 0.0F, 0.0F));
-		PartDefinition croc1 = partdefinition.addOrReplaceChild("croc1", CubeListBuilder.create().texOffs(47, 16).addBox(-0.5F, -1.4F, -1.6F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.2F, 16.4F, -9.8F, 0.1745F, 0.0F, 0.0F));
-		PartDefinition pustule3 = partdefinition.addOrReplaceChild("pustule3", CubeListBuilder.create().texOffs(39, 15).addBox(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.005F, 18.9934F, 7.6936F, 3.0237F, 0.8634F, -3.0314F));
-		PartDefinition pustule1 = partdefinition.addOrReplaceChild("pustule1", CubeListBuilder.create().texOffs(37, 15).addBox(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.7373F, 11.1714F, -8.7075F, 0.2892F, 0.858F, -0.0023F));
-		PartDefinition pustule2 = partdefinition.addOrReplaceChild("pustule2", CubeListBuilder.create().texOffs(37, 15).addBox(-1.0F, -0.2F, -0.9F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.4627F, 14.1714F, -7.7075F, 0.15F, -0.2024F, -0.0367F));
-		PartDefinition pustule4 = partdefinition.addOrReplaceChild("pustule4", CubeListBuilder.create().texOffs(37, 15).addBox(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.3651F, 14.3994F, 2.6F, -1.7257F, -0.1643F, 0.0375F));
-		PartDefinition pustule5 = partdefinition.addOrReplaceChild("pustule5", CubeListBuilder.create().texOffs(37, 15).addBox(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.5127F, 11.3402F, 4.6436F, -2.2397F, -1.2467F, 2.3103F));
-
+		partdefinition.addOrReplaceChild("croc2", CubeListBuilder.create().texOffs(47, 16).addBox(-0.6F, -1.4F, -1.6F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.3F, 16.4F, -9.8F, 0.1745F, 0.0F, 0.0F));
+		partdefinition.addOrReplaceChild("croc1", CubeListBuilder.create().texOffs(47, 16).addBox(-0.5F, -1.4F, -1.6F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.2F, 16.4F, -9.8F, 0.1745F, 0.0F, 0.0F));
+		partdefinition.addOrReplaceChild("pustule3", CubeListBuilder.create().texOffs(39, 15).addBox(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.005F, 18.9934F, 7.6936F, 3.0237F, 0.8634F, -3.0314F));
+		partdefinition.addOrReplaceChild("pustule1", CubeListBuilder.create().texOffs(37, 15).addBox(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-2.7373F, 11.1714F, -8.7075F, 0.2892F, 0.858F, -0.0023F));
+		partdefinition.addOrReplaceChild("pustule2", CubeListBuilder.create().texOffs(37, 15).addBox(-1.0F, -0.2F, -0.9F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.4627F, 14.1714F, -7.7075F, 0.15F, -0.2024F, -0.0367F));
+		partdefinition.addOrReplaceChild("pustule4", CubeListBuilder.create().texOffs(37, 15).addBox(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.3651F, 14.3994F, 2.6F, -1.7257F, -0.1643F, 0.0375F));
+		partdefinition.addOrReplaceChild("pustule5", CubeListBuilder.create().texOffs(37, 15).addBox(-1.0F, -1.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.5127F, 11.3402F, 4.6436F, -2.2397F, -1.2467F, 2.3103F));
 		return LayerDefinition.create(meshdefinition, 64, 32);
 	}
 
