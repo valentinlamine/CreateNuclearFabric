@@ -21,6 +21,8 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     private float progress;
     private float reactorPower;
     private float lastReactorPower;
+    private int graphiteTimer = 3600;
+    private int uraniumTimer = 6000;
 
     public ReactorControllerScreen(ReactorControllerMenu container, Inventory inv, Component title) {
         super(container, inv, title);
@@ -77,8 +79,33 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     @Override
     protected void containerTick() {
         float coef = 0.1F;
+
+        if (menu.contentHolder.isPowered()) {
+            if (menu.getSlot(1).getItem().getCount() >= 0) {
+                graphiteTimer -= countGraphiteRod();
+                CreateNuclear.LOGGER.info(String.valueOf(graphiteTimer));
+            }
+            if (menu.getSlot(1).getItem().getCount() > 0) {
+                uraniumTimer -= countUraniumRod();
+                CreateNuclear.LOGGER.info(String.valueOf(uraniumTimer));
+            }
+        }
+        if (uraniumTimer <= 0) {
+            CreateNuclear.LOGGER.info("Uranium Rod removed");
+            menu.getSlot(0).getItem().shrink(1);
+            uraniumTimer = 5000;
+        }
+        if (graphiteTimer <= 0) {
+            CreateNuclear.LOGGER.info("Graphite Rod removed");
+            menu.getSlot(1).getItem().shrink(1);
+            graphiteTimer = 3600;
+        }
         super.containerTick();
-        reactorPower = heatManager();
+        if (menu.contentHolder.isPowered()) {
+            reactorPower = heatManager();
+        } else {
+            reactorPower = 0;
+        }
         boolean hasUranium = menu.getSlot(0).hasItem();
         boolean hasGraphite = menu.getSlot(1).hasItem();
         if (menu.contentHolder.isPowered() && hasUranium && hasGraphite) {
