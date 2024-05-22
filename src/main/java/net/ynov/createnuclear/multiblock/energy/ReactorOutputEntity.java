@@ -20,14 +20,14 @@ import net.minecraft.world.phys.Vec3;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
+import net.ynov.createnuclear.multiblock.controller.ReactorControllerScreen;
 
 import java.util.List;
 import java.util.Objects;
 
 import static net.minecraft.world.level.block.Block.getId;
 import static net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
-import static net.ynov.createnuclear.multiblock.energy.ReactorOutput.DIR;
-import static net.ynov.createnuclear.multiblock.energy.ReactorOutput.SPEED;
+import static net.ynov.createnuclear.multiblock.energy.ReactorOutput.*;
 
 public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 	public int speed = 0;
@@ -61,7 +61,8 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 		if (level.getBlockState(pos.above(3)).getBlock() == CNBlocks.REACTOR_CONTROLLER.get()){
             ReactorControllerBlock controller = (ReactorControllerBlock)level.getBlockState(pos.above(3)).getBlock();
 			controller.Verify(controller.defaultBlockState(), pos.above(3), level, level.players(), false);
-			controller.Rotate(controller.defaultBlockState(), pos, level, getSpeed2());
+			ReactorOutput b = (ReactorOutput) level.getBlockState(pos).getBlock();
+        	controller.Rotate(b.getBlockEntity(level, pos), getSpeed2());
 		}
 	}
 
@@ -72,6 +73,15 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 	public void setSpeed2(int speed, Level level, BlockPos pos) {
 		BlockState state = getBlockState();
 		level.setBlockAndUpdate(pos, state.setValue(SPEED, speed));
+	}
+
+	public Boolean getActivated() {
+        BlockState state = getBlockState();
+        return state.getValue(ACTIVATED);
+    }
+	public void setActivated(boolean activated, Level level, BlockPos pos) {
+		BlockState state = getBlockState();
+		level.setBlockAndUpdate(pos, state.setValue(ACTIVATED, activated));
 	}
 
 	public int getDir() {

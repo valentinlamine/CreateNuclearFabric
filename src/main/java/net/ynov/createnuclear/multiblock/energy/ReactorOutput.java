@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -31,8 +32,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.blockentity.CNEntityTypes;
+import net.ynov.createnuclear.item.CNItems;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
+import net.ynov.createnuclear.multiblock.controller.ReactorControllerScreen;
 import net.ynov.createnuclear.shape.CNShapes;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -42,8 +45,9 @@ import java.util.Objects;
 
 public class ReactorOutput extends DirectionalKineticBlock implements IBE<ReactorOutputEntity> {
 
-	public static final IntegerProperty SPEED = IntegerProperty.create("speed", 0, 64);
+	public static final IntegerProperty SPEED = IntegerProperty.create("speed", 0, 256);
 	public static final IntegerProperty DIR = IntegerProperty.create("dir", 0, 2);
+	public static final BooleanProperty ACTIVATED = BooleanProperty.create("activated");
 
 	public ReactorOutput(Properties properties) {
 		super(properties);
@@ -53,6 +57,7 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(SPEED);
 		builder.add(DIR);
+		builder.add(ACTIVATED);
 		super.createBlockStateDefinition(builder);
 	}
 
@@ -61,6 +66,7 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 		if (level.isClientSide)
 			return InteractionResult.SUCCESS;
 		else {
+			ReactorOutputEntity control = Objects.requireNonNull(getBlockEntity(level, pos));
 			if (!player.getItemInHand(hand).toString().equals("0 air"))
 				return InteractionResult.PASS;
 			ReactorControllerBlock controller = FindController(pos, level);
@@ -68,11 +74,11 @@ public class ReactorOutput extends DirectionalKineticBlock implements IBE<Reacto
 				ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos.above(3));
                 assert entity != null;
                 if (entity.getAssembled()){
-					ReactorOutputEntity control = Objects.requireNonNull(getBlockEntity(level, pos));
 					if (control.getDir() == 0)
 						control.setDir(1, level, pos);
 					else control.setDir(0, level, pos);
-					controller.Rotate(controller.defaultBlockState(), pos, level, 16);
+					ReactorOutput b = (ReactorOutput) level.getBlockState(pos).getBlock();
+        			controller.Rotate(b.getBlockEntity(level, pos), ReactorControllerScreen.heat);
 				}
 			}
 			return InteractionResult.CONSUME;

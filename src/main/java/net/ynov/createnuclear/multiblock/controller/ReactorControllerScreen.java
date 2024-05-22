@@ -3,9 +3,6 @@ package net.ynov.createnuclear.multiblock.controller;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
@@ -15,7 +12,8 @@ import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.gui.CNGuiTextures;
 import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.gui.CNIcons;
-import net.ynov.createnuclear.utils.Logger;
+import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
+import net.ynov.createnuclear.multiblock.energy.ReactorOutputEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +24,10 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     private CNIconButton powerButton;
     private float progress;
     private float reactorPower;
-
-    public static BlockPos pos;
-    public static BlockState state;
-    public static Level level;
-
     private float lastReactorPower;
+    public static int heat = 0;
+    public static int exist;
+    public static BlockPos position;
 
     public ReactorControllerScreen(ReactorControllerMenu container, Inventory inv, Component title) {
         super(container, inv, title);
@@ -93,9 +89,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         boolean hasUranium = menu.getSlot(0).hasItem();
         boolean hasGraphite = menu.getSlot(1).hasItem();
         if (menu.contentHolder.isPowered() && hasUranium && hasGraphite) {
-            ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
-            CreateNuclear.LOGGER.info(controller.toString() + "_________________________________________________");
-            controller.Rotate(state, pos.below(3), level, heatManager());
+
             if (reactorPower < lastReactorPower - coef || reactorPower > lastReactorPower + coef) {
                 if (reactorPower < lastReactorPower) {
                     lastReactorPower -= 0.2F;
@@ -115,6 +109,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         int startWidth = 7;
         int startHeight = 39;
         int incr = 18;
+
         if (menu.contentHolder.getSwitchButtons() != null && !menu.contentHolder.getSwitchButtons().isEmpty()) {
             addRenderableWidgets(menu.contentHolder.getSwitchButtons());
             return;
@@ -196,7 +191,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         int colUp;
         int colLeft;
         int colRight;
-        int heat = countUraniumRod() * 10 - countGraphiteRod() * 5;
+        heat = countUraniumRod() * 10 - countGraphiteRod() * 5;
 
         int [][] list = new int[][] {{99,99,99,0,1,2,99,99,99}, {99,99,3,4,5,6,7,99,99}, {99,8,9,10,11,12,13,14,99}, {15,16,17,18,19,20,21,22,23}, {24,25,26,27,28,29,30,31,32}, {33,34,35,36,37,38,39,40,41}, {99,42,43,44,45,46,47,48,99}, {99,99,49,50,51,52,53,99,99}, {99,99,99,54,55,56,99,99,99}};
         for (int j = 0; j != list.length; j++) {

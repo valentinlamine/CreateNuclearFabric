@@ -14,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -23,6 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.ynov.createnuclear.CNMultiblock;
 import net.ynov.createnuclear.CreateNuclear;
@@ -34,13 +36,17 @@ import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.item.CNItems;
 import org.jetbrains.annotations.Nullable;
 
+import java.awt.desktop.AboutHandler;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 
+import static net.ynov.createnuclear.multiblock.energy.ReactorOutput.ACTIVATED;
 import static net.ynov.createnuclear.multiblock.energy.ReactorOutput.SPEED;
 
 public class ReactorControllerBlock extends HorizontalDirectionalBlock implements IBE<ReactorControllerBlockEntity> {
     public static final BooleanProperty ASSEMBLED = BooleanProperty.create("assembled");
+    public static final BooleanProperty PLACED = BooleanProperty.create("placed");
     private boolean powered;
     private List<CNIconButton> switchButtons;
 
@@ -51,6 +57,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING).add(ASSEMBLED);
+        builder.add(PLACED);
         super.createBlockStateDefinition(builder);
     }
 
@@ -58,7 +65,8 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState()
                 .setValue(FACING, context.getHorizontalDirection())
-                .setValue(ASSEMBLED, false);
+                .setValue(ASSEMBLED, false)
+                .setValue(PLACED, false);
     }
 
     @Override
@@ -67,54 +75,23 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
         if (worldIn.isClientSide)
             return InteractionResult.SUCCESS;
 
-        Item item = player.getItemInHand(handIn).getItem();
-
-        ReactorControllerScreen.pos = pos;
-        ReactorControllerScreen.state = state;
-        ReactorControllerScreen.level = worldIn;
-
-        if (CNItems.WELDING_KIT.is(item)) { //Si le weldingKit est dans la main
-            if (Boolean.TRUE.equals(state.getValue(ASSEMBLED))) {
-                player.sendSystemMessage(Component.literal("Multiblock déjà assemblé").withStyle(ChatFormatting.YELLOW));
-                return InteractionResult.SUCCESS;
-            }
-            player.sendSystemMessage(Component.literal("Analyse multiBlock"));
-
-            var result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(worldIn, pos);
-            if (result != null) {
-                player.sendSystemMessage(Component.literal("MultiBlock assemblé.").withStyle(ChatFormatting.BLUE));
-                worldIn.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, true));
-            } else {
-                player.sendSystemMessage(Component.literal("Erreur dans l'assemblage du multiBlock").withStyle(ChatFormatting.RED));
-            }
-            return InteractionResult.SUCCESS;
-        }
-
-
         if (Boolean.FALSE.equals(state.getValue(ASSEMBLED))) {
             player.sendSystemMessage(Component.literal("Multiblock not assembled").withStyle(ChatFormatting.RED));
         }else {
+            ReactorOutput b = (ReactorOutput) worldIn.getBlockState(pos.below(3)).getBlock();
+            ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
+            controller.Rotate(b.getBlockEntity(worldIn, pos.below(3)), 0);
             withBlockEntityDo(worldIn, pos, be -> NetworkHooks.openScreen((ServerPlayer) player, be, be::sendToMenu)); // Ouvre le menu de reactor controller
         }
 
         return InteractionResult.SUCCESS;
     }
 
-    @Override
-    public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (!state.hasBlockEntity() || state.getBlock() == newState.getBlock())
-            return;
-
-        withBlockEntityDo(worldIn, pos, be -> ItemHelper.dropContents(worldIn, pos, be.inventory));
-        worldIn.removeBlockEntity(pos);
-
-        ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
-
-        controller.Rotate(state, pos.below(3), worldIn, 0);
-        List<? extends Player> players = worldIn.players();
-        for (Player p : players) {
-            p.sendSystemMessage(Component.literal("CRITICAL : Reactor Destroyed"));
-        }
+    @Override // called when the player destroys the block, with or without a tool
+    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
+        List<? extends Player> players = level.players();
+        Verify(state, pos, level, players, false);
+        super.playerDestroy(level, player, pos, state, blockEntity, tool);
     }
 
     public boolean isPowered() {
@@ -136,91 +113,69 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
     @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         super.onPlace(state, level, pos, oldState, movedByPiston);
-        if (Boolean.TRUE.equals(state.getValue(ASSEMBLED)))
+        state.setValue(PLACED, true);
+        if (level.getBlockState(pos.below(3)).getBlock() != CNBlocks.REACTOR_OUTPUT.get())
             return;
         List<? extends Player> players = level.players();
         ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
         controller.Verify(state, pos, level, players, true);
-        for (Player p : players) {
-            p.sendSystemMessage(Component.literal("controller is "));
-        }
-    }
-
-    @Override
-    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
-        super.playerDestroy(level, player, pos, state, blockEntity, tool);
-        ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
-        ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos);
-        if (!entity.created)
-            return;
-        controller.Rotate(state, pos.below(3), level, 0);
-        List<? extends Player> players = level.players();
-        for (Player p : players) {
-            p.sendSystemMessage(Component.literal("CRITICAL : Reactor Destroyed"));
-        }
     }
 
     // this is the Function that verifies if the pattern is correct (as a test, we added the energy output)
     public void Verify(BlockState state, BlockPos pos, Level level, List<? extends Player> players, boolean create){
+
+        CreateNuclear.LOGGER.info("Reactors : " + ReactorControllerScreen.exist);
         ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(pos).getBlock();
         ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos);
+
         var result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(level, pos); // control the pattern
         if (result != null) { // the pattern is correct
-            CreateNuclear.LOGGER.info("structure verified, SUCCESS to create multiblock");
-
             for (Player player : players) {
-                if (create && !entity.created)
+                if (Boolean.FALSE.equals(state.getValue(ASSEMBLED)))
                 {
                     player.sendSystemMessage(Component.literal("WARNING : Reactor Assembled"));
-                    level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, true));
-                    entity.created = true;
-                    entity.destroyed = false;
                 }
+                level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, true));
             }
             return;
         }
 
         // the pattern is incorrect
-        CreateNuclear.LOGGER.info("structure not verified, FAILED to create multiblock");
         for (Player player : players) {
-            if (!create && !entity.destroyed)
-            {
+            if (Boolean.TRUE.equals(state.getValue(ASSEMBLED))) {
                 player.sendSystemMessage(Component.literal("CRITICAL : Reactor Destroyed"));
-                level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, false));
-                entity.created = false;
-                entity.destroyed = true;
-                Rotate(state, pos.below(3), level, 0);
             }
+            level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, false));
+            ReactorOutput b = (ReactorOutput) level.getBlockState(pos.below(3)).getBlock();
+            Rotate(b.getBlockEntity(level, pos.below(3)), 0);
         }
     }
-    public void Rotate(BlockState state, BlockPos pos, Level level, int rotation) {
-        CreateNuclear.LOGGER.info(state + " " + pos + " " + level + "_______________________________________");
-        if (level.getBlockState(pos).is(CNBlocks.REACTOR_OUTPUT.get())) {
-            ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
-            CreateNuclear.LOGGER.info(block.getBlockEntityType().getBlockEntity(level, pos).toString());
-            ReactorOutputEntity entity = Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos));
-
-            if (Boolean.TRUE.equals(state.getValue(ASSEMBLED)) && rotation != 0) { // Starting the energy
-                CreateNuclear.LOGGER.info("Change " + pos);
+    public void Rotate(ReactorOutputEntity entity, int rotation) {
+        CreateNuclear.LOGGER.info("No entity");
+        if (entity != null) {
+            ReactorControllerBlock b = (ReactorControllerBlock) entity.getLevel().getBlockState(entity.getBlockPos().above(3)).getBlock();
+            if (Boolean.TRUE.equals(b.getBlockEntity(entity.getLevel(), entity.getBlockPos().above(3)).getBlockState().getValue(ASSEMBLED)) && rotation != 0) { // Starting the energy
                 if (entity.getDir() == 1)
                     rotation = -rotation;
+                CreateNuclear.LOGGER.info(entity.toString());
                 entity.speed = rotation;
                 // entity.setSpeed2(Math.abs(entity.speed), level, pos.below(3));
                 entity.updateSpeed = true;
                 entity.updateGeneratedRotation();
+                CreateNuclear.LOGGER.info("Rotation - updated in theory");
             } else { // stopping the energy
 
                 // entity.setSpeed2(0, level, pos.below(3));
                 entity.speed = 0;
                 entity.updateSpeed = true;
                 entity.updateGeneratedRotation();
-                CreateNuclear.LOGGER.info("Unchanged " + pos);
+                CreateNuclear.LOGGER.info("Rotation - reseted in theory");
             }
             if (rotation < 0)
                 rotation = -rotation;
-            entity.setSpeed2(rotation, level, pos);
+            entity.setSpeed2(rotation, entity.getLevel(), entity.getBlockPos());
 
-            CreateNuclear.LOGGER.info("SPEED : " + entity.getSpeed2() + " - DIR : " + entity.getDir() + "  pos : " + pos);
+            CreateNuclear.LOGGER.info("SPEED : " + entity.getSpeed2() + " - DIR : " + entity.getDir());
         }
     }
 

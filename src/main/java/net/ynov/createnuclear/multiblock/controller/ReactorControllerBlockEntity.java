@@ -19,7 +19,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.ynov.createnuclear.CreateNuclear;
+import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.gui.CNIconButton;
+import net.ynov.createnuclear.multiblock.ReactorBlock;
+import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -113,7 +116,15 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         return null;
     }
 
-//    @Override
+    @Override
+    public void tick() {
+        if (level.getBlockState(getBlockPos().below(3)).getBlock() == CNBlocks.REACTOR_OUTPUT.get()){
+            controller = (ReactorControllerBlock) level.getBlockState(getBlockPos()).getBlock();
+            ReactorOutput output = (ReactorOutput) level.getBlockState(getBlockPos().below(3)).getBlock();
+            controller.Rotate(output.getBlockEntity(level, getBlockPos().below(3)), ReactorControllerScreen.heat);
+        }
+    }
+    //    @Override
 //    public boolean canPlayerUse(Player player) {
 //        if (level == null || level.getBlockEntity(worldPosition) != this) {
 //            return false;
