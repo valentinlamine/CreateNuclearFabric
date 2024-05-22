@@ -114,7 +114,7 @@ public class CNBlocks {
                     .register();
     public static final BlockEntry<ReactorOutput> REACTOR_OUTPUT =
             CreateNuclear.REGISTRATE.block("reactor_output", ReactorOutput::new)
-                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.explosionResistance(200))
                     .properties(p -> p.destroyTime(4F))
 			.initialProperties(SharedProperties::stone)
 			.properties(p -> p.mapColor(MapColor.COLOR_PURPLE).forceSolidOn())
@@ -148,7 +148,7 @@ public class CNBlocks {
     public static final BlockEntry<ReactorControllerBlock> REACTOR_CONTROLLER =
             CreateNuclear.REGISTRATE.block("reactor_controller", ReactorControllerBlock::new)
                     .initialProperties(SharedProperties::stone)
-                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.explosionResistance(200F))
                     .properties(p -> p.destroyTime(4F))
                     .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models()
                             .getExistingFile(ctx.getId()), 0))
@@ -156,7 +156,7 @@ public class CNBlocks {
                     .register();
     public static final BlockEntry<ReactorBlock> REACTOR_CORE =
             CreateNuclear.REGISTRATE.block("reactor_core", ReactorBlock::new)
-                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.explosionResistance(200F))
                     .properties(p -> p.destroyTime(4F))
                     .simpleItem()
                     .register();
@@ -164,21 +164,21 @@ public class CNBlocks {
     public static final BlockEntry<Block> REACTOR_COOLING_FRAME =
             CreateNuclear.REGISTRATE.block("reactor_cooling_frame", Block::new)
                     .initialProperties(SharedProperties::stone)
-                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.explosionResistance(200F))
                     .properties(p -> p.destroyTime(4F))
                     .simpleItem()
                     .register();
 
     public static final BlockEntry<ReactorBlock> REACTOR_CASING =
             CreateNuclear.REGISTRATE.block("reactor_casing", ReactorBlock::new)
-                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.explosionResistance(200F))
                     .properties(p -> p.destroyTime(4F))
                     .simpleItem()
                     .register();
 
     public static final BlockEntry<ReactorBlock> REACTOR_MAIN_FRAME =
             CreateNuclear.REGISTRATE.block("reactor_main_frame", ReactorBlock::new)
-                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.explosionResistance(200F))
                     .properties(p -> p.destroyTime(4F))
                     .simpleItem()
                     .register();
@@ -186,7 +186,7 @@ public class CNBlocks {
     public static final BlockEntry<ReactorGaugeBlock> REACTOR_GAUGE_BLOCK =
             CreateNuclear.REGISTRATE.block("reactor_gauge_block", ReactorGaugeBlock::new)
                     .initialProperties(SharedProperties::stone)
-                    .properties(p -> p.explosionResistance(1200F))
+                    .properties(p -> p.explosionResistance(200F))
                     .properties(p -> p.destroyTime(2F))
                     .addLayer(() -> RenderType::cutoutMipped)
                     .transform(pickaxeOnly())

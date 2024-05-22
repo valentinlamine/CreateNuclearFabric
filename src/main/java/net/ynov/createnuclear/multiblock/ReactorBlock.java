@@ -17,6 +17,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import static net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
+
 public class ReactorBlock extends Block {
     public ReactorBlock(Properties properties) {
         super(properties);
@@ -24,23 +26,17 @@ public class ReactorBlock extends Block {
 
     @Override // Called when the block is placed on the world
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
-        super.onPlace(state, level, pos, oldState, movedByPiston);
         List<? extends Player> players = level.players();
         FindController(pos, level, players, true);
     }
 
-    @Override // called when the player destroys the block, with or without a tool
-    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
-        super.playerDestroy(level, player, pos, state, blockEntity, tool);
-        List<? extends Player> players = level.players();
-        FindController(pos, level, players, false);
-    }
-
     @Override
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        super.onRemove(state, level, pos, newState, movedByPiston);
+        if (state.is(newState.getBlock())) {
+            return;
+        }
         List<? extends Player> players = level.players();
-        FindController(pos, level, players, false);
+        FindController(pos, level, players, true);
     }
 
     public ReactorControllerBlock FindController(BlockPos blockPos, Level level, List<? extends Player> players, boolean first){ // Function that checks the surrounding blocks in order
@@ -51,11 +47,11 @@ public class ReactorBlock extends Block {
                 for (int z = pos.getZ()-5; z != pos.getZ()+5; z+=1) {
                     newBlock = new BlockPos(x, y, z);
                     if (level.getBlockState(newBlock).is(CNBlocks.REACTOR_CONTROLLER.get())) { // verifying the pattern
-                        CreateNuclear.LOGGER.info("ReactorController FOUND!!!!!!!!!!: ");      // from the controller
+                        CreateNuclear.LOGGER.info("got to controller !");
                         ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(newBlock).getBlock();
                         controller.Verify(controller.defaultBlockState(), newBlock, level, players, first);
                         ReactorControllerBlockEntity entity = controller.getBlockEntity(level, newBlock);
-                        if (entity.created)
+                        if (entity.getAssembled())
                             return controller;
                     }
                     //else CreateNuclear.LOGGER.info("newBlock: " + level.getBlockState(newBlock).getBlock());

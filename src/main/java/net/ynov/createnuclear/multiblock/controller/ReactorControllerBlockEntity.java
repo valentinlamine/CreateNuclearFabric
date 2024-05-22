@@ -13,9 +13,15 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.ExplosionDamageCalculator;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.ynov.createnuclear.CreateNuclear;
@@ -62,6 +68,11 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
     public boolean getAssembled() { // permet de savoir si le réacteur est formé ou pas.
         BlockState state = getBlockState();
         return Boolean.TRUE.equals(state.getValue(ASSEMBLED));
+    }
+
+    public void setAssembled(boolean b) {
+        level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(ASSEMBLED, b));
+        CreateNuclear.LOGGER.info("set to " + getAssembled() + " with value " + b);
     }
 
     @Override
@@ -122,6 +133,12 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
             controller = (ReactorControllerBlock) level.getBlockState(getBlockPos()).getBlock();
             ReactorOutput output = (ReactorOutput) level.getBlockState(getBlockPos().below(3)).getBlock();
             controller.Rotate(output.getBlockEntity(level, getBlockPos().below(3)), ReactorControllerScreen.heat);
+        }
+        if (ReactorControllerScreen.heat >= 100){
+            ReactorControllerScreen.heat = 0;
+            controller = (ReactorControllerBlock) level.getBlockState(getBlockPos()).getBlock();
+            this.remove();
+            //this.level.explode(this.getLevel().getEntity(0), level.damageSources().explosion(this.getLevel().getEntity(0), this.getLevel().getEntity(0)), (ExplosionDamageCalculator) null,this.getBlockPos().getX(), this.getBlockPos().getY(), this.getBlockPos().getZ(), 24F, false, Level.ExplosionInteraction.BLOCK);
         }
     }
     //    @Override

@@ -36,6 +36,7 @@ import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.item.CNItems;
 import org.jetbrains.annotations.Nullable;
 
+import javax.swing.*;
 import java.awt.desktop.AboutHandler;
 import java.util.List;
 import java.util.Objects;
@@ -112,7 +113,6 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
 
     @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
-        super.onPlace(state, level, pos, oldState, movedByPiston);
         state.setValue(PLACED, true);
         if (level.getBlockState(pos.below(3)).getBlock() != CNBlocks.REACTOR_OUTPUT.get())
             return;
@@ -123,35 +123,30 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
 
     // this is the Function that verifies if the pattern is correct (as a test, we added the energy output)
     public void Verify(BlockState state, BlockPos pos, Level level, List<? extends Player> players, boolean create){
-
-        CreateNuclear.LOGGER.info("Reactors : " + ReactorControllerScreen.exist);
         ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(pos).getBlock();
         ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos);
 
         var result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(level, pos); // control the pattern
-        if (result != null) { // the pattern is correct
-            for (Player player : players) {
-                if (Boolean.FALSE.equals(state.getValue(ASSEMBLED)))
-                {
-                    player.sendSystemMessage(Component.literal("WARNING : Reactor Assembled"));
+        for (Player player : players){
+            if (result != null){
+                if (Boolean.FALSE.equals(state.getValue(ASSEMBLED))){
+                    player.sendSystemMessage(Component.literal("WARNING - Reactor Created"));
+                    level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, true));
                 }
-                level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, true));
+                CreateNuclear.LOGGER.info("creating " + entity.getAssembled());
             }
-            return;
-        }
-
-        // the pattern is incorrect
-        for (Player player : players) {
-            if (Boolean.TRUE.equals(state.getValue(ASSEMBLED))) {
-                player.sendSystemMessage(Component.literal("CRITICAL : Reactor Destroyed"));
+            else {
+                if (Boolean.TRUE.equals(state.getValue(ASSEMBLED))) {
+                    player.sendSystemMessage(Component.literal("CRITICAL - Reactor Destroyed"));
+                    level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, false));
+                    if (level.getBlockState(pos.below(3)).getBlock() == CNBlocks.REACTOR_OUTPUT.get())
+                        controller.Rotate((ReactorOutputEntity) level.getBlockEntity(pos.below(3)), 0);
+                }
+                CreateNuclear.LOGGER.info("destroying " + entity.getAssembled());
             }
-            level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, false));
-            ReactorOutput b = (ReactorOutput) level.getBlockState(pos.below(3)).getBlock();
-            Rotate(b.getBlockEntity(level, pos.below(3)), 0);
         }
     }
     public void Rotate(ReactorOutputEntity entity, int rotation) {
-        CreateNuclear.LOGGER.info("No entity");
         if (entity != null) {
             ReactorControllerBlock b = (ReactorControllerBlock) entity.getLevel().getBlockState(entity.getBlockPos().above(3)).getBlock();
             if (Boolean.TRUE.equals(b.getBlockEntity(entity.getLevel(), entity.getBlockPos().above(3)).getBlockState().getValue(ASSEMBLED)) && rotation != 0) { // Starting the energy
@@ -162,20 +157,16 @@ public class ReactorControllerBlock extends HorizontalDirectionalBlock implement
                 // entity.setSpeed2(Math.abs(entity.speed), level, pos.below(3));
                 entity.updateSpeed = true;
                 entity.updateGeneratedRotation();
-                CreateNuclear.LOGGER.info("Rotation - updated in theory");
             } else { // stopping the energy
 
                 // entity.setSpeed2(0, level, pos.below(3));
                 entity.speed = 0;
                 entity.updateSpeed = true;
                 entity.updateGeneratedRotation();
-                CreateNuclear.LOGGER.info("Rotation - reseted in theory");
             }
             if (rotation < 0)
                 rotation = -rotation;
             entity.setSpeed2(rotation, entity.getLevel(), entity.getBlockPos());
-
-            CreateNuclear.LOGGER.info("SPEED : " + entity.getSpeed2() + " - DIR : " + entity.getDir());
         }
     }
 
