@@ -19,7 +19,9 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.ynov.createnuclear.CreateNuclear;
+import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.gui.CNIconButton;
+import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -113,6 +115,13 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         if (blockState.getBlock() instanceof ReactorControllerBlock)
             return ((ReactorControllerBlock) blockState.getBlock()).getSwitchButtons();
         return null;
+    }
+
+    public void tick() {
+        if (level.getBlockState(getBlockPos().below(3)).getBlock() == CNBlocks.REACTOR_OUTPUT.get()){
+            controller = (ReactorControllerBlock) level.getBlockState(getBlockPos()).getBlock();
+            controller.Rotate(getBlockState(), getBlockPos().below(3), getLevel(), ReactorControllerScreen.heat);
+        }
     }
 
 //    @Override

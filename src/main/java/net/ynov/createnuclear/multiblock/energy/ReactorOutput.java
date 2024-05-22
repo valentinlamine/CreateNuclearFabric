@@ -71,7 +71,6 @@ public class ReactorOutput extends DirectionalKineticBlock implements IWrenchabl
 					if (control.getDir() == 0)
 						control.setDir(1, level, pos);
 					else control.setDir(0, level, pos);
-					controller.Rotate(controller.defaultBlockState(), pos, level, 16);
 				}
 			}
 			return InteractionResult.CONSUME;
