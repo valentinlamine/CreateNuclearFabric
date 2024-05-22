@@ -1,6 +1,10 @@
 package net.ynov.createnuclear;
 
 import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.simibubi.create.foundation.item.ItemDescription;
+import com.simibubi.create.foundation.item.KineticStats;
+import com.simibubi.create.foundation.item.TooltipHelper;
+import com.simibubi.create.foundation.item.TooltipModifier;
 import io.github.tropheusj.milk.mixin.BrewingRecipeRegistryMixin;
 import io.github.tropheusj.milk.mixin.BrewingRecipeRegistryMixin;
 import net.fabricmc.api.ModInitializer;
@@ -34,6 +38,13 @@ public class CreateNuclear implements ModInitializer {
 	public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID);
 
 
+	static {
+		REGISTRATE.setTooltipModifierFactory(item -> {
+			return new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)
+					.andThen(TooltipModifier.mapNull(KineticStats.create(item)));
+		});
+	}
+
 	@Override
 	public void onInitialize() {
 		CNEffects.register();
@@ -60,8 +71,3 @@ public class CreateNuclear implements ModInitializer {
 
 
 }
-/**
- * "jei_mod_plugin": [
- * 			"net.ynov.createnuclear.compat.jei.CreateNucleairJei"
- * 		]
- */
