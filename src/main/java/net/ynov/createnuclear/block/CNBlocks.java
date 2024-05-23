@@ -64,7 +64,7 @@ public class CNBlocks {
                             lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_URANIUM)
                                 .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
                     ))))
-                    .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag, CNTag.BlockTags.NEEDS_IRON_TOOL.tag)
+                    .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag, CNTag.BlockTags.NEEDS_IRON_TOOL.tag, CNTag.forgeBlockTag("ores"), CNTag.forgeBlockTag("ores_in_ground/deepslate"))
                     .register();
 
     public static final BlockEntry<UraniumOreBlock> URANIUM_ORE =
@@ -77,7 +77,7 @@ public class CNBlocks {
                             lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_URANIUM)
                                 .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
                     ))))
-                    .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag, CNTag.BlockTags.NEEDS_IRON_TOOL.tag)
+                    .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag, CNTag.BlockTags.NEEDS_IRON_TOOL.tag, CNTag.forgeBlockTag("ores"), CNTag.forgeBlockTag("ores_in_ground/stone"))
                     .register();
 
     public static final BlockEntry<Block> DEEPSLATE_LEAD_ORE =
@@ -90,7 +90,8 @@ public class CNBlocks {
                             lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_LEAD)
                                 .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
                     ))))
-                    .tag(CNTag.BlockTags.NEEDS_IRON_TOOL.tag)
+                    .tag(CNTag.BlockTags.NEEDS_IRON_TOOL.tag,
+                            CNTag.forgeBlockTag("ores"), CNTag.forgeBlockTag("ores_in_ground/deepslate"))
                     .register();
 
     public static final BlockEntry<Block> LEAD_ORE =
@@ -103,7 +104,7 @@ public class CNBlocks {
                             lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_LEAD)
                                 .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
                     ))))
-                    .tag(CNTag.BlockTags.NEEDS_IRON_TOOL.tag)
+                    .tag(CNTag.BlockTags.NEEDS_IRON_TOOL.tag, CNTag.forgeBlockTag("ores"), CNTag.forgeBlockTag("ores_in_ground/stone"))
                     .register();
 
     public static final BlockEntry<Block> RAW_URANIUM_BLOCK =
@@ -111,7 +112,8 @@ public class CNBlocks {
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
-                    .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
+                    .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag,
+                            CNTag.forgeBlockTag("storage_blocks"))
                     .register();
 
     public static final BlockEntry<Block> RAW_LEAD_BLOCK =
@@ -119,7 +121,8 @@ public class CNBlocks {
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
-                    .tag(CNTag.BlockTags.NEEDS_IRON_TOOL.tag)
+                    .tag(CNTag.BlockTags.NEEDS_IRON_TOOL.tag,
+                            CNTag.forgeBlockTag("storage_blocks"))
                     .register();
 
     public static final BlockEntry<Block> LEAD_BLOCK =
@@ -127,6 +130,7 @@ public class CNBlocks {
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
+                    .tag(CNTag.forgeBlockTag("storage_blocks"))
                     .register();
 
     public static final BlockEntry<Block> ENRICHED_SOUL_SOIL =
@@ -202,6 +206,7 @@ public class CNBlocks {
                     .initialProperties(CNBlocks::getGlass)
                     .properties(p -> p.explosionResistance(1200F).destroyTime(2F))
                     .loot(RegistrateBlockLootTables::dropWhenSilkTouch)
+                    .tag(CNTag.forgeBlockTag("glass_blocks"))
                     .simpleItem()
                     .register();
 

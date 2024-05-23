@@ -1,12 +1,17 @@
 package net.ynov.createnuclear.item;
 
+import com.simibubi.create.AllBlocks;
+import com.simibubi.create.AllTags;
+import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.ItemEntry;
 
+import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -21,46 +26,161 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.effects.CNEffects;
 import net.ynov.createnuclear.groups.CNGroup;
+import net.ynov.createnuclear.item.armor.AntiRadiationArmorItem;
+import net.ynov.createnuclear.item.armor.CNArmorMaterials;
 import net.ynov.createnuclear.tags.CNTag;
+
+
+import static net.ynov.createnuclear.item.armor.AntiRadiationArmorItem.Helmet;
+import static net.ynov.createnuclear.item.armor.AntiRadiationArmorItem.Chestplate;
+import static net.ynov.createnuclear.item.armor.AntiRadiationArmorItem.Leggings;
+import static net.ynov.createnuclear.item.armor.AntiRadiationArmorItem.Boot;
 
 public class CNItems {
 
-    public static final Item URANIUM_POWDER = registerItem("uranium_powder", new Item(new FabricItemSettings()));
-    public static final Item YELLOW_CAKE = registerItem("yellow_cake", new Item(new FabricItemSettings().food(new FoodProperties.Builder().nutrition(20).alwaysEat().saturationMod(0.3F).effect(new MobEffectInstance(MobEffects.POISON, 6000, 25), 1.0F).effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 6000, 5), 1.0F).effect(new MobEffectInstance(MobEffects.HUNGER, 6000, 1000), 1.0F).effect(new MobEffectInstance(MobEffects.CONFUSION, 6000, 5), 1.0F).effect(new MobEffectInstance(MobEffects.WITHER, 6000, 8), 1.0F).effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 6000, 5), 1.0F).build())));
-    public static final Item YELLOW_CAKE_ENRICHED = registerItem("yellow_cake_enriched", new Item(new FabricItemSettings()));
-    public static final Item COAL_DUST = registerItem("coal_dust", new Item(new FabricItemSettings()));
-    public static final Item CHARCOAL_DUST = registerItem("charcoal_dust", new Item(new FabricItemSettings()));
-    public static final Item GRAPHENE = registerItem("graphene", new Item(new FabricItemSettings()));
-    public static final Item STEEL_INGOT = registerItem("steel_ingot", new Item(new FabricItemSettings()));
     public static final Item YELLOW_CAKE_NETHER_STAR = registerItem("yellow_cake_nether_star_wip", new Item(new FabricItemSettings()));
-    public static final ItemEntry<Item> URANIUM_ROD = CreateNuclear.REGISTRATE.item("uranium_rod", Item::new).register();
-    public static final ItemEntry<Item> GRAPHITE_ROD = CreateNuclear.REGISTRATE.item("graphite_rod", Item::new).register();
-    public static final Item RAW_URANIUM = registerItem("raw_uranium", new Item(new FabricItemSettings()));
-    public static final ItemEntry<Item> WELDING_KIT = CreateNuclear.REGISTRATE.item("welding_kit", Item::new).register();
-    public static final Item RAW_LEAD = registerItem("raw_lead", new Item(new FabricItemSettings()));
-    public static final Item LEAD_INGOT = registerItem("lead_ingot", new Item(new FabricItemSettings()));
-    public static final Item LEAD_NUGGET = registerItem("lead_nugget", new Item(new FabricItemSettings()));
-    public static final Item ANTI_RADIATION_HELMET = registerItem("anti_radiation_helmet", new ArmorItem(CNArmorMaterials.ANTI_RADIATION_SUIT, ArmorItem.Type.HELMET, new FabricItemSettings()));
-    public static final Item ANTI_RADIATION_CHESTPLATE = registerItem("anti_radiation_chestplate", new ArmorItem(CNArmorMaterials.ANTI_RADIATION_SUIT, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
-    public static final Item ANTI_RADIATION_LEGGINGS = registerItem("anti_radiation_leggings", new ArmorItem(CNArmorMaterials.ANTI_RADIATION_SUIT, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
-    public static final Item ANTI_RADIATION_BOOTS = registerItem("anti_radiation_boots", new ArmorItem(CNArmorMaterials.ANTI_RADIATION_SUIT, ArmorItem.Type.BOOTS, new FabricItemSettings()));
-    public static final ItemEntry<Item> WHITE_CLOTH = registerItemEntry("white");
-    public static final ItemEntry<Item> YELLOW_CLOTH = registerItemEntry("yellow");
-    public static final ItemEntry<Item> RED_CLOTH = registerItemEntry("red");
-    public static final ItemEntry<Item> BLUE_CLOTH = registerItemEntry("blue");
-    public static final ItemEntry<Item> GREEN_CLOTH = registerItemEntry("green");
-    public static final ItemEntry<Item> BLACK_CLOTH = registerItemEntry("black");
-    public static final ItemEntry<Item> ORANGE_CLOTH = registerItemEntry("orange");
-    public static final ItemEntry<Item> PURPLE_CLOTH = registerItemEntry("purple");
-    public static final ItemEntry<Item> BROWN_CLOTH = registerItemEntry("brown");
-    public static final ItemEntry<Item> PINK_CLOTH = registerItemEntry("pink");
-    public static final ItemEntry<Item> CYAN_CLOTH = registerItemEntry("cyan");
-    public static final ItemEntry<Item> LIGHT_GRAY_CLOTH = registerItemEntry("light_gray");
-    public static final ItemEntry<Item> GRAY_CLOTH = registerItemEntry("gray");
-    public static final ItemEntry<Item> LIGHT_BLUE_CLOTH = registerItemEntry("light_blue");
-    public static final ItemEntry<Item> LIME_CLOTH = registerItemEntry("lime");
-    public static final ItemEntry<Item> MAGENTA_CLOTH = registerItemEntry("magenta");
-    
+//    public static final Item YELLOW_CAKE = registerItem("yellow_cake", new Item(new FabricItemSettings()
+//    .food(new FoodProperties.Builder()
+//          .nutrition(20)
+//          .alwaysEat()
+//          .saturationMod(0.3F)
+//          .effect(new MobEffectInstance(MobEffects.POISON, 6000, 25), 1.0F)
+//          .effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 6000, 5), 1.0F)
+//          .effect(new MobEffectInstance(MobEffects.HUNGER, 6000, 1000), 1.0F)
+//          .effect(new MobEffectInstance(MobEffects.CONFUSION, 6000, 5), 1.0F)
+//          .effect(new MobEffectInstance(MobEffects.WITHER, 6000, 8), 1.0F)
+//          .effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 6000, 5), 1.0F)
+//       .build())));
+
+    public static final ItemEntry<Item>
+        URANIUM_POWDER = CreateNuclear.REGISTRATE
+                .item("uranium_powder", Item::new)
+                .register(),
+
+        YELLOW_CAKE = CreateNuclear.REGISTRATE
+                .item("yellow_cake", Item::new)
+                .properties(p -> p.food(new FoodProperties.Builder()
+                    .nutrition(20)
+                    .saturationMod(0.3F)
+                    .alwaysEat()
+                    .effect(new MobEffectInstance(CNEffects.RADIATION.get(), 6000, 25), 1.0F)
+                    .effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 6000, 5), 1.0F)
+                    .effect(new MobEffectInstance(MobEffects.HUNGER, 6000, 1000), 1.0F)
+                    .effect(new MobEffectInstance(MobEffects.CONFUSION, 6000, 5), 1.0F)
+                    .effect(new MobEffectInstance(MobEffects.WITHER, 6000, 8), 1.0F)
+                    .effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 6000, 5), 1.0F)
+                    .build())
+                )
+                .register(),
+
+        YELLOW_CAKE_ENRICHED = CreateNuclear.REGISTRATE
+                    .item("yellow_cake_enriched", Item::new)
+                    .register(),
+
+        COAL_DUST = CreateNuclear.REGISTRATE
+                    .item("coal_dust", Item::new)
+                    .tag(CNTag.forgeItemTag("dusts"), CNTag.forgeItemTag("coal_dusts"))
+                    .register(),
+
+        CHARCOAL_DUST = CreateNuclear.REGISTRATE
+                    .item("charcoal_dust", Item::new)
+                    .tag(CNTag.forgeItemTag("dusts"), CNTag.forgeItemTag("coal_dusts"))
+                    .register(),
+
+        GRAPHENE = CreateNuclear.REGISTRATE
+                    .item("graphene", Item::new)
+                    .register(),
+
+        STEEL_INGOT = CreateNuclear.REGISTRATE
+                    .item("steel_ingot", Item::new)
+                    .tag(CNTag.forgeItemTag("ingots"), CNTag.forgeItemTag("ingots/steel"))
+                    .register(),
+
+        RAW_URANIUM = CreateNuclear.REGISTRATE
+                    .item("raw_uranium", Item::new)
+                    .tag(CNTag.forgeItemTag("raw_ores"), CNTag.forgeItemTag("raw_materials"))
+                    .register(),
+
+        RAW_LEAD = CreateNuclear.REGISTRATE
+                .item("raw_lead", Item::new)
+                .tag(CNTag.forgeItemTag("raw_ores"), CNTag.forgeItemTag("raw_materials"))
+                .register(),
+
+        LEAD_INGOT = CreateNuclear.REGISTRATE
+                .item("lead_ingot", Item::new)
+                .tag(CNTag.forgeItemTag("ingots"), CNTag.forgeItemTag("ingots/lead"), CNTag.forgeItemTag("lead_ingots"))
+                .register(),
+
+        LEAD_NUGGET = CreateNuclear.REGISTRATE
+                .item("lead_nugget", Item::new)
+                .tag(CNTag.forgeItemTag("nuggets"), CNTag.forgeItemTag("lead_nuggets"))
+                .register(),
+
+        WELDING_KIT = CreateNuclear.REGISTRATE
+                .item("welding_kit", Item::new)
+                .register(),
+
+        URANIUM_ROD = CreateNuclear.REGISTRATE
+                .item("uranium_rod", Item::new)
+                .tag(CNTag.forgeItemTag("rods"))
+                .register(),
+
+        GRAPHITE_ROD = CreateNuclear.REGISTRATE
+                .item("graphite_rod", Item::new)
+                .tag(CNTag.forgeItemTag("rods"))
+                .register()
+    ;
+
+    public static final ItemEntry<? extends AntiRadiationArmorItem.Helmet>
+            ANTI_RADIATION_HELMET = CreateNuclear.REGISTRATE.item("anti_radiation_helmet", properties ->
+                    new Helmet(properties, CreateNuclear.asResource("anti_radiation_helmet")))
+            .tag(CNTag.forgeItemTag("helmets"))
+            .lang("Anti Radiation Helmet")
+            .register();
+
+    public static final ItemEntry<? extends AntiRadiationArmorItem.Chestplate>
+            ANTI_RADIATION_CHESTPLATE = CreateNuclear.REGISTRATE.item("anti_radiation_chestplate", properties ->
+                    new Chestplate(properties, CreateNuclear.asResource("anti_radiation_chestplate")))
+            .tag(CNTag.forgeItemTag("chestplates"))
+            .lang("Anti Radiation Chestplate")
+            .register();
+
+    public static final ItemEntry<? extends AntiRadiationArmorItem.Leggings>
+            ANTI_RADIATION_LEGGINGS = CreateNuclear.REGISTRATE.item("anti_radiation_leggings", properties ->
+                    new Leggings(properties, CreateNuclear.asResource("anti_radiation_leggings")))
+            .tag(CNTag.forgeItemTag("leggings"))
+            .lang("Anti Radiation Leggings")
+            .register();
+
+    public static final ItemEntry<? extends AntiRadiationArmorItem.Boot>
+            ANTI_RADIATION_BOOTS = CreateNuclear.REGISTRATE.item("anti_radiation_boots", properties ->
+                    new Boot(properties, CreateNuclear.asResource("anti_radiation_boots")))
+            .tag(CNTag.forgeItemTag("boots"))
+            .lang("Anti Radiation Boots")
+            .register();
+
+
+
+
+
+    public static final ItemEntry<Item>
+        WHITE_CLOTH = registerItemEntry("white"),
+        YELLOW_CLOTH = registerItemEntry("yellow"),
+        RED_CLOTH = registerItemEntry("red"),
+        BLUE_CLOTH = registerItemEntry("blue"),
+        GREEN_CLOTH = registerItemEntry("green"),
+        BLACK_CLOTH = registerItemEntry("black"),
+        ORANGE_CLOTH = registerItemEntry("orange"),
+        PURPLE_CLOTH = registerItemEntry("purple"),
+        BROWN_CLOTH = registerItemEntry("brown"),
+        PINK_CLOTH = registerItemEntry("pink"),
+        CYAN_CLOTH = registerItemEntry("cyan"),
+        LIGHT_GRAY_CLOTH = registerItemEntry("light_gray"),
+        GRAY_CLOTH = registerItemEntry("gray"),
+        LIGHT_BLUE_CLOTH = registerItemEntry("light_blue"),
+        LIME_CLOTH = registerItemEntry("lime"),
+        MAGENTA_CLOTH = registerItemEntry("magenta");
+
 
 
 
@@ -71,14 +191,14 @@ public class CNItems {
 
 
     private static void addItemToIngredientItemGroup(FabricItemGroupEntries entries) {
-        entries.accept(URANIUM_POWDER, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        /*entries.accept(URANIUM_POWDER, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(YELLOW_CAKE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(YELLOW_CAKE_ENRICHED, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(COAL_DUST, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(CHARCOAL_DUST, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(GRAPHENE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(STEEL_INGOT, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        //entries.accept(YELLOW_CAKE_NETHER_STAR, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(YELLOW_CAKE_NETHER_STAR, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(URANIUM_ROD, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(GRAPHITE_ROD, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(RAW_URANIUM,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
@@ -88,7 +208,7 @@ public class CNItems {
         entries.accept(ANTI_RADIATION_HELMET,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ANTI_RADIATION_CHESTPLATE,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         entries.accept(ANTI_RADIATION_LEGGINGS,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ANTI_RADIATION_BOOTS,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        entries.accept(ANTI_RADIATION_BOOTS,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);*/
     }
 
     private static Item registerItem(String name, Item item) {
@@ -110,7 +230,7 @@ public class CNItems {
     }
 
     public static void registerPotionsRecipes() {
-        PotionBrewing.addMix(Potions.AWKWARD, CNItems.YELLOW_CAKE_ENRICHED, CNItems.potion_1);
+        PotionBrewing.addMix(Potions.AWKWARD, CNItems.YELLOW_CAKE_ENRICHED.get(), CNItems.potion_1);
         PotionBrewing.addMix(potion_1, Items.REDSTONE, CNItems.potion_augment_1);
         PotionBrewing.addMix(potion_1, Items.GLOWSTONE_DUST, CNItems.potion_2);
     }

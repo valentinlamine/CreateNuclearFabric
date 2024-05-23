@@ -45,7 +45,6 @@ public class CreateNuclear implements ModInitializer {
 		CNRecipeTypes.register();
 		CNFanProcessingTypes.register();
 		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);
-		CreateNuclear.LOGGER.warn("je ne sais pas" + Create.asResource("clipboard_type"));
 	}
 
 	public static ResourceLocation asResource(String path) {

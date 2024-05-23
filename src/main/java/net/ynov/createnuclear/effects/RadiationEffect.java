@@ -20,10 +20,10 @@ public class RadiationEffect extends MobEffect {
     public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
         //Si le joueur porte l'armure anti_radiation_suit alors il ne prend pas de dégâts
         livingEntity.getArmorSlots().forEach(e -> {
-            if (e.getItem() == CNItems.ANTI_RADIATION_BOOTS
-                    || e.getItem() == CNItems.ANTI_RADIATION_CHESTPLATE
-                    || e.getItem() == CNItems.ANTI_RADIATION_HELMET
-                    || e.getItem() == CNItems.ANTI_RADIATION_LEGGINGS) {
+            if (e.getItem() == CNItems.ANTI_RADIATION_BOOTS.get()
+                    || e.getItem() == CNItems.ANTI_RADIATION_CHESTPLATE.get()
+                    || e.getItem() == CNItems.ANTI_RADIATION_HELMET.get()
+                    || e.getItem() == CNItems.ANTI_RADIATION_LEGGINGS.get()) {
                 livingEntity.hurt(livingEntity.damageSources().magic(), 0.0F);
 
             } else {

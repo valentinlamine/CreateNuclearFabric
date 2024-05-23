@@ -14,8 +14,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.ynov.createnuclear.CreateNuclear;
 
-import static net.ynov.createnuclear.tags.CNTag.NameSpace.MINECRAFT;
-import static net.ynov.createnuclear.tags.CNTag.NameSpace.MOD;
+import static net.ynov.createnuclear.tags.CNTag.NameSpace.*;
 
 public class CNTag {
     public static <T> TagKey<T> optionalTag(Registry<T> registry, ResourceLocation id) {
@@ -23,7 +22,7 @@ public class CNTag {
     }
 
     public static <T> TagKey<T> forgeTag(Registry<T> registry, String path) {
-        return optionalTag(registry, new ResourceLocation("createnuclear", path));
+        return optionalTag(registry, new ResourceLocation("c", path));
     }
 
     public static TagKey<Block> forgeBlockTag(String path) {
@@ -32,12 +31,15 @@ public class CNTag {
     public static TagKey<Fluid> forgeFluidTag(String path) {
         return forgeTag(BuiltInRegistries.FLUID, path);
     }
+    public static TagKey<Item> forgeItemTag(String path) {
+        return forgeTag(BuiltInRegistries.ITEM, path);
+    }
 
     public enum NameSpace {
         MOD(CreateNuclear.MOD_ID, false, true),
         CREATE("create"),
-        FORGE("c"),
-        FABRIC("f"),
+        FORGE("f"),
+        FABRIC("c"),
         MINECRAFT("minecraft")
         ;
 
@@ -107,6 +109,8 @@ public class CNTag {
         NEEDS_IRON_TOOL(MINECRAFT),
         NEEDS_STONE_TOOL(MINECRAFT),
         SHOVEL(MINECRAFT, "mineable/shovel"),
+
+
         ;
         public final TagKey<Block> tag;
         public final boolean alwaysDatagen;
@@ -155,7 +159,8 @@ public class CNTag {
     }
 
     public enum ItemTags {
-        CLOTH;
+        CLOTH,
+        ;
 
         public  final  TagKey<Item> tag;
         public final boolean alwaysDatagen;

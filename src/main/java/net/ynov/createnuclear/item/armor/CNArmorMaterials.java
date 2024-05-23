@@ -1,4 +1,4 @@
-package net.ynov.createnuclear.item;
+package net.ynov.createnuclear.item.armor;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -6,6 +6,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.ynov.createnuclear.CreateNuclear;
+import net.ynov.createnuclear.item.CNItems;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
