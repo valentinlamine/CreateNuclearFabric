@@ -31,6 +31,7 @@
   "createnuclear.ponder.reactor.text_8": "etage 7",
   "effect.createnuclear.radiation": "Radiation",
   "emi.category.createnuclear.fan_enriched": "Bulk Enriched",
+  "entity.minecraft.irradiated_chicken": "Irradiated Chicken",
   "fluid.createnuclear.uranium": "Uranium",
   "gui.createnuclear.reactor_controller.title": "Reactor Controller",
   "item.createnuclear.anti_radiation_boots": "Anti Radiation Boots",

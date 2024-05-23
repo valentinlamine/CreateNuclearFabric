@@ -1,13 +1,10 @@
 package net.ynov.createnuclear;
 
-import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
-import io.github.tropheusj.milk.mixin.BrewingRecipeRegistryMixin;
-import io.github.tropheusj.milk.mixin.BrewingRecipeRegistryMixin;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -40,10 +37,8 @@ public class CreateNuclear implements ModInitializer {
 
 
 	static {
-		REGISTRATE.setTooltipModifierFactory(item -> {
-			return new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)
-					.andThen(TooltipModifier.mapNull(KineticStats.create(item)));
-		});
+		REGISTRATE.setTooltipModifierFactory(item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)
+                .andThen(TooltipModifier.mapNull(KineticStats.create(item))));
 	}
 
 	@Override
@@ -56,13 +51,13 @@ public class CreateNuclear implements ModInitializer {
 		CNGroup.registrer();
 		CNFluids.register();
 		CNTag.registerModItems();
-		FabricDefaultAttributeRegistry.register(CNMobEntityType.IRRADIATED_CHICKEN, IrradiatedChicken.createAttributes());
 		CNWorldGeneration.generateModWorldGen();
 		REGISTRATE.register();
 		CNRecipeTypes.register();
 
 		CNFanProcessingTypes.register();
 		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);
+		FabricDefaultAttributeRegistry.register(CNMobEntityType.IRRADIATED_CHICKEN, IrradiatedChicken.createAttributes());
 	}
 
 	public static ResourceLocation asResource(String path) {

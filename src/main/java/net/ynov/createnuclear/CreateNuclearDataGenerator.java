@@ -56,6 +56,7 @@ public class CreateNuclearDataGenerator implements DataGeneratorEntrypoint {
 
 			provideDefaultLang("interface", langConsummer);
 			provideDefaultLang("potion", langConsummer);
+			provideDefaultLang("entity", langConsummer);
 			providePonderLang(langConsummer);
 		});
 	}
