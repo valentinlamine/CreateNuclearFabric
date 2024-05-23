@@ -19,7 +19,7 @@
   ],
   "result": {
     "count": 1,
-    "item": "createnuclear:reactor_main_frame"
+    "item": "createnuclear:reactor_output"
   },
   "show_notification": true
 }
