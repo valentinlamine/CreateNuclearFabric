@@ -85,6 +85,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
             if (menu.getSlot(1).getItem().getCount() >= 0) {
                 graphiteTimer -= countGraphiteRod();
                 CreateNuclear.LOGGER.info(String.valueOf(graphiteTimer));
+                CreateNuclear.LOGGER.info(String.valueOf(menu.getItems()));
             }
             if (menu.getSlot(1).getItem().getCount() > 0) {
                 uraniumTimer -= countUraniumRod();
@@ -100,6 +101,8 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
             CreateNuclear.LOGGER.info("Graphite Rod removed");
             menu.getSlot(1).getItem().shrink(1);
             graphiteTimer = 3600;
+            menu.sendAllDataToRemote();
+            menu.getItems();
         }
         super.containerTick();
         if (menu.contentHolder.isPowered()) {
