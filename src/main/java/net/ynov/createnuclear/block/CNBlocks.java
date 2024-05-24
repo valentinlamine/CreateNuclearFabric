@@ -124,7 +124,7 @@ public class CNBlocks {
 			.tag(AllTags.AllBlockTags.SAFE_NBT.tag)
 			.transform(pickaxeOnly())
 			.blockstate(new CreativeMotorGenerator()::generate)
-			.transform(BlockStressDefaults.setCapacity(500))
+			.transform(BlockStressDefaults.setCapacity(50000))
 			.transform(BlockStressDefaults.setGeneratorSpeed(() -> Couple.create(0, 256)))
                         .addLayer(() -> RenderType::cutoutMipped)
                         .item()
