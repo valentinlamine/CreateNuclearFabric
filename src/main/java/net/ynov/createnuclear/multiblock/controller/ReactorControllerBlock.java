@@ -218,6 +218,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         }
     }
 
+
     @Override
     public Class<ReactorControllerBlockEntity> getBlockEntityClass() {
         return ReactorControllerBlockEntity.class;

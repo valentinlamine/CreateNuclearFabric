@@ -21,6 +21,9 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     private float progress;
     private float reactorPower;
     private float lastReactorPower;
+    private int graphiteTimer = 3600;
+    private int uraniumTimer = 6000;
+    public static int heat;
 
     public ReactorControllerScreen(ReactorControllerMenu container, Inventory inv, Component title) {
         super(container, inv, title);
@@ -77,8 +80,36 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     @Override
     protected void containerTick() {
         float coef = 0.1F;
+
+        if (menu.contentHolder.isPowered()) {
+            if (menu.getSlot(1).getItem().getCount() >= 0) {
+                graphiteTimer -= countGraphiteRod();
+                CreateNuclear.LOGGER.info(String.valueOf(graphiteTimer));
+                CreateNuclear.LOGGER.info(String.valueOf(menu.getItems()));
+            }
+            if (menu.getSlot(1).getItem().getCount() > 0) {
+                uraniumTimer -= countUraniumRod();
+                CreateNuclear.LOGGER.info(String.valueOf(uraniumTimer));
+            }
+        }
+        if (uraniumTimer <= 0) {
+            CreateNuclear.LOGGER.info("Uranium Rod removed");
+            menu.getSlot(0).getItem().shrink(1);
+            uraniumTimer = 5000;
+        }
+        if (graphiteTimer <= 0) {
+            CreateNuclear.LOGGER.info("Graphite Rod removed");
+            menu.getSlot(1).getItem().shrink(1);
+            graphiteTimer = 3600;
+            menu.sendAllDataToRemote();
+            menu.getItems();
+        }
         super.containerTick();
-        reactorPower = heatManager();
+        if (menu.contentHolder.isPowered()) {
+            reactorPower = heatManager();
+        } else {
+            reactorPower = 0;
+        }
         boolean hasUranium = menu.getSlot(0).hasItem();
         boolean hasGraphite = menu.getSlot(1).hasItem();
         if (menu.contentHolder.isPowered() && hasUranium && hasGraphite) {
@@ -182,7 +213,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         int colUp;
         int colLeft;
         int colRight;
-        int heat = countUraniumRod() * 10 - countGraphiteRod() * 5;
+        heat = countUraniumRod() * 10 - countGraphiteRod() * 5;
 
         int [][] list = new int[][] {{99,99,99,0,1,2,99,99,99}, {99,99,3,4,5,6,7,99,99}, {99,8,9,10,11,12,13,14,99}, {15,16,17,18,19,20,21,22,23}, {24,25,26,27,28,29,30,31,32}, {33,34,35,36,37,38,39,40,41}, {99,42,43,44,45,46,47,48,99}, {99,99,49,50,51,52,53,99,99}, {99,99,99,54,55,56,99,99,99}};
         for (int j = 0; j != list.length; j++) {
