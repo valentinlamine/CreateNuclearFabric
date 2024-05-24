@@ -42,15 +42,15 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         placeSwitchItem();
 
 
-        powerButton = menu.contentHolder.isPowered() ? new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.OFF_NORMAL) : new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.ON_NORMAL);
+        powerButton = menu.contentHolder.isPowered() ? new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.ON_NORMAL) : new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.OFF_NORMAL);
         powerButton.withCallback(() -> {// Quand le button est appuyé il fait ca
             Boolean powered = menu.contentHolder.isPowered();
             if (powered!= null && !powered) {
                 menu.contentHolder.setPowered(true);
-                powerButton.setIcon(CNIcons.OFF_NORMAL);
+                powerButton.setIcon(CNIcons.ON_NORMAL);
             } else if (powered != null) {
                 menu.contentHolder.setPowered(false);
-                powerButton.setIcon(CNIcons.ON_NORMAL);
+                powerButton.setIcon(CNIcons.OFF_NORMAL);
             }
         });
         addRenderableWidget(powerButton);
@@ -80,6 +80,9 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     @Override
     protected void containerTick() {
         float coef = 0.1F;
+        if (!menu.contentHolder.isPowered()) {
+            heat = 0;
+        }
 
         if (menu.contentHolder.isPowered()) {
             if (menu.getSlot(1).getItem().getCount() >= 0) {

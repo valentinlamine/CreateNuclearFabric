@@ -32,7 +32,6 @@ import net.ynov.createnuclear.tools.UraniumOreBlock;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
-import static net.minecraft.world.level.block.Blocks.litBlockEmission;
 
 public class CNBlocks {
 
@@ -138,7 +137,6 @@ public class CNBlocks {
                 .instrument(NoteBlockInstrument.BASS)
                 .strength(2.0F)
                 .sound(SoundType.WOOD)
-                .lightLevel(litBlockEmission(10))
                 .noOcclusion()
                 .ignitedByLava()
             ))
