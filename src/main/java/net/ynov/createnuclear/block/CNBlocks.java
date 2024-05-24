@@ -32,7 +32,6 @@ import net.ynov.createnuclear.tools.UraniumOreBlock;
 
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
-import static net.minecraft.world.level.block.Blocks.litBlockEmission;
 
 public class CNBlocks {
 
@@ -124,7 +123,7 @@ public class CNBlocks {
 			.tag(AllTags.AllBlockTags.SAFE_NBT.tag)
 			.transform(pickaxeOnly())
 			.blockstate(new CreativeMotorGenerator()::generate)
-			.transform(BlockStressDefaults.setCapacity(500))
+			.transform(BlockStressDefaults.setCapacity(50000))
 			.transform(BlockStressDefaults.setGeneratorSpeed(() -> Couple.create(0, 256)))
                         .addLayer(() -> RenderType::cutoutMipped)
                         .item()
@@ -138,7 +137,6 @@ public class CNBlocks {
                 .instrument(NoteBlockInstrument.BASS)
                 .strength(2.0F)
                 .sound(SoundType.WOOD)
-                .lightLevel(litBlockEmission(10))
                 .noOcclusion()
                 .ignitedByLava()
             ))
