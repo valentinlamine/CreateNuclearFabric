@@ -120,7 +120,10 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
     public void tick() {
         if (level.getBlockState(getBlockPos().below(3)).getBlock() == CNBlocks.REACTOR_OUTPUT.get()){
             controller = (ReactorControllerBlock) level.getBlockState(getBlockPos()).getBlock();
-            controller.Rotate(getBlockState(), getBlockPos().below(3), getLevel(), ReactorControllerScreen.heat);
+            // En attendant l'explosion on arrete simplement la rotation quand la chaleur depasse 100
+            if (ReactorControllerScreen.heat >= 100)
+                controller.Rotate(getBlockState(), getBlockPos().below(3), getLevel(), 0);
+            else controller.Rotate(getBlockState(), getBlockPos().below(3), getLevel(), ReactorControllerScreen.heat);
         }
     }
 
