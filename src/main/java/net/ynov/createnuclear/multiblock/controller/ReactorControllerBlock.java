@@ -64,12 +64,15 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
     }
 
     @Override
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
+                                boolean isMoving) {
+        withBlockEntityDo(worldIn, pos, be -> be.created = false);
+    }
+
+    @Override
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if (worldIn.isClientSide)
             return InteractionResult.SUCCESS;
-
-        Item item = player.getItemInHand(handIn).getItem();
-
 
         if (Boolean.FALSE.equals(state.getValue(ASSEMBLED))) {
             player.sendSystemMessage(Component.literal("Multiblock not assembled").withStyle(ChatFormatting.RED));
@@ -178,7 +181,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
             ReactorOutputEntity entity = Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos));
 
             if (Boolean.TRUE.equals(state.getValue(ASSEMBLED)) && rotation != 0) { // Starting the energy
-                CreateNuclear.LOGGER.info("Change " + pos);
+                //CreateNuclear.LOGGER.info("Change " + pos);
                 if (entity.getDir() == 1)
                     rotation = -rotation;
                 entity.speed = rotation;
@@ -191,13 +194,13 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
                 entity.speed = 0;
                 entity.updateSpeed = true;
                 entity.updateGeneratedRotation();
-                CreateNuclear.LOGGER.info("Unchanged " + pos);
+                //CreateNuclear.LOGGER.info("Unchanged " + pos);
             }
             if (rotation < 0)
                 rotation = -rotation;
             entity.setSpeed2(rotation, level, pos);
 
-            CreateNuclear.LOGGER.info("SPEED : " + entity.getSpeed2() + " - DIR : " + entity.getDir() + "  pos : " + pos);
+            //CreateNuclear.LOGGER.info("SPEED : " + entity.getSpeed2() + " - DIR : " + entity.getDir() + "  pos : " + pos);
         }
     }
 

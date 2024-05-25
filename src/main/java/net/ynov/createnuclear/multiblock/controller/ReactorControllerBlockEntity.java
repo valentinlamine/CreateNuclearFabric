@@ -28,7 +28,7 @@ import java.util.List;
 
 import static net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
 
-public class ReactorControllerBlockEntity extends SmartBlockEntity implements MenuProvider, IInteractionChecker, SidedStorageBlockEntity {
+public class ReactorControllerBlockEntity extends SmartBlockEntity implements MenuProvider, IInteractionChecker {
     public boolean destroyed = false;
     public boolean created = false;
     public int speed = 16; // This is the result speed of the reactor, change this to change the total capacity
@@ -41,6 +41,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         public ReactorControllerInventory() {
             super(2);
         }
+
         @Override
         protected void onContentsChanged(int slot) {
             super.onContentsChanged(slot);
@@ -67,6 +68,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
     public Component getDisplayName() {
         return Components.translatable("gui.createnuclear.reactor_controller.title");
     }
+
     //(Si les methode read et write ne sont pas implémenté alors lorsque l'on relance le monde minecraft les items dans le composant auront disparu !)
     @Override
     protected void read(CompoundTag compound, boolean clientPacket) { //Permet de stocker les item 1/2
@@ -80,12 +82,12 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         super.write(compound, clientPacket);
     }
 
-    @Nullable
-    @Override
-    public Storage<ItemVariant> getItemStorage(@Nullable Direction face) {
-        return inventory;
-    }
-
+    /* @Nullable
+     @Override
+     public Storage<ItemVariant> getItemStorage(@Nullable Direction face) {
+         return inventory;
+     }
+ */
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
         return ReactorControllerMenu.create(id, inv, this);
@@ -118,7 +120,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
     }
 
     public void tick() {
-        if (level.getBlockState(getBlockPos().below(3)).getBlock() == CNBlocks.REACTOR_OUTPUT.get()){
+        if (level.getBlockState(getBlockPos().below(3)).getBlock() == CNBlocks.REACTOR_OUTPUT.get()) {
             controller = (ReactorControllerBlock) level.getBlockState(getBlockPos()).getBlock();
             // En attendant l'explosion on arrete simplement la rotation quand la chaleur depasse 100
             if (ReactorControllerScreen.heat >= 100)
@@ -126,13 +128,4 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
             else controller.Rotate(getBlockState(), getBlockPos().below(3), getLevel(), ReactorControllerScreen.heat);
         }
     }
-
-//    @Override
-//    public boolean canPlayerUse(Player player) {
-//        if (level == null || level.getBlockEntity(worldPosition) != this) {
-//            return false;
-//        }
-//        return player.distanceToSqr(worldPosition.getX() + 0.5D, worldPosition.getY() + 0.5D,
-//                worldPosition.getZ() + 0.5D) <= 64.0D;
-//    }
 }
