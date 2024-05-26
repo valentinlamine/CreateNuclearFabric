@@ -29,7 +29,7 @@ public class CNPonderReactor {
             for (int x = 1; x < 7; x++) {
                 for (int z = 1; z < 7; z++) {
                     scene.world.showSection(util.select.position(x,y,z), Direction.NORTH);
-                    CreateNuclear.LOGGER.warn(x + " | " + y + " | " + z);
+                   // CreateNuclear.LOGGER.warn(x + " | " + y + " | " + z);
                     scene.idle(5);
                     if (x == 5 && z == 5 && y == 1) {
                         scene.rotateCameraY(180f);

@@ -19,6 +19,7 @@ import net.ynov.createnuclear.entity.irradiatedchicken.IrradiatedChicken;
 import net.ynov.createnuclear.entity.irradiatedwolf.IrradiatedWolf;
 import net.ynov.createnuclear.fan.CNFanProcessingTypes;
 import net.ynov.createnuclear.fan.CNRecipeTypes;
+import net.ynov.createnuclear.packets.CNPackets;
 import net.ynov.createnuclear.tags.CNTag;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.blockentity.CNBlockEntities;
@@ -58,15 +59,18 @@ public class CreateNuclear implements ModInitializer {
 		CNGroup.registrer();
 		CNFluids.register();
 		CNTag.registerModItems();
-		FabricDefaultAttributeRegistry.register(CNMobEntityType.IRRADIATED_CHICKEN, IrradiatedChicken.createAttributes());
-		FabricDefaultAttributeRegistry.register(CNMobEntityType.IRRADIATED_WOLF, IrradiatedWolf.createAttributes());
-		FabricDefaultAttributeRegistry.register(CNMobEntityType.IRRADIATED_CAT, IrradiatedCat.createAttributes());
+		CNPackets.getChannel().initServerListener();
+		CNPackets.registerPackets();
+
 		CNWorldGeneration.generateModWorldGen();
 		REGISTRATE.register();
 		CNRecipeTypes.register();
 
 		CNFanProcessingTypes.register();
 		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);
+		FabricDefaultAttributeRegistry.register(CNMobEntityType.IRRADIATED_CHICKEN, IrradiatedChicken.createAttributes());
+		FabricDefaultAttributeRegistry.register(CNMobEntityType.IRRADIATED_WOLF, IrradiatedWolf.createAttributes());
+		FabricDefaultAttributeRegistry.register(CNMobEntityType.IRRADIATED_CAT, IrradiatedCat.createAttributes());
 	}
 
 	public static ResourceLocation asResource(String path) {

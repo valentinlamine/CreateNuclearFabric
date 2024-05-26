@@ -9,7 +9,8 @@ import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.gui.CNGuiTextures;
 import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.gui.CNIcons;
-import net.ynov.createnuclear.utils.Logger;
+import net.ynov.createnuclear.packets.CNPackets;
+import static net.ynov.createnuclear.multiblock.controller.ConfigureReactorControllerPacket.CNOption;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +46,15 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         powerButton = menu.contentHolder.isPowered() ? new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.ON_NORMAL) : new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.OFF_NORMAL); // test 5
         powerButton.withCallback(() -> {// Quand le button est appuyé il fait ca
             Boolean powered = menu.contentHolder.isPowered();
-            if (powered!= null && !powered) {
+            if (powered != null && !powered) {
                 menu.contentHolder.setPowered(true);
                 powerButton.setIcon(CNIcons.ON_NORMAL);
+                sendOptionUpdate(CNOption.PLAY, true);
             } else if (powered != null) {
                 menu.contentHolder.setPowered(false);
-                powerButton.setIcon(CNIcons.ON_NORMAL); // test 6
+                powerButton.setIcon(CNIcons.OFF_NORMAL); // test 6
+                sendOptionUpdate(CNOption.STOP, true);
+
             }
         });
         addRenderableWidget(powerButton);
@@ -319,5 +323,9 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
                 CreateNuclear.LOGGER.info("Empty at index: " + i);
             }
         }
+    }
+
+    protected void sendOptionUpdate(CNOption option, boolean set) {
+        CNPackets.getChannel().sendToServer(new ConfigureReactorControllerPacket(option, set));
     }
 }
