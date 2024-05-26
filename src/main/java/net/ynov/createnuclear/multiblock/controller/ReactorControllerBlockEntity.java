@@ -27,7 +27,7 @@ import java.util.List;
 
 import static net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
 
-public class ReactorControllerBlockEntity extends SmartBlockEntity implements MenuProvider, IInteractionChecker {
+public class ReactorControllerBlockEntity extends SmartBlockEntity implements MenuProvider, IInteractionChecker, SidedStorageBlockEntity  {
     public boolean destroyed = false;
     public boolean created = false;
     public int speed = 16; // This is the result speed of the reactor, change this to change the total capacity
@@ -81,12 +81,12 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         super.write(compound, clientPacket);
     }
 
-    /* @Nullable
+     @Nullable
      @Override
      public Storage<ItemVariant> getItemStorage(@Nullable Direction face) {
          return inventory;
      }
- */
+ 
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
         return ReactorControllerMenu.create(id, inv, this);
