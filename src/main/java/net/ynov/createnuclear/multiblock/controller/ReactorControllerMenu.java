@@ -4,8 +4,8 @@ import com.simibubi.create.foundation.gui.menu.MenuBase;
 import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -20,7 +20,6 @@ import org.jetbrains.annotations.NotNull;
 public class ReactorControllerMenu extends MenuBase<ReactorControllerBlockEntity> {
     private Slot inputSlot;
     private Slot inputSlot2;
-
     public ReactorControllerMenu(MenuType<?> type, int id, Inventory inv, FriendlyByteBuf extraData) {
         super(type, id, inv, extraData);
     }
@@ -32,11 +31,6 @@ public class ReactorControllerMenu extends MenuBase<ReactorControllerBlockEntity
     public static AbstractContainerMenu create(int id, Inventory inv, ReactorControllerBlockEntity be) {
         return new ReactorControllerMenu(CNMenus.REACTOR_CONTROLLER.get(), id, inv, be);
     }
-
-    public boolean canWrite() {
-        return inputSlot.hasItem() && inputSlot2.hasItem();
-    }
-
 
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
