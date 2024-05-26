@@ -21,8 +21,8 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     private float progress;
     private float reactorPower;
     private float lastReactorPower;
-    private int graphiteTimer = 3600;
-    private int uraniumTimer = 6000;
+    private int graphiteTimer = 3600; //test 4
+    private int uraniumTimer = 6000; //test 4
     public static int heat;
 
     public ReactorControllerScreen(ReactorControllerMenu container, Inventory inv, Component title) {
@@ -42,7 +42,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         placeSwitchItem();
 
 
-        powerButton = menu.contentHolder.isPowered() ? new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.ON_NORMAL) : new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.OFF_NORMAL);
+        powerButton = menu.contentHolder.isPowered() ? new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.ON_NORMAL) : new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.OFF_NORMAL); // test 5
         powerButton.withCallback(() -> {// Quand le button est appuyé il fait ca
             Boolean powered = menu.contentHolder.isPowered();
             if (powered!= null && !powered) {
@@ -50,7 +50,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
                 powerButton.setIcon(CNIcons.ON_NORMAL);
             } else if (powered != null) {
                 menu.contentHolder.setPowered(false);
-                powerButton.setIcon(CNIcons.OFF_NORMAL);
+                powerButton.setIcon(CNIcons.ON_NORMAL); // test 6
             }
         });
         addRenderableWidget(powerButton);
@@ -107,8 +107,8 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
             menu.sendAllDataToRemote();
             menu.getItems();
         }
-        super.containerTick();
-        if (menu.contentHolder.isPowered()) {
+        super.containerTick();// test 7
+        if (menu.contentHolder.isPowered()) {// test 8
             reactorPower = heatManager();
         } else {
             reactorPower = 0;
@@ -216,7 +216,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         int colUp;
         int colLeft;
         int colRight;
-        heat = countUraniumRod() * 10 - countGraphiteRod() * 5;
+        heat = countUraniumRod() * 10 - countGraphiteRod() * 5; // test 9
 
         int [][] list = new int[][] {{99,99,99,0,1,2,99,99,99}, {99,99,3,4,5,6,7,99,99}, {99,8,9,10,11,12,13,14,99}, {15,16,17,18,19,20,21,22,23}, {24,25,26,27,28,29,30,31,32}, {33,34,35,36,37,38,39,40,41}, {99,42,43,44,45,46,47,48,99}, {99,99,49,50,51,52,53,99,99}, {99,99,99,54,55,56,99,99,99}};
         for (int j = 0; j != list.length; j++) {
