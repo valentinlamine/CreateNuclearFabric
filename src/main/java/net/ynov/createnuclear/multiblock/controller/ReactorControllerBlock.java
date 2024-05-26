@@ -74,6 +74,26 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         if (worldIn.isClientSide)
             return InteractionResult.SUCCESS;
 
+        Item item = player.getItemInHand(handIn).getItem();
+
+        /*if (CNItems.GRAPHITE_ROD.is(item)) { //Si le weldingKit est dans la main
+            if (Boolean.TRUE.equals(state.getValue(ASSEMBLED))) {
+                player.sendSystemMessage(Component.literal("Multiblock déjà assemblé").withStyle(ChatFormatting.YELLOW));
+                return InteractionResult.SUCCESS;
+            }
+            player.sendSystemMessage(Component.literal("Analyse multiBlock"));
+
+            var result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(worldIn, pos);
+            if (result != null) {
+                player.sendSystemMessage(Component.literal("MultiBlock assemblé.").withStyle(ChatFormatting.BLUE));
+                worldIn.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, true));
+            } else {
+                player.sendSystemMessage(Component.literal("Erreur dans l'assemblage du multiBlock").withStyle(ChatFormatting.RED));
+            }
+            return InteractionResult.SUCCESS;
+        }*/ // test 1
+
+
         if (Boolean.FALSE.equals(state.getValue(ASSEMBLED))) {
             player.sendSystemMessage(Component.literal("Multiblock not assembled").withStyle(ChatFormatting.RED));
         }else {
@@ -101,7 +121,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
     }
 
     public boolean isPowered() {
-       return powered; // les variables ne sont pas sauvegarder lors d'un déchargement/rechargement de monde (donc passer par le blockState/ou trouver une autre methode)
+       return powered; //test 2 // les variables ne sont pas sauvegarder lors d'un déchargement/rechargement de monde (donc passer par le blockState/ou trouver une autre methode)
     }
     public void setPowered(boolean power) {
         powered = power;
@@ -203,7 +223,6 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
             //CreateNuclear.LOGGER.info("SPEED : " + entity.getSpeed2() + " - DIR : " + entity.getDir() + "  pos : " + pos);
         }
     }
-
 
     @Override
     public Class<ReactorControllerBlockEntity> getBlockEntityClass() {
