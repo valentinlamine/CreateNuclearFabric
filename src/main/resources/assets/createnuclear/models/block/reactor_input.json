@@ -4,7 +4,7 @@
 	"textures": {
 		"0": "createnuclear:block/reactor/casing/reactor_casing",
 		"1": "createnuclear:block/reactor/input/reactor_input",
-		"2": "createnuclear:block/reactor/casing/reactor_casing_top",
+		"2": "createnuclear:block/reactor/casing/old/reactor_casing_top",
 		"particle": "createnuclear:block/reactor/casing/reactor_casing"
 	},
 	"elements": [
