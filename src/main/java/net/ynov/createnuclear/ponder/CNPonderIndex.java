@@ -15,14 +15,13 @@ public class CNPonderIndex {
 
     public static void register() {
         // Reactor
-        HELPER.forComponents(CNBlocks.REACTOR_CONTROLLER, CNItems.WELDING_KIT)
+        HELPER.forComponents(CNBlocks.REACTOR_CONTROLLER)
                 .addStoryBoard("reactor/setup", CNPonderReactor::init)
                 .addStoryBoard("reactor/setup", CNPonderReactor::enable);
 
 
         PonderRegistry.TAGS.forTag(KINETIC_SOURCES)
                 .add(CNBlocks.REACTOR_CONTROLLER)
-                .add(CNItems.WELDING_KIT)
         ;
 
         if (REGISTER_DEBUG_SCENES)

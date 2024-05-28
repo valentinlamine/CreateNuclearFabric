@@ -1,0 +1,124 @@
+# Automatically build the project and run any configured tests for every push
+# and submitted pull request. This can help catch issues that only occur on
+# certain platforms or Java versions, and provides a first line of defence
+# against bad commits.
+
+name: Publish
+on:
+  workflow_dispatch:
+    inputs:
+      modtag:
+        required: false
+        description: "Mod Version: Create Nuclear for Release"
+      name:
+        required: true
+        default: CreateNuclear
+        description: Mod file name
+      version: 
+        required: false
+        description: Mod version
+      version-type:
+        required: true
+        default: alpha
+        description: Version type
+      changelog:
+        required: true
+        default: No change log
+        description: Changelog for version
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        # Use these Java versions
+        java: [
+          21,    # Current Java LTS & minimum supported by Minecraft
+        ]
+        # and run on both Linux and Windows
+        os: [[ubuntu-22.04]]
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v3
+
+      - name: validate gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+      
+      - name: setup jdk ${{ matrix.java }}
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: 'temurin'
+          
+      - name: make gradle wrapper executable
+        if: ${{ runner.os != 'Windows' }}
+        run: chmod +x ./gradlew
+      
+      - name: Change version file
+        run: |
+          sed -i s/mod_version=.*/mod_version=${{github.event.inputs.modtag}}/ gradle.properties
+          cat gradle.properties
+      
+      - name: build
+        run: ./gradlew clean build
+      
+      - name: capture build artifacts
+        if: ${{ runner.os == 'Linux' && matrix.java == '21' && github.event.inputs.modtag != '' }} # Only upload artifacts built from latest java on one OS
+        uses: actions/upload-artifact@v3
+        with:
+          name: Artifacts
+          path: build/libs/
+      
+
+      - name: Release
+        if: ${{ github.event.inputs.modtag != '' }}
+        id: release
+        run: |
+          git config --global user.email "github@valentinlamine.fr"
+          git config --global user.name "CreateNuclear[bot]"
+          git add gradle.properties
+          git commit -m "change mod version"
+          git tag -a ${{github.event.inputs.modtag}} -m "version du mod"
+          echo "VERSION=${{github.event.inputs.modtag}}" >> "$GITHUB_OUTPUT"
+      
+      - name: Push Tag
+        if: ${{ github.event.inputs.modtag != '' }}
+        run: git push --follow-tags
+
+      - name: Publish (CurseForge)
+        if: ${{ github.event.inputs.modtag != '' && github.event.inputs.name != '' && github.event.inputs.version != '' && github.event.inputs.version-type != '' }}
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          curseforge-id: 989797
+          curseforge-token: f1b2d81d-3db5-4279-8b69-c02248a081bb
+          name: ${{ github.event.inputs.name }} ${{ github.event.inputs.version }}
+          version: ${{ github.event.inputs.version }}
+          version-type: ${{ github.event.inputs.version-type }}
+          changelog: ${{ github.event.inputs.changelog }}
+          github-tag: ${{ github.event.inputs.version }}
+          github-generate-changelog: true
+          loaders: fabric
+          game-versions: 1.20.1
+          files: |
+            build/libs/createnuclear-\d*.\d*.\d*-[a-z]+(?:-\d+(?:.\d+)?)?(?:-1\.20\.1)?.jar
+            build/libs/createnuclear-\d*.\d*.\d*-[a-z]+(?:-\d+(?:.\d+)?)?(?:-1\.20\.1)?-sources.jar
+          dependencies: |
+            fabricloader@>=0.14.22(required)
+            minecraft@~1.20.1(required)
+            create@*(required)
+            fabric-api@>=0.87.0+1.20.1(required)
+            JEI@15.2.0.27(optional)
+            REI@12.0.684(optional){curseforge:310111}
+            EMI@1.1.2+1.20.1(optional){curseforge:580555}
+          java: |
+            Java 17
+          
+      
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          generateReleaseNotes: true
+          artifacts: "build/libs/*.jar"
+          tag: ${{ steps.release.outputs.VERSION }}

@@ -72,4 +72,8 @@ public final class SimpleMultiBlockPattern implements IMultiBlockPattern {
     public boolean matches(java.util.logging.Level level, BlockPos pos, Rotation rotation) {
         return false;
     }
+
+    public List<MultiBlockOffsetPos> test() {
+        return this.multiBlockOffsetPosList;
+    }
 }
