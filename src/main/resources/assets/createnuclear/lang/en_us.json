@@ -97,5 +97,11 @@
   "createnuclear.ponder.reactor.text_7": "Floor 6",
   "createnuclear.ponder.reactor.text_8": "Floor 7",
 
-  "entity.minecraft.irradiated_chicken": "Irradiated Chicken"
+  "entity.minecraft.irradiated_chicken": "Irradiated Chicken",
+
+  "tag.item.createnuclear.cloth": "Cloth",
+  "tag.item.minecraft.all.campfires": "All Campfires",
+  "tag.item.minecraft.campfires": "Campfires",
+  "tag.item.trinkets.head.face": "Head Face"
+
 }
