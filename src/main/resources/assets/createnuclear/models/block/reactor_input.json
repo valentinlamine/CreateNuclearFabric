@@ -2,10 +2,10 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/block",
 	"textures": {
-		"0": "createnuclear:block/reactor/gauge/reactor_gauge",
+		"0": "createnuclear:block/reactor/casing/reactor_casing",
 		"1": "createnuclear:block/reactor/input/reactor_input",
-		"2": "createnuclear:block/reactor/gauge/reactor_gauge_top",
-		"particle": "createnuclear:block/reactor/gauge/reactor_gauge"
+		"2": "createnuclear:block/reactor/casing/old/reactor_casing_top",
+		"particle": "createnuclear:block/reactor/casing/reactor_casing"
 	},
 	"elements": [
 		{
