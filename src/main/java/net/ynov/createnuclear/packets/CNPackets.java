@@ -47,7 +47,7 @@ public enum CNPackets {
     }
 
     public static void sendToNear(Level world, BlockPos pos, int range, Object message) {
-        getChannel().sendToClientsAround((S2CPacket) message, (ServerLevel) world, pos, range);
+        AllPackets.getChannel().sendToClientsAround((S2CPacket) message, (ServerLevel) world, pos, range);
     }
 
     private static class PacketType<T extends SimplePacketBase> {

@@ -1,5 +1,6 @@
 package net.ynov.createnuclear.multiblock.controller;
 
+import com.simibubi.create.AllPackets;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -9,6 +10,7 @@ import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.gui.CNGuiTextures;
 import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.gui.CNIcons;
+import net.ynov.createnuclear.item.CNItems;
 import net.ynov.createnuclear.packets.CNPackets;
 import static net.ynov.createnuclear.multiblock.controller.ConfigureReactorControllerPacket.CNOption;
 
@@ -22,8 +24,6 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     private float progress;
     private float reactorPower;
     private float lastReactorPower;
-    private int graphiteTimer = 3600; //test 4
-    private int uraniumTimer = 6000; //test 4
     public static int heat;
 
     public ReactorControllerScreen(ReactorControllerMenu container, Inventory inv, Component title) {
@@ -43,7 +43,9 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         placeSwitchItem();
 
 
-        powerButton = menu.contentHolder.isPowered() ? new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.ON_NORMAL) : new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.OFF_NORMAL); // test 5
+        powerButton = menu.contentHolder.isPowered() ?
+                new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.ON_NORMAL) :
+                new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.OFF_NORMAL); // test 5
         powerButton.withCallback(() -> {// Quand le button est appuyé il fait ca
             Boolean powered = menu.contentHolder.isPowered();
             if (powered != null && !powered) {
@@ -59,6 +61,8 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         });
         addRenderableWidget(powerButton);
         reactorPower = lastReactorPower = heatManager();
+
+        tick();
     }
     @Override
     protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
@@ -83,43 +87,60 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
 
     @Override
     protected void containerTick() {
+        super.containerTick();
+
+        ReactorControllerBlockEntity be = menu.contentHolder;
+
+        switch (be.state) {
+            case ON -> powerButton.active = true;
+            case OFF -> powerButton.active = false;
+
+        }
+        calc();
+    }
+
+    private void calc() {
+        ReactorControllerBlockEntity be = menu.contentHolder;
+
         float coef = 0.1F;
-        if (!menu.contentHolder.isPowered()) {
-            heat = 0;
+        if (!be.isPowered()) {
+            be.heat = 0;
         }
 
-        if (menu.contentHolder.isPowered()) {
-            if (menu.getSlot(1).getItem().getCount() >= 0) {
-                graphiteTimer -= countGraphiteRod();
-                CreateNuclear.LOGGER.info(String.valueOf(graphiteTimer));
+        if (be.isPowered()) {
+            if (menu.getSlot(0).getItem().getCount() >= 0) {
+                be.graphiteTimer -= countGraphiteRod();
+                CreateNuclear.LOGGER.info(String.valueOf(be.graphiteTimer));
                 CreateNuclear.LOGGER.info(String.valueOf(menu.getItems()));
             }
             if (menu.getSlot(1).getItem().getCount() > 0) {
-                uraniumTimer -= countUraniumRod();
-                CreateNuclear.LOGGER.info(String.valueOf(uraniumTimer));
+                be.uraniumTimer -= countUraniumRod();
+                CreateNuclear.LOGGER.info(String.valueOf(be.uraniumTimer));
             }
         }
-        if (uraniumTimer <= 0) {
+        if (be.uraniumTimer <= 0) {
             CreateNuclear.LOGGER.info("Uranium Rod removed");
             menu.getSlot(0).getItem().shrink(1);
-            uraniumTimer = 5000;
-        }
-        if (graphiteTimer <= 0) {
-            CreateNuclear.LOGGER.info("Graphite Rod removed");
-            menu.getSlot(1).getItem().shrink(1);
-            graphiteTimer = 3600;
+            be.uraniumTimer = 5000;
             menu.sendAllDataToRemote();
             menu.getItems();
         }
-        super.containerTick();// test 7
-        if (menu.contentHolder.isPowered()) {// test 8
+        if (be.graphiteTimer <= 0) {
+            CreateNuclear.LOGGER.info("Graphite Rod removed");
+            menu.getSlot(1).getItem().shrink(1);
+            be.graphiteTimer = 3600;
+            menu.sendAllDataToRemote();
+            menu.getItems();
+        }
+        if (be.isPowered()) {// test 8
             reactorPower = heatManager();
         } else {
             reactorPower = 0;
         }
-        boolean hasUranium = menu.getSlot(0).hasItem();
-        boolean hasGraphite = menu.getSlot(1).hasItem();
-        if (menu.contentHolder.isPowered() && hasUranium && hasGraphite) {
+        boolean hasUranium = menu.getSlot(0).getItem().is(CNItems.URANIUM_ROD.get());
+        boolean hasGraphite = menu.getSlot(1).getItem().is(CNItems.GRAPHITE_ROD.get());
+
+        if (be.isPowered() && hasUranium && hasGraphite) {
             if (reactorPower < lastReactorPower - coef || reactorPower > lastReactorPower + coef) {
                 if (reactorPower < lastReactorPower) {
                     lastReactorPower -= 0.2F;
@@ -129,24 +150,25 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
             }else {
                 lastReactorPower = reactorPower;
             }
-
         } else {
             lastReactorPower = 0;
         }
     }
 
     private void placeSwitchItem() {
+        ReactorControllerBlockEntity be = menu.contentHolder;
+
         int startWidth = 7;
         int startHeight = 39;
         int incr = 18;
-        if (menu.contentHolder.getSwitchButtons() != null && !menu.contentHolder.getSwitchButtons().isEmpty()) {
-            addRenderableWidgets(menu.contentHolder.getSwitchButtons());
+        if (be.getSwitchButtons() != null && !be.getSwitchButtons().isEmpty()) {
+            addRenderableWidgets(be.getSwitchButtons());
             return;
         }
 
         List<CNIconButton> switchButtons = new ArrayList<>();
 
-        switchButtons.add(new CNIconButton(leftPos + startWidth + incr*3, topPos + startHeight, CNIcons.EMPTY_ICON));
+        /*switchButtons.add(new CNIconButton(leftPos + startWidth + incr*3, topPos + startHeight, CNIcons.EMPTY_ICON));
         switchButtons.add(new CNIconButton(leftPos + startWidth + incr*4, topPos + startHeight, CNIcons.EMPTY_ICON));
         switchButtons.add(new CNIconButton(leftPos + startWidth + incr*5, topPos + startHeight, CNIcons.EMPTY_ICON));
 
@@ -162,7 +184,19 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         switchButtons.add(new CNIconButton(leftPos + startWidth + incr*4, topPos + startHeight + incr*2, CNIcons.EMPTY_ICON));
         switchButtons.add(new CNIconButton(leftPos + startWidth + incr*5, topPos + startHeight + incr*2, CNIcons.EMPTY_ICON));
         switchButtons.add(new CNIconButton(leftPos + startWidth + incr*6, topPos + startHeight + incr*2, CNIcons.EMPTY_ICON));
-        switchButtons.add(new CNIconButton(leftPos + startWidth + incr*7, topPos + startHeight + incr*2, CNIcons.EMPTY_ICON));
+        switchButtons.add(new CNIconButton(leftPos + startWidth + incr*7, topPos + startHeight + incr*2, CNIcons.EMPTY_ICON));*/
+
+        int[][] positions = {
+                {3, 0, 3},
+                {2, 1, 5},
+                {1, 2, 7}
+        };
+
+        for (int[] pos : positions) {
+            for (int i = pos[0]; i <= pos[2]; i++) {
+                switchButtons.add(new CNIconButton(leftPos + startWidth + incr * i, topPos + startHeight + incr * pos[1], CNIcons.EMPTY_ICON));
+            }
+        }
 
         for (int i= 3 ; i<6 ; i++) {
             for (int j = 0; j<9 ; j++) {

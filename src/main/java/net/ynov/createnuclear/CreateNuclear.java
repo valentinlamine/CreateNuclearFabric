@@ -1,5 +1,7 @@
 package net.ynov.createnuclear;
 
+import com.simibubi.create.AllPackets;
+import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
@@ -59,8 +61,8 @@ public class CreateNuclear implements ModInitializer {
 		CNGroup.registrer();
 		CNFluids.register();
 		CNTag.registerModItems();
-		CNPackets.getChannel().initServerListener();
 		CNPackets.registerPackets();
+		CNPackets.getChannel().initServerListener();
 
 		CNWorldGeneration.generateModWorldGen();
 		REGISTRATE.register();

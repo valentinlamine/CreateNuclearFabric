@@ -13,6 +13,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.item.CNItems;
 import net.ynov.createnuclear.menu.CNMenus;
 import org.jetbrains.annotations.NotNull;
@@ -20,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 public class ReactorControllerMenu extends MenuBase<ReactorControllerBlockEntity> {
     private Slot inputSlot;
     private Slot inputSlot2;
+
     public ReactorControllerMenu(MenuType<?> type, int id, Inventory inv, FriendlyByteBuf extraData) {
         super(type, id, inv, extraData);
     }
@@ -55,6 +57,8 @@ public class ReactorControllerMenu extends MenuBase<ReactorControllerBlockEntity
 
     @Override
     protected void addSlots() {
+
+        CreateNuclear.LOGGER.warn("dd " + contentHolder.inventory + " " + String.valueOf(contentHolder == null));
 
         inputSlot = new SlotItemHandler(contentHolder.inventory, 0, 8, 22) {
             @Override

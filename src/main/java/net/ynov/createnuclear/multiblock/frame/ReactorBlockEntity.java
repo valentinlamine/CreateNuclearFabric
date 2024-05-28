@@ -2,24 +2,16 @@ package net.ynov.createnuclear.multiblock.frame;
 
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
-import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SidedStorageBlockEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
-import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
-import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
-import org.jetbrains.annotations.Nullable;
+import net.ynov.createnuclear.multiblock.controller.ReactorControllerInventoryd;
 
 import java.util.List;
 
@@ -27,7 +19,7 @@ public class ReactorBlockEntity extends SmartBlockEntity implements SidedStorage
 
     protected BlockPos controller;
 
-    protected ReactorControllerBlockEntity.ReactorControllerInventory inventory;
+    protected ReactorControllerInventoryd inventory;
 
     public ReactorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
