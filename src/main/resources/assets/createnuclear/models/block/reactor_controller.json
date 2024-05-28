@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"parent": "block/cube",
 	"textures": {
+		"1": "createnuclear:block/reactor/controller/reactor_controller_panel",
 		"2": "createnuclear:block/reactor/casing/reactor_casing",
-		"4": "createnuclear:block/reactor/controller/reactor_controller_panel",
 		"particle": "createnuclear:block/reactor/controller/reactor_controller_panel"
 	},
 	"elements": [
@@ -11,7 +11,7 @@
 			"from": [0, 0, 0],
 			"to": [16, 16, 16],
 			"faces": {
-				"north": {"uv": [0, 0, 16, 16], "texture": "#4"},
+				"north": {"uv": [0, 0, 16, 16], "texture": "#1"},
 				"east": {"uv": [0, 0, 16, 16], "texture": "#2"},
 				"south": {"uv": [0, 0, 16, 16], "texture": "#2"},
 				"west": {"uv": [0, 0, 16, 16], "texture": "#2"},
