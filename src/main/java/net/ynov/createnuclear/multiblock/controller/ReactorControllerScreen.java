@@ -51,11 +51,11 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
             if (powered != null && !powered) {
                 menu.contentHolder.setPowered(true);
                 powerButton.setIcon(CNIcons.ON_NORMAL);
-                sendOptionUpdate(CNOption.PLAY, true);
+                //sendOptionUpdate(CNOption.PLAY, true);
             } else if (powered != null) {
                 menu.contentHolder.setPowered(false);
                 powerButton.setIcon(CNIcons.OFF_NORMAL); // test 6
-                sendOptionUpdate(CNOption.STOP, true);
+                //sendOptionUpdate(CNOption.STOP, true);
 
             }
         });
@@ -359,7 +359,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         }
     }
 
-    protected void sendOptionUpdate(CNOption option, boolean set) {
+    /*protected void sendOptionUpdate(CNOption option, boolean set) {
         CNPackets.getChannel().sendToServer(new ConfigureReactorControllerPacket(option, set));
-    }
+    }*/
 }

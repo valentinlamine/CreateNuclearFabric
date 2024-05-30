@@ -61,8 +61,8 @@ public class CreateNuclear implements ModInitializer {
 		CNGroup.registrer();
 		CNFluids.register();
 		CNTag.registerModItems();
-		CNPackets.registerPackets();
-		CNPackets.getChannel().initServerListener();
+		//CNPackets.registerPackets();
+		//CNPackets.getChannel().initServerListener();
 
 		CNWorldGeneration.generateModWorldGen();
 		REGISTRATE.register();

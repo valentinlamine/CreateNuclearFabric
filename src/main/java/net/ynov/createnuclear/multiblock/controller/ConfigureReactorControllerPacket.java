@@ -7,7 +7,7 @@ import net.minecraft.server.level.ServerPlayer;
 public class ConfigureReactorControllerPacket extends SimplePacketBase {
 
     public static enum CNOption {
-        PLAY, STOP, INVALIDE_INPUT1, INVALIDE_INPUT2, LACK_URANIUM_ROD, LACK_GRAPHITE_ROD;
+        PLAY, STOP;//, INVALIDE_INPUT1, INVALIDE_INPUT2, LACK_URANIUM_ROD, LACK_GRAPHITE_ROD;
     }
 
     private CNOption option;
@@ -43,11 +43,11 @@ public class ConfigureReactorControllerPacket extends SimplePacketBase {
                     be.created = false;
                     be.destroyed = true;
                     break;
-                case INVALIDE_INPUT1:
+                /*case INVALIDE_INPUT1:
                 case INVALIDE_INPUT2:
                 case LACK_URANIUM_ROD:
                 case LACK_GRAPHITE_ROD:
-                    break;
+                    break;*/
                 default:
                     break;
             }
