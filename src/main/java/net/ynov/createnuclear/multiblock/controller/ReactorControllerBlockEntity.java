@@ -6,13 +6,14 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import com.simibubi.create.foundation.utility.Components;
 import com.simibubi.create.foundation.utility.IInteractionChecker;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
+import io.github.fabricators_of_create.porting_lib.util.StorageProvider;
+import lib.multiblock.test.SimpleMultiBlockAislePatternBuilder;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SidedStorageBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
@@ -22,57 +23,46 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.ynov.createnuclear.CreateNuclear;
-import net.ynov.createnuclear.block.CNBlocks; // test 3
+import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.gui.CNIconButton;
-import net.ynov.createnuclear.item.CNItems;
+import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+import static net.ynov.createnuclear.CNMultiblock.*;
 import static net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
 
-public class ReactorControllerBlockEntity extends SmartBlockEntity implements MenuProvider, IInteractionChecker, SidedStorageBlockEntity  {
+public class ReactorControllerBlockEntity extends SmartBlockEntity implements MenuProvider, IInteractionChecker, SidedStorageBlockEntity {
     public boolean destroyed = false;
     public boolean created = false;
     public int speed = 16; // This is the result speed of the reactor, change this to change the total capacity
 
     public boolean sendUpdate;
 
-    public int countUraniumRod;
-    public int countGraphiteRod;
-    public int heat;
-    public int graphiteTimer; //test 4
-    public int uraniumTimer; //test 4
-    public State state;
-
     public ReactorControllerBlock controller;
 
     public ReactorControllerInventory inventory;
 
+    //private boolean powered;
+    public State powered = State.OFF;
+    public float reactorPower;
+    public float lastReactorPower;
+    public int countUraniumRod;
+    public int countGraphiteRod;
+    public int graphiteTimer = 3600;
+    public int uraniumTimer = 6000;
+    public int heat;
+
+
     public ReactorControllerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-        inventory = new ReactorControllerInventory();
-        this.state = State.OFF;
-        graphiteTimer = 3600;
-        uraniumTimer = 6000;
+        inventory = new ReactorControllerInventory(this);
     }
-
-    public class ReactorControllerInventory extends ItemStackHandler {
-        public ReactorControllerInventory() {
-            super(2);
-        }
-
-        @Override
-        protected void onContentsChanged(int slot) {
-            super.onContentsChanged(slot);
-            setChanged();
-        }
-    }
-
-
 
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
+
     }
 
     public boolean getAssembled() { // permet de savoir si le réacteur est formé ou pas.
@@ -84,7 +74,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
     public Component getDisplayName() {
         return Components.translatable("gui.createnuclear.reactor_controller.title");
     }
-
     //(Si les methode read et write ne sont pas implémenté alors lorsque l'on relance le monde minecraft les items dans le composant auront disparu !)
     @Override
     protected void read(CompoundTag compound, boolean clientPacket) { //Permet de stocker les item 1/2
@@ -93,7 +82,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         }
 
         String stateString = compound.getString("state");
-        state = stateString.isEmpty() ? State.OFF : State.valueOf(compound.getString("state"));
+        powered = stateString.isEmpty() ? State.OFF : State.valueOf(compound.getString("state"));
         countGraphiteRod = compound.getInt("countGraphiteRod");
         countUraniumRod = compound.getInt("countUraniumRod");
         graphiteTimer = compound.getInt("graphiteTimer");
@@ -107,9 +96,8 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
     protected void write(CompoundTag compound, boolean clientPacket) { //Permet de stocker les item 2/2
         if (!clientPacket) {
             compound.put("Inventory", inventory.serializeNBT());
-            if (state == State.ON) {
-                compound.putBoolean("Running", true);
-            }
+            compound.putBoolean("powered", isPowered());
+
         }
 
         compound.putInt("countGraphiteRod", countGraphiteRod);
@@ -117,30 +105,29 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         compound.putInt("graphiteTimer", graphiteTimer);
         compound.putInt("uraniumTimer", uraniumTimer);
         compound.putInt("heat", heat);
-        compound.putString("state", state.name());
+        compound.putString("state", powered.name());
+
 
         super.write(compound, clientPacket);
     }
 
-     @Nullable
-     @Override
-     public Storage<ItemVariant> getItemStorage(@Nullable Direction face) {
-         return inventory;
-     }
- 
+    /*@Nullable
+    @Override
+    public Storage<ItemVariant> getItemStorage(@Nullable Direction face) {
+        return inventory;
+    }*/
 
+    @Override
+    public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
+        return ReactorControllerMenu.create(id, inv, this);
+    }
 
     public Boolean isPowered() {
-        BlockState blockState = getBlockState();
-        if (blockState.getBlock() instanceof ReactorControllerBlock)
-            return ((ReactorControllerBlock) blockState.getBlock()).isPowered();
-        return null;
+        return powered == State.ON;
     }
 
     public void setPowered(boolean power) {
-        BlockState blockState = getBlockState();
-        if (blockState.getBlock() instanceof ReactorControllerBlock)
-            ((ReactorControllerBlock) blockState.getBlock()).setPowered(power);
+        powered = power ? State.ON : State.OFF;
     }
 
     public void setSwitchButtons(List<CNIconButton> switchButtons) {
@@ -156,35 +143,61 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         return null;
     }
 
-    public void tick() {
-        super.tick();
-        if (level.isClientSide) return;
-
-        if (level.getBlockState(getBlockPos().below(3)).getBlock() == CNBlocks.REACTOR_OUTPUT.get()) {
-            getOutput();
+    /*public void tick() {
+        if (level.getBlockState(getBlockPos().below(3)).getBlock() == CNBlocks.REACTOR_OUTPUT.get()){
+            controller = (ReactorControllerBlock) level.getBlockState(getBlockPos()).getBlock();
+            // En attendant l'explosion on arrete simplement la rotation quand la chaleur depasse 100
+            if (heat >= 100)
+                controller.Rotate(getBlockState(), getBlockPos().below(3), getLevel(), 0);
+            else controller.Rotate(getBlockState(), getBlockPos().below(3), getLevel(), heat);
         }
-    } // test 3
-
-    private void getOutput() {
-        controller = (ReactorControllerBlock) level.getBlockState(getBlockPos()).getBlock();
-        // En attendant l'explosion on arrete simplement la rotation quand la chaleur depasse 100
-        if (ReactorControllerScreen.heat >= 100)
-            controller.Rotate(getBlockState(), getBlockPos().below(3), getLevel(), 0);
-        else controller.Rotate(getBlockState(), getBlockPos().below(3), getLevel(), ReactorControllerScreen.heat);
-    }
-
-    public void sendToMenu(FriendlyByteBuf buf) {
-        buf.writeNbt(getUpdateTag());
-    }
-
-    @Override
-    public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
-        return ReactorControllerMenu.create(id, inv, this);
-    }
+    }*/
 
     public enum State {
         ON, OFF;
     }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if (level.isClientSide)
+            return;
+
+        if (level.getBlockState(getBlockPos().below(3)).getBlock() == CNBlocks.REACTOR_OUTPUT.get()){
+            controller = (ReactorControllerBlock) level.getBlockState(getBlockPos()).getBlock();
+            // En attendant l'explosion on arrete simplement la rotation quand la chaleur depasse 100
+            if (heat >= 100)
+                controller.Rotate(getBlockState(), getBlockPos().below(3), getLevel(), 0);
+            else controller.Rotate(getBlockState(), getBlockPos().below(3), getLevel(), heat);
+        }
+
+        // Update Client block entity
+        if (sendUpdate) {
+            sendUpdate = false;
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 6);
+        }
+    }
+
+    private static BlockPos FindController(char character) {
+        return SimpleMultiBlockAislePatternBuilder.start()
+                .aisle(AAAAA, AAAAA, AAAAA, AAAAA, AAAAA)
+                .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
+                .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
+                .aisle(AAIAA, ADADA, BACAB, ADADA, AAAA)
+                .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
+                .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
+                .aisle(AAAAA, AAAAA, AAAAA, AAAAA, AAOAA)
+                .where('A', a -> a.getState().is(CNBlocks.REACTOR_CASING.get()))
+                .where('B', a -> a.getState().is(CNBlocks.REACTOR_MAIN_FRAME.get()))
+                .where('C', a -> a.getState().is(CNBlocks.REACTOR_CORE.get()))
+                .where('D', a -> a.getState().is(CNBlocks.REACTOR_COOLING_FRAME.get()))
+                .where('*', a -> a.getState().is(CNBlocks.REACTOR_CONTROLLER.get()))
+                .where('O', a -> a.getState().is(CNBlocks.REACTOR_OUTPUT.get()))
+                .where('I', a -> a.getState().is(CNBlocks.REACTOR_INPUT.get()))
+                .getDistanceController(character);
+    }
+
 
 //    @Override
 //    public boolean canPlayerUse(Player player) {

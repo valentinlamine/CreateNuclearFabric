@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
-import net.ynov.createnuclear.multiblock.controller.ReactorControllerInventoryd;
+import net.ynov.createnuclear.multiblock.controller.ReactorControllerInventory;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class ReactorBlockEntity extends SmartBlockEntity implements SidedStorage
 
     protected BlockPos controller;
 
-    protected ReactorControllerInventoryd inventory;
+    protected ReactorControllerInventory inventory;
 
     public ReactorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);

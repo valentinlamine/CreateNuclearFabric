@@ -43,7 +43,6 @@ import static net.ynov.createnuclear.multiblock.energy.ReactorOutput.SPEED;
 
 public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock implements IWrenchable, IBE<ReactorControllerBlockEntity> {
     public static final BooleanProperty ASSEMBLED = BooleanProperty.create("assembled");
-    private boolean powered;
     private List<CNIconButton> switchButtons;
 
     public ReactorControllerBlock(Properties properties) {
@@ -120,13 +119,13 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         }
     }
 
-    public boolean isPowered() {
+    /*public boolean isPowered() {
        return powered; //test 2 // les variables ne sont pas sauvegarder lors d'un déchargement/rechargement de monde (donc passer par le blockState/ou trouver une autre methode)
     }
     public void setPowered(boolean power) {
         powered = power;
 //        worldIn.setBlockAndUpdate(pos, state.setValue(POWERED, power));
-    }
+    }*/
 
     public List<CNIconButton> getSwitchButtons() {
         return switchButtons;

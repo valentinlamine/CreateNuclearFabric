@@ -3,6 +3,7 @@ package net.ynov.createnuclear.multiblock.controller;
 import com.simibubi.create.foundation.networking.SimplePacketBase;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
+import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlockEntity.State;
 
 public class ConfigureReactorControllerPacket extends SimplePacketBase {
 
@@ -36,10 +37,12 @@ public class ConfigureReactorControllerPacket extends SimplePacketBase {
             ReactorControllerBlockEntity be = ((ReactorControllerMenu) player.containerMenu).contentHolder;
             switch (option) {
                 case PLAY:
+                    be.powered = State.ON;
                     be.created = true;
                     be.destroyed = false;
                     break;
                 case STOP:
+                    be.powered = State.OFF;
                     be.created = false;
                     be.destroyed = true;
                     break;
@@ -51,6 +54,7 @@ public class ConfigureReactorControllerPacket extends SimplePacketBase {
                 default:
                     break;
             }
+            be.sendUpdate = true;
         });
         return true;
     }

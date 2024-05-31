@@ -16,7 +16,7 @@ import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
-import net.ynov.createnuclear.multiblock.controller.ReactorControllerInventoryd;
+import net.ynov.createnuclear.multiblock.controller.ReactorControllerInventory;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class ReactorInputEntity extends SmartBlockEntity implements SidedStorage
     protected BlockPos block;
     protected ReactorControllerBlockEntity controller;
 
-    protected ReactorControllerInventoryd inventory;
+    protected ReactorControllerInventory inventory;
 
     public ReactorInputEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
