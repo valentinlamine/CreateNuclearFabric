@@ -55,7 +55,12 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 		{
 			CreateNuclear.LOGGER.info("Init SPEED : " + getSpeed2() + "  pos : " + getBlockPos());
 			FindController(getBlockPos(), Objects.requireNonNull(getLevel()));
+
 		}
+	}
+
+	public void updateGeneratedRotation(int i) {
+		super.updateGeneratedRotation();
 	}
 
 	public void FindController(BlockPos pos, Level level){
