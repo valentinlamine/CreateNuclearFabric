@@ -43,7 +43,6 @@ import static net.ynov.createnuclear.multiblock.energy.ReactorOutput.SPEED;
 
 public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock implements IWrenchable, IBE<ReactorControllerBlockEntity> {
     public static final BooleanProperty ASSEMBLED = BooleanProperty.create("assembled");
-    private boolean powered;
     private List<CNIconButton> switchButtons;
 
     public ReactorControllerBlock(Properties properties) {
@@ -64,11 +63,34 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
     }
 
     @Override
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
+                                boolean isMoving) {
+        withBlockEntityDo(worldIn, pos, be -> be.created = false);
+    }
+
+    @Override
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if (worldIn.isClientSide)
             return InteractionResult.SUCCESS;
 
         Item item = player.getItemInHand(handIn).getItem();
+
+        /*if (CNItems.GRAPHITE_ROD.is(item)) { //Si le weldingKit est dans la main
+            if (Boolean.TRUE.equals(state.getValue(ASSEMBLED))) {
+                player.sendSystemMessage(Component.literal("Multiblock déjà assemblé").withStyle(ChatFormatting.YELLOW));
+                return InteractionResult.SUCCESS;
+            }
+            player.sendSystemMessage(Component.literal("Analyse multiBlock"));
+
+            var result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(worldIn, pos);
+            if (result != null) {
+                player.sendSystemMessage(Component.literal("MultiBlock assemblé.").withStyle(ChatFormatting.BLUE));
+                worldIn.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, true));
+            } else {
+                player.sendSystemMessage(Component.literal("Erreur dans l'assemblage du multiBlock").withStyle(ChatFormatting.RED));
+            }
+            return InteractionResult.SUCCESS;
+        }*/ // test 1
 
 
         if (Boolean.FALSE.equals(state.getValue(ASSEMBLED))) {
@@ -97,13 +119,13 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         }
     }
 
-    public boolean isPowered() {
-       return powered; // les variables ne sont pas sauvegarder lors d'un déchargement/rechargement de monde (donc passer par le blockState/ou trouver une autre methode)
+    /*public boolean isPowered() {
+       return powered; //test 2 // les variables ne sont pas sauvegarder lors d'un déchargement/rechargement de monde (donc passer par le blockState/ou trouver une autre methode)
     }
     public void setPowered(boolean power) {
         powered = power;
 //        worldIn.setBlockAndUpdate(pos, state.setValue(POWERED, power));
-    }
+    }*/
 
     public List<CNIconButton> getSwitchButtons() {
         return switchButtons;
@@ -178,7 +200,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
             ReactorOutputEntity entity = Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos));
 
             if (Boolean.TRUE.equals(state.getValue(ASSEMBLED)) && rotation != 0) { // Starting the energy
-                CreateNuclear.LOGGER.info("Change " + pos);
+                //CreateNuclear.LOGGER.info("Change " + pos);
                 if (entity.getDir() == 1)
                     rotation = -rotation;
                 entity.speed = rotation;
@@ -191,16 +213,15 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
                 entity.speed = 0;
                 entity.updateSpeed = true;
                 entity.updateGeneratedRotation();
-                CreateNuclear.LOGGER.info("Unchanged " + pos);
+                //CreateNuclear.LOGGER.info("Unchanged " + pos);
             }
             if (rotation < 0)
                 rotation = -rotation;
             entity.setSpeed2(rotation, level, pos);
 
-            CreateNuclear.LOGGER.info("SPEED : " + entity.getSpeed2() + " - DIR : " + entity.getDir() + "  pos : " + pos);
+            //CreateNuclear.LOGGER.info("SPEED : " + entity.getSpeed2() + " - DIR : " + entity.getDir() + "  pos : " + pos);
         }
     }
-
 
     @Override
     public Class<ReactorControllerBlockEntity> getBlockEntityClass() {
