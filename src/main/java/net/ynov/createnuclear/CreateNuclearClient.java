@@ -1,5 +1,6 @@
 package net.ynov.createnuclear;
 
+import com.simibubi.create.AllPackets;
 import net.fabricmc.api.ClientModInitializer;
 
 import net.fabricmc.api.EnvType;
@@ -17,6 +18,7 @@ import net.ynov.createnuclear.entity.irradiatedcat.IrradiatedCatRenderer;
 import net.ynov.createnuclear.entity.irradiatedchicken.IrradiatedChickenModel;
 import net.ynov.createnuclear.entity.irradiatedwolf.IrradiatedWolfModel;
 import net.ynov.createnuclear.entity.irradiatedwolf.IrradiatedWolfRenderer;
+import net.ynov.createnuclear.packets.CNPackets;
 import net.ynov.createnuclear.ponder.CNPonderIndex;
 import net.ynov.createnuclear.entity.irradiatedchicken.IrradiatedChickenRenderer;
 
@@ -38,5 +40,8 @@ public class CreateNuclearClient implements ClientModInitializer {
 
         EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_CAT, IrradiatedCatModel::createBodyLayer);
         EntityRendererRegistry.register(CNMobEntityType.IRRADIATED_CAT, IrradiatedCatRenderer::new);
+
+        AllPackets.getChannel().initClientListener();
+
     }
 }
