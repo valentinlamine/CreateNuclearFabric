@@ -3,7 +3,6 @@ package net.ynov.createnuclear.multiblock.controller;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.item.ItemHelper;
-import io.github.fabricators_of_create.porting_lib.util.BlockSnapshot;
 import io.github.fabricators_of_create.porting_lib.util.NetworkHooks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -17,13 +16,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.ynov.createnuclear.CNMultiblock;
 import net.ynov.createnuclear.CreateNuclear;
@@ -32,14 +29,10 @@ import net.ynov.createnuclear.blockentity.CNBlockEntities;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutputEntity;
 import net.ynov.createnuclear.gui.CNIconButton;
-import net.ynov.createnuclear.item.CNItems;
 import net.ynov.createnuclear.tools.HorizontalDirectionalReactorBlock;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Objects;
-
-import static net.ynov.createnuclear.multiblock.energy.ReactorOutput.SPEED;
 
 public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock implements IWrenchable, IBE<ReactorControllerBlockEntity> {
     public static final BooleanProperty ASSEMBLED = BooleanProperty.create("assembled");
@@ -119,21 +112,8 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         }
     }
 
-    /*public boolean isPowered() {
-       return powered; //test 2 // les variables ne sont pas sauvegarder lors d'un déchargement/rechargement de monde (donc passer par le blockState/ou trouver une autre methode)
-    }
-    public void setPowered(boolean power) {
-        powered = power;
-//        worldIn.setBlockAndUpdate(pos, state.setValue(POWERED, power));
-    }*/
 
-    public List<CNIconButton> getSwitchButtons() {
-        return switchButtons;
-    }
 
-    public void setSwitchButtons(List<CNIconButton> switchButtons) {
-        this.switchButtons = switchButtons;
-    }
 
     @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
@@ -197,19 +177,19 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
     public void Rotate(BlockState state, BlockPos pos, Level level, int rotation) {
         if (level.getBlockState(pos).is(CNBlocks.REACTOR_OUTPUT.get())) {
             ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
-            ReactorOutputEntity entity = Objects.requireNonNull(block.getBlockEntityType().getBlockEntity(level, pos));
+            ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
 
             if (Boolean.TRUE.equals(state.getValue(ASSEMBLED)) && rotation != 0) { // Starting the energy
                 //CreateNuclear.LOGGER.info("Change " + pos);
                 if (entity.getDir() == 1)
                     rotation = -rotation;
                 entity.speed = rotation;
-                // entity.setSpeed2(Math.abs(entity.speed), level, pos.below(3));
+                entity.setSpeed(Math.abs(entity.speed));
                 entity.updateSpeed = true;
                 entity.updateGeneratedRotation();
             } else { // stopping the energy
 
-                // entity.setSpeed2(0, level, pos.below(3));
+                entity.setSpeed(0);
                 entity.speed = 0;
                 entity.updateSpeed = true;
                 entity.updateGeneratedRotation();
@@ -217,7 +197,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
             }
             if (rotation < 0)
                 rotation = -rotation;
-            entity.setSpeed2(rotation, level, pos);
+            entity.setSpeed(rotation);
 
             //CreateNuclear.LOGGER.info("SPEED : " + entity.getSpeed2() + " - DIR : " + entity.getDir() + "  pos : " + pos);
         }

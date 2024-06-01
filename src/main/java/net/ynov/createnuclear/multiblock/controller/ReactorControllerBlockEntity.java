@@ -1,18 +1,12 @@
 package net.ynov.createnuclear.multiblock.controller;
 
-import com.simibubi.create.content.schematics.cannon.SchematicannonBlockEntity;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.Components;
 import com.simibubi.create.foundation.utility.IInteractionChecker;
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
-import io.github.fabricators_of_create.porting_lib.util.StorageProvider;
 import lib.multiblock.test.SimpleMultiBlockAislePatternBuilder;
-import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SidedStorageBlockEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
@@ -26,7 +20,7 @@ import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
-import org.jetbrains.annotations.Nullable;
+import net.ynov.createnuclear.multiblock.energy.ReactorOutputEntity;
 
 import java.util.List;
 
@@ -53,6 +47,8 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
     public int graphiteTimer = 3600;
     public int uraniumTimer = 6000;
     public int heat;
+    private List<CNIconButton> switchButtons;
+
 
 
     public ReactorControllerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -130,28 +126,13 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         powered = power ? State.ON : State.OFF;
     }
 
-    public void setSwitchButtons(List<CNIconButton> switchButtons) {
-        BlockState blockState = getBlockState();
-        if (blockState.getBlock() instanceof ReactorControllerBlock)
-            ((ReactorControllerBlock) blockState.getBlock()).setSwitchButtons(switchButtons);
-    }
-
     public List<CNIconButton> getSwitchButtons() {
-        BlockState blockState = getBlockState();
-        if (blockState.getBlock() instanceof ReactorControllerBlock)
-            return ((ReactorControllerBlock) blockState.getBlock()).getSwitchButtons();
-        return null;
+        return switchButtons;
     }
 
-    /*public void tick() {
-        if (level.getBlockState(getBlockPos().below(3)).getBlock() == CNBlocks.REACTOR_OUTPUT.get()){
-            controller = (ReactorControllerBlock) level.getBlockState(getBlockPos()).getBlock();
-            // En attendant l'explosion on arrete simplement la rotation quand la chaleur depasse 100
-            if (heat >= 100)
-                controller.Rotate(getBlockState(), getBlockPos().below(3), getLevel(), 0);
-            else controller.Rotate(getBlockState(), getBlockPos().below(3), getLevel(), heat);
-        }
-    }*/
+    public void setSwitchButtons(List<CNIconButton> switchButtons) {
+        this.switchButtons = switchButtons;
+    }
 
     public enum State {
         ON, OFF;
@@ -164,13 +145,12 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         if (level.isClientSide)
             return;
 
-        if (level.getBlockState(getBlockPos().below(3)).getBlock() == CNBlocks.REACTOR_OUTPUT.get()){
-            controller = (ReactorControllerBlock) level.getBlockState(getBlockPos()).getBlock();
+        CreateNuclear.LOGGER.warn("> 100: " + heat);
+        if (level.getBlockState(getBlockPos().below(3)).getBlock() == CNBlocks.REACTOR_OUTPUT.get() && powered == State.ON){
             // En attendant l'explosion on arrete simplement la rotation quand la chaleur depasse 100
-            if (heat >= 100)
-                controller.Rotate(getBlockState(), getBlockPos().below(3), getLevel(), 0);
-            else controller.Rotate(getBlockState(), getBlockPos().below(3), getLevel(), heat);
+            Rotate(getBlockState(), getBlockPos().below(3), getLevel(), (heat >= 100 ? 0 : heat));
         }
+        if (heat >= 100 || heat <= 0) Rotate(getBlockState(), getBlockPos().below(3), getLevel(), 0);
 
         // Update Client block entity
         if (sendUpdate) {
@@ -198,13 +178,29 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
                 .getDistanceController(character);
     }
 
+    public void Rotate(BlockState state, BlockPos pos, Level level, int rotation) {
+        ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
+        ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
+        if (level.getBlockState(pos).is(CNBlocks.REACTOR_OUTPUT.get()) && rotation > 0) {
 
-//    @Override
-//    public boolean canPlayerUse(Player player) {
-//        if (level == null || level.getBlockEntity(worldPosition) != this) {
-//            return false;
-//        }
-//        return player.distanceToSqr(worldPosition.getX() + 0.5D, worldPosition.getY() + 0.5D,
-//                worldPosition.getZ() + 0.5D) <= 64.0D;
-//    }
+            if (state.getValue(ASSEMBLED) && rotation != 0) { // Starting the energy
+                //CreateNuclear.LOGGER.info("Change " + pos);
+                if (entity.getDir() == 1) rotation = -rotation;
+                entity.speed = rotation;
+                entity.updateSpeed = true;
+                entity.updateGeneratedRotation();
+            } else { // stopping the energy
+                entity.speed = 0;
+                entity.updateSpeed = true;
+                entity.updateGeneratedRotation();
+            }
+            if (rotation < 0) rotation = -rotation;
+            entity.setSpeed(rotation);
+        }
+        else {
+            entity.setSpeed(0);
+            entity.updateSpeed = true;
+            entity.updateGeneratedRotation();
+        }
+    }
 }

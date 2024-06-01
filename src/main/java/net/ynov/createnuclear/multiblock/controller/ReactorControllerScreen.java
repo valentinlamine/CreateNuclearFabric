@@ -50,11 +50,11 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
             if (powered != null && !powered) {
                 be.setPowered(true);
                 powerButton.setIcon(CNIcons.ON_NORMAL);
-                sendOptionUpdate(CNOption.PLAY, true);
+                sendOptionUpdate(CNOption.PLAY);
             } else if (powered != null) {
                 be.setPowered(false);
                 powerButton.setIcon(CNIcons.OFF_NORMAL);
-                sendOptionUpdate(CNOption.STOP, true);
+                sendOptionUpdate(CNOption.STOP);
             }
         });
         addRenderableWidget(powerButton);
@@ -123,6 +123,8 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         } else {
             be.lastReactorPower = 0;
         }
+
+        sendValueUpdate(CNOption.HEAT, heatManager());
     }
 
     private void updateTimers() {
@@ -217,7 +219,9 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     public int heatManager() {
         ReactorControllerBlockEntity be = menu.contentHolder;
 
-        be.heat = countUraniumRod() * 10 - countGraphiteRod() * 5;
+        be.countGraphiteRod = countGraphiteRod();
+        be.countUraniumRod = countUraniumRod();
+        be.heat = be.countUraniumRod * 10 - be.countGraphiteRod * 5;
 
         int [][] list = new int[][] {
                 {99,99,99,0,1,2,99,99,99},
@@ -246,6 +250,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
 
         if (be.heat >= 100) {
             CreateNuclear.LOGGER.info("oulala il est chaud un peu la, attenti... BOOOOM");
+            return 0;
         }
         return be.heat;
     }
@@ -308,7 +313,11 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         }
     }
 
-    protected void sendOptionUpdate(ConfigureReactorControllerPacket.CNOption option, boolean set) {
-        getChannel().sendToServer(new ConfigureReactorControllerPacket(option, set));
+    protected void sendOptionUpdate(ConfigureReactorControllerPacket.CNOption option) {
+        getChannel().sendToServer(new ConfigureReactorControllerPacket(option));
+    }
+
+    protected void sendValueUpdate(CNOption option, int value) {
+        getChannel().sendToServer(new ConfigureReactorControllerPacket(option, value));
     }
 }
