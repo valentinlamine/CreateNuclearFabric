@@ -21,6 +21,7 @@ import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutputEntity;
+import net.ynov.createnuclear.multiblock.frame.ReactorBlock;
 
 import java.util.List;
 
@@ -180,29 +181,34 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
 
     public void Rotate(BlockState state, BlockPos pos, Level level, int rotation) {
         if (level.getBlockState(pos).is(CNBlocks.REACTOR_OUTPUT.get()) && rotation > 0) {
-            ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
-            ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
+            if (level.getBlockState(pos).getBlock() instanceof ReactorOutput) {
+                ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
+                ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
 
-            if (state.getValue(ASSEMBLED) && rotation != 0) { // Starting the energy
-                //CreateNuclear.LOGGER.info("Change " + pos);
-                if (entity.getDir() == 1) rotation = -rotation;
-                entity.speed = rotation;
-                entity.updateSpeed = true;
-                entity.updateGeneratedRotation();
-            } else { // stopping the energy
-                entity.speed = 0;
+                if (state.getValue(ASSEMBLED) && rotation != 0) { // Starting the energy
+                    //CreateNuclear.LOGGER.info("Change " + pos);
+                    if (entity.getDir() == 1) rotation = -rotation;
+                    entity.speed = rotation;
+                    entity.updateSpeed = true;
+                    entity.updateGeneratedRotation();
+                } else { // stopping the energy
+                    entity.speed = 0;
+                    entity.updateSpeed = true;
+                    entity.updateGeneratedRotation();
+                }
+                if (rotation < 0) rotation = -rotation;
+                entity.setSpeed(rotation);
+
+            }
+        }
+        else {
+            if (level.getBlockState(pos).getBlock() instanceof ReactorOutput) {
+                ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
+                ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
+                entity.setSpeed(0);
                 entity.updateSpeed = true;
                 entity.updateGeneratedRotation();
             }
-            if (rotation < 0) rotation = -rotation;
-            entity.setSpeed(rotation);
-        }
-        else {
-            ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
-            ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
-            entity.setSpeed(0);
-            entity.updateSpeed = true;
-            entity.updateGeneratedRotation();
         }
     }
 }
