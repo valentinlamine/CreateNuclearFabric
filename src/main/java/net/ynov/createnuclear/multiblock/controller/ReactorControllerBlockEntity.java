@@ -145,7 +145,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         if (level.isClientSide)
             return;
 
-        CreateNuclear.LOGGER.warn("> 100: " + heat);
+        //CreateNuclear.LOGGER.warn("> 100: " + heat);
         if (level.getBlockState(getBlockPos().below(3)).getBlock() == CNBlocks.REACTOR_OUTPUT.get() && powered == State.ON){
             // En attendant l'explosion on arrete simplement la rotation quand la chaleur depasse 100
             Rotate(getBlockState(), getBlockPos().below(3), getLevel(), (heat >= 100 ? 0 : heat));

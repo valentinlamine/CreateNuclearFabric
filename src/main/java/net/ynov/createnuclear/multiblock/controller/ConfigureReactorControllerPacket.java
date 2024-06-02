@@ -49,6 +49,7 @@ public class ConfigureReactorControllerPacket extends SimplePacketBase {
 
     @Override
     public boolean handle(Context context) {
+        CreateNuclear.LOGGER.debug("" + value + " " + option + " " + option.name());
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             if (player == null || !(player.containerMenu instanceof ReactorControllerMenu)) return;

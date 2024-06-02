@@ -53,6 +53,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
                 sendOptionUpdate(CNOption.PLAY);
             } else if (powered != null) {
                 be.setPowered(false);
+                be.heat = 0;
                 powerButton.setIcon(CNIcons.OFF_NORMAL);
                 sendOptionUpdate(CNOption.STOP);
             }
@@ -223,7 +224,9 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         be.countUraniumRod = countUraniumRod();
         be.heat = be.countUraniumRod * 10 - be.countGraphiteRod * 5;
 
-        int [][] list = new int[][] {
+        if (be.countGraphiteRod == 0 && be.countUraniumRod > 6) be.heat = be.heat * 50;
+
+        int[][] list = new int[][]{
                 {99,99,99,0,1,2,99,99,99},
                 {99,99,3,4,5,6,7,99,99},
                 {99,8,9,10,11,12,13,14,99},
@@ -234,6 +237,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
                 {99,99,49,50,51,52,53,99,99},
                 {99,99,99,54,55,56,99,99,99}
         };
+
 
         for (int j = 0; j < list.length; j++) {
             for (int k = 0; k < list[j].length; k++) {
@@ -268,9 +272,8 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         List<CNIconButton> switchButtons = menu.contentHolder.getSwitchButtons();
         CNIconButton button = switchButtons.get(current);
 
-        if (button.getIcon().equals(CNIcons.EMPTY_ICON)) {
-            return 0;
-        }
+        if (button.getIcon().equals(CNIcons.EMPTY_ICON)) return 0;
+
 
         int isUranium = button.getIcon().equals(CNIcons.GRAPHITE_ROD_ICON) ? 1 : 0;
 
@@ -281,7 +284,6 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         tmpHeat += calculateHeat(left, switchButtons, isUranium);
         tmpHeat += calculateHeat(right, switchButtons, isUranium);
 
-        // CreateNuclear.LOGGER.info("Heat at index: " + current + " is " + tmpHeat);
         return tmpHeat;
     }
 
@@ -292,7 +294,6 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     }
 
     private int addTmpHeat(CNIconButton button, int isUranium) {
-
         if (button.getIcon().equals(CNIcons.GRAPHITE_ROD_ICON)) return 0;
         if (button.getIcon().equals(CNIcons.URANIUM_ROD_ICON)) return isUranium == 0 ? 4 : -5;
         return 0;
