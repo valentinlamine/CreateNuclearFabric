@@ -179,9 +179,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
     }
 
     public void Rotate(BlockState state, BlockPos pos, Level level, int rotation) {
-        ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
-        ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
         if (level.getBlockState(pos).is(CNBlocks.REACTOR_OUTPUT.get()) && rotation > 0) {
+            ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
+            ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
 
             if (state.getValue(ASSEMBLED) && rotation != 0) { // Starting the energy
                 //CreateNuclear.LOGGER.info("Change " + pos);
@@ -198,6 +198,8 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
             entity.setSpeed(rotation);
         }
         else {
+            ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
+            ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
             entity.setSpeed(0);
             entity.updateSpeed = true;
             entity.updateGeneratedRotation();
