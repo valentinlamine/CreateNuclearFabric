@@ -38,6 +38,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
     public static final BooleanProperty ASSEMBLED = BooleanProperty.create("assembled");
     private List<CNIconButton> switchButtons;
 
+
     public ReactorControllerBlock(Properties properties) {
         super(properties);
     }

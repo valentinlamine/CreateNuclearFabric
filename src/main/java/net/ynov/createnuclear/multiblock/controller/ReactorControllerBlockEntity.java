@@ -48,6 +48,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
     public int graphiteTimer = 3600;
     public int uraniumTimer = 6000;
     public int heat;
+    public CompoundTag screen_pattern = new CompoundTag();
     private List<CNIconButton> switchButtons;
 
 
@@ -85,6 +86,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         graphiteTimer = compound.getInt("graphiteTimer");
         uraniumTimer = compound.getInt("uraniumTimer");
         heat = compound.getInt("heat");
+        //screen_pattern = compound.getCompound("screen_pattern");
+
+        CreateNuclear.LOGGER.warn("screen_pattern: r " + screen_pattern);
 
         super.read(compound, clientPacket);
     }
@@ -103,6 +107,8 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         compound.putInt("uraniumTimer", uraniumTimer);
         compound.putInt("heat", heat);
         compound.putString("state", powered.name());
+        //compound.put("screen_pattern", screen_pattern);
+        CreateNuclear.LOGGER.warn("screen_pattern: w " + screen_pattern);
 
 
         super.write(compound, clientPacket);
