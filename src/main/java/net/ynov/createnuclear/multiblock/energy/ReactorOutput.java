@@ -43,7 +43,7 @@ import java.util.Objects;
 
 public class ReactorOutput extends DirectionalKineticBlock implements IWrenchable, IBE<ReactorOutputEntity> {
 
-	public static final IntegerProperty SPEED = IntegerProperty.create("speed", 0, 256);
+	//public static final IntegerProperty SPEED = IntegerProperty.create("speed", 0, 256);
 	public static final IntegerProperty DIR = IntegerProperty.create("dir", 0, 2);
 
 	public ReactorOutput(Properties properties) {
@@ -52,7 +52,7 @@ public class ReactorOutput extends DirectionalKineticBlock implements IWrenchabl
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(SPEED);
+		//builder.add(SPEED);
 		builder.add(DIR);
 		super.createBlockStateDefinition(builder);
 	}
@@ -115,7 +115,7 @@ public class ReactorOutput extends DirectionalKineticBlock implements IWrenchabl
 		if ((context.getPlayer() != null && context.getPlayer()
 			.isShiftKeyDown()) || preferred == null)
 			return super.getStateForPlacement(context);
-		return defaultBlockState().setValue(FACING, preferred).setValue(SPEED, 0).setValue(DIR, 0);
+		return defaultBlockState().setValue(FACING, preferred)/*.setValue(SPEED, 0)*/.setValue(DIR, 0);
 	}
 
 	// IRotate:
