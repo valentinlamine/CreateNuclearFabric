@@ -57,7 +57,7 @@ public class ReactorInputEntity extends SmartBlockEntity implements SidedStorage
     protected void read(CompoundTag tag, boolean clientPacket) {
 
         BlockPos findController = FindController('I');
-        if (this.getLevel().isClientSide()){
+        if (getLevel().isClientSide()){
             //CreateNuclear.LOGGER.warn("  " + stateInput.getBlock() + "  " + block + "  " + String.valueOf(stateInput.getBlock() == CNBlocks.REACTOR_CASING.get()) + "  " + level.getBlockEntity(block) + " " + worldPosition.relative(Direction.NORTH) + " " + level.getBlockState(worldPosition.relative(Direction.NORTH)));
             if (this.getLevel().getBlockState(new BlockPos(block.getX(), block.getY(), block.getZ() + findController.getX())).is(CNBlocks.REACTOR_CONTROLLER.get())) { // NORTH
                 BlockPos newBlock = new BlockPos(block.getX(), block.getY(), block.getZ() + findController.getX());
