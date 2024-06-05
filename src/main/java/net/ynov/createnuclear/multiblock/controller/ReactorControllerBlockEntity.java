@@ -86,9 +86,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         graphiteTimer = compound.getInt("graphiteTimer");
         uraniumTimer = compound.getInt("uraniumTimer");
         heat = compound.getInt("heat");
-        //screen_pattern = compound.getCompound("screen_pattern");
-
-        CreateNuclear.LOGGER.warn("screen_pattern: r " + screen_pattern);
+        screen_pattern = compound.getCompound("screen_pattern");
 
         super.read(compound, clientPacket);
     }
@@ -107,8 +105,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         compound.putInt("uraniumTimer", uraniumTimer);
         compound.putInt("heat", heat);
         compound.putString("state", powered.name());
-        //compound.put("screen_pattern", screen_pattern);
-        CreateNuclear.LOGGER.warn("screen_pattern: w " + screen_pattern);
+        compound.put("screen_pattern", screen_pattern);
 
 
         super.write(compound, clientPacket);
