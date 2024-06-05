@@ -14,7 +14,6 @@ import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
 public class CNPonderReactor {
 
     private static final BlockPos CONTROLLER = new BlockPos(3,4,5);
-    private static final ItemStack WELDING_KIT = new ItemStack(CNItems.WELDING_KIT);
     public static void init(SceneBuilder scene, SceneBuildingUtil util) {
         scene.title("reactor", "Setup from Reactor");
         scene.configureBasePlate(0,0,7);
@@ -30,7 +29,7 @@ public class CNPonderReactor {
             for (int x = 1; x < 7; x++) {
                 for (int z = 1; z < 7; z++) {
                     scene.world.showSection(util.select.position(x,y,z), Direction.NORTH);
-                    CreateNuclear.LOGGER.warn(x + " | " + y + " | " + z);
+                   // CreateNuclear.LOGGER.warn(x + " | " + y + " | " + z);
                     scene.idle(5);
                     if (x == 5 && z == 5 && y == 1) {
                         scene.rotateCameraY(180f);
@@ -63,12 +62,6 @@ public class CNPonderReactor {
         }
         scene.idle(30);
 
-        scene.overlay.showControls(
-                new InputWindowElement(util.vector.blockSurface(CONTROLLER, Direction.NORTH), Pointing.RIGHT)
-                        .rightClick()
-                        .withItem(WELDING_KIT),
-                10
-        );
         scene.world.modifyBlock(CONTROLLER, s -> s.setValue(ReactorControllerBlock.ASSEMBLED, true), true);
     }
 }

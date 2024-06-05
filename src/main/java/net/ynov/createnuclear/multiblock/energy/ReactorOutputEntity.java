@@ -24,10 +24,7 @@ import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
 import java.util.List;
 import java.util.Objects;
 
-import static net.minecraft.world.level.block.Block.getId;
-import static net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
 import static net.ynov.createnuclear.multiblock.energy.ReactorOutput.DIR;
-import static net.ynov.createnuclear.multiblock.energy.ReactorOutput.SPEED;
 
 public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 	public int speed = 0;
@@ -36,15 +33,17 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 	public ReactorOutputEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
+
 	@Override
 	public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
 		super.addBehaviours(behaviours);
-		/*generatedSpeed = new KineticScrollValueBehaviour(Lang.translateDirect("kinetics.reactor_output.rotation_speed"),
-			this, new net.ynov.createnuclear.multiblock.energy.ReactorOutputEntity.MotorValueBox());
+
+		generatedSpeed = new KineticScrollValueBehaviour(Lang.translateDirect("kinetics.reactor_output.rotation_speed"),
+			this, new ReactorOutputValue());
 		generatedSpeed.between(-speed, speed);
 		generatedSpeed.value = speed;
 		generatedSpeed.withCallback(i -> this.updateGeneratedRotation());
-		behaviours.add(generatedSpeed);*/
+		behaviours.add(generatedSpeed);
 	}
 
 	@Override
@@ -53,26 +52,25 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 
 		if (!hasSource() || getGeneratedSpeed() > getTheoreticalSpeed())
 		{
-			CreateNuclear.LOGGER.info("Init SPEED : " + getSpeed2() + "  pos : " + getBlockPos());
+			//CreateNuclear.LOGGER.info("Init SPEED : " + getSpeed2() + "  pos : " + getBlockPos());
 			FindController(getBlockPos(), Objects.requireNonNull(getLevel()));
 		}
+	}
+
+	public void updateGeneratedRotation(int i) {
+		super.updateGeneratedRotation();
 	}
 
 	public void FindController(BlockPos pos, Level level){
 		if (level.getBlockState(pos.above(3)).getBlock() == CNBlocks.REACTOR_CONTROLLER.get()){
             ReactorControllerBlock controller = (ReactorControllerBlock)level.getBlockState(pos.above(3)).getBlock();
 			controller.Verify(controller.defaultBlockState(), pos.above(3), level, level.players(), false);
-			controller.Rotate(controller.defaultBlockState(), pos, level, getSpeed2());
+			//controller.Rotate(controller.defaultBlockState(), pos, level, getSpeed2());
 		}
 	}
 
-	public Integer getSpeed2() {
-        BlockState state = getBlockState();
-        return state.getValue(SPEED);
-    }
-	public void setSpeed2(int speed, Level level, BlockPos pos) {
-		BlockState state = getBlockState();
-		level.setBlockAndUpdate(pos, state.setValue(SPEED, speed));
+	public void setSpeed(int speed) {
+		this.speed = speed;
 	}
 
 	public int getDir() {
@@ -97,7 +95,7 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 		return super.getStressConfigKey();
 	}
 
-	class MotorValueBox extends ValueBoxTransform.Sided {
+	class ReactorOutputValue extends ValueBoxTransform.Sided {
 
 		@Override
 		protected Vec3 getSouthLocation() {

@@ -1,9 +1,11 @@
 package net.ynov.createnuclear.block;
 
 import com.simibubi.create.AllTags;
-import com.simibubi.create.content.equipment.clipboard.ClipboardOverrides;
+import com.simibubi.create.content.decoration.encasing.EncasedCTBehaviour;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
-import com.simibubi.create.foundation.data.AssetLookup;
+import com.simibubi.create.content.kinetics.motor.CreativeMotorGenerator;
+import com.simibubi.create.foundation.data.BuilderTransformers;
+import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
@@ -43,10 +45,15 @@ import net.ynov.createnuclear.tools.UraniumOreBlock;
 
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+
+import static com.simibubi.create.foundation.data.CreateRegistrate.casingConnectivity;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
+import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 import static net.minecraft.world.level.block.Blocks.litBlockEmission;
+import static com.simibubi.create.foundation.data.CreateRegistrate.connectedTextures;
 
 public class CNBlocks {
 
@@ -218,7 +225,7 @@ public class CNBlocks {
                 .tag(AllTags.AllBlockTags.SAFE_NBT.tag, CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
                 .transform(pickaxeOnly())
                 .blockstate(new ReactorOutputGenerator()::generate)
-                .transform(BlockStressDefaults.setCapacity(500))
+                .transform(BlockStressDefaults.setCapacity(50000))
                 .transform(BlockStressDefaults.setGeneratorSpeed(() -> Couple.create(0, 256)))
                 .item()
                 .properties(p -> p.rarity(Rarity.EPIC))
@@ -231,7 +238,6 @@ public class CNBlocks {
                 .instrument(NoteBlockInstrument.BASS)
                 .strength(2.0F)
                 .sound(SoundType.WOOD)
-                .lightLevel(litBlockEmission(10))
                 .noOcclusion()
                 .ignitedByLava()
             ))
@@ -310,8 +316,11 @@ public class CNBlocks {
 
     public static final BlockEntry<ReactorBlock> REACTOR_CASING =
             CreateNuclear.REGISTRATE.block("reactor_casing", ReactorBlock::new)
-                    .properties(p -> p.explosionResistance(1200F))
-                    .properties(p -> p.destroyTime(4F))
+                    .properties(p -> p.explosionResistance(1200F).destroyTime(4F))
+                    .transform(axeOrPickaxe())
+                    .blockstate((c,p) -> p.simpleBlock(c.get()))
+                    .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(CNSpriteShifts.REACTOR_CASING)))
+                    .onRegister(casingConnectivity((block,cc) -> cc.makeCasing(block, CNSpriteShifts.REACTOR_CASING)))
                     .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
                     .simpleItem()
                     .transform(pickaxeOnly())

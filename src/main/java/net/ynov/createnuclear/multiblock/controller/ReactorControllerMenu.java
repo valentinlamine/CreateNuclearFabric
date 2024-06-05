@@ -4,6 +4,7 @@ import com.simibubi.create.foundation.gui.menu.MenuBase;
 import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -27,7 +28,7 @@ public class ReactorControllerMenu extends MenuBase<ReactorControllerBlockEntity
         super(type, id, inv, be);
     }
 
-    public static AbstractContainerMenu create(int id, Inventory inv, ReactorControllerBlockEntity be) {
+    public static ReactorControllerMenu create(int id, Inventory inv, ReactorControllerBlockEntity be) {
         return new ReactorControllerMenu(CNMenus.REACTOR_CONTROLLER.get(), id, inv, be);
     }
 
@@ -79,23 +80,10 @@ public class ReactorControllerMenu extends MenuBase<ReactorControllerBlockEntity
 
         addSlot(inputSlot);
         addSlot(inputSlot2);
-
-//        // player Slots
-//        for (int row = 0; row < 3; ++row) {
-//            for (int col = 0; col < 9; ++col) {
-//                this.addSlot(new Slot(player.getInventory(), col + row * 9 + 9, 38 + col * 18, 105 + row * 18));
-//            }
-//        }
-//
-//        for (int hotbarSlot = 0; hotbarSlot < 9; ++hotbarSlot) {
-//            this.addSlot(new Slot(player.getInventory(), hotbarSlot, 38 + hotbarSlot * 18, 163));
-//        }
     }
 
     @Override
     protected void saveData(ReactorControllerBlockEntity contentHolder) {
 
     }
-
-
 }

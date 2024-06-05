@@ -2,9 +2,6 @@ package net.ynov.createnuclear.multiblock.input;
 
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import com.simibubi.create.foundation.utility.Iterate;
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
-import io.github.fabricators_of_create.porting_lib.util.StorageProvider;
 import lib.multiblock.test.SimpleMultiBlockAislePatternBuilder;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -12,20 +9,16 @@ import net.fabricmc.fabric.api.transfer.v1.storage.base.SidedStorageBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
+import net.ynov.createnuclear.multiblock.controller.ReactorControllerInventory;
 import org.jetbrains.annotations.Nullable;
-import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlockEntity.ReactorControllerInventory;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static net.ynov.createnuclear.CNMultiblock.*;
@@ -64,7 +57,7 @@ public class ReactorInputEntity extends SmartBlockEntity implements SidedStorage
     protected void read(CompoundTag tag, boolean clientPacket) {
 
         BlockPos findController = FindController('I');
-        if (this.getLevel().isClientSide()){
+        if (getLevel().isClientSide()){
             //CreateNuclear.LOGGER.warn("  " + stateInput.getBlock() + "  " + block + "  " + String.valueOf(stateInput.getBlock() == CNBlocks.REACTOR_CASING.get()) + "  " + level.getBlockEntity(block) + " " + worldPosition.relative(Direction.NORTH) + " " + level.getBlockState(worldPosition.relative(Direction.NORTH)));
             if (this.getLevel().getBlockState(new BlockPos(block.getX(), block.getY(), block.getZ() + findController.getX())).is(CNBlocks.REACTOR_CONTROLLER.get())) { // NORTH
                 BlockPos newBlock = new BlockPos(block.getX(), block.getY(), block.getZ() + findController.getX());
