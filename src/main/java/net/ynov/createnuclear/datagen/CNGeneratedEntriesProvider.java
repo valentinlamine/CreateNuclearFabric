@@ -5,8 +5,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.core.RegistrySetBuilder.RegistryBootstrap;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.world.CNConfiguredFeatures;
 import net.ynov.createnuclear.world.CNPlacedFeatures;

@@ -1,23 +1,16 @@
 package net.ynov.createnuclear.item;
 
-import com.simibubi.create.AllBlocks;
-import com.simibubi.create.AllTags;
-import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.ItemEntry;
 
-import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
@@ -27,7 +20,6 @@ import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.effects.CNEffects;
 import net.ynov.createnuclear.groups.CNGroup;
 import net.ynov.createnuclear.item.armor.AntiRadiationArmorItem;
-import net.ynov.createnuclear.item.armor.CNArmorMaterials;
 import net.ynov.createnuclear.tags.CNTag;
 
 
@@ -39,18 +31,6 @@ import static net.ynov.createnuclear.item.armor.AntiRadiationArmorItem.Boot;
 public class CNItems {
 
     public static final Item YELLOW_CAKE_NETHER_STAR = registerItem("yellow_cake_nether_star_wip", new Item(new FabricItemSettings()));
-//    public static final Item YELLOW_CAKE = registerItem("yellow_cake", new Item(new FabricItemSettings()
-//    .food(new FoodProperties.Builder()
-//          .nutrition(20)
-//          .alwaysEat()
-//          .saturationMod(0.3F)
-//          .effect(new MobEffectInstance(MobEffects.POISON, 6000, 25), 1.0F)
-//          .effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 6000, 5), 1.0F)
-//          .effect(new MobEffectInstance(MobEffects.HUNGER, 6000, 1000), 1.0F)
-//          .effect(new MobEffectInstance(MobEffects.CONFUSION, 6000, 5), 1.0F)
-//          .effect(new MobEffectInstance(MobEffects.WITHER, 6000, 8), 1.0F)
-//          .effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 6000, 5), 1.0F)
-//       .build())));
 
     public static final ItemEntry<Item>
         URANIUM_POWDER = CreateNuclear.REGISTRATE
@@ -114,10 +94,6 @@ public class CNItems {
         LEAD_NUGGET = CreateNuclear.REGISTRATE
                 .item("lead_nugget", Item::new)
                 .tag(CNTag.forgeItemTag("nuggets"), CNTag.forgeItemTag("lead_nuggets"))
-                .register(),
-
-        WELDING_KIT = CreateNuclear.REGISTRATE
-                .item("welding_kit", Item::new)
                 .register(),
 
         URANIUM_ROD = CreateNuclear.REGISTRATE
@@ -191,24 +167,7 @@ public class CNItems {
 
 
     private static void addItemToIngredientItemGroup(FabricItemGroupEntries entries) {
-        /*entries.accept(URANIUM_POWDER, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(YELLOW_CAKE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(YELLOW_CAKE_ENRICHED, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(COAL_DUST, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(CHARCOAL_DUST, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(GRAPHENE, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(STEEL_INGOT, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(YELLOW_CAKE_NETHER_STAR, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(URANIUM_ROD, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(GRAPHITE_ROD, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(RAW_URANIUM,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(RAW_LEAD,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(LEAD_INGOT,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(LEAD_NUGGET,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ANTI_RADIATION_HELMET,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ANTI_RADIATION_CHESTPLATE,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ANTI_RADIATION_LEGGINGS,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-        entries.accept(ANTI_RADIATION_BOOTS,CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);*/
+        /*entries.accept(YELLOW_CAKE_NETHER_STAR, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);*/
     }
 
     private static Item registerItem(String name, Item item) {

@@ -1,7 +1,5 @@
 package net.ynov.createnuclear;
 
-import com.simibubi.create.AllPackets;
-import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
@@ -11,8 +9,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.resources.ResourceLocation;
-//import net.ynov.createnuclear.block.CNBlockEntityType;
-//import net.ynov.createnuclear.blockentity.CNBlockEntity;
 import net.ynov.createnuclear.entity.CNMobEntityType;
 import net.ynov.createnuclear.entity.irradiatedcat.IrradiatedCat;
 import net.ynov.createnuclear.entity.irradiatedchicken.IrradiatedChicken;

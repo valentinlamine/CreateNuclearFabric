@@ -3,7 +3,6 @@ package net.ynov.createnuclear.effects;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
-import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.item.CNItems;
 
 public class RadiationEffect extends MobEffect {

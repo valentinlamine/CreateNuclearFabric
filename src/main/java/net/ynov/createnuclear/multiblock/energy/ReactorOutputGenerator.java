@@ -15,7 +15,7 @@ public class ReactorOutputGenerator extends SpecialBlockStateGen {
 
     @Override
     protected Property<?>[] getIgnoredProperties() {
-        return new Property<?>[] {ReactorOutput.SPEED, ReactorOutput.DIR};
+        return new Property<?>[] {ReactorOutput.DIR};
     }
 
     @Override

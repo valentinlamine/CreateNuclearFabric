@@ -1,6 +1,5 @@
 package net.ynov.createnuclear.compact.recipe.category;
 
-import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.compat.rei.category.ProcessingViaFanCategory;
 import com.simibubi.create.compat.rei.category.animations.AnimatedKinetics;
 import com.simibubi.create.foundation.gui.AllGuiTextures;

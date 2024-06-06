@@ -16,12 +16,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutputEntity;
-import net.ynov.createnuclear.multiblock.frame.ReactorBlock;
 
 import java.util.List;
 

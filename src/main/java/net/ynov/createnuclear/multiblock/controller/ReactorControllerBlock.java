@@ -33,10 +33,6 @@ import net.ynov.createnuclear.tools.HorizontalDirectionalReactorBlock;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Properties;
-
-import static net.ynov.createnuclear.multiblock.energy.ReactorOutput.SPEED;
 
 public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock implements IWrenchable, IBE<ReactorControllerBlockEntity> {
     public static final BooleanProperty ASSEMBLED = BooleanProperty.create("assembled");

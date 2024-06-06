@@ -64,7 +64,6 @@ public class CNRei implements REIClientPlugin {
                 .doubleItemIcon(AllItems.PROPELLER.get(), CNBlocks.ENRICHING_CAMPFIRE)
                 .emptyBackground(178, 72)
                 .build("fan_enriched", FanEnrichedCategoryREI::new)
-
                 ;
     }
 
@@ -116,14 +115,6 @@ public class CNRei implements REIClientPlugin {
     public void registerTransferHandlers(TransferHandlerRegistry registry) {
         registry.register(new BlueprintTransferHandler());
     }
-
-//	@Override // FIXME RECIPE VIEWERS
-//	public void registerFluidSubtypes(ISubtypeRegistration registration) {
-//		PotionFluidSubtypeInterpreter interpreter = new PotionFluidSubtypeInterpreter();
-//		PotionFluid potionFluid = AllFluids.POTION.get();
-//		registration.registerSubtypeInterpreter(FabricTypes.FLUID_STACK, potionFluid.getSource(), interpreter);
-//		registration.registerSubtypeInterpreter(FabricTypes.FLUID_STACK, potionFluid.getFlowing(), interpreter);
-//	}
 
     @Override
     public void registerEntries(EntryRegistry registry) {

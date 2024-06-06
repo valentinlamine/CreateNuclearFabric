@@ -3,8 +3,7 @@ package net.ynov.createnuclear.block;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.decoration.encasing.EncasedCTBehaviour;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
-import com.simibubi.create.content.kinetics.motor.CreativeMotorGenerator;
-import com.simibubi.create.foundation.data.BuilderTransformers;
+import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.utility.Couple;
@@ -35,7 +34,6 @@ import net.ynov.createnuclear.multiblock.gauge.ReactorGaugeBlock;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.ynov.createnuclear.multiblock.frame.ReactorBlock;
 import net.ynov.createnuclear.multiblock.gauge.ReactorGaugeBlockItem;
-import net.ynov.createnuclear.multiblock.gauge.ReactorGaugeBlockOverrides;
 import net.ynov.createnuclear.multiblock.input.ReactorInput;
 import net.ynov.createnuclear.tags.CNTag;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
@@ -45,15 +43,10 @@ import net.ynov.createnuclear.tools.UraniumOreBlock;
 
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 
-import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
-
 import static com.simibubi.create.foundation.data.CreateRegistrate.casingConnectivity;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
-import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
-import static net.minecraft.world.level.block.Blocks.litBlockEmission;
-import static com.simibubi.create.foundation.data.CreateRegistrate.connectedTextures;
 
 public class CNBlocks {
 
@@ -242,7 +235,6 @@ public class CNBlocks {
                 .ignitedByLava()
             ))
             .properties(BlockBehaviour.Properties::replaceable)
-            //.initialProperties(CNBlocks::DIAMOND_ORE)
             .simpleItem()
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(axeOrPickaxe())
@@ -289,9 +281,9 @@ public class CNBlocks {
                     .blockstate((c, p) ->
                         p.getVariantBuilder(c.getEntry())
                         .forAllStates(state -> ConfiguredModel.builder()
-                                .modelFile(p.models().getExistingFile(p.modLoc("block/reactor_core")))
-                                .uvLock(false)
-                                .build())
+                            .modelFile(p.models().getExistingFile(p.modLoc("block/reactor_core")))
+                            .uvLock(false)
+                            .build())
                     )
                     .transform(pickaxeOnly())
                     .simpleItem()
@@ -317,7 +309,7 @@ public class CNBlocks {
     public static final BlockEntry<ReactorBlock> REACTOR_CASING =
             CreateNuclear.REGISTRATE.block("reactor_casing", ReactorBlock::new)
                     .properties(p -> p.explosionResistance(1200F).destroyTime(4F))
-                    .transform(axeOrPickaxe())
+                    .transform(pickaxeOnly())
                     .blockstate((c,p) -> p.simpleBlock(c.get()))
                     .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(CNSpriteShifts.REACTOR_CASING)))
                     .onRegister(casingConnectivity((block,cc) -> cc.makeCasing(block, CNSpriteShifts.REACTOR_CASING)))

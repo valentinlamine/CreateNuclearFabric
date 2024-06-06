@@ -1,12 +1,10 @@
 package net.ynov.createnuclear.entity;
 
-import com.tterrag.registrate.util.entry.EntityEntry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.animal.Wolf;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.entity.irradiatedcat.IrradiatedCat;
 import net.ynov.createnuclear.entity.irradiatedchicken.IrradiatedChicken;
