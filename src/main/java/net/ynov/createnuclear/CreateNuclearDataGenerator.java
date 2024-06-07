@@ -9,6 +9,10 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
 import net.ynov.createnuclear.datagen.CNGeneratedEntriesProvider;
+import net.ynov.createnuclear.datagen.CNProcessingRecipeGen;
+import net.ynov.createnuclear.datagen.recipe.crafting.CNStandardRecipeGen;
+import net.ynov.createnuclear.datagen.recipe.mechanical_crafter.CNMechanicalCraftingRecipeGen;
+import net.ynov.createnuclear.datagen.recipe.shapeless.CNShapelessRecipeGen;
 import net.ynov.createnuclear.ponder.CNPonderIndex;
 import com.simibubi.create.foundation.ponder.PonderLocalization;
 
@@ -32,6 +36,10 @@ public class CreateNuclearDataGenerator implements DataGeneratorEntrypoint {
 		addExtraRegistrateData();
 
 		pack.addProvider(CNGeneratedEntriesProvider::new);
+		pack.addProvider(CNProcessingRecipeGen::registerAll);
+		pack.addProvider(CNStandardRecipeGen::new);
+		pack.addProvider(CNMechanicalCraftingRecipeGen::new);
+		pack.addProvider(CNShapelessRecipeGen::new);
 	}
 
 	private static void addExtraRegistrateData() {
