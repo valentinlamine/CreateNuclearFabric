@@ -6,6 +6,7 @@ import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
+import com.simibubi.create.foundation.data.recipe.StandardRecipeGen;
 import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.entry.BlockEntry;
@@ -15,6 +16,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
@@ -310,7 +312,10 @@ public class CNBlocks {
             CreateNuclear.REGISTRATE.block("reactor_casing", ReactorBlock::new)
                     .properties(p -> p.explosionResistance(1200F).destroyTime(4F))
                     .transform(pickaxeOnly())
-                    .blockstate((c,p) -> p.simpleBlock(c.get()))
+                    .blockstate((c,p) ->
+                        p.getVariantBuilder(c.getEntry()).forAllStates((state) -> ConfiguredModel.builder()
+                            .modelFile(p.models().getExistingFile(p.modLoc("block/reactor_casing")))
+                            .build()))
                     .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(CNSpriteShifts.REACTOR_CASING)))
                     .onRegister(casingConnectivity((block,cc) -> cc.makeCasing(block, CNSpriteShifts.REACTOR_CASING)))
                     .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
