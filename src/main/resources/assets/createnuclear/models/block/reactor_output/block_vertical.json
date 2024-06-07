@@ -3,8 +3,8 @@
 	"parent": "block/block",
 	"textures": {
 		"0": "createnuclear:block/reactor/output/reactor_output",
-		"1": "createnuclear:block/reactor/gauge/reactor_gauge_top",
-		"2": "createnuclear:block/reactor/gauge/reactor_gauge",
+		"1": "createnuclear:block/reactor/casing/old/reactor_casing_top",
+		"2": "createnuclear:block/reactor/casing/reactor_casing",
 		"particle": "createnuclear:block/reactor/output/reactor_output"
 	},
 	"elements": [
