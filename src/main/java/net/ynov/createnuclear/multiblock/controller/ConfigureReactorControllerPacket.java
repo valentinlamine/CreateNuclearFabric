@@ -1,26 +1,21 @@
 package net.ynov.createnuclear.multiblock.controller;
 
 import com.simibubi.create.foundation.networking.SimplePacketBase;
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlockEntity.State;
 
+import net.ynov.createnuclear.multiblock.controller.CNOption;
+
 import java.util.List;
 
-public class ConfigureReactorControllerPacket extends SimplePacketBase {
+import static net.ynov.createnuclear.packets.CNPackets.getChannel;
 
-    public static enum CNOption {
-        PLAY,
-        STOP,
-        COUNT_GRAPHITE_ROD,
-        COUNT_URANIUM_ROD,
-        REACTOR_POWER,
-        HEAT,
-        SCREEN_PATTERN
-        ;//, INVALIDE_INPUT1, INVALIDE_INPUT2, LACK_URANIUM_ROD, LACK_GRAPHITE_ROD;
-    }
+public class ConfigureReactorControllerPacket extends SimplePacketBase {
 
     private CNOption option;
     private boolean set;
@@ -55,20 +50,16 @@ public class ConfigureReactorControllerPacket extends SimplePacketBase {
         buffer.writeEnum(option);
         buffer.writeBoolean(set);
         buffer.writeInt(value);
-        CreateNuclear.LOGGER.info("d4 " + nbt);
+        CreateNuclear.LOGGER.warn("d4 " + nbt);
         buffer.writeNbt(nbt);
     }
 
-    private CompoundTag test() {
-        return this.nbt;
-    }
 
     @Override
     public boolean handle(Context context) {
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             if (player == null || !(player.containerMenu instanceof ReactorControllerMenu)) return;
-
             ReactorControllerBlockEntity be = ((ReactorControllerMenu) player.containerMenu).contentHolder;
             switch (option) {
                 case PLAY:
@@ -83,6 +74,7 @@ public class ConfigureReactorControllerPacket extends SimplePacketBase {
                     break;
                 case SCREEN_PATTERN:
                     be.screen_pattern = this.nbt;
+                    //getChannel().sendToClientsInCurrentServer(new ConfigureReactorScreenPacket(option, this.nbt));
                     break;
                 default:
                     break;

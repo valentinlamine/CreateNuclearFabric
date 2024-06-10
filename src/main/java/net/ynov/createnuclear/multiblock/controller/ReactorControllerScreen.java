@@ -3,7 +3,6 @@ package net.ynov.createnuclear.multiblock.controller;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,12 +12,9 @@ import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.gui.CNIcons;
 import net.ynov.createnuclear.item.CNItems;
 
-import static net.ynov.createnuclear.multiblock.controller.ConfigureReactorControllerPacket.CNOption;
 import static net.ynov.createnuclear.packets.CNPackets.getChannel;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ReactorControllerScreen extends AbstractSimiContainerScreen<ReactorControllerMenu> {

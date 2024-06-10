@@ -1,29 +1,32 @@
 package net.ynov.createnuclear.packets;
 
 import com.simibubi.create.AllPackets;
-import com.simibubi.create.content.schematics.cannon.ConfigureSchematicannonPacket;
 import com.simibubi.create.foundation.networking.SimplePacketBase;
 import me.pepperbell.simplenetworking.S2CPacket;
 import me.pepperbell.simplenetworking.SimpleChannel;
-import net.fabricmc.fabric.api.networking.v1.PacketType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.multiblock.controller.ConfigureReactorControllerPacket;
+import net.ynov.createnuclear.multiblock.controller.ConfigureReactorScreenPacket;
 
 import static com.simibubi.create.foundation.networking.SimplePacketBase.NetworkDirection;
+import static com.simibubi.create.foundation.networking.SimplePacketBase.NetworkDirection.PLAY_TO_CLIENT;
 import static com.simibubi.create.foundation.networking.SimplePacketBase.NetworkDirection.PLAY_TO_SERVER;
 
-import java.util.Objects;
 import java.util.function.Function;
 
 public enum CNPackets {
-
+    // To server
     CONFIGURE_REACTOR_CONTROLLER(ConfigureReactorControllerPacket.class, ConfigureReactorControllerPacket::new, PLAY_TO_SERVER),
+
+
+    // To client
+    CONFIGURE_REACTOR_SCREEN(ConfigureReactorScreenPacket.class, ConfigureReactorScreenPacket::new, PLAY_TO_CLIENT),
+
     ;
 
     public static final ResourceLocation CHANNEL_NAME = CreateNuclear.asResource("main");

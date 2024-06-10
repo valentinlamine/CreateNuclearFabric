@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.transfer.v1.storage.base.SidedStorageBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -27,6 +28,7 @@ import java.util.List;
 
 import static net.ynov.createnuclear.CNMultiblock.*;
 import static net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
+import static net.ynov.createnuclear.packets.CNPackets.getChannel;
 
 public class ReactorControllerBlockEntity extends SmartBlockEntity implements MenuProvider, IInteractionChecker, SidedStorageBlockEntity {
     public boolean destroyed = false;
@@ -160,6 +162,13 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         if (sendUpdate) {
             sendUpdate = false;
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 6);
+            CreateNuclear.LOGGER.warn("jfbsrkjgbdf:gbwfdgjbwfg:bf:g,bwdfkgjbdkgbdfkjgbdfkjgbnskdfjgbwjfgbnwkfgjbwdfkmgjbnkgjbxdgkjbxdgjksgkjhdrdgkjshdgkjhdgmkhkj");
+            for (Player playert : level.players()) {
+                if (playert instanceof ServerPlayer player) {
+                    CreateNuclear.LOGGER.warn("Send To Clients");
+                    //getChannel().sendToClient(new ConfigureReactorScreenPacket(CNOption.SCREEN_PATTERN, screen_pattern), player);
+                }
+            }
         }
     }
 
