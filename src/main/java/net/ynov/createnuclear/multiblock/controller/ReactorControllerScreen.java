@@ -1,8 +1,12 @@
 package net.ynov.createnuclear.multiblock.controller;
 
+import com.simibubi.create.AllPackets;
+import com.simibubi.create.content.kinetics.transmission.sequencer.ConfigureSequencedGearshiftPacket;
+import com.simibubi.create.content.kinetics.transmission.sequencer.Instruction;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
@@ -241,7 +245,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
             SwitchButtonsNBT.put(String.valueOf(i), buttonTag);
             i++;
         }
-
+        //sendPacket(SwitchButtonsNBT);
         sendCompondTagUpdate(CNOption.SCREEN_PATTERN, SwitchButtonsNBT);
     }
 
@@ -348,6 +352,12 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
                 CreateNuclear.LOGGER.info("Empty at index: " + i);
             }
         }
+    }
+
+    public void sendPacket(CompoundTag nbt) {
+        CreateNuclear.LOGGER.warn("Test ? in screen");
+
+        getChannel().sendToServer(new ConfigureReactorScreenPacket(menu.contentHolder.getBlockPos(), nbt, CNOption.SCREEN_PATTERN));
     }
 
     protected void sendOptionUpdate(CNOption option) {

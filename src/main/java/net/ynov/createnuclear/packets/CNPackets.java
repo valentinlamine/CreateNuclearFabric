@@ -1,6 +1,7 @@
 package net.ynov.createnuclear.packets;
 
 import com.simibubi.create.AllPackets;
+import com.simibubi.create.content.equipment.potatoCannon.PotatoProjectileTypeManager;
 import com.simibubi.create.foundation.networking.SimplePacketBase;
 import me.pepperbell.simplenetworking.S2CPacket;
 import me.pepperbell.simplenetworking.SimpleChannel;
@@ -22,11 +23,6 @@ import java.util.function.Function;
 public enum CNPackets {
     // To server
     CONFIGURE_REACTOR_CONTROLLER(ConfigureReactorControllerPacket.class, ConfigureReactorControllerPacket::new, PLAY_TO_SERVER),
-
-
-    // To client
-    CONFIGURE_REACTOR_SCREEN(ConfigureReactorScreenPacket.class, ConfigureReactorScreenPacket::new, PLAY_TO_CLIENT),
-
     ;
 
     public static final ResourceLocation CHANNEL_NAME = CreateNuclear.asResource("main");

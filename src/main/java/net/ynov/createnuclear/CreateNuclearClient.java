@@ -40,7 +40,7 @@ public class CreateNuclearClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_CAT, IrradiatedCatModel::createBodyLayer);
         EntityRendererRegistry.register(CNMobEntityType.IRRADIATED_CAT, IrradiatedCatRenderer::new);
 
-        //getChannel().initClientListener();
+        getChannel().initClientListener();
 
     }
 }

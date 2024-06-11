@@ -151,7 +151,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         if (level.isClientSide)
             return;
 
-        //CreateNuclear.LOGGER.warn("> 100: " + heat);
         if (level.getBlockState(getBlockPos().below(3)).getBlock() == CNBlocks.REACTOR_OUTPUT.get() && powered == State.ON){
             // En attendant l'explosion on arrete simplement la rotation quand la chaleur depasse 100
             Rotate(getBlockState(), getBlockPos().below(3), getLevel(), (heat >= 100 ? 0 : heat));
@@ -162,13 +161,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         if (sendUpdate) {
             sendUpdate = false;
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 6);
-            CreateNuclear.LOGGER.warn("jfbsrkjgbdf:gbwfdgjbwfg:bf:g,bwdfkgjbdkgbdfkjgbdfkjgbnskdfjgbwjfgbnwkfgjbwdfkmgjbnkgjbxdgkjbxdgjksgkjhdrdgkjshdgkjhdgmkhkj");
-            for (Player playert : level.players()) {
-                if (playert instanceof ServerPlayer player) {
-                    CreateNuclear.LOGGER.warn("Send To Clients");
-                    //getChannel().sendToClient(new ConfigureReactorScreenPacket(CNOption.SCREEN_PATTERN, screen_pattern), player);
-                }
-            }
         }
     }
 
