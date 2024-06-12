@@ -14,7 +14,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.ynov.createnuclear.CreateNuclear;
 
-import static net.ynov.createnuclear.tags.CNTag.NameSpace.MOD;
+import static net.ynov.createnuclear.tags.CNTag.NameSpace.*;
 
 public class CNTag {
     public static <T> TagKey<T> optionalTag(Registry<T> registry, ResourceLocation id) {
@@ -22,7 +22,7 @@ public class CNTag {
     }
 
     public static <T> TagKey<T> forgeTag(Registry<T> registry, String path) {
-        return optionalTag(registry, new ResourceLocation("createnuclear", path));
+        return optionalTag(registry, new ResourceLocation("c", path));
     }
 
     public static TagKey<Block> forgeBlockTag(String path) {
@@ -31,12 +31,16 @@ public class CNTag {
     public static TagKey<Fluid> forgeFluidTag(String path) {
         return forgeTag(BuiltInRegistries.FLUID, path);
     }
+    public static TagKey<Item> forgeItemTag(String path) {
+        return forgeTag(BuiltInRegistries.ITEM, path);
+    }
 
     public enum NameSpace {
         MOD(CreateNuclear.MOD_ID, false, true),
-        CREATE("c"),
-        FORGE(CreateNuclear.MOD_ID)
-
+        CREATE("create"),
+        FORGE("f"),
+        FABRIC("c"),
+        MINECRAFT("minecraft")
         ;
 
         public final String id;
@@ -55,7 +59,9 @@ public class CNTag {
 
     public enum FluidTag {
         //URANIUM(NameSpace.MOD),
-        URANIUM(NameSpace.CREATE);
+        URANIUM,
+        LAVA(MINECRAFT)
+        ;
 
         public final TagKey<Fluid> tag;
         public final boolean alwayDatagen;
@@ -93,8 +99,18 @@ public class CNTag {
     }
 
     public enum BlockTags {
-        FAN_PROCESSING_CATALYSTS_ENRICHED(MOD, "fan_processing_catalysts/enriched"),
-        ENRICHING_FIRE_BASE_BLOCKS(MOD, "uranium_fire_base_blocks"),
+        FAN_PROCESSING_CATALYSTS_ENRICHED("fan_processing_catalysts/enriched"),
+        ENRICHING_FIRE_BASE_BLOCKS("uranium_fire_base_blocks"),
+        CAMPFIRE(MINECRAFT),
+        ALL_CAMPFIRE(MINECRAFT, "all/campfires"),
+        DRAGON_TRANSPARENT(MINECRAFT),
+        FIRE(MINECRAFT),
+        NEEDS_DIAMOND_TOOL(MINECRAFT),
+        NEEDS_IRON_TOOL(MINECRAFT),
+        NEEDS_STONE_TOOL(MINECRAFT),
+        SHOVEL(MINECRAFT, "mineable/shovel"),
+
+
         ;
         public final TagKey<Block> tag;
         public final boolean alwaysDatagen;
@@ -143,9 +159,10 @@ public class CNTag {
     }
 
     public enum ItemTags {
-        CLOTH(MOD);
+        CLOTH,
+        ;
 
-        public  final  TagKey<Item> tag;
+        public final TagKey<Item> tag;
         public final boolean alwaysDatagen;
 
         ItemTags() {

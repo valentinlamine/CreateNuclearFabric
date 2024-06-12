@@ -9,7 +9,7 @@ public class CNOreGeneration {
 
     public static void generateOres() {
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(),
-                GenerationStep.Decoration.UNDERGROUND_ORES, CNPlacedFeatures.URANIUM_ORE_PLACED_KEY);
+                GenerationStep.Decoration.UNDERGROUND_ORES, CNPlacedFeatures.URANIUM_ORE);
 
 
     }

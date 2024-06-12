@@ -21,9 +21,7 @@ import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.effects.CNEffects;
 import net.ynov.createnuclear.fan.EnrichedRecipe.EnrichedWrapper;
-//import net.ynov.createnuclear.tools.EnrichingCampfire;
 import net.ynov.createnuclear.tools.EnrichingCampfire;
-import net.ynov.createnuclear.tools.EnrichingCampfireBlock;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;

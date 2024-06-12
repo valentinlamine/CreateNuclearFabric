@@ -12,13 +12,11 @@ import net.minecraft.client.renderer.RenderType;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.entity.CNMobEntityType;
 import net.ynov.createnuclear.entity.CNModelLayers;
-import net.ynov.createnuclear.entity.irradiatedcat.IrradiatedCat;
 import net.ynov.createnuclear.entity.irradiatedcat.IrradiatedCatModel;
 import net.ynov.createnuclear.entity.irradiatedcat.IrradiatedCatRenderer;
 import net.ynov.createnuclear.entity.irradiatedchicken.IrradiatedChickenModel;
 import net.ynov.createnuclear.entity.irradiatedwolf.IrradiatedWolfModel;
 import net.ynov.createnuclear.entity.irradiatedwolf.IrradiatedWolfRenderer;
-import net.ynov.createnuclear.packets.CNPackets;
 import net.ynov.createnuclear.ponder.CNPonderIndex;
 import net.ynov.createnuclear.entity.irradiatedchicken.IrradiatedChickenRenderer;
 

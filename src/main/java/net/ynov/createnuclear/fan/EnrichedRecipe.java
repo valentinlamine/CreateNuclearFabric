@@ -4,7 +4,6 @@ import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder.ProcessingRecipeParams;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
 import net.minecraft.world.level.Level;
-import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.fan.EnrichedRecipe.EnrichedWrapper;
 
 import javax.annotation.ParametersAreNonnullByDefault;

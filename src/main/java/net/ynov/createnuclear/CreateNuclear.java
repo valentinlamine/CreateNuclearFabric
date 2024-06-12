@@ -1,20 +1,14 @@
 package net.ynov.createnuclear;
 
-import com.simibubi.create.AllPackets;
-import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
-import io.github.tropheusj.milk.mixin.BrewingRecipeRegistryMixin;
-import io.github.tropheusj.milk.mixin.BrewingRecipeRegistryMixin;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.resources.ResourceLocation;
-//import net.ynov.createnuclear.block.CNBlockEntityType;
-//import net.ynov.createnuclear.blockentity.CNBlockEntity;
 import net.ynov.createnuclear.entity.CNMobEntityType;
 import net.ynov.createnuclear.entity.irradiatedcat.IrradiatedCat;
 import net.ynov.createnuclear.entity.irradiatedchicken.IrradiatedChicken;
@@ -25,7 +19,6 @@ import net.ynov.createnuclear.packets.CNPackets;
 import net.ynov.createnuclear.tags.CNTag;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.blockentity.CNBlockEntities;
-import net.ynov.createnuclear.blockentity.CNEntityTypes;
 import net.ynov.createnuclear.effects.CNEffects;
 import net.ynov.createnuclear.fluid.CNFluids;
 import net.ynov.createnuclear.groups.CNGroup;
@@ -43,11 +36,10 @@ public class CreateNuclear implements ModInitializer {
 	public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID);
 
 
+
 	static {
-		REGISTRATE.setTooltipModifierFactory(item -> {
-			return new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)
-					.andThen(TooltipModifier.mapNull(KineticStats.create(item)));
-		});
+		REGISTRATE.setTooltipModifierFactory(item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)
+                .andThen(TooltipModifier.mapNull(KineticStats.create(item))));
 	}
 
 	@Override
@@ -57,7 +49,6 @@ public class CreateNuclear implements ModInitializer {
 		CNBlocks.registerCNBlocks();
 		CNMenus.register();
 		CNBlockEntities.register();
-		CNEntityTypes.register();
 		CNGroup.registrer();
 		CNFluids.register();
 		CNTag.registerModItems();

@@ -1,0 +1,10 @@
+{
+  "itemGroup.createnuclear.main": "Create Nuclear",
+  "itemgroup.uranium": "Uranium Group",
+
+  "createnuclear.enriched.fan.recipe": "Bulk Enriched",
+  "emi.category.createnuclear.fan_enriched": "Bulk Enriched",
+  "create.recipe.fan_enriched.fan": "Fan behing Enriched",
+
+  "gui.createnuclear.reactor_controller.title": "Reactor Controller"
+}

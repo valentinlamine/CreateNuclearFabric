@@ -7,12 +7,7 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributeHandler;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageSources;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.Level;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.tags.CNTag;
@@ -32,7 +27,7 @@ public class CNFluids {
                         .tickRate(15)
                         .flowSpeed(6)
                         .blastResistance(100f))
-                .tag(CNTag.forgeFluidTag("uranium"))
+                .tag(CNTag.forgeFluidTag("uranium"), CNTag.FluidTag.LAVA.tag)
                 .source(SimpleFlowableFluid.Source::new);
 
         URANIUM = uranium.register();

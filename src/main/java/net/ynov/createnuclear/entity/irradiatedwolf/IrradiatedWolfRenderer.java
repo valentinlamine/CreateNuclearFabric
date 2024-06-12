@@ -1,14 +1,10 @@
 package net.ynov.createnuclear.entity.irradiatedwolf;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.model.WolfModel;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.WolfCollarLayer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.animal.Wolf;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.entity.CNModelLayers;
 import org.jetbrains.annotations.NotNull;
