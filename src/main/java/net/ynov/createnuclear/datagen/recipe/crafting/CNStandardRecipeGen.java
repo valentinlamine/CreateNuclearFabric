@@ -29,6 +29,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.item.CNItems;
+import net.ynov.createnuclear.item.cloth.ClothItem;
 import net.ynov.createnuclear.tags.CNTag;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
 
     private String CRAFTING = enterFolder("crafting");
     GeneratedRecipe
-        WHITE_CLOTH_FROM_STRING = create(CNItems.WHITE_CLOTH).unlockedBy(() -> Items.STRING)
+        WHITE_CLOTH_FROM_STRING = create(ClothItem.Cloths.WHITE_CLOTH::getItem).unlockedBy(() -> Items.STRING)
             .viaShaped(b -> b
                .define('#', Items.STRING)
                 .pattern("###")
@@ -47,7 +48,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                 .showNotification(true)
             ),
 
-        WHITE_CLOTH_FROM_WOOL = create(CNItems.WHITE_CLOTH).returns(6).unlockedBy(() -> Items.WHITE_WOOL).withSuffix("_wool")
+        WHITE_CLOTH_FROM_WOOL = create(ClothItem.Cloths.WHITE_CLOTH::getItem).returns(6).unlockedBy(() -> Items.WHITE_WOOL).withSuffix("_wool")
             .viaShaped(b -> b
                 .define('#', Blocks.WHITE_WOOL)
                 .pattern("###")
@@ -185,7 +186,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
         ANTI_RADIATION_HELMET = create(CNItems.ANTI_RADIATION_HELMET).unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag).withCategory(RecipeCategory.COMBAT)
             .viaShaped(b -> b
                     .define('X', CNItems.LEAD_INGOT)
-                    .define('Y', CNItems.WHITE_CLOTH)
+                    .define('Y', ClothItem.Cloths.WHITE_CLOTH.getItem())
                     .define('Z', CNBlocks.REINFORCED_GLASS)
                     .pattern("YXY")
                     .pattern("XZX")
@@ -195,7 +196,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
     ANTI_RADIATION_CHESTPLATE = create(CNItems.ANTI_RADIATION_CHESTPLATE).unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag).withCategory(RecipeCategory.COMBAT)
             .viaShaped(b -> b
                     .define('X', CNItems.LEAD_INGOT)
-                    .define('Y', CNItems.WHITE_CLOTH)
+                    .define('Y', ClothItem.Cloths.WHITE_CLOTH.getItem())
                     .define('Z', CNItems.GRAPHITE_ROD)
                     .pattern("Y Y")
                     .pattern("XXX")
@@ -206,7 +207,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
     ANTI_RADIATION_LEGGINS = create(CNItems.ANTI_RADIATION_LEGGINGS).unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag).withCategory(RecipeCategory.COMBAT)
             .viaShaped(b -> b
                     .define('X', CNItems.LEAD_INGOT)
-                    .define('Y', CNItems.WHITE_CLOTH)
+                    .define('Y', ClothItem.Cloths.WHITE_CLOTH.getItem())
                     .define('Z', CNBlocks.REINFORCED_GLASS)
                     .pattern("YXY")
                     .pattern("Z Z")
@@ -217,7 +218,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
     ANTI_RADIATION_BOOTS = create(CNItems.ANTI_RADIATION_BOOTS).unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag).withCategory(RecipeCategory.COMBAT)
             .viaShaped(b -> b
                     .define('X', CNItems.LEAD_INGOT)
-                    .define('Y', CNItems.WHITE_CLOTH)
+                    .define('Y', ClothItem.Cloths.WHITE_CLOTH.getItem())
                     .pattern("Y Y")
                     .pattern("X X")
                     .showNotification(true)

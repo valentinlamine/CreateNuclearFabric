@@ -162,7 +162,7 @@ public class CNTag {
         CLOTH,
         ;
 
-        public  final  TagKey<Item> tag;
+        public final TagKey<Item> tag;
         public final boolean alwaysDatagen;
 
         ItemTags() {

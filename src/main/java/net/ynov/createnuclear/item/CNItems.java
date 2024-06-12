@@ -20,7 +20,10 @@ import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.effects.CNEffects;
 import net.ynov.createnuclear.groups.CNGroup;
 import net.ynov.createnuclear.item.armor.AntiRadiationArmorItem;
+import net.ynov.createnuclear.item.cloth.ClothItem;
+import net.ynov.createnuclear.item.cloth.ClothItem.DyeItemList;
 import net.ynov.createnuclear.tags.CNTag;
+import net.ynov.createnuclear.utils.TextUtils;
 
 
 import static net.ynov.createnuclear.item.armor.AntiRadiationArmorItem.Helmet;
@@ -136,28 +139,14 @@ public class CNItems {
             .register();
 
 
-
-
-
-    public static final ItemEntry<Item>
-        WHITE_CLOTH = registerItemEntry("white"),
-        YELLOW_CLOTH = registerItemEntry("yellow"),
-        RED_CLOTH = registerItemEntry("red"),
-        BLUE_CLOTH = registerItemEntry("blue"),
-        GREEN_CLOTH = registerItemEntry("green"),
-        BLACK_CLOTH = registerItemEntry("black"),
-        ORANGE_CLOTH = registerItemEntry("orange"),
-        PURPLE_CLOTH = registerItemEntry("purple"),
-        BROWN_CLOTH = registerItemEntry("brown"),
-        PINK_CLOTH = registerItemEntry("pink"),
-        CYAN_CLOTH = registerItemEntry("cyan"),
-        LIGHT_GRAY_CLOTH = registerItemEntry("light_gray"),
-        GRAY_CLOTH = registerItemEntry("gray"),
-        LIGHT_BLUE_CLOTH = registerItemEntry("light_blue"),
-        LIME_CLOTH = registerItemEntry("lime"),
-        MAGENTA_CLOTH = registerItemEntry("magenta");
-
-
+    public static final DyeItemList<ClothItem> CLOTHS = new DyeItemList<>(color -> {
+        String colorName = color.getSerializedName();
+        return CreateNuclear.REGISTRATE.item(colorName+ "_cloth", p -> new ClothItem(p, color))
+                .tag(CNTag.ItemTags.CLOTH.tag)
+                .lang(TextUtils.titleCaseConversion(color.getName()) + " Cloth")
+                .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/cloth/" + colorName + "_cloth")))
+                .register();
+    });
 
 
     public static final Potion potion_1 = registerPotion("potion_of_radiation_1", new Potion(new MobEffectInstance(CNEffects.RADIATION.get(), 900)));
