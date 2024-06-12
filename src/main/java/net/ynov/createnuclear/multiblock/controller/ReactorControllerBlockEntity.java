@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.transfer.v1.storage.base.SidedStorageBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -25,6 +26,7 @@ import java.util.List;
 
 import static net.ynov.createnuclear.CNMultiblock.*;
 import static net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
+import static net.ynov.createnuclear.packets.CNPackets.getChannel;
 
 public class ReactorControllerBlockEntity extends SmartBlockEntity implements MenuProvider, IInteractionChecker, SidedStorageBlockEntity {
     public boolean destroyed = false;
@@ -46,6 +48,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
     public int graphiteTimer = 3600;
     public int uraniumTimer = 6000;
     public int heat;
+    public CompoundTag screen_pattern = new CompoundTag();
     private List<CNIconButton> switchButtons;
 
 
@@ -83,6 +86,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         graphiteTimer = compound.getInt("graphiteTimer");
         uraniumTimer = compound.getInt("uraniumTimer");
         heat = compound.getInt("heat");
+        screen_pattern = compound.getCompound("screen_pattern");
 
         super.read(compound, clientPacket);
     }
@@ -101,6 +105,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         compound.putInt("uraniumTimer", uraniumTimer);
         compound.putInt("heat", heat);
         compound.putString("state", powered.name());
+        compound.put("screen_pattern", screen_pattern);
 
 
         super.write(compound, clientPacket);
@@ -144,7 +149,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         if (level.isClientSide)
             return;
 
-        //CreateNuclear.LOGGER.warn("> 100: " + heat);
         if (level.getBlockState(getBlockPos().below(3)).getBlock() == CNBlocks.REACTOR_OUTPUT.get() && powered == State.ON){
             // En attendant l'explosion on arrete simplement la rotation quand la chaleur depasse 100
             Rotate(getBlockState(), getBlockPos().below(3), getLevel(), (heat >= 100 ? 0 : heat));

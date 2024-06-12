@@ -1,7 +1,12 @@
 package net.ynov.createnuclear.multiblock.controller;
 
+import com.simibubi.create.AllPackets;
+import com.simibubi.create.content.kinetics.transmission.sequencer.ConfigureSequencedGearshiftPacket;
+import com.simibubi.create.content.kinetics.transmission.sequencer.Instruction;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
@@ -11,7 +16,6 @@ import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.gui.CNIcons;
 import net.ynov.createnuclear.item.CNItems;
 
-import static net.ynov.createnuclear.multiblock.controller.ConfigureReactorControllerPacket.CNOption;
 import static net.ynov.createnuclear.packets.CNPackets.getChannel;
 
 import java.util.ArrayList;
@@ -41,19 +45,14 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         placeSwitchItem();
         ReactorControllerBlockEntity be = menu.contentHolder;
 
-        powerButton = be.isPowered()
-                ? new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.ON_NORMAL)
-                : new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.OFF_NORMAL);
+        powerButton = new CNIconButton(leftPos +  BG.width - 25, topPos + 7, CNIcons.OFF_NORMAL);
 
         powerButton.withCallback(() -> {// Quand le button est appuyé il fait ca
-            Boolean powered = be.isPowered();
-            if (powered != null && !powered) {
-                be.setPowered(true);
+            if (!be.isPowered()) {
                 powerButton.setIcon(CNIcons.ON_NORMAL);
                 sendOptionUpdate(CNOption.PLAY);
-            } else if (powered != null) {
-                be.setPowered(false);
-                be.heat = 0;
+            }
+            else {
                 powerButton.setIcon(CNIcons.OFF_NORMAL);
                 sendOptionUpdate(CNOption.STOP);
             }
@@ -96,9 +95,12 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         if (!be.isPowered()) {
             be.heat = 0;
             be.lastReactorPower = 0;
+
             super.containerTick();
             return;
         }
+
+
 
         if (menu.getSlot(1).getItem().getCount() >= 0) {
             be.graphiteTimer -= countGraphiteRod();
@@ -172,24 +174,39 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         }
 
         List<CNIconButton> switchButtons = new ArrayList<>();
+        if (menu.contentHolder.screen_pattern.isEmpty()) {
+            int[][] positions = {
+                    {3, 0}, {4, 0}, {5, 0},
+                    {2, 1}, {3, 1}, {4, 1}, {5, 1}, {6, 1},
+                    {1, 2}, {2, 2}, {3, 2}, {4, 2}, {5, 2}, {6, 2}, {7, 2},
+                    {3, 8}, {4, 8}, {5, 8},
+                    {2, 7}, {3, 7}, {4, 7}, {5, 7}, {6, 7},
+                    {1, 6}, {2, 6}, {3, 6}, {4, 6}, {5, 6}, {6, 6}, {7, 6}
+            };
 
-        int[][] positions = {
-                {3, 0}, {4, 0}, {5, 0},
-                {2, 1}, {3, 1}, {4, 1}, {5, 1}, {6, 1},
-                {1, 2}, {2, 2}, {3, 2}, {4, 2}, {5, 2}, {6, 2}, {7, 2},
-                {3, 8}, {4, 8}, {5, 8},
-                {2, 7}, {3, 7}, {4, 7}, {5, 7}, {6, 7},
-                {1, 6}, {2, 6}, {3, 6}, {4, 6}, {5, 6}, {6, 6}, {7, 6}
-        };
+            for (int[] pos : positions) {// up and down not middle
+                switchButtons.add(new CNIconButton(leftPos + startWidth + incr * pos[0], topPos + startHeight + incr * pos[1], CNIcons.EMPTY_ICON));
+            }
 
-        for (int[] pos : positions) {// up and down not middle
-            switchButtons.add(new CNIconButton(leftPos + startWidth + incr * pos[0], topPos + startHeight + incr * pos[1], CNIcons.EMPTY_ICON));
+            // Loop for positions (3,3) to (3,5), (4,3) to (4,5), ..., (11,3) to (11,5)
+            for (int i = 3; i <= 5; i++) {
+                for (int j = 0; j <= 8; j++) {
+                    switchButtons.add(new CNIconButton(leftPos + startWidth + incr * j, topPos + startHeight + incr * i, CNIcons.EMPTY_ICON));
+                }
+            }
         }
-
-        // Loop for positions (3,3) to (3,5), (4,3) to (4,5), ..., (11,3) to (11,5)
-        for (int i = 3; i <= 5; i++) {
-            for (int j = 0; j <= 8; j++) {
-                switchButtons.add(new CNIconButton(leftPos + startWidth + incr * j, topPos + startHeight + incr * i, CNIcons.EMPTY_ICON));
+        else {
+            for (int i = 0; i < menu.contentHolder.screen_pattern.size(); i++) {
+                int type = menu.contentHolder.screen_pattern.getCompound(String.valueOf(i)).getInt("type");
+                int x = menu.contentHolder.screen_pattern.getCompound(String.valueOf(i)).getInt("x");
+                int y = menu.contentHolder.screen_pattern.getCompound(String.valueOf(i)).getInt("y");
+                switchButtons.add(new CNIconButton(x, y,
+                    (type == 0
+                        ? CNIcons.EMPTY_ICON
+                        : type == 1
+                            ? CNIcons.GRAPHITE_ROD_ICON
+                            : CNIcons.URANIUM_ROD_ICON)
+                ));
             }
         }
 
@@ -206,8 +223,31 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         if (button.getIcon().equals(CNIcons.EMPTY_ICON)) button.setIcon(CNIcons.URANIUM_ROD_ICON);
         else if (button.getIcon().equals(CNIcons.URANIUM_ROD_ICON)) button.setIcon(CNIcons.GRAPHITE_ROD_ICON);
         else if (button.getIcon().equals(CNIcons.GRAPHITE_ROD_ICON)) button.setIcon(CNIcons.EMPTY_ICON);
+        saveActionSwitchButton();
     }
 
+    public void saveActionSwitchButton() {
+        CompoundTag SwitchButtonsNBT = new CompoundTag();
+
+        int i = 0;
+        for (CNIconButton button : menu.contentHolder.getSwitchButtons()) {
+            CompoundTag buttonTag = new CompoundTag();
+            buttonTag.putInt("type", (
+                button.getIcon().equals(CNIcons.GRAPHITE_ROD_ICON)
+                    ? 1//"GRAPHITE_ROD_ICON"
+                    : button.getIcon().equals(CNIcons.URANIUM_ROD_ICON)
+                        ? -1 //"URANIUM_ROD_ICON"
+                        : 0 //"EMPTY_ICON"
+            ));
+            buttonTag.putInt("x", button.getX());
+            buttonTag.putInt("y", button.getY());
+
+            SwitchButtonsNBT.put(String.valueOf(i), buttonTag);
+            i++;
+        }
+        //sendPacket(SwitchButtonsNBT);
+        sendCompondTagUpdate(CNOption.SCREEN_PATTERN, SwitchButtonsNBT);
+    }
 
     public int countGraphiteRod() {
         return (int) menu.contentHolder.getSwitchButtons().stream().filter(e -> e.getIcon().equals(CNIcons.GRAPHITE_ROD_ICON)).count();
@@ -314,11 +354,21 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         }
     }
 
-    protected void sendOptionUpdate(ConfigureReactorControllerPacket.CNOption option) {
+    public void sendPacket(CompoundTag nbt) {
+        CreateNuclear.LOGGER.warn("Test ? in screen");
+
+        getChannel().sendToServer(new ConfigureReactorScreenPacket(menu.contentHolder.getBlockPos(), nbt, CNOption.SCREEN_PATTERN));
+    }
+
+    protected void sendOptionUpdate(CNOption option) {
         getChannel().sendToServer(new ConfigureReactorControllerPacket(option));
     }
 
     protected void sendValueUpdate(CNOption option, int value) {
+        getChannel().sendToServer(new ConfigureReactorControllerPacket(option, value));
+    }
+
+    protected void sendCompondTagUpdate(CNOption option, CompoundTag value) {
         getChannel().sendToServer(new ConfigureReactorControllerPacket(option, value));
     }
 }

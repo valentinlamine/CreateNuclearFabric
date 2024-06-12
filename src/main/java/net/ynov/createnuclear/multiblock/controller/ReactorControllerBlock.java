@@ -10,6 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -37,6 +38,7 @@ import java.util.List;
 public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock implements IWrenchable, IBE<ReactorControllerBlockEntity> {
     public static final BooleanProperty ASSEMBLED = BooleanProperty.create("assembled");
     private List<CNIconButton> switchButtons;
+
 
     public ReactorControllerBlock(Properties properties) {
         super(properties);
@@ -93,9 +95,6 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
             p.sendSystemMessage(Component.literal("CRITICAL : Reactor Destroyed"));
         }
     }
-
-
-
 
     @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
