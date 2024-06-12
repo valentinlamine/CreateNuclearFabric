@@ -81,5 +81,14 @@
   "item.minecraft.tipped_arrow.effect.potion_of_radiation_2": "Arrow of Radiation",
   "item.minecraft.tipped_arrow.effect.potion_of_radiation_augment_1": "Arrow of Radiation",
   "itemGroup.createnuclear.main": "Create Nuclear",
-  "itemgroup.uranium": "Uranium Group"
+  "itemgroup.uranium": "Uranium Group",
+  "tag.item.c.coal_dusts": "Coal Dusts",
+  "tag.item.c.ingots.lead": "Tags Lead ingots",
+  "tag.item.c.ingots.steel": "Tags Steel ingots",
+  "tag.item.c.lead_ingots": "Lead ingots",
+  "tag.item.c.lead_nuggets": "Lead nuggetss",
+  "tag.item.createnuclear.cloth": "Cloth",
+  "tag.item.minecraft.all.campfires": "All Campfires",
+  "tag.item.minecraft.campfires": "Campfires",
+  "tag.item.trinkets.head.face": "Head Face"
 }
