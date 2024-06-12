@@ -1,3 +1,5 @@
 {
-  "entity.minecraft.irradiated_chicken": "Irradiated Chicken"
+  "entity.minecraft.irradiated_chicken": "Irradiated Chicken",
+  "entity.minecraft.irradiated_wolf": "Irradiated Wolf",
+  "entity.minecraft.irradiated_cat": "Irradiated Cat"
 }
