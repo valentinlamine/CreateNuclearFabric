@@ -31,7 +31,9 @@
   "createnuclear.ponder.reactor.text_8": "ㄥ ǝbɐʇǝ",
   "effect.createnuclear.radiation": "uoıʇɐıpɐᴚ",
   "emi.category.createnuclear.fan_enriched": "pǝɥɔıɹuƎ ʞןnᗺ",
+  "entity.minecraft.irradiated_cat": "ʇɐƆ pǝʇɐıpɐɹɹI",
   "entity.minecraft.irradiated_chicken": "uǝʞɔıɥƆ pǝʇɐıpɐɹɹI",
+  "entity.minecraft.irradiated_wolf": "ɟןoM pǝʇɐıpɐɹɹI",
   "fluid.createnuclear.uranium": "ɯnıuɐɹ∩",
   "gui.createnuclear.reactor_controller.title": "ɹǝןןoɹʇuoƆ ɹoʇɔɐǝᴚ",
   "item.createnuclear.anti_radiation_boots": "sʇooᗺ uoıʇɐıpɐᴚ ıʇuⱯ",
@@ -81,5 +83,14 @@
   "item.minecraft.tipped_arrow.effect.potion_of_radiation_2": "uoıʇɐıpɐᴚ ɟo ʍoɹɹⱯ",
   "item.minecraft.tipped_arrow.effect.potion_of_radiation_augment_1": "uoıʇɐıpɐᴚ ɟo ʍoɹɹⱯ",
   "itemGroup.createnuclear.main": "ɹɐǝןɔnN ǝʇɐǝɹƆ",
-  "itemgroup.uranium": "dnoɹ⅁ ɯnıuɐɹ∩"
+  "itemgroup.uranium": "dnoɹ⅁ ɯnıuɐɹ∩",
+  "tag.item.c.coal_dusts": "sʇsnᗡ ןɐoƆ",
+  "tag.item.c.ingots.lead": "sʇobuı pɐǝꞀ sbɐ⟘",
+  "tag.item.c.ingots.steel": "sʇobuı ןǝǝʇS sbɐ⟘",
+  "tag.item.c.lead_ingots": "sʇobuı pɐǝꞀ",
+  "tag.item.c.lead_nuggets": "ssʇǝbbnu pɐǝꞀ",
+  "tag.item.createnuclear.cloth": "ɥʇoןƆ",
+  "tag.item.minecraft.all.campfires": "sǝɹıɟdɯɐƆ ןןⱯ",
+  "tag.item.minecraft.campfires": "sǝɹıɟdɯɐƆ",
+  "tag.item.trinkets.head.face": "ǝɔɐℲ pɐǝH"
 }
