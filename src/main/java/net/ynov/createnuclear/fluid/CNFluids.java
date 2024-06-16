@@ -1,10 +1,7 @@
 package net.ynov.createnuclear.fluid;
 
-import com.simibubi.create.AllFluids;
-import com.simibubi.create.foundation.events.ClientEvents;
 import com.tterrag.registrate.fabric.SimpleFlowableFluid;
 import com.tterrag.registrate.util.entry.FluidEntry;
-import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributeHandler;
 import net.minecraft.network.chat.Component;
@@ -12,7 +9,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.material.Fluids;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.tags.CNTag;
 import net.ynov.createnuclear.effects.CNEffects;
@@ -67,7 +63,6 @@ public class CNFluids {
                 if (player.tickCount % 20 != 0) return;
                 if (player.updateFluidHeightAndDoFluidPushing(CNTag.FluidTag.URANIUM.tag, 0.014) || player.updateFluidHeightAndDoFluidPushing(CNTag.forgeFluidTag("uranium"), 0.014)) {
                     player.addEffect(new MobEffectInstance(CNEffects.RADIATION.get(), 100, 0));
-                    player.fireImmune();
                 }
             }});
     }
