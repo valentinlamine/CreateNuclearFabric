@@ -34,7 +34,7 @@
   "entity.minecraft.irradiated_cat": "Irradiated Cat",
   "entity.minecraft.irradiated_chicken": "Irradiated Chicken",
   "entity.minecraft.irradiated_wolf": "Irradiated Wolf",
-  "fluid.createnuclear.uranium": "Uranium",
+  "fluid.createnuclear.uranium": "Liquid Uranium",
   "gui.createnuclear.reactor_controller.title": "Reactor Controller",
   "item.createnuclear.anti_radiation_boots": "Anti Radiation Boots",
   "item.createnuclear.anti_radiation_chestplate": "Anti Radiation Chestplate",

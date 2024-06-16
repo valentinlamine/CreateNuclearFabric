@@ -111,29 +111,25 @@ public class CNItems {
     ;
 
     public static final ItemEntry<? extends AntiRadiationArmorItem.Helmet>
-            ANTI_RADIATION_HELMET = CreateNuclear.REGISTRATE.item("anti_radiation_helmet", properties ->
-                    new Helmet(properties, CreateNuclear.asResource("anti_radiation_helmet")))
+            ANTI_RADIATION_HELMET = CreateNuclear.REGISTRATE.item("anti_radiation_helmet", Helmet::new)
             .tag(CNTag.forgeItemTag("helmets"))
             .lang("Anti Radiation Helmet")
             .register();
 
     public static final ItemEntry<? extends AntiRadiationArmorItem.Chestplate>
-            ANTI_RADIATION_CHESTPLATE = CreateNuclear.REGISTRATE.item("anti_radiation_chestplate", properties ->
-                    new Chestplate(properties, CreateNuclear.asResource("anti_radiation_chestplate")))
+            ANTI_RADIATION_CHESTPLATE = CreateNuclear.REGISTRATE.item("anti_radiation_chestplate", Chestplate::new)
             .tag(CNTag.forgeItemTag("chestplates"))
             .lang("Anti Radiation Chestplate")
             .register();
 
     public static final ItemEntry<? extends AntiRadiationArmorItem.Leggings>
-            ANTI_RADIATION_LEGGINGS = CreateNuclear.REGISTRATE.item("anti_radiation_leggings", properties ->
-                    new Leggings(properties, CreateNuclear.asResource("anti_radiation_leggings")))
+            ANTI_RADIATION_LEGGINGS = CreateNuclear.REGISTRATE.item("anti_radiation_leggings", Leggings::new)
             .tag(CNTag.forgeItemTag("leggings"))
             .lang("Anti Radiation Leggings")
             .register();
 
     public static final ItemEntry<? extends AntiRadiationArmorItem.Boot>
-            ANTI_RADIATION_BOOTS = CreateNuclear.REGISTRATE.item("anti_radiation_boots", properties ->
-                    new Boot(properties, CreateNuclear.asResource("anti_radiation_boots")))
+            ANTI_RADIATION_BOOTS = CreateNuclear.REGISTRATE.item("anti_radiation_boots", Boot::new)
             .tag(CNTag.forgeItemTag("boots"))
             .lang("Anti Radiation Boots")
             .register();
