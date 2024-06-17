@@ -18,6 +18,7 @@ import net.ynov.createnuclear.entity.irradiatedwolf.IrradiatedWolfModel;
 import net.ynov.createnuclear.entity.irradiatedwolf.IrradiatedWolfRenderer;
 import net.ynov.createnuclear.ponder.CNPonderIndex;
 import net.ynov.createnuclear.entity.irradiatedchicken.IrradiatedChickenRenderer;
+import net.ynov.createnuclear.utils.CNClientEvent;
 
 import static net.ynov.createnuclear.packets.CNPackets.getChannel;
 
@@ -41,6 +42,7 @@ public class CreateNuclearClient implements ClientModInitializer {
         EntityRendererRegistry.register(CNMobEntityType.IRRADIATED_CAT, IrradiatedCatRenderer::new);
 
         getChannel().initClientListener();
+        CNClientEvent.register();
 
     }
 }

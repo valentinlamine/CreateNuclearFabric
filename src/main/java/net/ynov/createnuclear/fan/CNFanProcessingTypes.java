@@ -21,7 +21,8 @@ import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.effects.CNEffects;
 import net.ynov.createnuclear.fan.EnrichedRecipe.EnrichedWrapper;
-import net.ynov.createnuclear.tools.EnrichingCampfire;
+
+import net.ynov.createnuclear.tools.EnrichingCampfireBlock;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -69,7 +70,7 @@ public class CNFanProcessingTypes extends AllFanProcessingTypes {
         public boolean isValidAt(Level level, BlockPos pos) {
             BlockState blockState = level.getBlockState(pos);
             if (FAN_PROCESSING_CATALYSTS_ENRICHED.matches(blockState)) {
-                if (blockState.is(CNBlocks.ENRICHING_CAMPFIRE.get()) && blockState.hasProperty(EnrichingCampfire.LIT) && ! blockState.getValue(EnrichingCampfire.LIT)) {
+                if (blockState.is(CNBlocks.ENRICHING_CAMPFIRE.get()) && blockState.hasProperty(EnrichingCampfireBlock.LIT) && ! blockState.getValue(EnrichingCampfireBlock.LIT)) {
                     return false;
                 }
                 return true;
