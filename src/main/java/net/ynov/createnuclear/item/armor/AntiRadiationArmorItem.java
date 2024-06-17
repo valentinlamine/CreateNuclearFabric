@@ -155,6 +155,7 @@ public class AntiRadiationArmorItem {
         public Leggings(Properties properties, DyeColor color) {
             super(ARMOR_MATERIAL, LEGGINGS, properties);
             this.color = color;
+
         }
 
         @Override
@@ -219,6 +220,7 @@ public class AntiRadiationArmorItem {
         @Override
         public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
             return String.valueOf(CreateNuclear.asResource("textures/models/armor/white_anti_radiation_suit_layer_1.png"));
+
         }
     }
 

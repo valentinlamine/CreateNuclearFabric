@@ -109,7 +109,7 @@ public class CNItems {
                 .tag(CNTag.forgeItemTag("rods"))
                 .register()
     ;
-
+  
     public static final Helmet.DyeItemHelmetList<Helmet> ANTI_RADIATION_HELMETS = new Helmet.DyeItemHelmetList<>(color -> {
        String colorName = color.getSerializedName();
        return CreateNuclear.REGISTRATE.item(colorName + "_antiradiation_helmet", p -> new Helmet(p, color))

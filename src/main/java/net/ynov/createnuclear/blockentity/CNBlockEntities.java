@@ -10,6 +10,7 @@ import net.ynov.createnuclear.multiblock.energy.ReactorOutputEntity;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutputRenderer;
 import net.ynov.createnuclear.multiblock.frame.ReactorBlockEntity;
 import net.ynov.createnuclear.multiblock.input.ReactorInputEntity;
+import net.ynov.createnuclear.tools.EnrichingCampfireBlockEntity;
 
 public class CNBlockEntities {
     public static final BlockEntityEntry<ReactorControllerBlockEntity> REACTOR_CONTROLLER =
@@ -27,6 +28,11 @@ public class CNBlockEntities {
                     .instance(() -> HalfShaftInstance::new, false)
                     .validBlocks(CNBlocks.REACTOR_OUTPUT)
                     .renderer(() -> ReactorOutputRenderer::new)
+                    .register();
+
+    public static final BlockEntityEntry<EnrichingCampfireBlockEntity> ENRICHING_CAMPFIRE_BLOCK =
+            CreateNuclear.REGISTRATE.blockEntity("enriching_campfire_block", EnrichingCampfireBlockEntity::new)
+                    .validBlocks(CNBlocks.ENRICHING_CAMPFIRE)
                     .register();
 
     public static void register() {
