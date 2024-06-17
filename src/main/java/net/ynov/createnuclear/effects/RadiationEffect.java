@@ -3,7 +3,7 @@ package net.ynov.createnuclear.effects;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
-import net.ynov.createnuclear.item.CNItems;
+import net.ynov.createnuclear.item.armor.AntiRadiationArmorItem;
 
 public class RadiationEffect extends MobEffect {
     public RadiationEffect() {
@@ -19,10 +19,7 @@ public class RadiationEffect extends MobEffect {
     public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
         //Si le joueur porte l'armure anti_radiation_suit alors il ne prend pas de dégâts
         livingEntity.getArmorSlots().forEach(e -> {
-            if (e.getItem() == CNItems.ANTI_RADIATION_BOOTS.get()
-                    || e.getItem() == CNItems.ANTI_RADIATION_CHESTPLATE.get()
-                    || e.getItem() == CNItems.ANTI_RADIATION_HELMET.get()
-                    || e.getItem() == CNItems.ANTI_RADIATION_LEGGINGS.get()) {
+            if (livingEntity.hasEffect(CNEffects.RADIATION.get()) && AntiRadiationArmorItem.Armor.isArmored2(e)) {
                 livingEntity.hurt(livingEntity.damageSources().magic(), 0.0F);
 
             } else {

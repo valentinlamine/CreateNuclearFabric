@@ -8,9 +8,7 @@ import net.ynov.createnuclear.item.CNItems;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.function.Function;
 
 public class ClothItem extends Item {
@@ -130,33 +128,43 @@ public class ClothItem extends Item {
     }
 
     public enum Cloths {
-        WHITE_CLOTH(CNItems.CLOTHS.get(DyeColor.WHITE)),
-        YELLOW_CLOTH(CNItems.CLOTHS.get(DyeColor.YELLOW)),
-        RED_CLOTH(CNItems.CLOTHS.get(DyeColor.RED)),
-        BLUE_CLOTH(CNItems.CLOTHS.get(DyeColor.BLUE)),
-        GREEN_CLOTH(CNItems.CLOTHS.get(DyeColor.GREEN)),
-        BLACK_CLOTH(CNItems.CLOTHS.get(DyeColor.BLACK)),
-        ORANGE_CLOTH(CNItems.CLOTHS.get(DyeColor.ORANGE)),
-        PURPLE_CLOTH(CNItems.CLOTHS.get(DyeColor.PURPLE)),
-        BROWN_CLOTH(CNItems.CLOTHS.get(DyeColor.BROWN)),
-        PINK_CLOTH(CNItems.CLOTHS.get(DyeColor.PINK)),
-        CYAN_CLOTH(CNItems.CLOTHS.get(DyeColor.CYAN)),
-        LIGHT_GRAY_CLOTH(CNItems.CLOTHS.get(DyeColor.LIGHT_GRAY)),
-        GRAY_CLOTH(CNItems.CLOTHS.get(DyeColor.GRAY)),
-        LIGHT_BLUE_CLOTH(CNItems.CLOTHS.get(DyeColor.LIGHT_BLUE)),
-        LIME_CLOTH(CNItems.CLOTHS.get(DyeColor.LIME)),
-        MAGENTA_CLOTH(CNItems.CLOTHS.get(DyeColor.MAGENTA))
-        ;
+        WHITE_CLOTH(DyeColor.WHITE),
+        YELLOW_CLOTH(DyeColor.YELLOW),
+        RED_CLOTH(DyeColor.RED),
+        BLUE_CLOTH(DyeColor.BLUE),
+        GREEN_CLOTH(DyeColor.GREEN),
+        BLACK_CLOTH(DyeColor.BLACK),
+        ORANGE_CLOTH(DyeColor.ORANGE),
+        PURPLE_CLOTH(DyeColor.PURPLE),
+        BROWN_CLOTH(DyeColor.BROWN),
+        PINK_CLOTH(DyeColor.PINK),
+        CYAN_CLOTH(DyeColor.CYAN),
+        LIGHT_GRAY_CLOTH(DyeColor.LIGHT_GRAY),
+        GRAY_CLOTH(DyeColor.GRAY),
+        LIGHT_BLUE_CLOTH(DyeColor.LIGHT_BLUE),
+        LIME_CLOTH(DyeColor.LIME),
+        MAGENTA_CLOTH(DyeColor.MAGENTA);
 
-        private final ItemEntry<ClothItem> item;
+        private static final Map<DyeColor, ItemEntry<ClothItem>> clothMap = new EnumMap<>(DyeColor.class);
 
-        Cloths(ItemEntry<ClothItem> clothItemItemEntry) {
-            this.item = clothItemItemEntry;
+        static {
+            for (DyeColor color : DyeColor.values()) {
+                clothMap.put(color, CNItems.CLOTHS.get(color));
+            }
+        }
+
+        private final DyeColor color;
+
+        Cloths(DyeColor color) {
+            this.color = color;
         }
 
         public ItemEntry<ClothItem> getItem() {
-            return item;
+            return clothMap.get(this.color);
         }
 
+        public static ItemEntry<ClothItem> getByColor(DyeColor color) {
+            return clothMap.get(color);
+        }
     }
 }
