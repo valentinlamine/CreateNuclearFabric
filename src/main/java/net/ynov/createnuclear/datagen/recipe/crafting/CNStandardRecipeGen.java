@@ -29,8 +29,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.item.CNItems;
+import net.ynov.createnuclear.item.armor.AntiRadiationArmorItem;
 import net.ynov.createnuclear.item.cloth.ClothItem;
 import net.ynov.createnuclear.tags.CNTag;
+import net.ynov.createnuclear.item.armor.AntiRadiationArmorItem.DyeRecipArmorList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -181,40 +183,52 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                 )
     ;
 
-    private String CRAFTING_ITEMS = enterFolder("crafting/items");
-    GeneratedRecipe
-        ANTI_RADIATION_HELMET = create(CNItems.ANTI_RADIATION_HELMET).unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag).withCategory(RecipeCategory.COMBAT)
-            .viaShaped(b -> b
-                    .define('X', CNItems.LEAD_INGOT)
-                    .define('Y', ClothItem.Cloths.WHITE_CLOTH.getItem())
-                    .define('Z', CNBlocks.REINFORCED_GLASS)
-                    .pattern("YXY")
-                    .pattern("XZX")
-                    .showNotification(true)
-            ),
+    private String CRAFTING_ITEMS = enterFolder("crafting/items/armors");
 
-    ANTI_RADIATION_CHESTPLATE = create(CNItems.ANTI_RADIATION_CHESTPLATE).unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag).withCategory(RecipeCategory.COMBAT)
-            .viaShaped(b -> b
+    DyeRecipArmorList
+        ANTI_RADIATION_HELMETS = new DyeRecipArmorList(color -> create(CNItems.ANTI_RADIATION_HELMETS.get(color))
+            .unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag)
+            .withCategory(RecipeCategory.COMBAT)
+            .viaShaped(i -> i
+                .define('X', CNItems.LEAD_INGOT)
+                .define('Y', ClothItem.Cloths.getByColor(color).get())
+                .define('Z', CNBlocks.REINFORCED_GLASS)
+                .pattern("YXY")
+                .pattern("XZX")
+                .showNotification(true)
+            )
+        ),
+
+    ANTI_RADIATION_CHESTPLATES = new DyeRecipArmorList(color -> create(CNItems.ANTI_RADIATION_CHESTPLATES.get(color))
+            .unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag)
+            .withCategory(RecipeCategory.COMBAT)
+            .viaShaped(i -> i
                     .define('X', CNItems.LEAD_INGOT)
-                    .define('Y', ClothItem.Cloths.WHITE_CLOTH.getItem())
+                    .define('Y', ClothItem.Cloths.getByColor(color).get())
                     .define('Z', CNItems.GRAPHITE_ROD)
                     .pattern("Y Y")
                     .pattern("XXX")
                     .pattern("ZXZ")
                     .showNotification(true)
-            ),
-
-    ANTI_RADIATION_LEGGINS = create(CNItems.ANTI_RADIATION_LEGGINGS).unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag).withCategory(RecipeCategory.COMBAT)
-            .viaShaped(b -> b
+            )
+        ),
+        ANTI_RADIATION_LEGGINS = new DyeRecipArmorList(color -> create(CNItems.ANTI_RADIATION_LEGGINGS.get(color))
+            .unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag)
+            .withCategory(RecipeCategory.COMBAT)
+            .viaShaped(i -> i
                     .define('X', CNItems.LEAD_INGOT)
-                    .define('Y', ClothItem.Cloths.WHITE_CLOTH.getItem())
+                    .define('Y', ClothItem.Cloths.getByColor(color).get())
                     .define('Z', CNBlocks.REINFORCED_GLASS)
                     .pattern("YXY")
                     .pattern("Z Z")
                     .pattern("X X")
                     .showNotification(true)
-            ),
+            )
+        )
 
+    ;
+
+    GeneratedRecipe
     ANTI_RADIATION_BOOTS = create(CNItems.ANTI_RADIATION_BOOTS).unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag).withCategory(RecipeCategory.COMBAT)
             .viaShaped(b -> b
                     .define('X', CNItems.LEAD_INGOT)

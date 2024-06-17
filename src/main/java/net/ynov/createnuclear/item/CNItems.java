@@ -109,29 +109,43 @@ public class CNItems {
                 .tag(CNTag.forgeItemTag("rods"))
                 .register()
     ;
+  
+    public static final Helmet.DyeItemHelmetList<Helmet> ANTI_RADIATION_HELMETS = new Helmet.DyeItemHelmetList<>(color -> {
+       String colorName = color.getSerializedName();
+       return CreateNuclear.REGISTRATE.item(colorName + "_antiradiation_helmet", p -> new Helmet(p, color))
+               .tag(CNTag.forgeItemTag("helmets"))
+               .lang(TextUtils.titleCaseConversion(color.getName()) +" Anti Radiation Helmet")
+               .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/armors/helmets/" + colorName + "_antiradiation_helmet")))
+               .register();
 
-    public static final ItemEntry<? extends AntiRadiationArmorItem.Helmet>
-            ANTI_RADIATION_HELMET = CreateNuclear.REGISTRATE.item("anti_radiation_helmet", Helmet::new)
-            .tag(CNTag.forgeItemTag("helmets"))
-            .lang("Anti Radiation Helmet")
-            .register();
+    });
 
-    public static final ItemEntry<? extends AntiRadiationArmorItem.Chestplate>
-            ANTI_RADIATION_CHESTPLATE = CreateNuclear.REGISTRATE.item("anti_radiation_chestplate", Chestplate::new)
-            .tag(CNTag.forgeItemTag("chestplates"))
-            .lang("Anti Radiation Chestplate")
-            .register();
+    public static final Chestplate.DyeItemChestplateList<Chestplate> ANTI_RADIATION_CHESTPLATES = new Chestplate.DyeItemChestplateList<>(color -> {
+        String colorName = color.getSerializedName();
+        return CreateNuclear.REGISTRATE.item(colorName + "_antiradiation_chestplate",  p -> new Chestplate(p, color))
+                .tag(CNTag.forgeItemTag("chestplates"))
+                .lang(TextUtils.titleCaseConversion(color.getName()) +" Anti Radiation Chestplate")
+                .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/armors/chestplates/" + colorName + "_antiradiation_chestplate")))
+                .register();
 
-    public static final ItemEntry<? extends AntiRadiationArmorItem.Leggings>
-            ANTI_RADIATION_LEGGINGS = CreateNuclear.REGISTRATE.item("anti_radiation_leggings", Leggings::new)
-            .tag(CNTag.forgeItemTag("leggings"))
-            .lang("Anti Radiation Leggings")
-            .register();
+    });
+
+    public static final Leggings.DyeItemLeggingsList<Leggings> ANTI_RADIATION_LEGGINGS = new Leggings.DyeItemLeggingsList<>(color -> {
+        String colorName = color.getSerializedName();
+        return CreateNuclear.REGISTRATE.item(colorName + "_antiradiation_leggings",  p -> new Leggings(p, color))
+                .tag(CNTag.forgeItemTag("leggings"))
+                .lang(TextUtils.titleCaseConversion(color.getName()) +" Anti Radiation Leggings")
+                .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/armors/leggings/" + colorName + "_antiradiation_leggings")))
+                .register();
+
+    });
 
     public static final ItemEntry<? extends AntiRadiationArmorItem.Boot>
-            ANTI_RADIATION_BOOTS = CreateNuclear.REGISTRATE.item("anti_radiation_boots", Boot::new)
+            ANTI_RADIATION_BOOTS = CreateNuclear.REGISTRATE.item("anti_radiation_boots", properties ->
+                    new Boot(properties))
             .tag(CNTag.forgeItemTag("boots"))
             .lang("Anti Radiation Boots")
+            .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/armors/anti_radiation_boots")))
             .register();
 
 
