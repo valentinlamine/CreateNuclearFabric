@@ -21,7 +21,6 @@ public class ClothItem extends Item {
         this.color = color;
     }
 
-
     public static class DyeRecipeList implements Iterable<GeneratedRecipe> {
         private static final int COLOR_AMOUNT = DyeColor.values().length;
 
