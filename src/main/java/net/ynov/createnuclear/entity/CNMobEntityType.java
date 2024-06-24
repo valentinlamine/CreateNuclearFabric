@@ -1,5 +1,7 @@
 package net.ynov.createnuclear.entity;
 
+import com.simibubi.create.foundation.utility.Lang;
+import com.tterrag.registrate.util.entry.EntityEntry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;

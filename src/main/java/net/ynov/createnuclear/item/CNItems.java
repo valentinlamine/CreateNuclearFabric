@@ -13,11 +13,13 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.effects.CNEffects;
+import net.ynov.createnuclear.entity.CNMobEntityType;
 import net.ynov.createnuclear.groups.CNGroup;
 import net.ynov.createnuclear.item.armor.AntiRadiationArmorItem;
 import net.ynov.createnuclear.item.cloth.ClothItem;
@@ -141,8 +143,7 @@ public class CNItems {
     });
 
     public static final ItemEntry<? extends AntiRadiationArmorItem.Boot>
-            ANTI_RADIATION_BOOTS = CreateNuclear.REGISTRATE.item("anti_radiation_boots", properties ->
-                    new Boot(properties))
+            ANTI_RADIATION_BOOTS = CreateNuclear.REGISTRATE.item("anti_radiation_boots", Boot::new)
             .tag(CNTag.forgeItemTag("boots"))
             .lang("Anti Radiation Boots")
             .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/armors/anti_radiation_boots")))
@@ -157,6 +158,11 @@ public class CNItems {
                 .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/cloth/" + colorName + "_cloth")))
                 .register();
     });
+
+    public static final ItemEntry<SpawnEggItem> SPAWN_WOLF = CreateNuclear.REGISTRATE
+            .item("wolf_irradiated_spawn_egg", p ->
+                    new SpawnEggItem(CNMobEntityType.IRRADIATED_WOLF, 0xc4c4c4, 0xadadad, p))
+            .register();
 
 
     public static final Potion potion_1 = registerPotion("potion_of_radiation_1", new Potion(new MobEffectInstance(CNEffects.RADIATION.get(), 900)));
