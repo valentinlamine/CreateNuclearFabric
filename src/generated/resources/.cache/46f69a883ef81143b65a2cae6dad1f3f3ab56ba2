@@ -1,4 +1,4 @@
-// 1.20.1	2024-06-17T15:41:51.9650782	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2024-06-19T14:34:26.5926362	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 50ff7588ed8c2f206fd5a2887274ef03d20402a3 data\c\tags\blocks\storage_blocks.json
 87abc77c88943319429aeb9ad25fd6ec8815d67b assets\createnuclear\models\item\orange_antiradiation_leggings.json
 4d85657105612ca5525a14791c3e07cf6bd239b8 assets\createnuclear\models\item\white_cloth.json
@@ -37,8 +37,8 @@ b48d83be9e5220278d2171cd184ecbe23f7d45e3 assets\createnuclear\models\item\black_
 1458b1118fba52130614fd0cc6a5a7bd56455aa3 assets\createnuclear\models\item\cyan_antiradiation_helmet.json
 a4d5ee44c830e329034a46792280edea53343034 assets\createnuclear\models\block\uranium_ore.json
 0232233443f2f7c7c638642a6319fffb0536c617 data\c\tags\items\nuggets.json
-cb4e2bdd0941e73f0e4766bd3dbb368de881a4b5 assets\createnuclear\models\block\uranium.json
 6793dd91b730f4c9abea29215de16cd0751d8cbd assets\createnuclear\models\block\deepslate_uranium_ore.json
+cb4e2bdd0941e73f0e4766bd3dbb368de881a4b5 assets\createnuclear\models\block\uranium.json
 dbb975c200fda861593eaa283bf6b634dab913bc assets\createnuclear\models\item\pink_antiradiation_helmet.json
 b8bef2e8d7baf9be714a784822f67f5cc02be193 assets\createnuclear\models\item\light_gray_antiradiation_chestplate.json
 76ca23065681dfd7f18dbbc5a65b8ab8bc40c20c data\createnuclear\loot_tables\blocks\enriched_soul_soil.json
@@ -49,9 +49,9 @@ fd642aefed8f59f5575c96ad1a0251e7773f3909 assets\createnuclear\models\block\lead_
 9db8f06cd9b1d7a9c2d94e652f00a7588398571c data\createnuclear\loot_tables\blocks\lead_ore.json
 4799138766c26496b41807407a4b1ce2106cf7b7 assets\createnuclear\models\item\magenta_cloth.json
 d1e2191cd5b193cfebd5b9eea01d22f47789de6b assets\createnuclear\models\item\pink_antiradiation_chestplate.json
-4557f548df100ae1d05e3b5711797225f6a39673 assets\createnuclear\blockstates\uranium_ore.json
 fdc9cf972cf27ce343d4f098ddcdc9a4e19d2404 data\minecraft\tags\fluids\lava.json
 bff6324147f1162f6fa38baa9f9ffb15e7cd83b1 assets\createnuclear\blockstates\reactor_controller.json
+4557f548df100ae1d05e3b5711797225f6a39673 assets\createnuclear\blockstates\uranium_ore.json
 8cdcca32a87171e2c709e762165330b2f0389f90 assets\createnuclear\models\item\brown_cloth.json
 62f405d930be8b534e863c8aac205687b943f3ef data\createnuclear\loot_tables\blocks\enriching_campfire.json
 17ec52f71bd19239771c599ee80d9ffa073738af assets\createnuclear\models\item\lead_block.json
@@ -88,9 +88,10 @@ c205fd277c39ec65f07f734a761861702e86ae64 assets\createnuclear\blockstates\reacto
 4648aff334d773593d5182b53fc0e197da875ba3 assets\createnuclear\models\item\cyan_antiradiation_leggings.json
 f3b5417e33bf6c166d8cffbf16ab0f9893e29c6d assets\createnuclear\models\item\light_blue_cloth.json
 b4d429f79dc596f9f5b641f2fb0f915406a53559 assets\createnuclear\models\item\purple_antiradiation_leggings.json
+00ee106fe13edb4cab15a82ba57a09cf84ba3370 assets\createnuclear\models\item\configured_reactor_item.json
 4ba33d2c02ffd3acdcfa5baf565542e4712eecbb data\c\tags\items\raw_materials.json
 047d097f30f9586494547715d07271c6994acd18 assets\createnuclear\models\item\coal_dust.json
-4a5cca60933ce275a4a9436e985670a5a280c514 assets\createnuclear\lang\en_us.json
+667612a5a226cddb7823cfcef11264800d0e01bb assets\createnuclear\lang\en_us.json
 75bd474d73be3c041ceb82627cc438b2775e9b1b assets\createnuclear\models\item\gray_cloth.json
 fc4d890be42f9f5cfdb89878f0c9092a223570c3 data\minecraft\tags\blocks\fire.json
 3036f3b383b40ca2021856366cd0f01cb279285b assets\createnuclear\models\item\black_cloth.json
@@ -131,7 +132,7 @@ c77d39430d9fd683e5214425950eb3214153e9cb assets\createnuclear\models\item\yellow
 f10bbdbab6112c58bebf2d98dc0ed3eb9370c09c assets\createnuclear\blockstates\lead_block.json
 66071fa68e7cd7bb08ddc61d861799f9005bed50 data\minecraft\tags\blocks\campfire.json
 3a5955f81eeed80e907bf8e2ee4df14fe42843f0 assets\createnuclear\models\item\blue_cloth.json
-41795dc7e218626932fc22120e624240b7215fd7 assets\createnuclear\lang\en_ud.json
+ced236d1d6b8a353248b0f2b4f893eb340b30387 assets\createnuclear\lang\en_ud.json
 66071fa68e7cd7bb08ddc61d861799f9005bed50 data\minecraft\tags\blocks\all\campfires.json
 ecc470cdd95ab810f6f09aa4353220642e4e5d54 data\c\tags\items\helmets.json
 37af2b0b5eacf53995703344a45fb3f4d0efe1f9 data\createnuclear\loot_tables\blocks\reactor_output.json
@@ -145,13 +146,12 @@ c010a9a0f0b51101da71d5705a24b3339a3eb949 assets\createnuclear\models\item\red_an
 07ca0d0969e73493a875ec285dad10f1fabaa393 assets\createnuclear\models\item\green_antiradiation_chestplate.json
 af059cd55441441329347fbd569245b539b095db data\createnuclear\loot_tables\blocks\reactor_casing.json
 5a2694d92c4708ca23ddfa67666ea26be66b9a45 assets\createnuclear\models\item\enriched_soul_soil.json
-40888e036e078638492336cd6b11bf32ffd8481e assets\createnuclear\models\item\reactor_controller.json
 7da7ddaac39353657166badddc16fe9eb79f1a27 assets\createnuclear\models\item\raw_lead.json
+40888e036e078638492336cd6b11bf32ffd8481e assets\createnuclear\models\item\reactor_controller.json
 77c0a26f3704320fd123f02b002f1cb0254c5129 assets\createnuclear\models\item\red_antiradiation_leggings.json
 9df6b92b28b7dcc574e95a7546302e4941e939a0 assets\createnuclear\blockstates\reactor_core.json
 fba1c32ae3c38d735ebb0b4c3912afc8f9e9cde4 assets\createnuclear\models\item\anti_radiation_boots.json
 f7c8420e7f9e8d49a11e093fe424dfc442fd6394 assets\createnuclear\models\item\black_antiradiation_helmet.json
-34c28d31d8b93699cc6ffab724d9c51670c0f3e2 assets\createnuclear\models\item\deepslate_lead_ore.json
 3b03793c0f5786f258c593e0b140cd6bd10c3b7b assets\createnuclear\models\item\uranium_powder.json
 34c28d31d8b93699cc6ffab724d9c51670c0f3e2 assets\createnuclear\models\item\deepslate_lead_ore.json
 9b44c465bab28d22d7987b1ae857ecf386136727 assets\createnuclear\blockstates\reactor_input.json

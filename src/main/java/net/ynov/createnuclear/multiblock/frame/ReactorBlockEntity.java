@@ -26,7 +26,6 @@ public class ReactorBlockEntity extends SmartBlockEntity implements SidedStorage
         setController(pos);
     }
 
-
     @Override
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) { }
 

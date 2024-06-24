@@ -1,5 +1,6 @@
 package net.ynov.createnuclear.item;
 
+import com.simibubi.create.Create;
 import com.tterrag.registrate.util.entry.ItemEntry;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -22,6 +23,7 @@ import net.ynov.createnuclear.groups.CNGroup;
 import net.ynov.createnuclear.item.armor.AntiRadiationArmorItem;
 import net.ynov.createnuclear.item.cloth.ClothItem;
 import net.ynov.createnuclear.item.cloth.ClothItem.DyeItemList;
+import net.ynov.createnuclear.multiblock.configuredItem.ConfiguredReactorItem;
 import net.ynov.createnuclear.tags.CNTag;
 import net.ynov.createnuclear.utils.TextUtils;
 
@@ -157,6 +159,13 @@ public class CNItems {
                 .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/cloth/" + colorName + "_cloth")))
                 .register();
     });
+
+    public static final ItemEntry<ConfiguredReactorItem> CONFIGURED_REACTOR_ITEM = CreateNuclear.REGISTRATE
+            .item("configured_reactor_item", ConfiguredReactorItem::new)
+            .lang("Configured Reactor")
+            .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/enriched_flint_and_steel")))
+            .properties(p -> p.stacksTo(1))
+            .register();
 
 
     public static final Potion potion_1 = registerPotion("potion_of_radiation_1", new Potion(new MobEffectInstance(CNEffects.RADIATION.get(), 900)));

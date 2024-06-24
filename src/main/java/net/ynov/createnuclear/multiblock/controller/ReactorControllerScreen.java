@@ -1,8 +1,10 @@
 package net.ynov.createnuclear.multiblock.controller;
 
 import com.simibubi.create.AllPackets;
+import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.transmission.sequencer.ConfigureSequencedGearshiftPacket;
 import com.simibubi.create.content.kinetics.transmission.sequencer.Instruction;
+import com.simibubi.create.foundation.gui.element.GuiGameElement;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.nbt.CompoundTag;
@@ -65,7 +67,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
     protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
         ReactorControllerBlockEntity be = menu.contentHolder;
 
-        int x = leftPos + imageWidth - BG.width;
+        int x = leftPos; //+ imageWidth - BG.width;
         int y = topPos;
         int heightProgress;
 
@@ -81,6 +83,7 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         //CreateNuclear.LOGGER.info("current heat : " + heatManager());
         graphics.blit(PROGRESS_BAR.location, x + 179, y + 40 + (PROGRESS_BAR.height - heightProgress), PROGRESS_BAR.startX,
                 (176 - heightProgress), width, heightProgress);
+
     }
 
 
@@ -174,25 +177,21 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
         }
 
         List<CNIconButton> switchButtons = new ArrayList<>();
-        if (menu.contentHolder.screen_pattern.isEmpty()) {
+        if (!menu.contentHolder.screen_pattern.isEmpty()) {
             int[][] positions = {
                     {3, 0}, {4, 0}, {5, 0},
                     {2, 1}, {3, 1}, {4, 1}, {5, 1}, {6, 1},
                     {1, 2}, {2, 2}, {3, 2}, {4, 2}, {5, 2}, {6, 2}, {7, 2},
-                    {3, 8}, {4, 8}, {5, 8},
+                    {0, 3}, {1, 3}, {2, 3}, {3, 3}, {4, 3}, {5, 3}, {6, 3}, {7, 3}, {8, 3},
+                    {0, 4}, {1, 4}, {2, 4}, {3, 4}, {4, 4}, {5, 4}, {6, 4}, {7, 4}, {8, 4},
+                    {0, 5}, {1, 5}, {2, 5}, {3, 5}, {4, 5}, {5, 5}, {6, 5}, {7, 5}, {8, 5},
+                    {1, 6}, {2, 6}, {3, 6}, {4, 6}, {5, 6}, {6, 6}, {7, 6},
                     {2, 7}, {3, 7}, {4, 7}, {5, 7}, {6, 7},
-                    {1, 6}, {2, 6}, {3, 6}, {4, 6}, {5, 6}, {6, 6}, {7, 6}
+                    {3, 8}, {4, 8}, {5, 8}
             };
 
             for (int[] pos : positions) {// up and down not middle
                 switchButtons.add(new CNIconButton(leftPos + startWidth + incr * pos[0], topPos + startHeight + incr * pos[1], CNIcons.EMPTY_ICON));
-            }
-
-            // Loop for positions (3,3) to (3,5), (4,3) to (4,5), ..., (11,3) to (11,5)
-            for (int i = 3; i <= 5; i++) {
-                for (int j = 0; j <= 8; j++) {
-                    switchButtons.add(new CNIconButton(leftPos + startWidth + incr * j, topPos + startHeight + incr * i, CNIcons.EMPTY_ICON));
-                }
             }
         }
         else {
