@@ -2,6 +2,8 @@ package net.ynov.createnuclear.item;
 
 import com.tterrag.registrate.util.entry.ItemEntry;
 
+import io.github.fabricators_of_create.porting_lib.models.generators.ModelFile;
+import io.github.fabricators_of_create.porting_lib.models.generators.item.ItemModelBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -10,6 +12,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -26,6 +29,9 @@ import net.ynov.createnuclear.item.cloth.ClothItem;
 import net.ynov.createnuclear.item.cloth.ClothItem.DyeItemList;
 import net.ynov.createnuclear.tags.CNTag;
 import net.ynov.createnuclear.utils.TextUtils;
+import net.minecraft.world.entity.EntityType;
+
+
 
 
 import static net.ynov.createnuclear.item.armor.AntiRadiationArmorItem.Helmet;
@@ -159,28 +165,33 @@ public class CNItems {
                 .register();
     });
 
-    public static final ItemEntry<SpawnEggItem> SPAWN_WOLF = CreateNuclear.REGISTRATE
-            .item("wolf_irradiated_spawn_egg", p ->
-                    new SpawnEggItem(CNMobEntityType.IRRADIATED_WOLF, 0xc4c4c4, 0xadadad, p))
-            .register();
+    public static final ItemEntry<SpawnEggItem> SPAWN_WOLF = registerSpawnEgg("wolf_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_WOLF, 0x42452B,0x4C422B, "Irradiated Wolf Spawn Egg");
+    public static final ItemEntry<SpawnEggItem> SPAWN_CAT = registerSpawnEgg("cat_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_CAT, 0x382C19,0x742728, "Irradiated Cat Spawn Egg");
+    public static final ItemEntry<SpawnEggItem> SPAWN_CHICKEN = registerSpawnEgg("chicken_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_CHICKEN, 0x6B9455,0x95393C, "Irradiated Chicken Spawn Egg");
 
 
     public static final Potion potion_1 = registerPotion("potion_of_radiation_1", new Potion(new MobEffectInstance(CNEffects.RADIATION.get(), 900)));
     public static final Potion potion_augment_1 = registerPotion("potion_of_radiation_augment_1", new Potion(new MobEffectInstance(CNEffects.RADIATION.get(), 1800)));
     public static final Potion potion_2 = registerPotion("potion_of_radiation_2", new Potion(new MobEffectInstance(CNEffects.RADIATION.get(), 410, 1)));
 
-
-
     private static void addItemToIngredientItemGroup(FabricItemGroupEntries entries) {
         /*entries.accept(YELLOW_CAKE_NETHER_STAR, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);*/
     }
 
     private static Item registerItem(String name, Item item) {
-        return Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(CreateNuclear.MOD_ID, name), item);
+        return Registry.register(BuiltInRegistries.ITEM, CreateNuclear.asResource(name), item);
     }
 
     private static ItemEntry<Item> registerItemEntry(String path) {
         return CreateNuclear.REGISTRATE.item(path + "_cloth", Item::new).tag(CNTag.ItemTags.CLOTH.tag).register();
+    }
+
+    private static ItemEntry<SpawnEggItem> registerSpawnEgg(String name, EntityType<? extends Mob> mobEntityType, int backgroundColor, int highlightColor, String nameItems) {
+        return CreateNuclear.REGISTRATE
+                .item(name, p -> new SpawnEggItem(mobEntityType, backgroundColor,highlightColor,  p))
+                .lang(nameItems)
+                .model((c, p) -> p.withExistingParent(c.getName(), new ResourceLocation("item/template_spawn_egg")))
+                .register();
     }
 
     public static void registerCNItems() {
@@ -190,7 +201,7 @@ public class CNItems {
     }
 
     public static Potion registerPotion(String name, Potion potion) {
-        return Registry.register(BuiltInRegistries.POTION, new ResourceLocation(CreateNuclear.MOD_ID, name), potion);
+        return Registry.register(BuiltInRegistries.POTION, CreateNuclear.asResource(name), potion);
     }
 
     public static void registerPotionsRecipes() {
