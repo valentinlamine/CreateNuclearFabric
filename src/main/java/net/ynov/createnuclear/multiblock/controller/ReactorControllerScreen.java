@@ -76,7 +76,8 @@ public class ReactorControllerScreen extends AbstractSimiContainerScreen<Reactor
 
         int width = PROGRESS_BAR.width;
 
-        heightProgress = (int) (PROGRESS_BAR.height * Mth.lerp(partialTicks, be.lastReactorPower / 100, be.lastReactorPower / 100));
+        heightProgress = (int) (PROGRESS_BAR.height * Mth.lerp(partialTicks, /*be.lastReactorPower*/79.0 / 100, /*be.lastReactorPower*/79.0 / 100));
+        CreateNuclear.LOGGER.warn("value heat: " + be.lastReactorPower + " " + heatManager() + " " + heightProgress);
 
         //CreateNuclear.LOGGER.info("count Graphite : " + countGraphiteRod());
         //CreateNuclear.LOGGER.info("count Uranium : " + countUraniumRod());

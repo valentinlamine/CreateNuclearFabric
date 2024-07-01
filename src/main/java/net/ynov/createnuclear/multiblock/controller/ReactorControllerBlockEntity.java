@@ -1,12 +1,22 @@
 package net.ynov.createnuclear.multiblock.controller;
 
+import com.simibubi.create.AllBlockEntityTypes;
+import com.simibubi.create.AllBlocks;
+import com.simibubi.create.AllEntityTypes;
+import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.utility.Components;
 import com.simibubi.create.foundation.utility.IInteractionChecker;
+import com.simibubi.create.foundation.utility.Lang;
+import com.simibubi.create.foundation.utility.LangBuilder;
 import lib.multiblock.test.SimpleMultiBlockAislePatternBuilder;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SidedStorageBlockEntity;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -17,8 +27,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.gui.CNIconButton;
+import net.ynov.createnuclear.multiblock.IHeat;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutputEntity;
 
@@ -28,7 +40,7 @@ import static net.ynov.createnuclear.CNMultiblock.*;
 import static net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
 import static net.ynov.createnuclear.packets.CNPackets.getChannel;
 
-public class ReactorControllerBlockEntity extends SmartBlockEntity implements MenuProvider, IInteractionChecker, SidedStorageBlockEntity {
+public class ReactorControllerBlockEntity extends SmartBlockEntity implements MenuProvider, IInteractionChecker, SidedStorageBlockEntity, IHaveGoggleInformation {
     public boolean destroyed = false;
     public boolean created = false;
     public int speed = 16; // This is the result speed of the reactor, change this to change the total capacity
@@ -67,6 +79,26 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         BlockState state = getBlockState();
         return Boolean.TRUE.equals(state.getValue(ASSEMBLED));
     }
+
+    @Override
+    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+        tooltip.add(componentSpacing.plainCopy().append(Lang.translateDirect("gui.gauge.info_header")));
+
+        IHeat.HeatLevel.getName("reactor_controller").style(ChatFormatting.GRAY).forGoggles(tooltip);
+
+        Lang.builder(CreateNuclear.MOD_ID).translate("")
+                .style(ChatFormatting.BLUE)
+                .translate("uranium.rod")
+                .add(Lang.number(Math.abs(inventory.getSlot(0).getAmount())))
+                .newLine()
+                .translate("graphene.rod")
+                .add(Lang.number(Math.abs(inventory.getSlot(1).getAmount())))
+                .forGoggles(tooltip);
+
+        IHeat.HeatLevel.getFormattedHeatText(heat).forGoggles(tooltip);
+        return true;
+    }
+
 
     @Override
     public Component getDisplayName() {

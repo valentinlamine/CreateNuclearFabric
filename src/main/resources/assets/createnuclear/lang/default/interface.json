@@ -6,5 +6,18 @@
   "emi.category.createnuclear.fan_enriched": "Bulk Enriched",
   "create.recipe.fan_enriched.fan": "Fan behing Enriched",
 
-  "gui.createnuclear.reactor_controller.title": "Reactor Controller"
+  "gui.createnuclear.reactor_controller.title": "Reactor Controller",
+
+  "createnuclear.tooltip.heatLevel": "Heat Level",
+  "createnuclear.tooltip.heatLevel.none": "None",
+  "createnuclear.tooltip.heatLevel.safety": "Safety",
+  "createnuclear.tooltip.heatLevel.caution": "Caution",
+  "createnuclear.tooltip.heatLevel.warning": "Warning",
+  "createnuclear.tooltip.heatLevel.danger": "Danger",
+
+  "createnuclear.generic.unit.heat": "Q",
+  "createnuclear.uranium.rod": "Uranium Rod: ",
+  "createnuclear.graphene.rod": "Graphene Rod: ",
+  "createnuclear.gui.reactor_controller.info_header.title": "Heat value"
+
 }
