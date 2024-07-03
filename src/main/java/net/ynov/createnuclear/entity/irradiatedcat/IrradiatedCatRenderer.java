@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class IrradiatedCatRenderer extends MobRenderer<IrradiatedCat, IrradiatedCatModel<IrradiatedCat>> {
-    private static final ResourceLocation IRRADIATED_CAT_LOCATION = new ResourceLocation(CreateNuclear.MOD_ID, "textures/entity/irradiated_cat.png");
+    private static final ResourceLocation IRRADIATED_CAT_LOCATION = CreateNuclear.asResource("textures/entity/irradiated_cat.png");
 
     public IrradiatedCatRenderer(EntityRendererProvider.Context context) {
         super(context, new IrradiatedCatModel<>(context.bakeLayer(CNModelLayers.IRRADIATED_CAT)), 0.4F);

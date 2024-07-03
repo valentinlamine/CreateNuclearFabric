@@ -15,7 +15,7 @@ import net.ynov.createnuclear.CreateNuclear;
 
 
 public class IrradiatedCatModel<T extends IrradiatedCat> extends AgeableListModel<T> {
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(CreateNuclear.MOD_ID, "irradiatedcatmodel"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(CreateNuclear.asResource("irradiatedcatmodel"), "main");
 
 	private final ModelPart pustule3;
 	private final ModelPart pustule2;

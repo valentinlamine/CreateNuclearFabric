@@ -25,10 +25,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.CatVariant;
-import net.minecraft.world.entity.animal.Rabbit;
-import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -280,7 +277,7 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
 
     @Nullable
     public net.minecraft.world.entity.animal.Cat getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        net.minecraft.world.entity.animal.Cat cat = (net.minecraft.world.entity.animal.Cat)EntityType.CAT.create(level);
+        net.minecraft.world.entity.animal.Cat cat = (Cat)EntityType.CAT.create(level);
         if (cat != null && otherParent instanceof net.minecraft.world.entity.animal.Cat cat2) {
             if (this.random.nextBoolean()) {
                 cat.setVariant(this.getVariant());
@@ -305,10 +302,10 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
     public boolean canMate(Animal otherAnimal) {
         if (!this.isTame()) {
             return false;
-        } else if (!(otherAnimal instanceof net.minecraft.world.entity.animal.Cat)) {
+        } else if (!(otherAnimal instanceof Cat)) {
             return false;
         } else {
-            net.minecraft.world.entity.animal.Cat cat = (net.minecraft.world.entity.animal.Cat)otherAnimal;
+            Cat cat = (Cat)otherAnimal;
             return cat.isTame() && super.canMate(otherAnimal);
         }
     }
@@ -424,10 +421,10 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
 
     static {
         TEMPT_INGREDIENT = Ingredient.of(new ItemLike[]{Items.COD, Items.SALMON});
-        DATA_VARIANT_ID = SynchedEntityData.defineId(net.minecraft.world.entity.animal.Cat.class, EntityDataSerializers.CAT_VARIANT);
-        IS_LYING = SynchedEntityData.defineId(net.minecraft.world.entity.animal.Cat.class, EntityDataSerializers.BOOLEAN);
-        RELAX_STATE_ONE = SynchedEntityData.defineId(net.minecraft.world.entity.animal.Cat.class, EntityDataSerializers.BOOLEAN);
-        DATA_COLLAR_COLOR = SynchedEntityData.defineId(net.minecraft.world.entity.animal.Cat.class, EntityDataSerializers.INT);
+        DATA_VARIANT_ID = SynchedEntityData.defineId(Cat.class, EntityDataSerializers.CAT_VARIANT);
+        IS_LYING = SynchedEntityData.defineId(Cat.class, EntityDataSerializers.BOOLEAN);
+        RELAX_STATE_ONE = SynchedEntityData.defineId(Cat.class, EntityDataSerializers.BOOLEAN);
+        DATA_COLLAR_COLOR = SynchedEntityData.defineId(Cat.class, EntityDataSerializers.INT);
     }
 
     private static class CatTemptGoal extends TemptGoal {
