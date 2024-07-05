@@ -17,6 +17,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.item.CNItems;
 import net.ynov.createnuclear.multiblock.controller.ReactorControllerMenu;
 import org.jetbrains.annotations.Nullable;
@@ -35,7 +36,10 @@ public class ConfiguredReactorItem extends Item implements MenuProvider {
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
         ItemStack heldItem = player.getMainHandItem();
-        return ConfiguredReactorItemMenu.create(id, inv, heldItem);
+        CreateNuclear.LOGGER.warn("shift ");
+        return ConfiguredReactorSlotItemMenu.create(id, inv, heldItem);
+        //if (player.isShiftKeyDown()) return ConfiguredReactorSlotItemMenu.create(id, inv, heldItem);
+        //else return ConfiguredReactorItemMenu.create(id, inv, heldItem);
     }
 
     @Override
@@ -48,11 +52,19 @@ public class ConfiguredReactorItem extends Item implements MenuProvider {
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         ItemStack heldItem = player.getItemInHand(hand);
 
-        if (!player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
+        /*if (!player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
             if (!world.isClientSide && player instanceof ServerPlayer)
                 NetworkHooks.openScreen((ServerPlayer) player, this, buf -> {
                     buf.writeItem(heldItem);
                 });
+            return InteractionResultHolder.success(heldItem);
+        }
+        else */if (player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
+            if (!world.isClientSide && player instanceof ServerPlayer) {
+                NetworkHooks.openScreen((ServerPlayer) player, this, buf -> {
+                    buf.writeItem(heldItem);
+                });
+            }
             return InteractionResultHolder.success(heldItem);
         }
         return InteractionResultHolder.pass(heldItem);

@@ -19,6 +19,7 @@ import java.util.Map;
 
 public class ConfiguredReactorItemScreen  extends AbstractSimiContainerScreen<ConfiguredReactorItemMenu> {
     protected static final CNGuiTextures BG = CNGuiTextures.REACTOR_CONTROLLER;
+    //protected static final CNGuiTextures BG = CNGuiTextures.REACTOR_SLOT_INVENTOR;
     protected static final CNGuiTextures PROGRESS_BAR = CNGuiTextures.REACTOR_CONTROLLER_PROGRESS;
     private final Map<Integer, CNIconButton> switchButtons = new HashMap<>();
     private final Map<Integer, Integer> patternButtons = new HashMap<>();

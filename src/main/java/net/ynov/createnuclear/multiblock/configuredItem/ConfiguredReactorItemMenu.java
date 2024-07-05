@@ -40,7 +40,7 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
 
     @Override
     protected ItemStackHandler createGhostInventory() {
-        return new ItemStackHandler(57);
+        return new ItemStackHandler(/*57*/2);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
     @Override
     protected void addSlots() {
         addPlayerSlots(getPlayerInventotryXOffset(), getplayerInventoryYOffset());
-        addPatternSlots();
+        //addPatternSlots();
         /*this.addSlot(new SlotItemHandler(ghostInventory, 0, 16, 24));
         this.addSlot(new SlotItemHandler(ghostInventory, 1, 22, 59) {
             @Override
@@ -62,7 +62,7 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
         });*/
     }
 
-    private void addPatternSlots() {
+    /*private void addPatternSlots() {
         int startWidth = 8;
         int startHeight = 40;
         int incr = 18;
@@ -83,7 +83,7 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
             this.addSlot(new SlotItemHandler(ghostInventory,i, startWidth + incr * pos[0], startHeight + incr * pos[1]));
             i++;
         }
-    }
+    }*/
 
     /*@Override
     public ItemStack quickMoveStack(Player playerIn, int index) {
@@ -119,7 +119,7 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
         return playerInventory.getSelected() == contentHolder;
     }
 
-    @Override
+    /*@Override
     public void clicked(int slotId, int dragType, ClickType clickTypeIn, Player player) {
         CreateNuclear.LOGGER.warn("slot: " + slotId +" "+ playerInventory.getItem(slotId));
         if (slotId == -999) return;
@@ -137,5 +137,5 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
         }
 
         super.clicked(slotId, dragType, clickTypeIn, player);
-    }
+    }*/
 }
