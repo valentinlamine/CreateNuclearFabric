@@ -37,9 +37,9 @@ public class ConfiguredReactorItem extends Item implements MenuProvider {
     public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
         ItemStack heldItem = player.getMainHandItem();
         CreateNuclear.LOGGER.warn("shift ");
-        return ConfiguredReactorSlotItemMenu.create(id, inv, heldItem);
-        //if (player.isShiftKeyDown()) return ConfiguredReactorSlotItemMenu.create(id, inv, heldItem);
-        //else return ConfiguredReactorItemMenu.create(id, inv, heldItem);
+        //return ConfiguredReactorSlotItemMenu.create(id, inv, heldItem);
+        if (player.isShiftKeyDown()) return ConfiguredReactorSlotItemMenu.create(id, inv, heldItem);
+        else return ConfiguredReactorItemMenu.create(id, inv, heldItem);
     }
 
     @Override
@@ -52,14 +52,14 @@ public class ConfiguredReactorItem extends Item implements MenuProvider {
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         ItemStack heldItem = player.getItemInHand(hand);
 
-        /*if (!player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
+        if (!player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
             if (!world.isClientSide && player instanceof ServerPlayer)
                 NetworkHooks.openScreen((ServerPlayer) player, this, buf -> {
                     buf.writeItem(heldItem);
                 });
             return InteractionResultHolder.success(heldItem);
         }
-        else */if (player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
+        else if (player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
             if (!world.isClientSide && player instanceof ServerPlayer) {
                 NetworkHooks.openScreen((ServerPlayer) player, this, buf -> {
                     buf.writeItem(heldItem);
@@ -68,5 +68,14 @@ public class ConfiguredReactorItem extends Item implements MenuProvider {
             return InteractionResultHolder.success(heldItem);
         }
         return InteractionResultHolder.pass(heldItem);
+    }
+
+    public static ItemStackHandler getItemStorage(ItemStack stack) {
+        ItemStackHandler newInv = new ItemStackHandler(57);
+        if (CNItems.CONFIGURED_REACTOR_ITEM.get() != stack.getItem()) throw new IllegalArgumentException("Cannot get configured items from non item: " + stack);
+        if (!stack.hasTag()) return newInv;
+        CompoundTag invNBT = stack.getOrCreateTagElement("pattern");
+        if (!newInv.empty()) newInv.deserializeNBT(invNBT);
+        return newInv;
     }
 }

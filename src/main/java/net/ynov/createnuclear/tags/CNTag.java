@@ -160,6 +160,8 @@ public class CNTag {
 
     public enum ItemTags {
         CLOTH,
+        FUEL,
+        COOLER,
         ;
 
         public final TagKey<Item> tag;

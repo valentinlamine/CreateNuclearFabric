@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.simibubi.create.foundation.gui.AllGuiTextures.PLAYER_INVENTORY;
+
 public class ConfiguredReactorItemScreen  extends AbstractSimiContainerScreen<ConfiguredReactorItemMenu> {
     protected static final CNGuiTextures BG = CNGuiTextures.REACTOR_CONTROLLER;
     //protected static final CNGuiTextures BG = CNGuiTextures.REACTOR_SLOT_INVENTOR;
@@ -31,7 +33,7 @@ public class ConfiguredReactorItemScreen  extends AbstractSimiContainerScreen<Co
 
     @Override
     protected void init() {
-        setWindowSize(BG.width, BG.height);
+        setWindowSize(BG.width, BG.height + 4 + PLAYER_INVENTORY.height);
         setWindowOffset(0, 0);
         super.init();
         clearWidgets();

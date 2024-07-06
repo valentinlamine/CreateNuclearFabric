@@ -5,6 +5,7 @@ import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandle
 import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -17,9 +18,14 @@ import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.gui.CNIcons;
 import net.ynov.createnuclear.item.CNItems;
 import net.ynov.createnuclear.menu.CNMenus;
+import net.ynov.createnuclear.tags.CNTag;
 import org.jetbrains.annotations.NotNull;
 
+import static net.ynov.createnuclear.multiblock.configuredItem.ConfiguredReactorItem.getItemStorage;
+
 public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
+
+    private ItemStackHandler pattern;
 
     public ConfiguredReactorItemMenu(MenuType<?> type, int id, Inventory inv, FriendlyByteBuf extraData) {
         super(type, id, inv, extraData);
@@ -39,8 +45,17 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
     }
 
     @Override
+    protected void initAndReadInventory(ItemStack contentHolder) {
+        super.initAndReadInventory(contentHolder);
+        CompoundTag tag = contentHolder.getOrCreateTag();
+        CreateNuclear.LOGGER.warn("é: " + tag);
+        //pattern = tag.get("pattern");
+
+    }
+
+    @Override
     protected ItemStackHandler createGhostInventory() {
-        return new ItemStackHandler(/*57*/2);
+        return getItemStorage(contentHolder);
     }
 
     @Override
@@ -52,17 +67,10 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
     @Override
     protected void addSlots() {
         addPlayerSlots(getPlayerInventotryXOffset(), getplayerInventoryYOffset());
-        //addPatternSlots();
-        /*this.addSlot(new SlotItemHandler(ghostInventory, 0, 16, 24));
-        this.addSlot(new SlotItemHandler(ghostInventory, 1, 22, 59) {
-            @Override
-            public boolean mayPickup(Player playerIn) {
-                return false;
-            }
-        });*/
+        addPatternSlots();
     }
 
-    /*private void addPatternSlots() {
+    private void addPatternSlots() {
         int startWidth = 8;
         int startHeight = 40;
         int incr = 18;
@@ -83,26 +91,18 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
             this.addSlot(new SlotItemHandler(ghostInventory,i, startWidth + incr * pos[0], startHeight + incr * pos[1]));
             i++;
         }
-    }*/
-
-    /*@Override
-    public ItemStack quickMoveStack(Player playerIn, int index) {
-        ItemStack itemstack = playerInventory.getItem(index);
-        if (itemstack.is(CNItems.URANIUM_ROD.get())) {
-            if (index < 36) {
-                ItemStack copy = itemstack.copy();
-                copy.setCount(1);
-                ghostInventory.setStackInSlot(0, copy);
-            }
-        }
-        else {
-            return ItemStack.EMPTY;
-        }
-        return ItemStack.EMPTY;
-    }*/
+    }
 
     @Override
     protected void saveData(ItemStack contentHolder) {
+        contentHolder.getOrCreateTag()
+                .put("pattern", ghostInventory.serializeNBT());
+        CompoundTag tag = contentHolder.getOrCreateTag();
+        for (int i = 0; i < ghostInventory.getSlotCount(); i++) {
+            if (!ghostInventory.getStackInSlot(i).isEmpty()) return;
+            contentHolder.setTag(null);
+        }
+        CreateNuclear.LOGGER.warn("é: " + tag + " " + contentHolder);
 
     }
 
@@ -118,24 +118,4 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
     public boolean stillValid(Player player) {
         return playerInventory.getSelected() == contentHolder;
     }
-
-    /*@Override
-    public void clicked(int slotId, int dragType, ClickType clickTypeIn, Player player) {
-        CreateNuclear.LOGGER.warn("slot: " + slotId +" "+ playerInventory.getItem(slotId));
-        if (slotId == -999) return;
-        if (clickTypeIn == ClickType.THROW) {
-            clickTypeIn = ClickType.PICKUP;
-        }
-        if (slotId > 35) {
-            CreateNuclear.LOGGER.warn("pattern");
-            ItemStack stackToInsert =  playerInventory.getItem(slotId);
-            if (stackToInsert.is(CNItems.URANIUM_ROD.get()) || stackToInsert.is(CNItems.GRAPHITE_ROD.get())) {
-                ItemStack copy = stackToInsert.copy();
-                copy.setCount(1);
-                ghostInventory.setStackInSlot(slotId, copy);
-            }
-        }
-
-        super.clicked(slotId, dragType, clickTypeIn, player);
-    }*/
 }

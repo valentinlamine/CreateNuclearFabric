@@ -1,12 +1,14 @@
 package net.ynov.createnuclear.multiblock.configuredItem;
 
 import com.simibubi.create.foundation.gui.menu.GhostItemMenu;
+import com.simibubi.create.foundation.gui.menu.MenuBase;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
 import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
@@ -52,12 +54,7 @@ public class ConfiguredReactorSlotItemMenu extends GhostItemMenu<ItemStack> {
     }
 
     private void addInventorySlot() {
-        Slot inputSlot1 = new ReactorSlotItem(ghostInventory, CNItems.CONFIGURED_REACTOR_ITEM, 0, 24, 29, true, true) {
-            @Override
-            public boolean mayPlace(ItemStack stack) {
-                return CNItems.URANIUM_ROD.isIn(stack);
-            }
-        };
+        Slot inputSlot1 = new SlotItemHandler(ghostInventory, 0, 24, 29);
 
         Slot inputSlot2 = new SlotItemHandler(ghostInventory, 1, 57, 29) {
             @Override
