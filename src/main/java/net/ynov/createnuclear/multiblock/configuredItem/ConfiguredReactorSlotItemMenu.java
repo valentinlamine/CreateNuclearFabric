@@ -2,6 +2,7 @@ package net.ynov.createnuclear.multiblock.configuredItem;
 
 import com.simibubi.create.foundation.gui.menu.GhostItemMenu;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandlerContainer;
 import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -45,20 +46,20 @@ public class ConfiguredReactorSlotItemMenu extends GhostItemMenu<ItemStack> {
 
     @Override
     protected void addSlots() {
-        addPlayerSlots(31, 229);
+        addPlayerSlots(0, 95);
         addInventorySlot();
 
     }
 
     private void addInventorySlot() {
-        Slot inputSlot1 = new SlotItemHandler(ghostInventory, 0, 30, 21) {
+        Slot inputSlot1 = new ReactorSlotItem(ghostInventory, CNItems.CONFIGURED_REACTOR_ITEM, 0, 24, 29, true, true) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return CNItems.URANIUM_ROD.isIn(stack);
             }
         };
 
-        Slot inputSlot2 = new SlotItemHandler(ghostInventory, 1, 41, 41) {
+        Slot inputSlot2 = new SlotItemHandler(ghostInventory, 1, 57, 29) {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return CNItems.GRAPHENE.isIn(stack);
