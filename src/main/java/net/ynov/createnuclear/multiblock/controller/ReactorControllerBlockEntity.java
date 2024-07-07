@@ -40,7 +40,7 @@ import static net.ynov.createnuclear.CNMultiblock.*;
 import static net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
 import static net.ynov.createnuclear.packets.CNPackets.getChannel;
 
-public class ReactorControllerBlockEntity extends SmartBlockEntity implements MenuProvider, IInteractionChecker, SidedStorageBlockEntity, IHaveGoggleInformation {
+public class ReactorControllerBlockEntity extends SmartBlockEntity implements /*MenuProvider, */IInteractionChecker/*, SidedStorageBlockEntity*/, IHaveGoggleInformation {
     public boolean destroyed = false;
     public boolean created = false;
     public int speed = 16; // This is the result speed of the reactor, change this to change the total capacity
@@ -100,14 +100,14 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
     }
 
 
-    @Override
+    /*@Override
     public Component getDisplayName() {
         return Components.translatable("gui.createnuclear.reactor_controller.title");
-    }
+    }*/
     //(Si les methode read et write ne sont pas implémenté alors lorsque l'on relance le monde minecraft les items dans le composant auront disparu !)
     @Override
     protected void read(CompoundTag compound, boolean clientPacket) { //Permet de stocker les item 1/2
-        if (!clientPacket) {
+        /*if (!clientPacket) {
             inventory.deserializeNBT(compound.getCompound("Inventory"));
         }
 
@@ -119,13 +119,13 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         uraniumTimer = compound.getInt("uraniumTimer");
         heat = compound.getInt("heat");
         screen_pattern = compound.getCompound("screen_pattern");
-
+*/
         super.read(compound, clientPacket);
     }
 
     @Override
     protected void write(CompoundTag compound, boolean clientPacket) { //Permet de stocker les item 2/2
-        if (!clientPacket) {
+        /*if (!clientPacket) {
             compound.put("Inventory", inventory.serializeNBT());
             compound.putBoolean("powered", isPowered());
 
@@ -139,7 +139,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         compound.putString("state", powered.name());
         compound.put("screen_pattern", screen_pattern);
 
-
+*/
         super.write(compound, clientPacket);
     }
 
@@ -149,10 +149,10 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         return inventory;
     }*/
 
-    @Override
+    /*@Override
     public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
         return ReactorControllerMenu.create(id, inv, this);
-    }
+    }*/
 
     public Boolean isPowered() {
         return powered == State.ON;
@@ -162,13 +162,13 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         powered = power ? State.ON : State.OFF;
     }
 
-    public List<CNIconButton> getSwitchButtons() {
+    /*public List<CNIconButton> getSwitchButtons() {
         return switchButtons;
     }
 
     public void setSwitchButtons(List<CNIconButton> switchButtons) {
         this.switchButtons = switchButtons;
-    }
+    }*/
 
     public enum State {
         ON, OFF;
@@ -181,17 +181,17 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements Me
         if (level.isClientSide)
             return;
 
-        if (level.getBlockState(getBlockPos().below(3)).getBlock() == CNBlocks.REACTOR_OUTPUT.get() && powered == State.ON){
+        /*if (level.getBlockState(getBlockPos().below(3)).getBlock() == CNBlocks.REACTOR_OUTPUT.get() && powered == State.ON){
             // En attendant l'explosion on arrete simplement la rotation quand la chaleur depasse 100
             Rotate(getBlockState(), getBlockPos().below(3), getLevel(), (heat >= 100 ? 0 : heat));
-        }
-        if (heat >= 100 || heat <= 0) Rotate(getBlockState(), getBlockPos().below(3), getLevel(), 0);
+        }*/
+        //if (heat >= 100 || heat <= 0) Rotate(getBlockState(), getBlockPos().below(3), getLevel(), 0);
 
         // Update Client block entity
-        if (sendUpdate) {
+        /*if (sendUpdate) {
             sendUpdate = false;
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 6);
-        }
+        }*/
     }
 
     private static BlockPos FindController(char character) {

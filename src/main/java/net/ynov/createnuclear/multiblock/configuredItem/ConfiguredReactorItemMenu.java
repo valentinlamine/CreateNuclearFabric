@@ -13,6 +13,7 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.gui.CNIcons;
@@ -25,8 +26,6 @@ import static net.ynov.createnuclear.multiblock.configuredItem.ConfiguredReactor
 
 public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
 
-    private ItemStackHandler pattern;
-
     public ConfiguredReactorItemMenu(MenuType<?> type, int id, Inventory inv, FriendlyByteBuf extraData) {
         super(type, id, inv, extraData);
     }
@@ -36,7 +35,7 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
     }
 
     public static ConfiguredReactorItemMenu create(int id, Inventory inv, ItemStack stack) {
-        return new ConfiguredReactorItemMenu(CNMenus.TEST.get(), id, inv, stack);
+        return new ConfiguredReactorItemMenu(CNMenus.CONFIGURED_REACTOR_MENU.get(), id, inv, stack);
     }
 
     @Override
@@ -48,7 +47,9 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
     protected void initAndReadInventory(ItemStack contentHolder) {
         super.initAndReadInventory(contentHolder);
         CompoundTag tag = contentHolder.getOrCreateTag();
-        CreateNuclear.LOGGER.warn("é: " + tag);
+//        CreateNuclear.LOGGER.warn("é9: " + tag.getCompound("pattern").getAllKeys() + " " + tag.getCompound("pattern").get("Items"));
+        ghostInventory.deserializeNBT(tag.getCompound("pattern"));
+
         //pattern = tag.get("pattern");
 
     }
@@ -95,15 +96,13 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
 
     @Override
     protected void saveData(ItemStack contentHolder) {
+        for (int i = 0; i < ghostInventory.getSlotCount(); i++) {
+            if (ghostInventory.getStackInSlot(i).isEmpty() || ghostInventory.getStackInSlot(i) == null) ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
+        }
+        /*CompoundTag tagg = ghostInventory.serializeNBT();
+        CreateNuclear.LOGGER.warn("tag: " + tagg.getCompound("Items") + " " + tagg.get("Items"));*/
         contentHolder.getOrCreateTag()
                 .put("pattern", ghostInventory.serializeNBT());
-        CompoundTag tag = contentHolder.getOrCreateTag();
-        for (int i = 0; i < ghostInventory.getSlotCount(); i++) {
-            if (!ghostInventory.getStackInSlot(i).isEmpty()) return;
-            contentHolder.setTag(null);
-        }
-        CreateNuclear.LOGGER.warn("é: " + tag + " " + contentHolder);
-
     }
 
     protected int getPlayerInventotryXOffset() {

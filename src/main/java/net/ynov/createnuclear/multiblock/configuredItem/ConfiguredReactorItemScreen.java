@@ -3,10 +3,12 @@ package net.ynov.createnuclear.multiblock.configuredItem;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.gui.element.GuiGameElement;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
+import io.github.fabricators_of_create.porting_lib.util.PlayerEntityHelper;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
 import net.ynov.createnuclear.gui.CNGuiTextures;
 import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.gui.CNIcons;
@@ -54,13 +56,8 @@ public class ConfiguredReactorItemScreen  extends AbstractSimiContainerScreen<Co
 
         float heightProgress = (PROGRESS_BAR.height * Mth.lerp(partialTick, 12/100, 13/100));
 
-        guiGraphics.blit(PROGRESS_BAR.location, x + 179, (int) (y + 40 + (PROGRESS_BAR.height - heightProgress)),
-                PROGRESS_BAR.startX, (int) (176 - heightProgress), width, (int) heightProgress);
-
-        /*GuiGameElement.of(menu.contentHolder).<GuiGameElement
-                        .GuiRenderBuilder>at(x + BG.width + 8, y + BG.height - 52, -200)
-                .scale(4)
-                .render(guiGraphics);*/
+        /*guiGraphics.blit(PROGRESS_BAR.location, x + 179, (int) (y + 40 + (PROGRESS_BAR.height - heightProgress)),
+                PROGRESS_BAR.startX, (int) (176 - heightProgress), width, (int) heightProgress);*/
     }
 
     private void placeSwitchItem() {
@@ -131,6 +128,14 @@ public class ConfiguredReactorItemScreen  extends AbstractSimiContainerScreen<Co
             case -1 -> CNIcons.URANIUM_ROD_ICON;
             default -> CNIcons.EMPTY_ICON;
         };
+    }
+
+    @Override
+    protected void containerTick() {
+        if (!ItemStack.matches(menu.player.getMainHandItem(), menu.contentHolder))
+            PlayerEntityHelper.closeScreen(menu.player);
+
+        super.containerTick();
     }
 
 

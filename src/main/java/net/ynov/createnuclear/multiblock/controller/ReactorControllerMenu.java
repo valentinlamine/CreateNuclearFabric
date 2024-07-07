@@ -17,7 +17,7 @@ import net.ynov.createnuclear.item.CNItems;
 import net.ynov.createnuclear.menu.CNMenus;
 import org.jetbrains.annotations.NotNull;
 
-public class ReactorControllerMenu extends MenuBase<ReactorControllerBlockEntity> {
+/*public class ReactorControllerMenu extends MenuBase<ReactorControllerBlockEntity> {
     private Slot inputSlot;
     private Slot inputSlot2;
     public ReactorControllerMenu(MenuType<?> type, int id, Inventory inv, FriendlyByteBuf extraData) {
@@ -86,4 +86,4 @@ public class ReactorControllerMenu extends MenuBase<ReactorControllerBlockEntity
     protected void saveData(ReactorControllerBlockEntity contentHolder) {
 
     }
-}
+}*/

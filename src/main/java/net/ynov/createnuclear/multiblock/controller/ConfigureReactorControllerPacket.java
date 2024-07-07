@@ -15,7 +15,7 @@ import java.util.List;
 
 import static net.ynov.createnuclear.packets.CNPackets.getChannel;
 
-public class ConfigureReactorControllerPacket extends SimplePacketBase {
+/*public class ConfigureReactorControllerPacket extends SimplePacketBase {
 
     private CNOption option;
     private boolean set;
@@ -83,4 +83,4 @@ public class ConfigureReactorControllerPacket extends SimplePacketBase {
         });
         return true;
     }
-}
+}*/

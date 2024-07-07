@@ -2,13 +2,13 @@ package net.ynov.createnuclear;
 
 import lib.multiblock.test.SimpleMultiBlockAislePatternBuilder;
 import net.ynov.createnuclear.block.CNBlocks;
-import net.ynov.createnuclear.multiblock.TypeMutliblock;
+import net.ynov.createnuclear.multiblock.TypeMultiblock;
 import net.ynov.createnuclear.multiblock.MultiBlockManagerBeta;
 
 
 public class CNMultiblock {
 
-    public static final MultiBlockManagerBeta<TypeMutliblock> REGISTRATE_MULTIBLOCK = new MultiBlockManagerBeta<>();
+    public static final MultiBlockManagerBeta<TypeMultiblock> REGISTRATE_MULTIBLOCK = new MultiBlockManagerBeta<>();
     public static final String AAAAA = "AAAAA";
     public static final String AABAA = "AABAA";
     public static final String ADADA = "ADADA";
@@ -19,7 +19,7 @@ public class CNMultiblock {
 
     static {
         REGISTRATE_MULTIBLOCK.register("createnuclear:reactor",
-                TypeMutliblock.REACTOR,
+                TypeMultiblock.REACTOR,
                 SimpleMultiBlockAislePatternBuilder.start()
                     .aisle(AAAAA, AAAAA, AAAAA, AAAAA, AAAAA)
                     .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
