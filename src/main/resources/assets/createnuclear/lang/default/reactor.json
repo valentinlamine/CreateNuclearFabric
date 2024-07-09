@@ -1,0 +1,5 @@
+{
+  "reactor.info.assembled.none": "Multiblock not assembled",
+  "reactor.info.assembled.destroyer": "CRITICAL : Reactor Destroyed",
+  "reactor.info.is": "controller is"
+}

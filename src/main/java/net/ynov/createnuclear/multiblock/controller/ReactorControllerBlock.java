@@ -1,9 +1,15 @@
 package net.ynov.createnuclear.multiblock.controller;
 
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
+import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.item.ItemHelper;
+import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
 import io.github.fabricators_of_create.porting_lib.util.NetworkHooks;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -14,6 +20,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -27,6 +34,7 @@ import net.ynov.createnuclear.CNMultiblock;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.block.CNBlocks;
 import net.ynov.createnuclear.blockentity.CNBlockEntities;
+import net.ynov.createnuclear.item.CNItems;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutputEntity;
 import net.ynov.createnuclear.gui.CNIconButton;
@@ -68,14 +76,47 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         if (worldIn.isClientSide)
             return InteractionResult.SUCCESS;
 
-        Item item = player.getItemInHand(handIn).getItem();
+        BlockEntity blockEntity = worldIn.getBlockEntity(pos);
+        if (!(blockEntity instanceof ReactorControllerBlockEntity controllerBlockEntity)) return InteractionResult.PASS;
+
+        ItemStack heldItem = player.getItemInHand(handIn);
 
         if (Boolean.FALSE.equals(state.getValue(ASSEMBLED))) {
-            player.sendSystemMessage(Component.literal("Multiblock not assembled").withStyle(ChatFormatting.RED));
-        }else {
-            //withBlockEntityDo(worldIn, pos, be -> NetworkHooks.openScreen((ServerPlayer) player, be, be::sendToMenu)); // Ouvre le menu de reactor controller
+            player.sendSystemMessage(Component.translatable("reactor.info.assembled.none").withStyle(ChatFormatting.RED));
         }
+        else {
+            /*worldIn.getBlockEntity(pos, CNBlockEntities.REACTOR_CONTROLLER.get())
+                    .map(be -> be.onClick(player, handIn))
+                    .orElse(InteractionResult.PASS);*/
 
+            if (heldItem.is(CNItems.CONFIGURED_REACTOR_ITEM.get())){
+                withBlockEntityDo(worldIn, pos, be -> {
+                    be.inventory.setStackInSlot(0, heldItem);
+                    be.configuredPattern = heldItem;
+                    be.test = true;
+
+                    //player.setItemInHand(handIn, ItemStack.EMPTY);
+                    CreateNuclear.LOGGER.warn("inv: " + be.inventory + "  conf: " + be.configuredPattern);
+                    CreateNuclear.LOGGER.warn("if inv: " + be.testIfInventory() + "  if conf: " + be.testIfConfiPattern());
+                });
+                return InteractionResult.SUCCESS;
+
+            }
+            else if (heldItem.isEmpty() && !controllerBlockEntity.inventory.getItem(0).isEmpty()) {
+                withBlockEntityDo(worldIn, pos, be -> {
+                    player.setItemInHand(handIn, be.inventory.getItem(0));
+                    be.inventory.setStackInSlot(0, ItemStack.EMPTY);
+                    be.test = false;
+                    be.notifyUpdate();
+                });
+                state.setValue(ASSEMBLED, false);
+                return InteractionResult.SUCCESS;
+
+            }
+            else if (!heldItem.isEmpty() && !controllerBlockEntity.inventory.getItem(0).isEmpty()) {
+                return InteractionResult.PASS;
+            }
+        }
         return InteractionResult.SUCCESS;
     }
 
@@ -92,7 +133,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         controller.Rotate(state, pos.below(3), worldIn, 0);
         List<? extends Player> players = worldIn.players();
         for (Player p : players) {
-            p.sendSystemMessage(Component.literal("CRITICAL : Reactor Destroyed"));
+            p.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer"));
         }
     }
 
@@ -105,7 +146,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
         controller.Verify(state, pos, level, players, true);
         for (Player p : players) {
-            p.sendSystemMessage(Component.literal("controller is "));
+            p.sendSystemMessage(Component.translatable("reactor.info.is"));
         }
     }
 
@@ -119,7 +160,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         controller.Rotate(state, pos.below(3), level, 0);
         List<? extends Player> players = level.players();
         for (Player p : players) {
-            p.sendSystemMessage(Component.literal("CRITICAL : Reactor Destroyed"));
+            p.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer"));
         }
     }
 
@@ -147,7 +188,8 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         for (Player player : players) {
             if (!create && !entity.destroyed)
             {
-                player.sendSystemMessage(Component.literal("CRITICAL : Reactor Destroyed"));
+                //p.sendSystemMessage(Component.literal("CRITICAL : Reactor Destroyed"));
+                player.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer"));
                 level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, false));
                 entity.created = false;
                 entity.destroyed = true;
