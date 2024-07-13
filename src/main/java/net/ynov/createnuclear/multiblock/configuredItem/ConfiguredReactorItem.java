@@ -22,14 +22,18 @@ import net.ynov.createnuclear.item.CNItems;
 //import net.ynov.createnuclear.multiblock.controller.ReactorControllerMenu;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ConfiguredReactorItem extends Item implements MenuProvider {
+
     public ConfiguredReactorItem(Properties properties) {
         super(properties);
     }
 
     @Override
     public Component getDisplayName() {
-        return getDescription();
+        return Component.translatable("reactor.item.gui.name");
     }
 
     @Nullable

@@ -9,18 +9,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.ynov.createnuclear.CreateNuclear;
-import net.ynov.createnuclear.gui.CNIconButton;
-import net.ynov.createnuclear.gui.CNIcons;
-import net.ynov.createnuclear.item.CNItems;
 import net.ynov.createnuclear.menu.CNMenus;
 import net.ynov.createnuclear.tags.CNTag;
-import org.jetbrains.annotations.NotNull;
 
 import static net.ynov.createnuclear.multiblock.configuredItem.ConfiguredReactorItem.getItemStorage;
 
@@ -47,11 +39,17 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
     protected void initAndReadInventory(ItemStack contentHolder) {
         super.initAndReadInventory(contentHolder);
         CompoundTag tag = contentHolder.getOrCreateTag();
-//        CreateNuclear.LOGGER.warn("é9: " + tag.getCompound("pattern").getAllKeys() + " " + tag.getCompound("pattern").get("Items"));
+        
+        if (tag.isEmpty()) {
+            ghostInventory.setSize(57);
+            for (int i = 0; i < ghostInventory.getSlotCount(); i++) {
+                ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
+                tag.put("pattern", ghostInventory.serializeNBT());
+            }
+            tag.putInt("heat", 0);
+        }
+
         ghostInventory.deserializeNBT(tag.getCompound("pattern"));
-
-        //pattern = tag.get("pattern");
-
     }
 
     @Override
@@ -73,7 +71,7 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
 
     private void addPatternSlots() {
         int startWidth = 8;
-        int startHeight = 40;
+        int startHeight = 45;
         int incr = 18;
         int i = 0;
         int[][] positions = {
@@ -98,11 +96,14 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
     protected void saveData(ItemStack contentHolder) {
         for (int i = 0; i < ghostInventory.getSlotCount(); i++) {
             if (ghostInventory.getStackInSlot(i).isEmpty() || ghostInventory.getStackInSlot(i) == null) ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
+            if (!(ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.FUEL.tag) || ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.COOLER.tag))&& !ghostInventory.getStackInSlot(i).isEmpty()) ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
         }
-        /*CompoundTag tagg = ghostInventory.serializeNBT();
-        CreateNuclear.LOGGER.warn("tag: " + tagg.getCompound("Items") + " " + tagg.get("Items"));*/
+        /*inventoryd.put("Size", ghostInventory.getSlotCount());
+        inventoryd.put("Items", items);*/
+
         contentHolder.getOrCreateTag()
-                .put("pattern", ghostInventory.serializeNBT());
+                .put("pattern", ghostInventory.serializeNBT())
+        ;
     }
 
     protected int getPlayerInventotryXOffset() {
@@ -110,11 +111,12 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
     }
 
     protected int getplayerInventoryYOffset() {
-        return 229;
+        return 231;
     }
 
     @Override
     public boolean stillValid(Player player) {
         return playerInventory.getSelected() == contentHolder;
     }
+
 }
