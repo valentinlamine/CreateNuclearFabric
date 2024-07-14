@@ -18,6 +18,8 @@ import net.ynov.createnuclear.gui.CNGuiTextures;
 import net.ynov.createnuclear.gui.CNIconButton;
 import net.ynov.createnuclear.gui.CNIcons;
 import net.ynov.createnuclear.item.CNItems;
+import net.ynov.createnuclear.multiblock.controller.ConfigureReactorScreenPacket;
+import net.ynov.createnuclear.packets.CNPackets;
 
 import java.util.*;
 
@@ -46,11 +48,8 @@ public class ConfiguredReactorItemScreen  extends AbstractSimiContainerScreen<Co
         clearWidgets();
 
 
-        List<Map<String, Object>> items = new ArrayList<>();
-
-
         CompoundTag tag = menu.contentHolder.getOrCreateTag();
-        ListTag slots = tag.getCompound("pattern").getList("Items", Tag.TAG_COMPOUND);
+        /*ListTag slots = tag.getCompound("pattern").getList("Items", Tag.TAG_COMPOUND);
 
         for (int i = 0; i < tag.getInt("Size"); i++) {
             Map<String, Object> item = new HashMap<>();
@@ -67,7 +66,7 @@ public class ConfiguredReactorItemScreen  extends AbstractSimiContainerScreen<Co
         inventory.put("Pattern", items);
 
 
-        CreateNuclear.LOGGER.warn("contentHolder: " + "  " + Arrays.toString(inventory.values().toArray()));
+        CreateNuclear.LOGGER.warn("contentHolder: " + "  " + Arrays.toString(inventory.values().toArray()));*/
 
         //placeSwitchItem();
     }
@@ -98,22 +97,27 @@ public class ConfiguredReactorItemScreen  extends AbstractSimiContainerScreen<Co
         if (!ItemStack.matches(menu.player.getMainHandItem(), menu.contentHolder)) {
             PlayerEntityHelper.closeScreen(menu.player);
         }
-        InitInventory();
+        //InitInventory();
         float coef = 0.1F;
-        CreateNuclear.LOGGER.warn("ddddf: " + inventory.get("pattern"));
-        if (inventory.get("pattern") == null) {
+
+        /*if (inventory.get("pattern") == null) {
             super.containerTick();
             return;
-        }
+        }*/
+        CompoundTag tag = menu.contentHolder.getOrCreateTag();
 
-        List<Map<String, Object>> pattern = (List<Map<String, Object>>) inventory.get("pattern");
-
-        CreateNuclear.LOGGER.warn("pattern: " + pattern.get(0));
+        sendValueUpdate(tag, coef,
+                tag.getInt("graphiteTime"),
+                tag.getInt("uraniumTime"),
+                tag.getInt("countUraniumRod"),
+                tag.getInt("countGraphiteRod")+3
+        );
+        //CreateNuclear.LOGGER.warn("0 ");
 
 
     }
 
-    private void InitInventory() {
+    /*private void InitInventory() {
         List<Map<String, Object>> items = new ArrayList<>();
 
         CompoundTag tag = menu.contentHolder.getOrCreateTag();
@@ -132,6 +136,11 @@ public class ConfiguredReactorItemScreen  extends AbstractSimiContainerScreen<Co
 
         inventory.put("Size", tag.getInt("Size"));
         inventory.put("Pattern", items);
+    }*/
+
+    private static void sendValueUpdate(CompoundTag tag, float heat, int graphiteTime, int uraniumTime, int countGraphiteRod, int countUraniumRod) {
+        CNPackets.getChannel()
+                .sendToServer(new ConfiguredReactorItemPacket(tag, heat, graphiteTime, uraniumTime, countGraphiteRod, countGraphiteRod));
     }
 
 }

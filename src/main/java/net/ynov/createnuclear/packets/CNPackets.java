@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.ynov.createnuclear.CreateNuclear;
+import net.ynov.createnuclear.multiblock.configuredItem.ConfiguredReactorItemPacket;
 
 import static com.simibubi.create.foundation.networking.SimplePacketBase.NetworkDirection;
 import static com.simibubi.create.foundation.networking.SimplePacketBase.NetworkDirection.PLAY_TO_CLIENT;
@@ -21,6 +22,7 @@ import java.util.function.Function;
 public enum CNPackets {
     // To server
     //CONFIGURE_REACTOR_CONTROLLER(ConfigureReactorControllerPacket.class, ConfigureReactorControllerPacket::new, PLAY_TO_SERVER),
+    CONFIGURE_REACTOR_PATTERN(ConfiguredReactorItemPacket.class, ConfiguredReactorItemPacket::new, PLAY_TO_SERVER),
     ;
 
     public static final ResourceLocation CHANNEL_NAME = CreateNuclear.asResource("main");

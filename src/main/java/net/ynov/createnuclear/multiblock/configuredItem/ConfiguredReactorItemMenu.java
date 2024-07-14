@@ -11,12 +11,25 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
+import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.menu.CNMenus;
 import net.ynov.createnuclear.tags.CNTag;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static net.ynov.createnuclear.multiblock.configuredItem.ConfiguredReactorItem.getItemStorage;
 
 public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
+
+    public float heat = 0F;
+    public int graphiteTime = 5000;
+    public int uraniumTime = 3600;
+    public int countGraphiteRod = 0;
+    public int countUraniumRod = 0;
+    public double progress = 0;
+
+    public boolean sendUpdate = false;
 
     public ConfiguredReactorItemMenu(MenuType<?> type, int id, Inventory inv, FriendlyByteBuf extraData) {
         super(type, id, inv, extraData);
@@ -48,6 +61,13 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
             }
             tag.putInt("heat", 0);
         }
+
+        tag.putInt("graphiteTime", graphiteTime);
+        tag.putInt("countGraphiteRod", countGraphiteRod);
+        tag.putInt("uraniumTime", uraniumTime);
+        tag.putInt("countUraniumRod", countUraniumRod);
+        tag.putDouble("progress", progress);
+        tag.putFloat("heat", heat);
 
         ghostInventory.deserializeNBT(tag.getCompound("pattern"));
     }
@@ -98,9 +118,7 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
             if (ghostInventory.getStackInSlot(i).isEmpty() || ghostInventory.getStackInSlot(i) == null) ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
             if (!(ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.FUEL.tag) || ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.COOLER.tag))&& !ghostInventory.getStackInSlot(i).isEmpty()) ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
         }
-        /*inventoryd.put("Size", ghostInventory.getSlotCount());
-        inventoryd.put("Items", items);*/
-
+        CreateNuclear.LOGGER.warn(" " +contentHolder.getOrCreateTag());
         contentHolder.getOrCreateTag()
                 .put("pattern", ghostInventory.serializeNBT())
         ;
