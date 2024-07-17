@@ -59,7 +59,9 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
                 ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
                 tag.put("pattern", ghostInventory.serializeNBT());
             }
-            tag.putInt("heat", 0);
+            if (!sendUpdate) {
+                tag.putInt("heat", 0);
+            }
         }
 
         tag.putInt("graphiteTime", graphiteTime);
@@ -68,6 +70,10 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
         tag.putInt("countUraniumRod", countUraniumRod);
         tag.putDouble("progress", progress);
         tag.putFloat("heat", heat);
+
+        CreateNuclear.LOGGER.warn("fe: " + sendUpdate);
+
+        sendUpdate = false;
 
         ghostInventory.deserializeNBT(tag.getCompound("pattern"));
     }
@@ -118,7 +124,7 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
             if (ghostInventory.getStackInSlot(i).isEmpty() || ghostInventory.getStackInSlot(i) == null) ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
             if (!(ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.FUEL.tag) || ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.COOLER.tag))&& !ghostInventory.getStackInSlot(i).isEmpty()) ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
         }
-        CreateNuclear.LOGGER.warn(" " +contentHolder.getOrCreateTag());
+        CreateNuclear.LOGGER.warn(" " + contentHolder.getOrCreateTag());
         contentHolder.getOrCreateTag()
                 .put("pattern", ghostInventory.serializeNBT())
         ;
