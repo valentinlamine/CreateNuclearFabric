@@ -1,24 +1,15 @@
 package net.ynov.createnuclear.multiblock.configuredItem;
 
-import com.simibubi.create.AllBlocks;
-import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import io.github.fabricators_of_create.porting_lib.util.PlayerEntityHelper;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.gui.CNGuiTextures;
 import net.ynov.createnuclear.gui.CNIconButton;
-import net.ynov.createnuclear.gui.CNIcons;
-import net.ynov.createnuclear.item.CNItems;
-import net.ynov.createnuclear.multiblock.controller.ConfigureReactorScreenPacket;
 import net.ynov.createnuclear.packets.CNPackets;
 
 import java.util.*;

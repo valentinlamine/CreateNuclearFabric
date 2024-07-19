@@ -5,7 +5,9 @@ import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.LangBuilder;
 import net.minecraft.ChatFormatting;
+import net.minecraft.world.item.ItemStack;
 import net.ynov.createnuclear.CreateNuclear;
+import net.ynov.createnuclear.tags.CNTag;
 
 public interface IHeat extends IWrenchable {
 
@@ -51,7 +53,7 @@ public interface IHeat extends IWrenchable {
             };
         }
 
-        public  static HeatLevel of(int heat) {
+        public static HeatLevel of(int heat) {
             heat = Math.abs(heat);
 
             if (heat > 0 && heat < 78) return SAFETY;
@@ -76,6 +78,23 @@ public interface IHeat extends IWrenchable {
 
             if (heatLevel == DANGER) builder.style(DANGER.getTextColor()).style(ChatFormatting.STRIKETHROUGH);
             else builder.style(heatLevel.getTextColor());
+
+            return builder;
+        }
+
+        public static LangBuilder getFormattedItemText(ItemStack itemRod) {
+            LangBuilder builder = Lang.builder(CreateNuclear.MOD_ID);
+
+            String tooltip = itemRod.is(CNTag.ItemTags.COOLER.tag)
+                    ? "uranium.rod"
+                    : itemRod.is(CNTag.ItemTags.FUEL.tag)
+                        ? "graphene.rod"
+                        : "null";
+
+            builder.translate("")
+                    .style(ChatFormatting.BLUE)
+                    .translate("tooltip.item." + tooltip);
+                    //.add(Lang.number(Math.abs(/*itemRod.getCount()*/5)));
 
             return builder;
         }

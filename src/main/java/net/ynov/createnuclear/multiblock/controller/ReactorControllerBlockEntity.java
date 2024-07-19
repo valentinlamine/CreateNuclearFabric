@@ -94,34 +94,22 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements /*
         return Boolean.TRUE.equals(state.getValue(ASSEMBLED));
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        tooltip.add(componentSpacing.plainCopy().append(Lang.translateDirect("gui.gauge.info_header")));
-CreateNuclear.LOGGER.warn("google: " + inventory.getItem(0).isEmpty() + " " + test + " " + configuredPattern.isEmpty());
-        if(inventory.getItem(0).isEmpty()) {
+        if(!configuredPattern.getOrCreateTag().isEmpty()) {
+            tooltip.add(componentSpacing.plainCopy().append(Lang.translateDirect("gui.gauge.info_header")));
             IHeat.HeatLevel.getName("reactor_controller").style(ChatFormatting.GRAY).forGoggles(tooltip);
-        /*Lang.builder(CreateNuclear.MOD_ID).translate("")
-                .style(ChatFormatting.BLUE)
-                .translate("uranium.rod")
-                .add(Lang.number(Math.abs(inventory.getSlot(0).getAmount())))
-                .newLine()
-                .translate("graphene.rod")
-                .add(Lang.number(Math.abs(inventory.getSlot(1).getAmount())))
-                .forGoggles(tooltip);*/
+            IHeat.HeatLevel.getFormattedHeatText(20).forGoggles(tooltip);
+            IHeat.HeatLevel.getFormattedItemText(new ItemStack(CNItems.URANIUM_ROD.get(), 12)).forGoggles(tooltip);
+            IHeat.HeatLevel.getFormattedItemText(new ItemStack(CNItems.GRAPHITE_ROD, 32)).forGoggles(tooltip);
 
-            IHeat.HeatLevel.getFormattedHeatText(heat).forGoggles(tooltip);
+            //IHeat.HeatLevel.getFormattedHeatText(heat).forGoggles(tooltip);
         }
 
         return true;
     }
 
-    public boolean testIfInventory() {
-        return inventory.getItem(0).isEmpty();
-    }
-
-    public boolean testIfConfiPattern() {
-        return configuredPattern.isEmpty();
-    }
 
     //(Si les methode read et write ne sont pas implémenté alors lorsque l'on relance le monde minecraft les items dans le composant auront disparu !)
     @Override
@@ -129,7 +117,7 @@ CreateNuclear.LOGGER.warn("google: " + inventory.getItem(0).isEmpty() + " " + te
         if (!clientPacket) {
             inventory.deserializeNBT(compound.getCompound("pattern"));
         }
-
+        configuredPattern = ItemStack.of(compound.getCompound("items"));
         /*String stateString = compound.getString("state");
         powered = stateString.isEmpty() ? State.OFF : State.valueOf(compound.getString("state"));
         countGraphiteRod = compound.getInt("countGraphiteRod");
@@ -148,7 +136,7 @@ CreateNuclear.LOGGER.warn("google: " + inventory.getItem(0).isEmpty() + " " + te
             compound.put("pattern", inventory.serializeNBT());
             //compound.putBoolean("powered", isPowered());
         }
-
+        compound.put("items", configuredPattern.serializeNBT());
         /*compound.putInt("countGraphiteRod", countGraphiteRod);
         compound.putInt("countUraniumRod", countUraniumRod);
         compound.putInt("graphiteTimer", graphiteTimer);
@@ -250,6 +238,7 @@ CreateNuclear.LOGGER.warn("google: " + inventory.getItem(0).isEmpty() + " " + te
                 configuredPattern = heldItem;
                 //player.setItemInHand(hand, ItemStack.EMPTY);
             }
+            CreateNuclear.LOGGER.warn(""+inventory.getStackInSlot(0).getOrCreateTag());
             notifyUpdate();
             return InteractionResult.SUCCESS;
         }

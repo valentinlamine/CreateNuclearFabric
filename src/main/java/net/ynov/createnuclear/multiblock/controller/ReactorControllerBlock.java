@@ -93,11 +93,9 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
                 withBlockEntityDo(worldIn, pos, be -> {
                     be.inventory.setStackInSlot(0, heldItem);
                     be.configuredPattern = heldItem;
-                    be.test = true;
+                    CreateNuclear.LOGGER.warn(""+be.inventory.getStackInSlot(0).getOrCreateTag());
 
-                    //player.setItemInHand(handIn, ItemStack.EMPTY);
-                    CreateNuclear.LOGGER.warn("inv: " + be.inventory + "  conf: " + be.configuredPattern);
-                    CreateNuclear.LOGGER.warn("if inv: " + be.testIfInventory() + "  if conf: " + be.testIfConfiPattern());
+                    player.setItemInHand(handIn, ItemStack.EMPTY);
                 });
                 return InteractionResult.SUCCESS;
 
@@ -106,7 +104,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
                 withBlockEntityDo(worldIn, pos, be -> {
                     player.setItemInHand(handIn, be.inventory.getItem(0));
                     be.inventory.setStackInSlot(0, ItemStack.EMPTY);
-                    be.test = false;
+                    be.configuredPattern = ItemStack.EMPTY;
                     be.notifyUpdate();
                 });
                 state.setValue(ASSEMBLED, false);

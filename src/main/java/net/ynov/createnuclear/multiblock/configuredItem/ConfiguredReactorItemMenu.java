@@ -124,7 +124,7 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
             if (ghostInventory.getStackInSlot(i).isEmpty() || ghostInventory.getStackInSlot(i) == null) ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
             if (!(ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.FUEL.tag) || ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.COOLER.tag))&& !ghostInventory.getStackInSlot(i).isEmpty()) ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
         }
-        CreateNuclear.LOGGER.warn(" " + contentHolder.getOrCreateTag());
+        //CreateNuclear.LOGGER.warn(" " + contentHolder.getOrCreateTag());
         contentHolder.getOrCreateTag()
                 .put("pattern", ghostInventory.serializeNBT())
         ;

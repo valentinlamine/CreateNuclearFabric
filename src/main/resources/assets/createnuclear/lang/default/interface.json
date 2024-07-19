@@ -16,8 +16,8 @@
   "createnuclear.tooltip.heatLevel.danger": "Danger",
 
   "createnuclear.generic.unit.heat": "Q",
-  "createnuclear.uranium.rod": "Uranium Rod: ",
-  "createnuclear.graphene.rod": "Graphene Rod: ",
+  "createnuclear.tooltip.item.uranium.rod": "d",
+  "createnuclear.tooltip.item.graphene.rod": "Graphene Rod: ",
   "createnuclear.gui.reactor_controller.info_header.title": "Heat value"
 
 }
