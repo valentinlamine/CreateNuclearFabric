@@ -1,37 +1,30 @@
 package net.ynov.createnuclear.multiblock.controller;
 
-import com.simibubi.create.AllBlockEntityTypes;
-import com.simibubi.create.AllBlocks;
-import com.simibubi.create.AllEntityTypes;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
-import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import com.simibubi.create.foundation.item.TooltipHelper;
-import com.simibubi.create.foundation.utility.Components;
 import com.simibubi.create.foundation.utility.IInteractionChecker;
 import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.foundation.utility.LangBuilder;
+import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
+import io.github.fabricators_of_create.porting_lib.util.StorageProvider;
 import lib.multiblock.test.SimpleMultiBlockAislePatternBuilder;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.ResourceAmount;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SidedStorageBlockEntity;
-import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -42,14 +35,16 @@ import net.ynov.createnuclear.item.CNItems;
 import net.ynov.createnuclear.multiblock.IHeat;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutput;
 import net.ynov.createnuclear.multiblock.energy.ReactorOutputEntity;
+import net.ynov.createnuclear.multiblock.input.ReactorInputEntity;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Iterator;
 import java.util.List;
 
 import static net.ynov.createnuclear.CNMultiblock.*;
 import static net.ynov.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
-import static net.ynov.createnuclear.packets.CNPackets.getChannel;
+
+import com.simibubi.create.content.schematics.requirement.ItemRequirement;
+import com.simibubi.create.content.schematics.requirement.ItemRequirement.ItemUseType;
 
 public class ReactorControllerBlockEntity extends SmartBlockEntity implements /*MenuProvider, */IInteractionChecker, SidedStorageBlockEntity, IHaveGoggleInformation {
     public boolean destroyed = false;
@@ -101,8 +96,42 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements /*
             tooltip.add(componentSpacing.plainCopy().append(Lang.translateDirect("gui.gauge.info_header")));
             IHeat.HeatLevel.getName("reactor_controller").style(ChatFormatting.GRAY).forGoggles(tooltip);
             IHeat.HeatLevel.getFormattedHeatText(20).forGoggles(tooltip);
-            IHeat.HeatLevel.getFormattedItemText(new ItemStack(CNItems.URANIUM_ROD.get(), 12)).forGoggles(tooltip);
-            IHeat.HeatLevel.getFormattedItemText(new ItemStack(CNItems.GRAPHITE_ROD, 32)).forGoggles(tooltip);
+
+            BlockPos pos = FindController('I');
+            BlockPos posController = getBlockPos();
+            BlockPos posInput = null;
+            if(level.getBlockState(new BlockPos(posController.getX(), posController.getY(), posController.getZ() + pos.getX())).is(CNBlocks.REACTOR_INPUT.get())) { // NORTH
+                posInput = new BlockPos(posController.getX(), posController.getY(), posController.getZ() + pos.getX());
+            }
+            else if(level.getBlockState(new BlockPos(posController.getX(), posController.getY(), posController.getZ() - pos.getX())).is(CNBlocks.REACTOR_INPUT.get())) { // SOUTH
+                posInput = new BlockPos(posController.getX(), posController.getY(), posController.getZ() - pos.getX());
+            }
+            else if(level.getBlockState(new BlockPos(posController.getX() - pos.getX(), posController.getY(), posController.getZ())).is(CNBlocks.REACTOR_INPUT.get())) { // EST
+                posInput = new BlockPos(posController.getX() - pos.getX(), posController.getY(), posController.getZ());
+            }
+            else if(level.getBlockState(new BlockPos(posController.getX() + pos.getX(), posController.getY(), posController.getZ())).is(CNBlocks.REACTOR_INPUT.get())) { // WEST
+                posInput = new BlockPos(posController.getX() + pos.getX(), posController.getY(), posController.getZ());
+            }
+            else {
+                posInput = new BlockPos(posController.getX(), posController.getY(), posController.getZ());
+            }
+
+            StorageProvider<ItemVariant> storage = StorageProvider.createForItems(level, posInput);
+
+            if (storage.findBlockEntity() instanceof ReactorInputEntity be) {
+                CompoundTag tag = be.serializeNBT();
+                ListTag inventoryTag = tag.getCompound("Inventory").getList("Items", Tag.TAG_COMPOUND);
+
+                CreateNuclear.LOGGER.warn("Storage be: " + inventoryTag.getCompound(0).get("id") + " " +
+                        (CNItems.URANIUM_ROD.get().toString().equals(inventoryTag.getCompound(0).get("id"))));
+
+                IHeat.HeatLevel.getFormattedItemText(new ItemStack(CNItems.URANIUM_ROD.get(), 12)).forGoggles(tooltip);
+                IHeat.HeatLevel.getFormattedItemText(new ItemStack(CNItems.GRAPHITE_ROD, 32)).forGoggles(tooltip);
+            }
+            else {
+                IHeat.HeatLevel.getFormattedItemText(new ItemStack(Items.AIR, 0)).forGoggles(tooltip);
+            }
+
 
             //IHeat.HeatLevel.getFormattedHeatText(heat).forGoggles(tooltip);
         }

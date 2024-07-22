@@ -11,6 +11,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.menu.CNMenus;
 
 public class ReactorInputMenu extends MenuBase<ReactorInputEntity> {
@@ -56,7 +57,6 @@ public class ReactorInputMenu extends MenuBase<ReactorInputEntity> {
 
     @Override
     protected void saveData(ReactorInputEntity contentHolder) {
-
     }
 
     @Override

@@ -38,7 +38,7 @@
   "createnuclear.tooltip.heatLevel.safety": "Safety",
   "createnuclear.tooltip.heatLevel.warning": "Warning",
   "createnuclear.tooltip.item.graphene.rod": "Graphene Rod: ",
-  "createnuclear.tooltip.item.uranium.rod": "",
+  "createnuclear.tooltip.item.uranium.rod": "Uranium Rod: ",
   "effect.createnuclear.radiation": "Radiation",
   "emi.category.createnuclear.fan_enriched": "Bulk Enriched",
   "entity.minecraft.irradiated_cat": "Irradiated Cat",

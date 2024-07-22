@@ -2,6 +2,8 @@ package net.ynov.createnuclear.multiblock.input;
 
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.utility.Iterate;
+import io.github.fabricators_of_create.porting_lib.util.StorageProvider;
 import lib.multiblock.test.SimpleMultiBlockAislePatternBuilder;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
@@ -32,7 +34,7 @@ public class ReactorInputEntity extends SmartBlockEntity implements MenuProvider
     protected BlockPos block;
     protected ReactorControllerBlockEntity controller;
 
-    protected ReactorInputInventory inventory;
+    public ReactorInputInventory inventory;
 
     public ReactorInputEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -98,5 +100,10 @@ public class ReactorInputEntity extends SmartBlockEntity implements MenuProvider
     @Override
     public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
         return ReactorInputMenu.create(i, inventory, this);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
     }
 }
