@@ -16,6 +16,7 @@ import net.ynov.createnuclear.menu.CNMenus;
 
 public class ReactorInputMenu extends MenuBase<ReactorInputEntity> {
 
+
     public ReactorInputMenu(MenuType<?> type, int id, Inventory inv, FriendlyByteBuf extraData) {
         super(type, id, inv, extraData);
     }
@@ -26,6 +27,16 @@ public class ReactorInputMenu extends MenuBase<ReactorInputEntity> {
 
     public static ReactorInputMenu create(int id, Inventory inv, ReactorInputEntity contentHolder) {
         return new ReactorInputMenu(CNMenus.SLOT_ITEM_STORAGE.get(), id, inv, contentHolder);
+    }
+
+    @Override
+    public ItemStack quickMoveStack(Player player, int index) {
+        Slot clickedSlot = getSlot(index);
+        if (!clickedSlot.hasItem()) return ItemStack.EMPTY;
+        ItemStack stack = clickedSlot.getItem();
+        if (index < 2) moveItemStackTo(stack, 2, slots.size(), false);
+        else moveItemStackTo(stack, 0, 2, false);
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -53,14 +64,22 @@ public class ReactorInputMenu extends MenuBase<ReactorInputEntity> {
         addSlot(slot1);
         addSlot(slot2);
 
+        // player Slots
+        for (int row = 0; row < 3; ++row) {
+            for (int col = 0; col < 9; ++col) {
+                this.addSlot(new Slot(player.getInventory(), col + row * 9 + 9, 38 + col * 18, 105 + row * 18));
+            }
+        }
+
+        for (int hotbarSlot = 0; hotbarSlot < 9; ++hotbarSlot) {
+            this.addSlot(new Slot(player.getInventory(), hotbarSlot, 31 + hotbarSlot * 18, 163));
+        }
+
     }
 
     @Override
     protected void saveData(ReactorInputEntity contentHolder) {
     }
 
-    @Override
-    public ItemStack quickMoveStack(Player player, int index) {
-        return null;
-    }
+
 }

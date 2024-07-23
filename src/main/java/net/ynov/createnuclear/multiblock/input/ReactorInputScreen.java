@@ -7,6 +7,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.ynov.createnuclear.gui.CNGuiTextures;
 
+import static com.simibubi.create.foundation.gui.AllGuiTextures.PLAYER_INVENTORY;
+
 public class ReactorInputScreen extends AbstractSimiContainerScreen<ReactorInputMenu> {
 
     protected static final CNGuiTextures background = CNGuiTextures.REACTOR_SLOT_INVENTOR;
@@ -24,6 +26,10 @@ public class ReactorInputScreen extends AbstractSimiContainerScreen<ReactorInput
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+        int invX = getLeftOfCentered(PLAYER_INVENTORY.width);
+        int invY = topPos + background.height + 4;
+        renderPlayerInventory(guiGraphics, invX, invY);
+
         int x = leftPos;
         int y = topPos;
 

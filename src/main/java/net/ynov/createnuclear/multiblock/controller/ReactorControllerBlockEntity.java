@@ -121,12 +121,21 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements /*
             if (storage.findBlockEntity() instanceof ReactorInputEntity be) {
                 CompoundTag tag = be.serializeNBT();
                 ListTag inventoryTag = tag.getCompound("Inventory").getList("Items", Tag.TAG_COMPOUND);
+                ItemStack fuelItem = ItemStack.of(inventoryTag.getCompound(0));
+                ItemStack coolerItem = ItemStack.of(inventoryTag.getCompound(1));
 
-                CreateNuclear.LOGGER.warn("Storage be: " + inventoryTag.getCompound(0).get("id") + " " +
-                        (CNItems.URANIUM_ROD.get().toString().equals(inventoryTag.getCompound(0).get("id"))));
+                coolerItem.split(2);
+                inventoryTag.remove(1);
+                inventoryTag.add(coolerItem.serializeNBT());
+                CompoundTag d = new CompoundTag();
+                d.put("Items", inventoryTag);
+                tag.getCompound("Inventory").merge(d);
+                be.deserializeNBT(tag);
 
-                IHeat.HeatLevel.getFormattedItemText(new ItemStack(CNItems.URANIUM_ROD.get(), 12)).forGoggles(tooltip);
-                IHeat.HeatLevel.getFormattedItemText(new ItemStack(CNItems.GRAPHITE_ROD, 32)).forGoggles(tooltip);
+                //CreateNuclear.LOGGER.warn("Storage be: " + fuelItem + " " + coolerItem);
+
+                IHeat.HeatLevel.getFormattedItemText(fuelItem).forGoggles(tooltip);
+                IHeat.HeatLevel.getFormattedItemText(coolerItem).forGoggles(tooltip);
             }
             else {
                 IHeat.HeatLevel.getFormattedItemText(new ItemStack(Items.AIR, 0)).forGoggles(tooltip);

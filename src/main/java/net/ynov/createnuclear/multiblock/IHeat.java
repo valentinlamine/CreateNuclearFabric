@@ -93,8 +93,10 @@ public interface IHeat extends IWrenchable {
                         : "unknown";
 
             builder.translate("tooltip.item." + tooltip + ".rod")
-                    .style(ChatFormatting.BLUE)
                     .add(Lang.number(Math.abs(itemRod.getCount())));
+
+            if (tooltip.contains("unknown")) builder.style(ChatFormatting.GRAY).style(ChatFormatting.ITALIC);
+            else builder.style(ChatFormatting.BLUE);
 
             return builder;
         }
