@@ -71,6 +71,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements /*
     private List<CNIconButton> switchButtons;
     public ItemStack configuredPattern;
 
+    private ItemStack fuelItem;
+    private ItemStack coolerItem;
+
 
 
     public ReactorControllerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -95,54 +98,15 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements /*
         if(!configuredPattern.getOrCreateTag().isEmpty()) {
             tooltip.add(componentSpacing.plainCopy().append(Lang.translateDirect("gui.gauge.info_header")));
             IHeat.HeatLevel.getName("reactor_controller").style(ChatFormatting.GRAY).forGoggles(tooltip);
-            IHeat.HeatLevel.getFormattedHeatText(20).forGoggles(tooltip);
 
-            BlockPos pos = FindController('I');
-            BlockPos posController = getBlockPos();
-            BlockPos posInput = null;
-            if(level.getBlockState(new BlockPos(posController.getX(), posController.getY(), posController.getZ() + pos.getX())).is(CNBlocks.REACTOR_INPUT.get())) { // NORTH
-                posInput = new BlockPos(posController.getX(), posController.getY(), posController.getZ() + pos.getX());
-            }
-            else if(level.getBlockState(new BlockPos(posController.getX(), posController.getY(), posController.getZ() - pos.getX())).is(CNBlocks.REACTOR_INPUT.get())) { // SOUTH
-                posInput = new BlockPos(posController.getX(), posController.getY(), posController.getZ() - pos.getX());
-            }
-            else if(level.getBlockState(new BlockPos(posController.getX() - pos.getX(), posController.getY(), posController.getZ())).is(CNBlocks.REACTOR_INPUT.get())) { // EST
-                posInput = new BlockPos(posController.getX() - pos.getX(), posController.getY(), posController.getZ());
-            }
-            else if(level.getBlockState(new BlockPos(posController.getX() + pos.getX(), posController.getY(), posController.getZ())).is(CNBlocks.REACTOR_INPUT.get())) { // WEST
-                posInput = new BlockPos(posController.getX() + pos.getX(), posController.getY(), posController.getZ());
-            }
-            else {
-                posInput = new BlockPos(posController.getX(), posController.getY(), posController.getZ());
-            }
-
-            StorageProvider<ItemVariant> storage = StorageProvider.createForItems(level, posInput);
-
-            if (storage.findBlockEntity() instanceof ReactorInputEntity be) {
-                CompoundTag tag = be.serializeNBT();
-                ListTag inventoryTag = tag.getCompound("Inventory").getList("Items", Tag.TAG_COMPOUND);
-                ItemStack fuelItem = ItemStack.of(inventoryTag.getCompound(0));
-                ItemStack coolerItem = ItemStack.of(inventoryTag.getCompound(1));
-
-                coolerItem.split(2);
-                inventoryTag.remove(1);
-                inventoryTag.add(coolerItem.serializeNBT());
-                CompoundTag d = new CompoundTag();
-                d.put("Items", inventoryTag);
-                tag.getCompound("Inventory").merge(d);
-                be.deserializeNBT(tag);
-
-                //CreateNuclear.LOGGER.warn("Storage be: " + fuelItem + " " + coolerItem);
-
+            if (fuelItem != null || coolerItem != null) {
+                IHeat.HeatLevel.getFormattedHeatText(20).forGoggles(tooltip);
                 IHeat.HeatLevel.getFormattedItemText(fuelItem).forGoggles(tooltip);
                 IHeat.HeatLevel.getFormattedItemText(coolerItem).forGoggles(tooltip);
             }
             else {
                 IHeat.HeatLevel.getFormattedItemText(new ItemStack(Items.AIR, 0)).forGoggles(tooltip);
             }
-
-
-            //IHeat.HeatLevel.getFormattedHeatText(heat).forGoggles(tooltip);
         }
 
         return true;
@@ -156,6 +120,8 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements /*
             inventory.deserializeNBT(compound.getCompound("pattern"));
         }
         configuredPattern = ItemStack.of(compound.getCompound("items"));
+        coolerItem = ItemStack.of(compound.getCompound("cooler"));
+        fuelItem = ItemStack.of(compound.getCompound("fuel"));
         /*String stateString = compound.getString("state");
         powered = stateString.isEmpty() ? State.OFF : State.valueOf(compound.getString("state"));
         countGraphiteRod = compound.getInt("countGraphiteRod");
@@ -175,6 +141,8 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements /*
             //compound.putBoolean("powered", isPowered());
         }
         compound.put("items", configuredPattern.serializeNBT());
+        compound.put("cooler", coolerItem.serializeNBT());
+        compound.put("fuel", fuelItem.serializeNBT());
         /*compound.putInt("countGraphiteRod", countGraphiteRod);
         compound.putInt("countUraniumRod", countUraniumRod);
         compound.putInt("graphiteTimer", graphiteTimer);
@@ -209,6 +177,56 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements /*
             sendUpdate = false;
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 6);
         }*/
+
+
+        BlockPos pos = FindController('I');
+        BlockPos posController = getBlockPos();
+        BlockPos posInput = null;
+
+        int[][] directions = {
+                {0,0, pos.getX()}, // NORTH
+                {0,0, -pos.getX()}, // SOUTH
+                {pos.getX(),0,0}, // EAST
+                {-pos.getX(),0,0} // WEST
+        };
+
+
+        if(level.getBlockState(new BlockPos(posController.getX(), posController.getY(), posController.getZ() + pos.getX())).is(CNBlocks.REACTOR_INPUT.get())) { // NORTH
+            posInput = new BlockPos(posController.getX(), posController.getY(), posController.getZ() + pos.getX());
+        }
+        else if(level.getBlockState(new BlockPos(posController.getX(), posController.getY(), posController.getZ() - pos.getX())).is(CNBlocks.REACTOR_INPUT.get())) { // SOUTH
+            posInput = new BlockPos(posController.getX(), posController.getY(), posController.getZ() - pos.getX());
+        }
+        else if(level.getBlockState(new BlockPos(posController.getX() - pos.getX(), posController.getY(), posController.getZ())).is(CNBlocks.REACTOR_INPUT.get())) { // EST
+            posInput = new BlockPos(posController.getX() - pos.getX(), posController.getY(), posController.getZ());
+        }
+        else if(level.getBlockState(new BlockPos(posController.getX() + pos.getX(), posController.getY(), posController.getZ())).is(CNBlocks.REACTOR_INPUT.get())) { // WEST
+            posInput = new BlockPos(posController.getX() + pos.getX(), posController.getY(), posController.getZ());
+        }
+        else {
+            posInput = new BlockPos(posController.getX(), posController.getY(), posController.getZ());
+        }
+
+        StorageProvider<ItemVariant> storage = StorageProvider.createForItems(level, posInput);
+
+        if (storage.findBlockEntity() instanceof ReactorInputEntity be) {
+            CompoundTag tag = be.serializeNBT();
+            ListTag inventoryTag = tag.getCompound("Inventory").getList("Items", Tag.TAG_COMPOUND);
+            fuelItem = ItemStack.of(inventoryTag.getCompound(0));
+            coolerItem = ItemStack.of(inventoryTag.getCompound(1));
+
+            /*coolerItem.split(2);
+            inventoryTag.remove(1);
+            inventoryTag.add(coolerItem.serializeNBT());
+            CompoundTag d = new CompoundTag();
+            d.put("Items", inventoryTag);
+            tag.getCompound("Inventory").merge(d);
+            be.deserializeNBT(tag);*/
+            this.notifyUpdate();
+        }
+
+
+
     }
 
     private static BlockPos FindController(char character) {
