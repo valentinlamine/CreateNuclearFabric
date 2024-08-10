@@ -46,7 +46,7 @@ import static net.ynov.createnuclear.multiblock.controller.ReactorControllerBloc
 import com.simibubi.create.content.schematics.requirement.ItemRequirement;
 import com.simibubi.create.content.schematics.requirement.ItemRequirement.ItemUseType;
 
-public class ReactorControllerBlockEntity extends SmartBlockEntity implements /*MenuProvider, */IInteractionChecker, SidedStorageBlockEntity, IHaveGoggleInformation {
+public class ReactorControllerBlockEntity extends SmartBlockEntity implements IInteractionChecker, SidedStorageBlockEntity, IHaveGoggleInformation {
     public boolean destroyed = false;
     public boolean created = false;
     public boolean test = true;
@@ -67,6 +67,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements /*
     public int graphiteTimer = 3600;
     public int uraniumTimer = 6000;
     public int heat;
+    public double total;
     public CompoundTag screen_pattern = new CompoundTag();
     private List<CNIconButton> switchButtons;
     public ItemStack configuredPattern;
@@ -100,9 +101,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements /*
             IHeat.HeatLevel.getName("reactor_controller").style(ChatFormatting.GRAY).forGoggles(tooltip);
 
             if (fuelItem != null || coolerItem != null) {
-                IHeat.HeatLevel.getFormattedHeatText(20).forGoggles(tooltip);
-                IHeat.HeatLevel.getFormattedItemText(fuelItem).forGoggles(tooltip);
-                IHeat.HeatLevel.getFormattedItemText(coolerItem).forGoggles(tooltip);
+                IHeat.HeatLevel.getFormattedHeatText(configuredPattern.getOrCreateTag().getInt("heat")).forGoggles(tooltip);
+                if (fuelItem != null) IHeat.HeatLevel.getFormattedItemText(fuelItem).forGoggles(tooltip);
+                if (coolerItem != null) IHeat.HeatLevel.getFormattedItemText(coolerItem).forGoggles(tooltip);
             }
             else {
                 IHeat.HeatLevel.getFormattedItemText(new ItemStack(Items.AIR, 0)).forGoggles(tooltip);
@@ -120,17 +121,19 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements /*
             inventory.deserializeNBT(compound.getCompound("pattern"));
         }
         configuredPattern = ItemStack.of(compound.getCompound("items"));
-        coolerItem = ItemStack.of(compound.getCompound("cooler"));
-        fuelItem = ItemStack.of(compound.getCompound("fuel"));
-        /*String stateString = compound.getString("state");
-        powered = stateString.isEmpty() ? State.OFF : State.valueOf(compound.getString("state"));
+        if (ItemStack.of(compound.getCompound("cooler")) != null || ItemStack.of(compound.getCompound("fuel")) != null) {
+            coolerItem = ItemStack.of(compound.getCompound("cooler"));
+            fuelItem = ItemStack.of(compound.getCompound("fuel"));
+
+        }
+        /*
         countGraphiteRod = compound.getInt("countGraphiteRod");
         countUraniumRod = compound.getInt("countUraniumRod");
         graphiteTimer = compound.getInt("graphiteTimer");
         uraniumTimer = compound.getInt("uraniumTimer");
         heat = compound.getInt("heat");
-        screen_pattern = compound.getCompound("screen_pattern");
 */
+        total = compound.getDouble("total");
         super.read(compound, clientPacket);
     }
 
@@ -141,8 +144,11 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements /*
             //compound.putBoolean("powered", isPowered());
         }
         compound.put("items", configuredPattern.serializeNBT());
-        compound.put("cooler", coolerItem.serializeNBT());
-        compound.put("fuel", fuelItem.serializeNBT());
+
+        if (coolerItem != null || fuelItem != null) {
+            compound.put("cooler", coolerItem.serializeNBT());
+            compound.put("fuel", fuelItem.serializeNBT());
+        }
         /*compound.putInt("countGraphiteRod", countGraphiteRod);
         compound.putInt("countUraniumRod", countUraniumRod);
         compound.putInt("graphiteTimer", graphiteTimer);
@@ -150,8 +156,8 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements /*
         compound.putInt("heat", heat);
         compound.putString("state", powered.name());
         compound.put("screen_pattern", screen_pattern);
-
 */
+        compound.putDouble("total", calculateProgres());
         super.write(compound, clientPacket);
     }
 
@@ -172,61 +178,97 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements /*
         }*/
         //if (heat >= 100 || heat <= 0) Rotate(getBlockState(), getBlockPos().below(3), getLevel(), 0);
 
-        // Update Client block entity
-        /*if (sendUpdate) {
-            sendUpdate = false;
-            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 6);
-        }*/
 
 
-        BlockPos pos = FindController('I');
+        if (isEmptyConfiguredPattern()) {
+
+            StorageProvider<ItemVariant> storage = StorageProvider.createForItems(level, getBlockPosForReactor('I'));
+
+            if (storage.findBlockEntity() instanceof ReactorInputEntity be) {
+                CompoundTag tag = be.serializeNBT();
+                ListTag inventoryTag = tag.getCompound("Inventory").getList("Items", Tag.TAG_COMPOUND);
+                fuelItem = ItemStack.of(inventoryTag.getCompound(0));
+                coolerItem = ItemStack.of(inventoryTag.getCompound(1));
+                if (/*fuelItem.getCount() > 0 && fuelItem.is(CNItems.URANIUM_ROD.get()) && false*/updateTimers()) {
+                    TransferUtil.extract(be.inventory, ItemVariant.of(fuelItem), 2);
+                }
+                //convertePattern(configuredPattern.getOrCreateTag().getCompound("patternAll"));
+
+
+
+                this.notifyUpdate();
+            }
+        }
+    }
+
+    private boolean isEmptyConfiguredPattern() {
+        return !configuredPattern.isEmpty() || !configuredPattern.getOrCreateTag().isEmpty();
+    }
+
+    private boolean updateTimers() {
+
+        double constTotal = calculateProgres();
+
+        CreateNuclear.LOGGER.warn("calculate: "+ total / constTotal + " " + total);
+        total -= 1;
+        return false;//(total/constTotal) <= 0;
+    }
+
+    private double calculateProgres() {
+        countGraphiteRod = configuredPattern.getOrCreateTag().getInt("countGraphiteRod");
+        countUraniumRod = configuredPattern.getOrCreateTag().getInt("countUraniumRod");
+        graphiteTimer = configuredPattern.getOrCreateTag().getInt("graphiteTime");
+        uraniumTimer = configuredPattern.getOrCreateTag().getInt("uraniumTime");
+
+        double totalGraphiteRodLife = Math.pow(graphiteTimer, 1);
+        double totalUraniumRodLife = Math.pow(uraniumTimer, 1);
+
+        return totalGraphiteRodLife + totalUraniumRodLife;
+    }
+
+    private BlockPos getBlockPosForReactor(char character) {
+        BlockPos pos = FindController(character);
         BlockPos posController = getBlockPos();
-        BlockPos posInput = null;
+        BlockPos posInput = new BlockPos(posController.getX(), posController.getY(), posController.getZ());
 
         int[][] directions = {
                 {0,0, pos.getX()}, // NORTH
                 {0,0, -pos.getX()}, // SOUTH
-                {pos.getX(),0,0}, // EAST
-                {-pos.getX(),0,0} // WEST
+                {-pos.getX(),0,0}, // EAST
+                {pos.getX(),0,0} // WEST
         };
 
 
-        if(level.getBlockState(new BlockPos(posController.getX(), posController.getY(), posController.getZ() + pos.getX())).is(CNBlocks.REACTOR_INPUT.get())) { // NORTH
-            posInput = new BlockPos(posController.getX(), posController.getY(), posController.getZ() + pos.getX());
-        }
-        else if(level.getBlockState(new BlockPos(posController.getX(), posController.getY(), posController.getZ() - pos.getX())).is(CNBlocks.REACTOR_INPUT.get())) { // SOUTH
-            posInput = new BlockPos(posController.getX(), posController.getY(), posController.getZ() - pos.getX());
-        }
-        else if(level.getBlockState(new BlockPos(posController.getX() - pos.getX(), posController.getY(), posController.getZ())).is(CNBlocks.REACTOR_INPUT.get())) { // EST
-            posInput = new BlockPos(posController.getX() - pos.getX(), posController.getY(), posController.getZ());
-        }
-        else if(level.getBlockState(new BlockPos(posController.getX() + pos.getX(), posController.getY(), posController.getZ())).is(CNBlocks.REACTOR_INPUT.get())) { // WEST
-            posInput = new BlockPos(posController.getX() + pos.getX(), posController.getY(), posController.getZ());
-        }
-        else {
-            posInput = new BlockPos(posController.getX(), posController.getY(), posController.getZ());
+        for (int[] direction : directions) {
+            BlockPos newPos = posController.offset(direction[0], direction[1], direction[2]);
+            if (level.getBlockState(newPos).is(CNBlocks.REACTOR_INPUT.get())) {
+                posInput = newPos;
+                break;
+            }
         }
 
-        StorageProvider<ItemVariant> storage = StorageProvider.createForItems(level, posInput);
+        return posInput;
+    }
 
-        if (storage.findBlockEntity() instanceof ReactorInputEntity be) {
-            CompoundTag tag = be.serializeNBT();
-            ListTag inventoryTag = tag.getCompound("Inventory").getList("Items", Tag.TAG_COMPOUND);
-            fuelItem = ItemStack.of(inventoryTag.getCompound(0));
-            coolerItem = ItemStack.of(inventoryTag.getCompound(1));
+    private CompoundTag convertePattern(CompoundTag compoundTag) {
+        ListTag pattern = compoundTag.getList("Items", Tag.TAG_COMPOUND);
 
-            /*coolerItem.split(2);
-            inventoryTag.remove(1);
-            inventoryTag.add(coolerItem.serializeNBT());
-            CompoundTag d = new CompoundTag();
-            d.put("Items", inventoryTag);
-            tag.getCompound("Inventory").merge(d);
-            be.deserializeNBT(tag);*/
-            this.notifyUpdate();
-        }
+        CreateNuclear.LOGGER.warn("pattern: " + pattern);
+
+        int[][] list = new int[][]{
+            {99,99,99,0,1,2,99,99,99},
+            {99,99,3,4,5,6,7,99,99},
+            {99,8,9,10,11,12,13,14,99},
+            {15,16,17,18,19,20,21,22,23},
+            {24,25,26,27,28,29,30,31,32},
+            {33,34,35,36,37,38,39,40,41},
+            {99,42,43,44,45,46,47,48,99},
+            {99,99,49,50,51,52,53,99,99},
+            {99,99,99,54,55,56,99,99,99}
+        };
 
 
-
+        return null;
     }
 
     private static BlockPos FindController(char character) {

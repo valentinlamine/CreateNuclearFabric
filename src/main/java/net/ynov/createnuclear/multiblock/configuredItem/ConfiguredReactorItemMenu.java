@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.ynov.createnuclear.CreateNuclear;
 import net.ynov.createnuclear.menu.CNMenus;
 import net.ynov.createnuclear.tags.CNTag;
@@ -59,21 +60,12 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
                 ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
                 tag.put("pattern", ghostInventory.serializeNBT());
             }
-            if (!sendUpdate) {
-                tag.putInt("heat", 0);
-            }
         }
 
-        tag.putInt("graphiteTime", graphiteTime);
-        tag.putInt("countGraphiteRod", countGraphiteRod);
-        tag.putInt("uraniumTime", uraniumTime);
-        tag.putInt("countUraniumRod", countUraniumRod);
-        tag.putDouble("progress", progress);
-        tag.putFloat("heat", heat);
-
-        CreateNuclear.LOGGER.warn("fe: " + sendUpdate);
-
-        sendUpdate = false;
+        contentHolder.getOrCreateTag().putInt("uraniumTime", 3600);
+        contentHolder.getOrCreateTag().putInt("graphiteTime", 5000);
+        contentHolder.getOrCreateTag().putInt("countGraphiteRod", 0);
+        contentHolder.getOrCreateTag().putInt("countUraniumRod", 0);
 
         ghostInventory.deserializeNBT(tag.getCompound("pattern"));
     }
@@ -123,11 +115,22 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
         for (int i = 0; i < ghostInventory.getSlotCount(); i++) {
             if (ghostInventory.getStackInSlot(i).isEmpty() || ghostInventory.getStackInSlot(i) == null) ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
             if (!(ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.FUEL.tag) || ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.COOLER.tag))&& !ghostInventory.getStackInSlot(i).isEmpty()) ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
+            if (ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.COOLER.tag)) countGraphiteRod += 1;
+            if (ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.FUEL.tag)) countUraniumRod += 1;
         }
-        //CreateNuclear.LOGGER.warn(" " + contentHolder.getOrCreateTag());
-        contentHolder.getOrCreateTag()
-                .put("pattern", ghostInventory.serializeNBT())
-        ;
+
+        contentHolder.getOrCreateTag().put("pattern", ghostInventory.serializeNBT());
+        contentHolder.getOrCreateTag().putInt("countGraphiteRod", countGraphiteRod);
+        contentHolder.getOrCreateTag().putInt("countUraniumRod", countUraniumRod);
+
+        for (int i = 0; i < ghostInventory.getSlotCount(); i++) {
+            if (ghostInventory.getStackInSlot(i).isEmpty() || ghostInventory.getStackInSlot(i) == null) ghostInventory.setStackInSlot(i, new ItemStack(Items.GLASS_PANE));
+            if (!(ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.FUEL.tag) || ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.COOLER.tag))&& !ghostInventory.getStackInSlot(i).isEmpty()) ghostInventory.setStackInSlot(i, new ItemStack(Items.GLASS_PANE));
+        }
+
+        contentHolder.getOrCreateTag().put("patternAll", ghostInventory.serializeNBT());
+
+
     }
 
     protected int getPlayerInventotryXOffset() {

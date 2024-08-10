@@ -20,7 +20,6 @@ public class ConfiguredReactorItemPacket extends SimplePacketBase {
     private final int countUraniumRod;
     private double progress;
 
-    private static final List<Map<String, Object>> items = new ArrayList<>();
     private static double totalInit;
 
     public ConfiguredReactorItemPacket(CompoundTag tag, float heat, int graphiteTime, int uraniumTime, int countGraphiteRod, int countUraniumRod) {
@@ -62,7 +61,7 @@ public class ConfiguredReactorItemPacket extends SimplePacketBase {
         buffer.writeInt(countUraniumRod);
         buffer.writeDouble(progress);
 
-        totalInit = Math.pow(3600, countUraniumRod) + Math.pow(5000, countGraphiteRod);
+        totalInit = calculateTotalInit(countUraniumRod, countGraphiteRod);
     }
 
     @Override
@@ -82,11 +81,16 @@ public class ConfiguredReactorItemPacket extends SimplePacketBase {
         return true;
     }
 
-    private static double calculatePostgres(int a, int a_exp, int b, int b_exp) {
+    public static double calculatePostgres(int a, int a_exp, int b, int b_exp) {
         double a2 = Math.pow(a, a_exp);
         double b2 = Math.pow(b, b_exp);
         double total = a2 + b2;
 
-        return total/totalInit;
+        if (Double.isNaN(totalInit)) return total/calculateTotalInit(a, b);
+        else return total/totalInit;
+    }
+
+    public static double calculateTotalInit(int a, int b) {
+        return Math.pow(3600, a) + Math.pow(5000, b);
     }
 }
