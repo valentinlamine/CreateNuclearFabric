@@ -16,7 +16,7 @@ import net.ynov.createnuclear.CreateNuclear;
 import org.jetbrains.annotations.NotNull;
 
 public class IrradiatedWolfModel<T extends IrradiatedWolf> extends ColorableAgeableListModel<T> {
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(CreateNuclear.MOD_ID, "irradiated_wolf"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(CreateNuclear.asResource( "irradiated_wolf"), "main");
 	private final ModelPart head;
 	private final ModelPart pustule1;
 	private final ModelPart pustule2;

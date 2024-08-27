@@ -10,13 +10,13 @@ import net.ynov.createnuclear.entity.CNModelLayers;
 import org.jetbrains.annotations.NotNull;
 
 public class IrradiatedWolfRenderer extends MobRenderer<IrradiatedWolf, IrradiatedWolfModel<IrradiatedWolf>> {
-    private static final ResourceLocation WOLF_LOCATION = new ResourceLocation(CreateNuclear.MOD_ID, "textures/entity/irradiated_wolf.png");
-    private static final ResourceLocation WOLF_TAME_LOCATION = new ResourceLocation(CreateNuclear.MOD_ID, "textures/entity/irradiated_wolf.png");
-    private static final ResourceLocation WOLF_ANGRY_LOCATION = new ResourceLocation("textures/entity/wolf/wolf_angry.png");
+    private static final ResourceLocation WOLF_LOCATION = CreateNuclear.asResource("textures/entity/irradiated_wolf.png");
+    private static final ResourceLocation WOLF_TAME_LOCATION = CreateNuclear.asResource("textures/entity/irradiated_wolf.png");
+    private static final ResourceLocation WOLF_ANGRY_LOCATION = CreateNuclear.asResource("textures/entity/irradiated_wolf_angry.png");
 
     public IrradiatedWolfRenderer(EntityRendererProvider.Context context) {
         super(context, new IrradiatedWolfModel<>(context.bakeLayer(CNModelLayers.IRRADIATED_WOLF)), 0.5F);
-        this.addLayer(new IrradiatedWoldCollarLayer(this));
+        //this.addLayer(new IrradiatedWoldCollarLayer(this));
     }
 
     protected float getBob(IrradiatedWolf livingBase, float partialTicks) {

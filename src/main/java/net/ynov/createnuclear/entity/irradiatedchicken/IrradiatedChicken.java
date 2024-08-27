@@ -25,7 +25,10 @@ import net.ynov.createnuclear.entity.CNMobEntityType;
 import org.jetbrains.annotations.Nullable;
 
 public class IrradiatedChicken extends Animal {
-    private static final Ingredient FOOD_ITEMS = Ingredient.of(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS, Items.TORCHFLOWER_SEEDS, Items.PITCHER_POD);
+    private static final Ingredient FOOD_ITEMS = Ingredient.of(
+            Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS,
+            Items.BEETROOT_SEEDS, Items.TORCHFLOWER_SEEDS, Items.PITCHER_POD
+    );
     public float flap;
     public float flapSpeed;
     public float oFlapSpeed;

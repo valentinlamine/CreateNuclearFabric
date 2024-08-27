@@ -46,11 +46,10 @@ public class CatSitOnBlockGoal extends MoveToBlockGoal {
             if (blockState.is(Blocks.CHEST)) {
                 return ChestBlockEntity.getOpenCount(level, pos) < 1;
             } else {
-                return blockState.is(Blocks.FURNACE) && (Boolean) blockState.getValue(FurnaceBlock.LIT) || blockState.is(BlockTags.BEDS, (blockStatex) -> {
-                    return (Boolean) blockStatex.getOptionalValue(BedBlock.PART).map((bedPart) -> {
-                        return bedPart != BedPart.HEAD;
-                    }).orElse(true);
-                });
+                return blockState.is(Blocks.FURNACE) && (Boolean) blockState.getValue(FurnaceBlock.LIT) || blockState.is(BlockTags.BEDS, (blockStatex) ->
+                        (Boolean) blockStatex.getOptionalValue(BedBlock.PART)
+                                .map((bedPart) -> bedPart != BedPart.HEAD)
+                                .orElse(true));
             }
         }
     }
