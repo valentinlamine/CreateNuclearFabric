@@ -57,9 +57,10 @@ public interface IHeat extends IWrenchable {
         public static HeatLevel of(int heat) {
             heat = Math.abs(heat);
 
-            if (heat > 0 && heat < 78) return SAFETY;
-            if (heat >= 79/*126*/ && heat <= 83/*134*/) return CAUTION;
-            if (heat >= 100) return DANGER;
+            if (heat > 0 && heat < 100) return SAFETY;
+            if (heat >= 100/*126*/ && heat <= 190/*134*/) return CAUTION;
+            if (heat >= 190/*126*/ && heat <= 199/*134*/) return CAUTION;
+            if (heat >= 200) return DANGER;
 
             return NONE;
         }

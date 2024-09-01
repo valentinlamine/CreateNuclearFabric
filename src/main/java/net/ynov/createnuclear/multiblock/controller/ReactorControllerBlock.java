@@ -101,6 +101,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
                     player.setItemInHand(handIn, be.inventory.getItem(0));
                     be.inventory.setStackInSlot(0, ItemStack.EMPTY);
                     be.configuredPattern = ItemStack.EMPTY;
+                    be.total = 0.0;
                     be.notifyUpdate();
                 });
                 state.setValue(ASSEMBLED, false);

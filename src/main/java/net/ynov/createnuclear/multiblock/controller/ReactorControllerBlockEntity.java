@@ -189,11 +189,18 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                 ListTag inventoryTag = tag.getCompound("Inventory").getList("Items", Tag.TAG_COMPOUND);
                 fuelItem = ItemStack.of(inventoryTag.getCompound(0));
                 coolerItem = ItemStack.of(inventoryTag.getCompound(1));
-                if (/*fuelItem.getCount() > 0 && fuelItem.is(CNItems.URANIUM_ROD.get()) && false*/updateTimers()) {
+                if (fuelItem.getCount() > 0 && fuelItem.is(CNItems.URANIUM_ROD.get()) && updateTimers()) {
                     TransferUtil.extract(be.inventory, ItemVariant.of(fuelItem), 2);
+                    total = calculateProgres();
+                    configuredPattern.getOrCreateTag().putDouble("heat", calculateHeat()/100);
+                    int heat = (int) configuredPattern.getOrCreateTag().getDouble("heat");
+                    CreateNuclear.LOGGER.warn("" + heat + " " + FindController('O'));
+                    //rotate(getBlockState(), FindController('0'), getLevel(), heat);
+                    return;
+
                 }
                 //convertePattern(configuredPattern.getOrCreateTag().getCompound("patternAll"));
-
+                CreateNuclear.LOGGER.warn("calculateProgres: " + calculateProgres() + " total: " + total);
 
 
                 this.notifyUpdate();
@@ -209,9 +216,8 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
 
         double constTotal = calculateProgres();
 
-        CreateNuclear.LOGGER.warn("calculate: "+ total / constTotal + " " + total);
-        total -= 1;
-        return false;//(total/constTotal) <= 0;
+        total -= 10;
+        return total <= 0;//(total/constTotal) <= 0;
     }
 
     private double calculateProgres() {
@@ -220,10 +226,24 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         graphiteTimer = configuredPattern.getOrCreateTag().getInt("graphiteTime");
         uraniumTimer = configuredPattern.getOrCreateTag().getInt("uraniumTime");
 
-        double totalGraphiteRodLife = Math.pow(graphiteTimer, 1);
-        double totalUraniumRodLife = Math.pow(uraniumTimer, 1);
+        double totalGraphiteRodLife = graphiteTimer * countGraphiteRod;
+        double totalUraniumRodLife = uraniumTimer * countUraniumRod;
 
         return totalGraphiteRodLife + totalUraniumRodLife;
+    }
+
+    private double calculateHeat() {
+        countGraphiteRod = configuredPattern.getOrCreateTag().getInt("countGraphiteRod");
+        countUraniumRod = configuredPattern.getOrCreateTag().getInt("countUraniumRod");
+        graphiteTimer = configuredPattern.getOrCreateTag().getInt("graphiteTime");
+        uraniumTimer = configuredPattern.getOrCreateTag().getInt("uraniumTime");
+
+        double totalGraphiteRodLife = graphiteTimer * countGraphiteRod;
+        double totalUraniumRodLife = uraniumTimer * countUraniumRod;
+
+        CreateNuclear.LOGGER.warn(" totalGraphiteRodLife: " + totalGraphiteRodLife + " totalUraniumRodLife: " + totalUraniumRodLife + " countGraphiteRod" + countGraphiteRod);
+
+        return totalGraphiteRodLife - totalUraniumRodLife;
     }
 
     private BlockPos getBlockPosForReactor(char character) {
@@ -290,7 +310,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                 .getDistanceController(character);
     }
 
-    public void Rotate(BlockState state, BlockPos pos, Level level, int rotation) {
+    public void rotate(BlockState state, BlockPos pos, Level level, int rotation) {
         if (level.getBlockState(pos).is(CNBlocks.REACTOR_OUTPUT.get()) && rotation > 0) {
             if (level.getBlockState(pos).getBlock() instanceof ReactorOutput) {
                 ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
