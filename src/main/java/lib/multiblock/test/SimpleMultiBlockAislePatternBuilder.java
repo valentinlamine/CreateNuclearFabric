@@ -10,7 +10,8 @@ import lib.multiblock.test.misc.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
-import net.ynov.createnuclear.CreateNuclear;
+import net.nuclearteam.createnuclear.CreateNuclear;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
