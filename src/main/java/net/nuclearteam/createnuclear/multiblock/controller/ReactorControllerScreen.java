@@ -10,13 +10,13 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
-import net.ynov.createnuclear.CreateNuclear;
-import net.ynov.createnuclear.gui.CNGuiTextures;
-import net.ynov.createnuclear.gui.CNIconButton;
-import net.ynov.createnuclear.gui.CNIcons;
-import net.ynov.createnuclear.item.CNItems;
+import net.nuclearteam.createnuclear.CreateNuclear;
+import net.nuclearteam.createnuclear.gui.CNGuiTextures;
+import net.nuclearteam.createnuclear.gui.CNIconButton;
+import net.nuclearteam.createnuclear.gui.CNIcons;
+import net.nuclearteam.createnuclear.item.CNItems;
 
-import static net.ynov.createnuclear.packets.CNPackets.getChannel;
+import static net.nuclearteam.createnuclear.packets.CNPackets.getChannel;
 
 import java.util.ArrayList;
 import java.util.List;

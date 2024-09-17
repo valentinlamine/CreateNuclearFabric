@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.blockentity.CNBlockEntities;
 import net.nuclearteam.createnuclear.effects.CNEffects;
+import net.nuclearteam.createnuclear.entity.CNMobDefaultAttribute;
 import net.nuclearteam.createnuclear.entity.CNMobEntityType;
 import net.nuclearteam.createnuclear.entity.irradiatedcat.IrradiatedCat;
 import net.nuclearteam.createnuclear.entity.irradiatedchicken.IrradiatedChicken;
@@ -33,7 +34,6 @@ import org.slf4j.LoggerFactory;
 public class CreateNuclear implements ModInitializer {
 	public static final String MOD_ID = "createnuclear";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-
 	public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID);
 
 
@@ -62,9 +62,8 @@ public class CreateNuclear implements ModInitializer {
 
 		CNFanProcessingTypes.register();
 		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);
-		FabricDefaultAttributeRegistry.register(CNMobEntityType.IRRADIATED_CHICKEN, IrradiatedChicken.createAttributes());
-		FabricDefaultAttributeRegistry.register(CNMobEntityType.IRRADIATED_WOLF, IrradiatedWolf.createAttributes());
-		FabricDefaultAttributeRegistry.register(CNMobEntityType.IRRADIATED_CAT, IrradiatedCat.createAttributes());
+		CNMobDefaultAttribute.register();
+
 	}
 
 	public static ResourceLocation asResource(String path) {

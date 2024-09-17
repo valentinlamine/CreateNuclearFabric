@@ -26,7 +26,7 @@ import java.util.List;
 
 import static net.nuclearteam.createnuclear.CNMultiblock.*;
 import static net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
-import static net.ynov.createnuclear.packets.CNPackets.getChannel;
+import static net.nuclearteam.createnuclear.packets.CNPackets.getChannel;
 
 public class ReactorControllerBlockEntity extends SmartBlockEntity implements MenuProvider, IInteractionChecker, SidedStorageBlockEntity {
     public boolean destroyed = false;

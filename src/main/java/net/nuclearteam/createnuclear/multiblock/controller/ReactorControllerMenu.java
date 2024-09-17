@@ -13,8 +13,8 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.ynov.createnuclear.item.CNItems;
-import net.ynov.createnuclear.menu.CNMenus;
+import net.nuclearteam.createnuclear.item.CNItems;
+import net.nuclearteam.createnuclear.menu.CNMenus;
 import org.jetbrains.annotations.NotNull;
 
 public class ReactorControllerMenu extends MenuBase<ReactorControllerBlockEntity> {

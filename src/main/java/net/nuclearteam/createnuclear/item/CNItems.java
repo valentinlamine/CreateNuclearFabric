@@ -33,7 +33,7 @@ import net.nuclearteam.createnuclear.item.cloth.ClothItem;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem.DyeItemList;
 import net.nuclearteam.createnuclear.tags.CNTag;
 import net.nuclearteam.createnuclear.utils.TextUtils;
-import net.ynov.createnuclear.entity.CNMobEntityType;
+import net.nuclearteam.createnuclear.entity.CNMobEntityType;
 import net.minecraft.world.entity.EntityType;
 
 public class CNItems {

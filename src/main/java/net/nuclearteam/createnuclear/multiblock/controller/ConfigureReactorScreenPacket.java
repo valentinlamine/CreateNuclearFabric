@@ -4,7 +4,7 @@ import com.simibubi.create.foundation.networking.BlockEntityConfigurationPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.ynov.createnuclear.CreateNuclear;
+import net.nuclearteam.createnuclear.CreateNuclear;
 
 
 public class ConfigureReactorScreenPacket extends /*SimplePacketBase*/ BlockEntityConfigurationPacket<ReactorControllerBlockEntity> {

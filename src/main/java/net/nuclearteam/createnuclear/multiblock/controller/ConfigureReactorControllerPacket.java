@@ -6,14 +6,14 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.ynov.createnuclear.CreateNuclear;
-import net.ynov.createnuclear.multiblock.controller.ReactorControllerBlockEntity.State;
+import net.nuclearteam.createnuclear.CreateNuclear;
+import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlockEntity.State;
 
-import net.ynov.createnuclear.multiblock.controller.CNOption;
+import net.nuclearteam.createnuclear.multiblock.controller.CNOption;
 
 import java.util.List;
 
-import static net.ynov.createnuclear.packets.CNPackets.getChannel;
+import static net.nuclearteam.createnuclear.packets.CNPackets.getChannel;
 
 public class ConfigureReactorControllerPacket extends SimplePacketBase {
 
