@@ -194,13 +194,20 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                     total = calculateProgres();
                     configuredPattern.getOrCreateTag().putDouble("heat", calculateHeat()/100);
                     int heat = (int) configuredPattern.getOrCreateTag().getDouble("heat");
-                    CreateNuclear.LOGGER.warn("" + heat + " " + FindController('O'));
+
+                    CreateNuclear.LOGGER.warn("ReactorControllerBlockEntity: " + heat);
+                    if (IHeat.HeatLevel.of(heat) == IHeat.HeatLevel.SAFETY || IHeat.HeatLevel.of(heat) == IHeat.HeatLevel.CAUTION || IHeat.HeatLevel.of(heat) == IHeat.HeatLevel.WARNING) {
+                        this.rotate(getBlockState(), new BlockPos(getBlockPos().getX(), getBlockPos().getY() + FindController('O').getY(), getBlockPos().getZ()), getLevel(), heat);
+                    }
+                    else {
+                        this.rotate(getBlockState(), new BlockPos(getBlockPos().getX(), getBlockPos().getY() + FindController('O').getY(), getBlockPos().getZ()), getLevel(), 0);
+                    }
                     //rotate(getBlockState(), FindController('0'), getLevel(), heat);
                     return;
 
                 }
                 //convertePattern(configuredPattern.getOrCreateTag().getCompound("patternAll"));
-                CreateNuclear.LOGGER.warn("calculateProgres: " + calculateProgres() + " total: " + total);
+                //CreateNuclear.LOGGER.warn("calculateProgres: " + calculateProgres() + " total: " + total);
 
 
                 this.notifyUpdate();
@@ -241,9 +248,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         double totalGraphiteRodLife = graphiteTimer * countGraphiteRod;
         double totalUraniumRodLife = uraniumTimer * countUraniumRod;
 
-        CreateNuclear.LOGGER.warn(" totalGraphiteRodLife: " + totalGraphiteRodLife + " totalUraniumRodLife: " + totalUraniumRodLife + " countGraphiteRod" + countGraphiteRod);
+        CreateNuclear.LOGGER.warn(" totalGraphiteRodLife: " + totalGraphiteRodLife + " totalUraniumRodLife: " + totalUraniumRodLife + " countGraphiteRod: " + countGraphiteRod + " countUraniumRod: " + countUraniumRod);
 
-        return totalGraphiteRodLife - totalUraniumRodLife;
+        return totalUraniumRodLife - totalGraphiteRodLife;
     }
 
     private BlockPos getBlockPosForReactor(char character) {
@@ -315,15 +322,18 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
             if (level.getBlockState(pos).getBlock() instanceof ReactorOutput) {
                 ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
                 ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
-
-                if (state.getValue(ASSEMBLED) && rotation != 0) { // Starting the energy
+                CreateNuclear.LOGGER.warn(rotation + "");
+                if (state.getValue(ASSEMBLED)) { // Starting the energy
                     //CreateNuclear.LOGGER.info("Change " + pos);
                     if (entity.getDir() == 1) rotation = -rotation;
                     entity.speed = rotation;
+                    entity.heat = rotation;
+                    CreateNuclear.LOGGER.warn("rotation: " + rotation + " heat: " + entity.heat);
                     entity.updateSpeed = true;
                     entity.updateGeneratedRotation();
                 } else { // stopping the energy
                     entity.speed = 0;
+                    entity.heat = 0;
                     entity.updateSpeed = true;
                     entity.updateGeneratedRotation();
                 }
@@ -337,6 +347,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                 ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
                 ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
                 entity.setSpeed(0);
+                entity.heat = 0;
                 entity.updateSpeed = true;
                 entity.updateGeneratedRotation();
             }

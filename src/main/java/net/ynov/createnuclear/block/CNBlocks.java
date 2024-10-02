@@ -49,6 +49,7 @@ import static com.simibubi.create.foundation.data.CreateRegistrate.casingConnect
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
+import static java.lang.Integer.MAX_VALUE;
 
 public class CNBlocks {
 
@@ -220,8 +221,8 @@ public class CNBlocks {
                 .tag(AllTags.AllBlockTags.SAFE_NBT.tag, CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
                 .transform(pickaxeOnly())
                 .blockstate(new ReactorOutputGenerator()::generate)
-                .transform(BlockStressDefaults.setCapacity(50000))
-                .transform(BlockStressDefaults.setGeneratorSpeed(() -> Couple.create(0, 256)))
+                .transform(BlockStressDefaults.setCapacity(999999999))
+                //.transform(BlockStressDefaults.setGeneratorSpeed(() -> Couple.create(0, 3)))
                 .item()
                 .properties(p -> p.rarity(Rarity.EPIC))
                 .transform(customItemModel())

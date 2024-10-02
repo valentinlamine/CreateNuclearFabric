@@ -102,6 +102,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
                     be.inventory.setStackInSlot(0, ItemStack.EMPTY);
                     be.configuredPattern = ItemStack.EMPTY;
                     be.total = 0.0;
+                    be.rotate(be.getBlockState(), new BlockPos(be.getBlockPos().getX(), be.getBlockPos().getY() + (-3), be.getBlockPos().getZ()), be.getLevel(), 0);
                     be.notifyUpdate();
                 });
                 state.setValue(ASSEMBLED, false);

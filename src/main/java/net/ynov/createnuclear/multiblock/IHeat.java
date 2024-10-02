@@ -59,7 +59,7 @@ public interface IHeat extends IWrenchable {
 
             if (heat > 0 && heat < 100) return SAFETY;
             if (heat >= 100/*126*/ && heat <= 190/*134*/) return CAUTION;
-            if (heat >= 190/*126*/ && heat <= 199/*134*/) return CAUTION;
+            if (heat >= 190/*126*/ && heat <= 199/*134*/) return WARNING;
             if (heat >= 200) return DANGER;
 
             return NONE;
