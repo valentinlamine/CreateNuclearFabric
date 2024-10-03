@@ -1,14 +1,14 @@
 package net.nuclearteam.createnuclear.multiblock.controller;
 
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
+import com.simibubi.create.foundation.item.SmartInventory;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.nuclearteam.createnuclear.item.CNItems;
 
-public class ReactorControllerInventory extends ItemStackHandler {
-    private ReactorControllerBlockEntity be;
+public class ReactorControllerInventory extends SmartInventory {
+    private final ReactorControllerBlockEntity be;
 
     public ReactorControllerInventory(ReactorControllerBlockEntity be) {
-        super(2);
+        super(1, be, 1, false);
         this.be = be;
     }
 
@@ -21,9 +21,8 @@ public class ReactorControllerInventory extends ItemStackHandler {
     @Override
     public boolean isItemValid(int slot, ItemVariant resource, int count) {
         return switch (slot) {
-            case 0 -> CNItems.URANIUM_ROD.get() == resource.getItem();
-            case 1 -> CNItems.GRAPHITE_ROD.get() == resource.getItem();
-            default -> super.isItemValid(slot, resource, count);
+            case 0 -> CNItems.CONFIGURED_REACTOR_ITEM.get() == resource.getItem();
+            default -> !super.isItemValid(slot, resource, count);
         };
     }
 }

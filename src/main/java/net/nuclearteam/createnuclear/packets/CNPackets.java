@@ -1,7 +1,6 @@
 package net.nuclearteam.createnuclear.packets;
 
 import com.simibubi.create.AllPackets;
-import com.simibubi.create.content.equipment.potatoCannon.PotatoProjectileTypeManager;
 import com.simibubi.create.foundation.networking.SimplePacketBase;
 import me.pepperbell.simplenetworking.S2CPacket;
 import me.pepperbell.simplenetworking.SimpleChannel;
@@ -11,8 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.nuclearteam.createnuclear.CreateNuclear;
-import net.nuclearteam.createnuclear.multiblock.controller.ConfigureReactorControllerPacket;
-import net.nuclearteam.createnuclear.multiblock.controller.ConfigureReactorScreenPacket;
+import net.nuclearteam.createnuclear.multiblock.configuredItem.ConfiguredReactorItemPacket;
 
 import static com.simibubi.create.foundation.networking.SimplePacketBase.NetworkDirection;
 import static com.simibubi.create.foundation.networking.SimplePacketBase.NetworkDirection.PLAY_TO_CLIENT;
@@ -22,7 +20,8 @@ import java.util.function.Function;
 
 public enum CNPackets {
     // To server
-    CONFIGURE_REACTOR_CONTROLLER(ConfigureReactorControllerPacket.class, ConfigureReactorControllerPacket::new, PLAY_TO_SERVER),
+    //CONFIGURE_REACTOR_CONTROLLER(ConfigureReactorControllerPacket.class, ConfigureReactorControllerPacket::new, PLAY_TO_SERVER),
+    CONFIGURE_REACTOR_PATTERN(ConfiguredReactorItemPacket.class, ConfiguredReactorItemPacket::new, PLAY_TO_SERVER),
     ;
 
     public static final ResourceLocation CHANNEL_NAME = CreateNuclear.asResource("main");

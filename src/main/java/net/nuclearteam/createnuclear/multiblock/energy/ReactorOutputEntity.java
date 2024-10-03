@@ -2,6 +2,7 @@ package net.nuclearteam.createnuclear.multiblock.energy;
 
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.motor.KineticScrollValueBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
@@ -27,23 +28,29 @@ import java.util.List;
 import java.util.Objects;
 
 public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
-	public int speed = 0;
+	public int speed = 1;
+	public float heat = 0;
+
 	protected ScrollValueBehaviour generatedSpeed;
 
 	public ReactorOutputEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
-
+	//KineticBlockEntity
 	@Override
 	public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
 		super.addBehaviours(behaviours);
 
-		generatedSpeed = new KineticScrollValueBehaviour(Lang.translateDirect("kinetics.reactor_output.rotation_speed"),
-			this, new ReactorOutputValue());
-		generatedSpeed.between(-speed, speed);
-		generatedSpeed.value = speed;
+		generatedSpeed = new KineticScrollValueBehaviour(Lang.translateDirect("kinetics.reactor_output.rotation_speed"), this, new ReactorOutputValue());
+		//generatedSpeed.between(0, 5000*300);
+		generatedSpeed.setValue(speed*16);
 		generatedSpeed.withCallback(i -> this.updateGeneratedRotation());
 		behaviours.add(generatedSpeed);
+	}
+
+	@Override
+	public float calculateAddedStressCapacity() {
+		return speed*16;
 	}
 
 	@Override
@@ -71,6 +78,7 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
+		CreateNuclear.LOGGER.warn(speed + " ReactorOutputEntity " + this.speed);
 	}
 
 	public int getDir() {

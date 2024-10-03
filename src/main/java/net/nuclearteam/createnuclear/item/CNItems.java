@@ -31,6 +31,7 @@ import net.nuclearteam.createnuclear.groups.CNGroup;
 import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem.DyeItemList;
+import net.nuclearteam.createnuclear.multiblock.configuredItem.ConfiguredReactorItem;
 import net.nuclearteam.createnuclear.tags.CNTag;
 import net.nuclearteam.createnuclear.utils.TextUtils;
 import net.nuclearteam.createnuclear.entity.CNMobEntityType;
@@ -161,6 +162,13 @@ public class CNItems {
                 .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/cloth/" + colorName + "_cloth")))
                 .register();
     });
+
+    public static final ItemEntry<ConfiguredReactorItem> CONFIGURED_REACTOR_ITEM = CreateNuclear.REGISTRATE
+            .item("configured_reactor_item", ConfiguredReactorItem::new)
+            .lang("Configured Reactor")
+            .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/enriched_flint_and_steel")))
+            .properties(p -> p.stacksTo(1))
+            .register();
 
     public static final ItemEntry<SpawnEggItem> SPAWN_WOLF = registerSpawnEgg("wolf_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_WOLF, 0x42452B,0x4C422B, "Irradiated Wolf Spawn Egg");
     public static final ItemEntry<SpawnEggItem> SPAWN_CAT = registerSpawnEgg("cat_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_CAT, 0x382C19,0x742728, "Irradiated Cat Spawn Egg");

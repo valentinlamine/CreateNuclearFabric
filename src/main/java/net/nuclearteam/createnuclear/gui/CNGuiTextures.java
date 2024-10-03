@@ -1,8 +1,6 @@
 package net.nuclearteam.createnuclear.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.simibubi.create.Create;
-import com.simibubi.create.foundation.gui.AllIcons;
 import com.simibubi.create.foundation.gui.UIRenderHelper;
 import com.simibubi.create.foundation.gui.element.ScreenElement;
 import com.simibubi.create.foundation.utility.Color;
@@ -16,6 +14,8 @@ public enum CNGuiTextures implements ScreenElement {
 //    REACTOR_CONTROLLER("toolbox", 188, 171),
     REACTOR_CONTROLLER("reactor-controller", 222, 207),
     REACTOR_CONTROLLER_PROGRESS("reactor-controller-components", 24, 13, 20, 162),
+    REACTOR_SLOT_INVENTOR("storage-slot", 97, 75),
+    CONFIGURED_PATTERN_GUI("configured-pattern-gui", 222, 174),
     ;
 
     public static final int FONT_COLOR = 0x575F7A;

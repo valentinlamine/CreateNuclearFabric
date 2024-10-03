@@ -47,7 +47,9 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
         RAW_URANIUM = create(CNItems.RAW_URANIUM).returns(9)
                 .withSuffix("_from_decompacting")
                 .unlockedBy(CNItems.RAW_URANIUM::get)
-                .viaShapeless(b -> b.requires(CNBlocks.RAW_URANIUM_BLOCK.get()));
+                .viaShapeless(b -> b.requires(CNBlocks.RAW_URANIUM_BLOCK.get())),
+
+        CONFIGURED_REACTOR_ITEM_CLEAR = clearData(CNItems.CONFIGURED_REACTOR_ITEM)
     ;
 
     private String SHAPELESS_CLOTH = enterFolder("shapeless/cloth");
@@ -99,6 +101,12 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
                     .viaShapeless(b -> b.requires(nextIngredient.get()));
         }
         return result;
+    }
+
+    GeneratedRecipe clearData(ItemProviderEntry<? extends ItemLike> item) {
+        return create(item).withSuffix("_clear")
+                .unlockedBy(item::get)
+                .viaShapeless(b -> b.requires(item.get()));
     }
 
     class GeneratedRecipeBuilder {

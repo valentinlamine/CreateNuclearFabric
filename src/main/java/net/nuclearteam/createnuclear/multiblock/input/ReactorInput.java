@@ -1,14 +1,16 @@
 package net.nuclearteam.createnuclear.multiblock.input;
 
 
-import com.simibubi.create.AllItems;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
+import com.simibubi.create.foundation.item.ItemHelper;
+import io.github.fabricators_of_create.porting_lib.util.NetworkHooks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -21,6 +23,11 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.nuclearteam.createnuclear.CreateNuclear;
+import net.nuclearteam.createnuclear.blockentity.CNBlockEntities;
+import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock;
+import net.nuclearteam.createnuclear.shape.CNShapes;
+import net.nuclearteam.createnuclear.tools.HorizontalDirectionalReactorBlock;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.blockentity.CNBlockEntities;
@@ -51,6 +58,7 @@ public class ReactorInput extends HorizontalDirectionalReactorBlock implements I
     public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if (worldIn.isClientSide()) return InteractionResult.SUCCESS;
 
+        withBlockEntityDo(worldIn, pos, be -> NetworkHooks.openScreen((ServerPlayer) player, be, be::sendToMenu));
         return InteractionResult.PASS;
     }
 
@@ -75,6 +83,10 @@ public class ReactorInput extends HorizontalDirectionalReactorBlock implements I
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
+
+        withBlockEntityDo(pLevel, pPos, be -> ItemHelper.dropContents(pLevel, pPos, be.inventory));
+        pLevel.removeBlockEntity(pPos);
+
         List<? extends Player> players = pLevel.players();
         ReactorControllerBlock controller = FindController(pLevel, new BlockPos(pPos.getX(), pPos.getY(), pPos.getZ()+4));
         if (controller != null)
