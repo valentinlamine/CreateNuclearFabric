@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(FlintAndSteelItem.class)
-public class CNMixin {
+public class CNFlintAndSteelItemMixin {
     @Inject(at = @At("HEAD"), method = "useOn", cancellable=true)
     public void useOn(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
         BlockPos blockPos;
