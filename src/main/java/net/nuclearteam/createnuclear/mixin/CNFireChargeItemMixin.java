@@ -42,7 +42,9 @@ public class CNFireChargeItemMixin {
             this.playSound(level, blockPos);
 
             BlockState blockState1 = context.getLevel().getBlockState(context.getClickedPos().below(0)).is(CNTag.BlockTags.ENRICHING_FIRE_BASE_BLOCKS.tag)
-                    ? CNBlocks.ENRICHING_FIRE.get().defaultBlockState()
+                    ?  context.getClickedFace() == Direction.UP
+                        ? CNBlocks.ENRICHING_FIRE.get().defaultBlockState()
+                        : BaseFireBlock.getState(level, blockPos)
                     : BaseFireBlock.getState(level, blockPos);
 
             level.setBlockAndUpdate(blockPos, blockState1);
@@ -53,7 +55,7 @@ public class CNFireChargeItemMixin {
             context.getItemInHand().shrink(1);
             cir.setReturnValue(InteractionResult.sidedSuccess(level.isClientSide));
         }
-        cir.setReturnValue(InteractionResult.FAIL);
+        //cir.setReturnValue(InteractionResult.FAIL);
     }
 
     private void playSound(Level level, BlockPos pos) {
