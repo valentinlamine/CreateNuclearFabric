@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
 import net.nuclearteam.createnuclear.datagen.CNGeneratedEntriesProvider;
 import net.nuclearteam.createnuclear.datagen.CNProcessingRecipeGen;
+import net.nuclearteam.createnuclear.datagen.CNRegistrateTags;
 import net.nuclearteam.createnuclear.datagen.recipe.crafting.CNStandardRecipeGen;
 import net.nuclearteam.createnuclear.datagen.recipe.mechanical_crafter.CNMechanicalCraftingRecipeGen;
 import net.nuclearteam.createnuclear.datagen.recipe.shapeless.CNShapelessRecipeGen;
@@ -44,6 +45,8 @@ public class CreateNuclearDataGenerator implements DataGeneratorEntrypoint {
 	}
 
 	private static void addExtraRegistrateData() {
+		CNRegistrateTags.addGenerators();
+
 		CreateNuclear.REGISTRATE.addDataGenerator(ProviderType.LANG, provider -> {
 			BiConsumer<String, String> langConsummer = provider::add;
 

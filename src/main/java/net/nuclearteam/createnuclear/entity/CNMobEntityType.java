@@ -4,6 +4,7 @@ import com.simibubi.create.foundation.utility.Lang;
 import com.tterrag.registrate.util.entry.EntityEntry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -25,7 +26,7 @@ public class CNMobEntityType {
             CNMobEntityType.register("irradiated_cat", EntityType.Builder.of(IrradiatedCat::new, MobCategory.CREATURE).sized(0.6f, 0.7f));
 
     private static <T extends Entity> EntityType<T> register(String key, EntityType.Builder<T> builder) {
-        return Registry.register(BuiltInRegistries.ENTITY_TYPE, key, builder.build(key));
+        return Registry.register(BuiltInRegistries.ENTITY_TYPE, CreateNuclear.asResource(key), builder.build(key));
     }
 
     public static void registerCNMod() {
