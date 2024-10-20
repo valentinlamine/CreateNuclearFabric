@@ -32,14 +32,7 @@ public class CreateNuclearClient implements ClientModInitializer {
         CNPonderIndex.register();
 
 
-        EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_CHICKEN, IrradiatedChickenModel::createBodyLayer);
-        EntityRendererRegistry.register(CNMobEntityType.IRRADIATED_CHICKEN, IrradiatedChickenRenderer::new);
-
-        EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_WOLF, IrradiatedWolfModel::createBodyLayer);
-        EntityRendererRegistry.register(CNMobEntityType.IRRADIATED_WOLF, IrradiatedWolfRenderer::new);
-
-        EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_CAT, IrradiatedCatModel::createBodyLayer);
-        EntityRendererRegistry.register(CNMobEntityType.IRRADIATED_CAT, IrradiatedCatRenderer::new);
+       CNMobEntityType.EntityModelLayerAndEntityRendererRegistry();
 
         getChannel().initClientListener();
         CNClientEvent.register();
