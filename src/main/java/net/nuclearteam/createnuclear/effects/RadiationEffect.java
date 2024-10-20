@@ -27,7 +27,6 @@ public class RadiationEffect extends MobEffect {
             }
         });
 
-
 //        if (this == CNEffects.RADIATION.get() && !armored) {
 //            CreateNuclear.LOGGER.warn("RadiationEffect: ArmorSlots is null   " + livingEntity.getArmorSlots());
 //

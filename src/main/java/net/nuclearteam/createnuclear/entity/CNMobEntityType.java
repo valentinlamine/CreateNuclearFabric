@@ -2,6 +2,10 @@ package net.nuclearteam.createnuclear.entity;
 
 import com.simibubi.create.foundation.utility.Lang;
 import com.tterrag.registrate.util.entry.EntityEntry;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -11,8 +15,14 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.entity.irradiatedcat.IrradiatedCat;
+import net.nuclearteam.createnuclear.entity.irradiatedcat.IrradiatedCatModel;
+import net.nuclearteam.createnuclear.entity.irradiatedcat.IrradiatedCatRenderer;
 import net.nuclearteam.createnuclear.entity.irradiatedchicken.IrradiatedChicken;
+import net.nuclearteam.createnuclear.entity.irradiatedchicken.IrradiatedChickenModel;
+import net.nuclearteam.createnuclear.entity.irradiatedchicken.IrradiatedChickenRenderer;
 import net.nuclearteam.createnuclear.entity.irradiatedwolf.IrradiatedWolf;
+import net.nuclearteam.createnuclear.entity.irradiatedwolf.IrradiatedWolfModel;
+import net.nuclearteam.createnuclear.entity.irradiatedwolf.IrradiatedWolfRenderer;
 
 public class CNMobEntityType {
 
@@ -27,6 +37,18 @@ public class CNMobEntityType {
 
     private static <T extends Entity> EntityType<T> register(String key, EntityType.Builder<T> builder) {
         return Registry.register(BuiltInRegistries.ENTITY_TYPE, CreateNuclear.asResource(key), builder.build(key));
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static void EntityModelLayerAndEntityRendererRegistry() {
+        EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_CHICKEN, IrradiatedChickenModel::createBodyLayer);
+        EntityRendererRegistry.register(CNMobEntityType.IRRADIATED_CHICKEN, IrradiatedChickenRenderer::new);
+
+        EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_WOLF, IrradiatedWolfModel::getTexturedModelData);
+        EntityRendererRegistry.register(CNMobEntityType.IRRADIATED_WOLF, IrradiatedWolfRenderer::new);
+
+        EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_CAT, IrradiatedCatModel::createBodyLayer);
+        EntityRendererRegistry.register(CNMobEntityType.IRRADIATED_CAT, IrradiatedCatRenderer::new);
     }
 
     public static void registerCNMod() {
