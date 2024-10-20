@@ -28,6 +28,6 @@ public class CNModelLayers {
     }
 
     private static ModelLayerLocation createLocation(String path, String model) {
-        return new ModelLayerLocation(new ResourceLocation(CreateNuclear.MOD_ID, path), model);
+        return new ModelLayerLocation(CreateNuclear.asResource(path), model);
     }
 }

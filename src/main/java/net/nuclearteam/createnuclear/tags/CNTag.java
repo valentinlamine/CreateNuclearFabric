@@ -3,10 +3,14 @@ package net.nuclearteam.createnuclear.tags;
 import static net.nuclearteam.createnuclear.tags.CNTag.NameSpace.*;
 
 import com.simibubi.create.foundation.utility.Lang;
+import net.fabricmc.fabric.impl.biome.modification.BuiltInRegistryKeys;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -123,9 +127,7 @@ public class CNTag {
             this(namespace, namespace.optionalDefault, namespace.alwayDatagenDefault);
         }
 
-        BlockTags(NameSpace namespace, String path) {
-            this(namespace, path, namespace.optionalDefault, namespace.alwayDatagenDefault);
-        }
+        BlockTags(NameSpace namespace, String path) { this(namespace, path, namespace.optionalDefault, namespace.alwayDatagenDefault); }
 
         BlockTags(String path) {
             this(MOD, path, MOD.optionalDefault, MOD.alwayDatagenDefault);
@@ -200,6 +202,51 @@ public class CNTag {
         }
 
         private static void init() {}
+    }
+
+    public enum EntityTypeTags {
+        FALL_DAMAGE_IMMUNE(MINECRAFT, "fall_damage_immune"),
+        ;
+
+        public final TagKey<EntityType<?>> tag;
+        public final boolean alwaysDatagen;
+
+        EntityTypeTags() {
+            this(MOD);
+        }
+
+        EntityTypeTags(NameSpace namespace) {
+            this(namespace, namespace.optionalDefault, namespace.alwayDatagenDefault);
+        }
+
+        EntityTypeTags(NameSpace namespace, String path) {
+            this(namespace, path, namespace.optionalDefault, namespace.alwayDatagenDefault);
+        }
+
+        EntityTypeTags(NameSpace namespace, boolean optional, boolean alwaysDatagen) {
+            this(namespace, null, optional, alwaysDatagen);
+        }
+
+        EntityTypeTags(NameSpace namespace, String path, boolean optional, boolean alwaysDatagen) {
+            ResourceLocation id = new ResourceLocation(namespace.id, path == null ? Lang.asId(name()) : path);
+            if (optional) {
+                tag = optionalTag(BuiltInRegistries.ENTITY_TYPE, id);
+            } else {
+                tag = TagKey.create(Registries.ENTITY_TYPE, id);
+            }
+            this.alwaysDatagen = alwaysDatagen;
+        }
+
+        public boolean matches(EntityType<?> type) {
+            return type.is(tag);
+        }
+
+        public boolean matches(Entity entity) {
+            return matches(entity.getType());
+        }
+
+        private static void init() {}
+
     }
 
 
