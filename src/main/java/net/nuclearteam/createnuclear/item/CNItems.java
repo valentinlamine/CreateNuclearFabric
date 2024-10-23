@@ -71,11 +71,6 @@ public class CNItems {
                     .tag(CNTag.forgeItemTag("dusts"), CNTag.forgeItemTag("coal_dusts"))
                     .register(),
 
-        CHARCOAL_DUST = CreateNuclear.REGISTRATE
-                    .item("charcoal_dust", Item::new)
-                    .tag(CNTag.forgeItemTag("dusts"), CNTag.forgeItemTag("coal_dusts"))
-                    .register(),
-
         GRAPHENE = CreateNuclear.REGISTRATE
                     .item("graphene", Item::new)
                     .register(),
