@@ -12,6 +12,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -57,18 +58,15 @@ public class ReactorBlock extends Block implements IWrenchable/*, IBE<ReactorBlo
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (level.isClientSide()) return InteractionResult.SUCCESS;
+    public InteractionResult onWrenched(BlockState state, UseOnContext context) {
+        BlockPos pos = context.getClickedPos();
+        Level level = context.getLevel();
+        Player player = context.getPlayer();
 
-        Item item = player.getItemInHand(hand).getItem();
 
-        if (AllItems.WRENCH.is(item)){
-            level.setBlock(pos, CNBlocks.REACTOR_INPUT.getDefaultState(), 2);
-            player.sendSystemMessage(Component.literal("changement"));
-            return InteractionResult.SUCCESS;
-        }
-        //CreateNuclear.LOGGER.warn("d " + FindController(pos, level, level.players(), false) + "  " + tag);
-        return InteractionResult.PASS;
+        level.setBlock(pos, CNBlocks.REACTOR_INPUT.getDefaultState(), 2);
+        player.sendSystemMessage(Component.literal("changement"));
+        return InteractionResult.SUCCESS;
     }
 
     public ReactorControllerBlock FindController(BlockPos blockPos, Level level, List<? extends Player> players, boolean first){ // Function that checks the surrounding blocks in order
