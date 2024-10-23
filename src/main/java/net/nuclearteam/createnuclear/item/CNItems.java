@@ -107,12 +107,12 @@ public class CNItems {
 
         URANIUM_ROD = CreateNuclear.REGISTRATE
                 .item("uranium_rod", Item::new)
-                .tag(CNTag.forgeItemTag("rods"))
+                .tag(CNTag.forgeItemTag("rods"), CNTag.ItemTags.FUEL.tag)
                 .register(),
 
         GRAPHITE_ROD = CreateNuclear.REGISTRATE
                 .item("graphite_rod", Item::new)
-                .tag(CNTag.forgeItemTag("rods"))
+                .tag(CNTag.forgeItemTag("rods"), CNTag.ItemTags.COOLER.tag)
                 .register()
     ;
   
