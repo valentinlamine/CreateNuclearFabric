@@ -20,10 +20,6 @@ import java.util.function.UnaryOperator;
 public class CNCrushingRecipeGen extends ProcessingRecipeGen {
 
     GeneratedRecipe
-        CHARCOAL_DUST = create(() -> Items.CHARCOAL, b -> b.duration(250)
-            .output(.50f, CNItems.CHARCOAL_DUST)
-        ),
-
         COAL_DUST = create(() -> Items.COAL, b -> b.duration(250)
                 .output(.50f, CNItems.COAL_DUST)
         ),
