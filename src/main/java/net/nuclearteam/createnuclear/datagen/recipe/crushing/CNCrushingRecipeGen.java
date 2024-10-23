@@ -24,6 +24,10 @@ public class CNCrushingRecipeGen extends ProcessingRecipeGen {
                 .output(.50f, CNItems.COAL_DUST)
         ),
 
+        CHARCOAL_DUST = create(() -> Items.CHARCOAL, b -> b.duration(250)
+                .output(.50f, CNItems.COAL_DUST)
+        ),
+
         GRANITE_URANIUM_POWDER = create(() -> Items.GRANITE, b -> b.duration(250)
                 .output(.05f, CNItems.URANIUM_POWDER)
         )
