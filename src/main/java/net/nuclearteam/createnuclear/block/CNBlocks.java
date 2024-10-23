@@ -21,6 +21,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LightBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -60,6 +61,7 @@ public class CNBlocks {
             CreateNuclear.REGISTRATE.block("deepslate_uranium_ore", UraniumOreBlock::new)
                     .initialProperties(CNBlocks::getDiamondOre)
                     .simpleItem()
+                    .properties(p -> p.lightLevel(state -> 9))
                     .transform(pickaxeOnly())
                     .loot((lt, b) -> lt.add(b,
                         RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
