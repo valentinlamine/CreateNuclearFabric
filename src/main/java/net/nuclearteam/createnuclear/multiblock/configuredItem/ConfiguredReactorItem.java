@@ -1,6 +1,5 @@
 package net.nuclearteam.createnuclear.multiblock.configuredItem;
 
-import com.simibubi.create.AllItems;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import io.github.fabricators_of_create.porting_lib.util.NetworkHooks;
 import net.minecraft.nbt.CompoundTag;
@@ -17,13 +16,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.item.CNItems;
-//import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerMenu;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class ConfiguredReactorItem extends Item implements MenuProvider {
 

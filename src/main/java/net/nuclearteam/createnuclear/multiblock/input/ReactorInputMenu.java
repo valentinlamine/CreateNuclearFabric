@@ -7,6 +7,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -58,22 +59,23 @@ public class ReactorInputMenu extends MenuBase<ReactorInputEntity> {
     @Override
     protected void addSlots() {
 
-        Slot slot1 = new SlotItemHandler(contentHolder.inventory, 0, 24, 29);
-        Slot slot2 = new SlotItemHandler(contentHolder.inventory, 1, 57, 29);
-
-        addSlot(slot1);
-        addSlot(slot2);
-
         // player Slots
+        for (int hotbarSlot = 0; hotbarSlot < 9; ++hotbarSlot) {
+            this.addSlot(new Slot(player.getInventory(), hotbarSlot, -31 + hotbarSlot * 18, 155));
+        }
+
         for (int row = 0; row < 3; ++row) {
             for (int col = 0; col < 9; ++col) {
                 this.addSlot(new Slot(player.getInventory(), col + row * 9 + 9, -31 + col * 18, 97 + row * 18));
             }
         }
 
-        for (int hotbarSlot = 0; hotbarSlot < 9; ++hotbarSlot) {
-            this.addSlot(new Slot(player.getInventory(), hotbarSlot, -31 + hotbarSlot * 18, 155));
-        }
+        Slot slot1 = new SlotItemHandler(contentHolder.inventory, 0, 24, 29);
+        Slot slot2 = new SlotItemHandler(contentHolder.inventory, 1, 57, 29);
+
+        addSlot(slot1);
+        addSlot(slot2);
+
 
     }
 
@@ -81,5 +83,9 @@ public class ReactorInputMenu extends MenuBase<ReactorInputEntity> {
     protected void saveData(ReactorInputEntity contentHolder) {
     }
 
-
+    @Override
+    public void clicked(int slotId, int button, ClickType clickType, Player player) {
+        CreateNuclear.LOGGER.warn("slotId: {}, button: {}, clickType: {}", slotId, button, clickType);
+        super.clicked(slotId, button, clickType, player);
+    }
 }
