@@ -22,6 +22,11 @@ public class CNRegistrateTags {
                 .add(CNMobEntityType.IRRADIATED_CAT)
                 .add(CNMobEntityType.IRRADIATED_CHICKEN)
         ;
+        prov.tag(EntityTypeTags.IRRADIATED_IMMUNE.tag)
+                .add(CNMobEntityType.IRRADIATED_CHICKEN)
+                .add(CNMobEntityType.IRRADIATED_CAT)
+                .add(CNMobEntityType.IRRADIATED_WOLF)
+        ;
     }
 
 
