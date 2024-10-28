@@ -85,7 +85,16 @@ public class ReactorInputMenu extends MenuBase<ReactorInputEntity> {
 
     @Override
     public void clicked(int slotId, int button, ClickType clickType, Player player) {
-        CreateNuclear.LOGGER.warn("slotId: {}, button: {}, clickType: {}", slotId, button, clickType);
+        if (clickType == ClickType.THROW) {
+            int[] targetSlotIds = {9, 18, 27, 0, 1, 28, 19, 10, 16, 17, 26, 25, 34, 35, 8, 7};
+            for (int id : targetSlotIds) {
+                if (slotId == id) {
+                    clickType = ClickType.PICKUP;
+                    super.clicked(slotId, button, clickType, player);
+                }
+            }
+            return;
+        }
         super.clicked(slotId, button, clickType, player);
     }
 }
