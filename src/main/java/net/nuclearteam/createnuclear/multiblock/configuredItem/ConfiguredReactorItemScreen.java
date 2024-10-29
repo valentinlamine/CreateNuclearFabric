@@ -38,10 +38,10 @@ public class ConfiguredReactorItemScreen  extends AbstractSimiContainerScreen<Co
         int x = leftPos;
         int y = topPos+38;
 
-        BG.render(guiGraphics, x, y-19);
+        BG.render(guiGraphics, x+23, y-19);
         renderPlayerInventory(guiGraphics, x+23, y+175);
 
-        guiGraphics.drawString(font, title, x+3, y-12, 0x592424, false); //ici pour le titre
+        guiGraphics.drawString(font, title, x+26, y-12, 0x592424, false); //ici pour le titre
 
     }
 

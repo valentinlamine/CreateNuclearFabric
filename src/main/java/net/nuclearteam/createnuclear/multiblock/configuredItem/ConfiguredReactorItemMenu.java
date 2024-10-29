@@ -90,7 +90,7 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
     }
 
     private void addPatternSlots() {
-        int startWidth = 8;
+        int startWidth = 8+23;
         int startHeight = 45;
         int incr = 18;
         int i = 0;
