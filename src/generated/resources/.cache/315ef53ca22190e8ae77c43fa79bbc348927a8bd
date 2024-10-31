@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-// 1.20.1	2024-10-26T22:56:41.6486222	CreateNuclear/CreateNuclear's Processing Recipes
+// 1.20.1	2024-10-31T10:57:53.6516141	CreateNuclear/CreateNuclear's Processing Recipes
 51c9c30c20607c363e2f55de770bf936bf9538f1 data\createnuclear\recipes\mixing\steel.json
 1b03ca5007b5749783944c4e77ca7b7976034682 data\createnuclear\recipes\mixing\uranium_fluid.json
-=======
-// 1.20.1	2024-10-28T07:51:02.3106484	CreateNuclear/CreateNuclear's Processing Recipes
-1b03ca5007b5749783944c4e77ca7b7976034682 data\createnuclear\recipes\mixing\uranium_fluid.json
-51c9c30c20607c363e2f55de770bf936bf9538f1 data\createnuclear\recipes\mixing\steel.json
->>>>>>> main
 607980178060555690388cdb2325b69156878012 data\createnuclear\recipes\crushing\charcoal.json
 deb7e96a78e4c9e27c1c5e4634799908fdb67292 data\createnuclear\recipes\enriched\yellow_cake_enriched.json
 24c35af7a9dc3d740f3200bdd1ad96ad125df00a data\createnuclear\recipes\crushing\coal.json
