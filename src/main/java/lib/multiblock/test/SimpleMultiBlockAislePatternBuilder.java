@@ -58,7 +58,6 @@ public class SimpleMultiBlockAislePatternBuilder implements IMultiBlockPatternBu
     }
 
     public SimpleMultiBlockAislePatternBuilder where(char pSymbol, Predicate<BlockInWorld> pBlockMatcher) {
-        CreateNuclear.LOGGER.warn("pBlockMatcher: {}", pBlockMatcher);
         this.lookup.put(pSymbol, pBlockMatcher);
         return this;
     }
