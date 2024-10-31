@@ -273,7 +273,23 @@ public class CNBlocks {
                     .properties(p -> p.destroyTime(4F))
                     .transform(pickaxeOnly())
                     .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
-                    .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models().getExistingFile(ctx.getId()), 0))
+                    //.blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models().getExistingFile(ctx.getId()), 0))
+                    .blockstate((ctx, prov) -> {
+                        prov.getVariantBuilder(ctx.getEntry()).forAllStates(state -> {
+                            Direction facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
+                            return ConfiguredModel.builder()
+                                .modelFile(prov.models().getExistingFile(prov.modLoc("block/reactor_controller")))
+                                .uvLock(false)
+                                .rotationY(switch (facing) {
+                                    case NORTH -> 180;
+                                    case SOUTH -> 0;
+                                    case WEST -> 90;
+                                    case EAST -> 270;
+                                    default -> 0;
+                                })
+                                .build();
+                        });
+                    })
                     .simpleItem()
                     .register();
 
