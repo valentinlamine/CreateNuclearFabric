@@ -1,6 +1,7 @@
 package net.nuclearteam.createnuclear.multiblock.configuredItem;
 
 import com.simibubi.create.foundation.gui.menu.GhostItemMenu;
+import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
 import net.fabricmc.api.EnvType;
@@ -9,6 +10,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -88,7 +90,7 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
     }
 
     private void addPatternSlots() {
-        int startWidth = 8;
+        int startWidth = 8+23;
         int startHeight = 45;
         int incr = 18;
         int i = 0;
@@ -146,4 +148,15 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
         return playerInventory.getSelected() == contentHolder;
     }
 
+    @Override
+    public void clicked(int slotId, int dragType, ClickType clickTypeIn, Player player) {
+        if (clickTypeIn == ClickType.THROW) {
+            if ( slotId >= 0 && slotId < 9) {
+                clickTypeIn = ClickType.PICKUP;
+                super.clicked(slotId, dragType, clickTypeIn, player);
+            }
+            return;
+        }
+        super.clicked(slotId, dragType, clickTypeIn, player);
+    }
 }

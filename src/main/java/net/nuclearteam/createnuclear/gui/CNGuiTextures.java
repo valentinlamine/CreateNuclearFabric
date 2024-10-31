@@ -15,7 +15,7 @@ public enum CNGuiTextures implements ScreenElement {
     REACTOR_CONTROLLER("reactor-controller", 222, 207),
     REACTOR_CONTROLLER_PROGRESS("reactor-controller-components", 24, 13, 20, 162),
     REACTOR_SLOT_INVENTOR("storage-slot", 97, 75),
-    CONFIGURED_PATTERN_GUI("configured-pattern-gui", 222, 174),
+    CONFIGURED_PATTERN_GUI("configured-pattern-gui", 222, 194),
     ;
 
     public static final int FONT_COLOR = 0x575F7A;
