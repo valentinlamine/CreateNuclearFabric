@@ -70,7 +70,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState()
-                .setValue(FACING, context.getHorizontalDirection())
+                .setValue(FACING, context.getHorizontalDirection().getOpposite())
                 .setValue(ASSEMBLED, false);
     }
 

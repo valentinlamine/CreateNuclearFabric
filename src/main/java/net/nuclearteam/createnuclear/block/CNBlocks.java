@@ -33,6 +33,7 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.blockentity.ReinforcedGlassBlock;
 import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock;
+import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerGenerator;
 import net.nuclearteam.createnuclear.multiblock.cooling.ReactorCoolingBlock;
 import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutput;
 import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutputGenerator;
@@ -40,6 +41,7 @@ import net.nuclearteam.createnuclear.multiblock.frame.ReactorBlock;
 import net.nuclearteam.createnuclear.multiblock.gauge.ReactorGaugeBlock;
 import net.nuclearteam.createnuclear.multiblock.gauge.ReactorGaugeBlockItem;
 import net.nuclearteam.createnuclear.multiblock.input.ReactorInput;
+import net.nuclearteam.createnuclear.multiblock.input.ReactorInputGenerator;
 import net.nuclearteam.createnuclear.tags.CNTag;
 import net.nuclearteam.createnuclear.tools.EnrichingCampfireBlock;
 import net.nuclearteam.createnuclear.tools.EnrichingFireBlock;
@@ -273,24 +275,9 @@ public class CNBlocks {
                     .properties(p -> p.destroyTime(4F))
                     .transform(pickaxeOnly())
                     .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
-                    //.blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models().getExistingFile(ctx.getId()), 0))
-                    .blockstate((ctx, prov) -> {
-                        prov.getVariantBuilder(ctx.getEntry()).forAllStates(state -> {
-                            Direction facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
-                            return ConfiguredModel.builder()
-                                .modelFile(prov.models().getExistingFile(prov.modLoc("block/reactor_controller")))
-                                .uvLock(false)
-                                .rotationY(switch (facing) {
-                                    case NORTH -> 180;
-                                    case SOUTH -> 0;
-                                    case WEST -> 90;
-                                    case EAST -> 270;
-                                    default -> 0;
-                                })
-                                .build();
-                        });
-                    })
-                    .simpleItem()
+                    .blockstate(new ReactorControllerGenerator()::generate)
+                    .item()
+                    .transform(customItemModel())
                     .register();
 
     public static final BlockEntry<ReactorBlock> REACTOR_CORE =
@@ -384,8 +371,9 @@ public class CNBlocks {
                     .addLayer(() -> RenderType::cutoutMipped)
                     .transform(pickaxeOnly())
                     .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
-                    .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models().getExistingFile(ctx.getId()), 0))
-                    .simpleItem()
+                    .blockstate(new ReactorInputGenerator()::generate)
+                    .item()
+                    .transform(customItemModel())
                     .register();
 
     public static Block getSoulSoil() {
