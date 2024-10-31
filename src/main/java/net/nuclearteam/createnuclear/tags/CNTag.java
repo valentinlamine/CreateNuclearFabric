@@ -3,7 +3,6 @@ package net.nuclearteam.createnuclear.tags;
 import static net.nuclearteam.createnuclear.tags.CNTag.NameSpace.*;
 
 import com.simibubi.create.foundation.utility.Lang;
-import net.fabricmc.fabric.impl.biome.modification.BuiltInRegistryKeys;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -206,6 +205,7 @@ public class CNTag {
 
     public enum EntityTypeTags {
         FALL_DAMAGE_IMMUNE(MINECRAFT, "fall_damage_immune"),
+        IRRADIATED_IMMUNE("irradiated_immune"),
         ;
 
         public final TagKey<EntityType<?>> tag;
@@ -217,6 +217,10 @@ public class CNTag {
 
         EntityTypeTags(NameSpace namespace) {
             this(namespace, namespace.optionalDefault, namespace.alwayDatagenDefault);
+        }
+
+        EntityTypeTags(String path) {
+            this(MOD, path, MOD.optionalDefault, MOD.alwayDatagenDefault);
         }
 
         EntityTypeTags(NameSpace namespace, String path) {

@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "createnuclear:coal_dust",
-    "createnuclear:charcoal_dust"
+    "createnuclear:coal_dust"
   ]
 }
