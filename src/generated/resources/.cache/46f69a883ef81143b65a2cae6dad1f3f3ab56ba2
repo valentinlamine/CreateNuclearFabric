@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // 1.20.1	2024-10-26T22:56:41.640302	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+=======
+// 1.20.1	2024-10-28T07:51:02.3013249	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+>>>>>>> main
 c823c1c8333e88991a13d66cbe66f847d60eb397 assets\createnuclear\models\item\gray_antiradiation_leggings.json
 6793dd91b730f4c9abea29215de16cd0751d8cbd assets\createnuclear\models\block\deepslate_uranium_ore.json
 4264bcbd283b0db714ef72fa85a11a14c9033aa8 data\c\tags\blocks\glass_blocks.json
@@ -72,6 +76,10 @@ e586818bacf371908fa8eb2a548f2f89e1dbc7d3 data\c\tags\items\ingots.json
 efe2ad634ad8b801a8fa69f45516b30157b46771 data\createnuclear\loot_tables\blocks\lead_block.json
 a6043fb3c2b8e690bad0ae101ee21e3d483df194 data\createnuclear\tags\items\fuel.json
 4632057b0095db09030a54298c0d230be249bcc4 assets\createnuclear\models\block\reinforced_glass.json
+<<<<<<< HEAD
+=======
+9f9094d836ad77c7e7e53b764e6ebfb3a979c79f data\createnuclear\tags\entity_types\irradiated_immune.json
+>>>>>>> main
 ecc470cdd95ab810f6f09aa4353220642e4e5d54 data\c\tags\items\helmets.json
 cb4e2bdd0941e73f0e4766bd3dbb368de881a4b5 assets\createnuclear\models\block\uranium.json
 8b5c9a372780bfd770534945215c12b36a97ecab assets\createnuclear\models\item\yellow_antiradiation_helmet.json
@@ -118,8 +126,13 @@ aa8efeb48b11261953f7d90e6d7db38411550694 data\createnuclear\loot_tables\blocks\e
 f8e6f2651ec4eb3a157d952a49e8f2462d913036 assets\createnuclear\models\item\brown_antiradiation_helmet.json
 0078868f61d4f063ea51b3a2170a5cd1d427ff4e assets\createnuclear\models\item\light_gray_antiradiation_leggings.json
 3c0e762c21fa4fa5724f5570c190e89d247ee71b assets\createnuclear\models\item\graphite_rod.json
+<<<<<<< HEAD
 b44b3d3dd473f3a9b013f328389e2f561ff9199d data\minecraft\tags\blocks\mineable\pickaxe.json
 d7adf3db99bd448091a0cea37a4e4d42299e53b3 data\minecraft\tags\entity_types\fall_damage_immune.json
+=======
+d7adf3db99bd448091a0cea37a4e4d42299e53b3 data\minecraft\tags\entity_types\fall_damage_immune.json
+b44b3d3dd473f3a9b013f328389e2f561ff9199d data\minecraft\tags\blocks\mineable\pickaxe.json
+>>>>>>> main
 c010a9a0f0b51101da71d5705a24b3339a3eb949 assets\createnuclear\models\item\red_antiradiation_chestplate.json
 01035d91131e05f9b8bee84b86bf0ebb4d71c598 assets\createnuclear\models\item\enriching_campfire.json
 00ee106fe13edb4cab15a82ba57a09cf84ba3370 assets\createnuclear\models\item\configured_reactor_item.json

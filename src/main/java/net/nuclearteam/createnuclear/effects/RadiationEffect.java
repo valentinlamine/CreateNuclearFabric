@@ -3,7 +3,9 @@ package net.nuclearteam.createnuclear.effects;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
+import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem;
+import net.nuclearteam.createnuclear.tags.CNTag;
 
 public class RadiationEffect extends MobEffect {
     public RadiationEffect() {
@@ -21,16 +23,13 @@ public class RadiationEffect extends MobEffect {
         livingEntity.getArmorSlots().forEach(e -> {
             if (livingEntity.hasEffect(CNEffects.RADIATION.get()) && AntiRadiationArmorItem.Armor.isArmored2(e)) {
                 livingEntity.hurt(livingEntity.damageSources().magic(), 0.0F);
-
-            } else {
-                livingEntity.hurt(livingEntity.damageSources().magic(), 1.0F);
+            }
+            else if (livingEntity.getType().is(CNTag.EntityTypeTags.IRRADIATED_IMMUNE.tag)) {
+                livingEntity.removeEffect(this);
+            }
+            else {
+                livingEntity.hurt(livingEntity.damageSources().magic(), 1 << amplifier);
             }
         });
-
-//        if (this == CNEffects.RADIATION.get() && !armored) {
-//            CreateNuclear.LOGGER.warn("RadiationEffect: ArmorSlots is null   " + livingEntity.getArmorSlots());
-//
-//            livingEntity.hurt(livingEntity.damageSources().magic(), 1.0F);
-//        }
     }
 }

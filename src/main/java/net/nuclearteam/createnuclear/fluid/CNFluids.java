@@ -64,7 +64,8 @@ public class CNFluids {
                 if (player.updateFluidHeightAndDoFluidPushing(CNTag.FluidTag.URANIUM.tag, 0.014) || player.updateFluidHeightAndDoFluidPushing(CNTag.forgeFluidTag("uranium"), 0.014)) {
                     player.addEffect(new MobEffectInstance(CNEffects.RADIATION.get(), 100, 0));
                 }
-            }});
+            }
+        });
     }
 
 }
