@@ -53,15 +53,11 @@ import static java.lang.Integer.MAX_VALUE;
 
 public class CNBlocks {
 
-    static {
-        //CreateNuclear.REGISTRATE.setCreativeTab(CNGroup.MAIN_KEY);
-    }
-
     public static final BlockEntry<UraniumOreBlock> DEEPSLATE_URANIUM_ORE =
             CreateNuclear.REGISTRATE.block("deepslate_uranium_ore", UraniumOreBlock::new)
                     .initialProperties(CNBlocks::getDiamondOre)
                     .simpleItem()
-                    .properties(p -> p.lightLevel(state -> 9))
+                    .properties(UraniumOreBlock.litBlockEmission())
                     .transform(pickaxeOnly())
                     .loot((lt, b) -> lt.add(b,
                         RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
@@ -74,6 +70,7 @@ public class CNBlocks {
     public static final BlockEntry<UraniumOreBlock> URANIUM_ORE =
             CreateNuclear.REGISTRATE.block("uranium_ore", UraniumOreBlock::new)
                     .initialProperties(SharedProperties::stone)
+                    .properties(UraniumOreBlock.litBlockEmission())
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .loot((lt, b) -> lt.add(b,
