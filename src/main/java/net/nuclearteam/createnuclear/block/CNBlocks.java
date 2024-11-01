@@ -151,7 +151,7 @@ public class CNBlocks {
                     .properties(BlockBehaviour.Properties::replaceable)
                     .properties(BlockBehaviour.Properties::noCollission)
                     .properties(BlockBehaviour.Properties::noOcclusion)
-                    .properties(p -> p.lightLevel(EnrichingFireBlock::getLight))
+                    .properties(EnrichingFireBlock.getLight())
                     .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag, CNTag.BlockTags.FIRE.tag, CNTag.BlockTags.DRAGON_TRANSPARENT.tag)
                     .loot((lt, b) -> lt.add(b, BlockLootSubProvider.noDrop()))
                     .blockstate((c,p) -> {

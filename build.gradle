@@ -120,6 +120,8 @@ dependencies {
 
 
 loom {
+	accessWidenerPath = file("src/main/resources/createnuclear.accesswidener")
+	
 	runs {
 		datagen {
 			client()
