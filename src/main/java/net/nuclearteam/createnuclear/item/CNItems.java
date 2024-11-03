@@ -5,10 +5,9 @@ import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Ch
 import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Helmet;
 import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Leggings;
 
+import com.tterrag.registrate.util.entry.EntityEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;
 
-import io.github.fabricators_of_create.porting_lib.models.generators.ModelFile;
-import io.github.fabricators_of_create.porting_lib.models.generators.item.ItemModelBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -33,6 +32,7 @@ import net.nuclearteam.createnuclear.item.cloth.ClothItem;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem.DyeItemList;
 import net.nuclearteam.createnuclear.multiblock.configuredItem.ConfiguredReactorItem;
 import net.nuclearteam.createnuclear.tags.CNTag;
+import net.nuclearteam.createnuclear.tools.CustomSpawnEgg;
 import net.nuclearteam.createnuclear.utils.TextUtils;
 import net.nuclearteam.createnuclear.entity.CNMobEntityType;
 import net.minecraft.world.entity.EntityType;
@@ -165,9 +165,9 @@ public class CNItems {
             .properties(p -> p.stacksTo(1))
             .register();
 
-    public static final ItemEntry<SpawnEggItem> SPAWN_WOLF = registerSpawnEgg("wolf_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_WOLF, 0x42452B,0x4C422B, "Irradiated Wolf Spawn Egg");
-    public static final ItemEntry<SpawnEggItem> SPAWN_CAT = registerSpawnEgg("cat_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_CAT, 0x382C19,0x742728, "Irradiated Cat Spawn Egg");
-    public static final ItemEntry<SpawnEggItem> SPAWN_CHICKEN = registerSpawnEgg("chicken_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_CHICKEN, 0x6B9455,0x95393C, "Irradiated Chicken Spawn Egg");
+    public static final ItemEntry<CustomSpawnEgg> SPAWN_WOLF = registerSpawnEgg("wolf_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_WOLF, 0x42452B,0x4C422B, "Irradiated Wolf Spawn Egg");
+    public static final ItemEntry<CustomSpawnEgg> SPAWN_CAT = registerSpawnEgg("cat_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_CAT, 0x382C19,0x742728, "Irradiated Cat Spawn Egg");
+    public static final ItemEntry<CustomSpawnEgg> SPAWN_CHICKEN = registerSpawnEgg("chicken_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_CHICKEN, 0x6B9455,0x95393C, "Irradiated Chicken Spawn Egg");
 
 
     public static final Potion potion_1 = registerPotion("potion_of_radiation_1", new Potion(new MobEffectInstance(CNEffects.RADIATION.get(), 900)));
@@ -186,9 +186,9 @@ public class CNItems {
         return CreateNuclear.REGISTRATE.item(path + "_cloth", Item::new).tag(CNTag.ItemTags.CLOTH.tag).register();
     }
 
-    private static ItemEntry<SpawnEggItem> registerSpawnEgg(String name, EntityType<? extends Mob> mobEntityType, int backgroundColor, int highlightColor, String nameItems) {
+    private static ItemEntry<CustomSpawnEgg> registerSpawnEgg(String name, EntityEntry<? extends Mob> mobEntityType, int backgroundColor, int highlightColor, String nameItems) {
         return CreateNuclear.REGISTRATE
-                .item(name, p -> new SpawnEggItem(mobEntityType, backgroundColor,highlightColor,  p))
+                .item(name, p -> new CustomSpawnEgg(p, backgroundColor,highlightColor,  mobEntityType))
                 .lang(nameItems)
                 .model((c, p) -> p.withExistingParent(c.getName(), new ResourceLocation("item/template_spawn_egg")))
                 .register();

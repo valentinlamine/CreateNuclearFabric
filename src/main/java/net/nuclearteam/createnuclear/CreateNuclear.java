@@ -52,12 +52,12 @@ public class CreateNuclear implements ModInitializer {
 		CNPackets.getChannel().initServerListener();
 
 		CNWorldGeneration.generateModWorldGen();
+		CNMobDefaultAttribute.register();
 		REGISTRATE.register();
 		CNRecipeTypes.register();
 
 		CNFanProcessingTypes.register();
 		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);
-		CNMobDefaultAttribute.register();
 
 	}
 

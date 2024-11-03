@@ -476,7 +476,7 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
         DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(IrradiatedWolf.class, EntityDataSerializers.INT);
         PREY_SELECTOR = (entity) -> {
             EntityType<?> entityType = entity.getType();
-            return entityType == EntityType.SHEEP || entityType == EntityType.RABBIT || entityType == EntityType.FOX || entityType == CNMobEntityType.IRRADIATED_CAT;
+            return entityType == EntityType.SHEEP || entityType == EntityType.RABBIT || entityType == EntityType.FOX || entityType == CNMobEntityType.IRRADIATED_CAT.get();
         };
         PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     }

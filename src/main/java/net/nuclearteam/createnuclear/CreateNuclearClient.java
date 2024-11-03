@@ -31,8 +31,7 @@ public class CreateNuclearClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(CNBlocks.ENRICHING_FIRE.get(), RenderType.cutout());
         CNPonderIndex.register();
 
-
-       CNMobEntityType.EntityModelLayerAndEntityRendererRegistry();
+        CNMobEntityType.registerCNMod();
 
         getChannel().initClientListener();
         CNClientEvent.register();
