@@ -37,6 +37,7 @@
 	"mixins": [
 		"createnuclear.mixins.json"
 	],
+	"accessWidener": "createnuclear.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.14.22",
 		"minecraft": "~1.20.1",
