@@ -12,6 +12,7 @@ import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.blockentity.CNBlockEntities;
 import net.nuclearteam.createnuclear.effects.CNEffects;
 import net.nuclearteam.createnuclear.entity.CNMobDefaultAttribute;
+import net.nuclearteam.createnuclear.entity.CNMobEntityType;
 import net.nuclearteam.createnuclear.fan.CNFanProcessingTypes;
 import net.nuclearteam.createnuclear.fan.CNRecipeTypes;
 import net.nuclearteam.createnuclear.fluid.CNFluids;
@@ -53,6 +54,8 @@ public class CreateNuclear implements ModInitializer {
 
 		CNWorldGeneration.generateModWorldGen();
 		CNMobDefaultAttribute.register();
+		CNMobEntityType.registerCNMod();
+
 		REGISTRATE.register();
 		CNRecipeTypes.register();
 

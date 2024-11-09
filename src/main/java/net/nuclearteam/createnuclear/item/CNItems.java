@@ -20,7 +20,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.alchemy.Potions;
@@ -35,7 +34,6 @@ import net.nuclearteam.createnuclear.tags.CNTag;
 import net.nuclearteam.createnuclear.tools.CustomSpawnEgg;
 import net.nuclearteam.createnuclear.utils.TextUtils;
 import net.nuclearteam.createnuclear.entity.CNMobEntityType;
-import net.minecraft.world.entity.EntityType;
 
 public class CNItems {
 

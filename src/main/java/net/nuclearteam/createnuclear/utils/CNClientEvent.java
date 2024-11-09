@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.LavaFluid;
 import net.nuclearteam.createnuclear.fluid.CNFluids;
 import net.minecraft.world.level.material.Fluid;
 
