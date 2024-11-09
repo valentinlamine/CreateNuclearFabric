@@ -103,7 +103,7 @@ public class ReactorInput extends HorizontalDirectionalReactorBlock implements I
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState()
-                .setValue(FACING, context.getHorizontalDirection());
+                .setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
     @Override
     public @NotNull VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {

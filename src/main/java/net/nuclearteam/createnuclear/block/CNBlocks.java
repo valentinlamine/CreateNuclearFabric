@@ -33,6 +33,7 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.blockentity.ReinforcedGlassBlock;
 import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock;
+import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerGenerator;
 import net.nuclearteam.createnuclear.multiblock.cooling.ReactorCoolingBlock;
 import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutput;
 import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutputGenerator;
@@ -40,6 +41,7 @@ import net.nuclearteam.createnuclear.multiblock.frame.ReactorBlock;
 import net.nuclearteam.createnuclear.multiblock.gauge.ReactorGaugeBlock;
 import net.nuclearteam.createnuclear.multiblock.gauge.ReactorGaugeBlockItem;
 import net.nuclearteam.createnuclear.multiblock.input.ReactorInput;
+import net.nuclearteam.createnuclear.multiblock.input.ReactorInputGenerator;
 import net.nuclearteam.createnuclear.tags.CNTag;
 import net.nuclearteam.createnuclear.tools.EnrichingCampfireBlock;
 import net.nuclearteam.createnuclear.tools.EnrichingFireBlock;
@@ -53,15 +55,11 @@ import static java.lang.Integer.MAX_VALUE;
 
 public class CNBlocks {
 
-    static {
-        //CreateNuclear.REGISTRATE.setCreativeTab(CNGroup.MAIN_KEY);
-    }
-
     public static final BlockEntry<UraniumOreBlock> DEEPSLATE_URANIUM_ORE =
             CreateNuclear.REGISTRATE.block("deepslate_uranium_ore", UraniumOreBlock::new)
                     .initialProperties(CNBlocks::getDiamondOre)
                     .simpleItem()
-                    .properties(p -> p.lightLevel(state -> 9))
+                    .properties(UraniumOreBlock.litBlockEmission())
                     .transform(pickaxeOnly())
                     .loot((lt, b) -> lt.add(b,
                         RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
@@ -74,6 +72,7 @@ public class CNBlocks {
     public static final BlockEntry<UraniumOreBlock> URANIUM_ORE =
             CreateNuclear.REGISTRATE.block("uranium_ore", UraniumOreBlock::new)
                     .initialProperties(SharedProperties::stone)
+                    .properties(UraniumOreBlock.litBlockEmission())
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .loot((lt, b) -> lt.add(b,
@@ -151,7 +150,7 @@ public class CNBlocks {
                     .properties(BlockBehaviour.Properties::replaceable)
                     .properties(BlockBehaviour.Properties::noCollission)
                     .properties(BlockBehaviour.Properties::noOcclusion)
-                    .properties(p -> p.lightLevel(EnrichingFireBlock::getLight))
+                    .properties(EnrichingFireBlock.getLight())
                     .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag, CNTag.BlockTags.FIRE.tag, CNTag.BlockTags.DRAGON_TRANSPARENT.tag)
                     .loot((lt, b) -> lt.add(b, BlockLootSubProvider.noDrop()))
                     .blockstate((c,p) -> {
@@ -273,8 +272,9 @@ public class CNBlocks {
                     .properties(p -> p.destroyTime(4F))
                     .transform(pickaxeOnly())
                     .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
-                    .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models().getExistingFile(ctx.getId()), 0))
-                    .simpleItem()
+                    .blockstate(new ReactorControllerGenerator()::generate)
+                    .item()
+                    .transform(customItemModel())
                     .register();
 
     public static final BlockEntry<ReactorBlock> REACTOR_CORE =
@@ -368,8 +368,9 @@ public class CNBlocks {
                     .addLayer(() -> RenderType::cutoutMipped)
                     .transform(pickaxeOnly())
                     .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
-                    .blockstate((ctx, prov) -> prov.horizontalBlock(ctx.getEntry(), prov.models().getExistingFile(ctx.getId()), 0))
-                    .simpleItem()
+                    .blockstate(new ReactorInputGenerator()::generate)
+                    .item()
+                    .transform(customItemModel())
                     .register();
 
     public static Block getSoulSoil() {
