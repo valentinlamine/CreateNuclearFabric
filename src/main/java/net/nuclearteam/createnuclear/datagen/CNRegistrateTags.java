@@ -18,7 +18,7 @@ public class CNRegistrateTags {
     private static void genEntityTags(RegistrateTagsProvider<EntityType<?>> provIn) {
         TagGen.CreateTagsProvider<EntityType<?>> prov = new TagGen.CreateTagsProvider<>(provIn, EntityType::builtInRegistryHolder);
 
-        prov.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE.tag)
+        /*prov.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE.tag)
                 .add(CNMobEntityType.IRRADIATED_CAT)
                 .add(CNMobEntityType.IRRADIATED_CHICKEN)
         ;
@@ -26,7 +26,7 @@ public class CNRegistrateTags {
                 .add(CNMobEntityType.IRRADIATED_CHICKEN)
                 .add(CNMobEntityType.IRRADIATED_CAT)
                 .add(CNMobEntityType.IRRADIATED_WOLF)
-        ;
+        ;*/
     }
 
 
