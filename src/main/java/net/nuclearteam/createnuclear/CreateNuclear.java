@@ -20,6 +20,7 @@ import net.nuclearteam.createnuclear.groups.CNGroup;
 import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.menu.CNMenus;
 import net.nuclearteam.createnuclear.packets.CNPackets;
+import net.nuclearteam.createnuclear.particle.CNParticle;
 import net.nuclearteam.createnuclear.tags.CNTag;
 import net.nuclearteam.createnuclear.world.gen.CNWorldGeneration;
 
@@ -57,6 +58,7 @@ public class CreateNuclear implements ModInitializer {
 		CNMobEntityType.registerCNMod();
 
 		REGISTRATE.register();
+		CNParticle.register();
 		CNRecipeTypes.register();
 
 		CNFanProcessingTypes.register();
