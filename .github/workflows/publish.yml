@@ -87,6 +87,10 @@ jobs:
         if: ${{ github.event.inputs.modtag != '' }}
         run: git push --follow-tags
 
+      - name: File
+        if: ${{ github.event.inputs.modtag != '' && github.event.inputs.name != '' && github.event.inputs.version != '' && github.event.inputs.version-type != '' }}
+        run: ls -R build/libs
+        
       - name: Publish (CurseForge)
         if: ${{ github.event.inputs.modtag != '' && github.event.inputs.name != '' && github.event.inputs.version != '' && github.event.inputs.version-type != '' }}
         uses: Kir-Antipov/mc-publish@v3.3.0
