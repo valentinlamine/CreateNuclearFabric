@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "createnuclear:white_antiradiation_chestplate",
+    "createnuclear:orange_antiradiation_chestplate",
+    "createnuclear:magenta_antiradiation_chestplate",
+    "createnuclear:light_blue_antiradiation_chestplate",
+    "createnuclear:yellow_antiradiation_chestplate",
+    "createnuclear:lime_antiradiation_chestplate",
+    "createnuclear:pink_antiradiation_chestplate",
+    "createnuclear:gray_antiradiation_chestplate",
+    "createnuclear:light_gray_antiradiation_chestplate",
+    "createnuclear:cyan_antiradiation_chestplate",
+    "createnuclear:purple_antiradiation_chestplate",
+    "createnuclear:blue_antiradiation_chestplate",
+    "createnuclear:brown_antiradiation_chestplate",
+    "createnuclear:green_antiradiation_chestplate",
+    "createnuclear:red_antiradiation_chestplate",
+    "createnuclear:black_antiradiation_chestplate"
+  ]
+}

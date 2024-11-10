@@ -36,21 +36,21 @@
   "item.createnuclear.anti_radiation_leggings": "Anti Radiation Leggings",
   "item.createnuclear.anti_radiation_boots": "Anti Radiation Boots",
 
-  "item.minecraft.potion.effect.potion_of_radiation_1": "Potion of Radiation",
-  "item.minecraft.splash_potion.effect.potion_of_radiation_1": "Splash Potion of Radiation",
-  "item.minecraft.lingering_potion.effect.potion_of_radiation_1": "Lingering Potion of Radiation",
+  "item.minecraft.potion.effect.potion_of_radiation_1": "Potion of Radiation fait",
+  "item.minecraft.splash_potion.effect.potion_of_radiation_1": "Splash Potion of Radiation fait",
+  "item.minecraft.lingering_potion.effect.potion_of_radiation_1": "Lingering Potion of Radiation fait",
 
-  "item.minecraft.potion.effect.potion_of_radiation_augment_1": "Potion of Radiation",
-  "item.minecraft.splash_potion.effect.potion_of_radiation_augment_1": "Splash Potion of Radiation",
-  "item.minecraft.lingering_potion.effect.potion_of_radiation_augment_1": "Lingering Potion of Radiation",
+  "item.minecraft.potion.effect.potion_of_radiation_augment_1": "Potion of Radiation fait",
+  "item.minecraft.splash_potion.effect.potion_of_radiation_augment_1": "Splash Potion of Radiation fait",
+  "item.minecraft.lingering_potion.effect.potion_of_radiation_augment_1": "Lingering Potion of Radiation fait",
 
-  "item.minecraft.potion.effect.potion_of_radiation_2": "Potion of Radiation",
-  "item.minecraft.splash_potion.effect.potion_of_radiation_2": "Splash Potion of Radiation",
-  "item.minecraft.lingering_potion.effect.potion_of_radiation_2": "Lingering Potion of Radiation",
+  "item.minecraft.potion.effect.potion_of_radiation_2": "Potion of Radiation fait",
+  "item.minecraft.splash_potion.effect.potion_of_radiation_2": "Splash Potion of Radiation fait",
+  "item.minecraft.lingering_potion.effect.potion_of_radiation_2": "Lingering Potion of Radiation fait",
 
-  "item.minecraft.tipped_arrow.effect.potion_of_radiation_1": "Arrow of Radiation",
-  "item.minecraft.tipped_arrow.effect.potion_of_radiation_augment_1": "Arrow of Radiation",
-  "item.minecraft.tipped_arrow.effect.potion_of_radiation_2": "Arrow of Radiation",
+  "item.minecraft.tipped_arrow.effect.potion_of_radiation_1": "Arrow of Radiation fait",
+  "item.minecraft.tipped_arrow.effect.potion_of_radiation_augment_1": "Arrow of Radiation fait",
+  "item.minecraft.tipped_arrow.effect.potion_of_radiation_2": "Arrow of Radiation fait",
 
   "block.createnuclear.deepslate_uranium_ore": "Deepslate Uranium Ore",
   "block.createnuclear.uranium_ore": "Uranium Ore",
@@ -72,19 +72,19 @@
   "block.createnuclear.reactor_controller": "Reactor Controller",
   "block.createnuclear.reactor_input": "Reactor Input",
 
-  "effect.createnuclear.radiation": "Radiation",
+  "effect.createnuclear.radiation": "Radiation fait",
 
   "fluid.createnuclear.uranium": "Liquid Uranium",
 
 
-  "itemGroup.createnuclear.main": "Create Nuclear",
-  "itemgroup.uranium": "Uranium Group",
+  "itemGroup.createnuclear.main": "Create Nuclear fait",
+  "itemgroup.uranium": "Uranium Group fait",
 
-  "gui.createnuclear.reactor_controller.title": "Reactor Controller",
+  "gui.createnuclear.reactor_controller.title": "Reactor Controller fait",
 
-  "createnuclear.enriched.fan.recipe": "Bulk Enriched",
-  "emi.category.createnuclear.fan_enriched": "Bulk Enriched",
-  "create.recipe.fan_enriched.fan": "Fan behing Enriched",
+  "createnuclear.enriched.fan.recipe": "Bulk Enriched fait",
+  "emi.category.createnuclear.fan_enriched": "Bulk Enriched fait",
+  "create.recipe.fan_enriched.fan": "Fan behing Enriched fait",
 
   "createnuclear.ponder.reactor.header": "Reactor Controller",
   "createnuclear.ponder.reactor.text_5": "Reactor Controller",
@@ -98,10 +98,20 @@
   "createnuclear.ponder.reactor.text_8": "Floor 7",
 
   "entity.minecraft.irradiated_chicken": "Irradiated Chicken",
+  "entity.minecraft.irradiated_wolf": "Irradiated Wolf",
+  "entity.minecraft.irradiated_cat": "Irradiated Cat",
 
   "tag.item.createnuclear.cloth": "Cloth",
+  "tag.item.c.coal_dusts": "Coal Dusts",
+  "tag.item.c.ingots.lead": "Tags Lead ingots",
+  "tag.item.c.ingots.steel": "Tags Steel ingots",
+  "tag.item.c.lead_ingots": "Lead ingots",
+  "tag.item.c.lead_nuggets": "Lead nuggetss",
+
+
   "tag.item.minecraft.all.campfires": "All Campfires",
   "tag.item.minecraft.campfires": "Campfires",
+
   "tag.item.trinkets.head.face": "Head Face"
 
 }

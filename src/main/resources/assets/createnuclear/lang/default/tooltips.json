@@ -1,0 +1,19 @@
+{
+  "tag.item.createnuclear.cloth": "Cloth",
+  "tag.item.createnuclear.cooler": "Cooler",
+  "tag.item.createnuclear.fuel": "Fuel",
+
+  "tag.item.c.coal_dusts": "Coal Dusts",
+  "tag.item.c.ingots.lead": "Tags Lead ingots",
+  "tag.item.c.ingots.steel": "Tags Steel ingots",
+  "tag.item.c.lead_ingots": "Lead ingots",
+  "tag.item.c.lead_nuggets": "Lead nuggets",
+  "tag.item.c.uranium": "Fluid Uranium",
+
+  "tag.fluid.c.uranium": "Fluid Uranium",
+
+  "tag.item.minecraft.all.campfires": "All Campfires",
+  "tag.item.minecraft.campfires": "Campfires",
+
+  "tag.item.trinkets.head.face": "Head Face"
+}

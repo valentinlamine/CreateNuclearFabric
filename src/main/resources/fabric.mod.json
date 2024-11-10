@@ -16,27 +16,28 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.ynov.createnuclear.CreateNuclear"
+			"net.nuclearteam.createnuclear.CreateNuclear"
 		],
 		"client": [
-			"net.ynov.createnuclear.CreateNuclearClient"
+			"net.nuclearteam.createnuclear.CreateNuclearClient"
 		],
 		"fabric-datagen": [
-			"net.ynov.createnuclear.CreateNuclearDataGenerator"
+			"net.nuclearteam.createnuclear.CreateNuclearDataGenerator"
 		],
 		"jei_mod_plugin": [
-			"net.ynov.createnuclear.compact.recipe.jei.CNJei"
+			"net.nuclearteam.createnuclear.compact.recipe.jei.CNJei"
 		],
 		"rei_client": [
-			"net.ynov.createnuclear.compact.recipe.rei.CNRei"
+			"net.nuclearteam.createnuclear.compact.recipe.rei.CNRei"
 		],
 		"emi": [
-			"net.ynov.createnuclear.compact.recipe.emi.CNEmi"
+			"net.nuclearteam.createnuclear.compact.recipe.emi.CNEmi"
 		]
 	},
 	"mixins": [
 		"createnuclear.mixins.json"
 	],
+	"accessWidener": "createnuclear.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.14.22",
 		"minecraft": "~1.20.1",

@@ -1,0 +1,16 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "tag": "c:coal_dusts"
+    },
+    {
+      "tag": "c:iron_ingots"
+    }
+  ],
+  "results": [
+    {
+      "item": "createnuclear:steel_ingot"
+    }
+  ]
+}

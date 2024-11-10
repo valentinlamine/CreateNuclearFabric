@@ -1,0 +1,14 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "createnuclear:uranium_powder"
+    }
+  ],
+  "results": [
+    {
+      "amount": 2025,
+      "fluid": "createnuclear:uranium"
+    }
+  ]
+}

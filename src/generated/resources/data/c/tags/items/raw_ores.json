@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "createnuclear:raw_uranium",
+    "createnuclear:raw_lead"
+  ]
+}
