@@ -78,6 +78,7 @@ jobs:
         run: |
           git config --global user.email "github@valentinlamine.fr"
           git config --global user.name "CreateNuclear[bot]"
+          git status
           git add gradle.properties
           git commit -m "change mod version"
           git tag -a ${{github.event.inputs.modtag}} -m "version du mod"
