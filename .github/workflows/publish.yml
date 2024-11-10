@@ -93,7 +93,7 @@ jobs:
         with:
           curseforge-id: 989797
           curseforge-token: f1b2d81d-3db5-4279-8b69-c02248a081bb
-          name: ${{ github.event.inputs.name }} ${{ github.event.inputs.version }}
+          curseforge-name: ${{ github.event.inputs.name }} ${{ github.event.inputs.version }}
           version: ${{ github.event.inputs.version }}
           version-type: ${{ github.event.inputs.version-type }}
           changelog: ${{ github.event.inputs.changelog }}
@@ -105,7 +105,7 @@ jobs:
           # files: |
           #   build/libs/createnuclear-\d*.\d*.\d*-[a-z]+(?:-\d+(?:.\d+)?)?(?:-1\.20\.1)?.jar
           #   build/libs/createnuclear-\d*.\d*.\d*-[a-z]+(?:-\d+(?:.\d+)?)?(?:-1\.20\.1)?-sources.jar
-          dependencies: |
+          curseforge-dependencies: |
             fabricloader@>=0.14.22(required)
             minecraft@~1.20.1(required)
             create@*(required)
@@ -115,6 +115,7 @@ jobs:
             EMI@1.1.2+1.20.1(optional){curseforge:580555}
           java: |
             Java 17
+          fail-mode: fail
           
       
       - name: Create Release
