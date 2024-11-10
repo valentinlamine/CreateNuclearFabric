@@ -1,7 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer1": "createnuclear:item/yellow_cake2",
-    "layer0": "minecraft:item/nether_star"
-  }
-}
