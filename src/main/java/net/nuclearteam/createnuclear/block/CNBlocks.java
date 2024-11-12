@@ -66,7 +66,15 @@ public class CNBlocks {
                             lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_URANIUM)
                                 .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
                     ))))
-                    .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag, CNTag.BlockTags.NEEDS_IRON_TOOL.tag, CNTag.forgeBlockTag("ores"), CNTag.forgeBlockTag("ores_in_ground/deepslate"))
+                    .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag,
+                            CNTag.BlockTags.NEEDS_IRON_TOOL.tag,
+                            CNTag.forgeBlockTag("ores"),
+                            CNTag.forgeBlockTag("ores_in_ground/deepslate"),
+                            CNTag.BlockTags.URANIUM_ORES.tag
+                    )
+                    .item()
+                    .tag(CNTag.ItemTags.URANIUM_ORES.tag)
+                    .build()
                     .register();
 
     public static final BlockEntry<UraniumOreBlock> URANIUM_ORE =
@@ -80,7 +88,15 @@ public class CNBlocks {
                             lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_URANIUM)
                                 .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
                     ))))
-                    .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag, CNTag.BlockTags.NEEDS_IRON_TOOL.tag, CNTag.forgeBlockTag("ores"), CNTag.forgeBlockTag("ores_in_ground/stone"))
+                    .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag,
+                            CNTag.BlockTags.NEEDS_IRON_TOOL.tag,
+                            CNTag.forgeBlockTag("ores"),
+                            CNTag.forgeBlockTag("ores_in_ground/stone"),
+                            CNTag.BlockTags.URANIUM_ORES.tag
+                    )
+                    .item()
+                    .tag(CNTag.ItemTags.URANIUM_ORES.tag)
+                    .build()
                     .register();
 
     public static final BlockEntry<Block> DEEPSLATE_LEAD_ORE =
@@ -94,7 +110,14 @@ public class CNBlocks {
                                 .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
                     ))))
                     .tag(CNTag.BlockTags.NEEDS_IRON_TOOL.tag,
-                            CNTag.forgeBlockTag("ores"), CNTag.forgeBlockTag("ores_in_ground/deepslate"))
+                            CNTag.forgeBlockTag("ores"),
+                            CNTag.forgeBlockTag("ores_in_ground/deepslate"),
+                            CNTag.BlockTags.LEAD_ORES.tag
+
+                    )
+                    .item()
+                    .tag(CNTag.ItemTags.LEAD_ORES.tag)
+                    .build()
                     .register();
 
     public static final BlockEntry<Block> LEAD_ORE =
@@ -107,7 +130,14 @@ public class CNBlocks {
                             lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_LEAD)
                                 .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
                     ))))
-                    .tag(CNTag.BlockTags.NEEDS_IRON_TOOL.tag, CNTag.forgeBlockTag("ores"), CNTag.forgeBlockTag("ores_in_ground/stone"))
+                    .tag(CNTag.BlockTags.NEEDS_IRON_TOOL.tag,
+                            CNTag.forgeBlockTag("ores"),
+                            CNTag.forgeBlockTag("ores_in_ground/stone"),
+                            CNTag.BlockTags.LEAD_ORES.tag
+                    )
+                    .item()
+                    .tag(CNTag.ItemTags.LEAD_ORES.tag)
+                    .build()
                     .register();
 
     public static final BlockEntry<Block> RAW_URANIUM_BLOCK =
