@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:shapeless/lead_ingot_from_decompacting"
+        "recipe": "createnuclear:blasting/raw_lead_for_lead_ingot"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "createnuclear:shapeless/lead_ingot_from_decompacting"
+      "createnuclear:blasting/raw_lead_for_lead_ingot"
     ]
   },
   "sends_telemetry_event": false

@@ -41,8 +41,6 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
 
     private String SHAPELESS = enterFolder("shapeless");
     GeneratedRecipe
-        LEAD_COMPACTING = metalCompacting(ImmutableList.of(CNItems.LEAD_NUGGET, CNItems.LEAD_INGOT, CNBlocks.LEAD_BLOCK),
-            ImmutableList.of(() -> CNTag.forgeItemTag("lead_nuggets"), () -> CNTag.forgeItemTag("lead_ingots"), () -> CNTag.forgeItemTag("lead_blocks"))),
 
         RAW_URANIUM = create(CNItems.RAW_URANIUM).returns(9)
                 .withSuffix("_from_decompacting")
@@ -56,8 +54,8 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
 
         LEAD_INGOT = create(CNItems.LEAD_INGOT).returns(9)
                 .withSuffix("_from_decompacting")
-                .unlockedBy(CNItems.LEAD_BLOCK::get)
-                .viaShapeless(b -> b.requires(CNBlocks.RAW_LEAD_BLOCK.get())),
+                .unlockedBy(CNItems.LEAD_INGOT::get)
+                .viaShapeless(b -> b.requires(CNBlocks.LEAD_BLOCK.get())),
 
     CONFIGURED_REACTOR_ITEM_CLEAR = clearData(CNItems.CONFIGURED_REACTOR_ITEM)
     ;

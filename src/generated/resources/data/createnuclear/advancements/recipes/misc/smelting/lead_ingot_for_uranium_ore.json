@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "createnuclear:lead_ingot"
-            ]
+            "tag": "createnuclear:lead_ores"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:shapeless/lead_ingot_from_decompacting"
+        "recipe": "createnuclear:smelting/lead_ingot_for_uranium_ore"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "createnuclear:shapeless/lead_ingot_from_decompacting"
+      "createnuclear:smelting/lead_ingot_for_uranium_ore"
     ]
   },
   "sends_telemetry_event": false
