@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "item": "createnuclear:lead_ingot"
+    }
+  },
+  "pattern": [
+    "LLL",
+    "LLL",
+    "LLL"
+  ],
+  "result": {
+    "item": "createnuclear:lead_block"
+  },
+  "show_notification": true
+}
