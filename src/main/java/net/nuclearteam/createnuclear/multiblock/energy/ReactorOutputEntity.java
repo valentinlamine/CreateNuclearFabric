@@ -50,7 +50,7 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 
 	@Override
 	public float calculateAddedStressCapacity() {
-		return speed*16;
+		return getSpeed()*16384;
 	}
 
 	@Override

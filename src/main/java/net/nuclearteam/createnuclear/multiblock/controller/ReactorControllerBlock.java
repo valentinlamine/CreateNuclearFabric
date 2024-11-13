@@ -209,8 +209,6 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
 
             if (Boolean.TRUE.equals(state.getValue(ASSEMBLED)) && rotation != 0) { // Starting the energy
                 //CreateNuclear.LOGGER.info("Change " + pos);
-                if (entity.getDir() == 1)
-                    rotation = -rotation;
                 entity.speed = rotation;
                 entity.setSpeed(Math.abs(entity.speed));
                 entity.updateSpeed = true;
@@ -223,8 +221,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
                 entity.updateGeneratedRotation();
                 //CreateNuclear.LOGGER.info("Unchanged " + pos);
             }
-            if (rotation < 0)
-                rotation = -rotation;
+
             entity.setSpeed(rotation);
 
             //CreateNuclear.LOGGER.info("SPEED : " + entity.getSpeed2() + " - DIR : " + entity.getDir() + "  pos : " + pos);

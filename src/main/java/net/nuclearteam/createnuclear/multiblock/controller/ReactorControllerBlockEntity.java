@@ -335,7 +335,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                 CreateNuclear.LOGGER.warn(rotation + "");
                 if (state.getValue(ASSEMBLED)) { // Starting the energy
                     //CreateNuclear.LOGGER.info("Change " + pos);
-                    if (entity.getDir() == 1) rotation = -rotation;
                     entity.speed = rotation;
                     entity.heat = rotation;
                     CreateNuclear.LOGGER.warn("rotation: " + rotation + " heat: " + entity.heat);
@@ -347,7 +346,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                     entity.updateSpeed = true;
                     entity.updateGeneratedRotation();
                 }
-                if (rotation < 0) rotation = -rotation;
                 entity.setSpeed(rotation);
 
             }
