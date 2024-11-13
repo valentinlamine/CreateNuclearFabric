@@ -25,6 +25,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -175,18 +176,31 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         ON, OFF;
     }
 
+    private void explodeReactorCore(Level level, BlockPos pos) {
+        CreateNuclear.LOGGER.warn("Exploding reactor core at position: " + pos);
+        for (int x = -1; x <= 1; x++) {
+            for (int y = -1; y <= 1; y++) {
+                for (int z = -1; z <= 1; z++) {
+                    BlockPos currentPos = pos.offset(x, y, z);
+                    //le problème viens de la il ne rentre pas dans le if
+                    if (level.getBlockState(currentPos).is(CNBlocks.REACTOR_CORE.get())) {
+                        CreateNuclear.LOGGER.warn("Found REACTOR_CORE block at position: " + currentPos);
+                        // Create and execute the explosion
+                        Explosion explosion = new Explosion(level, null, currentPos.getX(), currentPos.getY(), currentPos.getZ(), 4.0F, false, Explosion.BlockInteraction.DESTROY);
+                        explosion.explode();
+                        explosion.finalizeExplosion(true);
+                    }
+                }
+            }
+        }
+    }
+
     @Override
     public void tick() {
         super.tick();
 
         if (level.isClientSide)
             return;
-
-        /*if (level.getBlockState(getBlockPos().below(3)).getBlock() == CNBlocks.REACTOR_OUTPUT.get() && powered == State.ON){
-            // En attendant l'explosion on arrete simplement la rotation quand la chaleur depasse 100
-            Rotate(getBlockState(), getBlockPos().below(3), getLevel(), (heat >= 100 ? 0 : heat));
-        }*/
-        //if (heat >= 100 || heat <= 0) Rotate(getBlockState(), getBlockPos().below(3), getLevel(), 0);
 
 
 
@@ -211,6 +225,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                     }
                     else {
                         this.rotate(getBlockState(), new BlockPos(getBlockPos().getX(), getBlockPos().getY() + FindController('O').getY(), getBlockPos().getZ()), getLevel(), 0);
+                        //print dans le termina
+                        CreateNuclear.LOGGER.warn("Le réacteur est arrété et devrait exploser");
+                        explodeReactorCore(level, getBlockPos());
                     }
                     //rotate(getBlockState(), FindController('0'), getLevel(), heat);
                     return;
