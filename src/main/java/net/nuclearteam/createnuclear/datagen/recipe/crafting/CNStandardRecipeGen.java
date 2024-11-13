@@ -57,7 +57,13 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                 .pattern("###")
                 .showNotification(true)
             ),
-
+        LEAD_BLOCK = create(CNBlocks.LEAD_BLOCK).unlockedBy(CNItems.LEAD_INGOT::get)
+                .viaShaped(b -> b.define('L', CNItems.LEAD_INGOT.get())
+                        .pattern("LLL")
+                        .pattern("LLL")
+                        .pattern("LLL")
+                        .showNotification(true)
+                ),
     ENRICHED_SOUL_SOIL = create(CNBlocks.ENRICHED_SOUL_SOIL).unlockedBy(() -> Items.NETHER_STAR)
             .viaShaped(b -> b
                     .define('S', Blocks.SOUL_SOIL)
@@ -102,7 +108,8 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                 .pattern("RRR")
                 .showNotification(true)
             )
-    ;
+
+        ;
 
 
     private String CRAFTING_REACTOR = enterFolder("crafting/reactor");
@@ -172,7 +179,27 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                     .showNotification(true)
             ),
 
-        REINFORCED_GLASS = create(CNBlocks.REINFORCED_GLASS).unlockedBy(CNBlocks.REACTOR_CASING::get)
+    REACTOR_INPUT = create(CNBlocks.REACTOR_INPUT).unlockedBy(CNBlocks.REACTOR_CASING::get)
+            .viaShaped(b -> b
+                    .define('N', Items.NETHERITE_INGOT)
+                    .define('H', Blocks.HOPPER)
+                    .define('C', Blocks.COPPER_BLOCK)
+                    .pattern("NCN")
+                    .pattern("CHC")
+                    .pattern("NCN")
+                    .showNotification(true)
+            ),
+    LEAD_INGOT = create(CNItems.LEAD_INGOT).unlockedBy(CNItems.RAW_LEAD::get)
+            .viaShaped(b -> b
+                    .define('N', CNItems.LEAD_NUGGET.get())
+                    .pattern("NNN")
+                    .pattern("NNN")
+                    .pattern("NNN")
+
+                    .showNotification(true)
+            ),
+
+    REINFORCED_GLASS = create(CNBlocks.REINFORCED_GLASS).unlockedBy(CNBlocks.REACTOR_CASING::get)
                 .viaShaped(b -> b
                         .define('G', Blocks.GLASS)
                         .define('S', CNItems.STEEL_INGOT)
