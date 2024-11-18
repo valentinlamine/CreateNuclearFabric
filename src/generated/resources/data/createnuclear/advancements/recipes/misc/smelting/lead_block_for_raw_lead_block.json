@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "tag": "createnuclear:lead_ores"
+            "items": [
+              "createnuclear:raw_lead_block"
+            ]
           }
         ]
       },
@@ -13,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:blasting/lead_ingot_for_uranium_ore"
+        "recipe": "createnuclear:smelting/lead_block_for_raw_lead_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "createnuclear:blasting/lead_ingot_for_uranium_ore"
+      "createnuclear:smelting/lead_block_for_raw_lead_block"
     ]
   },
   "sends_telemetry_event": false
