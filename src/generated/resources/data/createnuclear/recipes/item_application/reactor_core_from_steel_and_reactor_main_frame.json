@@ -1,0 +1,16 @@
+{
+  "type": "create:item_application",
+  "ingredients": [
+    {
+      "item": "createnuclear:reactor_main_frame"
+    },
+    {
+      "item": "createnuclear:yellow_cake_enriched"
+    }
+  ],
+  "results": [
+    {
+      "item": "createnuclear:reactor_core"
+    }
+  ]
+}

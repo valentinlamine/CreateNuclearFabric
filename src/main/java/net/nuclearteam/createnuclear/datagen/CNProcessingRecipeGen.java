@@ -12,6 +12,7 @@ import net.minecraft.tags.BlockTags;
 import net.nuclearteam.createnuclear.datagen.recipe.compacting.CNCompactingRecipeGen;
 import net.nuclearteam.createnuclear.datagen.recipe.crushing.CNCrushingRecipeGen;
 import net.nuclearteam.createnuclear.datagen.recipe.enriched.CNEnrichedRecipeGen;
+import net.nuclearteam.createnuclear.datagen.recipe.item_application.CNItemApplicationRecipeGen;
 import net.nuclearteam.createnuclear.datagen.recipe.mixing.CNMixingRecipeGen;
 import net.nuclearteam.createnuclear.datagen.recipe.pressing.CNPressingRecipeGen;
 import net.nuclearteam.createnuclear.tags.CNTag;
@@ -30,6 +31,7 @@ public abstract class CNProcessingRecipeGen {
         GENERATORS.add(new CNEnrichedRecipeGen(output));
         GENERATORS.add(new CNMixingRecipeGen(output));
         GENERATORS.add(new CNPressingRecipeGen(output));
+        GENERATORS.add(new CNItemApplicationRecipeGen(output));
 
         return new DataProvider() {
 

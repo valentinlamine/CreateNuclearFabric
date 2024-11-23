@@ -5,9 +5,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
-import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
-import com.simibubi.create.foundation.data.recipe.StandardRecipeGen;
 import com.simibubi.create.foundation.utility.RegisteredObjects;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
@@ -29,7 +27,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.item.CNItems;
-import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem;
 import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.DyeRecipArmorList;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem;
 import net.nuclearteam.createnuclear.tags.CNTag;
@@ -129,7 +126,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                 .showNotification(true)
             ),
 
-        REACTOR_CORE = create(CNBlocks.REACTOR_CORE).unlockedBy(CNBlocks.REACTOR_CASING::get)
+        /*REACTOR_CORE = create(CNBlocks.REACTOR_CORE).unlockedBy(CNBlocks.REACTOR_CASING::get)
                 .viaShaped(b -> b
                         .define('S', CNItems.STEEL_INGOT)
                         .define('P', AllItems.PRECISION_MECHANISM)
@@ -138,7 +135,8 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                         .pattern("PNP")
                         .pattern("SSS")
                         .showNotification(true)
-                ),
+                ),*/
+
         REACTOR_COOLING_FRAME = create(CNBlocks.REACTOR_COOLING_FRAME).unlockedBy(CNBlocks.REACTOR_CASING::get)
                 .viaShaped(b -> b
                         .define('B', Blocks.BLUE_ICE)
