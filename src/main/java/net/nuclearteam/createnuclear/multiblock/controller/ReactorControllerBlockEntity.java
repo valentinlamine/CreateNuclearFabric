@@ -199,8 +199,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                 ListTag inventoryTag = tag.getCompound("Inventory").getList("Items", Tag.TAG_COMPOUND);
                 fuelItem = ItemStack.of(inventoryTag.getCompound(0));
                 coolerItem = ItemStack.of(inventoryTag.getCompound(1));
-                if (fuelItem.getCount() > 0 && fuelItem.is(CNItems.URANIUM_ROD.get()) && updateTimers()) {
-                    TransferUtil.extract(be.inventory, ItemVariant.of(fuelItem), 2);
+                if (fuelItem.getCount() > 0 && fuelItem.is(CNItems.URANIUM_ROD.get()) && coolerItem.getCount() > 0 && coolerItem.is(CNItems.GRAPHITE_ROD.get()) && updateTimers()) {
+                    TransferUtil.extract(be.inventory, ItemVariant.of(fuelItem), configuredPattern.getOrCreateTag().getInt("countUraniumRod"));
+                    TransferUtil.extract(be.inventory, ItemVariant.of(coolerItem), configuredPattern.getOrCreateTag().getInt("countGraphiteRod"));
                     total = calculateProgres();
                     configuredPattern.getOrCreateTag().putDouble("heat", calculateHeat()/100);
                     int heat = (int) configuredPattern.getOrCreateTag().getDouble("heat");
