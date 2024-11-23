@@ -46,7 +46,7 @@ public class ReactorCoreBlockEntity extends ReactorBlockEntity {
         /*Explosion explosion = new Explosion(level, null, pos.getX(), pos.getY(), pos.getZ(), 4.0F, false, Explosion.BlockInteraction.DESTROY);
         explosion.explode();
         explosion.finalizeExplosion(true);*/
-        level.explode(null, pos.getX(), pos.getY(), pos.getZ(), 16F, Level.ExplosionInteraction.BLOCK);
+        level.explode(null, pos.getX(), pos.getY(), pos.getZ(), 20F, Level.ExplosionInteraction.BLOCK);
 
     }
 
