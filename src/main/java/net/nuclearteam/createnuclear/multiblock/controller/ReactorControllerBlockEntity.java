@@ -183,6 +183,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                 for (int z = -1; z <= 1; z++) {
                     BlockPos currentPos = pos.offset(x, y, z);
                     //le problème viens de la il ne rentre pas dans le if
+                    CreateNuclear.LOGGER.warn("d:; {}", level.getBlockState(currentPos));
                     if (level.getBlockState(currentPos).is(CNBlocks.REACTOR_CORE.get())) {
                         CreateNuclear.LOGGER.warn("Found REACTOR_CORE block at position: " + currentPos);
                         // Create and execute the explosion
@@ -226,8 +227,8 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                     else {
                         this.rotate(getBlockState(), new BlockPos(getBlockPos().getX(), getBlockPos().getY() + FindController('O').getY(), getBlockPos().getZ()), getLevel(), 0);
                         //print dans le termina
-                        CreateNuclear.LOGGER.warn("Le réacteur est arrété et devrait exploser");
-                        explodeReactorCore(level, getBlockPos());
+                        /*CreateNuclear.LOGGER.warn("Le réacteur est arrété et devrait exploser : {}", FindController('C'));
+                        explodeReactorCore(level, getBlockPos());*/
                     }
                     //rotate(getBlockState(), FindController('0'), getLevel(), heat);
                     return;
