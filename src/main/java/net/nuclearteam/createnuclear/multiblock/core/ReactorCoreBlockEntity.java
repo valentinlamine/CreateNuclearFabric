@@ -27,7 +27,6 @@ public class ReactorCoreBlockEntity extends ReactorBlockEntity {
         if (level.isClientSide)
             return;
 
-        /*if (getBlockState().is(CNBlocks.REACTOR_CORE.get())) {*/
         BlockPos controllerPos = getBlockPosForReactor();
         if (level.getBlockEntity(controllerPos) instanceof ReactorControllerBlockEntity reactorController) {
             int heat = (int) reactorController.configuredPattern.getOrCreateTag().getDouble("heat");
@@ -35,19 +34,10 @@ public class ReactorCoreBlockEntity extends ReactorBlockEntity {
                 explodeReactorCore(level, getBlockPos());
             }
         }
-        /*}*/
     }
 
     private void explodeReactorCore(Level level, BlockPos pos) {
-        //CreateNuclear.LOGGER.warn("Exploding reactor core at position: " + pos);
-
-        //CreateNuclear.LOGGER.warn("Found REACTOR_CORE block at position: " + pos);
-        // Create and execute the explosion
-        /*Explosion explosion = new Explosion(level, null, pos.getX(), pos.getY(), pos.getZ(), 4.0F, false, Explosion.BlockInteraction.DESTROY);
-        explosion.explode();
-        explosion.finalizeExplosion(true);*/
         level.explode(null, pos.getX(), pos.getY(), pos.getZ(), 20F, Level.ExplosionInteraction.BLOCK);
-
     }
 
     private static BlockPos FindController(char character) {
