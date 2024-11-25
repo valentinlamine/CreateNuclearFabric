@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "createnuclear:lead_ingot"
+              "createnuclear:reactor_casing"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:shapeless/lead_ingot_from_decompacting"
+        "recipe": "createnuclear:crafting/reactor/reactor_input"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "createnuclear:shapeless/lead_ingot_from_decompacting"
+      "createnuclear:crafting/reactor/reactor_input"
     ]
   },
   "sends_telemetry_event": false
