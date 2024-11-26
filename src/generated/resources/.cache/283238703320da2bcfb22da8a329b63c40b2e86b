@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 // 1.20.1	2024-11-23T19:26:40.352547	CreateNuclear/CreateNuclear's Standard Recipes
+=======
+// 1.20.1	2024-11-18T21:14:38.1715079	CreateNuclear/CreateNuclear's Standard Recipes
+5e6e890112655dec72f15b955188fb578a7fc4f9 data\createnuclear\recipes\crafting\reactor\lead_ingot.json
+>>>>>>> main
 bbaa600617117f4f18276a2b3a0e3f39662fab8c data\createnuclear\advancements\recipes\misc\crafting\materials\raw_lead_block.json
 0eb90635f368f9f0039f9dacd40546c7a653b158 data\createnuclear\recipes\crafting\reactor\reactor_controller.json
 8ee5858eabbd21c145ee9318cc0042790ec07818 data\createnuclear\advancements\recipes\misc\crafting\materials\lead_ingot_from_compacting.json
@@ -15,8 +20,15 @@ bc44edbf7bcc16779cac02d04af284adb2e549e5 data\createnuclear\advancements\recipes
 257cca555cf580e32996a84f7983ae39af97159b data\createnuclear\advancements\recipes\combat\crafting\items\armors\cyan_antiradiation_helmet.json
 ab03e2fbcfbc059a1c935f720c2843602ee83606 data\createnuclear\recipes\crafting\items\armors\blue_antiradiation_helmet.json
 142499e5fe7d93124b62c4394c6677a6bf9fa73a data\createnuclear\advancements\recipes\combat\crafting\items\armors\lime_antiradiation_leggings.json
+<<<<<<< HEAD
 5d20a6eb3939b2bcf45d6a36677ffd44b05bd3f3 data\createnuclear\recipes\crafting\items\armors\light_gray_antiradiation_leggings.json
 f7b8874ef7cf4411a307362537b6d48d1e4b1c0d data\createnuclear\recipes\crafting\items\armors\black_antiradiation_chestplate.json
+=======
+99a2ba80ffa4d734c9b85e162b0437ddd3073b53 data\createnuclear\recipes\crafting\reactor\reactor_input.json
+5d20a6eb3939b2bcf45d6a36677ffd44b05bd3f3 data\createnuclear\recipes\crafting\items\armors\light_gray_antiradiation_leggings.json
+f7b8874ef7cf4411a307362537b6d48d1e4b1c0d data\createnuclear\recipes\crafting\items\armors\black_antiradiation_chestplate.json
+ee33f182fa60f0efb72c63398d6eda04350d39dc data\createnuclear\advancements\recipes\misc\crafting\reactor\lead_ingot.json
+>>>>>>> main
 98067e44c91d36e04424066c0deb5dce29a81c01 data\createnuclear\recipes\crafting\items\armors\purple_antiradiation_leggings.json
 287fc5abc8ac1ae5a439a519de9a7ee5f387db73 data\createnuclear\recipes\crafting\reactor\reactor_casing.json
 1d0ce123db4d8a0d6551991d327fb707f1f480c8 data\createnuclear\advancements\recipes\misc\crafting\reactor\reactor_controller.json
@@ -26,10 +38,21 @@ a2312c5e54491e569d3c633235f5b730998eab88 data\createnuclear\advancements\recipes
 b14f26731324d7337c5ae83c0f50d7ade17a121b data\createnuclear\recipes\crafting\items\armors\orange_antiradiation_helmet.json
 87d2961e8e16bb3a55d1c02fb1ecaa2f072b24e9 data\createnuclear\advancements\recipes\combat\crafting\items\armors\cyan_antiradiation_chestplate.json
 bee628f1cdedf1982ef33a28056ddb666cdad286 data\createnuclear\advancements\recipes\combat\crafting\items\armors\purple_antiradiation_chestplate.json
+<<<<<<< HEAD
 76378616d5947320c4c4985fc800664226b26240 data\createnuclear\recipes\crafting\items\armors\red_antiradiation_leggings.json
 0742ab6acf425574b4fcd5b03dabe8db794eda75 data\createnuclear\advancements\recipes\combat\crafting\items\armors\white_antiradiation_leggings.json
 077858ec3ee5cd3030f503b50150eb205d6f8d04 data\createnuclear\advancements\recipes\combat\crafting\items\armors\green_antiradiation_helmet.json
 df7c52d64865178e88d891c64c7a587d04ab8ef0 data\createnuclear\advancements\recipes\combat\crafting\items\armors\red_antiradiation_leggings.json
+=======
+2cb693548eef21ea58f0189d6d2236cafd705c6a data\createnuclear\recipes\crafting\reactor\reactor_core.json
+76378616d5947320c4c4985fc800664226b26240 data\createnuclear\recipes\crafting\items\armors\red_antiradiation_leggings.json
+0742ab6acf425574b4fcd5b03dabe8db794eda75 data\createnuclear\advancements\recipes\combat\crafting\items\armors\white_antiradiation_leggings.json
+c8f8167e50be05c51ef4d004939d5f3b0de8394c data\createnuclear\advancements\recipes\misc\crafting\reactor\reactor_core.json
+077858ec3ee5cd3030f503b50150eb205d6f8d04 data\createnuclear\advancements\recipes\combat\crafting\items\armors\green_antiradiation_helmet.json
+df7c52d64865178e88d891c64c7a587d04ab8ef0 data\createnuclear\advancements\recipes\combat\crafting\items\armors\red_antiradiation_leggings.json
+668586c6371061b53e3f782822e700b635fc2cfd data\createnuclear\advancements\recipes\misc\crafting\lead_block.json
+e6514a9a23d2f44d18298b6759a1cae856d54329 data\createnuclear\advancements\recipes\misc\crafting\reactor\reactor_input.json
+>>>>>>> main
 b2af0e726822ec7a5ff85c4e83d20fba44bfbbc5 data\createnuclear\recipes\crafting\items\armors\brown_antiradiation_chestplate.json
 c0356be0185e98b17830d029254c9598a764385c data\createnuclear\advancements\recipes\combat\crafting\items\armors\magenta_antiradiation_helmet.json
 68380bebd9857f4c1a11f6267ece9d70ba95df70 data\createnuclear\advancements\recipes\combat\crafting\items\armors\light_gray_antiradiation_leggings.json
@@ -88,6 +111,10 @@ a4120acd8c5fc2be25ffe40ac379073aba67ee77 data\createnuclear\advancements\recipes
 ff55c5d2d5d3bda54ae13b1d76f8e9f3ad9eb8e7 data\createnuclear\advancements\recipes\combat\crafting\items\armors\black_antiradiation_helmet.json
 9a752c20e8a43f0132d4ebf6179333396d950f1f data\createnuclear\recipes\crafting\items\armors\green_antiradiation_chestplate.json
 7e8b19f82bcb5af81aa7fd447b84ad773d6f025c data\createnuclear\advancements\recipes\misc\crafting\reactor\reactor_casing.json
+<<<<<<< HEAD
+=======
+a4c44d6301932949f6d00a93819a7c66ceb68aff data\createnuclear\recipes\crafting\lead_block.json
+>>>>>>> main
 f2841ff83321c5bf5d43649fb204fa3a97fd596e data\createnuclear\recipes\crafting\white_cloth.json
 3be25e47c079debf2249b85447e7ad22a172a90c data\createnuclear\advancements\recipes\combat\crafting\items\armors\red_antiradiation_chestplate.json
 ffca0fb212a8a89c18d88df891c0024cb57d7234 data\createnuclear\advancements\recipes\misc\crafting\enriching_campfire.json
@@ -105,11 +132,19 @@ e0df305b6d46f1d3b5baea85fb39be7e82e7be8e data\createnuclear\advancements\recipes
 c0d8b4766f5f9e397aece1a6e6047fbec86ced9f data\createnuclear\advancements\recipes\misc\crafting\reactor\reactor_main_frame.json
 b4820e98898c51fcba9588da78ac52400cc65a75 data\createnuclear\recipes\crafting\items\armors\blue_antiradiation_leggings.json
 6a42717051187373ba30c80ab196b55a5c4a4711 data\createnuclear\recipes\crafting\items\armors\gray_antiradiation_helmet.json
+<<<<<<< HEAD
 89b784b2172bcc9a00279bb0a28ac224f3cd4b1e data\createnuclear\advancements\recipes\combat\crafting\items\armors\blue_antiradiation_helmet.json
 47038807b6fb4c190c5b95fae358ee0152abcee9 data\createnuclear\advancements\recipes\combat\crafting\items\armors\white_antiradiation_helmet.json
 e6f5905ec99af806a99bc8419ca3476e59b090aa data\createnuclear\advancements\recipes\combat\crafting\items\armors\gray_antiradiation_chestplate.json
 bac253dbbb66089ffc1b92b332cfccb89fc7b591 data\createnuclear\advancements\recipes\combat\crafting\items\armors\gray_antiradiation_helmet.json
 e49b47465172520763c2e27c6e077f63fa80ca4c data\createnuclear\recipes\crafting\items\armors\yellow_antiradiation_helmet.json
+=======
+47038807b6fb4c190c5b95fae358ee0152abcee9 data\createnuclear\advancements\recipes\combat\crafting\items\armors\white_antiradiation_helmet.json
+89b784b2172bcc9a00279bb0a28ac224f3cd4b1e data\createnuclear\advancements\recipes\combat\crafting\items\armors\blue_antiradiation_helmet.json
+e6f5905ec99af806a99bc8419ca3476e59b090aa data\createnuclear\advancements\recipes\combat\crafting\items\armors\gray_antiradiation_chestplate.json
+e49b47465172520763c2e27c6e077f63fa80ca4c data\createnuclear\recipes\crafting\items\armors\yellow_antiradiation_helmet.json
+bac253dbbb66089ffc1b92b332cfccb89fc7b591 data\createnuclear\advancements\recipes\combat\crafting\items\armors\gray_antiradiation_helmet.json
+>>>>>>> main
 f781611b201b6d374c3d3f2427e674ea5f52cd4d data\createnuclear\recipes\crafting\items\armors\white_antiradiation_chestplate.json
 9e69a47f3388ce3482c5b161c6ce1132cce32897 data\createnuclear\advancements\recipes\misc\crafting\reactor\reactor_output.json
 9993ecf2be9d7a059dbbabf49c7f19652cc0c95a data\createnuclear\advancements\recipes\combat\crafting\items\armors\pink_antiradiation_helmet.json

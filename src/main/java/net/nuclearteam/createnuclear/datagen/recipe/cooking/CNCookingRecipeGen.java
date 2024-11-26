@@ -1,89 +1,96 @@
-package net.nuclearteam.createnuclear.datagen.recipe.shapeless;
+package net.nuclearteam.createnuclear.datagen.recipe.cooking;
 
 import com.google.common.base.Supplier;
-import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
-import com.simibubi.create.AllBlocks;
-import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
 import com.simibubi.create.foundation.utility.RegisteredObjects;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
-import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Block;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.item.CNItems;
-import net.nuclearteam.createnuclear.item.cloth.ClothItem;
-import net.nuclearteam.createnuclear.item.cloth.ClothItem.DyeRecipeList;
 import net.nuclearteam.createnuclear.tags.CNTag;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
-public class CNShapelessRecipeGen extends CreateRecipeProvider {
+public class CNCookingRecipeGen extends CreateRecipeProvider {
 
-    private String SHAPELESS = enterFolder("shapeless");
+    private final String BLAST_FURNACE = enterFolder("blast_furnace");
     GeneratedRecipe
+        URANIUM_ORE_TO_URANIUM_POWDER = blastFurnaceRecipeTags(() -> CNItems.RAW_URANIUM::get, () -> CNTag.ItemTags.URANIUM_ORES.tag, "_for_uranium_ore", 4),
+        RAW_LEAD_ORES = blastFurnaceRecipeTags(() -> CNItems.LEAD_INGOT::get, () -> CNTag.ItemTags.LEAD_ORES.tag, "_for_lead_ore", 1),
+        RAW_LEAD_BLOCK = blastFurnaceRecipe(CNBlocks.LEAD_BLOCK::asItem, CNBlocks.RAW_LEAD_BLOCK::asItem, "_for_raw_lead_block", 1),
+        RAW_LEAD = blastFurnaceRecipe(CNItems.LEAD_INGOT::get, CNItems.RAW_LEAD::get, "_for_raw_lead", 1)
+        ;
 
-        RAW_URANIUM = create(CNItems.RAW_URANIUM).returns(9)
-                .withSuffix("_from_decompacting")
-                .unlockedBy(CNItems.RAW_URANIUM::get)
-                .viaShapeless(b -> b.requires(CNBlocks.RAW_URANIUM_BLOCK.get())),
 
-        RAW_LEAD = create(CNItems.RAW_LEAD).returns(9)
-                .withSuffix("_from_decompacting")
-                .unlockedBy(CNItems.RAW_LEAD::get)
-                .viaShapeless(b -> b.requires(CNBlocks.RAW_LEAD_BLOCK.get())),
+    GeneratedRecipe blastFurnaceRecipe(Supplier<? extends ItemLike> result, Supplier<? extends ItemLike> ingredient, String suffix, int count) {
+        return create(result::get).withSuffix(suffix)
+                .returns(count)
+                .viaCooking(ingredient::get)
+                .rewardXP(.1f)
+                .inBlastFurnace();
+    }
 
-        LEAD_INGOT = create(CNItems.LEAD_INGOT).returns(9)
-                .withSuffix("_from_decompacting")
-                .unlockedBy(CNItems.LEAD_INGOT::get)
-                .viaShapeless(b -> b.requires(CNBlocks.LEAD_BLOCK.get())),
+    GeneratedRecipe blastFurnaceRecipeTags(Supplier<? extends ItemLike> result, Supplier<TagKey<Item>> ingredient, String suffix, int count) {
+        return create(result::get).withSuffix(suffix)
+                .returns(count)
+                .viaCookingTag(ingredient)
+                .rewardXP(.1f)
+                .inBlastFurnace();
+    }
 
-        LEAD_NUGGET= create(CNItems.LEAD_NUGGET).returns(9)
-                .withSuffix("_from_decompacting")
-                .unlockedBy(CNItems.LEAD_NUGGET::get)
-                .viaShapeless(b -> b.requires(CNItems.LEAD_INGOT.get())),
+    GeneratedRecipe smokerRecipe(Supplier<? extends ItemLike> result, Supplier<? extends ItemLike> ingredient, String suffix, int count) {
+        return create(result::get).withSuffix(suffix)
+                .returns(count)
+                .viaCooking(ingredient::get)
+                .rewardXP(.0f)
+                .inSmoker();
+    }
 
-    CONFIGURED_REACTOR_ITEM_CLEAR = clearData(CNItems.CONFIGURED_REACTOR_ITEM)
-    ;
+    GeneratedRecipe smokerRecipeTags(Supplier<? extends ItemLike> result, Supplier<TagKey<Item>> ingredient, String suffix, int count) {
+        return create(result::get).withSuffix(suffix)
+                .returns(count)
+                .viaCookingTag(ingredient)
+                .rewardXP(.0f)
+                .inSmoker();
+    }
 
-    private String SHAPELESS_CLOTH = enterFolder("shapeless/cloth");
+    GeneratedRecipe furnaceRecipe(Supplier<? extends ItemLike> result, Supplier<? extends ItemLike> ingredient, String suffix, int count) {
+        return create(result::get).withSuffix(suffix)
+                .returns(count)
+                .viaCooking(ingredient::get)
+                .rewardXP(.1f)
+                .inFurnace();
+    }
 
-    DyeRecipeList CLOTH_CHANGING = new DyeRecipeList(color -> {
-        List<Item> ingredients = new ArrayList<>(Arrays.asList(Items.WHITE_DYE, Items.ORANGE_DYE, Items.MAGENTA_DYE, Items.LIGHT_BLUE_DYE, Items.YELLOW_DYE, Items.LIME_DYE, Items.PINK_DYE, Items.GRAY_DYE, Items.LIGHT_GRAY_DYE, Items.CYAN_DYE, Items.PURPLE_DYE, Items.BLUE_DYE, Items.BROWN_DYE, Items.GREEN_DYE, Items.RED_DYE, Items.BLACK_DYE));
-
-        return create(CNItems.CLOTHS.get(color))
-            .unlockedBy(ClothItem.Cloths.WHITE_CLOTH::getItem)
-            .withCategory(RecipeCategory.BUILDING_BLOCKS)
-            .viaShapeless(b -> b
-                .requires(CNTag.ItemTags.CLOTH.tag)
-                .requires(ingredients.get(color.ordinal()))
-            );
-    });
-    
+    GeneratedRecipe furnaceRecipeTags(Supplier<? extends ItemLike> result, Supplier<TagKey<Item>> ingredient, String suffix, int count) {
+        return create(result::get).withSuffix(suffix)
+                .returns(count)
+                .viaCookingTag(ingredient)
+                .rewardXP(.1f)
+                .inFurnace();
+    }
 
     String currentFolder = "";
 
-    String enterFolder(String foldedr) {
-        currentFolder = foldedr;
+    String enterFolder(String folder) {
+        currentFolder = folder;
         return currentFolder;
     }
 
@@ -95,31 +102,8 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
         return new GeneratedRecipeBuilder(currentFolder, result);
     }
 
-    GeneratedRecipeBuilder create(ItemProviderEntry<? extends  ItemLike> result) {
+    GeneratedRecipeBuilder create(ItemProviderEntry<? extends ItemLike> result) {
         return create(result::get);
-    }
-
-    GeneratedRecipe metalCompacting(List<ItemProviderEntry<? extends ItemLike>> variants,
-                                    List<Supplier<TagKey<Item>>> ingredients) {
-        GeneratedRecipe result = null;
-        for (int i = 0; i + 1 < variants.size(); i++) {
-            ItemProviderEntry<? extends ItemLike> currentEntry = variants.get(i);
-            ItemProviderEntry<? extends ItemLike> nextEntry = variants.get(i + 1);
-            Supplier<TagKey<Item>> currentIngredient = ingredients.get(i);
-            Supplier<TagKey<Item>> nextIngredient = ingredients.get(i + 1);
-
-            result = create(currentEntry).returns(9)
-                    .withSuffix("_from_decompacting")
-                    .unlockedBy(nextEntry::get)
-                    .viaShapeless(b -> b.requires(nextIngredient.get()));
-        }
-        return result;
-    }
-
-    GeneratedRecipe clearData(ItemProviderEntry<? extends ItemLike> item) {
-        return create(item).withSuffix("_clear")
-                .unlockedBy(item::get)
-                .viaShapeless(b -> b.requires(item.get()));
     }
 
     class GeneratedRecipeBuilder {
@@ -194,38 +178,6 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
             return this;
         }
 
-        // FIXME 5.1 refactor - recipe categories as markers instead of sections?
-        GeneratedRecipe viaShaped(UnaryOperator<ShapedRecipeBuilder> builder) {
-            return register(consumer -> {
-                ShapedRecipeBuilder b = builder.apply(ShapedRecipeBuilder.shaped(category, result.get(), amount));
-                if (unlockedBy != null)
-                    b.unlockedBy("has_item", inventoryTrigger(unlockedBy.get()));
-                b.save(consumer, createSimpleLocation(path));
-            });
-        }
-
-        GeneratedRecipe viaShapeless(UnaryOperator<ShapelessRecipeBuilder> builder) {
-            return register(consumer -> {
-                ShapelessRecipeBuilder b = builder.apply(ShapelessRecipeBuilder.shapeless(category, result.get(), amount));
-                if (unlockedBy != null)
-                    b.unlockedBy("has_item", inventoryTrigger(unlockedBy.get()));
-                b.save(consumer, createSimpleLocation(path));
-            });
-        }
-
-        GeneratedRecipe viaNetheriteSmithing(Supplier<? extends Item> base, Supplier<Ingredient> upgradeMaterial) {
-            this.withCategory(RecipeCategory.COMBAT);
-            return register(consumer -> {
-                SmithingTransformRecipeBuilder b =
-                        SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
-                                Ingredient.of(base.get()), upgradeMaterial.get(), category, result.get()
-                                        .asItem());
-                b.unlocks("has_item", inventoryTrigger(ItemPredicate.Builder.item()
-                        .of(base.get())
-                        .build()));
-                b.save(consumer, createSimpleLocation(path));
-            });
-        }
 
         private ResourceLocation createSimpleLocation(String recipeType) {
             return CreateNuclear.asResource(recipeType + "/" + getRegistryName().getPath() + suffix);
@@ -268,12 +220,12 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
                 exp = 0;
             }
 
-            GeneratedCookingRecipeBuilder forDuration(int duration) {
+            GeneratedRecipeBuilder.GeneratedCookingRecipeBuilder forDuration(int duration) {
                 cookingTime = duration;
                 return this;
             }
 
-            GeneratedCookingRecipeBuilder rewardXP(float xp) {
+            GeneratedRecipeBuilder.GeneratedCookingRecipeBuilder rewardXP(float xp) {
                 exp = xp;
                 return this;
             }
@@ -328,14 +280,6 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
         }
     }
 
-    @Override
-    public String getName() {
-        return "CreateNuclear's Shapeless Recipes";
-    }
-
-    public CNShapelessRecipeGen(FabricDataOutput output) {
-        super(output);
-    }
 
     private static class ModdedCookingRecipeResult implements FinishedRecipe {
 
@@ -381,4 +325,13 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
     }
 
 
+
+    public CNCookingRecipeGen(FabricDataOutput output) {
+        super(output);
+    }
+
+    @Override
+    public String getName() {
+        return "CreateNuclear's Blasting Recipes";
+    }
 }
