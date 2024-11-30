@@ -202,6 +202,11 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
             if (!create && !entity.destroyed)
             {
                 player.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer"));
+                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "playsound minecraft:block.anvil.destroy master @a " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " 1 1");
+                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a times 20 60 20");
+                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a subtitle {\"text\":\"WARNING : Reactor Destroyed\",\"bold\":true,\"color\":\"red\"}");
+                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a title {\"text\":\"\"}");
+
                 level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, false));
                 entity.created = false;
                 entity.destroyed = true;
