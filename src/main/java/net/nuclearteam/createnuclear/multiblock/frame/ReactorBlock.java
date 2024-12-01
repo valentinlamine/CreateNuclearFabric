@@ -1,16 +1,14 @@
 package net.nuclearteam.createnuclear.multiblock.frame;
 
-import com.simibubi.create.AllItems;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
+import com.simibubi.create.foundation.utility.Lang;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.InteractionHand;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -18,8 +16,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.phys.BlockHitResult;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.blockentity.CNBlockEntities;
@@ -30,9 +26,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ReactorBlock extends Block implements IWrenchable/*, IBE<ReactorBlockEntity>*/ {
-    public ReactorBlock(Properties properties) {
+public class ReactorBlock extends Block implements IWrenchable, IBE<ReactorBlockEntity> {
+    private TypeBlock typeBlock;
+
+    public ReactorBlock(Properties properties, TypeBlock tBlock) {
         super(properties);
+        this.typeBlock = tBlock;
     }
 
 
@@ -70,7 +69,7 @@ public class ReactorBlock extends Block implements IWrenchable/*, IBE<ReactorBlo
     }
 
     public ReactorControllerBlock FindController(BlockPos blockPos, Level level, List<? extends Player> players, boolean first){ // Function that checks the surrounding blocks in order
-        BlockPos newBlock;                                                   // to find the controller and verify the pattern
+        BlockPos newBlock; // to find the controller and verify the pattern
         Vec3i pos = new Vec3i(blockPos.getX(), blockPos.getY(), blockPos.getZ());
         for (int y = pos.getY()-3; y != pos.getY()+4; y+=1) {
             for (int x = pos.getX()-5; x != pos.getX()+5; x+=1) {
@@ -92,13 +91,28 @@ public class ReactorBlock extends Block implements IWrenchable/*, IBE<ReactorBlo
         return null;
     }
 
-    /*@Override
+    @Override
     public Class<ReactorBlockEntity> getBlockEntityClass() {
         return ReactorBlockEntity.class;
     }
 
     @Override
     public BlockEntityType<? extends ReactorBlockEntity> getBlockEntityType() {
-        return CNBlockEntities.REACTOR_BLOCK.get();
-    }*/
+        return switch (typeBlock) {
+            case CORE -> CNBlockEntities.REACTOR_CORE.get();
+            case CASING -> CNBlockEntities.REACTOR_CASING.get();
+        };
+
+    }
+
+    public enum TypeBlock implements StringRepresentable {
+        CASING,
+        CORE,
+        ;
+
+        @Override
+        public String getSerializedName() {
+            return Lang.asId(name());
+        }
+    }
 }
