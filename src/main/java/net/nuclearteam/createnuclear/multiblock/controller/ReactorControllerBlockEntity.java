@@ -226,17 +226,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                     }
                     else {
                         this.rotate(getBlockState(), new BlockPos(getBlockPos().getX(), getBlockPos().getY() + FindController('O').getY(), getBlockPos().getZ()), getLevel(), 0);
-                        //print dans le termina
-                        /*CreateNuclear.LOGGER.warn("Le réacteur est arrété et devrait exploser : {}", FindController('C'));
-                        explodeReactorCore(level, getBlockPos());*/
                     }
-                    //rotate(getBlockState(), FindController('0'), getLevel(), heat);
                     return;
-
                 }
-                //convertePattern(configuredPattern.getOrCreateTag().getCompound("patternAll"));
-                //CreateNuclear.LOGGER.warn("calculateProgres: " + calculateProgres() + " total: " + total);
-
 
                 this.notifyUpdate();
             }

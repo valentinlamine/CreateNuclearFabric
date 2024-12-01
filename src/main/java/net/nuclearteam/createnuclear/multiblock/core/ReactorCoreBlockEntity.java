@@ -16,6 +16,9 @@ import net.nuclearteam.createnuclear.multiblock.frame.ReactorBlockEntity;
 import static net.nuclearteam.createnuclear.CNMultiblock.*;
 
 public class ReactorCoreBlockEntity extends ReactorBlockEntity {
+    private int countdownTicks = 0;
+
+
     public ReactorCoreBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
@@ -31,7 +34,14 @@ public class ReactorCoreBlockEntity extends ReactorBlockEntity {
         if (level.getBlockEntity(controllerPos) instanceof ReactorControllerBlockEntity reactorController) {
             int heat = (int) reactorController.configuredPattern.getOrCreateTag().getDouble("heat");
             if (IHeat.HeatLevel.of(heat) == IHeat.HeatLevel.DANGER) {
-                explodeReactorCore(level, getBlockPos());
+                if (countdownTicks >= 1200) { // 1200 ticks = 60 seconds
+                    explodeReactorCore(level, getBlockPos());
+                } else {
+                    countdownTicks++;
+                    CreateNuclear.LOGGER.warn("Countdown: " + countdownTicks + " ticks");
+                }
+            } else {
+                countdownTicks = 0; // Reset the countdown if the heat level is not in danger
             }
         }
     }
