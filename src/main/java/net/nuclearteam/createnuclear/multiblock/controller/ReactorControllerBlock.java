@@ -7,12 +7,16 @@ import com.simibubi.create.foundation.item.ItemHelper;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
 import io.github.fabricators_of_create.porting_lib.util.NetworkHooks;
+import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
+import net.fabricmc.fabric.mixin.command.CommandManagerMixin;
 import net.minecraft.ChatFormatting;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -178,8 +182,12 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
             CreateNuclear.LOGGER.info("structure verified, SUCCESS to create multiblock");
 
             for (Player player : players) {
-                if (create && !entity.created)                 {
-                    player.sendSystemMessage(Component.literal("WARNING : Reactor Assembled"));
+                if (create && !entity.created) {
+                    player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "playsound minecraft:block.beacon.activate master @a " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " 1 1");
+                    player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a times 20 60 20");
+                    player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a subtitle {\"text\":\"WARNING : Reactor Assembled\",\"bold\":true,\"color\":\"green\"}");
+                    player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a title {\"text\":\"\"}");
+
                     level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, true));
                     entity.created = true;
                     entity.destroyed = false;
@@ -193,8 +201,12 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         for (Player player : players) {
             if (!create && !entity.destroyed)
             {
-                //p.sendSystemMessage(Component.literal("CRITICAL : Reactor Destroyed"));
                 player.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer"));
+                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "playsound minecraft:block.anvil.destroy master @a " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " 1 1");
+                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a times 20 60 20");
+                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a subtitle {\"text\":\"WARNING : Reactor Destroyed\",\"bold\":true,\"color\":\"red\"}");
+                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a title {\"text\":\"\"}");
+
                 level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, false));
                 entity.created = false;
                 entity.destroyed = true;
@@ -219,12 +231,9 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
                 entity.speed = 0;
                 entity.updateSpeed = true;
                 entity.updateGeneratedRotation();
-                //CreateNuclear.LOGGER.info("Unchanged " + pos);
             }
 
             entity.setSpeed(rotation);
-
-            //CreateNuclear.LOGGER.info("SPEED : " + entity.getSpeed2() + " - DIR : " + entity.getDir() + "  pos : " + pos);
         }
     }
 
