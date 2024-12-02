@@ -7,6 +7,7 @@ import com.simibubi.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
+import net.minecraft.core.Vec3i;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -25,6 +26,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.blockentity.CNBlockEntities;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock;
@@ -58,7 +60,7 @@ public class ReactorOutput extends DirectionalKineticBlock implements IWrenchabl
 		if (level.isClientSide)
 			return InteractionResult.SUCCESS;
 		else {
-			ReactorControllerBlock controller = FindController(pos, level);
+			ReactorControllerBlock controller = FindController(pos, level, level.players(), false);
 			if (controller != null){
 				ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos.above(3));
                 assert entity != null;
@@ -74,30 +76,24 @@ public class ReactorOutput extends DirectionalKineticBlock implements IWrenchabl
 	}
 
 	@Override
-	public void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
-		super.onPlace(state, worldIn, pos, oldState, isMoving);
-		List<? extends Player> players = worldIn.players();
-		ReactorControllerBlock controller = FindController(pos, worldIn);
-		if (controller != null)
-			controller.Verify(controller.defaultBlockState(), pos.above(3), worldIn, players, true);
+	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+		super.onPlace(state, level, pos, oldState, isMoving);
+		List<? extends Player> players = level.players();
+		FindController(pos, level, players, true);
 	}
 
 	@Override
 	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
 		super.playerDestroy(level, player, pos, state, blockEntity, tool);
 		List<? extends Player> players = level.players();
-		ReactorControllerBlock controller = FindController(pos, level);
-		if (controller != null)
-			controller.Verify(controller.defaultBlockState(), pos.above(3), level, players, false);
+		FindController(pos, level, players, false);
 	}
 
 	@Override
 	public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
 		super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
 		List<? extends Player> players = pLevel.players();
-		ReactorControllerBlock controller = FindController(pPos, pLevel);
-		if (controller != null)
-			controller.Verify(controller.defaultBlockState(), pPos.above(3), pLevel, players, false);
+		FindController(pPos, pLevel, players, false);
 	}
 
 	@Override
@@ -147,11 +143,20 @@ public class ReactorOutput extends DirectionalKineticBlock implements IWrenchabl
 		return CNBlockEntities.REACTOR_OUTPUT.get();
 	}
 
-	public ReactorControllerBlock FindController(BlockPos pos, Level level){
-		if (level.getBlockState(pos.above(3)).getBlock() == CNBlocks.REACTOR_CONTROLLER.get()){
-            return (ReactorControllerBlock)level.getBlockState(pos.above(3)).getBlock();
+	public ReactorControllerBlock FindController(BlockPos blockPos, Level level, List<? extends Player> players, boolean first) {
+		BlockPos newBlock;                                                   // to find the controller and verify the pattern
+		Vec3i pos = new Vec3i(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+		newBlock = new BlockPos(pos.getX(), pos.getY() + 3, pos.getZ());
+		if (level.getBlockState(newBlock).is(CNBlocks.REACTOR_CONTROLLER.get())) { // verifying the pattern
+			CreateNuclear.LOGGER.info("ReactorController FOUND!!!!!!!!!!: ");      // from the controller
+			ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(newBlock).getBlock();
+			controller.Verify(level.getBlockState(newBlock), newBlock, level, players, first);
+			ReactorControllerBlockEntity entity = controller.getBlockEntity(level, newBlock);
+			if (entity.created) {
+				return controller;
+			}
 		}
-		return null;
-	}
+        return null;
+    }
 }
 

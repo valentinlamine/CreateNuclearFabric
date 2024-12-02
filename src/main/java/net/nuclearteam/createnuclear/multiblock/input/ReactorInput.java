@@ -7,6 +7,7 @@ import com.simibubi.create.foundation.item.ItemHelper;
 import io.github.fabricators_of_create.porting_lib.util.NetworkHooks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Vec3i;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -63,21 +64,17 @@ public class ReactorInput extends HorizontalDirectionalReactorBlock implements I
     }
 
     @Override
-    public void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
-        super.onPlace(state, worldIn, pos, oldState, isMoving);
-        List<? extends Player> players = worldIn.players();
-        ReactorControllerBlock controller = FindController(worldIn, new BlockPos(pos.getX(), pos.getY(), pos.getZ()+4));
-        if (controller != null)
-            controller.Verify(controller.defaultBlockState(), new BlockPos(pos.getX(), pos.getY(), pos.getZ()+4), worldIn, players, true);
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+        super.onPlace(state, level, pos, oldState, isMoving);
+        List<? extends Player> players = level.players();
+        FindController(pos, level, players, true);
     }
 
     @Override
     public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
         super.playerDestroy(level, player, pos, state, blockEntity, tool);
         List<? extends Player> players = level.players();
-        ReactorControllerBlock controller = FindController(level, new BlockPos(pos.getX(), pos.getY(), pos.getZ()+4));
-        if (controller != null)
-            controller.Verify(controller.defaultBlockState(), new BlockPos(pos.getX(), pos.getY(), pos.getZ()+4), level, players, false);
+        FindController(pos, level, players, false);
     }
 
     @Override
@@ -88,14 +85,26 @@ public class ReactorInput extends HorizontalDirectionalReactorBlock implements I
         pLevel.removeBlockEntity(pPos);
 
         List<? extends Player> players = pLevel.players();
-        ReactorControllerBlock controller = FindController(pLevel, new BlockPos(pPos.getX(), pPos.getY(), pPos.getZ()+4));
-        if (controller != null)
-            controller.Verify(controller.defaultBlockState(), new BlockPos(pPos.getX(), pPos.getY(), pPos.getZ()+4), pLevel, players, false);
+        FindController(pPos, pLevel, players, false);
     }
 
-    public ReactorControllerBlock FindController(Level level, BlockPos pos) {
-        if (level.getBlockState(new BlockPos(pos.getX(), pos.getY(), pos.getZ()+4)).getBlock() instanceof ReactorControllerBlock) {
-            return (ReactorControllerBlock) level.getBlockState(new BlockPos(pos.getX(), pos.getY(), pos.getZ()+4)).getBlock();
+    public ReactorControllerBlock FindController(BlockPos blockPos, Level level, List<? extends Player> players, boolean first){ // Function that checks the surrounding blocks in order
+        BlockPos newBlock;                                                   // to find the controller and verify the pattern
+        Vec3i pos = new Vec3i(blockPos.getX(), blockPos.getY(), blockPos.getZ());
+        for (int x = pos.getX()-5; x != pos.getX()+5; x+=1) {
+            for (int z = pos.getZ()-5; z != pos.getZ()+5; z+=1) {
+                newBlock = new BlockPos(x, pos.getY(), z);
+                if (level.getBlockState(newBlock).is(CNBlocks.REACTOR_CONTROLLER.get())) { // verifying the pattern
+                    CreateNuclear.LOGGER.info("ReactorController FOUND!!!!!!!!!!: ");      // from the controller
+                    ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(newBlock).getBlock();
+                    controller.Verify(level.getBlockState(newBlock), newBlock, level, players, first);
+                    ReactorControllerBlockEntity entity = controller.getBlockEntity(level, newBlock);
+                    if (entity.created) {
+                        return controller;
+                    }
+                }
+                //else CreateNuclear.LOGGER.info("newBlock: " + level.getBlockState(newBlock).getBlock());
+            }
         }
         return null;
     }

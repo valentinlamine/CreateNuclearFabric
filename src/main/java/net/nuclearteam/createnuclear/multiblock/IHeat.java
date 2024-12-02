@@ -16,7 +16,7 @@ public interface IHeat extends IWrenchable {
         NONE(ChatFormatting.DARK_GRAY, 0x000000),
         SAFETY(ChatFormatting.GREEN, 0x68CC03),
         CAUTION(ChatFormatting.YELLOW, 0xC9CC03),
-        WARNING(0xFF6A00, 0xC9CC03),
+        WARNING(ChatFormatting.GOLD, 0xFF6A00),
         DANGER(ChatFormatting.RED, 0xFF6A00),
         ;
 
@@ -46,7 +46,6 @@ public interface IHeat extends IWrenchable {
 
         public int getHeatValue() {
             return switch (this) {
-                case SAFETY -> 0;
                 case CAUTION -> 1;
                 case WARNING -> 2;
                 case DANGER -> 3;
@@ -67,7 +66,7 @@ public interface IHeat extends IWrenchable {
 
         public static LangBuilder getFormattedHeatText(int heat) {
             HeatLevel heatLevel = of(heat);
-            LangBuilder builder = Lang.builder(CreateNuclear.MOD_ID).text(TooltipHelper.makeProgressBar(5, heatLevel.ordinal()));
+            LangBuilder builder = Lang.builder(CreateNuclear.MOD_ID).text(TooltipHelper.makeProgressBar(5, heatLevel.ordinal()+1));
 
             builder.translate("tooltip.heatLevel." + Lang.asId(heatLevel.name()))
                     .space()

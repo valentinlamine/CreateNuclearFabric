@@ -214,8 +214,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                 ListTag inventoryTag = tag.getCompound("Inventory").getList("Items", Tag.TAG_COMPOUND);
                 fuelItem = ItemStack.of(inventoryTag.getCompound(0));
                 coolerItem = ItemStack.of(inventoryTag.getCompound(1));
-                if (fuelItem.getCount() > 0 && fuelItem.is(CNItems.URANIUM_ROD.get()) && updateTimers()) {
-                    TransferUtil.extract(be.inventory, ItemVariant.of(fuelItem), 2);
+                if (fuelItem.getCount() > 0 && fuelItem.is(CNItems.URANIUM_ROD.get()) && coolerItem.getCount() > 0 && coolerItem.is(CNItems.GRAPHITE_ROD.get()) && updateTimers()) {
+                    TransferUtil.extract(be.inventory, ItemVariant.of(fuelItem), configuredPattern.getOrCreateTag().getInt("countUraniumRod"));
+                    TransferUtil.extract(be.inventory, ItemVariant.of(coolerItem), configuredPattern.getOrCreateTag().getInt("countGraphiteRod"));
                     total = calculateProgres();
                     configuredPattern.getOrCreateTag().putDouble("heat", calculateHeat()/100);
                     int heat = (int) configuredPattern.getOrCreateTag().getDouble("heat");
@@ -345,7 +346,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                 CreateNuclear.LOGGER.warn(rotation + "");
                 if (state.getValue(ASSEMBLED)) { // Starting the energy
                     //CreateNuclear.LOGGER.info("Change " + pos);
-                    if (entity.getDir() == 1) rotation = -rotation;
                     entity.speed = rotation;
                     entity.heat = rotation;
                     CreateNuclear.LOGGER.warn("rotation: " + rotation + " heat: " + entity.heat);
@@ -357,7 +357,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                     entity.updateSpeed = true;
                     entity.updateGeneratedRotation();
                 }
-                if (rotation < 0) rotation = -rotation;
                 entity.setSpeed(rotation);
 
             }
