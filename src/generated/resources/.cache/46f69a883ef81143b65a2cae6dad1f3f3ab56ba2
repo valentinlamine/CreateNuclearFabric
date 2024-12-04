@@ -1,4 +1,4 @@
-// 1.20.1	2024-12-04T13:31:15.1598584	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2024-12-04T16:29:17.2676031	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 daa31add899fad57b3e8eb0b91f81bc6102fc10a assets\createnuclear\models\item\red_antiradiation_helmet.json
 62f405d930be8b534e863c8aac205687b943f3ef data\createnuclear\loot_tables\blocks\enriching_campfire.json
 e1b8fdc0555a1fdabda54f66cca868e444d1110b assets\createnuclear\models\block\enriched_soul_soil.json
@@ -15,7 +15,6 @@ f91f43a39c80f583f878ea1a0d944798c05f2388 data\createnuclear\loot_tables\entities
 d1e2191cd5b193cfebd5b9eea01d22f47789de6b assets\createnuclear\models\item\pink_antiradiation_chestplate.json
 b025fcc911efa469caf74c78a59e9f79b0f652f8 data\c\tags\blocks\ores_in_ground\deepslate.json
 f60cc23b30fc3a981888aa2f363aba24506ddd0b assets\createnuclear\models\item\brown_antiradiation_chestplate.json
-75b1d6f7a838e390d5d3801e5fb8f581fde779c2 assets\createnuclear\models\item\yellow_cake.json
 5bad8990f31085232b63b11d295b90b581af9a82 assets\createnuclear\models\item\raw_uranium_block.json
 561c9f9a4e153fc648a3c7224812c71c8ac2da5c assets\createnuclear\models\block\raw_uranium_block.json
 47114d814bdeba5f2ed0cf92c3cb063e5d403b5b assets\createnuclear\models\item\purple_antiradiation_chestplate.json
@@ -69,7 +68,7 @@ e11c7fa5830b0877af69bb18e650d2b1e6f90027 assets\createnuclear\blockstates\enrich
 40c4d56478534170e4d81d66fcb86a5726de3916 data\createnuclear\tags\blocks\lead_ores.json
 fdc9cf972cf27ce343d4f098ddcdc9a4e19d2404 data\c\tags\fluids\uranium.json
 b5820f4051f471efa9b221712afe1070ed65de23 data\createnuclear\tags\items\uranium_ores.json
-957c4e65ee4cb31f381e121698210cd3b391ea64 assets\createnuclear\lang\en_us.json
+f3fe131dcc31e2a16e9c971bd68a28b06e1b330f assets\createnuclear\lang\en_us.json
 5bdbfcb25048b5cb8bcc17336f708ee37ba1aed2 assets\createnuclear\models\item\pink_antiradiation_leggings.json
 78240d0c081d144592e76af622d0c9929569db17 assets\createnuclear\models\item\graphene.json
 f10bbdbab6112c58bebf2d98dc0ed3eb9370c09c assets\createnuclear\blockstates\lead_block.json
@@ -93,6 +92,7 @@ cfdc17ed6f2371c67b39073fc5497a3e1a05c36e data\createnuclear\loot_tables\blocks\r
 ba58a4c086d8937d6703795a9d80435c2d450e35 assets\createnuclear\models\item\raw_lead_block.json
 3171211192a2b92005177fd1ee2ce7fbe2592b52 assets\createnuclear\models\item\purple_cloth.json
 3a5955f81eeed80e907bf8e2ee4df14fe42843f0 assets\createnuclear\models\item\blue_cloth.json
+8bdc2fabbfc9fcc7c2ad4a3273897659d90b95ab assets\createnuclear\models\item\yellowcake.json
 a0c45a5183b5590b7463a37f43051f5bdd56ad88 assets\createnuclear\blockstates\reactor_controller.json
 afb58027ac876648cca4a87ef122fb7f2080223e assets\createnuclear\models\item\reactor_main_frame.json
 7c57b79a231d3e64837f46763fc67f2266adf5fb assets\createnuclear\models\item\green_antiradiation_helmet.json
@@ -126,9 +126,8 @@ fd642aefed8f59f5575c96ad1a0251e7773f3909 assets\createnuclear\models\block\lead_
 300b8a29d6a440a60320133481041671dde65448 assets\createnuclear\blockstates\lead_ore.json
 2d8f5d7d7babd2b02ae836846e62daabf84de427 data\createnuclear\loot_tables\entities\irradiated_chicken.json
 34c28d31d8b93699cc6ffab724d9c51670c0f3e2 assets\createnuclear\models\item\deepslate_lead_ore.json
-0232233443f2f7c7c638642a6319fffb0536c617 data\c\tags\items\lead_nuggets.json
 514930b644ce61263808d0c2d087fb211698aadc data\createnuclear\tags\entity_types\irradiated_immune.json
-e7b900ad28841036e4a5910f64df18d34ba871a2 assets\createnuclear\models\item\yellow_cake_enriched.json
+0232233443f2f7c7c638642a6319fffb0536c617 data\c\tags\items\lead_nuggets.json
 77c0a26f3704320fd123f02b002f1cb0254c5129 assets\createnuclear\models\item\red_antiradiation_leggings.json
 a1970879fd57836f5ae5d23352cdca277095bc7d assets\createnuclear\models\item\yellow_cloth.json
 00ee106fe13edb4cab15a82ba57a09cf84ba3370 assets\createnuclear\models\item\configured_reactor_item.json
@@ -136,6 +135,7 @@ a1970879fd57836f5ae5d23352cdca277095bc7d assets\createnuclear\models\item\yellow
 4557f548df100ae1d05e3b5711797225f6a39673 assets\createnuclear\blockstates\uranium_ore.json
 330efaa38d86d13a020bee4dc5f3c073f61a2bec data\createnuclear\tags\items\cloth.json
 7da7ddaac39353657166badddc16fe9eb79f1a27 assets\createnuclear\models\item\raw_lead.json
+306f5731ab788fa3cf3d75a7edfcc68b9c20613a assets\createnuclear\models\item\enriched_yellowcake.json
 9f81dccbba864441a1d76a5312216faa44e6e44b assets\createnuclear\models\item\pink_cloth.json
 66071fa68e7cd7bb08ddc61d861799f9005bed50 data\minecraft\tags\blocks\campfire.json
 5f99ed9ddf35d0c0759d24b9f28d37501f5001f0 data\c\tags\blocks\ores.json
@@ -161,10 +161,10 @@ ec3457068231fc1b1806563fe8f9ed577192c579 assets\createnuclear\models\item\magent
 bf46579ab4e96df318d76eb7ece4999ff158e28c data\createnuclear\loot_tables\blocks\reactor_main_frame.json
 72f88d0ce0957c6e73603dc4c514dfb20798dbaa data\createnuclear\tags\blocks\fan_processing_catalysts\enriched.json
 fc4d890be42f9f5cfdb89878f0c9092a223570c3 data\minecraft\tags\blocks\fire.json
-5514b8900b34767630e250a12f7aef93ba0067a4 assets\createnuclear\lang\en_ud.json
+ad196a9b8da24b293e8fa83341b2ac155ed6ae94 assets\createnuclear\lang\en_ud.json
 bcb30dce2419ce1ec2e043eaff83df82ac8a4bec assets\createnuclear\models\item\steel_ingot.json
-b48d83be9e5220278d2171cd184ecbe23f7d45e3 assets\createnuclear\models\item\black_antiradiation_leggings.json
 805d33f2cd7d0141d6fff763109f1461573cc930 assets\createnuclear\blockstates\reactor_casing.json
+b48d83be9e5220278d2171cd184ecbe23f7d45e3 assets\createnuclear\models\item\black_antiradiation_leggings.json
 c010a9a0f0b51101da71d5705a24b3339a3eb949 assets\createnuclear\models\item\red_antiradiation_chestplate.json
 c205fd277c39ec65f07f734a761861702e86ae64 assets\createnuclear\blockstates\reactor_cooling_frame.json
 e36c4c698a6ee46117175d9df202f2653ea75d0f assets\createnuclear\models\item\gray_antiradiation_chestplate.json

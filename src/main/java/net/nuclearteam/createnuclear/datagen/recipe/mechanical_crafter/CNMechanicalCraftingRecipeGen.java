@@ -34,7 +34,7 @@ public class CNMechanicalCraftingRecipeGen extends CreateRecipeProvider {
             ),
     URANIUM_ROD = create(CNItems.URANIUM_ROD::get)
             .recipe(b -> b
-                .key('U', Ingredient.of(CNItems.YELLOW_CAKE_ENRICHED))
+                .key('U', Ingredient.of(CNItems.ENRICHED_YELLOWCAKE))
                     .patternLine("    U")
                     .patternLine("   U ")
                     .patternLine("  U  ")

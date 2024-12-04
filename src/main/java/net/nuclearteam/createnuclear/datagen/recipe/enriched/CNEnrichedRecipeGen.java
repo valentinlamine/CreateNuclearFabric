@@ -18,7 +18,7 @@ public class CNEnrichedRecipeGen extends ProcessingRecipeGen {
 
     GeneratedRecipe
         ENRICHING_CAMPFIRES = convert(Items.CAMPFIRE, CNBlocks.ENRICHING_CAMPFIRE),
-        YELLOW_CAKE_ENRICHED = convert(() -> Ingredient.of(CNItems.YELLOW_CAKE), () -> CNItems.YELLOW_CAKE_ENRICHED)
+            ENRICHED_YELLOWCAKE = convert(() -> Ingredient.of(CNItems.YELLOWCAKE), () -> CNItems.ENRICHED_YELLOWCAKE)
     ;
 
 

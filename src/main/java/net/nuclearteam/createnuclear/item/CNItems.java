@@ -37,15 +37,14 @@ import net.nuclearteam.createnuclear.entity.CNMobEntityType;
 
 public class CNItems {
 
-    public static final Item YELLOW_CAKE_NETHER_STAR = registerItem("yellow_cake_nether_star_wip", new Item(new FabricItemSettings()));
 
     public static final ItemEntry<Item>
         URANIUM_POWDER = CreateNuclear.REGISTRATE
                 .item("uranium_powder", Item::new)
                 .register(),
 
-        YELLOW_CAKE = CreateNuclear.REGISTRATE
-                .item("yellow_cake", Item::new)
+        YELLOWCAKE = CreateNuclear.REGISTRATE
+                .item("yellowcake", Item::new)
                 .properties(p -> p.food(new FoodProperties.Builder()
                     .nutrition(20)
                     .saturationMod(0.3F)
@@ -60,8 +59,8 @@ public class CNItems {
                 )
                 .register(),
 
-        YELLOW_CAKE_ENRICHED = CreateNuclear.REGISTRATE
-                    .item("yellow_cake_enriched", Item::new)
+        ENRICHED_YELLOWCAKE = CreateNuclear.REGISTRATE
+                    .item("enriched_yellowcake", Item::new)
                     .register(),
 
         COAL_DUST = CreateNuclear.REGISTRATE
@@ -107,6 +106,8 @@ public class CNItems {
                 .item("graphite_rod", Item::new)
                 .tag(CNTag.forgeItemTag("rods"), CNTag.ItemTags.COOLER.tag)
                 .register()
+
+
     ;
   
     public static final Helmet.DyeItemHelmetList<Helmet> ANTI_RADIATION_HELMETS = new Helmet.DyeItemHelmetList<>(color -> {
@@ -204,7 +205,7 @@ public class CNItems {
     }
 
     public static void registerPotionsRecipes() {
-        PotionBrewing.addMix(Potions.AWKWARD, CNItems.YELLOW_CAKE_ENRICHED.get(), CNItems.potion_1);
+        PotionBrewing.addMix(Potions.AWKWARD, CNItems.ENRICHED_YELLOWCAKE.get(), CNItems.potion_1);
         PotionBrewing.addMix(potion_1, Items.REDSTONE, CNItems.potion_augment_1);
         PotionBrewing.addMix(potion_1, Items.GLOWSTONE_DUST, CNItems.potion_2);
     }

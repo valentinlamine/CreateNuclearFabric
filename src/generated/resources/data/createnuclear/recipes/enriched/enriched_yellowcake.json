@@ -2,12 +2,12 @@
   "type": "createnuclear:enriched",
   "ingredients": [
     {
-      "item": "createnuclear:yellow_cake"
+      "item": "createnuclear:yellowcake"
     }
   ],
   "results": [
     {
-      "item": "createnuclear:yellow_cake_enriched"
+      "item": "createnuclear:enriched_yellowcake"
     }
   ]
 }

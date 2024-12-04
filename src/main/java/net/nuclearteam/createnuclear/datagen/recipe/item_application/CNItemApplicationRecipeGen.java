@@ -19,7 +19,7 @@ import net.nuclearteam.createnuclear.item.CNItems;
 public class CNItemApplicationRecipeGen extends ProcessingRecipeGen {
 
     GeneratedRecipe REACTOR_CORE = itemApplication("reactor_core_from_steel_and_reactor_main_frame",
-            CNItems.YELLOW_CAKE_ENRICHED.get(),
+            CNItems.ENRICHED_YELLOWCAKE.get(),
             CNBlocks.REACTOR_MAIN_FRAME.get(),
             CNBlocks.REACTOR_CORE.get()
     );
@@ -32,6 +32,11 @@ public class CNItemApplicationRecipeGen extends ProcessingRecipeGen {
 
     GeneratedRecipe REACTOR_OUPUT = itemApplication("reactor_output_from_shaft_and_reactor_casing",
             AllBlocks.SHAFT.asItem(),
+            CNBlocks.REACTOR_CASING.get(),
+            CNBlocks.REACTOR_OUTPUT.get()
+    );
+    GeneratedRecipe REACTOR_INPUT = itemApplication("reactor_intput_from_hopper_and_reactor_casing",
+            Blocks.HOPPER.asItem(),
             CNBlocks.REACTOR_CASING.get(),
             CNBlocks.REACTOR_OUTPUT.get()
     );
