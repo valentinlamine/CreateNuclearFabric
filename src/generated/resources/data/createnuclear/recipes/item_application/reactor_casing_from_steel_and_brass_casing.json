@@ -1,0 +1,16 @@
+{
+  "type": "create:item_application",
+  "ingredients": [
+    {
+      "item": "create:brass_casing"
+    },
+    {
+      "item": "createnuclear:steel_ingot"
+    }
+  ],
+  "results": [
+    {
+      "item": "createnuclear:reactor_casing"
+    }
+  ]
+}

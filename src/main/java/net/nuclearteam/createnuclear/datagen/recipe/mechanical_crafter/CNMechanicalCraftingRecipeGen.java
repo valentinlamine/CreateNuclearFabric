@@ -1,6 +1,8 @@
 package net.nuclearteam.createnuclear.datagen.recipe.mechanical_crafter;
 
 import com.google.common.base.Supplier;
+import com.simibubi.create.AllBlocks;
+import com.simibubi.create.AllItems;
 import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
 import com.simibubi.create.foundation.data.recipe.MechanicalCraftingRecipeBuilder;
@@ -8,9 +10,12 @@ import com.simibubi.create.foundation.data.recipe.MechanicalCraftingRecipeGen;
 import com.simibubi.create.foundation.utility.RegisteredObjects;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 import net.nuclearteam.createnuclear.CreateNuclear;
+import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.item.CNItems;
 
 import java.util.function.UnaryOperator;
@@ -35,8 +40,70 @@ public class CNMechanicalCraftingRecipeGen extends CreateRecipeProvider {
                     .patternLine("  U  ")
                     .patternLine(" U   ")
                     .patternLine("U    ")
+            ),
+    REACTOR_MAIN_FRAME = create(CNBlocks.REACTOR_MAIN_FRAME::get)
+            .recipe(b -> b
+                    .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
+                    .key('G', Ingredient.of(CNBlocks.REINFORCED_GLASS))
+                    .key('B', Ingredient.of(Items.WATER_BUCKET))
+                    .key('S', Ingredient.of(CNItems.STEEL_INGOT))
+                    .patternLine("CCCCC")
+                    .patternLine("CSGSC")
+                    .patternLine("CGBGC")
+                    .patternLine("CSGSC")
+                    .patternLine("CCCCC")
+
+            ),
+
+    REACTOR_CONTROLLER = create(CNBlocks.REACTOR_CONTROLLER::get)
+            .recipe(b -> b
+                    .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
+                    .key('V', Ingredient.of(AllBlocks.ITEM_VAULT))
+                    .key('O', Ingredient.of(AllBlocks.SMART_OBSERVER))
+                    .key('T', Ingredient.of(AllItems.ELECTRON_TUBE))
+                    .key('N', Ingredient.of(Items.NETHERITE_INGOT))
+                    .key('X', Ingredient.of(Items.NETHER_STAR))
+                    .patternLine("CCCCC")
+                    .patternLine("CNONC")
+                    .patternLine("CTXTC")
+                    .patternLine("CNVNC")
+                    .patternLine("CCCCC")
+            ),
+
+    REACTOR_COOLING_FRAME= create(CNBlocks.REACTOR_COOLING_FRAME::get)
+            .recipe(b -> b
+                    .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
+                    .key('I', Ingredient.of(Blocks.BLUE_ICE))
+                    .key('G', Ingredient.of(CNBlocks.REINFORCED_GLASS))
+                    .key('S', Ingredient.of(CNItems.STEEL_INGOT))
+                    .patternLine("CCCCC")
+                    .patternLine("CSGSC")
+                    .patternLine("CIGIC")
+                    .patternLine("CSGSC")
+                    .patternLine("CCCCC")
+            ),
+
+
+
+    REACTOR_CORE = create(CNBlocks.REACTOR_CORE::get)
+            .recipe(b -> b
+                    .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
+                    .key('P', Ingredient.of(AllItems.PRECISION_MECHANISM))
+                    .key('B', Ingredient.of(Items.WATER_BUCKET))
+                    .key('S', Ingredient.of(CNItems.STEEL_INGOT))
+                    .patternLine("CCCCC")
+                    .patternLine("CPSPC")
+                    .patternLine("CSBSC")
+                    .patternLine("CPSPC")
+                    .patternLine("CCCCC")
+
             )
-    ;
+
+            ;
+
+
+
+
 
     GeneratedRecipeBuilder create(Supplier<ItemLike> result) {
         return new GeneratedRecipeBuilder(result);
