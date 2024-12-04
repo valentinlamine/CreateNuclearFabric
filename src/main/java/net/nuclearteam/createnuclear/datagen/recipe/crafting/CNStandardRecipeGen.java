@@ -61,6 +61,13 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                         .pattern("LLL")
                         .showNotification(true)
                 ),
+        STEEL_BLOCK = create(CNBlocks.STEEL_BLOCK).unlockedBy(CNItems.STEEL_INGOT::get)
+                .viaShaped(b -> b.define('S', CNItems.STEEL_INGOT.get())
+                        .pattern("SSS")
+                        .pattern("SSS")
+                        .pattern("SSS")
+                        .showNotification(true)
+                ),
     ENRICHED_SOUL_SOIL = create(CNBlocks.ENRICHED_SOUL_SOIL).unlockedBy(() -> Items.NETHER_STAR)
             .viaShaped(b -> b
                     .define('S', Blocks.SOUL_SOIL)
@@ -96,9 +103,12 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
             ),
 
         LEAD_COMPACTING = metalCompacting(ImmutableList.of(CNItems.LEAD_NUGGET, CNItems.LEAD_INGOT, CNBlocks.LEAD_BLOCK),
-            ImmutableList.of(() -> CNTag.forgeItemTag("lead_nuggets"), () -> CNTag.forgeItemTag("lead_ingots"), () -> CNTag.forgeItemTag("lead_blocks"))),
+            ImmutableList.of(() -> CNTag.forgeItemTag("lead_nuggets"), () -> CNTag.forgeItemTag("lead_ingots"), () -> CNTag.forgeItemTag("steel_blocks"))),
 
-        RAW_LEAD_BLOCK = create(CNBlocks.RAW_LEAD_BLOCK).unlockedBy(CNItems.RAW_LEAD::get)
+        STEEL_COMPACTING = metalCompacting(ImmutableList.of(CNItems.STEEL_NUGGET, CNItems.STEEL_INGOT, CNBlocks.STEEL_BLOCK),
+                ImmutableList.of(() -> CNTag.forgeItemTag("steel_nuggets"), () -> CNTag.forgeItemTag("steel_ingots"), () -> CNTag.forgeItemTag("steel_blocks"))),
+
+    RAW_LEAD_BLOCK = create(CNBlocks.RAW_LEAD_BLOCK).unlockedBy(CNItems.RAW_LEAD::get)
             .viaShaped(b -> b.define('R', CNItems.RAW_LEAD.get())
                 .pattern("RRR")
                 .pattern("RRR")

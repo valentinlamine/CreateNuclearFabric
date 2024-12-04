@@ -97,6 +97,11 @@ public class CNItems {
                 .tag(CNTag.forgeItemTag("nuggets"), CNTag.forgeItemTag("lead_nuggets"))
                 .register(),
 
+        STEEL_NUGGET = CreateNuclear.REGISTRATE
+                .item("steel_nugget", Item::new)
+                .tag(CNTag.forgeItemTag("nuggets"), CNTag.forgeItemTag("steel_nuggets"))
+                .register(),
+
         URANIUM_ROD = CreateNuclear.REGISTRATE
                 .item("uranium_rod", Item::new)
                 .tag(CNTag.forgeItemTag("rods"), CNTag.ItemTags.FUEL.tag)
