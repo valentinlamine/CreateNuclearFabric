@@ -68,6 +68,13 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                         .pattern("SSS")
                         .showNotification(true)
                 ),
+        STEEL_INGOT = create(CNItems.STEEL_INGOT).unlockedBy(CNItems.STEEL_NUGGET::get)
+                .viaShaped(b -> b.define('S', CNItems.STEEL_NUGGET.get())
+                        .pattern("SSS")
+                        .pattern("SSS")
+                        .pattern("SSS")
+                        .showNotification(true)
+                ),
     ENRICHED_SOUL_SOIL = create(CNBlocks.ENRICHED_SOUL_SOIL).unlockedBy(() -> Items.NETHER_STAR)
             .viaShaped(b -> b
                     .define('S', Blocks.SOUL_SOIL)
