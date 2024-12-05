@@ -167,6 +167,14 @@ public class CNBlocks {
                     .tag(CNTag.forgeBlockTag("storage_blocks"))
                     .register();
 
+    public static final BlockEntry<Block> STEEL_BLOCK =
+            CreateNuclear.REGISTRATE.block("steel_block", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .simpleItem()
+                    .transform(pickaxeOnly())
+                    .tag(CNTag.forgeBlockTag("storage_blocks"))
+                    .register();
+
     public static final BlockEntry<Block> ENRICHED_SOUL_SOIL =
             CreateNuclear.REGISTRATE.block("enriched_soul_soil", Block::new)
                     .initialProperties(CNBlocks::getSoulSoil)

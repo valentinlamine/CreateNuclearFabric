@@ -16,7 +16,7 @@ import java.util.function.UnaryOperator;
 public class CNCompactingRecipeGen extends ProcessingRecipeGen {
 
     GeneratedRecipe
-        YELLOW_CAKE = create(CreateNuclear.asResource("uranium_fluid_to_yellow_cake"), b -> b.require(CNFluids.URANIUM.get(), 8100).output(CNItems.YELLOW_CAKE, 1));
+        YELLOWCAKE = create(CreateNuclear.asResource("uranium_fluid_to_yellowcake"), b -> b.require(CNFluids.URANIUM.get(), 8100).output(CNItems.YELLOWCAKE, 1));
 
 
     public CNCompactingRecipeGen(FabricDataOutput output) {

@@ -5,9 +5,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
-import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
-import com.simibubi.create.foundation.data.recipe.StandardRecipeGen;
 import com.simibubi.create.foundation.utility.RegisteredObjects;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
@@ -29,7 +27,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.item.CNItems;
-import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem;
 import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.DyeRecipArmorList;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem;
 import net.nuclearteam.createnuclear.tags.CNTag;
@@ -62,6 +59,20 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                         .pattern("LLL")
                         .pattern("LLL")
                         .pattern("LLL")
+                        .showNotification(true)
+                ),
+        STEEL_BLOCK = create(CNBlocks.STEEL_BLOCK).unlockedBy(CNItems.STEEL_INGOT::get)
+                .viaShaped(b -> b.define('S', CNItems.STEEL_INGOT.get())
+                        .pattern("SSS")
+                        .pattern("SSS")
+                        .pattern("SSS")
+                        .showNotification(true)
+                ),
+        STEEL_INGOT = create(CNItems.STEEL_INGOT).unlockedBy(CNItems.STEEL_NUGGET::get)
+                .viaShaped(b -> b.define('S', CNItems.STEEL_NUGGET.get())
+                        .pattern("SSS")
+                        .pattern("SSS")
+                        .pattern("SSS")
                         .showNotification(true)
                 ),
     ENRICHED_SOUL_SOIL = create(CNBlocks.ENRICHED_SOUL_SOIL).unlockedBy(() -> Items.NETHER_STAR)
@@ -99,9 +110,12 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
             ),
 
         LEAD_COMPACTING = metalCompacting(ImmutableList.of(CNItems.LEAD_NUGGET, CNItems.LEAD_INGOT, CNBlocks.LEAD_BLOCK),
-            ImmutableList.of(() -> CNTag.forgeItemTag("lead_nuggets"), () -> CNTag.forgeItemTag("lead_ingots"), () -> CNTag.forgeItemTag("lead_blocks"))),
+            ImmutableList.of(() -> CNTag.forgeItemTag("lead_nuggets"), () -> CNTag.forgeItemTag("lead_ingots"), () -> CNTag.forgeItemTag("steel_blocks"))),
 
-        RAW_LEAD_BLOCK = create(CNBlocks.RAW_LEAD_BLOCK).unlockedBy(CNItems.RAW_LEAD::get)
+        STEEL_COMPACTING = metalCompacting(ImmutableList.of(CNItems.STEEL_NUGGET, CNItems.STEEL_INGOT, CNBlocks.STEEL_BLOCK),
+                ImmutableList.of(() -> CNTag.forgeItemTag("steel_nuggets"), () -> CNTag.forgeItemTag("steel_ingots"), () -> CNTag.forgeItemTag("steel_blocks"))),
+
+    RAW_LEAD_BLOCK = create(CNBlocks.RAW_LEAD_BLOCK).unlockedBy(CNItems.RAW_LEAD::get)
             .viaShaped(b -> b.define('R', CNItems.RAW_LEAD.get())
                 .pattern("RRR")
                 .pattern("RRR")
@@ -115,80 +129,6 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
     private String CRAFTING_REACTOR = enterFolder("crafting/reactor");
 
     GeneratedRecipe
-            REACTOR_CASING = create(CNBlocks.REACTOR_CASING).unlockedBy(AllBlocks.COPPER_CASING::get)
-            .viaShaped(b -> b
-                .define('C', AllBlocks.COPPER_CASING.get())
-                .define('P', AllItems.PRECISION_MECHANISM.get())
-                .pattern("CCC")
-                .pattern("CPC")
-                .pattern("CCC")
-                .showNotification(true)),
-
-        REACTOR_CONTROLLER = create(CNBlocks.REACTOR_CONTROLLER).unlockedBy(CNBlocks.REACTOR_CASING::get)
-            .viaShaped(b -> b
-                .define('I', Blocks.IRON_BLOCK)
-                .define('N', Items.NETHERITE_INGOT)
-                .define('R', AllBlocks.ROTATION_SPEED_CONTROLLER)
-                .define('E', AllItems.ELECTRON_TUBE)
-                .pattern("INI")
-                .pattern("ERE")
-                .pattern("INI")
-                .showNotification(true)
-            ),
-
-        REACTOR_CORE = create(CNBlocks.REACTOR_CORE).unlockedBy(CNBlocks.REACTOR_CASING::get)
-                .viaShaped(b -> b
-                        .define('S', CNItems.STEEL_INGOT)
-                        .define('P', AllItems.PRECISION_MECHANISM)
-                        .define('N', Blocks.NETHERITE_BLOCK)
-                        .pattern("SSS")
-                        .pattern("PNP")
-                        .pattern("SSS")
-                        .showNotification(true)
-                ),
-        REACTOR_COOLING_FRAME = create(CNBlocks.REACTOR_COOLING_FRAME).unlockedBy(CNBlocks.REACTOR_CASING::get)
-                .viaShaped(b -> b
-                        .define('B', Blocks.BLUE_ICE)
-                        .define('G', CNBlocks.REINFORCED_GLASS)
-                        .define('S', CNItems.STEEL_INGOT)
-                        .pattern("SGS")
-                        .pattern("BGB")
-                        .pattern("SGS")
-                        .showNotification(true)
-                ),
-
-    REACTOR_MAIN_FRAME = create(CNBlocks.REACTOR_MAIN_FRAME).unlockedBy(CNBlocks.REACTOR_CASING::get)
-        .viaShaped(b -> b
-            .define('N', Items.NETHERITE_INGOT)
-            .define('G', CNBlocks.REINFORCED_GLASS)
-            .define('C', Blocks.COPPER_BLOCK)
-            .pattern("NCN")
-            .pattern("CGC")
-            .pattern("NCN")
-            .showNotification(true)
-        ),
-
-    REACTOR_OUPUT = create(CNBlocks.REACTOR_OUTPUT).unlockedBy(CNBlocks.REACTOR_CASING::get)
-            .viaShaped(b -> b
-                    .define('N', Items.NETHERITE_INGOT)
-                    .define('S', AllBlocks.SHAFT)
-                    .define('C', Blocks.COPPER_BLOCK)
-                    .pattern("NCN")
-                    .pattern("CSC")
-                    .pattern("NCN")
-                    .showNotification(true)
-            ),
-
-    REACTOR_INPUT = create(CNBlocks.REACTOR_INPUT).unlockedBy(CNBlocks.REACTOR_CASING::get)
-            .viaShaped(b -> b
-                    .define('N', Items.NETHERITE_INGOT)
-                    .define('H', Blocks.HOPPER)
-                    .define('C', Blocks.COPPER_BLOCK)
-                    .pattern("NCN")
-                    .pattern("CHC")
-                    .pattern("NCN")
-                    .showNotification(true)
-            ),
     LEAD_INGOT = create(CNItems.LEAD_INGOT).unlockedBy(CNItems.RAW_LEAD::get)
             .viaShaped(b -> b
                     .define('N', CNItems.LEAD_NUGGET.get())

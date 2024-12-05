@@ -8,6 +8,7 @@
     "createnuclear:raw_uranium_block",
     "createnuclear:raw_lead_block",
     "createnuclear:lead_block",
+    "createnuclear:steel_block",
     "createnuclear:reactor_output",
     "createnuclear:enriching_campfire",
     "createnuclear:reactor_controller",

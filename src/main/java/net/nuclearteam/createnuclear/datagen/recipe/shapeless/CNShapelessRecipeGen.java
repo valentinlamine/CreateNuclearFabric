@@ -62,6 +62,16 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
                 .unlockedBy(CNItems.LEAD_NUGGET::get)
                 .viaShapeless(b -> b.requires(CNItems.LEAD_INGOT.get())),
 
+        STEEL_INGOT = create(CNItems.STEEL_INGOT).returns(9)
+                .withSuffix("_from_decompacting")
+                .unlockedBy(CNItems.STEEL_INGOT::get)
+                .viaShapeless(b -> b.requires(CNBlocks.STEEL_BLOCK.get())),
+
+        STEEL_NUGGET= create(CNItems.STEEL_NUGGET).returns(9)
+                .withSuffix("_from_decompacting")
+                .unlockedBy(CNItems.STEEL_NUGGET::get)
+                .viaShapeless(b -> b.requires(CNItems.STEEL_INGOT.get())),
+
     CONFIGURED_REACTOR_ITEM_CLEAR = clearData(CNItems.CONFIGURED_REACTOR_ITEM)
     ;
 

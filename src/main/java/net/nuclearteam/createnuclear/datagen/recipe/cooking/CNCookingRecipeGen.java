@@ -34,7 +34,6 @@ public class CNCookingRecipeGen extends CreateRecipeProvider {
     GeneratedRecipe
         URANIUM_ORE_TO_URANIUM_POWDER = blastFurnaceRecipeTags(() -> CNItems.RAW_URANIUM::get, () -> CNTag.ItemTags.URANIUM_ORES.tag, "_for_uranium_ore", 4),
         RAW_LEAD_ORES = blastFurnaceRecipeTags(() -> CNItems.LEAD_INGOT::get, () -> CNTag.ItemTags.LEAD_ORES.tag, "_for_lead_ore", 1),
-        RAW_LEAD_BLOCK = blastFurnaceRecipe(CNBlocks.LEAD_BLOCK::asItem, CNBlocks.RAW_LEAD_BLOCK::asItem, "_for_raw_lead_block", 1),
         RAW_LEAD = blastFurnaceRecipe(CNItems.LEAD_INGOT::get, CNItems.RAW_LEAD::get, "_for_raw_lead", 1)
         ;
 

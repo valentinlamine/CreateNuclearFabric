@@ -1,0 +1,15 @@
+{
+  "type": "create:compacting",
+  "ingredients": [
+    {
+      "amount": 8100,
+      "fluid": "createnuclear:uranium",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "item": "createnuclear:yellowcake"
+    }
+  ]
+}
