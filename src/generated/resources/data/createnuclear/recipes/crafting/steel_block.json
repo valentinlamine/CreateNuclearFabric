@@ -2,23 +2,17 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "minecraft:blue_ice"
-    },
-    "G": {
-      "item": "createnuclear:reinforced_glass"
-    },
     "S": {
       "item": "createnuclear:steel_ingot"
     }
   },
   "pattern": [
-    "SGS",
-    "BGB",
-    "SGS"
+    "SSS",
+    "SSS",
+    "SSS"
   ],
   "result": {
-    "item": "createnuclear:reactor_cooling_frame"
+    "item": "createnuclear:steel_block"
   },
   "show_notification": true
 }

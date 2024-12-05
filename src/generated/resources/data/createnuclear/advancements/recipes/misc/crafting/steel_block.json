@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "create:copper_casing"
+              "createnuclear:steel_ingot"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:crafting/reactor/reactor_casing"
+        "recipe": "createnuclear:crafting/steel_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "createnuclear:crafting/reactor/reactor_casing"
+      "createnuclear:crafting/steel_block"
     ]
   },
   "sends_telemetry_event": false

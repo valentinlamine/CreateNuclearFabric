@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "createnuclear:reactor_casing"
+              "createnuclear:steel_nugget"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:crafting/reactor/reactor_main_frame"
+        "recipe": "createnuclear:crafting/materials/steel_ingot_from_compacting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "createnuclear:crafting/reactor/reactor_main_frame"
+      "createnuclear:crafting/materials/steel_ingot_from_compacting"
     ]
   },
   "sends_telemetry_event": false

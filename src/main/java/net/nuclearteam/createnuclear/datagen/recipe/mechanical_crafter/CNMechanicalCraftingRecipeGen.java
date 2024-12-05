@@ -16,6 +16,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
+import net.nuclearteam.createnuclear.fluid.CNFluids;
 import net.nuclearteam.createnuclear.item.CNItems;
 
 import java.util.function.UnaryOperator;
@@ -32,7 +33,7 @@ public class CNMechanicalCraftingRecipeGen extends CreateRecipeProvider {
                     .patternLine("SGS")
                     .patternLine("SGS")
             ),
-    URANIUM_ROD = create(CNItems.URANIUM_ROD::get)
+        URANIUM_ROD = create(CNItems.URANIUM_ROD::get)
             .recipe(b -> b
                 .key('U', Ingredient.of(CNItems.ENRICHED_YELLOWCAKE))
                     .patternLine("    U")
@@ -41,21 +42,20 @@ public class CNMechanicalCraftingRecipeGen extends CreateRecipeProvider {
                     .patternLine(" U   ")
                     .patternLine("U    ")
             ),
-    REACTOR_MAIN_FRAME = create(CNBlocks.REACTOR_MAIN_FRAME::get)
+        REACTOR_MAIN_FRAME = create(CNBlocks.REACTOR_MAIN_FRAME::get)
             .recipe(b -> b
                     .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
                     .key('G', Ingredient.of(CNBlocks.REINFORCED_GLASS))
-                    .key('B', Ingredient.of(Items.WATER_BUCKET))
+                    .key('B', Ingredient.of(CNFluids.URANIUM.get().getBucket()))
                     .key('S', Ingredient.of(CNItems.STEEL_INGOT))
                     .patternLine("CCCCC")
                     .patternLine("CSGSC")
                     .patternLine("CGBGC")
                     .patternLine("CSGSC")
                     .patternLine("CCCCC")
-
             ),
 
-    REACTOR_CONTROLLER = create(CNBlocks.REACTOR_CONTROLLER::get)
+        REACTOR_CONTROLLER = create(CNBlocks.REACTOR_CONTROLLER::get)
             .recipe(b -> b
                     .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
                     .key('V', Ingredient.of(AllBlocks.ITEM_VAULT))
@@ -70,7 +70,7 @@ public class CNMechanicalCraftingRecipeGen extends CreateRecipeProvider {
                     .patternLine("CCCCC")
             ),
 
-    REACTOR_COOLING_FRAME= create(CNBlocks.REACTOR_COOLING_FRAME::get)
+        REACTOR_COOLING_FRAME= create(CNBlocks.REACTOR_COOLING_FRAME::get)
             .recipe(b -> b
                     .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
                     .key('I', Ingredient.of(Blocks.BLUE_ICE))
@@ -85,21 +85,18 @@ public class CNMechanicalCraftingRecipeGen extends CreateRecipeProvider {
 
 
 
-    REACTOR_CORE = create(CNBlocks.REACTOR_CORE::get)
+        REACTOR_CORE = create(CNBlocks.REACTOR_CORE::get)
             .recipe(b -> b
                     .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
                     .key('P', Ingredient.of(AllItems.PRECISION_MECHANISM))
-                    .key('B', Ingredient.of(Items.WATER_BUCKET))
+                    .key('B', Ingredient.of(CNFluids.URANIUM.get().getBucket()))
                     .key('S', Ingredient.of(CNItems.STEEL_INGOT))
                     .patternLine("CCCCC")
                     .patternLine("CPSPC")
                     .patternLine("CSBSC")
                     .patternLine("CPSPC")
                     .patternLine("CCCCC")
-
-            )
-
-            ;
+            );
 
 
 
