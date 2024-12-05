@@ -2,7 +2,10 @@ package net.nuclearteam.createnuclear.multiblock.energy;
 
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
+import com.simibubi.create.content.kinetics.motor.CreativeMotorBlock;
+import com.simibubi.create.content.kinetics.motor.CreativeMotorBlockEntity;
 import com.simibubi.create.content.kinetics.motor.KineticScrollValueBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
@@ -10,8 +13,11 @@ import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollVa
 import com.simibubi.create.foundation.utility.AngleHelper;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.VecHelper;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -21,6 +27,7 @@ import net.minecraft.world.phys.Vec3;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock;
+import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
 
 import static net.nuclearteam.createnuclear.multiblock.energy.ReactorOutput.DIR;
 
@@ -42,15 +49,40 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 		super.addBehaviours(behaviours);
 
 		generatedSpeed = new KineticScrollValueBehaviour(Lang.translateDirect("kinetics.reactor_output.rotation_speed"), this, new ReactorOutputValue());
-		//generatedSpeed.between(0, 5000*300);
-		generatedSpeed.setValue(speed*16);
+		generatedSpeed.between(-(5000*300), 5000*300);
+		generatedSpeed.setValue(speed);
 		generatedSpeed.withCallback(i -> this.updateGeneratedRotation());
 		behaviours.add(generatedSpeed);
+
 	}
 
 	@Override
 	public float calculateAddedStressCapacity() {
-		return speed*16;
+		return speed;
+	}
+
+	@Override
+	public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+		boolean added = super.addToGoggleTooltip(tooltip, isPlayerSneaking);
+		/*if (!IRotate.StressImpact.isEnabled())
+			return added;*/
+
+		float speed = getSpeed();
+
+		if (getBlockState().getValue(ReactorOutput.FACING).getAxisDirection() == Direction.AxisDirection.NEGATIVE) {
+			speed = -speed;
+		}
+
+		float stressTotal = speed * speed;
+		Lang.number(stressTotal)
+				.translate("generic.unit.stress")
+				.style(ChatFormatting.AQUA)
+				.space()
+				.add(Lang.translate("gui.goggles.at_current_speed")
+						.style(ChatFormatting.DARK_GRAY))
+				.forGoggles(tooltip);
+
+		return true;
 	}
 
 	@Override
@@ -72,7 +104,6 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 		if (level.getBlockState(pos.above(3)).getBlock() == CNBlocks.REACTOR_CONTROLLER.get()){
             ReactorControllerBlock controller = (ReactorControllerBlock)level.getBlockState(pos.above(3)).getBlock();
 			controller.Verify(controller.defaultBlockState(), pos.above(3), level, level.players(), false);
-			//controller.Rotate(controller.defaultBlockState(), pos, level, getSpeed2());
 		}
 	}
 
