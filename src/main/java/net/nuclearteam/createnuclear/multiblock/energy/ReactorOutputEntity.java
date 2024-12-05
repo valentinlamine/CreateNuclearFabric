@@ -47,7 +47,6 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 	@Override
 	public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
 		super.addBehaviours(behaviours);
-
 		generatedSpeed = new KineticScrollValueBehaviour(Lang.translateDirect("kinetics.reactor_output.rotation_speed"), this, new ReactorOutputValue());
 		generatedSpeed.between(-(5000*300), 5000*300);
 		generatedSpeed.setValue(speed);
@@ -63,25 +62,24 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 
 	@Override
 	public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-		boolean added = super.addToGoggleTooltip(tooltip, isPlayerSneaking);
+		Lang.translate("gui.goggles.generator_stats")
+				.forGoggles(tooltip);
+		Lang.translate("tooltip.capacityProvided")
+				.style(ChatFormatting.GRAY)
+				.forGoggles(tooltip);
 		/*if (!IRotate.StressImpact.isEnabled())
 			return added;*/
 
-		float speed = getSpeed();
+		setSpeed((int) Math.abs(getSpeed()));
 
-		if (getBlockState().getValue(ReactorOutput.FACING).getAxisDirection() == Direction.AxisDirection.NEGATIVE) {
-			speed = -speed;
-		}
-
-		float stressTotal = speed * speed;
+		float stressTotal = this.speed * this.speed;
 		Lang.number(stressTotal)
 				.translate("generic.unit.stress")
 				.style(ChatFormatting.AQUA)
 				.space()
 				.add(Lang.translate("gui.goggles.at_current_speed")
 						.style(ChatFormatting.DARK_GRAY))
-				.forGoggles(tooltip);
-
+				.forGoggles(tooltip, 1);
 		return true;
 	}
 
