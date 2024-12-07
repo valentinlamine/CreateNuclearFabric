@@ -59,13 +59,8 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 
 	@Override
 	public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-		boolean added = super.addToGoggleTooltip(tooltip, isPlayerSneaking);
-		if (!IRotate.StressImpact.isEnabled())
-			return added;
 
 		float stressBase = calculateAddedStressCapacity();
-		
-
 
 		Lang.translate("gui.goggles.generator_stats")
 				.forGoggles(tooltip);
