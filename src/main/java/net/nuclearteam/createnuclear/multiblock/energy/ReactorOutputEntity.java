@@ -2,6 +2,7 @@ package net.nuclearteam.createnuclear.multiblock.energy;
 
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.simibubi.create.content.kinetics.KineticNetwork;
 import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.motor.CreativeMotorBlock;
@@ -48,31 +49,35 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 	public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
 		super.addBehaviours(behaviours);
 		generatedSpeed = new KineticScrollValueBehaviour(Lang.translateDirect("kinetics.reactor_output.rotation_speed"), this, new ReactorOutputValue());
-		generatedSpeed.between(-(5000*300), 5000*300);
+		generatedSpeed.between(-1500000, 1500000);
 		generatedSpeed.setValue(speed);
 		generatedSpeed.withCallback(i -> this.updateGeneratedRotation());
 		behaviours.add(generatedSpeed);
 
 	}
 
-	@Override
-	public float calculateAddedStressCapacity() {
-		return speed;
-	}
 
 	@Override
 	public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+		boolean added = super.addToGoggleTooltip(tooltip, isPlayerSneaking);
+		if (!IRotate.StressImpact.isEnabled())
+			return added;
+
+		float stressBase = calculateAddedStressCapacity();
+		
+
+
 		Lang.translate("gui.goggles.generator_stats")
 				.forGoggles(tooltip);
 		Lang.translate("tooltip.capacityProvided")
 				.style(ChatFormatting.GRAY)
 				.forGoggles(tooltip);
-		/*if (!IRotate.StressImpact.isEnabled())
-			return added;*/
 
-		setSpeed((int) Math.abs(getSpeed()));
+		float speed = getTheoreticalSpeed();
+		speed = Math.abs(speed);
 
-		float stressTotal = this.speed * this.speed;
+		float stressTotal = stressBase * speed;
+
 		Lang.number(stressTotal)
 				.translate("generic.unit.stress")
 				.style(ChatFormatting.AQUA)
@@ -92,10 +97,6 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 			//CreateNuclear.LOGGER.info("Init SPEED : " + getSpeed2() + "  pos : " + getBlockPos());
 			FindController(getBlockPos(), Objects.requireNonNull(getLevel()));
 		}
-	}
-
-	public void updateGeneratedRotation(int i) {
-		super.updateGeneratedRotation();
 	}
 
 	public void FindController(BlockPos pos, Level level){
@@ -124,7 +125,7 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 	public float getGeneratedSpeed() {
 		if (!CNBlocks.REACTOR_OUTPUT.has(getBlockState()))
 			return 0;
-		return convertToDirection(speed, getBlockState().getValue(ReactorOutput.FACING));
+		return speed; //convertToDirection(speed, getBlockState().getValue(ReactorOutput.FACING));
 	}
 
 	@Override
