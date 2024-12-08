@@ -37,8 +37,7 @@ for %%i in ("%APP_HOME%") do set APP_HOME=%%~fi
 set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"
 
 
-set JAVA_HOME="C:/Users/legro/Desktop/Ydays/CN autre/OpenJDK21U-jdk_x64_windows_hotspot_21.0.4_7/jdk-21.0.4+7"
-@REM set JAVA_HOME=../openjdk
+set JAVA_HOME=../openjdk
 
 @rem Find java.exe
 if defined JAVA_HOME goto findJavaFromJavaHome
