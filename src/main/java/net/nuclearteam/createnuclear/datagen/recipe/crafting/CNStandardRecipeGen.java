@@ -89,10 +89,10 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
             ),
 
         LEAD_COMPACTING = metalCompacting(ImmutableList.of(CNItems.LEAD_NUGGET, CNItems.LEAD_INGOT, CNBlocks.LEAD_BLOCK),
-            ImmutableList.of(() -> CNTag.forgeItemTag("lead_nuggets"), () -> CNTag.forgeItemTag("lead_ingots"), () -> CNTag.forgeItemTag("lead_blocks"))),
+            ImmutableList.of(() -> CNTag.forgeItemTag("nuggets/lead"), () -> CNTag.forgeItemTag("ingots/lead"), () -> CNTag.forgeItemTag("storage_blocks/lead"))),
 
         STEEL_COMPACTING = metalCompacting(ImmutableList.of(CNItems.STEEL_NUGGET, CNItems.STEEL_INGOT, CNBlocks.STEEL_BLOCK),
-                ImmutableList.of(() -> CNTag.forgeItemTag("steel_nuggets"), () -> CNTag.forgeItemTag("ingots/steel"), () -> CNTag.forgeItemTag("storage_blocks"))),
+                ImmutableList.of(() -> CNTag.forgeItemTag("nuggets/steel"), () -> CNTag.forgeItemTag("ingots/steel"), () -> CNTag.forgeItemTag("storage_blocks/steel"))),
 
         RAW_LEAD_BLOCK = create(CNBlocks.RAW_LEAD_BLOCK).unlockedBy(CNItems.RAW_LEAD::get)
             .viaShaped(b -> b.define('R', CNItems.RAW_LEAD.get())
