@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "createnuclear:steel_block"
+      "tag": "c:storage_blocks"
     }
   ],
   "result": {

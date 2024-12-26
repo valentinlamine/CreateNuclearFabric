@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "createnuclear:steel_nugget"
+              "createnuclear:lead_ingot"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:shapeless/steel_nugget_from_decompacting"
+        "recipe": "createnuclear:crafting/materials/lead_nugget_from_decompacting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "createnuclear:shapeless/steel_nugget_from_decompacting"
+      "createnuclear:crafting/materials/lead_nugget_from_decompacting"
     ]
   },
   "sends_telemetry_event": false

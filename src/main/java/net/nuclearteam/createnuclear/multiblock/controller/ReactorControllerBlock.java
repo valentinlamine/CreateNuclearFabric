@@ -155,9 +155,6 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         List<? extends Player> players = level.players();
         ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
         controller.Verify(state, pos, level, players, true);
-        for (Player p : players) {
-            p.sendSystemMessage(Component.translatable("reactor.info.is"));
-        }
     }
 
     @Override
