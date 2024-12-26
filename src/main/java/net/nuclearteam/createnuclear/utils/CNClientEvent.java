@@ -1,9 +1,11 @@
 package net.nuclearteam.createnuclear.utils;
 
 import com.simibubi.create.foundation.events.ClientEvents;
+import io.github.fabricators_of_create.porting_lib.entity.events.PlayerTickEvents;
 import io.github.fabricators_of_create.porting_lib.event.client.FogEvents;
 import io.github.fabricators_of_create.porting_lib.event.client.FogEvents.ColorData;
 import net.minecraft.client.Camera;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.client.Minecraft;
@@ -11,6 +13,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.LavaFluid;
 import net.nuclearteam.createnuclear.fluid.CNFluids;
 import net.minecraft.world.level.material.Fluid;
+import net.nuclearteam.createnuclear.title.TitleInfoRenderManager;
 
 public class CNClientEvent {
 

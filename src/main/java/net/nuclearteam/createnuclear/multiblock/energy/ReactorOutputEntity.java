@@ -2,6 +2,7 @@ package net.nuclearteam.createnuclear.multiblock.energy;
 
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.motor.KineticScrollValueBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -60,15 +61,19 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 		if (!hasSource() || getGeneratedSpeed() > getTheoreticalSpeed())
 		{
 			//CreateNuclear.LOGGER.info("Init SPEED : " + getSpeed2() + "  pos : " + getBlockPos());
-			FindController(getBlockPos(), Objects.requireNonNull(getLevel()));
-		}
+            try {
+                FindController(getBlockPos(), Objects.requireNonNull(getLevel()));
+            } catch (CommandSyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        }
 	}
 
 	public void updateGeneratedRotation(int i) {
 		super.updateGeneratedRotation();
 	}
 
-	public void FindController(BlockPos pos, Level level){
+	public void FindController(BlockPos pos, Level level) throws CommandSyntaxException {
 		if (level.getBlockState(pos.above(3)).getBlock() == CNBlocks.REACTOR_CONTROLLER.get()){
             ReactorControllerBlock controller = (ReactorControllerBlock)level.getBlockState(pos.above(3)).getBlock();
 			controller.Verify(controller.defaultBlockState(), pos.above(3), level, level.players(), false);

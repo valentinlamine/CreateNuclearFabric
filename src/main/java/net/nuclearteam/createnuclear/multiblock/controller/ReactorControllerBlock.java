@@ -1,30 +1,27 @@
 package net.nuclearteam.createnuclear.multiblock.controller;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.datafixers.util.Either;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
-import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.item.ItemHelper;
-import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
-import io.github.fabricators_of_create.porting_lib.util.NetworkHooks;
-import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents;
-import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.fabricmc.fabric.mixin.command.CommandManagerMixin;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.ResourceOrTagKeyArgument;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextColor;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -42,19 +39,14 @@ import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutput;
 import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutputEntity;
 import net.nuclearteam.createnuclear.gui.CNIconButton;
-import net.nuclearteam.createnuclear.tools.HorizontalDirectionalReactorBlock;
-import net.nuclearteam.createnuclear.CNMultiblock;
-import net.nuclearteam.createnuclear.CreateNuclear;
-import net.nuclearteam.createnuclear.block.CNBlocks;
-import net.nuclearteam.createnuclear.blockentity.CNBlockEntities;
-import net.nuclearteam.createnuclear.gui.CNIconButton;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutput;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutputEntity;
+import net.nuclearteam.createnuclear.title.TitleInfoCommand;
+import net.nuclearteam.createnuclear.title.TitleInfoRenderManager;
 import net.nuclearteam.createnuclear.tools.HorizontalDirectionalReactorBlock;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock implements IWrenchable, IBE<ReactorControllerBlockEntity> {
     public static final BooleanProperty ASSEMBLED = BooleanProperty.create("assembled");
@@ -153,7 +145,11 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
             return;
         List<? extends Player> players = level.players();
         ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
-        controller.Verify(state, pos, level, players, true);
+        try {
+            controller.Verify(state, pos, level, players, true);
+        } catch (CommandSyntaxException e) {
+            throw new RuntimeException(e);
+        }
         for (Player p : players) {
             p.sendSystemMessage(Component.translatable("reactor.info.is"));
         }
@@ -174,7 +170,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
     }
 
     // this is the Function that verifies if the pattern is correct (as a test, we added the energy output)
-    public void Verify(BlockState state, BlockPos pos, Level level, List<? extends Player> players, boolean create){
+    public void Verify(BlockState state, BlockPos pos, Level level, List<? extends Player> players, boolean create) throws CommandSyntaxException {
         ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(pos).getBlock();
         ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos);
         var result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(level, pos); // control the pattern
@@ -183,10 +179,16 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
 
             for (Player player : players) {
                 if (create && !entity.created) {
-                    player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "playsound minecraft:block.beacon.activate master @a " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " 1 1");
-                    player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a times 20 60 20");
-                    player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a subtitle {\"text\":\"WARNING : Reactor Assembled\",\"bold\":true,\"color\":\"green\"}");
-                    player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a title {\"text\":\"\"}");
+                    CommandSourceStack source = new CommandSourceStack(player, player.position(), player.getRotationVector(), (ServerLevel) level, 2, "", Component.literal(""), null, null);
+
+                    if (player.getServer().getCommands() != null) {
+                        player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "playsound minecraft:block.beacon.activate master @a " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " 1 1");
+                        player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a times 20 60 20");
+                        player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a subtitle {\"text\":\"WARNING : Reactor Assembled\",\"bold\":true,\"color\":\"green\"}");
+                        player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a title {\"text\":\"\"}");
+                    }
+
+
 
                     level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, true));
                     entity.created = true;
@@ -201,11 +203,18 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         for (Player player : players) {
             if (!create && !entity.destroyed)
             {
-                player.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer"));
-                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "playsound minecraft:block.anvil.destroy master @a " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " 1 1");
-                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a times 20 60 20");
-                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a subtitle {\"text\":\"WARNING : Reactor Destroyed\",\"bold\":true,\"color\":\"red\"}");
-                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a title {\"text\":\"\"}");
+
+
+
+                if (player.getServer().getCommands() != null) {
+                    //player.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer"));
+                    /*player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "playsound minecraft:block.anvil.destroy master @a " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " 1 1");
+                    player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a times 20 60 20");
+                    player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a subtitle {\"text\":\"WARNING : Reactor Destroyed\",\"bold\":true,\"color\":\"red\"}");
+                    player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a title {\"text\":\"\"}");*/
+                    TitleInfoCommand.register(player.getServer().getCommands().getDispatcher());
+                    //.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "titleinfo info");
+                }
 
                 level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, false));
                 entity.created = false;

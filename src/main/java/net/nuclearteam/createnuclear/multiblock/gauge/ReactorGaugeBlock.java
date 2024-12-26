@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear.multiblock.gauge;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.utility.Lang;
 import net.minecraft.core.BlockPos;
@@ -111,17 +112,25 @@ public class ReactorGaugeBlock extends Block implements IWrenchable {
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         super.onPlace(state, level, pos, oldState, movedByPiston);
         List<? extends Player> players = level.players();
-        FindController(pos, level, players, true);
+        try {
+            FindController(pos, level, players, true);
+        } catch (CommandSyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override // called when the player destroys the block, with or without a tool
     public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
         super.playerDestroy(level, player, pos, state, blockEntity, tool);
         List<? extends Player> players = level.players();
-        FindController(pos, level, players, false);
+        try {
+            FindController(pos, level, players, false);
+        } catch (CommandSyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public ReactorControllerBlock FindController(BlockPos blockPos, Level level, List<? extends Player> players, boolean first){ // Function that checks the surrounding blocks in order
+    public ReactorControllerBlock FindController(BlockPos blockPos, Level level, List<? extends Player> players, boolean first) throws CommandSyntaxException { // Function that checks the surrounding blocks in order
         BlockPos newBlock;                                                   // to find the controller and verify the pattern
         Vec3i pos = new Vec3i(blockPos.getX(), blockPos.getY(), blockPos.getZ());
         for (int y = pos.getY()-3; y != pos.getY()+4; y+=1) {

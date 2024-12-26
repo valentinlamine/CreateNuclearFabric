@@ -1,6 +1,7 @@
 package net.nuclearteam.createnuclear.multiblock.input;
 
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.item.ItemHelper;
@@ -67,8 +68,13 @@ public class ReactorInput extends HorizontalDirectionalReactorBlock implements I
         super.onPlace(state, worldIn, pos, oldState, isMoving);
         List<? extends Player> players = worldIn.players();
         ReactorControllerBlock controller = FindController(worldIn, new BlockPos(pos.getX(), pos.getY(), pos.getZ()+4));
-        if (controller != null)
-            controller.Verify(controller.defaultBlockState(), new BlockPos(pos.getX(), pos.getY(), pos.getZ()+4), worldIn, players, true);
+        if (controller != null) {
+            try {
+                controller.Verify(controller.defaultBlockState(), new BlockPos(pos.getX(), pos.getY(), pos.getZ()+4), worldIn, players, true);
+            } catch (CommandSyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @Override
@@ -76,8 +82,13 @@ public class ReactorInput extends HorizontalDirectionalReactorBlock implements I
         super.playerDestroy(level, player, pos, state, blockEntity, tool);
         List<? extends Player> players = level.players();
         ReactorControllerBlock controller = FindController(level, new BlockPos(pos.getX(), pos.getY(), pos.getZ()+4));
-        if (controller != null)
-            controller.Verify(controller.defaultBlockState(), new BlockPos(pos.getX(), pos.getY(), pos.getZ()+4), level, players, false);
+        if (controller != null) {
+            try {
+                controller.Verify(controller.defaultBlockState(), new BlockPos(pos.getX(), pos.getY(), pos.getZ()+4), level, players, false);
+            } catch (CommandSyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @Override
@@ -89,8 +100,13 @@ public class ReactorInput extends HorizontalDirectionalReactorBlock implements I
 
         List<? extends Player> players = pLevel.players();
         ReactorControllerBlock controller = FindController(pLevel, new BlockPos(pPos.getX(), pPos.getY(), pPos.getZ()+4));
-        if (controller != null)
-            controller.Verify(controller.defaultBlockState(), new BlockPos(pPos.getX(), pPos.getY(), pPos.getZ()+4), pLevel, players, false);
+        if (controller != null) {
+            try {
+                controller.Verify(controller.defaultBlockState(), new BlockPos(pPos.getX(), pPos.getY(), pPos.getZ()+4), pLevel, players, false);
+            } catch (CommandSyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public ReactorControllerBlock FindController(Level level, BlockPos pos) {

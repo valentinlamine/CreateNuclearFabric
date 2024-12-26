@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear.multiblock.energy;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
 
@@ -78,8 +79,13 @@ public class ReactorOutput extends DirectionalKineticBlock implements IWrenchabl
 		super.onPlace(state, worldIn, pos, oldState, isMoving);
 		List<? extends Player> players = worldIn.players();
 		ReactorControllerBlock controller = FindController(pos, worldIn);
-		if (controller != null)
-			controller.Verify(controller.defaultBlockState(), pos.above(3), worldIn, players, true);
+		if (controller != null) {
+            try {
+                controller.Verify(controller.defaultBlockState(), pos.above(3), worldIn, players, true);
+            } catch (CommandSyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        }
 	}
 
 	@Override
@@ -87,8 +93,13 @@ public class ReactorOutput extends DirectionalKineticBlock implements IWrenchabl
 		super.playerDestroy(level, player, pos, state, blockEntity, tool);
 		List<? extends Player> players = level.players();
 		ReactorControllerBlock controller = FindController(pos, level);
-		if (controller != null)
-			controller.Verify(controller.defaultBlockState(), pos.above(3), level, players, false);
+		if (controller != null) {
+            try {
+                controller.Verify(controller.defaultBlockState(), pos.above(3), level, players, false);
+            } catch (CommandSyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        }
 	}
 
 	@Override
@@ -96,8 +107,13 @@ public class ReactorOutput extends DirectionalKineticBlock implements IWrenchabl
 		super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
 		List<? extends Player> players = pLevel.players();
 		ReactorControllerBlock controller = FindController(pPos, pLevel);
-		if (controller != null)
-			controller.Verify(controller.defaultBlockState(), pPos.above(3), pLevel, players, false);
+		if (controller != null) {
+            try {
+                controller.Verify(controller.defaultBlockState(), pPos.above(3), pLevel, players, false);
+            } catch (CommandSyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        }
 	}
 
 	@Override

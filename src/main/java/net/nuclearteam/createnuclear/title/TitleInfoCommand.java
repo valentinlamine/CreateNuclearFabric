@@ -12,13 +12,14 @@ import net.minecraft.commands.arguments.ResourceOrTagKeyArgument;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
+import net.nuclearteam.createnuclear.CreateNuclear;
 
 public class TitleInfoCommand {
 
     public static final DynamicCommandExceptionType INVALID_BIOME_EXCEPTION = new DynamicCommandExceptionType(
             (formatArgs) -> Component.translatable("createnuclear.title.info.invalid", formatArgs));
 
-    public static void register(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext context, CommandSelection environment) {
+    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("titleinfo")
                 .requires(source -> source.hasPermission(2))
                 .then(Commands.argument("info", ResourceOrTagKeyArgument.resourceOrTagKey(Registries.CHAT_TYPE))
@@ -28,7 +29,14 @@ public class TitleInfoCommand {
     }
     //https://github.com/YUNG-GANG/Travelers-Titles/blob/1.20/Common/src/main/java/com/yungnickyoung/minecraft/travelerstitles/command/BiomeTitleCommand.java#L56
 
-    private static int displayTitle(CommandSourceStack source, ResourceOrTagKeyArgument.Result<ChatType> chatResult) throws CommandSyntaxException {
+    public static int displayTitle(CommandSourceStack source, ResourceOrTagKeyArgument.Result<ChatType> chatResult) throws CommandSyntaxException {
+
+        CreateNuclear.LOGGER.warn("fzefzefzefzefef");
+
+        CreateNuclear.titleInfoManager.infoTitleRenderer.setColor("FFFFFF");
+        CreateNuclear.titleInfoManager.infoTitleRenderer.displayTitle(Component.literal("test"), null);
+        CreateNuclear.titleInfoManager.infoTitleRenderer.cooldownTimer = TitleInfoConfig.WARNING.getTextCooldownTime();
+
         return 1;
     }
 }
