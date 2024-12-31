@@ -3,11 +3,11 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:lead_ingots"
+      "item": "createnuclear:steel_ingot"
     }
   ],
   "result": {
     "count": 9,
-    "item": "createnuclear:lead_nugget"
+    "item": "createnuclear:steel_nugget"
   }
 }
