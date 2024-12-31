@@ -74,7 +74,19 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                     .pattern("SES")
                     .pattern("LLL")
                     .showNotification(true)
-            )
+            ),
+
+        CONFIGURED_REACTOR_ITEM = create(CNItems.CONFIGURED_REACTOR_ITEM).unlockedBy(CNBlocks.REACTOR_CONTROLLER::get)
+                .viaShaped(b -> b
+                        .define('S', CNTag.forgeItemTag("ingots/steel"))
+                        .define('D', AllBlocks.DISPLAY_BOARD)
+                        .define('P', AllItems.PRECISION_MECHANISM)
+                        .define('E', AllItems.EMPTY_SCHEMATIC)
+                        .pattern("SDS")
+                        .pattern("SPS")
+                        .pattern("SES")
+                        .showNotification(true)
+                )
         ;
 
         private String CRAFTING_MATERIALS = enterFolder("crafting/materials");
