@@ -221,11 +221,6 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                             .pattern("###")
                             .pattern("###")
                             .define('#', currentIngredient.get()));
-
-            result = create(currentEntry).returns(9)
-                    .withSuffix("_from_decompacting")
-                    .unlockedBy(nextEntry::get)
-                    .viaShapeless(b -> b.requires(nextIngredient.get()));
         }
         return result;
     }
