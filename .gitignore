@@ -40,7 +40,7 @@ run/logs/*
 run/resourcepacks/
 run/resources/
 run/saves/
-run/schematics/
+run/schematics/uploaded
 run/screenshots/
 run/fabricloader.log
 run/options.txt

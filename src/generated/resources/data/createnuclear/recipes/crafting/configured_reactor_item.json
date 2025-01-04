@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "create:display_board"
+    },
+    "E": {
+      "item": "create:empty_schematic"
+    },
+    "P": {
+      "item": "create:precision_mechanism"
+    },
+    "S": {
+      "tag": "c:ingots/steel"
+    }
+  },
+  "pattern": [
+    "SDS",
+    "SPS",
+    "SES"
+  ],
+  "result": {
+    "item": "createnuclear:configured_reactor_item"
+  },
+  "show_notification": true
+}

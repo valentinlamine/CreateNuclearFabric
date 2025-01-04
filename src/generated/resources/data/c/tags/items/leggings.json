@@ -1,21 +1,21 @@
 {
   "replace": false,
   "values": [
-    "createnuclear:white_antiradiation_leggings",
-    "createnuclear:orange_antiradiation_leggings",
-    "createnuclear:magenta_antiradiation_leggings",
-    "createnuclear:light_blue_antiradiation_leggings",
-    "createnuclear:yellow_antiradiation_leggings",
-    "createnuclear:lime_antiradiation_leggings",
-    "createnuclear:pink_antiradiation_leggings",
-    "createnuclear:gray_antiradiation_leggings",
-    "createnuclear:light_gray_antiradiation_leggings",
-    "createnuclear:cyan_antiradiation_leggings",
-    "createnuclear:purple_antiradiation_leggings",
-    "createnuclear:blue_antiradiation_leggings",
-    "createnuclear:brown_antiradiation_leggings",
-    "createnuclear:green_antiradiation_leggings",
-    "createnuclear:red_antiradiation_leggings",
-    "createnuclear:black_antiradiation_leggings"
+    "createnuclear:white_anti_radiation_leggings",
+    "createnuclear:orange_anti_radiation_leggings",
+    "createnuclear:magenta_anti_radiation_leggings",
+    "createnuclear:light_blue_anti_radiation_leggings",
+    "createnuclear:yellow_anti_radiation_leggings",
+    "createnuclear:lime_anti_radiation_leggings",
+    "createnuclear:pink_anti_radiation_leggings",
+    "createnuclear:gray_anti_radiation_leggings",
+    "createnuclear:light_gray_anti_radiation_leggings",
+    "createnuclear:cyan_anti_radiation_leggings",
+    "createnuclear:purple_anti_radiation_leggings",
+    "createnuclear:blue_anti_radiation_leggings",
+    "createnuclear:brown_anti_radiation_leggings",
+    "createnuclear:green_anti_radiation_leggings",
+    "createnuclear:red_anti_radiation_leggings",
+    "createnuclear:black_anti_radiation_leggings"
   ]
 }

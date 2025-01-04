@@ -5,9 +5,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
-import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
-import com.simibubi.create.foundation.data.recipe.StandardRecipeGen;
 import com.simibubi.create.foundation.utility.RegisteredObjects;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
@@ -29,7 +27,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.item.CNItems;
-import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem;
 import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.DyeRecipArmorList;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem;
 import net.nuclearteam.createnuclear.tags.CNTag;
@@ -57,8 +54,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                 .pattern("###")
                 .showNotification(true)
             ),
-
-    ENRICHED_SOUL_SOIL = create(CNBlocks.ENRICHED_SOUL_SOIL).unlockedBy(() -> Items.NETHER_STAR)
+        ENRICHED_SOUL_SOIL = create(CNBlocks.ENRICHED_SOUL_SOIL).unlockedBy(() -> Items.NETHER_STAR)
             .viaShaped(b -> b
                     .define('S', Blocks.SOUL_SOIL)
                     .define('O', Blocks.OBSIDIAN)
@@ -69,7 +65,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                     .showNotification(true)
             ),
 
-    ENRICHING_CAMPFIRE = create(CNBlocks.ENRICHING_CAMPFIRE).unlockedBy(CNBlocks.ENRICHED_SOUL_SOIL::get)
+        ENRICHING_CAMPFIRE = create(CNBlocks.ENRICHING_CAMPFIRE).unlockedBy(CNBlocks.ENRICHED_SOUL_SOIL::get)
             .viaShaped(b -> b
                     .define('E', CNBlocks.ENRICHED_SOUL_SOIL)
                     .define('L', ItemTags.LOGS)
@@ -78,10 +74,22 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                     .pattern("SES")
                     .pattern("LLL")
                     .showNotification(true)
-            )
+            ),
+
+        CONFIGURED_REACTOR_ITEM = create(CNItems.CONFIGURED_REACTOR_ITEM).unlockedBy(CNBlocks.REACTOR_CONTROLLER::get)
+                .viaShaped(b -> b
+                        .define('S', CNTag.forgeItemTag("ingots/steel"))
+                        .define('D', AllBlocks.DISPLAY_BOARD)
+                        .define('P', AllItems.PRECISION_MECHANISM)
+                        .define('E', AllItems.EMPTY_SCHEMATIC)
+                        .pattern("SDS")
+                        .pattern("SPS")
+                        .pattern("SES")
+                        .showNotification(true)
+                )
         ;
 
-    private String CRAFTING_MATERIALS = enterFolder("crafting/materials");
+        private String CRAFTING_MATERIALS = enterFolder("crafting/materials");
 
     GeneratedRecipe
         RAW_URANIUM_BLOCK = create(CNBlocks.RAW_URANIUM_BLOCK).unlockedBy(CNItems.RAW_URANIUM::get)
@@ -93,7 +101,10 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
             ),
 
         LEAD_COMPACTING = metalCompacting(ImmutableList.of(CNItems.LEAD_NUGGET, CNItems.LEAD_INGOT, CNBlocks.LEAD_BLOCK),
-            ImmutableList.of(() -> CNTag.forgeItemTag("lead_nuggets"), () -> CNTag.forgeItemTag("lead_ingots"), () -> CNTag.forgeItemTag("lead_blocks"))),
+            ImmutableList.of(() -> CNTag.forgeItemTag("nuggets/lead"), () -> CNTag.forgeItemTag("ingots/lead"), () -> CNTag.forgeItemTag("storage_blocks/lead"))),
+
+        STEEL_COMPACTING = metalCompacting(ImmutableList.of(CNItems.STEEL_NUGGET, CNItems.STEEL_INGOT, CNBlocks.STEEL_BLOCK),
+                ImmutableList.of(() -> CNTag.forgeItemTag("nuggets/steel"), () -> CNTag.forgeItemTag("ingots/steel"), () -> CNTag.forgeItemTag("storage_blocks/steel"))),
 
         RAW_LEAD_BLOCK = create(CNBlocks.RAW_LEAD_BLOCK).unlockedBy(CNItems.RAW_LEAD::get)
             .viaShaped(b -> b.define('R', CNItems.RAW_LEAD.get())
@@ -102,76 +113,13 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                 .pattern("RRR")
                 .showNotification(true)
             )
-    ;
+
+        ;
 
 
-    private String CRAFTING_REACTOR = enterFolder("crafting/reactor");
+        private String CRAFTING_REACTOR = enterFolder("crafting/reactor");
 
     GeneratedRecipe
-            REACTOR_CASING = create(CNBlocks.REACTOR_CASING).unlockedBy(AllBlocks.COPPER_CASING::get)
-            .viaShaped(b -> b
-                .define('C', AllBlocks.COPPER_CASING.get())
-                .define('P', AllItems.PRECISION_MECHANISM.get())
-                .pattern("CCC")
-                .pattern("CPC")
-                .pattern("CCC")
-                .showNotification(true)),
-
-        REACTOR_CONTROLLER = create(CNBlocks.REACTOR_CONTROLLER).unlockedBy(CNBlocks.REACTOR_CASING::get)
-            .viaShaped(b -> b
-                .define('I', Blocks.IRON_BLOCK)
-                .define('N', Items.NETHERITE_INGOT)
-                .define('R', AllBlocks.ROTATION_SPEED_CONTROLLER)
-                .define('E', AllItems.ELECTRON_TUBE)
-                .pattern("INI")
-                .pattern("ERE")
-                .pattern("INI")
-                .showNotification(true)
-            ),
-
-        REACTOR_CORE = create(CNBlocks.REACTOR_CORE).unlockedBy(CNBlocks.REACTOR_CASING::get)
-                .viaShaped(b -> b
-                        .define('S', CNItems.STEEL_INGOT)
-                        .define('P', AllItems.PRECISION_MECHANISM)
-                        .define('N', Blocks.NETHERITE_BLOCK)
-                        .pattern("SSS")
-                        .pattern("PNP")
-                        .pattern("SSS")
-                        .showNotification(true)
-                ),
-        REACTOR_COOLING_FRAME = create(CNBlocks.REACTOR_COOLING_FRAME).unlockedBy(CNBlocks.REACTOR_CASING::get)
-                .viaShaped(b -> b
-                        .define('B', Blocks.BLUE_ICE)
-                        .define('G', CNBlocks.REINFORCED_GLASS)
-                        .define('S', CNItems.STEEL_INGOT)
-                        .pattern("SGS")
-                        .pattern("BGB")
-                        .pattern("SGS")
-                        .showNotification(true)
-                ),
-
-    REACTOR_MAIN_FRAME = create(CNBlocks.REACTOR_MAIN_FRAME).unlockedBy(CNBlocks.REACTOR_CASING::get)
-        .viaShaped(b -> b
-            .define('N', Items.NETHERITE_INGOT)
-            .define('G', CNBlocks.REINFORCED_GLASS)
-            .define('C', Blocks.COPPER_BLOCK)
-            .pattern("NCN")
-            .pattern("CGC")
-            .pattern("NCN")
-            .showNotification(true)
-        ),
-
-    REACTOR_OUPUT = create(CNBlocks.REACTOR_OUTPUT).unlockedBy(CNBlocks.REACTOR_CASING::get)
-            .viaShaped(b -> b
-                    .define('N', Items.NETHERITE_INGOT)
-                    .define('S', AllBlocks.SHAFT)
-                    .define('C', Blocks.COPPER_BLOCK)
-                    .pattern("NCN")
-                    .pattern("CSC")
-                    .pattern("NCN")
-                    .showNotification(true)
-            ),
-
         REINFORCED_GLASS = create(CNBlocks.REINFORCED_GLASS).unlockedBy(CNBlocks.REACTOR_CASING::get)
                 .viaShaped(b -> b
                         .define('G', Blocks.GLASS)
@@ -181,9 +129,9 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                         .pattern("SGS")
                         .showNotification(true)
                 )
-    ;
+        ;
 
-    private String CRAFTING_ITEMS = enterFolder("crafting/items/armors");
+        private String CRAFTING_ITEMS = enterFolder("crafting/items/armors");
 
     DyeRecipArmorList
         ANTI_RADIATION_HELMETS = new DyeRecipArmorList(color -> create(CNItems.ANTI_RADIATION_HELMETS.get(color))
@@ -199,7 +147,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
             )
         ),
 
-    ANTI_RADIATION_CHESTPLATES = new DyeRecipArmorList(color -> create(CNItems.ANTI_RADIATION_CHESTPLATES.get(color))
+        ANTI_RADIATION_CHESTPLATES = new DyeRecipArmorList(color -> create(CNItems.ANTI_RADIATION_CHESTPLATES.get(color))
             .unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag)
             .withCategory(RecipeCategory.COMBAT)
             .viaShaped(i -> i
@@ -212,6 +160,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                     .showNotification(true)
             )
         ),
+
         ANTI_RADIATION_LEGGINS = new DyeRecipArmorList(color -> create(CNItems.ANTI_RADIATION_LEGGINGS.get(color))
             .unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag)
             .withCategory(RecipeCategory.COMBAT)
@@ -225,11 +174,10 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                     .showNotification(true)
             )
         )
-
     ;
 
     GeneratedRecipe
-    ANTI_RADIATION_BOOTS = create(CNItems.ANTI_RADIATION_BOOTS).unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag).withCategory(RecipeCategory.COMBAT)
+        ANTI_RADIATION_BOOTS = create(CNItems.ANTI_RADIATION_BOOTS).unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag).withCategory(RecipeCategory.COMBAT)
             .viaShaped(b -> b
                     .define('X', CNItems.LEAD_INGOT)
                     .define('Y', ClothItem.Cloths.WHITE_CLOTH.getItem())
@@ -237,7 +185,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                     .pattern("X X")
                     .showNotification(true)
             )
-    ;
+        ;
 
     String currentFolder = "";
 
@@ -273,11 +221,6 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                             .pattern("###")
                             .pattern("###")
                             .define('#', currentIngredient.get()));
-
-            /*result = create(currentEntry).returns(9)
-                    .withSuffix("_from_decompacting")
-                    .unlockedBy(nextEntry::get)
-                    .viaShapeless(b -> b.requires(nextIngredient.get()));*/
         }
         return result;
     }

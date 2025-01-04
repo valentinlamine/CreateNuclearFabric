@@ -1,0 +1,15 @@
+{
+  "type": "create:crushing",
+  "ingredients": [
+    {
+      "item": "createnuclear:raw_uranium_block"
+    }
+  ],
+  "processingTime": 250,
+  "results": [
+    {
+      "count": 81,
+      "item": "createnuclear:uranium_powder"
+    }
+  ]
+}

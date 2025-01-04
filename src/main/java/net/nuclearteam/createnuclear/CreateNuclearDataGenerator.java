@@ -11,6 +11,7 @@ import net.minecraft.core.RegistrySetBuilder;
 import net.nuclearteam.createnuclear.datagen.CNGeneratedEntriesProvider;
 import net.nuclearteam.createnuclear.datagen.CNProcessingRecipeGen;
 import net.nuclearteam.createnuclear.datagen.CNRegistrateTags;
+import net.nuclearteam.createnuclear.datagen.recipe.cooking.CNCookingRecipeGen;
 import net.nuclearteam.createnuclear.datagen.recipe.crafting.CNStandardRecipeGen;
 import net.nuclearteam.createnuclear.datagen.recipe.mechanical_crafter.CNMechanicalCraftingRecipeGen;
 import net.nuclearteam.createnuclear.datagen.recipe.shapeless.CNShapelessRecipeGen;
@@ -40,6 +41,7 @@ public class CreateNuclearDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(CNGeneratedEntriesProvider::new);
 		pack.addProvider(CNProcessingRecipeGen::registerAll);
 		pack.addProvider(CNStandardRecipeGen::new);
+		pack.addProvider(CNCookingRecipeGen::new);
 		pack.addProvider(CNMechanicalCraftingRecipeGen::new);
 		pack.addProvider(CNShapelessRecipeGen::new);
 	}

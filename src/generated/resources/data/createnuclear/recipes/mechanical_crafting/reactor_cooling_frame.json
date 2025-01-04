@@ -1,0 +1,28 @@
+{
+  "type": "create:mechanical_crafting",
+  "acceptMirrored": true,
+  "key": {
+    "C": {
+      "item": "createnuclear:reactor_casing"
+    },
+    "G": {
+      "item": "createnuclear:reinforced_glass"
+    },
+    "I": {
+      "item": "minecraft:blue_ice"
+    },
+    "S": {
+      "item": "createnuclear:steel_ingot"
+    }
+  },
+  "pattern": [
+    "CCCCC",
+    "CSGSC",
+    "CIGIC",
+    "CSGSC",
+    "CCCCC"
+  ],
+  "result": {
+    "item": "createnuclear:reactor_cooling_frame"
+  }
+}

@@ -38,7 +38,6 @@ set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"
 
 
 set JAVA_HOME=../jdk
-@REM set JAVA_HOME=../openjdk
 
 @rem Find java.exe
 if defined JAVA_HOME goto findJavaFromJavaHome

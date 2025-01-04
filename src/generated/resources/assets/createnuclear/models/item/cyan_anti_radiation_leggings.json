@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "createnuclear:item/armors/leggings/cyan_anti_radiation_leggings"
+  }
+}

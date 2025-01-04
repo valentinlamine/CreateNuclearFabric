@@ -7,12 +7,17 @@ import com.simibubi.create.foundation.item.ItemHelper;
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
 import io.github.fabricators_of_create.porting_lib.util.NetworkHooks;
+import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
+import net.fabricmc.fabric.mixin.command.CommandManagerMixin;
 import net.minecraft.ChatFormatting;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.server.commands.TitleCommand;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -150,9 +155,6 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         List<? extends Player> players = level.players();
         ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
         controller.Verify(state, pos, level, players, true);
-        for (Player p : players) {
-            p.sendSystemMessage(Component.translatable("reactor.info.is"));
-        }
     }
 
     @Override
@@ -165,7 +167,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         controller.Rotate(state, pos.below(3), level, 0);
         List<? extends Player> players = level.players();
         for (Player p : players) {
-            p.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer"));
+            p.sendSystemMessage(Component.translatable("reactor.info.assembled.creator"));
         }
     }
 
@@ -178,8 +180,8 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
             CreateNuclear.LOGGER.info("structure verified, SUCCESS to create multiblock");
 
             for (Player player : players) {
-                if (create && !entity.created)                 {
-                    player.sendSystemMessage(Component.literal("WARNING : Reactor Assembled"));
+                if (create && !entity.created) {
+                    player.sendSystemMessage(Component.translatable("reactor.info.assembled.creator"));
                     level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, true));
                     entity.created = true;
                     entity.destroyed = false;
@@ -193,7 +195,6 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         for (Player player : players) {
             if (!create && !entity.destroyed)
             {
-                //p.sendSystemMessage(Component.literal("CRITICAL : Reactor Destroyed"));
                 player.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer"));
                 level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, false));
                 entity.created = false;
@@ -209,8 +210,6 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
 
             if (Boolean.TRUE.equals(state.getValue(ASSEMBLED)) && rotation != 0) { // Starting the energy
                 //CreateNuclear.LOGGER.info("Change " + pos);
-                if (entity.getDir() == 1)
-                    rotation = -rotation;
                 entity.speed = rotation;
                 entity.setSpeed(Math.abs(entity.speed));
                 entity.updateSpeed = true;
@@ -221,13 +220,9 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
                 entity.speed = 0;
                 entity.updateSpeed = true;
                 entity.updateGeneratedRotation();
-                //CreateNuclear.LOGGER.info("Unchanged " + pos);
             }
-            if (rotation < 0)
-                rotation = -rotation;
-            entity.setSpeed(rotation);
 
-            //CreateNuclear.LOGGER.info("SPEED : " + entity.getSpeed2() + " - DIR : " + entity.getDir() + "  pos : " + pos);
+            entity.setSpeed(rotation);
         }
     }
 

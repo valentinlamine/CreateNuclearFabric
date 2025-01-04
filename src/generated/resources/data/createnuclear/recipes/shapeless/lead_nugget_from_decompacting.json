@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "c:lead_ingots"
+      "item": "createnuclear:lead_ingot"
     }
   ],
   "result": {

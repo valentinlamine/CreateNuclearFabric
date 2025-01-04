@@ -37,31 +37,18 @@ import net.nuclearteam.createnuclear.entity.CNMobEntityType;
 
 public class CNItems {
 
-    public static final Item YELLOW_CAKE_NETHER_STAR = registerItem("yellow_cake_nether_star_wip", new Item(new FabricItemSettings()));
 
     public static final ItemEntry<Item>
         URANIUM_POWDER = CreateNuclear.REGISTRATE
                 .item("uranium_powder", Item::new)
                 .register(),
 
-        YELLOW_CAKE = CreateNuclear.REGISTRATE
-                .item("yellow_cake", Item::new)
-                .properties(p -> p.food(new FoodProperties.Builder()
-                    .nutrition(20)
-                    .saturationMod(0.3F)
-                    .alwaysEat()
-                    .effect(new MobEffectInstance(CNEffects.RADIATION.get(), 6000, 25), 1.0F)
-                    .effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 6000, 5), 1.0F)
-                    .effect(new MobEffectInstance(MobEffects.HUNGER, 6000, 1000), 1.0F)
-                    .effect(new MobEffectInstance(MobEffects.CONFUSION, 6000, 5), 1.0F)
-                    .effect(new MobEffectInstance(MobEffects.WITHER, 6000, 8), 1.0F)
-                    .effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 6000, 5), 1.0F)
-                    .build())
-                )
+        YELLOWCAKE = CreateNuclear.REGISTRATE
+                .item("yellowcake", Item::new)
                 .register(),
 
-        YELLOW_CAKE_ENRICHED = CreateNuclear.REGISTRATE
-                    .item("yellow_cake_enriched", Item::new)
+        ENRICHED_YELLOWCAKE = CreateNuclear.REGISTRATE
+                    .item("enriched_yellowcake", Item::new)
                     .register(),
 
         COAL_DUST = CreateNuclear.REGISTRATE
@@ -80,22 +67,27 @@ public class CNItems {
 
         RAW_URANIUM = CreateNuclear.REGISTRATE
                     .item("raw_uranium", Item::new)
-                    .tag(CNTag.forgeItemTag("raw_ores"), CNTag.forgeItemTag("raw_materials"))
+                    .tag(CNTag.forgeItemTag("raw_ores"), CNTag.forgeItemTag("raw_materials"), CNTag.forgeItemTag("raw_materials/uranium"))
                     .register(),
 
         RAW_LEAD = CreateNuclear.REGISTRATE
                 .item("raw_lead", Item::new)
-                .tag(CNTag.forgeItemTag("raw_ores"), CNTag.forgeItemTag("raw_materials"))
+                .tag(CNTag.forgeItemTag("raw_ores"), CNTag.forgeItemTag("raw_materials"), CNTag.forgeItemTag("raw_materials/lead"))
                 .register(),
 
         LEAD_INGOT = CreateNuclear.REGISTRATE
                 .item("lead_ingot", Item::new)
-                .tag(CNTag.forgeItemTag("ingots"), CNTag.forgeItemTag("ingots/lead"), CNTag.forgeItemTag("lead_ingots"))
+                .tag(CNTag.forgeItemTag("ingots"), CNTag.forgeItemTag("ingots/lead"))
                 .register(),
 
         LEAD_NUGGET = CreateNuclear.REGISTRATE
                 .item("lead_nugget", Item::new)
-                .tag(CNTag.forgeItemTag("nuggets"), CNTag.forgeItemTag("lead_nuggets"))
+                .tag(CNTag.forgeItemTag("nuggets"), CNTag.forgeItemTag("nuggets/lead"))
+                .register(),
+
+        STEEL_NUGGET = CreateNuclear.REGISTRATE
+                .item("steel_nugget", Item::new)
+                .tag(CNTag.forgeItemTag("nuggets"), CNTag.forgeItemTag("nuggets/steel"))
                 .register(),
 
         URANIUM_ROD = CreateNuclear.REGISTRATE
@@ -107,41 +99,43 @@ public class CNItems {
                 .item("graphite_rod", Item::new)
                 .tag(CNTag.forgeItemTag("rods"), CNTag.ItemTags.COOLER.tag)
                 .register()
+
+
     ;
   
     public static final Helmet.DyeItemHelmetList<Helmet> ANTI_RADIATION_HELMETS = new Helmet.DyeItemHelmetList<>(color -> {
        String colorName = color.getSerializedName();
-       return CreateNuclear.REGISTRATE.item(colorName + "_antiradiation_helmet", p -> new Helmet(p, color))
-               .tag(CNTag.forgeItemTag("helmets"))
+       return CreateNuclear.REGISTRATE.item(colorName + "_anti_radiation_helmet", p -> new Helmet(p, color))
+               .tag(CNTag.forgeItemTag("helmets"), CNTag.forgeItemTag("armors"))
                .lang(TextUtils.titleCaseConversion(color.getName()) +" Anti Radiation Helmet")
-               .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/armors/helmets/" + colorName + "_antiradiation_helmet")))
+               .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/armors/helmets/" + colorName + "_anti_radiation_helmet")))
                .register();
 
     });
 
     public static final Chestplate.DyeItemChestplateList<Chestplate> ANTI_RADIATION_CHESTPLATES = new Chestplate.DyeItemChestplateList<>(color -> {
         String colorName = color.getSerializedName();
-        return CreateNuclear.REGISTRATE.item(colorName + "_antiradiation_chestplate",  p -> new Chestplate(p, color))
-                .tag(CNTag.forgeItemTag("chestplates"))
+        return CreateNuclear.REGISTRATE.item(colorName + "_anti_radiation_chestplate",  p -> new Chestplate(p, color))
+                .tag(CNTag.forgeItemTag("chestplates"), CNTag.forgeItemTag("armors"))
                 .lang(TextUtils.titleCaseConversion(color.getName()) +" Anti Radiation Chestplate")
-                .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/armors/chestplates/" + colorName + "_antiradiation_chestplate")))
+                .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/armors/chestplates/" + colorName + "_anti_radiation_chestplate")))
                 .register();
 
     });
 
     public static final Leggings.DyeItemLeggingsList<Leggings> ANTI_RADIATION_LEGGINGS = new Leggings.DyeItemLeggingsList<>(color -> {
         String colorName = color.getSerializedName();
-        return CreateNuclear.REGISTRATE.item(colorName + "_antiradiation_leggings",  p -> new Leggings(p, color))
-                .tag(CNTag.forgeItemTag("leggings"))
+        return CreateNuclear.REGISTRATE.item(colorName + "_anti_radiation_leggings",  p -> new Leggings(p, color))
+                .tag(CNTag.forgeItemTag("leggings"), CNTag.forgeItemTag("armors"))
                 .lang(TextUtils.titleCaseConversion(color.getName()) +" Anti Radiation Leggings")
-                .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/armors/leggings/" + colorName + "_antiradiation_leggings")))
+                .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/armors/leggings/" + colorName + "_anti_radiation_leggings")))
                 .register();
 
     });
 
     public static final ItemEntry<? extends AntiRadiationArmorItem.Boot>
             ANTI_RADIATION_BOOTS = CreateNuclear.REGISTRATE.item("anti_radiation_boots", Boot::new)
-            .tag(CNTag.forgeItemTag("boots"))
+            .tag(CNTag.forgeItemTag("boots"), CNTag.forgeItemTag("armors"))
             .lang("Anti Radiation Boots")
             .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/armors/anti_radiation_boots")))
             .register();
@@ -171,6 +165,7 @@ public class CNItems {
     public static final Potion potion_1 = registerPotion("potion_of_radiation_1", new Potion(new MobEffectInstance(CNEffects.RADIATION.get(), 900)));
     public static final Potion potion_augment_1 = registerPotion("potion_of_radiation_augment_1", new Potion(new MobEffectInstance(CNEffects.RADIATION.get(), 1800)));
     public static final Potion potion_2 = registerPotion("potion_of_radiation_2", new Potion(new MobEffectInstance(CNEffects.RADIATION.get(), 410, 1)));
+    public static Object Bucket;
 
     private static void addItemToIngredientItemGroup(FabricItemGroupEntries entries) {
         /*entries.accept(YELLOW_CAKE_NETHER_STAR, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);*/
@@ -203,7 +198,7 @@ public class CNItems {
     }
 
     public static void registerPotionsRecipes() {
-        PotionBrewing.addMix(Potions.AWKWARD, CNItems.YELLOW_CAKE_ENRICHED.get(), CNItems.potion_1);
+        PotionBrewing.addMix(Potions.AWKWARD, CNItems.ENRICHED_YELLOWCAKE.get(), CNItems.potion_1);
         PotionBrewing.addMix(potion_1, Items.REDSTONE, CNItems.potion_augment_1);
         PotionBrewing.addMix(potion_1, Items.GLOWSTONE_DUST, CNItems.potion_2);
     }

@@ -112,6 +112,8 @@ public class CNTag {
         NEEDS_IRON_TOOL(MINECRAFT),
         NEEDS_STONE_TOOL(MINECRAFT),
         SHOVEL(MINECRAFT, "mineable/shovel"),
+        URANIUM_ORES,
+        LEAD_ORES,
 
 
         ;
@@ -163,6 +165,8 @@ public class CNTag {
         CLOTH,
         FUEL,
         COOLER,
+        URANIUM_ORES,
+        LEAD_ORES,
         ;
 
         public final TagKey<Item> tag;

@@ -32,6 +32,8 @@ public class CreateNuclearClient implements ClientModInitializer {
         CNPonderIndex.register();
 
         CNMobEntityType.registerCNMod();
+        CNMobEntityType.registerModelLayer();
+
 
         getChannel().initClientListener();
         CNClientEvent.register();
