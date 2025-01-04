@@ -147,7 +147,7 @@ public class CNBlocks {
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .tag(CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag,
-                            CNTag.forgeBlockTag("storage_blocks"))
+                            CNTag.forgeBlockTag("storage_blocks/raw_uranium"))
                     .register();
 
     public static final BlockEntry<Block> RAW_LEAD_BLOCK =
@@ -156,7 +156,7 @@ public class CNBlocks {
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .tag(CNTag.BlockTags.NEEDS_IRON_TOOL.tag,
-                            CNTag.forgeBlockTag("storage_blocks"))
+                            CNTag.forgeBlockTag("storage_blocks/raw_lead"))
                     .register();
 
     public static final BlockEntry<Block> LEAD_BLOCK =
@@ -164,7 +164,7 @@ public class CNBlocks {
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
-                    .tag(CNTag.forgeBlockTag("storage_blocks"))
+                    .tag(CNTag.forgeBlockTag("storage_blocks/lead"))
                     .register();
 
     public static final BlockEntry<Block> STEEL_BLOCK =
@@ -172,7 +172,7 @@ public class CNBlocks {
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
-                    .tag(CNTag.forgeBlockTag("storage_blocks"))
+                    .tag(CNTag.forgeBlockTag("storage_blocks/steel"))
                     .register();
 
     public static final BlockEntry<Block> ENRICHED_SOUL_SOIL =

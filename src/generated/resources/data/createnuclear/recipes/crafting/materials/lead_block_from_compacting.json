@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "#": {
-      "tag": "c:lead_ingots"
+      "tag": "c:ingots/lead"
     }
   },
   "pattern": [

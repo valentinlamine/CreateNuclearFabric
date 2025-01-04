@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "X": {
+      "item": "createnuclear:lead_ingot"
+    },
+    "Y": {
+      "item": "createnuclear:white_cloth"
+    },
+    "Z": {
+      "item": "createnuclear:reinforced_glass"
+    }
+  },
+  "pattern": [
+    "YXY",
+    "XZX"
+  ],
+  "result": {
+    "item": "createnuclear:white_anti_radiation_helmet"
+  },
+  "show_notification": true
+}
