@@ -9,6 +9,7 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 
 public class CNSpriteShifts {
     public static final CTSpriteShiftEntry REACTOR_CASING = omni("reactor/casing/reactor_casing");
+    public static final CTSpriteShiftEntry REACTOR_GLASS = omni("reinforced_glass");
 
     private static CTSpriteShiftEntry omni(String name) {
         return getCT(AllCTTypes.OMNIDIRECTIONAL, name);
