@@ -15,6 +15,11 @@ public class CNSpriteShifts {
         return getCT(AllCTTypes.OMNIDIRECTIONAL, name);
     }
 
+    private static CTSpriteShiftEntry vertical(String name) {
+        return getCT(AllCTTypes.RECTANGLE, name);
+
+    }
+
     private static CTSpriteShiftEntry getCT(CTType type, String blockTextureName, String connectedTextureName) {
         return CTSpriteShifter.getCT(type, CreateNuclear.asResource("block/" + blockTextureName),
                 CreateNuclear.asResource("block/" + connectedTextureName + "_connected"));
