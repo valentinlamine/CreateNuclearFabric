@@ -68,5 +68,4 @@ public class CreateNuclear implements ModInitializer {
 		return new ResourceLocation(MOD_ID, path);
 	}
 
-
 }

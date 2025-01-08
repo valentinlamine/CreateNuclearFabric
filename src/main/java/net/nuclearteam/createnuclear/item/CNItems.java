@@ -153,7 +153,7 @@ public class CNItems {
     public static final ItemEntry<ConfiguredReactorItem> CONFIGURED_REACTOR_ITEM = CreateNuclear.REGISTRATE
             .item("configured_reactor_item", ConfiguredReactorItem::new)
             .lang("Configured Reactor")
-            .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/enriched_flint_and_steel")))
+            .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/configured_reactor")))
             .properties(p -> p.stacksTo(1))
             .register();
 
