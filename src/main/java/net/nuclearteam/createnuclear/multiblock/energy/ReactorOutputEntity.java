@@ -56,6 +56,15 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 
 	}
 
+	@Override
+	public void tick() {
+		super.tick();
+		if (getSpeed() != 0 && level.getBlockState(getBlockPos().above(3)).getBlock() != CNBlocks.REACTOR_CONTROLLER.get()) {
+			setSpeed(0);
+			CreateNuclear.LOGGER.warn("ReactorOutputEntity : Controller not found");
+		}
+
+	}
 
 	@Override
 	public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
@@ -106,6 +115,7 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 		CreateNuclear.LOGGER.warn(speed + " ReactorOutputEntity " + this.speed);
 	}
 
+
 	public int getDir() {
         BlockState state = getBlockState();
         return state.getValue(DIR);
@@ -142,17 +152,7 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 				.scale(-1 / 16f));
 		}
 
-		@Override
-		public void rotate(BlockState state, PoseStack ms) {
-			super.rotate(state, ms);
-			Direction facing = state.getValue(ReactorOutput.FACING);
-			if (facing.getAxis() == Direction.Axis.Y)
-				return;
-			if (getSide() != Direction.UP)
-				return;
-			TransformStack.cast(ms)
-				.rotateZ(-AngleHelper.horizontalAngle(facing) + 180);
-		}
+
 
 		@Override
 		protected boolean isSideActive(BlockState state, Direction direction) {
