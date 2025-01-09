@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "item": "minecraft:nether_star"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "S": {
+      "item": "minecraft:soul_soil"
+    }
+  },
+  "pattern": [
+    "SOS",
+    "ONO",
+    "SOS"
+  ],
+  "result": {
+    "item": "createnuclear:enriched_soul_soil"
+  },
+  "show_notification": true
+}

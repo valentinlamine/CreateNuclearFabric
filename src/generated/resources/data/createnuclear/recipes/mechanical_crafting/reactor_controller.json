@@ -1,0 +1,34 @@
+{
+  "type": "create:mechanical_crafting",
+  "acceptMirrored": true,
+  "key": {
+    "C": {
+      "item": "createnuclear:reactor_casing"
+    },
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "O": {
+      "item": "create:content_observer"
+    },
+    "T": {
+      "item": "create:electron_tube"
+    },
+    "V": {
+      "item": "create:item_vault"
+    },
+    "X": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "pattern": [
+    "CCCCC",
+    "CNONC",
+    "CTXTC",
+    "CNVNC",
+    "CCCCC"
+  ],
+  "result": {
+    "item": "createnuclear:reactor_controller"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "createnuclear:item/armors/helmets/red_anti_radiation_helmet"
+  }
+}
