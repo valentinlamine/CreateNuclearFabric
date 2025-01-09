@@ -1,4 +1,4 @@
-// 1.20.1	2025-01-08T13:56:38.2423118	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-01-09T08:44:49.6266744	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 16749c98d03d4ab79af8aabf0464efc8525e9079 data\c\tags\items\rods.json
 a0c45a5183b5590b7463a37f43051f5bdd56ad88 assets\createnuclear\blockstates\reactor_controller.json
 efe2ad634ad8b801a8fa69f45516b30157b46771 data\createnuclear\loot_tables\blocks\lead_block.json
@@ -195,12 +195,12 @@ ddb01d2586a37fd31cc463ef9e6864cd6fabae4f data\c\tags\blocks\storage_blocks\lead.
 4db93da70d6a7549155201b7d9d68355449652ac assets\createnuclear\models\item\red_cloth.json
 327ebe73a77656f0dc4f6e43f749c44e9f77cca0 data\c\tags\items\boots.json
 72af25b71ba1417c58137fce1070c09cc65a61b5 assets\createnuclear\models\item\orange_anti_radiation_helmet.json
-fc4d890be42f9f5cfdb89878f0c9092a223570c3 data\minecraft\tags\blocks\fire.json
 50c312969d1f3f0c5fad27639ba3f95d0853cb14 assets\createnuclear\models\item\lime_anti_radiation_helmet.json
+fc4d890be42f9f5cfdb89878f0c9092a223570c3 data\minecraft\tags\blocks\fire.json
 4b0492cf73c071f13538ce485419e46a164c99c7 assets\createnuclear\models\item\steel_nugget.json
 ee9510875a49164a5930fcbfa596400bf1ecf200 data\c\tags\blocks\storage_blocks\raw_uranium.json
 cfc8b9126dc3fe3b993c5e6201533aecc07989c3 assets\createnuclear\models\item\orange_cloth.json
 bf46579ab4e96df318d76eb7ece4999ff158e28c data\createnuclear\loot_tables\blocks\reactor_main_frame.json
-2d8f5d7d7babd2b02ae836846e62daabf84de427 data\createnuclear\loot_tables\entities\irradiated_chicken.json
 7d3e368074b034e469543ea668953d675b4cfc77 data\minecraft\tags\blocks\mineable\shovel.json
+2d8f5d7d7babd2b02ae836846e62daabf84de427 data\createnuclear\loot_tables\entities\irradiated_chicken.json
 cf8b4d604330762358b21b6e079aaab1eb2987f4 assets\createnuclear\models\block\raw_lead_block.json

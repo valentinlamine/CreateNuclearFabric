@@ -1,6 +1,6 @@
-// 1.20.1	2025-01-08T13:56:38.2457467	CreateNuclear/CreateNuclear's Processing Recipes
-b30e8150263d60763dc539802491251cab90eca5 data\createnuclear\recipes\crushing\raw_uranium.json
+// 1.20.1	2025-01-09T08:44:49.6286729	CreateNuclear/CreateNuclear's Processing Recipes
 b3789f9919de0aaf013d52efe336aae30442c215 data\createnuclear\recipes\crushing\granite.json
+b30e8150263d60763dc539802491251cab90eca5 data\createnuclear\recipes\crushing\raw_uranium.json
 1b03ca5007b5749783944c4e77ca7b7976034682 data\createnuclear\recipes\mixing\uranium_fluid.json
 f2d3a2dbcb9135e31261cc8408f11cd07038a826 data\createnuclear\recipes\item_application\reactor_input_from_hopper_and_reactor_casing.json
 74555eb2cce0827f99dc5c4ff91362bdaecad725 data\createnuclear\recipes\enriched\enriching_campfire.json
