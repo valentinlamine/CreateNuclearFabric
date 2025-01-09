@@ -132,7 +132,6 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
 
         contentHolder.getOrCreateTag().put("patternAll", ghostInventory.serializeNBT());
 
-
     }
 
     protected int getPlayerInventotryXOffset() {
