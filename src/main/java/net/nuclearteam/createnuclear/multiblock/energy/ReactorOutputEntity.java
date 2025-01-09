@@ -75,7 +75,7 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 					setSpeed(0);
 				}
 			}
-		}
+		} else setSpeed(0);
 	}
 
 	@Override
