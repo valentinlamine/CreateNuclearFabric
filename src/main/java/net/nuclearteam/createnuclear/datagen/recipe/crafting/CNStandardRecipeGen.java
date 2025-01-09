@@ -123,7 +123,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
         REINFORCED_GLASS = create(CNBlocks.REINFORCED_GLASS).unlockedBy(CNBlocks.REACTOR_CASING::get)
                 .viaShaped(b -> b
                         .define('G', Blocks.GLASS)
-                        .define('S', CNItems.STEEL_INGOT)
+                        .define('S', CNItems.LEAD_INGOT)
                         .pattern("SGS")
                         .pattern("GSG")
                         .pattern("SGS")
