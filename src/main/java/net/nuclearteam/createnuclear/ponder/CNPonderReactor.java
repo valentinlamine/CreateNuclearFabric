@@ -22,7 +22,7 @@ public class CNPonderReactor {
 
         for (int y = 1; y < 8; y++) {
             scene.overlay.showText(10)
-                    .text("etage " + y)
+                    .text("floor " + y)
                     .attachKeyFrame()
                     .placeNearTarget();
 
@@ -36,7 +36,7 @@ public class CNPonderReactor {
                     }
                     if (x == CONTROLLER.getX() && y == CONTROLLER.getY() && z == CONTROLLER.getZ()){
                         scene.overlay.showText(13)
-                            .text("Controller")
+                            .text("Reactor Controller")
                             .pointAt(util.vector.blockSurface(CONTROLLER, Direction.DOWN))
                             .attachKeyFrame()
                             .placeNearTarget();
