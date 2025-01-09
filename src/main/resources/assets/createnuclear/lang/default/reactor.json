@@ -1,7 +1,7 @@
 {
   "reactor.info.assembled.none": "Multiblock not assembled",
-  "reactor.info.assembled.destroyer": "CRITICAL : Reactor Destroyed",
-  "reactor.info.assembled.creator": "SAFETY : Reactor Assembled",
+  "reactor.info.assembled.destroyer": "Reactor has been disassembled",
+  "reactor.info.assembled.creator": "Reactor has been assembled",
   "reactor.info.is": "controller is",
   "reactor.item.gui.name": "Config Pattern"
 }
