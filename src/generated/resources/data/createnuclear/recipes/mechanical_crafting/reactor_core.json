@@ -1,0 +1,28 @@
+{
+  "type": "create:mechanical_crafting",
+  "acceptMirrored": true,
+  "key": {
+    "B": {
+      "item": "createnuclear:uranium_bucket"
+    },
+    "C": {
+      "item": "createnuclear:reactor_casing"
+    },
+    "P": {
+      "item": "create:precision_mechanism"
+    },
+    "S": {
+      "item": "createnuclear:steel_ingot"
+    }
+  },
+  "pattern": [
+    "CCCCC",
+    "CPSPC",
+    "CSBSC",
+    "CPSPC",
+    "CCCCC"
+  ],
+  "result": {
+    "item": "createnuclear:reactor_core"
+  }
+}

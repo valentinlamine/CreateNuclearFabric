@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "X": {
+      "item": "createnuclear:lead_ingot"
+    },
+    "Y": {
+      "item": "createnuclear:magenta_cloth"
+    },
+    "Z": {
+      "item": "createnuclear:reinforced_glass"
+    }
+  },
+  "pattern": [
+    "YXY",
+    "Z Z",
+    "X X"
+  ],
+  "result": {
+    "item": "createnuclear:magenta_anti_radiation_leggings"
+  },
+  "show_notification": true
+}
