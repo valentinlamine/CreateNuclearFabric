@@ -150,10 +150,10 @@ public class CNItems {
                 .register();
     });
 
-    public static final ItemEntry<ConfiguredReactorItem> CONFIGURED_REACTOR_ITEM = CreateNuclear.REGISTRATE
-            .item("configured_reactor_item", ConfiguredReactorItem::new)
-            .lang("Configured Reactor")
-            .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/configured_reactor")))
+    public static final ItemEntry<ConfiguredReactorItem> REACTOR_BLUEPRINT = CreateNuclear.REGISTRATE
+            .item("reactor_blueprint_item", ConfiguredReactorItem::new)
+            .lang("Reactor Blueprint")
+            .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/reactor_blueprint")))
             .properties(p -> p.stacksTo(1))
             .register();
 

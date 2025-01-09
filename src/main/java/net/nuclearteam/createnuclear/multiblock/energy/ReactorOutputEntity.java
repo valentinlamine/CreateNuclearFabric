@@ -124,7 +124,6 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
-		CreateNuclear.LOGGER.warn(speed + " ReactorOutputEntity " + this.speed);
 	}
 
 
