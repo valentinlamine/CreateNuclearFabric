@@ -1,4 +1,4 @@
-// 1.20.1	2024-12-31T21:23:48.2228474	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-01-09T20:45:28.9573435	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 2b6958059c3a4c8aee7fb4c003feba12dd0ab252 assets\createnuclear\models\item\uranium_bucket.json
 4db93da70d6a7549155201b7d9d68355449652ac assets\createnuclear\models\item\red_cloth.json
 8cdcca32a87171e2c709e762165330b2f0389f90 assets\createnuclear\models\item\brown_cloth.json
@@ -64,8 +64,8 @@ e66dc779ab853aecc35e6ccfba5d9dba78cd0574 assets\createnuclear\models\item\gray_a
 63aaf78c3e0c16c2f37b069c5392e3d1a93ac058 assets\createnuclear\blockstates\raw_uranium_block.json
 78a9e80073512a111cb936a516d290a824846ff2 assets\createnuclear\models\item\reinforced_glass.json
 b59b6afe006c0b7ae8053453eefd643a81a83257 data\c\tags\items\helmets.json
-39cc8882ac0d27137f33e51b5d5de8661935e1b6 data\c\tags\items\ingots\steel.json
 a6f90dfcfc0659663335d4c80129ce41d0c8e47a assets\createnuclear\blockstates\deepslate_uranium_ore.json
+39cc8882ac0d27137f33e51b5d5de8661935e1b6 data\c\tags\items\ingots\steel.json
 b7a56e4ac63519df8fcefb9b18a2583991bd9f34 assets\createnuclear\models\item\red_anti_radiation_helmet.json
 e586818bacf371908fa8eb2a548f2f89e1dbc7d3 data\c\tags\items\ingots.json
 fc4d890be42f9f5cfdb89878f0c9092a223570c3 data\minecraft\tags\blocks\fire.json
@@ -84,7 +84,7 @@ cb90a0a4a9afbc7b9367a66696be77942078a9f4 assets\createnuclear\models\item\reacto
 fdc9cf972cf27ce343d4f098ddcdc9a4e19d2404 data\c\tags\fluids\uranium.json
 c88d66c0a041c51ee8089e5596169dc6c353fb13 assets\createnuclear\models\item\gray_anti_radiation_helmet.json
 b20aeafcdcd235c7d89067d5331b823535b82522 assets\createnuclear\models\item\yellow_anti_radiation_leggings.json
-8557872054c19a0cce94b0af55c7403a6fba1022 assets\createnuclear\lang\en_ud.json
+fa4ef4dff99b71555bc714c916a450c6f7f458d5 assets\createnuclear\lang\en_ud.json
 37af2b0b5eacf53995703344a45fb3f4d0efe1f9 data\createnuclear\loot_tables\blocks\reactor_output.json
 d61337a67071319320d75383a62ecac11c3222d1 assets\createnuclear\models\item\brown_anti_radiation_helmet.json
 ddb01d2586a37fd31cc463ef9e6864cd6fabae4f data\c\tags\blocks\storage_blocks\lead.json
@@ -164,7 +164,7 @@ af14c1a038ff14285b1d78dfbcab0a8e44df14e5 assets\createnuclear\models\item\orange
 5a2694d92c4708ca23ddfa67666ea26be66b9a45 assets\createnuclear\models\item\enriched_soul_soil.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets\createnuclear\models\item\chicken_irradiated_spawn_egg.json
 f91f43a39c80f583f878ea1a0d944798c05f2388 data\createnuclear\loot_tables\entities\irradiated_wolf.json
-0a2594662b72184321a522dd0ba7344692805b23 assets\createnuclear\lang\en_us.json
+f6b80c65811cba7fc87a33b20b83c75e03bd93cf assets\createnuclear\lang\en_us.json
 57c846a957e9250bc45f2f1091bf3f78b2a77344 assets\createnuclear\blockstates\steel_block.json
 1bc1df20c6b9d54bef2dc180d70b4531a4a1d87c assets\createnuclear\models\item\reactor_core.json
 e5ce9ec90cc899a20b84697b8d9ada9a455d56bf data\c\tags\items\raw_materials\uranium.json
@@ -173,8 +173,8 @@ e5ce9ec90cc899a20b84697b8d9ada9a455d56bf data\c\tags\items\raw_materials\uranium
 17ec52f71bd19239771c599ee80d9ffa073738af assets\createnuclear\models\item\lead_block.json
 2e364d92951412b2dd7d9fbb0209fc8f3194bcd5 assets\createnuclear\models\item\brown_anti_radiation_chestplate.json
 8195d52278bf58414faaaec6067905635aaa29d5 assets\createnuclear\blockstates\raw_lead_block.json
-9d3cfc1ffe781364a6d1d82d9415dad084185698 assets\createnuclear\models\item\reactor_input.json
 8ed063e9486b9d6d830bba43a35a3b5dd07ea0a0 assets\createnuclear\models\item\light_gray_anti_radiation_helmet.json
+9d3cfc1ffe781364a6d1d82d9415dad084185698 assets\createnuclear\models\item\reactor_input.json
 fb06a618d4368284c1420826ffccde949820d655 data\minecraft\tags\blocks\needs_diamond_tool.json
 c9757e3fd9841ee17366b1d88563df6ea8106513 assets\createnuclear\models\block\lead_ore.json
 b025fcc911efa469caf74c78a59e9f79b0f652f8 data\c\tags\blocks\ores_in_ground\deepslate.json

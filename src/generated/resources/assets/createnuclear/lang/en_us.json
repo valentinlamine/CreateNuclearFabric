@@ -1,4 +1,6 @@
 {
+  "advancement.createnuclear.test": "Welcome to Create Nuclear",
+  "advancement.createnuclear.test.desc": "Here Be Contraptions",
   "block.createnuclear.deepslate_lead_ore": "Deepslate Lead Ore",
   "block.createnuclear.deepslate_uranium_ore": "Deepslate Uranium Ore",
   "block.createnuclear.enriched_soul_soil": "Enriched Soul Soil",

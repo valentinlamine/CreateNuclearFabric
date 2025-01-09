@@ -8,6 +8,7 @@ import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
+import net.nuclearteam.createnuclear.advancement.CNAdvancement;
 import net.nuclearteam.createnuclear.datagen.CNGeneratedEntriesProvider;
 import net.nuclearteam.createnuclear.datagen.CNProcessingRecipeGen;
 import net.nuclearteam.createnuclear.datagen.CNRegistrateTags;
@@ -38,6 +39,7 @@ public class CreateNuclearDataGenerator implements DataGeneratorEntrypoint {
 	public static void getherData(FabricDataGenerator.Pack pack, ExistingFileHelper existingFileHelper) {
 		addExtraRegistrateData();
 
+		pack.addProvider(CNAdvancement::new);
 		pack.addProvider(CNGeneratedEntriesProvider::new);
 		pack.addProvider(CNProcessingRecipeGen::registerAll);
 		pack.addProvider(CNStandardRecipeGen::new);
@@ -50,14 +52,15 @@ public class CreateNuclearDataGenerator implements DataGeneratorEntrypoint {
 		CNRegistrateTags.addGenerators();
 
 		CreateNuclear.REGISTRATE.addDataGenerator(ProviderType.LANG, provider -> {
-			BiConsumer<String, String> langConsummer = provider::add;
+			BiConsumer<String, String> langConsumer = provider::add;
 
-			provideDefaultLang("interface", langConsummer);
-			provideDefaultLang("potion", langConsummer);
-			provideDefaultLang("entity", langConsummer);
-			provideDefaultLang("tooltips", langConsummer);
-			provideDefaultLang("reactor", langConsummer);
-			providePonderLang(langConsummer);
+			provideDefaultLang("interface", langConsumer);
+			provideDefaultLang("potion", langConsumer);
+			provideDefaultLang("entity", langConsumer);
+			provideDefaultLang("tooltips", langConsumer);
+			provideDefaultLang("reactor", langConsumer);
+			CNAdvancement.provideLang(langConsumer);
+			providePonderLang(langConsumer);
 		});
 	}
 

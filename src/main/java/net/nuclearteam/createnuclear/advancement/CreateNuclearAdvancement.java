@@ -1,7 +1,6 @@
 package net.nuclearteam.createnuclear.advancement;
 
 import com.simibubi.create.Create;
-import com.simibubi.create.foundation.advancement.AllAdvancements;
 import com.simibubi.create.foundation.advancement.AllTriggers;
 import com.simibubi.create.foundation.advancement.SimpleCreateTrigger;
 import com.simibubi.create.foundation.utility.Components;
@@ -16,25 +15,31 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.nuclearteam.createnuclear.CreateNuclear;
 
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
-public class CreateAdvancement {
+public class CreateNuclearAdvancement {
 
     static final ResourceLocation BACKGROUND = Create.asResource("textures/gui/advancements.png");
-    static final String LANG = "advancement." + Create.ID + ".";
+    static final String LANG = "advancement." + CreateNuclear.MOD_ID + ".";
     static final String SECRET_SUFFIX = "\n\u00A77(Hidden Advancement)";
 
     private Advancement.Builder builder;
     private SimpleCreateTrigger builtinTrigger;
-    private CNAdvancement parent;
+    private CreateNuclearAdvancement parent;
+
+    Advancement datagenResult;
+
 
     private String id;
     private String title;
     private String description;
 
 
-    public CreateAdvancement(String id, UnaryOperator<Builder> b) {
+    public CreateNuclearAdvancement(String id, UnaryOperator<Builder> b) {
         this.builder = Advancement.Builder.advancement();
         this.id = id;
 
@@ -62,6 +67,18 @@ public class CreateAdvancement {
 
     private String descriptionKey() {
         return titleKey() + ".desc";
+    }
+
+    void save(Consumer<Advancement> t) {
+        if (parent != null)
+            builder.parent(parent.datagenResult);
+        datagenResult = builder.save(t, Create.asResource(id)
+                .toString());
+    }
+
+    void provideLang(BiConsumer<String, String> consumer) {
+        consumer.accept(titleKey(), title);
+        consumer.accept(descriptionKey(), description);
     }
 
     static enum TaskType {
@@ -99,8 +116,8 @@ public class CreateAdvancement {
             return this;
         }
 
-        Builder after(CNAdvancement other) {
-            CNAdvancement.this.parent = other;
+        Builder after(CreateNuclearAdvancement other) {
+            CreateNuclearAdvancement.this.parent = other;
             return this;
         }
 
@@ -118,12 +135,12 @@ public class CreateAdvancement {
         }
 
         Builder title(String title) {
-            CNAdvancement.this.title = title;
+            CreateNuclearAdvancement.this.title = title;
             return this;
         }
 
         Builder description(String description) {
-            CNAdvancement.this.description = description;
+            CreateNuclearAdvancement.this.description = description;
             return this;
         }
 
