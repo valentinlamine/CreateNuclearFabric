@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "createnuclear:reactor_blueprint_item"
+    }
+  ],
+  "result": {
+    "item": "createnuclear:reactor_blueprint_item"
+  }
+}

@@ -76,7 +76,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                     .showNotification(true)
             ),
 
-        CONFIGURED_REACTOR_ITEM = create(CNItems.CONFIGURED_REACTOR_ITEM).unlockedBy(CNBlocks.REACTOR_CONTROLLER::get)
+        REACTOR_BLUEPRINT_ITEM = create(CNItems.REACTOR_BLUEPRINT).unlockedBy(CNBlocks.REACTOR_CONTROLLER::get)
                 .viaShaped(b -> b
                         .define('S', CNTag.forgeItemTag("ingots/steel"))
                         .define('D', AllBlocks.DISPLAY_BOARD)

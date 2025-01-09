@@ -43,7 +43,7 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
     }
 
     public static ConfiguredReactorItemMenu create(int id, Inventory inv, ItemStack stack) {
-        return new ConfiguredReactorItemMenu(CNMenus.CONFIGURED_REACTOR_MENU.get(), id, inv, stack);
+        return new ConfiguredReactorItemMenu(CNMenus.REACTOR_BLUEPRINT_MENU.get(), id, inv, stack);
     }
 
     @Override
@@ -131,7 +131,6 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
         }
 
         contentHolder.getOrCreateTag().put("patternAll", ghostInventory.serializeNBT());
-
 
     }
 

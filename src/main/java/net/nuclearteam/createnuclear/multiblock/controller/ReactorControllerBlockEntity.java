@@ -380,7 +380,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
 
     public InteractionResult onClick(Player player, InteractionHand hand) {
         ItemStack heldItem = player.getItemInHand(hand);
-        if (heldItem.is(CNItems.CONFIGURED_REACTOR_ITEM.get()) && !heldItem.isEmpty()) {
+        if (heldItem.is(CNItems.REACTOR_BLUEPRINT.get()) && !heldItem.isEmpty()) {
             if (configuredPattern.isEmpty()) {
                 inventory.setStackInSlot(0, heldItem);
                 configuredPattern = heldItem;
