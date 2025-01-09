@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "X": {
+      "item": "createnuclear:lead_ingot"
+    },
+    "Y": {
+      "item": "createnuclear:cyan_cloth"
+    },
+    "Z": {
+      "item": "createnuclear:graphite_rod"
+    }
+  },
+  "pattern": [
+    "Y Y",
+    "XXX",
+    "ZXZ"
+  ],
+  "result": {
+    "item": "createnuclear:cyan_anti_radiation_chestplate"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,21 @@
+{
+  "type": "create:mechanical_crafting",
+  "acceptMirrored": true,
+  "key": {
+    "G": {
+      "item": "createnuclear:graphene"
+    },
+    "S": {
+      "item": "createnuclear:steel_ingot"
+    }
+  },
+  "pattern": [
+    "SGS",
+    "SGS",
+    "SGS",
+    "SGS"
+  ],
+  "result": {
+    "item": "createnuclear:graphite_rod"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "S": {
+      "item": "createnuclear:lead_ingot"
+    }
+  },
+  "pattern": [
+    "SGS",
+    "GSG",
+    "SGS"
+  ],
+  "result": {
+    "item": "createnuclear:reinforced_glass"
+  },
+  "show_notification": true
+}

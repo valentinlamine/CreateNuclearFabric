@@ -1,0 +1,28 @@
+{
+  "type": "create:mechanical_crafting",
+  "acceptMirrored": true,
+  "key": {
+    "B": {
+      "item": "createnuclear:uranium_bucket"
+    },
+    "C": {
+      "item": "createnuclear:reactor_casing"
+    },
+    "G": {
+      "item": "createnuclear:reinforced_glass"
+    },
+    "S": {
+      "item": "createnuclear:steel_ingot"
+    }
+  },
+  "pattern": [
+    "CCCCC",
+    "CSGSC",
+    "CGBGC",
+    "CSGSC",
+    "CCCCC"
+  ],
+  "result": {
+    "item": "createnuclear:reactor_main_frame"
+  }
+}
