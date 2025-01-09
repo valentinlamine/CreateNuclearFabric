@@ -67,7 +67,7 @@ public class ConfiguredReactorItem extends Item implements MenuProvider {
 
     public static ItemStackHandler getItemStorage(ItemStack stack) {
         ItemStackHandler newInv = new ItemStackHandler(57);
-        if (CNItems.CONFIGURED_REACTOR_ITEM.get() != stack.getItem()) throw new IllegalArgumentException("Cannot get configured items from non item: " + stack);
+        if (CNItems.REACTOR_BLUEPRINT.get() != stack.getItem()) throw new IllegalArgumentException("Cannot get configured items from non item: " + stack);
         if (!stack.hasTag()) return newInv;
         CompoundTag invNBT = stack.getOrCreateTagElement("pattern");
         if (!newInv.empty()) newInv.deserializeNBT(invNBT);

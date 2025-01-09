@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "createnuclear:item/configured_reactor"
+    "layer0": "createnuclear:item/reactor_blueprint"
   }
 }
