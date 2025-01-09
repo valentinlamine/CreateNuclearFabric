@@ -156,11 +156,11 @@ public class CNItems {
             .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/reactor_blueprint")))
             .properties(p -> p.stacksTo(1))
             .register();
-
+/*
     public static final ItemEntry<CustomSpawnEgg> SPAWN_WOLF = registerSpawnEgg("wolf_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_WOLF, 0x42452B,0x4C422B, "Irradiated Wolf Spawn Egg");
     public static final ItemEntry<CustomSpawnEgg> SPAWN_CAT = registerSpawnEgg("cat_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_CAT, 0x382C19,0x742728, "Irradiated Cat Spawn Egg");
     public static final ItemEntry<CustomSpawnEgg> SPAWN_CHICKEN = registerSpawnEgg("chicken_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_CHICKEN, 0x6B9455,0x95393C, "Irradiated Chicken Spawn Egg");
-
+*/
 
     public static final Potion potion_1 = registerPotion("potion_of_radiation_1", new Potion(new MobEffectInstance(CNEffects.RADIATION.get(), 900)));
     public static final Potion potion_augment_1 = registerPotion("potion_of_radiation_augment_1", new Potion(new MobEffectInstance(CNEffects.RADIATION.get(), 1800)));
