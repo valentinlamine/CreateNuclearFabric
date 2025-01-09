@@ -73,10 +73,9 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 			if (controllerEntity != null) {
 				if (!controllerEntity.getAssembled() && getSpeed() != 0) {
 					setSpeed(0);
-					CreateNuclear.LOGGER.warn("ReactorOutputEntity : Controller not found");
 				}
 			}
-		}
+		} else setSpeed(0);
 	}
 
 	@Override
