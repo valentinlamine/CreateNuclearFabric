@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear.ponder;
 
+import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.ponder.SceneBuilder;
 import com.simibubi.create.foundation.ponder.SceneBuildingUtil;
 import com.simibubi.create.foundation.ponder.element.InputWindowElement;
@@ -16,7 +17,7 @@ public class CNPonderReactor {
     private static final BlockPos CONTROLLER = new BlockPos(3,4,5);
     public static void init(SceneBuilder scene, SceneBuildingUtil util) {
         scene.title("reactor", "Setup from Reactor");
-        scene.configureBasePlate(0,0,7);
+        scene.configureBasePlate(0,0,9);
         scene.showBasePlate();
 
 
@@ -61,6 +62,11 @@ public class CNPonderReactor {
             }
         }
         scene.idle(30);
+        scene.overlay.showControls(
+                new InputWindowElement(util.vector.blockSurface(CONTROLLER, Direction.DOWN), Pointing.UP)
+                        .withItem(CNItems.REACTOR_BLUEPRINT.asStack())
+                        .rightClick(),
+                40);
 
         scene.world.modifyBlock(CONTROLLER, s -> s.setValue(ReactorControllerBlock.ASSEMBLED, true), true);
     }
