@@ -17,8 +17,10 @@ public class CNPonderIndex {
     public static void register() {
         // Reactor
         HELPER.forComponents(CNBlocks.REACTOR_CONTROLLER)
-                .addStoryBoard("reactor/setup", CNPonderReactor::init)
-                .addStoryBoard("reactor/setup", CNPonderReactor::enable);
+                .addStoryBoard("reactor/setup", CNPonderReactor::init);
+
+        /*HELPER.forComponents(CNBlocks.REACTOR_CONTROLLER)
+                .addStoryBoard("reactor/setup", CNPonderReactor::enable);*/
 
         HELPER.forComponents(CNItems.REACTOR_BLUEPRINT)
                 .addStoryBoard("reactor/setup", CNPonderReactor::enable);

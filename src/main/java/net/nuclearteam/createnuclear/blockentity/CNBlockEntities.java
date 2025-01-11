@@ -22,7 +22,7 @@ public class CNBlockEntities {
             .register();
 
     public static final BlockEntityEntry<ReactorInputEntity> REACTOR_INPUT =
-            CreateNuclear.REGISTRATE.blockEntity("test", ReactorInputEntity::new)
+            CreateNuclear.REGISTRATE.blockEntity("reactor_input", ReactorInputEntity::new)
                     .validBlocks(CNBlocks.REACTOR_INPUT)
                     .register();
 
