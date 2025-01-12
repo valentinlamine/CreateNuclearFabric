@@ -38,32 +38,32 @@ public class CNPonderReactor {
                     }
                     if (x == INPUT.getX() && y == INPUT.getY() && z == INPUT.getZ()) {
                         scene.rotateCameraY(180f);
-                        scene.overlay.showText(30)
+                        scene.overlay.showText(60)
                                 .text("Reactor Input: A block that stores uranium rods and graphite rods to operate the reactor.")
                                 .pointAt(util.vector.blockSurface(INPUT, Direction.UP))
                                 .attachKeyFrame()
                                 .placeNearTarget();
-                        scene.idle(40);
+                        scene.idle(70);
                         scene.rotateCameraY(180f);
                     }
                     if (x == OUTPUT.getX() && y == OUTPUT.getY() && z == OUTPUT.getZ()) {
                         AABB bb = new AABB(OUTPUT).inflate(1/16f, 0, 0);
                         scene.overlay.chaseBoundingBoxOutline(PonderPalette.MEDIUM, new Object(), bb.move(0, 1, 0)
                                 .contract(0, .75, 0), 80);
-                        scene.overlay.showText(30)
+                        scene.overlay.showText(60)
                                 .text("Reactor Output: This is where the block outputs the energy (SU) generated from production.")
                                 .pointAt(util.vector.blockSurface(OUTPUT, Direction.UP))
                                 .attachKeyFrame()
                                 .placeNearTarget();
-                        scene.idle(5);
+                        scene.idle(70);
                     }
                     if (x == CONTROLLER.getX() && y == CONTROLLER.getY() && z == CONTROLLER.getZ()){
-                        scene.overlay.showText(13)
+                        scene.overlay.showText(60)
                             .text("Reactor Controller: The most important block for operating the reactor; it handles all the calculations needed to generate energy.")
                             .pointAt(util.vector.blockSurface(CONTROLLER, Direction.DOWN))
                             .attachKeyFrame()
                             .placeNearTarget();
-                        scene.idle(5);
+                        scene.idle(70);
                     }
                 }
             }
@@ -87,14 +87,15 @@ public class CNPonderReactor {
         }
         scene.idle(30);
         scene.overlay
+                .showText(60)
+                .text("Reactor Blueprint: The most important item; it allows you to configure the reactor according to specific patterns. For more details, refer to the item's tooltip.");
+
+        scene.overlay
                 .showControls(
                 new InputWindowElement(util.vector.blockSurface(CONTROLLER, Direction.NORTH), Pointing.UP)
                         .withItem(CNItems.REACTOR_BLUEPRINT.asStack())
                         .rightClick(),
-                40);
-        scene.overlay
-                .showText(23)
-                .text("Reactor Blueprint: The most important item; it allows you to configure the reactor according to specific patterns. For more details, refer to the item's tooltip.");
+                60);
 
 
         scene.world.modifyBlock(CONTROLLER, s -> s.setValue(ReactorControllerBlock.ASSEMBLED, true), true);
