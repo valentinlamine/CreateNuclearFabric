@@ -23,7 +23,7 @@ import java.util.function.UnaryOperator;
 
 public class CreateNuclearAdvancement {
 
-    static final ResourceLocation BACKGROUND = Create.asResource("textures/gui/advancements.png");
+    static final ResourceLocation BACKGROUND = CreateNuclear.asResource("textures/block/steel_block.png");
     static final String LANG = "advancement." + CreateNuclear.MOD_ID + ".";
     static final String SECRET_SUFFIX = "\n\u00A77(Hidden Advancement)";
 
@@ -32,7 +32,6 @@ public class CreateNuclearAdvancement {
     private CreateNuclearAdvancement parent;
 
     Advancement datagenResult;
-
 
     private String id;
     private String title;
@@ -72,7 +71,7 @@ public class CreateNuclearAdvancement {
     void save(Consumer<Advancement> t) {
         if (parent != null)
             builder.parent(parent.datagenResult);
-        datagenResult = builder.save(t, Create.asResource(id)
+        datagenResult = builder.save(t, CreateNuclear.asResource(id)
                 .toString());
     }
 
