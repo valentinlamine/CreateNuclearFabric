@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "createnuclear:black_anti_radiation_helmet"
-            ]
+            "tag": "createnuclear:anti_radiation_armor"
           }
         ]
       },
