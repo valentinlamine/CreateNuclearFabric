@@ -30,7 +30,7 @@ public class CNPlacedFeatures {
         Holder<ConfiguredFeature<?,?>> leadOre = featureLookup.getOrThrow(CNConfiguredFeatures.LEAD_ORE);
 
         register(context, URANIUM_ORE, uraniumOre, placement(CountPlacement.of(6), -64,64));
-        register(context, LEAD_ORE, leadOre, placement(CountPlacement.of(6), -64,64));
+        register(context, LEAD_ORE, leadOre, placement(CountPlacement.of(10), -64,64));
 
 
 
