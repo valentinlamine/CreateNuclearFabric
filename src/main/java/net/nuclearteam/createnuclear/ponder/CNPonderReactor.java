@@ -48,8 +48,8 @@ public class CNPonderReactor {
                     }
                     if (x == OUTPUT.getX() && y == OUTPUT.getY() && z == OUTPUT.getZ()) {
                         AABB bb = new AABB(OUTPUT).inflate(1/16f, 0, 0);
-                        scene.overlay.chaseBoundingBoxOutline(PonderPalette.MEDIUM, new Object(), bb.move(0, 1, 0)
-                                .contract(0, .75, 0), 80);
+                        /*scene.overlay.chaseBoundingBoxOutline(PonderPalette.MEDIUM, new Object(), bb.move(0, 1, 0)
+                                .contract(0, .75, 0), 80);*/
                         scene.overlay.showText(90)
                                 .text("Reactor Output: This is where the block outputs the energy (SU) generated from production.")
                                 .pointAt(util.vector.blockSurface(OUTPUT, Direction.UP))
@@ -88,7 +88,7 @@ public class CNPonderReactor {
         // For more details, refer to the item's tooltip.
         scene.idle(30);
         scene.overlay
-                .showText(60)
+                .showText(90)
                 .text("Reactor Blueprint: The most important item; it allows you to configure the reactor according to specific patterns.");
 
         scene.overlay
@@ -96,7 +96,7 @@ public class CNPonderReactor {
                 new InputWindowElement(util.vector.blockSurface(CONTROLLER, Direction.NORTH), Pointing.UP)
                         .withItem(CNItems.REACTOR_BLUEPRINT.asStack())
                         .rightClick(),
-                60);
+                90);
 
 
         scene.world.modifyBlock(CONTROLLER, s -> s.setValue(ReactorControllerBlock.ASSEMBLED, true), true);
