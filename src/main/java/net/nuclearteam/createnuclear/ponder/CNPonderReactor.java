@@ -24,7 +24,7 @@ public class CNPonderReactor {
 
         for (int y = 1; y < 8; y++) {
             scene.overlay.showText(10)
-                    .text("floor " + y)
+                    .text("Floor " + y)
                     .attachKeyFrame()
                     .placeNearTarget();
 
@@ -72,7 +72,7 @@ public class CNPonderReactor {
     }
 
     public static void enable(SceneBuilder scene, SceneBuildingUtil util) {
-        scene.title("reactor", "Enable controller");
+        scene.title("reactor_blueprint", "Enable controller");
         scene.configureBasePlate(0,0,9);
         scene.world.showSection(util.select.layer(0), Direction.UP);
         scene.showBasePlate();
