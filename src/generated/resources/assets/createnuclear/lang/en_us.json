@@ -35,7 +35,7 @@
   "createnuclear.ponder.reactor.text_8": "Floor 5",
   "createnuclear.ponder.reactor.text_9": "Floor 6",
   "createnuclear.ponder.reactor_blueprint.header": "Enable controller",
-  "createnuclear.ponder.reactor_blueprint.text_1": "Reactor Blueprint: The most important item; it allows you to configure the reactor according to specific patterns. For more details, refer to the item's tooltip.",
+  "createnuclear.ponder.reactor_blueprint.text_1": "Reactor Blueprint: The most important item; it allows you to configure the reactor according to specific patterns.",
   "createnuclear.tooltip.heatLevel": "Heat Level",
   "createnuclear.tooltip.heatLevel.caution": "Caution",
   "createnuclear.tooltip.heatLevel.danger": "Danger",
