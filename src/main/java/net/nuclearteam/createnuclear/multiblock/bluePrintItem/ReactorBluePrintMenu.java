@@ -1,7 +1,6 @@
-package net.nuclearteam.createnuclear.multiblock.configuredItem;
+package net.nuclearteam.createnuclear.multiblock.bluePrintItem;
 
 import com.simibubi.create.foundation.gui.menu.GhostItemMenu;
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
 import net.fabricmc.api.EnvType;
@@ -14,16 +13,12 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.menu.CNMenus;
 import net.nuclearteam.createnuclear.tags.CNTag;
 
-import java.util.HashMap;
-import java.util.Map;
+import static net.nuclearteam.createnuclear.multiblock.bluePrintItem.ReactorBluePrintItem.getItemStorage;
 
-import static net.nuclearteam.createnuclear.multiblock.configuredItem.ConfiguredReactorItem.getItemStorage;
-
-public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
+public class ReactorBluePrintMenu extends GhostItemMenu<ItemStack> {
 
     public float heat = 0F;
     public int graphiteTime = 5000;
@@ -34,16 +29,16 @@ public class ConfiguredReactorItemMenu extends GhostItemMenu<ItemStack> {
 
     public boolean sendUpdate = false;
 
-    public ConfiguredReactorItemMenu(MenuType<?> type, int id, Inventory inv, FriendlyByteBuf extraData) {
+    public ReactorBluePrintMenu(MenuType<?> type, int id, Inventory inv, FriendlyByteBuf extraData) {
         super(type, id, inv, extraData);
     }
 
-    public ConfiguredReactorItemMenu(MenuType<?> type, int id, Inventory inv, ItemStack contentHolder) {
+    public ReactorBluePrintMenu(MenuType<?> type, int id, Inventory inv, ItemStack contentHolder) {
         super(type, id, inv, contentHolder);
     }
 
-    public static ConfiguredReactorItemMenu create(int id, Inventory inv, ItemStack stack) {
-        return new ConfiguredReactorItemMenu(CNMenus.REACTOR_BLUEPRINT_MENU.get(), id, inv, stack);
+    public static ReactorBluePrintMenu create(int id, Inventory inv, ItemStack stack) {
+        return new ReactorBluePrintMenu(CNMenus.REACTOR_BLUEPRINT_MENU.get(), id, inv, stack);
     }
 
     @Override

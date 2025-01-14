@@ -8,16 +8,13 @@ import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Le
 import com.tterrag.registrate.util.entry.EntityEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
@@ -29,11 +26,10 @@ import net.nuclearteam.createnuclear.groups.CNGroup;
 import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem.DyeItemList;
-import net.nuclearteam.createnuclear.multiblock.configuredItem.ConfiguredReactorItem;
+import net.nuclearteam.createnuclear.multiblock.bluePrintItem.ReactorBluePrintItem;
 import net.nuclearteam.createnuclear.tags.CNTag;
 import net.nuclearteam.createnuclear.tools.CustomSpawnEgg;
 import net.nuclearteam.createnuclear.utils.TextUtils;
-import net.nuclearteam.createnuclear.entity.CNMobEntityType;
 
 public class CNItems {
 
@@ -150,8 +146,8 @@ public class CNItems {
                 .register();
     });
 
-    public static final ItemEntry<ConfiguredReactorItem> REACTOR_BLUEPRINT = CreateNuclear.REGISTRATE
-            .item("reactor_blueprint_item", ConfiguredReactorItem::new)
+    public static final ItemEntry<ReactorBluePrintItem> REACTOR_BLUEPRINT = CreateNuclear.REGISTRATE
+            .item("reactor_blueprint_item", ReactorBluePrintItem::new)
             .lang("Reactor Blueprint")
             .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/reactor_blueprint")))
             .properties(p -> p.stacksTo(1))
