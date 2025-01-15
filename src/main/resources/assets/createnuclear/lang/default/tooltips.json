@@ -3,6 +3,12 @@
   "tag.item.createnuclear.cooler": "Cooler",
   "tag.item.createnuclear.fuel": "Fuel",
 
+  "item.createnuclear.anti_radiation_boots.tooltip.summary": "_Mirrors Block placement_ while present in any _Hotbar Slot_.",
+  "item.createnuclear.anti_radiation_boots.tooltip.condition1": "When used on a Surface",
+  "item.createnuclear.anti_radiation_boots.tooltip.behaviour1": "_Creates_ or _Moves_ its Mirror. _Sneak_ while using to open the _Configuration Interface_",
+  "item.createnuclear.anti_radiation_boots.tooltip.condition2": "When used with no target",
+  "item.createnuclear.anti_radiation_boots.tooltip.behaviour2": "_Removes_ the active Mirror",
+
   "tag.item.c.coal_dusts": "Coal Dusts",
   "tag.item.c.ingots.lead": "Tags Lead ingots",
   "tag.item.c.ingots.steel": "Tags Steel ingots",
