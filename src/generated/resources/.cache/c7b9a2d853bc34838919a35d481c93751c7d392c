@@ -1,4 +1,4 @@
-// 1.20.1	2025-01-12T17:58:28.3003097	CreateNuclear/CreateNuclear's Shapeless Recipes
+// 1.20.1	2025-01-15T19:43:27.336873	CreateNuclear/CreateNuclear's Shapeless Recipes
 0963a19bb89ddbbd20079a0c2c02f7f83697563c data\createnuclear\recipes\shapeless\raw_uranium_from_decompacting.json
 59b98fa258e358bd45be744cc1c70a1d3c6003ff data\createnuclear\advancements\recipes\building_blocks\shapeless\cloth\pink_cloth.json
 41106df4ff80c468a24dbabac260cb606ae1a127 data\createnuclear\advancements\recipes\misc\shapeless\lead_ingot_from_decompacting.json
@@ -41,7 +41,7 @@ c18ef9568592104904be5dc42f9d38ca1b347229 data\createnuclear\advancements\recipes
 1713ce33da8ce2fd0145e9921cab615d31fa5e66 data\createnuclear\recipes\shapeless\cloth\black_cloth.json
 ee9f6e45a6c733f1ce2a702c868b60a0d96bbb13 data\createnuclear\recipes\shapeless\raw_lead_from_decompacting.json
 a22692736ff403a44bca8ef34b5f97a855eb0a7a data\createnuclear\recipes\shapeless\cloth\magenta_cloth.json
-ad27b00d2e96fdcb14551f562b875941857acbd5 data\createnuclear\advancements\recipes\building_blocks\shapeless\cloth\lime_cloth.json
 a68afd8036c827e4ee599ad27d3ef0d4466f69b3 data\createnuclear\advancements\recipes\building_blocks\shapeless\cloth\purple_cloth.json
 e6ec8d394df502aa1dcebd16d1ed0275f92e9d2a data\createnuclear\recipes\shapeless\cloth\brown_cloth.json
+ad27b00d2e96fdcb14551f562b875941857acbd5 data\createnuclear\advancements\recipes\building_blocks\shapeless\cloth\lime_cloth.json
 946c506e1a893e5160093c6f96d8cef59b897fa2 data\createnuclear\recipes\shapeless\lead_ingot_from_decompacting.json
