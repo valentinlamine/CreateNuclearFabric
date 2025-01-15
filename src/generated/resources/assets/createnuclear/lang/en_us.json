@@ -152,6 +152,7 @@
   "reactor.info.assembled.none": "Multiblock not assembled",
   "reactor.info.is": "controller is",
   "reactor.item.gui.name": "Config Pattern",
+  "reactor.update.casing.input": "Update the casing in input",
   "tag.fluid.c.uranium": "Fluid Uranium",
   "tag.item.c.coal_dusts": "Coal Dusts",
   "tag.item.c.ingots.lead": "Tags Lead ingots",
