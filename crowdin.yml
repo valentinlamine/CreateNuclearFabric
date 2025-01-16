@@ -1,3 +1,4 @@
+"preserve_hierarchy": true
 "files": [
     {
         "source": "src/generated/resources/assets/createnuclear/lang/en_us.json",
