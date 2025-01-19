@@ -21,7 +21,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "createnuclear:black_anti_radiation_helmet",
+      "item": "createnuclear:white_anti_radiation_helmet",
       "nbt": "{Damage:0}"
     },
     "show_toast": true,

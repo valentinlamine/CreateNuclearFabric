@@ -133,13 +133,13 @@ public class CNAdvancement implements DataProvider {
             .after(LEAD_INGOT)
             .whenIconCollected()),
 
-    ANTI_RADIATION_ARMOR = create("anti_radiation_armor", b -> b.icon(CNItems.ANTI_RADIATION_HELMETS.get(DyeColor.BLACK))
+    ANTI_RADIATION_ARMOR = create("anti_radiation_armor", b -> b.icon(CNItems.ANTI_RADIATION_HELMETS.get(DyeColor.WHITE))
             .title("Anti radiation armor")
             .description("Craft your first anti radiation armor piece to protect yourself from radiation")
             .after(LEAD_INGOT)
             .whenItemCollected(CNTag.ItemTags.ANTI_RADIATION_ARMOR.tag)),
 
-    FULL_ANTI_RADIATION_ARMOR = create("full_anti_radiation_armor", b -> b.icon(CNItems.ANTI_RADIATION_HELMETS.get(DyeColor.BLACK))
+    FULL_ANTI_RADIATION_ARMOR = create("full_anti_radiation_armor", b -> b.icon(CNItems.ANTI_RADIATION_CHESTPLATES.get(DyeColor.WHITE))
             .title("Anti radiation armor")
             .description("Wear a full anti radiation armor to protect yourself from radiation")
             .externalTrigger(InventoryChangeTrigger.TriggerInstance.hasItems(new ItemLike[]{CNItems.ANTI_RADIATION_LEGGINGS.get(DyeColor.WHITE), CNItems.ANTI_RADIATION_CHESTPLATES.get(DyeColor.WHITE), CNItems.ANTI_RADIATION_HELMETS.get(DyeColor.WHITE), CNItems.ANTI_RADIATION_BOOTS}))

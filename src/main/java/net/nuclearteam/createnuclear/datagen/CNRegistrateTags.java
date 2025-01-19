@@ -37,13 +37,6 @@ public class CNRegistrateTags {
     private static void genItemTags(RegistrateTagsProvider<Item> provIn) {
         TagGen.CreateTagsProvider<Item> prov = new TagGen.CreateTagsProvider<>(provIn, Item::builtInRegistryHolder);
 
-       prov.tag(CNTag.ItemTags.ANTI_RADIATION_ARMOR.tag)
-               .add(CNItems.ANTI_RADIATION_HELMETS.get(DyeColor.WHITE).asItem())
-               .add(CNItems.ANTI_RADIATION_CHESTPLATES.get(DyeColor.WHITE).asItem())
-               .add(CNItems.ANTI_RADIATION_LEGGINGS.get(DyeColor.WHITE).asItem())
-               .add(CNItems.ANTI_RADIATION_BOOTS.get())
-       ;
-
         for (CNTag.ItemTags tag : CNTag.ItemTags.values()) {
             if (tag.alwaysDatagen) {
                 prov.getOrCreateRawBuilder(tag.tag);
