@@ -135,9 +135,15 @@ public class CNAdvancement implements DataProvider {
 
     ANTI_RADIATION_ARMOR = create("anti_radiation_armor", b -> b.icon(CNItems.ANTI_RADIATION_HELMETS.get(DyeColor.BLACK))
             .title("Anti radiation armor")
-            .description("Craft an anti radiation armor to protect yourself from radiation")
+            .description("Craft your first anti radiation armor piece to protect yourself from radiation")
             .after(LEAD_INGOT)
             .whenItemCollected(CNTag.ItemTags.ANTI_RADIATION_ARMOR.tag)),
+
+    FULL_ANTI_RADIATION_ARMOR = create("full_anti_radiation_armor", b -> b.icon(CNItems.ANTI_RADIATION_HELMETS.get(DyeColor.BLACK))
+            .title("Anti radiation armor")
+            .description("Wear a full anti radiation armor to protect yourself from radiation")
+            .externalTrigger(InventoryChangeTrigger.TriggerInstance.hasItems(new ItemLike[]{CNItems.ANTI_RADIATION_LEGGINGS.get(DyeColor.WHITE), CNItems.ANTI_RADIATION_CHESTPLATES.get(DyeColor.WHITE), CNItems.ANTI_RADIATION_HELMETS.get(DyeColor.WHITE), CNItems.ANTI_RADIATION_BOOTS}))
+            .after(ANTI_RADIATION_ARMOR)),
 
     DYE_ANTI_RADIATION_ARMOR = create("dye_anti_radiation_armor", b -> b.icon(CNItems.ANTI_RADIATION_HELMETS.get(DyeColor.RED))
             .title("Anti radiation armor")
@@ -165,6 +171,12 @@ public class CNAdvancement implements DataProvider {
             .title("Reactor Controller")
             .description("Craft a reactor controller to control your nuclear reactor")
             .after(REACTOR_CASING)
+            .whenIconCollected()),
+
+    REACTOR_BLUEPRINT = create("reactor_blueprint", b -> b.icon(CNItems.CONFIGURED_REACTOR_ITEM)
+            .title("Reactor Blueprint")
+            .description("Craft a reactor blueprint to create your pattern of rods !")
+            .after(REACTOR_CONTROLLER)
             .whenIconCollected()),
 
     REACTOR_COOLING_FRAME = create("reactor_cooling_frame", b -> b.icon(CNBlocks.REACTOR_COOLING_FRAME)
