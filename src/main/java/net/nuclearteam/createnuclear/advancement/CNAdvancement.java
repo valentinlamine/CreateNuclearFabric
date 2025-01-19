@@ -16,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.ItemLike;
 import net.nuclearteam.createnuclear.advancement.CreateNuclearAdvancement.Builder;
+import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.fluid.CNFluids;
 import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.tags.CNTag;
@@ -46,7 +47,7 @@ public class CNAdvancement implements DataProvider {
 
     RAW_URANIUM = create("raw_uranium", b -> b.icon(CNItems.RAW_URANIUM)
             .title("Raw Uranium")
-			.description("Obtain some raw uranium bby mining uranium ore")
+			.description("Obtain some raw uranium by mining uranium ore")
 			.after(ROOT)
 			.whenIconCollected()),
 
@@ -126,6 +127,12 @@ public class CNAdvancement implements DataProvider {
             .after(RAW_LEAD)
             .whenIconCollected()),
 
+    REINFORCED_GLASS = create("reinforced_glass", b -> b.icon(CNBlocks.REINFORCED_GLASS)
+            .title("Reinforced Glass")
+            .description("Craft some reinforced glass for the first time")
+            .after(LEAD_INGOT)
+            .whenIconCollected()),
+
     ANTI_RADIATION_ARMOR = create("anti_radiation_armor", b -> b.icon(CNItems.ANTI_RADIATION_HELMETS.get(DyeColor.BLACK))
             .title("Anti radiation armor")
             .description("Craft an anti radiation armor to protect yourself from radiation")
@@ -146,7 +153,50 @@ public class CNAdvancement implements DataProvider {
             .title("Uranium Powder")
             .description("Obtain some uranium powder using the automatic uranium processing")
             .after(ROOT)
-            .special(SECRET))
+            .special(SECRET)),
+
+    REACTOR_CASING = create("reactor_casing", b -> b.icon(CNBlocks.REACTOR_CASING)
+            .title("Reactor Casing")
+            .description("Craft a reactor casing to build your nuclear reactor")
+            .after(ROOT)
+            .whenIconCollected()),
+
+    REACTOR_CONTROLLER = create("reactor_controller", b -> b.icon(CNBlocks.REACTOR_CONTROLLER)
+            .title("Reactor Controller")
+            .description("Craft a reactor controller to control your nuclear reactor")
+            .after(REACTOR_CASING)
+            .whenIconCollected()),
+
+    REACTOR_COOLING_FRAME = create("reactor_cooling_frame", b -> b.icon(CNBlocks.REACTOR_COOLING_FRAME)
+            .title("Reactor Colling Frame")
+            .description("Craft a reactor colling frame to cool your nuclear reactor")
+            .after(REACTOR_CASING)
+            .whenIconCollected()),
+
+    REACTOR_MAIN_FRAME = create("reactor_main_frame", b -> b.icon(CNBlocks.REACTOR_MAIN_FRAME)
+            .title("Reactor Main Frame")
+            .description("Craft a reactor main frame to build your nuclear reactor")
+            .after(REACTOR_CASING)
+            .whenIconCollected()),
+
+    REACTOR_INPUT = create("reactor_input", b -> b.icon(CNBlocks.REACTOR_INPUT)
+            .title("Reactor Input")
+            .description("Craft a reactor input to input uranium and graphite rod to your nuclear reactor")
+            .after(REACTOR_CASING)
+            .whenIconCollected()),
+
+    REACTOR_OUTPUT = create("reactor_output", b -> b.icon(CNBlocks.REACTOR_OUTPUT)
+            .title("Reactor Output")
+            .description("Craft a reactor output to output SU to your nuclear reactor")
+            .after(REACTOR_CASING)
+            .whenIconCollected()),
+
+    REACTOR_CORE = create("reactor_core", b -> b.icon(CNBlocks.REACTOR_CORE)
+            .title("Reactor Core")
+            .description("Craft a reactor core to build your nuclear reactor")
+            .after(REACTOR_CASING)
+            .whenIconCollected())
+
 
 
 
