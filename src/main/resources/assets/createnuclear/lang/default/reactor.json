@@ -1,5 +1,5 @@
 {
-  "reactor.info.assembled.none": "Multiblock not assembled",
+  "reactor.info.assembled.none": "Reactor is not assembled",
   "reactor.info.assembled.destroyer": "Reactor has been disassembled",
   "reactor.info.assembled.creator": "Reactor has been assembled",
   "reactor.info.is": "controller is",
