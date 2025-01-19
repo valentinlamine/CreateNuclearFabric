@@ -106,7 +106,7 @@ public class CNItems {
     public static final Helmet.DyeItemHelmetList<Helmet> ANTI_RADIATION_HELMETS = new Helmet.DyeItemHelmetList<>(color -> {
        String colorName = color.getSerializedName();
        return CreateNuclear.REGISTRATE.item(colorName + "_anti_radiation_helmet", p -> new Helmet(p, color))
-               .tag(CNTag.forgeItemTag("helmets"), CNTag.forgeItemTag("armors"))
+               .tag(CNTag.forgeItemTag("helmets"), CNTag.forgeItemTag("armors"), CNTag.ItemTags.ANTI_RADIATION_HELMET_DYE.tag)
                .lang(TextUtils.titleCaseConversion(color.getName()) +" Anti Radiation Helmet")
                .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/armors/helmets/" + colorName + "_anti_radiation_helmet")))
                .register();
@@ -116,7 +116,7 @@ public class CNItems {
     public static final Chestplate.DyeItemChestplateList<Chestplate> ANTI_RADIATION_CHESTPLATES = new Chestplate.DyeItemChestplateList<>(color -> {
         String colorName = color.getSerializedName();
         return CreateNuclear.REGISTRATE.item(colorName + "_anti_radiation_chestplate",  p -> new Chestplate(p, color))
-                .tag(CNTag.forgeItemTag("chestplates"), CNTag.forgeItemTag("armors"))
+                .tag(CNTag.forgeItemTag("chestplates"), CNTag.forgeItemTag("armors"), CNTag.ItemTags.ANTI_RADIATION_CHESTPLATE_DYE.tag)
                 .lang(TextUtils.titleCaseConversion(color.getName()) +" Anti Radiation Chestplate")
                 .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/armors/chestplates/" + colorName + "_anti_radiation_chestplate")))
                 .register();
@@ -126,7 +126,7 @@ public class CNItems {
     public static final Leggings.DyeItemLeggingsList<Leggings> ANTI_RADIATION_LEGGINGS = new Leggings.DyeItemLeggingsList<>(color -> {
         String colorName = color.getSerializedName();
         return CreateNuclear.REGISTRATE.item(colorName + "_anti_radiation_leggings",  p -> new Leggings(p, color))
-                .tag(CNTag.forgeItemTag("leggings"), CNTag.forgeItemTag("armors"))
+                .tag(CNTag.forgeItemTag("leggings"), CNTag.forgeItemTag("armors"), CNTag.ItemTags.ANTI_RADIATION_LEGGINGS_DYE.tag)
                 .lang(TextUtils.titleCaseConversion(color.getName()) +" Anti Radiation Leggings")
                 .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/armors/leggings/" + colorName + "_anti_radiation_leggings")))
                 .register();
@@ -135,7 +135,7 @@ public class CNItems {
 
     public static final ItemEntry<? extends AntiRadiationArmorItem.Boot>
             ANTI_RADIATION_BOOTS = CreateNuclear.REGISTRATE.item("anti_radiation_boots", Boot::new)
-            .tag(CNTag.forgeItemTag("boots"), CNTag.forgeItemTag("armors"))
+            .tag(CNTag.forgeItemTag("boots"), CNTag.forgeItemTag("armors"), CNTag.ItemTags.ANTI_RADIATION_BOOTS_DYE.tag)
             .lang("Anti Radiation Boots")
             .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/armors/anti_radiation_boots")))
             .register();

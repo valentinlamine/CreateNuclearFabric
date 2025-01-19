@@ -167,6 +167,11 @@ public class CNTag {
         COOLER,
         URANIUM_ORES,
         LEAD_ORES,
+        ANTI_RADIATION_HELMET_DYE,
+        ANTI_RADIATION_CHESTPLATE_DYE,
+        ANTI_RADIATION_LEGGINGS_DYE,
+        ANTI_RADIATION_BOOTS_DYE,
+        ANTI_RADIATION_ARMOR,
         ;
 
         public final TagKey<Item> tag;
