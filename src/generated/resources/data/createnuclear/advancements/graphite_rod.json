@@ -1,5 +1,5 @@
 {
-  "parent": "createnuclear:steel_ingot",
+  "parent": "createnuclear:graphene",
   "criteria": {
     "0": {
       "conditions": {

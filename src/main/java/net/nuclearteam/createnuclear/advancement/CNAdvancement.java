@@ -106,7 +106,6 @@ public class CNAdvancement implements DataProvider {
             .title("Graphite Rod")
             .description("Craft your first graphite rod using graphene and steel ingot in a mechanical crafter")
             .after(GRAPHENE)
-            .after(STEEL_INGOT)
             .whenIconCollected()),
 
 
