@@ -10,7 +10,9 @@ import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
@@ -66,6 +68,28 @@ public class CreateNuclearAdvancement {
 
     private String descriptionKey() {
         return titleKey() + ".desc";
+    }
+
+    public boolean isAlreadyAwardedTo(Player player) {
+        if (!(player instanceof ServerPlayer sp))
+            return true;
+        Advancement advancement = sp.getServer()
+                .getAdvancements()
+                .getAdvancement(CreateNuclear.asResource(id));
+        if (advancement == null)
+            return true;
+        return sp.getAdvancements()
+                .getOrStartProgress(advancement)
+                .isDone();
+    }
+
+    public void awardTo(Player player) {
+        if (!(player instanceof ServerPlayer sp))
+            return;
+        if (builtinTrigger == null)
+            throw new UnsupportedOperationException(
+                    "Advancement " + id + " uses external Triggers, it cannot be awarded directly");
+        builtinTrigger.trigger(sp);
     }
 
     void save(Consumer<Advancement> t) {
