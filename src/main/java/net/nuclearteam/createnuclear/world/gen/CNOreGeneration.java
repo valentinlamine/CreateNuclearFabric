@@ -11,6 +11,9 @@ public class CNOreGeneration {
         BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(),
                 GenerationStep.Decoration.UNDERGROUND_ORES, CNPlacedFeatures.URANIUM_ORE);
 
+        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(),
+                GenerationStep.Decoration.UNDERGROUND_ORES, CNPlacedFeatures.LEAD_ORE);
+
 
     }
 }

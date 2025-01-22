@@ -99,7 +99,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
             player.sendSystemMessage(Component.translatable("reactor.info.assembled.none").withStyle(ChatFormatting.RED));
         }
         else {
-            if (heldItem.is(CNItems.CONFIGURED_REACTOR_ITEM.get())){
+            if (heldItem.is(CNItems.REACTOR_BLUEPRINT.get()) && controllerBlockEntity.inventory.getItem(0).isEmpty()){
                 withBlockEntityDo(worldIn, pos, be -> {
                     be.inventory.setStackInSlot(0, heldItem);
                     be.configuredPattern = heldItem;

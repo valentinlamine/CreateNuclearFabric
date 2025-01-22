@@ -21,6 +21,9 @@ public class CNPonderIndex {
                 .addStoryBoard("reactor/setup", CNPonderReactor::enable);
 
 
+        HELPER.forComponents(CNItems.REACTOR_BLUEPRINT)
+                .addStoryBoard("reactor/setup", CNPonderReactor::enable);
+
         PonderRegistry.TAGS.forTag(KINETIC_SOURCES)
                 .add(CNBlocks.REACTOR_CONTROLLER)
         ;

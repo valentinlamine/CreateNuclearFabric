@@ -21,7 +21,7 @@
     "SES"
   ],
   "result": {
-    "item": "createnuclear:configured_reactor_item"
+    "item": "createnuclear:reactor_blueprint_item"
   },
   "show_notification": true
 }
