@@ -7,3 +7,8 @@ Create nuclear also adds some Uranium ores and all the refining process to creat
 
 <h4 align="center">You can download Create Nuclear on our <a href="https://www.curseforge.com/minecraft/mc-mods/createnuclear">Curseforge</a> or <a href="https://modrinth.com/mod/createnuclear">Modrinth</a> Page</h4>
 <h4 align="center">Looking for the Forge port? Work in progress...</h4>
+
+# Socials
+Join our discord server for following updates & share your feedback by clicking [here](https://discord.com/invite/8DuVaGMhpr)
+
+Also we have a link tree for all our socials, click [here](https://linktr.ee/createnuclear)
