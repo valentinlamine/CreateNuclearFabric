@@ -6,9 +6,7 @@ import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.advancement.CreateAdvancement;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.critereon.ConsumeItemTrigger;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -141,7 +139,15 @@ public class CNAdvancement implements DataProvider {
     FULL_ANTI_RADIATION_ARMOR = create("full_anti_radiation_armor", b -> b.icon(CNItems.ANTI_RADIATION_CHESTPLATES.get(DyeColor.WHITE))
             .title("Anti radiation armor")
             .description("Wear a full anti radiation armor to protect yourself from radiation")
-            .externalTrigger(InventoryChangeTrigger.TriggerInstance.hasItems(new ItemLike[]{CNItems.ANTI_RADIATION_LEGGINGS.get(DyeColor.WHITE), CNItems.ANTI_RADIATION_CHESTPLATES.get(DyeColor.WHITE), CNItems.ANTI_RADIATION_HELMETS.get(DyeColor.WHITE), CNItems.ANTI_RADIATION_BOOTS}))
+            .externalTrigger(
+                    InventoryChangeTrigger.TriggerInstance.hasItems(
+                            new ItemPredicate(CNTag.ItemTags.ANTI_RADIATION_HELMET_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY),
+                            new ItemPredicate(CNTag.ItemTags.ANTI_RADIATION_CHESTPLATE_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY),
+                            new ItemPredicate(CNTag.ItemTags.ANTI_RADIATION_LEGGINGS_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY),
+                            new ItemPredicate(CNTag.ItemTags.ANTI_RADIATION_BOOTS_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY),
+                            new ItemPredicate(CNTag.ItemTags.ANTI_RADIATION_ARMOR.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY)
+
+                    ))
             .after(ANTI_RADIATION_ARMOR)),
 
     DYE_ANTI_RADIATION_ARMOR = create("dye_anti_radiation_armor", b -> b.icon(CNItems.ANTI_RADIATION_HELMETS.get(DyeColor.RED))
@@ -150,7 +156,6 @@ public class CNAdvancement implements DataProvider {
             .whenItemCollected(CNTag.ItemTags.ANTI_RADIATION_HELMET_DYE.tag)
             .whenItemCollected(CNTag.ItemTags.ANTI_RADIATION_CHESTPLATE_DYE.tag)
             .whenItemCollected(CNTag.ItemTags.ANTI_RADIATION_LEGGINGS_DYE.tag)
-            .whenItemCollected(CNTag.ItemTags.ANTI_RADIATION_BOOTS_DYE.tag)
             .after(ANTI_RADIATION_ARMOR)),
 
 
