@@ -176,7 +176,7 @@ public class CNAdvancement implements DataProvider {
             .whenIconCollected()),
 
 
-    REACTOR_BLUEPRINT = create("reactor_blueprint", b -> b.icon(CNItems.CONFIGURED_REACTOR_ITEM)
+    REACTOR_BLUEPRINT = create("reactor_blueprint", b -> b.icon(CNItems.REACTOR_BLUEPRINT)
             .title("Blueprint For Power")
             .description("Craft a reactor blueprint to design the layout of rods in your reactor")
             .after(REACTOR_CONTROLLER)
