@@ -19,7 +19,7 @@
   "block.createnuclear.steel_block": "Steel Block",
   "block.createnuclear.uranium": "Uranium",
   "block.createnuclear.uranium_ore": "Uranium Ore",
-  "create.recipe.fan_enriched.fan": "Fan being Enriched",
+  "create.recipe.fan_enriched.fan": "Fan behind Enriched Fire",
   "createnuclear.enriched.fan.recipe": "Bulk Enriched",
   "createnuclear.generic.unit.heat": "Q",
   "createnuclear.gui.reactor_controller.info_header.title": "Heat value",
