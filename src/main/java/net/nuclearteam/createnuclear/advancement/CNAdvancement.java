@@ -150,7 +150,6 @@ public class CNAdvancement implements DataProvider {
             .whenItemCollected(CNTag.ItemTags.ANTI_RADIATION_HELMET_DYE.tag)
             .whenItemCollected(CNTag.ItemTags.ANTI_RADIATION_CHESTPLATE_DYE.tag)
             .whenItemCollected(CNTag.ItemTags.ANTI_RADIATION_LEGGINGS_DYE.tag)
-            .whenItemCollected(CNTag.ItemTags.ANTI_RADIATION_BOOTS_DYE.tag)
             .after(ANTI_RADIATION_ARMOR)),
 
 
@@ -164,13 +163,16 @@ public class CNAdvancement implements DataProvider {
             .title("Reactor Casing")
             .description("Craft a reactor casing to build your nuclear reactor")
             .after(ROOT)
+
             .whenIconCollected()),
 
     REACTOR_CONTROLLER = create("reactor_controller", b -> b.icon(CNBlocks.REACTOR_CONTROLLER)
             .title("Reactor Controller")
             .description("Craft a reactor controller to control your nuclear reactor")
             .after(REACTOR_CASING)
+            .special(SECRET)
             .whenIconCollected()),
+
 
     REACTOR_BLUEPRINT = create("reactor_blueprint", b -> b.icon(CNItems.CONFIGURED_REACTOR_ITEM)
             .title("Reactor Blueprint")
@@ -182,30 +184,35 @@ public class CNAdvancement implements DataProvider {
             .title("Reactor Colling Frame")
             .description("Craft a reactor colling frame to cool your nuclear reactor")
             .after(REACTOR_CASING)
+            .special(SECRET)
             .whenIconCollected()),
 
     REACTOR_MAIN_FRAME = create("reactor_main_frame", b -> b.icon(CNBlocks.REACTOR_MAIN_FRAME)
             .title("Reactor Main Frame")
             .description("Craft a reactor main frame to build your nuclear reactor")
             .after(REACTOR_CASING)
+            .special(SECRET)
             .whenIconCollected()),
 
     REACTOR_INPUT = create("reactor_input", b -> b.icon(CNBlocks.REACTOR_INPUT)
             .title("Reactor Input")
             .description("Craft a reactor input to input uranium and graphite rod to your nuclear reactor")
             .after(REACTOR_CASING)
+            .special(SECRET)
             .whenIconCollected()),
 
     REACTOR_OUTPUT = create("reactor_output", b -> b.icon(CNBlocks.REACTOR_OUTPUT)
             .title("Reactor Output")
             .description("Craft a reactor output to output SU to your nuclear reactor")
             .after(REACTOR_CASING)
+            .special(SECRET)
             .whenIconCollected()),
 
     REACTOR_CORE = create("reactor_core", b -> b.icon(CNBlocks.REACTOR_CORE)
             .title("Reactor Core")
             .description("Craft a reactor core to build your nuclear reactor")
             .after(REACTOR_CASING)
+            .special(SECRET)
             .whenIconCollected())
 
 

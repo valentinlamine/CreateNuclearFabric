@@ -262,7 +262,6 @@ public class CNBlocks {
                 .blockstate(new ReactorOutputGenerator()::generate)
                 .transform(BlockStressDefaults.setCapacity(10240))
                 .item()
-                .properties(p -> p.rarity(Rarity.EPIC))
                 .transform(customItemModel())
                 .register();
 

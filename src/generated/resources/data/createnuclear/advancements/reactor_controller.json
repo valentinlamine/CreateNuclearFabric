@@ -15,13 +15,13 @@
     }
   },
   "display": {
-    "announce_to_chat": false,
+    "announce_to_chat": true,
     "description": {
       "color": "#DBA213",
       "translate": "advancement.createnuclear.reactor_controller.desc"
     },
-    "frame": "task",
-    "hidden": false,
+    "frame": "goal",
+    "hidden": true,
     "icon": {
       "item": "createnuclear:reactor_controller"
     },
