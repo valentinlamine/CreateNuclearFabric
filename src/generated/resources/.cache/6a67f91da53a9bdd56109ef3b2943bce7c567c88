@@ -1,4 +1,4 @@
-// 1.20.1	2025-01-20T21:07:47.964913	CreateNuclear/Create Nuclear Advancements
+// 1.20.1	2025-01-22T18:38:28.2097802	CreateNuclear/Create Nuclear Advancements
 4f963ff2f6c09a0272c25ebdb46423700e5256eb data\createnuclear\advancements\reactor_input.json
 91aab6f0a18aee167c63a3aece5fa9778cf52b0b data\createnuclear\advancements\reinforced_glass.json
 5a41894d2428fb7297b98a6b78925a17af2a3095 data\createnuclear\advancements\uranium_liquid.json
@@ -22,6 +22,6 @@ bffbc5007ddb20829768a122cc514f84c2dee1e0 data\createnuclear\advancements\graphen
 07e0edb7519c4e755446e95086487f5c8bbbbb17 data\createnuclear\advancements\lead_ingot.json
 eda669191bc6149e3feee4a2b9b25b64e1d7da60 data\createnuclear\advancements\enriched_yellowcake.json
 b76b9af818c8de4b023bfc5b211ec33b497b6363 data\createnuclear\advancements\reactor_cooling_frame.json
-974ecee2dde122accc1c0c54ca5b09fa66f59eae data\createnuclear\advancements\reactor_blueprint.json
+e9d8bd7f04cac0f3ea72a02a5cdc4cc98f728d98 data\createnuclear\advancements\reactor_blueprint.json
 f88401b0664256c3b2cb35c018f8f738b60bc3e9 data\createnuclear\advancements\reactor_core.json
 b19a554150aa4d9dee594574e310c436d7bfc66d data\createnuclear\advancements\reactor_output.json
