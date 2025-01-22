@@ -3,12 +3,14 @@ Create nuclear is a mod that add a whole nuclear system to the create mod. An op
 
 Create nuclear also adds some Uranium ores and all the refining process to create and power the reactor automatically even from infinite source like cobblestone with a complex refining process that exploits all the potential of create appliances.
 
+# Socials
+Join our discord server for following updates & share your feedback by clicking [here](https://discord.com/invite/8DuVaGMhpr)
+
+Also we have a link tree for all our socials, click [here](https://linktr.ee/createnuclear)
+
 # Download
 
 <h4 align="center">You can download Create Nuclear on our <a href="https://www.curseforge.com/minecraft/mc-mods/createnuclear">Curseforge</a> or <a href="https://modrinth.com/mod/createnuclear">Modrinth</a> Page</h4>
 <h4 align="center">Looking for the Forge port? Work in progress...</h4>
 
-# Socials
-Join our discord server for following updates & share your feedback by clicking [here](https://discord.com/invite/8DuVaGMhpr)
 
-Also we have a link tree for all our socials, click [here](https://linktr.ee/createnuclear)
