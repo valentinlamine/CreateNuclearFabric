@@ -136,7 +136,7 @@ public class CNAdvancement implements DataProvider {
             .title("Anti radiation armor")
             .description("Craft your first anti radiation armor piece to protect yourself from radiation")
             .after(LEAD_INGOT)
-            .whenItemCollected(CNTag.ItemTags.ANTI_RADIATION_ARMOR.tag)),
+            .whenItemCollected(CNTag.ItemTags.ALL_ANTI_RADIATION_ARMORS.tag)),
 
     FULL_ANTI_RADIATION_ARMOR = create("full_anti_radiation_armor", b -> b.icon(CNItems.ANTI_RADIATION_CHESTPLATES.get(DyeColor.WHITE))
             .title("Anti radiation armor")
@@ -150,6 +150,7 @@ public class CNAdvancement implements DataProvider {
             .whenItemCollected(CNTag.ItemTags.ANTI_RADIATION_HELMET_DYE.tag)
             .whenItemCollected(CNTag.ItemTags.ANTI_RADIATION_CHESTPLATE_DYE.tag)
             .whenItemCollected(CNTag.ItemTags.ANTI_RADIATION_LEGGINGS_DYE.tag)
+            .whenItemCollected(CNTag.ItemTags.ANTI_RADIATION_BOOTS_DYE.tag)
             .after(ANTI_RADIATION_ARMOR)),
 
 

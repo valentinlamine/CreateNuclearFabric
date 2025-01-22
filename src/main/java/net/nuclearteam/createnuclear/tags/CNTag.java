@@ -172,6 +172,7 @@ public class CNTag {
         ANTI_RADIATION_LEGGINGS_DYE,
         ANTI_RADIATION_BOOTS_DYE,
         ANTI_RADIATION_ARMOR,
+        ALL_ANTI_RADIATION_ARMORS,
         ;
 
         public final TagKey<Item> tag;

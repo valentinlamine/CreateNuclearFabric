@@ -30,6 +30,16 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
+    },
+    "3": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "createnuclear:anti_radiation_boots_dye"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
@@ -58,6 +68,9 @@
     ],
     [
       "2"
+    ],
+    [
+      "3"
     ]
   ],
   "sends_telemetry_event": true
