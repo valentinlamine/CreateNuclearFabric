@@ -5,19 +5,16 @@
       "conditions": {
         "items": [
           {
-            "tag": "createnuclear:anti_radiation_helmet_dye"
+            "tag": "createnuclear:anti_radiation_helmet_full_dye"
           },
           {
-            "tag": "createnuclear:anti_radiation_chestplate_dye"
+            "tag": "createnuclear:anti_radiation_chestplate_full_dye"
           },
           {
-            "tag": "createnuclear:anti_radiation_leggings_dye"
+            "tag": "createnuclear:anti_radiation_leggings_full_dye"
           },
           {
             "tag": "createnuclear:anti_radiation_boots_dye"
-          },
-          {
-            "tag": "createnuclear:anti_radiation_armor"
           }
         ]
       },

@@ -141,12 +141,10 @@ public class CNAdvancement implements DataProvider {
             .description("Wear a full set of anti-radiation armor to fully protect yourself from radiation")
             .externalTrigger(
                     InventoryChangeTrigger.TriggerInstance.hasItems(
-                            new ItemPredicate(CNTag.ItemTags.ANTI_RADIATION_HELMET_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY),
-                            new ItemPredicate(CNTag.ItemTags.ANTI_RADIATION_CHESTPLATE_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY),
-                            new ItemPredicate(CNTag.ItemTags.ANTI_RADIATION_LEGGINGS_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY),
-                            new ItemPredicate(CNTag.ItemTags.ANTI_RADIATION_BOOTS_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY),
-                            new ItemPredicate(CNTag.ItemTags.ANTI_RADIATION_ARMOR.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY)
-
+                            new ItemPredicate(CNTag.ItemTags.ANTI_RADIATION_HELMET_FULL_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY),
+                            new ItemPredicate(CNTag.ItemTags.ANTI_RADIATION_CHESTPLATE_FULL_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY),
+                            new ItemPredicate(CNTag.ItemTags.ANTI_RADIATION_LEGGINGS_FULL_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY),
+                            new ItemPredicate(CNTag.ItemTags.ANTI_RADIATION_BOOTS_DYE.tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY)
                     ))
             .after(ANTI_RADIATION_ARMOR)),
 
