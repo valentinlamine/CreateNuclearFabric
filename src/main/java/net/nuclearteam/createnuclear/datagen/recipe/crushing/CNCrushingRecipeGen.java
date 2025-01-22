@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.item.CNItems;
@@ -31,6 +32,7 @@ public class CNCrushingRecipeGen extends ProcessingRecipeGen {
 
         GRANITE_URANIUM_POWDER = create(() -> Items.GRANITE, b -> b.duration(250)
                 .output(.05f, CNItems.URANIUM_POWDER)
+                .output(1f, Blocks.RED_SAND)
         )
 
     ;
