@@ -19,7 +19,7 @@
   "block.createnuclear.steel_block": "Blocco di Acciaio",
   "block.createnuclear.uranium": "Uranio",
   "block.createnuclear.uranium_ore": "Minerale di Uranio",
-  "create.recipe.fan_enriched.fan": "Fan being Enriched",
+  "create.recipe.fan_enriched.fan": "Fan behind Enriched Fire",
   "createnuclear.enriched.fan.recipe": "Arricchito in Massa",
   "createnuclear.generic.unit.heat": "Q",
   "createnuclear.gui.reactor_controller.info_header.title": "Valore calorifico",

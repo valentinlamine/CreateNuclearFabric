@@ -19,7 +19,7 @@
   "block.createnuclear.steel_block": "Çelik Bloğu",
   "block.createnuclear.uranium": "Uranyum",
   "block.createnuclear.uranium_ore": "Uranyum Cevheri",
-  "create.recipe.fan_enriched.fan": "Fan Zenginleştiriliyor",
+  "create.recipe.fan_enriched.fan": "Fan behind Enriched Fire",
   "createnuclear.enriched.fan.recipe": "Yığın Zenginleştirilmiş",
   "createnuclear.generic.unit.heat": "Q",
   "createnuclear.gui.reactor_controller.info_header.title": "Isı Değeri",

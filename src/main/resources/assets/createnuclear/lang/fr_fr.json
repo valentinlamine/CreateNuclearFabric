@@ -19,7 +19,7 @@
   "block.createnuclear.steel_block": "Bloc d'acier",
   "block.createnuclear.uranium": "Uranium",
   "block.createnuclear.uranium_ore": "Minerai d'uranium",
-  "create.recipe.fan_enriched.fan": "Ventilateur entrain d'être enrichi",
+  "create.recipe.fan_enriched.fan": "Ventilateur derrière le Feu Enrichi",
   "createnuclear.enriched.fan.recipe": "Enrichi en bloc",
   "createnuclear.generic.unit.heat": "Q",
   "createnuclear.gui.reactor_controller.info_header.title": "Valeur thermique",
