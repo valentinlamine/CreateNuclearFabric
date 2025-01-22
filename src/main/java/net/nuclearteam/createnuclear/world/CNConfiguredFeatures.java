@@ -32,7 +32,6 @@ public class CNConfiguredFeatures {
 
     public static void boostrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         RuleTest stoneReplaceable = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
-        RuleTest templateReplaceable = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
         RuleTest deepslateReplaceable = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
 
         List<OreConfiguration.TargetBlockState> uraniumTargetStates = List.of(
@@ -44,7 +43,7 @@ public class CNConfiguredFeatures {
 
         List<OreConfiguration.TargetBlockState> leadTargetStates = List.of(
                 OreConfiguration.target(stoneReplaceable, CNBlocks.LEAD_ORE.get().defaultBlockState()),
-                OreConfiguration.target(stoneReplaceable, CNBlocks.DEEPSLATE_LEAD_ORE.get().defaultBlockState())
+                OreConfiguration.target(deepslateReplaceable, CNBlocks.DEEPSLATE_LEAD_ORE.get().defaultBlockState())
         );
 
         register(context, LEAD_ORE, Feature.ORE, new OreConfiguration(leadTargetStates, 7));

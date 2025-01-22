@@ -72,7 +72,7 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
                 .unlockedBy(CNItems.STEEL_NUGGET::get)
                 .viaShapeless(b -> b.requires(CNItems.STEEL_INGOT.get())),
 
-        CONFIGURED_REACTOR_ITEM_CLEAR = clearData(CNItems.CONFIGURED_REACTOR_ITEM)
+        REACTOR_BLUEPRINT_ITEM_CLEAR = clearData(CNItems.REACTOR_BLUEPRINT)
     ;
 
     private String SHAPELESS_CLOTH = enterFolder("shapeless/cloth");

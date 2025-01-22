@@ -1,4 +1,4 @@
-package net.nuclearteam.createnuclear.multiblock.configuredItem;
+package net.nuclearteam.createnuclear.multiblock.bluePrintItem;
 
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import io.github.fabricators_of_create.porting_lib.util.NetworkHooks;
@@ -19,9 +19,9 @@ import net.minecraft.world.level.Level;
 import net.nuclearteam.createnuclear.item.CNItems;
 import org.jetbrains.annotations.Nullable;
 
-public class ConfiguredReactorItem extends Item implements MenuProvider {
+public class ReactorBluePrintItem extends Item implements MenuProvider {
 
-    public ConfiguredReactorItem(Properties properties) {
+    public ReactorBluePrintItem(Properties properties) {
         super(properties);
     }
 
@@ -34,7 +34,7 @@ public class ConfiguredReactorItem extends Item implements MenuProvider {
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
         ItemStack heldItem = player.getMainHandItem();
-        return ConfiguredReactorItemMenu.create(id, inv, heldItem);
+        return ReactorBluePrintMenu.create(id, inv, heldItem);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ConfiguredReactorItem extends Item implements MenuProvider {
 
     public static ItemStackHandler getItemStorage(ItemStack stack) {
         ItemStackHandler newInv = new ItemStackHandler(57);
-        if (CNItems.CONFIGURED_REACTOR_ITEM.get() != stack.getItem()) throw new IllegalArgumentException("Cannot get configured items from non item: " + stack);
+        if (CNItems.REACTOR_BLUEPRINT.get() != stack.getItem()) throw new IllegalArgumentException("Cannot get configured items from non item: " + stack);
         if (!stack.hasTag()) return newInv;
         CompoundTag invNBT = stack.getOrCreateTagElement("pattern");
         if (!newInv.empty()) newInv.deserializeNBT(invNBT);

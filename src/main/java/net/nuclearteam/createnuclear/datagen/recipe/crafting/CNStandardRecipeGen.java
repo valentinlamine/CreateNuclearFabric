@@ -76,7 +76,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                     .showNotification(true)
             ),
 
-        CONFIGURED_REACTOR_ITEM = create(CNItems.CONFIGURED_REACTOR_ITEM).unlockedBy(CNBlocks.REACTOR_CONTROLLER::get)
+        REACTOR_BLUEPRINT_ITEM = create(CNItems.REACTOR_BLUEPRINT).unlockedBy(CNBlocks.REACTOR_CONTROLLER::get)
                 .viaShaped(b -> b
                         .define('S', CNTag.forgeItemTag("ingots/steel"))
                         .define('D', AllBlocks.DISPLAY_BOARD)
@@ -123,7 +123,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
         REINFORCED_GLASS = create(CNBlocks.REINFORCED_GLASS).unlockedBy(CNBlocks.REACTOR_CASING::get)
                 .viaShaped(b -> b
                         .define('G', Blocks.GLASS)
-                        .define('S', CNItems.STEEL_INGOT)
+                        .define('S', CNItems.LEAD_INGOT)
                         .pattern("SGS")
                         .pattern("GSG")
                         .pattern("SGS")

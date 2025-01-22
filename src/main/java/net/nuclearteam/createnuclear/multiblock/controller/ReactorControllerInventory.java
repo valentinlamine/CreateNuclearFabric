@@ -21,7 +21,7 @@ public class ReactorControllerInventory extends SmartInventory {
     @Override
     public boolean isItemValid(int slot, ItemVariant resource, int count) {
         return switch (slot) {
-            case 0 -> CNItems.CONFIGURED_REACTOR_ITEM.get() == resource.getItem();
+            case 0 -> CNItems.REACTOR_BLUEPRINT.get() == resource.getItem();
             default -> !super.isItemValid(slot, resource, count);
         };
     }

@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "createnuclear:configured_reactor_item"
+              "createnuclear:reactor_controller"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "createnuclear:shapeless/configured_reactor_item_clear"
+        "recipe": "createnuclear:crafting/reactor_blueprint_item"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "createnuclear:shapeless/configured_reactor_item_clear"
+      "createnuclear:crafting/reactor_blueprint_item"
     ]
   },
   "sends_telemetry_event": false

@@ -1,26 +1,21 @@
-package net.nuclearteam.createnuclear.multiblock.configuredItem;
+package net.nuclearteam.createnuclear.multiblock.bluePrintItem;
 
-import com.simibubi.create.AllBlocks;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import io.github.fabricators_of_create.porting_lib.util.PlayerEntityHelper;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.nuclearteam.createnuclear.gui.CNGuiTextures;
-import net.nuclearteam.createnuclear.gui.CNIconButton;
 import net.nuclearteam.createnuclear.packets.CNPackets;
-
-import java.util.*;
 
 import static com.simibubi.create.foundation.gui.AllGuiTextures.PLAYER_INVENTORY;
 
-public class ConfiguredReactorItemScreen  extends AbstractSimiContainerScreen<ConfiguredReactorItemMenu> {
+public class ReactorBluePrintItemScreen extends AbstractSimiContainerScreen<ReactorBluePrintMenu> {
     protected static final CNGuiTextures BG = CNGuiTextures.CONFIGURED_PATTERN_GUI;
 
-    public ConfiguredReactorItemScreen(ConfiguredReactorItemMenu menu, Inventory inv, Component title) {
+    public ReactorBluePrintItemScreen(ReactorBluePrintMenu menu, Inventory inv, Component title) {
         super(menu, inv, title);
     }
 
@@ -70,6 +65,6 @@ public class ConfiguredReactorItemScreen  extends AbstractSimiContainerScreen<Co
 
     private static void sendValueUpdate(CompoundTag tag, float heat, int graphiteTime, int uraniumTime, int countGraphiteRod, int countUraniumRod) {
         CNPackets.getChannel()
-                .sendToServer(new ConfiguredReactorItemPacket(tag, heat, graphiteTime, uraniumTime, countGraphiteRod, countGraphiteRod));
+                .sendToServer(new ReactorBluePrintItemPacket(tag, heat, graphiteTime, uraniumTime, countGraphiteRod, countGraphiteRod));
     }
 }

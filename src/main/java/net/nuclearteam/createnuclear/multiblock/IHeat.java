@@ -54,6 +54,8 @@ public interface IHeat extends IWrenchable {
         }
 
         public static HeatLevel of(int heat) {
+            if (heat < 0) return NONE;
+
             heat = Math.abs(heat);
 
             if (heat > 0 && heat < 100) return SAFETY;
@@ -71,7 +73,7 @@ public interface IHeat extends IWrenchable {
             builder.translate("tooltip.heatLevel." + Lang.asId(heatLevel.name()))
                     .space()
                     .text("(")
-                    .add(Lang.number(Math.abs(heat)))
+                    .add(Lang.number(heat))
                     .space()
                     .translate("generic.unit.heat")
                     .text(")")

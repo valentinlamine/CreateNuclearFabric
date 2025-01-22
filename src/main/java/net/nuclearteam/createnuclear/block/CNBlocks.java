@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LightBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -247,6 +248,8 @@ public class CNBlocks {
             CreateNuclear.REGISTRATE.block("reinforced_glass", ReinforcedGlassBlock::new)
                     .initialProperties(CNBlocks::getGlass)
                     .properties(p -> p.explosionResistance(1200F).destroyTime(2F))
+                    .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(CNSpriteShifts.REACTOR_GLASS)))
+                    .onRegister(casingConnectivity((block,cc) -> cc.makeCasing(block, CNSpriteShifts.REACTOR_GLASS)))
                     .loot(RegistrateBlockLootTables::dropWhenSilkTouch)
                     .tag(CNTag.forgeBlockTag("glass_blocks"))
                     .simpleItem()
@@ -270,6 +273,7 @@ public class CNBlocks {
             CreateNuclear.REGISTRATE.block("enriching_campfire", properties -> new EnrichingCampfireBlock(true, 5, BlockBehaviour.Properties.of()
                 .mapColor(MapColor.PODZOL)
                 .instrument(NoteBlockInstrument.BASS)
+                .lightLevel((state) -> state.getValue(EnrichingCampfireBlock.LIT) ? 15 : 0)
                 .strength(2.0F)
                 .sound(SoundType.WOOD)
                 .noOcclusion()

@@ -1,16 +1,11 @@
-package net.nuclearteam.createnuclear.multiblock.configuredItem;
+package net.nuclearteam.createnuclear.multiblock.bluePrintItem;
 
 import com.simibubi.create.foundation.networking.SimplePacketBase;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.nuclearteam.createnuclear.CreateNuclear;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-public class ConfiguredReactorItemPacket extends SimplePacketBase {
+public class ReactorBluePrintItemPacket extends SimplePacketBase {
 
     private final CompoundTag tag;
     private final float heat;
@@ -22,7 +17,7 @@ public class ConfiguredReactorItemPacket extends SimplePacketBase {
 
     private static double totalInit;
 
-    public ConfiguredReactorItemPacket(CompoundTag tag, float heat, int graphiteTime, int uraniumTime, int countGraphiteRod, int countUraniumRod) {
+    public ReactorBluePrintItemPacket(CompoundTag tag, float heat, int graphiteTime, int uraniumTime, int countGraphiteRod, int countUraniumRod) {
         this.tag = tag;
         this.heat = heat;
         this.graphiteTime = graphiteTime;
@@ -32,20 +27,20 @@ public class ConfiguredReactorItemPacket extends SimplePacketBase {
         this.progress = calculatePostgres(graphiteTime, countGraphiteRod, uraniumTime, countUraniumRod);
     }
 
-    public ConfiguredReactorItemPacket(CompoundTag tag) {
+    public ReactorBluePrintItemPacket(CompoundTag tag) {
         this(tag, 0f, 3600, 5000, 0, 0);
     }
 
-    public ConfiguredReactorItemPacket(float heat) {
+    public ReactorBluePrintItemPacket(float heat) {
         this(new CompoundTag(), heat, 3600,5000, 0, 0);
     }
 
-    public ConfiguredReactorItemPacket(int graphiteTime, int uraniumTime, int countGraphiteRod, int countUraniumRod) {
+    public ReactorBluePrintItemPacket(int graphiteTime, int uraniumTime, int countGraphiteRod, int countUraniumRod) {
         this(new CompoundTag(), 0f, graphiteTime, uraniumTime, countGraphiteRod, countUraniumRod);
     }
 
 
-    public ConfiguredReactorItemPacket(FriendlyByteBuf buf) {
+    public ReactorBluePrintItemPacket(FriendlyByteBuf buf) {
         this(buf.readNbt(), buf.readFloat(), buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt());
         this.progress = buf.readDouble();
     }
@@ -68,7 +63,7 @@ public class ConfiguredReactorItemPacket extends SimplePacketBase {
     public boolean handle(Context context) {
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
-            if (player == null || !(player.containerMenu instanceof ConfiguredReactorItemMenu c)) return;
+            if (player == null || !(player.containerMenu instanceof ReactorBluePrintMenu c)) return;
             c.countUraniumRod = this.countUraniumRod;
             c.countGraphiteRod = this.countGraphiteRod;
             c.graphiteTime = this.graphiteTime;

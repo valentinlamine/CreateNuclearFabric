@@ -8,7 +8,6 @@ import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Le
 import com.tterrag.registrate.util.entry.EntityEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.Registry;
@@ -16,9 +15,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
@@ -30,11 +27,10 @@ import net.nuclearteam.createnuclear.groups.CNGroup;
 import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem.DyeItemList;
-import net.nuclearteam.createnuclear.multiblock.configuredItem.ConfiguredReactorItem;
+import net.nuclearteam.createnuclear.multiblock.bluePrintItem.ReactorBluePrintItem;
 import net.nuclearteam.createnuclear.tags.CNTag;
 import net.nuclearteam.createnuclear.tools.CustomSpawnEgg;
 import net.nuclearteam.createnuclear.utils.TextUtils;
-import net.nuclearteam.createnuclear.entity.CNMobEntityType;
 
 public class CNItems {
 
@@ -162,17 +158,17 @@ public class CNItems {
                 .register();
     });
 
-    public static final ItemEntry<ConfiguredReactorItem> CONFIGURED_REACTOR_ITEM = CreateNuclear.REGISTRATE
-            .item("configured_reactor_item", ConfiguredReactorItem::new)
-            .lang("Configured Reactor")
-            .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/enriched_flint_and_steel")))
+    public static final ItemEntry<ReactorBluePrintItem> REACTOR_BLUEPRINT = CreateNuclear.REGISTRATE
+            .item("reactor_blueprint_item", ReactorBluePrintItem::new)
+            .lang("Reactor Blueprint")
+            .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/reactor_blueprint")))
             .properties(p -> p.stacksTo(1))
             .register();
-
+/*
     public static final ItemEntry<CustomSpawnEgg> SPAWN_WOLF = registerSpawnEgg("wolf_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_WOLF, 0x42452B,0x4C422B, "Irradiated Wolf Spawn Egg");
     public static final ItemEntry<CustomSpawnEgg> SPAWN_CAT = registerSpawnEgg("cat_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_CAT, 0x382C19,0x742728, "Irradiated Cat Spawn Egg");
     public static final ItemEntry<CustomSpawnEgg> SPAWN_CHICKEN = registerSpawnEgg("chicken_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_CHICKEN, 0x6B9455,0x95393C, "Irradiated Chicken Spawn Egg");
-
+*/
 
     public static final Potion potion_1 = registerPotion("potion_of_radiation_1", new Potion(new MobEffectInstance(CNEffects.RADIATION.get(), 900)));
     public static final Potion potion_augment_1 = registerPotion("potion_of_radiation_augment_1", new Potion(new MobEffectInstance(CNEffects.RADIATION.get(), 1800)));
