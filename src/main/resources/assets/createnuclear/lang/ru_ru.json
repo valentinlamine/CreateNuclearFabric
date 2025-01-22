@@ -19,7 +19,7 @@
   "block.createnuclear.steel_block": "Стальной блок",
   "block.createnuclear.uranium": "Уран",
   "block.createnuclear.uranium_ore": "Урановая руда",
-  "create.recipe.fan_enriched.fan": "Fan behind Enriched Fire",
+  "create.recipe.fan_enriched.fan": "Вентилятор за обогащённым огнём",
   "createnuclear.enriched.fan.recipe": "Массовое обогащение",
   "createnuclear.generic.unit.heat": "Q",
   "createnuclear.gui.reactor_controller.info_header.title": "Тепловое значение",
