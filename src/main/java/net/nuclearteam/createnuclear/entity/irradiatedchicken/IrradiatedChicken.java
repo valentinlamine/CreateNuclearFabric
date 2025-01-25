@@ -11,6 +11,8 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -23,9 +25,17 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.nuclearteam.createnuclear.entity.CNMobEntityType;
 
+import net.nuclearteam.createnuclear.tags.CNTag;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.Predicate;
+
 public class IrradiatedChicken extends Animal {
+    public static final Predicate<LivingEntity> PREY_SELECTOR = (entity) -> {
+        EntityType<?> entityType = entity.getType();
+        return !CNTag.EntityTypeTags.IRRADIATED_IMMUNE.matches(entityType);
+    };
+
     private static final Ingredient FOOD_ITEMS = Ingredient.of(
             Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS,
             Items.BEETROOT_SEEDS, Items.TORCHFLOWER_SEEDS, Items.PITCHER_POD
@@ -51,10 +61,12 @@ public class IrradiatedChicken extends Animal {
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.4));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.0, FOOD_ITEMS, false));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Animal.class, false, PREY_SELECTOR));
+        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+
     }
     @Override
     protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
@@ -156,7 +168,7 @@ public class IrradiatedChicken extends Animal {
     }
 
     @Override
-    protected void positionRider(Entity passenger, Entity.MoveFunction callback) {
+    protected void positionRider(Entity passenger, MoveFunction callback) {
         super.positionRider(passenger, callback);
         float f = Mth.sin(this.yBodyRot * 0.017453292F);
         float g = Mth.cos(this.yBodyRot * 0.017453292F);
