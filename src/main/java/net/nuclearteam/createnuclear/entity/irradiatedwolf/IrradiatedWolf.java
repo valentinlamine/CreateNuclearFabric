@@ -41,6 +41,7 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.nuclearteam.createnuclear.entity.CNMobEntityType;
 import net.nuclearteam.createnuclear.item.CNItems;
+import net.nuclearteam.createnuclear.tags.CNTag;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -476,7 +477,7 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
         DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(IrradiatedWolf.class, EntityDataSerializers.INT);
         PREY_SELECTOR = (entity) -> {
             EntityType<?> entityType = entity.getType();
-            return entityType == EntityType.SHEEP || entityType == EntityType.RABBIT || entityType == EntityType.FOX || entityType == CNMobEntityType.IRRADIATED_CAT.get();
+            return !CNTag.EntityTypeTags.IRRADIATED_IMMUNE.matches(entityType);
         };
         PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     }
