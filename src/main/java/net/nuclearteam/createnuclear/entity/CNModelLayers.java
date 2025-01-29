@@ -13,6 +13,7 @@ public class CNModelLayers {
     public static final ModelLayerLocation IRRADIATED_CHICKEN = register("irradiated_chicken");
     public static final ModelLayerLocation IRRADIATED_WOLF = register("irradiated_wolf");
     public static final ModelLayerLocation IRRADIATED_CAT = register("irradiated_cat");
+    public static final ModelLayerLocation IRRADIATED_PIG = register("irradiated_pig");
 
     private static ModelLayerLocation register(String path) {
         return register(path, "main");
