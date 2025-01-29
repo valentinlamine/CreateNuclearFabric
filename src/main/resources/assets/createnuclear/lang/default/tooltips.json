@@ -3,12 +3,6 @@
   "tag.item.createnuclear.cooler": "Cooler",
   "tag.item.createnuclear.fuel": "Fuel",
 
-  "item.createnuclear.anti_radiation_boots.tooltip.summary": "_Mirrors Block placement_ while present in any _Hotbar Slot_.",
-  "item.createnuclear.anti_radiation_boots.tooltip.condition1": "When used on a Surface",
-  "item.createnuclear.anti_radiation_boots.tooltip.behaviour1": "_Creates_ or _Moves_ its Mirror. _Sneak_ while using to open the _Configuration Interface_",
-  "item.createnuclear.anti_radiation_boots.tooltip.condition2": "When used with no target",
-  "item.createnuclear.anti_radiation_boots.tooltip.behaviour2": "_Removes_ the active Mirror",
-
 
   "block.createnuclear.reactor_input.tooltip.summary": "_The Reactor Input_ is a _block_ that can be used to insert _Uranium_ and _Graphene_ rods into the _Reactor_",
   "block.createnuclear.reactor_input.tooltip.condition1": "When the Reactor is assembled",
@@ -33,6 +27,21 @@
 
 
   "block.createnuclear.reactor_main_frame.tooltip.summary": "_Block_ used to build the _reactor_",
+
+
+  "item.createnuclear.graphite_rod.tooltip.summary": "_Stick_ to be used in the _reactor input_ to operate it.",
+
+  "item.createnuclear.uranium_rod.tooltip.summary": "_Stick_ to be used in the _reactor input_ to operate it.",
+
+  "item.createnuclear.reactor_blueprint_item.tooltip.summary": "It allows you to configure your own patern.",
+  "item.createnuclear.reactor_blueprint_item.tooltip.condition1": "Filled with graphite and uranium rods",
+  "item.createnuclear.reactor_blueprint_item.tooltip.behaviour1": "_Right_ click to fill it.",
+  "item.createnuclear.reactor_blueprint_item.tooltip.condition2": "The reactor must be assembled",
+  "item.createnuclear.reactor_blueprint_item.tooltip.behaviour2": "_Right_ click on the reactor controller to open it.",
+
+  "block.createnuclear.enriched_soul_soil.tooltip.summary": "The _only_ block who create _enriched fire_.Can used to _craft_ enriched campfire or just to make a _green fire_.",
+
+
 
 
   "tag.item.c.coal_dusts": "Coal Dusts",
