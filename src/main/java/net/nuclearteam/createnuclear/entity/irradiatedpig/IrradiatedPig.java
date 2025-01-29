@@ -31,6 +31,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.nuclearteam.createnuclear.entity.CNMobEntityType;
 import org.jetbrains.annotations.Nullable;
 
 public class IrradiatedPig extends Animal implements ItemSteerable, Saddleable {
@@ -39,7 +40,7 @@ public class IrradiatedPig extends Animal implements ItemSteerable, Saddleable {
     private static final Ingredient FOOD_ITEMS;
     private final ItemBasedSteering steering;
 
-    public IrradiatedPig(EntityType<? extends net.minecraft.world.entity.animal.Pig> entityType, Level level) {
+    public IrradiatedPig(EntityType<? extends IrradiatedPig> entityType, Level level) {
         super(entityType, level);
         this.steering = new ItemBasedSteering(this.entityData, DATA_BOOST_TIME, DATA_SADDLE_ID);
     }
@@ -237,8 +238,8 @@ public class IrradiatedPig extends Animal implements ItemSteerable, Saddleable {
     }
 
     @Nullable
-    public net.minecraft.world.entity.animal.Pig getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        return (net.minecraft.world.entity.animal.Pig)EntityType.PIG.create(level);
+    public IrradiatedPig getBreedOffspring(ServerLevel level, AgeableMob ageableMob) {
+        return CNMobEntityType.IRRADIATED_PIG.create(level);
     }
 
     public boolean isFood(ItemStack stack) {
@@ -250,8 +251,8 @@ public class IrradiatedPig extends Animal implements ItemSteerable, Saddleable {
     }
 
     static {
-        DATA_SADDLE_ID = SynchedEntityData.defineId(net.minecraft.world.entity.animal.Pig.class, EntityDataSerializers.BOOLEAN);
-        DATA_BOOST_TIME = SynchedEntityData.defineId(net.minecraft.world.entity.animal.Pig.class, EntityDataSerializers.INT);
+        DATA_SADDLE_ID = SynchedEntityData.defineId(IrradiatedPig.class, EntityDataSerializers.BOOLEAN);
+        DATA_BOOST_TIME = SynchedEntityData.defineId(IrradiatedPig.class, EntityDataSerializers.INT);
         FOOD_ITEMS = Ingredient.of(new ItemLike[]{Items.CARROT, Items.POTATO, Items.BEETROOT});
     }
 }

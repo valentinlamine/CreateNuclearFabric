@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear.entity.irradiatedpig;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.AgeableListModel;
@@ -10,13 +11,12 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.nuclearteam.createnuclear.CreateNuclear;
 
 import javax.swing.text.html.parser.Entity;
 
 public class IrradiatedPigModel<T extends IrradiatedPig> extends AgeableListModel<T> {
-    // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "pig_irradiated_model"), "main");
-    private final ModelPart body_grp;
+    private final ModelPart body;
     private final ModelPart ribs;
     private final ModelPart pustules;
     private final ModelPart head;
@@ -31,9 +31,9 @@ public class IrradiatedPigModel<T extends IrradiatedPig> extends AgeableListMode
     private final ModelPart bone_ribs3;
 
     public IrradiatedPigModel(ModelPart root) {
-        this.body_grp = root.getChild("body_grp");
-        this.ribs = this.body_grp.getChild("ribs");
-        this.pustules = this.body_grp.getChild("pustules");
+        this.body = root.getChild("body");
+        this.ribs = this.body.getChild("ribs");
+        this.pustules = this.body.getChild("pustules");
         this.head = root.getChild("head");
         this.pustule_head = this.head.getChild("pustule_head");
         this.legs = root.getChild("legs");
@@ -50,15 +50,15 @@ public class IrradiatedPigModel<T extends IrradiatedPig> extends AgeableListMode
         MeshDefinition meshdefinition = new MeshDefinition();
         PartDefinition partdefinition = meshdefinition.getRoot();
 
-        PartDefinition body_grp = partdefinition.addOrReplaceChild("body_grp", CubeListBuilder.create().texOffs(28, 8).addBox(-5.0F, -10.0F, -7.0F, 10.0F, 16.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 11.0F, 2.0F, 1.5708F, 0.0F, 0.0F));
+        PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(28, 8).addBox(-5.0F, -10.0F, -7.0F, 10.0F, 16.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 11.0F, 2.0F, 1.5708F, 0.0F, 0.0F));
 
-        PartDefinition ribs = body_grp.addOrReplaceChild("ribs", CubeListBuilder.create().texOffs(28, 8).addBox(-5.0F, -9.0F, -5.0F, 10.0F, 2.0F, 8.0F, new CubeDeformation(0.0F))
+        PartDefinition ribs = body.addOrReplaceChild("ribs", CubeListBuilder.create().texOffs(28, 8).addBox(-5.0F, -9.0F, -5.0F, 10.0F, 2.0F, 8.0F, new CubeDeformation(0.0F))
                 .texOffs(33, 13).addBox(-5.0F, -18.0F, -5.0F, 10.0F, 9.0F, 3.0F, new CubeDeformation(0.0F))
                 .texOffs(29, 9).addBox(-5.0F, -18.0F, -2.0F, 9.0F, 9.0F, 4.0F, new CubeDeformation(0.0F))
                 .texOffs(42, 22).addBox(-5.0F, -18.0F, 2.0F, 10.0F, 9.0F, 1.0F, new CubeDeformation(0.0F))
                 .texOffs(28, 8).addBox(-5.0F, -23.0F, -5.0F, 10.0F, 5.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 13.0F, -2.0F));
 
-        PartDefinition pustules = body_grp.addOrReplaceChild("pustules", CubeListBuilder.create(), PartPose.offset(0.0F, 13.0F, -2.0F));
+        PartDefinition pustules = body.addOrReplaceChild("pustules", CubeListBuilder.create(), PartPose.offset(0.0F, 13.0F, -2.0F));
         PartDefinition pustule3_r1 = pustules.addOrReplaceChild("pustule3_r1", CubeListBuilder.create().texOffs(53, 2).addBox(-1.0F, -2.0F, -1.0F, 2.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.0F, -7.0F, -1.0F, -0.829F, 0.0F, -0.829F));
         PartDefinition pustule2_r1 = pustules.addOrReplaceChild("pustule2_r1", CubeListBuilder.create().texOffs(16, 21).addBox(-2.0F, -3.0F, -1.0F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-3.0F, -14.0F, -1.0F, 0.0F, 0.4363F, -0.7854F));
         PartDefinition pustule1_r1 = pustules.addOrReplaceChild("pustule1_r1", CubeListBuilder.create().texOffs(27, 2).addBox(-1.0F, -2.0F, -1.0F, 2.0F, 2.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.0F, -16.0F, 3.0F, 0.5724F, 0.7863F, 0.4279F));
@@ -86,7 +86,7 @@ public class IrradiatedPigModel<T extends IrradiatedPig> extends AgeableListMode
 
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        body_grp.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+        body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         legs.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         bone_ribs1.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
@@ -94,14 +94,12 @@ public class IrradiatedPigModel<T extends IrradiatedPig> extends AgeableListMode
         bone_ribs3.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
-    @Override
     protected Iterable<ModelPart> headParts() {
-        return null;
+        return ImmutableList.of(this.head);
     }
 
-    @Override
     protected Iterable<ModelPart> bodyParts() {
-        return null;
+        return ImmutableList.of(this.body, this.leg2, this.leg1, this.leg3, this.leg4);
     }
 
     @Override
