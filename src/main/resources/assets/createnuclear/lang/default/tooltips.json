@@ -3,11 +3,23 @@
   "tag.item.createnuclear.cooler": "Cooler",
   "tag.item.createnuclear.fuel": "Fuel",
 
+
   "item.createnuclear.anti_radiation_boots.tooltip.summary": "_Mirrors Block placement_ while present in any _Hotbar Slot_.",
   "item.createnuclear.anti_radiation_boots.tooltip.condition1": "When used on a Surface",
   "item.createnuclear.anti_radiation_boots.tooltip.behaviour1": "_Creates_ or _Moves_ its Mirror. _Sneak_ while using to open the _Configuration Interface_",
   "item.createnuclear.anti_radiation_boots.tooltip.condition2": "When used with no target",
   "item.createnuclear.anti_radiation_boots.tooltip.behaviour2": "_Removes_ the active Mirror",
+
+  "item.createnuclear.graphite_rod.tooltip.summary": "_Stick_ to -be used in the- _reactor input_ to operate it.",
+
+  "item.createnuclear.uranium_rod.tooltip.summary": "_Stick_ to be used in the _reactor input_ to operate it.",
+
+  "item.createnuclear.reactor_blueprint_item.tooltip.summary": "It allows you to configure your own patern.",
+  "item.createnuclear.reactor_blueprint_item.tooltip.condition1": "The reactor blueprint must be filled with graphite and uranium rods",
+  "item.createnuclear.reactor_blueprint_item.tooltip.behaviour1": "_Right_ click to fill it.",
+  "item.createnuclear.reactor_blueprint_item.tooltip.condition2": "The reactor must be assembled",
+  "item.createnuclear.reactor_blueprint_item.tooltip.behaviour2": "_Right_ click on the reactor controller to open it.",
+
 
   "tag.item.c.coal_dusts": "Coal Dusts",
   "tag.item.c.ingots.lead": "Tags Lead ingots",
