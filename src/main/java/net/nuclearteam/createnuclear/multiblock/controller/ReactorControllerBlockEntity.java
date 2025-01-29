@@ -75,6 +75,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     public float lastReactorPower;
     public int countUraniumRod;
     public int countGraphiteRod;
+    int overFlowHeatTimer = 0;
+    int overFlowLimiter = 30;
+    double overHeat = 0;
     public int graphiteTimer = 3600;
     public int uraniumTimer = 3600;
     public int heat;
@@ -203,7 +206,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
             return;
 
 
-
         if (isEmptyConfiguredPattern()) {
 
             StorageProvider<ItemVariant> storage = StorageProvider.createForItems(level, getBlockPosForReactor('I'));
@@ -218,7 +220,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                         TransferUtil.extract(be.inventory, ItemVariant.of(fuelItem), configuredPattern.getOrCreateTag().getInt("countUraniumRod"));
                         TransferUtil.extract(be.inventory, ItemVariant.of(coolerItem), configuredPattern.getOrCreateTag().getInt("countGraphiteRod"));
                         total = calculateProgres();
-                        configuredPattern.getOrCreateTag().putDouble("heat", calculateHeat() / 100);
+
                         int heat = (int) configuredPattern.getOrCreateTag().getDouble("heat");
 
                         if (IHeat.HeatLevel.of(heat) == IHeat.HeatLevel.SAFETY || IHeat.HeatLevel.of(heat) == IHeat.HeatLevel.CAUTION || IHeat.HeatLevel.of(heat) == IHeat.HeatLevel.WARNING) {
@@ -234,6 +236,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
 
                 this.notifyUpdate();
             }
+            configuredPattern.getOrCreateTag().putDouble("heat", calculateHeat());
         }
     }
 
@@ -264,14 +267,26 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     private double calculateHeat() {
         countGraphiteRod = configuredPattern.getOrCreateTag().getInt("countGraphiteRod");
         countUraniumRod = configuredPattern.getOrCreateTag().getInt("countUraniumRod");
-        graphiteTimer = configuredPattern.getOrCreateTag().getInt("graphiteTime");
-        uraniumTimer = configuredPattern.getOrCreateTag().getInt("uraniumTime");
 
-        double totalGraphiteRodLife = graphiteTimer * countGraphiteRod;
-        double totalUraniumRodLife = uraniumTimer * countUraniumRod;
-
-
-        return totalUraniumRodLife - totalGraphiteRodLife;
+        // if more than 75% of the rods are uranium, the reactor will overheat
+        if (countUraniumRod > 0.75 * (countUraniumRod + countGraphiteRod)) {
+            overFlowHeatTimer++;
+            if (overFlowHeatTimer >= overFlowLimiter) {
+                overHeat+=1;
+                overFlowHeatTimer= 0;
+                if (overFlowLimiter > 2) {
+                    overFlowLimiter -= 1;
+                }
+            }
+        } else {
+            overFlowHeatTimer = 0;
+            overFlowLimiter = 30;
+            if (overHeat > 0) {
+                overHeat -= 2;
+            }
+        }
+        CreateNuclear.LOGGER.info("overheat: " + overHeat + " uranium: " + countUraniumRod + " graphite: " + countGraphiteRod + " heat: " + (countUraniumRod - countGraphiteRod + overHeat));
+        return countUraniumRod*4 - countGraphiteRod*6 + overHeat;
     }
 
     private BlockPos getBlockPosForReactor(char character) {
