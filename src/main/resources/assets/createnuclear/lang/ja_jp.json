@@ -99,7 +99,7 @@
   "createnuclear.tooltip.item.uranium.rod": "Uranium Rod: ",
   "effect.createnuclear.radiation": "Radiation",
   "emi.category.createnuclear.fan_enriched": "Bulk Enriched",
-  "entity.createnuclear.irradiated_cat": "Irradiated Cat",
+  "entity.createnuclear.irradiated_cat": "被曝したネコ",
   "entity.createnuclear.irradiated_chicken": "Irradiated Chicken",
   "entity.createnuclear.irradiated_wolf": "Irradiated Wolf",
   "fluid.createnuclear.uranium": "Liquid Uranium",
