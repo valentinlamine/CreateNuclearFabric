@@ -9,14 +9,14 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.SaddleLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.nuclearteam.createnuclear.CreateNuclear;
+import net.nuclearteam.createnuclear.entity.CNModelLayers;
 
 @Environment(EnvType.CLIENT)
 public class IrradiatedPigRenderer extends MobRenderer<IrradiatedPig, IrradiatedPigModel<IrradiatedPig>> {
     private static final ResourceLocation IRRADIATED_PIG_LOCATION = new ResourceLocation(CreateNuclear.MOD_ID, "textures/entity/irradiated_pig.png");
 
     public IrradiatedPigRenderer(EntityRendererProvider.Context context) {
-        super(context, new IrradiatedPigModel(context.bakeLayer(ModelLayers.PIG)), 0.7F);
-        this.addLayer(new SaddleLayer(this, new IrradiatedPigModel(context.bakeLayer(ModelLayers.PIG_SADDLE)), new ResourceLocation("textures/entity/pig/pig_saddle.png")));
+        super(context, new IrradiatedPigModel<>(context.bakeLayer(CNModelLayers.IRRADIATED_PIG)), 0.7F);
     }
 
     public ResourceLocation getTextureLocation(IrradiatedPig entity) {
