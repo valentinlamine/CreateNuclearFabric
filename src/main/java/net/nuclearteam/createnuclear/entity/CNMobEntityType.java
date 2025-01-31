@@ -57,7 +57,7 @@ public class CNMobEntityType {
     public static final EntityEntry<IrradiatedPig> IRRADIATED_PIG = CreateNuclear.REGISTRATE
             .entity("irradiated_pig", IrradiatedPig::new, MobCategory.CREATURE)
             .loot((tb, e) -> tb.add(e, LootTable.lootTable()))
-            .tag(CNTag.EntityTypeTags.IRRADIATED_IMMUNE.tag, CNTag.EntityTypeTags.FALL_DAMAGE_IMMUNE.tag)
+            .tag(CNTag.EntityTypeTags.IRRADIATED_IMMUNE.tag)
             .properties(b -> b.dimensions(EntityDimensions.scalable(0.9f, 0.9f)))
             .lang("Irradiated Pig")
             .renderer(() -> IrradiatedPigRenderer::new)
