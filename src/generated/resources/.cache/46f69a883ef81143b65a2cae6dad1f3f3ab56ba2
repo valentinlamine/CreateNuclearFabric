@@ -1,4 +1,4 @@
-// 1.20.1	2025-01-22T19:39:08.6285193	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-01-25T22:05:31.869379	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 2b6958059c3a4c8aee7fb4c003feba12dd0ab252 assets\createnuclear\models\item\uranium_bucket.json
 4db93da70d6a7549155201b7d9d68355449652ac assets\createnuclear\models\item\red_cloth.json
 8cdcca32a87171e2c709e762165330b2f0389f90 assets\createnuclear\models\item\brown_cloth.json
@@ -18,6 +18,7 @@ bf46579ab4e96df318d76eb7ece4999ff158e28c data\createnuclear\loot_tables\blocks\r
 5bad8990f31085232b63b11d295b90b581af9a82 assets\createnuclear\models\item\raw_uranium_block.json
 78240d0c081d144592e76af622d0c9929569db17 assets\createnuclear\models\item\graphene.json
 4925fd5469c909ae1e212cb0279f534656ee93a4 assets\createnuclear\models\item\cyan_anti_radiation_helmet.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets\createnuclear\models\item\wolf_irradiated_spawn_egg.json
 b5d03bd4b800741cb96a95835567b67df0de2507 data\c\tags\items\leggings.json
 6316ffd6888cfc9ba71217b407f5780c6b423de8 assets\createnuclear\blockstates\reactor_main_frame.json
 4799138766c26496b41807407a4b1ce2106cf7b7 assets\createnuclear\models\item\magenta_cloth.json
@@ -53,8 +54,8 @@ acc76d4790d17214103b215a83ea0180bf8f0885 data\c\tags\items\armors.json
 f390b183f143546b21e10a1e29055a9709c0462f assets\createnuclear\blockstates\enriching_campfire.json
 649fce08e620f39f776ab8ae8dcb17e0fd77c82f assets\createnuclear\models\item\lead_ingot.json
 72f88d0ce0957c6e73603dc4c514dfb20798dbaa data\createnuclear\tags\blocks\fan_processing_catalysts\enriched.json
-7d3e368074b034e469543ea668953d675b4cfc77 data\createnuclear\tags\blocks\uranium_fire_base_blocks.json
 528834e2d20914c30db28e8fb63e020e17cb1215 data\c\tags\items\nuggets.json
+7d3e368074b034e469543ea668953d675b4cfc77 data\createnuclear\tags\blocks\uranium_fire_base_blocks.json
 e76c0b96c978e266f39eca8e46cd5ba2388e1749 data\createnuclear\loot_tables\blocks\reactor_controller.json
 fba1c32ae3c38d735ebb0b4c3912afc8f9e9cde4 assets\createnuclear\models\item\anti_radiation_boots.json
 327ebe73a77656f0dc4f6e43f749c44e9f77cca0 data\c\tags\items\boots.json
@@ -88,7 +89,7 @@ fdc9cf972cf27ce343d4f098ddcdc9a4e19d2404 data\c\tags\fluids\uranium.json
 c88d66c0a041c51ee8089e5596169dc6c353fb13 assets\createnuclear\models\item\gray_anti_radiation_helmet.json
 b20aeafcdcd235c7d89067d5331b823535b82522 assets\createnuclear\models\item\yellow_anti_radiation_leggings.json
 ef76b3a3a97b5d1901d7e8ac17009381de418ab8 assets\createnuclear\models\item\reactor_blueprint_item.json
-9916154b0e817c9da121eaff67c975aa788e3782 assets\createnuclear\lang\en_ud.json
+6672dd87b7eb33b7a93bb2d04b22b6ce04bf115e assets\createnuclear\lang\en_ud.json
 b5d03bd4b800741cb96a95835567b67df0de2507 data\createnuclear\tags\items\anti_radiation_leggings_full_dye.json
 37af2b0b5eacf53995703344a45fb3f4d0efe1f9 data\createnuclear\loot_tables\blocks\reactor_output.json
 d61337a67071319320d75383a62ecac11c3222d1 assets\createnuclear\models\item\brown_anti_radiation_helmet.json
@@ -103,6 +104,7 @@ fba1a7bdb0835c034aa5ef52ebf589123d41b33e data\createnuclear\loot_tables\entities
 16749c98d03d4ab79af8aabf0464efc8525e9079 data\c\tags\items\rods.json
 40c4d56478534170e4d81d66fcb86a5726de3916 data\createnuclear\tags\blocks\lead_ores.json
 681a801a88c73d8eb9427815a49eb8124262ed35 data\c\tags\blocks\ores_in_ground\stone.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets\createnuclear\models\item\cat_irradiated_spawn_egg.json
 62f405d930be8b534e863c8aac205687b943f3ef data\createnuclear\loot_tables\blocks\enriching_campfire.json
 3fc1094857b79873a966d6de2dc9ec3b711caadf assets\createnuclear\models\item\lead_ore.json
 cfdc17ed6f2371c67b39073fc5497a3e1a05c36e data\createnuclear\loot_tables\blocks\reactor_cooling_frame.json
@@ -169,8 +171,9 @@ ee9510875a49164a5930fcbfa596400bf1ecf200 data\c\tags\blocks\storage_blocks\raw_u
 ce17b82389ca226bc9e55072ae0dab1ef049e96f assets\createnuclear\models\item\brown_anti_radiation_leggings.json
 af14c1a038ff14285b1d78dfbcab0a8e44df14e5 assets\createnuclear\models\item\orange_anti_radiation_leggings.json
 5a2694d92c4708ca23ddfa67666ea26be66b9a45 assets\createnuclear\models\item\enriched_soul_soil.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets\createnuclear\models\item\chicken_irradiated_spawn_egg.json
 f91f43a39c80f583f878ea1a0d944798c05f2388 data\createnuclear\loot_tables\entities\irradiated_wolf.json
-132df33484411aa423e4c8844ecb4c5e25abdd4b assets\createnuclear\lang\en_us.json
+4b24d635c403bd3a68d0fd59fd22297f20e42a58 assets\createnuclear\lang\en_us.json
 57c846a957e9250bc45f2f1091bf3f78b2a77344 assets\createnuclear\blockstates\steel_block.json
 1bc1df20c6b9d54bef2dc180d70b4531a4a1d87c assets\createnuclear\models\item\reactor_core.json
 e5ce9ec90cc899a20b84697b8d9ada9a455d56bf data\c\tags\items\raw_materials\uranium.json
@@ -179,8 +182,8 @@ e5ce9ec90cc899a20b84697b8d9ada9a455d56bf data\c\tags\items\raw_materials\uranium
 17ec52f71bd19239771c599ee80d9ffa073738af assets\createnuclear\models\item\lead_block.json
 2e364d92951412b2dd7d9fbb0209fc8f3194bcd5 assets\createnuclear\models\item\brown_anti_radiation_chestplate.json
 8195d52278bf58414faaaec6067905635aaa29d5 assets\createnuclear\blockstates\raw_lead_block.json
-8ed063e9486b9d6d830bba43a35a3b5dd07ea0a0 assets\createnuclear\models\item\light_gray_anti_radiation_helmet.json
 9d3cfc1ffe781364a6d1d82d9415dad084185698 assets\createnuclear\models\item\reactor_input.json
+8ed063e9486b9d6d830bba43a35a3b5dd07ea0a0 assets\createnuclear\models\item\light_gray_anti_radiation_helmet.json
 fb06a618d4368284c1420826ffccde949820d655 data\minecraft\tags\blocks\needs_diamond_tool.json
 c9757e3fd9841ee17366b1d88563df6ea8106513 assets\createnuclear\models\block\lead_ore.json
 b025fcc911efa469caf74c78a59e9f79b0f652f8 data\c\tags\blocks\ores_in_ground\deepslate.json
