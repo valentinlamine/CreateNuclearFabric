@@ -7,12 +7,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -22,6 +24,7 @@ import net.nuclearteam.createnuclear.blockentity.CNBlockEntities;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
 
+import net.nuclearteam.createnuclear.multiblock.input.ReactorInput;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -62,9 +65,11 @@ public class ReactorBlock extends Block implements IWrenchable, IBE<ReactorBlock
         Level level = context.getLevel();
         Player player = context.getPlayer();
 
+        if (player.getItemInHand(InteractionHand.OFF_HAND).is(Blocks.HOPPER.asItem())) {
+            level.setBlock(pos, CNBlocks.REACTOR_INPUT.getDefaultState().setValue(ReactorInput.FACING, context.getClickedFace()), 2);
+            player.sendSystemMessage(Component.translatable("reactor.update.casing.input"));
+        }
 
-        level.setBlock(pos, CNBlocks.REACTOR_INPUT.getDefaultState(), 2);
-        player.sendSystemMessage(Component.literal("changement"));
         return InteractionResult.SUCCESS;
     }
 

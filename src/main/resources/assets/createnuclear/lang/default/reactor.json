@@ -1,7 +1,8 @@
 {
-  "reactor.info.assembled.none": "Multiblock not assembled",
+  "reactor.info.assembled.none": "Reactor is not assembled",
   "reactor.info.assembled.destroyer": "Reactor has been disassembled",
   "reactor.info.assembled.creator": "Reactor has been assembled",
   "reactor.info.is": "controller is",
-  "reactor.item.gui.name": "Config Pattern"
+  "reactor.item.gui.name": "Config Pattern",
+  "reactor.update.casing.input": "Update the casing in input"
 }
