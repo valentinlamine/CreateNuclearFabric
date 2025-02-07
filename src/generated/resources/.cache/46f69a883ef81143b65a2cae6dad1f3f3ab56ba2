@@ -1,4 +1,4 @@
-// 1.20.1	2025-02-02T10:15:53.3053871	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-02-07T16:39:04.7382939	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 a6f90dfcfc0659663335d4c80129ce41d0c8e47a assets\createnuclear\blockstates\deepslate_uranium_ore.json
 fdc9cf972cf27ce343d4f098ddcdc9a4e19d2404 data\c\tags\fluids\uranium.json
 78240d0c081d144592e76af622d0c9929569db17 assets\createnuclear\models\item\graphene.json
@@ -100,8 +100,8 @@ f8e44e53a7bc368d4c159769bb071eef6d28d856 assets\createnuclear\models\item\black_
 113d87359e902ec9112e063f87adf5646cd01dbc data\createnuclear\loot_tables\blocks\deepslate_lead_ore.json
 0998d5a55f2dc10e85e83dd74bd91d4a3913f61f data\createnuclear\loot_tables\blocks\raw_uranium_block.json
 b7a56e4ac63519df8fcefb9b18a2583991bd9f34 assets\createnuclear\models\item\red_anti_radiation_helmet.json
-5e91eecf2e5def0f863b5d7d9b3625a62e4de7af assets\createnuclear\models\item\magenta_anti_radiation_leggings.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets\createnuclear\models\item\cat_irradiated_spawn_egg.json
+5e91eecf2e5def0f863b5d7d9b3625a62e4de7af assets\createnuclear\models\item\magenta_anti_radiation_leggings.json
 4d18b6f86e9ebcff28c08b9876f1819a067cd290 assets\createnuclear\models\item\lead_nugget.json
 72af25b71ba1417c58137fce1070c09cc65a61b5 assets\createnuclear\models\item\orange_anti_radiation_helmet.json
 fc4d890be42f9f5cfdb89878f0c9092a223570c3 data\minecraft\tags\blocks\fire.json
@@ -195,8 +195,8 @@ b5820f4051f471efa9b221712afe1070ed65de23 data\createnuclear\tags\items\uranium_o
 4d85657105612ca5525a14791c3e07cf6bd239b8 assets\createnuclear\models\item\white_cloth.json
 cfc8b9126dc3fe3b993c5e6201533aecc07989c3 assets\createnuclear\models\item\orange_cloth.json
 40c4d56478534170e4d81d66fcb86a5726de3916 data\createnuclear\tags\items\lead_ores.json
-b5d03bd4b800741cb96a95835567b67df0de2507 data\c\tags\items\leggings.json
 acc76d4790d17214103b215a83ea0180bf8f0885 data\createnuclear\tags\items\all_anti_radiation_armors.json
+b5d03bd4b800741cb96a95835567b67df0de2507 data\c\tags\items\leggings.json
 0703dcb90ab1cbe58167c0872bd9e9950de99531 assets\createnuclear\models\item\pink_anti_radiation_helmet.json
 cb27df2e5ed459128cc7d83786c9f32d91242e56 assets\createnuclear\models\item\lime_anti_radiation_leggings.json
 2d8f5d7d7babd2b02ae836846e62daabf84de427 data\createnuclear\loot_tables\entities\irradiated_chicken.json

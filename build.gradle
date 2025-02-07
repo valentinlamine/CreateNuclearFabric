@@ -51,7 +51,7 @@ repositories {
 	maven { url = "https://maven.cafeteria.dev/releases" } // Fake Player API
 
 	maven { url "https://maven.shedaniel.me/" }
-	//maven { url "<https://maven.architectury.dev/>" }
+	maven { url = 'https://maven.minecraftforge.net/' }
 }
 
 dependencies {
@@ -89,6 +89,7 @@ dependencies {
 		/** EMI API **/
 	modCompileOnly("dev.emi:emi-fabric:${emi_version}:api")
 		/** 	    **/
+	modImplementation 'com.github.glitchfiend:TerraBlender-fabric:1.20.1-3.0.1.7'
 
 
 	switch (recipe_viewer.toLowerCase(Locale.ROOT)) {

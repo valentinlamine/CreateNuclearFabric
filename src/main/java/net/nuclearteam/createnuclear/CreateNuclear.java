@@ -20,6 +20,7 @@ import net.nuclearteam.createnuclear.groups.CNGroup;
 import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.menu.CNMenus;
 import net.nuclearteam.createnuclear.packets.CNPackets;
+import net.nuclearteam.createnuclear.particles.CNParticleTypes;
 import net.nuclearteam.createnuclear.tags.CNTag;
 import net.nuclearteam.createnuclear.world.gen.CNWorldGeneration;
 
@@ -48,6 +49,7 @@ public class CreateNuclear implements ModInitializer {
 		CNBlockEntities.register();
 		CNGroup.registrer();
 		CNFluids.register();
+		CNParticleTypes.register();
 		CNTag.registerModItems();
 		CNPackets.registerPackets();
 		CNPackets.getChannel().initServerListener();
