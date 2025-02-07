@@ -8,6 +8,9 @@ import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.nuclearteam.createnuclear.CreateNuclear;
+import net.nuclearteam.createnuclear.entity.irradiatedbee.IrradiatedBee;
+import net.nuclearteam.createnuclear.entity.irradiatedbee.IrradiatedBeeModel;
+import net.nuclearteam.createnuclear.entity.irradiatedbee.IrradiatedBeeRenderer;
 import net.nuclearteam.createnuclear.entity.irradiatedcat.IrradiatedCat;
 import net.nuclearteam.createnuclear.entity.irradiatedcat.IrradiatedCatModel;
 import net.nuclearteam.createnuclear.entity.irradiatedcat.IrradiatedCatRenderer;
@@ -64,6 +67,16 @@ public class CNMobEntityType {
             .attributes(IrradiatedPig::createAttributes)
             .register();
 
+    public static final EntityEntry<IrradiatedBee> IRRADIATED_BEE = CreateNuclear.REGISTRATE
+            .entity("irradiated_bee", IrradiatedBee::new, MobCategory.CREATURE)
+            .loot((tb, e) -> tb.add(e, LootTable.lootTable()))
+            .tag(CNTag.EntityTypeTags.IRRADIATED_IMMUNE.tag)
+            .properties(b -> b.dimensions(EntityDimensions.scalable(0.7f, 0.6f)))
+            .lang("Irradiated Bee")
+            .renderer(() -> IrradiatedBeeRenderer::new)
+            .attributes(IrradiatedBee::createAttributes)
+            .register();
+
 
     @Environment(EnvType.CLIENT)
     public static void registerModelLayer() {
@@ -71,6 +84,7 @@ public class CNMobEntityType {
         EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_CHICKEN, IrradiatedChickenModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_WOLF, IrradiatedWolfModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_PIG, IrradiatedPigModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_BEE, IrradiatedBeeModel::createBodyLayer);
     }
 
     public static void registerCNMod() {
