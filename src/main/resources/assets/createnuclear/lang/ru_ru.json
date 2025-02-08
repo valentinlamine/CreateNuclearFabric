@@ -62,7 +62,7 @@
   "block.createnuclear.raw_lead_block": "Блок рудного свинца",
   "block.createnuclear.raw_uranium_block": "Блок рудного урана",
   "block.createnuclear.reactor_casing": "Корпус реактора",
-  "block.createnuclear.reactor_casing.tooltip.summary": "_Block_ used to build the _reactor_",
+  "block.createnuclear.reactor_casing.tooltip.summary": "_Блок_, используемый для постройки _реактора_",
   "block.createnuclear.reactor_controller": "Панель управления реактором",
   "block.createnuclear.reactor_controller.tooltip.behaviour1": "it handles all the calculations needed to _generate energy_, it need a _reactor blueprint_ with a patern to work",
   "block.createnuclear.reactor_controller.tooltip.condition1": "When the reactor is assembled",
