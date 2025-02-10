@@ -185,7 +185,7 @@
   "item.createnuclear.raw_uranium": "Сырой уран",
   "item.createnuclear.reactor_blueprint_item": "Схема реактора",
   "item.createnuclear.reactor_blueprint_item.tooltip.behaviour1": "Используйте _ПКМ_ чтобы настроить чертёж.",
-  "item.createnuclear.reactor_blueprint_item.tooltip.behaviour2": "Используйте _ПКМ_ на контроллере реактора, чтобы открыть его.",
+  "item.createnuclear.reactor_blueprint_item.tooltip.behaviour2": "Используйте _ПКМ_ на контроллере реактора, чтобы установить чертёж.",
   "item.createnuclear.reactor_blueprint_item.tooltip.condition1": "Заполняется графитом и урановыми стержнями",
   "item.createnuclear.reactor_blueprint_item.tooltip.condition2": "Реактор должен быть собран",
   "item.createnuclear.reactor_blueprint_item.tooltip.summary": "Позволяет вам настроить свой собственный шаблон.",
