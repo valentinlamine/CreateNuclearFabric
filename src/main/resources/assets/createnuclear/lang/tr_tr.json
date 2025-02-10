@@ -184,7 +184,7 @@
   "item.createnuclear.raw_lead": "Ham Kurşun",
   "item.createnuclear.raw_uranium": "Ham Uranyum",
   "item.createnuclear.reactor_blueprint_item": "Reaktör Planı",
-  "item.createnuclear.reactor_blueprint_item.tooltip.behaviour1": "Doldurmak için _Sağ_ tıklayın",
+  "item.createnuclear.reactor_blueprint_item.tooltip.behaviour1": "Doldurmak için _Sağ_ tıklayın.",
   "item.createnuclear.reactor_blueprint_item.tooltip.behaviour2": "Açmak için reaktör kontrolörüne _Sağ_ tıklayın.",
   "item.createnuclear.reactor_blueprint_item.tooltip.condition1": "Grafit ve uranyum çubuklarla doldurulmuş",
   "item.createnuclear.reactor_blueprint_item.tooltip.condition2": "Reaktör monte edilmiş olmalı",
