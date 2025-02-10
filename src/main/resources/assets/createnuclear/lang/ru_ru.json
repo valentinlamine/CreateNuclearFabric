@@ -54,7 +54,7 @@
   "block.createnuclear.deepslate_lead_ore": "Глубинная свинцовая руда",
   "block.createnuclear.deepslate_uranium_ore": "Глубинная урановая руда",
   "block.createnuclear.enriched_soul_soil": "Обогащенная почва душ",
-  "block.createnuclear.enriched_soul_soil.tooltip.summary": "_Единственный_ блок, который создаёт _обогащённый огонь_. Может использоваться для _создания_ обогащённого костра или просто, чтобы сделать _зелёный огонь_.",
+  "block.createnuclear.enriched_soul_soil.tooltip.summary": "The _only_ block who create _enriched fire_.Can used to _craft_ enriched campfire or just to make a _green fire_.",
   "block.createnuclear.enriching_campfire": "Обогащающий костер",
   "block.createnuclear.enriching_fire": "Обогащенный огонь",
   "block.createnuclear.lead_block": "Свинцовый блок",
