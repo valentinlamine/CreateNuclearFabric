@@ -186,7 +186,7 @@
   "item.createnuclear.reactor_blueprint_item": "反应堆控制蓝图",
   "item.createnuclear.reactor_blueprint_item.tooltip.behaviour1": "点击_右键_打开填写配置。",
   "item.createnuclear.reactor_blueprint_item.tooltip.behaviour2": "手持_右键_反应堆控制器安装它。",
-  "item.createnuclear.reactor_blueprint_item.tooltip.condition1": "使用铀棒和石墨棒以2 : 1的比例填充配置",
+  "item.createnuclear.reactor_blueprint_item.tooltip.condition1": "使用铀棒和石墨棒在反应堆可承受的最高温度下合理配置数量比",
   "item.createnuclear.reactor_blueprint_item.tooltip.condition2": "反应堆必须要装配才可运行",
   "item.createnuclear.reactor_blueprint_item.tooltip.summary": "它允许你配置反应堆同时反应多少铀棒。",
   "item.createnuclear.red_anti_radiation_chestplate": "红色防辐射胸甲",
