@@ -10,9 +10,7 @@ import io.github.fabricators_of_create.porting_lib.util.StorageProvider;
 import lib.multiblock.test.SimpleMultiBlockAislePatternBuilder;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.fabricmc.fabric.api.transfer.v1.storage.base.ResourceAmount;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SidedStorageBlockEntity;
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,19 +41,6 @@ import java.util.List;
 
 import static net.nuclearteam.createnuclear.CNMultiblock.*;
 import static net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
-import net.nuclearteam.createnuclear.block.CNBlocks;
-import net.nuclearteam.createnuclear.gui.CNIconButton;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutput;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutputEntity;
-
-import java.util.List;
-
-import static net.nuclearteam.createnuclear.CNMultiblock.*;
-import static net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
-import static net.nuclearteam.createnuclear.packets.CNPackets.getChannel;
-
-import com.simibubi.create.content.schematics.requirement.ItemRequirement;
-import com.simibubi.create.content.schematics.requirement.ItemRequirement.ItemUseType;
 
 public class ReactorControllerBlockEntity extends SmartBlockEntity implements IInteractionChecker, SidedStorageBlockEntity, IHaveGoggleInformation {
     public boolean destroyed = false;
@@ -216,6 +201,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                 fuelItem = ItemStack.of(inventoryTag.getCompound(0));
                 coolerItem = ItemStack.of(inventoryTag.getCompound(1));
                 if (fuelItem.getCount() >= countUraniumRod && fuelItem.getCount() > 0 && coolerItem.getCount() >= countGraphiteRod && coolerItem.getCount() > 0) {
+                    configuredPattern.getOrCreateTag().putDouble("heat", calculateHeat(tag));
                     if (updateTimers()) {
                         TransferUtil.extract(be.inventory, ItemVariant.of(fuelItem), configuredPattern.getOrCreateTag().getInt("countUraniumRod"));
                         TransferUtil.extract(be.inventory, ItemVariant.of(coolerItem), configuredPattern.getOrCreateTag().getInt("countGraphiteRod"));
@@ -236,7 +222,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
 
                 this.notifyUpdate();
             }
-            configuredPattern.getOrCreateTag().putDouble("heat", calculateHeat());
+
         }
     }
 
@@ -264,12 +250,12 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         return totalGraphiteRodLife + totalUraniumRodLife;
     }
 
-    private double calculateHeat() {
+    private double calculateHeat(CompoundTag tag) {
         countGraphiteRod = configuredPattern.getOrCreateTag().getInt("countGraphiteRod");
         countUraniumRod = configuredPattern.getOrCreateTag().getInt("countUraniumRod");
 
-        // if more than 75% of the rods are uranium, the reactor will overheat
-        if (countUraniumRod > 0.75 * (countUraniumRod + countGraphiteRod)) {
+        // if more than 80% of the rods are uranium, the reactor will overheat
+        if (countUraniumRod > 0.80 * (countUraniumRod + countGraphiteRod)) {
             overFlowHeatTimer++;
             if (overFlowHeatTimer >= overFlowLimiter) {
                 overHeat+=1;
@@ -283,10 +269,17 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
             overFlowLimiter = 30;
             if (overHeat > 0) {
                 overHeat -= 2;
+            } else {
+                overHeat = 0;
             }
         }
+        heat = (countUraniumRod*4 - countGraphiteRod*4 + (int) overHeat);
+        CreateNuclear.LOGGER.warn(""+inventory.getStackInSlot(0).getOrCreateTag().getCompound("pattern").getAllKeys());
+
+        CreateNuclear.LOGGER.warn("" + tag.getCompound("Inventory").getList("Items", Tag.TAG_COMPOUND));
+
         CreateNuclear.LOGGER.info("overheat: " + overHeat + " uranium: " + countUraniumRod + " graphite: " + countGraphiteRod + " heat: " + (countUraniumRod - countGraphiteRod + overHeat));
-        return countUraniumRod*4 - countGraphiteRod*6 + overHeat;
+        return heat;
     }
 
     private BlockPos getBlockPosForReactor(char character) {
