@@ -35,6 +35,7 @@ import net.nuclearteam.createnuclear.multiblock.IHeat;
 import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutput;
 import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutputEntity;
 import net.nuclearteam.createnuclear.multiblock.input.ReactorInputEntity;
+import static net.nuclearteam.createnuclear.multiblock.bluePrintItem.ReactorBluePrintItem.getItemStorage;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     public boolean destroyed = false;
     public boolean created = false;
     public boolean test = true;
-    public int speed = 16; // This is the result speed of the reactor, change this to change the total capacity
+    //public int speed = 16; // This is the result speed of the reactor, change this to change the total capacity
 
     public boolean sendUpdate;
 
@@ -63,6 +64,11 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     int overFlowHeatTimer = 0;
     int overFlowLimiter = 30;
     double overHeat = 0;
+    public int baseUraniumHeat = 25;
+    public int baseGraphiteHeat = -10;
+    public int proximityUraniumHeat = 5;
+    public int proximityGraphiteHeat = -5;
+    public int maxUraniumPerGraphite = 3;
     public int graphiteTimer = 3600;
     public int uraniumTimer = 3600;
     public int heat;
@@ -156,7 +162,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         compound.putString("state", powered.name());
         compound.put("screen_pattern", screen_pattern);
 */
-        compound.putDouble("total", calculateProgres());
+        compound.putDouble("total", calculateProgress());
         super.write(compound, clientPacket);
     }
 
@@ -200,17 +206,18 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                 ListTag inventoryTag = tag.getCompound("Inventory").getList("Items", Tag.TAG_COMPOUND);
                 fuelItem = ItemStack.of(inventoryTag.getCompound(0));
                 coolerItem = ItemStack.of(inventoryTag.getCompound(1));
-                if (fuelItem.getCount() >= countUraniumRod && fuelItem.getCount() > 0 && coolerItem.getCount() >= countGraphiteRod && coolerItem.getCount() > 0) {
+                if (fuelItem.getCount() > 0 && coolerItem.getCount() > 0) {
                     configuredPattern.getOrCreateTag().putDouble("heat", calculateHeat(tag));
                     if (updateTimers()) {
-                        TransferUtil.extract(be.inventory, ItemVariant.of(fuelItem), configuredPattern.getOrCreateTag().getInt("countUraniumRod"));
-                        TransferUtil.extract(be.inventory, ItemVariant.of(coolerItem), configuredPattern.getOrCreateTag().getInt("countGraphiteRod"));
-                        total = calculateProgres();
+                        TransferUtil.extract(be.inventory, ItemVariant.of(fuelItem), 1);
+                        TransferUtil.extract(be.inventory, ItemVariant.of(coolerItem), 1);
+                        total = calculateProgress();
 
                         int heat = (int) configuredPattern.getOrCreateTag().getDouble("heat");
 
                         if (IHeat.HeatLevel.of(heat) == IHeat.HeatLevel.SAFETY || IHeat.HeatLevel.of(heat) == IHeat.HeatLevel.CAUTION || IHeat.HeatLevel.of(heat) == IHeat.HeatLevel.WARNING) {
-                            this.rotate(getBlockState(), new BlockPos(getBlockPos().getX(), getBlockPos().getY() + FindController('O').getY(), getBlockPos().getZ()), getLevel(), heat);
+                            //j'ai divisé la chaleur par 4, car maintenant on a mis la chaleur sur 1000 et non plus sur 200 en ayant rajouté 1/5 de bonus
+                            this.rotate(getBlockState(), new BlockPos(getBlockPos().getX(), getBlockPos().getY() + FindController('O').getY(), getBlockPos().getZ()), getLevel(), heat/4);
                         } else {
                             this.rotate(getBlockState(), new BlockPos(getBlockPos().getX(), getBlockPos().getY() + FindController('O').getY(), getBlockPos().getZ()), getLevel(), 0);
                         }
@@ -232,20 +239,20 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
 
     private boolean updateTimers() {
 
-        double constTotal = calculateProgres();
+        double constTotal = calculateProgress();
 
         total -= 10;
         return total <= 0;//(total/constTotal) <= 0;
     }
 
-    private double calculateProgres() {
+    private double calculateProgress() {
         countGraphiteRod = configuredPattern.getOrCreateTag().getInt("countGraphiteRod");
         countUraniumRod = configuredPattern.getOrCreateTag().getInt("countUraniumRod");
         graphiteTimer = configuredPattern.getOrCreateTag().getInt("graphiteTime");
         uraniumTimer = configuredPattern.getOrCreateTag().getInt("uraniumTime");
 
-        double totalGraphiteRodLife = graphiteTimer * countGraphiteRod;
-        double totalUraniumRodLife = uraniumTimer * countUraniumRod;
+        double totalGraphiteRodLife = (double) graphiteTimer / countGraphiteRod;
+        double totalUraniumRodLife = (double) uraniumTimer / countUraniumRod;
 
         return totalGraphiteRodLife + totalUraniumRodLife;
     }
@@ -254,8 +261,8 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         countGraphiteRod = configuredPattern.getOrCreateTag().getInt("countGraphiteRod");
         countUraniumRod = configuredPattern.getOrCreateTag().getInt("countUraniumRod");
 
-        // if more than 80% of the rods are uranium, the reactor will overheat
-        if (countUraniumRod > 0.80 * (countUraniumRod + countGraphiteRod)) {
+        // if more than maxUraniumPerGraphite of the rods are uranium, the reactor will overheat
+        if (countUraniumRod > countGraphiteRod * maxUraniumPerGraphite) {
             overFlowHeatTimer++;
             if (overFlowHeatTimer >= overFlowLimiter) {
                 overHeat+=1;
@@ -273,7 +280,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                 overHeat = 0;
             }
         }
-        heat = (countUraniumRod*4 - countGraphiteRod*4 + (int) overHeat);
+        heat = (countUraniumRod*baseUraniumHeat + countGraphiteRod*baseGraphiteHeat + (int) overHeat);
         CreateNuclear.LOGGER.warn(""+inventory.getStackInSlot(0).getOrCreateTag().getCompound("pattern").getAllKeys());
 
         CreateNuclear.LOGGER.warn("" + tag.getCompound("Inventory").getList("Items", Tag.TAG_COMPOUND));
