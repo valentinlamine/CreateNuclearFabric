@@ -154,11 +154,11 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
             compound.put("pattern", inventory.serializeNBT());
             //compound.putBoolean("powered", isPowered());
         }
-        compound.put("items", configuredPattern.serializeNBT());
+        compound.put("items", configuredPattern.getOrCreateTag());
 
         if (coolerItem != null || fuelItem != null) {
-            compound.put("cooler", coolerItem.serializeNBT());
-            compound.put("fuel", fuelItem.serializeNBT());
+            compound.put("cooler", coolerItem.getOrCreateTag());
+            compound.put("fuel", fuelItem.getOrCreateTag());
         }
         /*compound.putInt("countGraphiteRod", countGraphiteRod);
         compound.putInt("countUraniumRod", countUraniumRod);
@@ -209,7 +209,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
             StorageProvider<ItemVariant> storage = StorageProvider.createForItems(level, getBlockPosForReactor('I'));
 
             if (storage.findBlockEntity() instanceof ReactorInputEntity be) {
-                CompoundTag tag = be.serializeNBT();
+                CompoundTag tag = be.getUpdateTag();
                 ListTag inventoryTag = tag.getCompound("Inventory").getList("Items", Tag.TAG_COMPOUND);
                 fuelItem = ItemStack.of(inventoryTag.getCompound(0));
                 coolerItem = ItemStack.of(inventoryTag.getCompound(1));
