@@ -38,6 +38,11 @@
 		"createnuclear.mixins.json"
 	],
 	"accessWidener": "createnuclear.accesswidener",
+	"custom": {
+		"loom:injected_interfaces": {
+			"net/minecraft/class_1309": ["net/nuclearteam/createnuclear/accessor/IrradiatedLivingEntityAccessor"]
+		}
+	},
 	"depends": {
 		"fabricloader": ">=0.14.22",
 		"minecraft": "~1.20.1",

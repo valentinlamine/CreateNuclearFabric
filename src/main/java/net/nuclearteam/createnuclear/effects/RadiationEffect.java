@@ -24,7 +24,7 @@ public class RadiationEffect extends MobEffect {
             if (livingEntity.hasEffect(CNEffects.RADIATION.get()) && AntiRadiationArmorItem.Armor.isArmored2(e)) {
                 livingEntity.hurt(livingEntity.damageSources().magic(), 0.0F);
             }
-            else if (livingEntity.getType().is(CNTag.EntityTypeTags.IRRADIATED_IMMUNE.tag)) {
+            else if (livingEntity.radiationImmune()) {
                 livingEntity.removeEffect(this);
             }
             else {
