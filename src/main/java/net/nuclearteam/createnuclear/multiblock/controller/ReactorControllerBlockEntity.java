@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear.multiblock.controller;
 
+import com.mojang.authlib.minecraft.client.ObjectMapper;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -38,7 +39,9 @@ import net.nuclearteam.createnuclear.multiblock.input.ReactorInputEntity;
 import static net.nuclearteam.createnuclear.multiblock.bluePrintItem.ReactorBluePrintItem.getItemStorage;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static net.nuclearteam.createnuclear.CNMultiblock.*;
 import static net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
@@ -79,6 +82,18 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
 
     private ItemStack fuelItem;
     private ItemStack coolerItem;
+
+    private int[][] formattedPattern = new int[][]{
+            {99,99,99,0,1,2,99,99,99},
+            {99,99,3,4,5,6,7,99,99},
+            {99,8,9,10,11,12,13,14,99},
+            {15,16,17,18,19,20,21,22,23},
+            {24,25,26,27,28,29,30,31,32},
+            {33,34,35,36,37,38,39,40,41},
+            {99,42,43,44,45,46,47,48,99},
+            {99,99,49,50,51,52,53,99,99},
+            {99,99,99,54,55,56,99,99,99}
+    };
 
 
 
@@ -260,6 +275,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     private double calculateHeat(CompoundTag tag) {
         countGraphiteRod = configuredPattern.getOrCreateTag().getInt("countGraphiteRod");
         countUraniumRod = configuredPattern.getOrCreateTag().getInt("countUraniumRod");
+        heat = 0;
 
         // if more than maxUraniumPerGraphite of the rods are uranium, the reactor will overheat
         if (countUraniumRod > countGraphiteRod * maxUraniumPerGraphite) {
@@ -280,11 +296,158 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                 overHeat = 0;
             }
         }
-        heat = (countUraniumRod*baseUraniumHeat + countGraphiteRod*baseGraphiteHeat + (int) overHeat);
-        CreateNuclear.LOGGER.warn("1 : "+inventory.getStackInSlot(0).getOrCreateTag().getCompound("pattern").getAllKeys());
-
-        CreateNuclear.LOGGER.warn("2 : "+inventory.getStackInSlot(0).getOrCreateTag().getCompound("pattern").getList("Items", Tag.TAG_COMPOUND)); //liste du pattern
-        return heat;
+        //CreateNuclear.LOGGER.warn("1 : "+inventory.getStackInSlot(0).getOrCreateTag().getCompound("pattern").getAllKeys());
+        String currentRod = "";
+        //CreateNuclear.LOGGER.warn("2 : "+inventory.getStackInSlot(0).getOrCreateTag().getCompound("pattern").getList("Items", Tag.TAG_COMPOUND)); //liste du pattern
+        // extracting inventory.getStackInSlot(0).getOrCreateTag().getCompound("pattern").getList("Items", Tag.TAG_COMPOUND) from json to map
+        ListTag list = inventory.getStackInSlot(0).getOrCreateTag().getCompound("pattern").getList("Items", Tag.TAG_COMPOUND);
+        //list.get(0) = {Count:1b,Slot:0,id:"createnuclear:uranium_rod"}, i want to access the Slot
+        for (int i = 0; i < list.size(); i++) {
+            if (list.getCompound(i).getString("id").equals("createnuclear:uranium_rod")) {
+                heat += baseUraniumHeat;
+                currentRod = "u";
+            } else if (list.getCompound(i).getString("id").equals("createnuclear:graphite_rod")) {
+                heat += baseGraphiteHeat;
+                currentRod = "g";
+            }
+            for (int j = 0; j != formattedPattern.length; j++) {
+                for (int k = 0; k != formattedPattern[j].length; k++) {
+                    if (formattedPattern[j][k] != 99) {
+                        if (list.getCompound(i).getInt("Slot") == formattedPattern[j][k]) {
+                            if (j == 0) {
+                                for (int l = 0; l < list.size(); l++) {
+                                    if (list.getCompound(l).getInt("Slot") == formattedPattern[j + 1][k]) {
+                                        if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:uranium_rod")) {
+                                            heat += proximityUraniumHeat;
+                                        } else if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:graphite_rod")) {
+                                            heat += proximityGraphiteHeat;
+                                        }
+                                    }
+                                    if (list.getCompound(l).getInt("Slot") == formattedPattern[j][k + 1]) {
+                                        if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:uranium_rod")) {
+                                            heat += proximityUraniumHeat;
+                                        } else if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:graphite_rod")) {
+                                            heat += proximityGraphiteHeat;
+                                        }
+                                    }
+                                    if (list.getCompound(l).getInt("Slot") == formattedPattern[j][k - 1]) {
+                                        if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:uranium_rod")) {
+                                            heat += proximityUraniumHeat;
+                                        } else if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:graphite_rod")) {
+                                            heat += proximityGraphiteHeat;
+                                        }
+                                    }
+                                }
+                            } else if (j == 8) {
+                                for (int l = 0; l < list.size(); l++) {
+                                    if (list.getCompound(l).getInt("Slot") == formattedPattern[j - 1][k]) {
+                                        if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:uranium_rod")) {
+                                            heat += proximityUraniumHeat;
+                                        } else if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:graphite_rod")) {
+                                            heat += proximityGraphiteHeat;
+                                        }
+                                    }
+                                    if (list.getCompound(l).getInt("Slot") == formattedPattern[j][k + 1]) {
+                                        if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:uranium_rod")) {
+                                            heat += proximityUraniumHeat;
+                                        } else if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:graphite_rod")) {
+                                            heat += proximityGraphiteHeat;
+                                        }
+                                    }
+                                    if (list.getCompound(l).getInt("Slot") == formattedPattern[j][k - 1]) {
+                                        if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:uranium_rod")) {
+                                            heat += proximityUraniumHeat;
+                                        } else if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:graphite_rod")) {
+                                            heat += proximityGraphiteHeat;
+                                        }
+                                    }
+                                }
+                            } else if (k == 0) {
+                                for (int l = 0; l < list.size(); l++) {
+                                    if (list.getCompound(l).getInt("Slot") == formattedPattern[j + 1][k]) {
+                                        if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:uranium_rod")) {
+                                            heat += proximityUraniumHeat;
+                                        } else if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:graphite_rod")) {
+                                            heat += proximityGraphiteHeat;
+                                        }
+                                    }
+                                    if (list.getCompound(l).getInt("Slot") == formattedPattern[j - 1][k]) {
+                                        if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:uranium_rod")) {
+                                            heat += proximityUraniumHeat;
+                                        } else if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:graphite_rod")) {
+                                            heat += proximityGraphiteHeat;
+                                        }
+                                    }
+                                    if (list.getCompound(l).getInt("Slot") == formattedPattern[j][k + 1]) {
+                                        if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:uranium_rod")) {
+                                            heat += proximityUraniumHeat;
+                                        } else if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:graphite_rod")) {
+                                            heat += proximityGraphiteHeat;
+                                        }
+                                    }
+                                }
+                            } else if (k == 8) {
+                                for (int l = 0; l < list.size(); l++) {
+                                    if (list.getCompound(l).getInt("Slot") == formattedPattern[j + 1][k]) {
+                                        if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:uranium_rod")) {
+                                            heat += proximityUraniumHeat;
+                                        } else if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:graphite_rod")) {
+                                            heat += proximityGraphiteHeat;
+                                        }
+                                    }
+                                    if (list.getCompound(l).getInt("Slot") == formattedPattern[j - 1][k]) {
+                                        if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:uranium_rod")) {
+                                            heat += proximityUraniumHeat;
+                                        } else if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:graphite_rod")) {
+                                            heat += proximityGraphiteHeat;
+                                        }
+                                    }
+                                    if (list.getCompound(l).getInt("Slot") == formattedPattern[j][k - 1]) {
+                                        if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:uranium_rod")) {
+                                            heat += proximityUraniumHeat;
+                                        } else if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:graphite_rod")) {
+                                            heat += proximityGraphiteHeat;
+                                        }
+                                    }
+                                }
+                            } else {
+                                for (int l = 0; l < list.size(); l++) {
+                                    if (list.getCompound(l).getInt("Slot") == formattedPattern[j + 1][k]) {
+                                        if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:uranium_rod")) {
+                                            heat += proximityUraniumHeat;
+                                        } else if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:graphite_rod")) {
+                                            heat += proximityGraphiteHeat;
+                                        }
+                                    }
+                                    if (list.getCompound(l).getInt("Slot") == formattedPattern[j - 1][k]) {
+                                        if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:uranium_rod")) {
+                                            heat += proximityUraniumHeat;
+                                        } else if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:graphite_rod")) {
+                                            heat += proximityGraphiteHeat;
+                                        }
+                                    }
+                                    if (list.getCompound(l).getInt("Slot") == formattedPattern[j][k + 1]) {
+                                        if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:uranium_rod")) {
+                                            heat += proximityUraniumHeat;
+                                        } else if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:graphite_rod")) {
+                                            heat += proximityGraphiteHeat;
+                                        }
+                                    }
+                                    if (list.getCompound(l).getInt("Slot") == formattedPattern[j][k - 1]) {
+                                        if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:uranium_rod")) {
+                                            heat += proximityUraniumHeat;
+                                        } else if (currentRod.equals("u") && list.getCompound(l).getString("id").equals("createnuclear:graphite_rod")) {
+                                            heat += proximityGraphiteHeat;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return heat + overHeat;
     }
 
     private BlockPos getBlockPosForReactor(char character) {
@@ -315,18 +478,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         ListTag pattern = compoundTag.getList("Items", Tag.TAG_COMPOUND);
 
         CreateNuclear.LOGGER.warn("pattern: " + pattern);
-
-        int[][] list = new int[][]{
-            {99,99,99,0,1,2,99,99,99},
-            {99,99,3,4,5,6,7,99,99},
-            {99,8,9,10,11,12,13,14,99},
-            {15,16,17,18,19,20,21,22,23},
-            {24,25,26,27,28,29,30,31,32},
-            {33,34,35,36,37,38,39,40,41},
-            {99,42,43,44,45,46,47,48,99},
-            {99,99,49,50,51,52,53,99,99},
-            {99,99,99,54,55,56,99,99,99}
-        };
 
 
         return null;
