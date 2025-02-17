@@ -281,11 +281,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
             }
         }
         heat = (countUraniumRod*baseUraniumHeat + countGraphiteRod*baseGraphiteHeat + (int) overHeat);
-        CreateNuclear.LOGGER.warn(""+inventory.getStackInSlot(0).getOrCreateTag().getCompound("pattern").getAllKeys());
+        CreateNuclear.LOGGER.warn("1 : "+inventory.getStackInSlot(0).getOrCreateTag().getCompound("pattern").getAllKeys());
 
-        CreateNuclear.LOGGER.warn("" + tag.getCompound("Inventory").getList("Items", Tag.TAG_COMPOUND));
-
-        CreateNuclear.LOGGER.info("overheat: " + overHeat + " uranium: " + countUraniumRod + " graphite: " + countGraphiteRod + " heat: " + (countUraniumRod - countGraphiteRod + overHeat));
+        CreateNuclear.LOGGER.warn("2 : "+inventory.getStackInSlot(0).getOrCreateTag().getCompound("pattern").getList("Items", Tag.TAG_COMPOUND)); //liste du pattern
         return heat;
     }
 
