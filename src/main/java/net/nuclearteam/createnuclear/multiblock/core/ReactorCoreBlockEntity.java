@@ -4,6 +4,7 @@ import lib.multiblock.test.SimpleMultiBlockAislePatternBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -34,21 +35,66 @@ public class ReactorCoreBlockEntity extends ReactorBlockEntity {
         if (level.getBlockEntity(controllerPos) instanceof ReactorControllerBlockEntity reactorController) {
             int heat = (int) reactorController.configuredPattern.getOrCreateTag().getDouble("heat");
             if (IHeat.HeatLevel.of(heat) == IHeat.HeatLevel.DANGER) {
-                if (countdownTicks >= 1200) { // 1200 ticks = 60 seconds
-                    explodeReactorCore(level, getBlockPos());
+                if (countdownTicks >= 600) { // 300 ticks = 15 secondes
+                    float explosionRadius = calculateExplosionRadius(reactorController.countUraniumRod);
+                    explodeReactorCore(level, getBlockPos(), explosionRadius);
                 } else {
                     countdownTicks++;
                     CreateNuclear.LOGGER.warn("Countdown: " + countdownTicks + " ticks");
                 }
             } else {
-                countdownTicks = 0; // Reset the countdown if the heat level is not in danger
+                countdownTicks = 0; // Réinitialise le compte à rebours si la chaleur n'est pas en danger
             }
         }
     }
 
-    private void explodeReactorCore(Level level, BlockPos pos) {
-        level.explode(null, pos.getX(), pos.getY(), pos.getZ(), 20F, Level.ExplosionInteraction.BLOCK);
+    private float calculateExplosionRadius(int countUraniumRod) {
+        return 10F + countUraniumRod; // Ajuste selon tes besoins
     }
+
+    private void explodeReactorCore(Level level, BlockPos center, float radius) {
+        int r = (int) Math.ceil(radius);
+
+        for (int x = -r; x <= r; x++) {
+            for (int y = -r; y <= r; y++) {
+                for (int z = -r; z <= r; z++) {
+                    BlockPos currentPos = center.offset(x, y, z);
+                    double distanceSquared = x * x + y * y + z * z;
+                    double distance = Math.sqrt(distanceSquared);
+
+                    if (distance <= radius) {
+                        BlockState blockState = level.getBlockState(currentPos);
+                        if (!blockState.isAir() && !blockState.is(Blocks.BEDROCK)) {
+                            double probability = distance / radius;
+                            double noise = level.random.nextDouble();
+
+                            if (distance > radius * 0.7 && noise < 0.4) {
+                                continue;
+                            }
+
+                            level.destroyBlock(currentPos, false);
+
+                            // Ajoute du feu au-dessus des blocs détruits avec une probabilité de 20%
+                            if (level.random.nextDouble() < 0.2) { // 20% de chance de feu
+                                BlockPos abovePos = currentPos.above();
+                                BlockState blockBelow = level.getBlockState(currentPos);
+                                BlockState blockAbove = level.getBlockState(abovePos);
+
+                                // Vérifie que le bloc au-dessus est de l'air et que le bloc en dessous est solide (pas remplacé par de l'air)
+                                if (blockAbove.isAir() && blockBelow.isSolidRender(level, currentPos)) {
+                                    level.setBlock(abovePos, Blocks.FIRE.defaultBlockState(), 3);
+                                    CreateNuclear.LOGGER.info("Fire added at: " + abovePos);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
 
     private static BlockPos FindController(char character) {
         return SimpleMultiBlockAislePatternBuilder.start()

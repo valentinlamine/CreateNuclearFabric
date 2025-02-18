@@ -109,7 +109,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
 
     }
 
-    public boolean getAssembled() { // permet de savoir si le réacteur est formé ou pas.
+    public boolean getAssembled() { // permet de savoir si le réacteur est assemblé ou pas.
         BlockState state = getBlockState();
         return Boolean.TRUE.equals(state.getValue(ASSEMBLED));
     }
@@ -147,13 +147,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
             fuelItem = ItemStack.of(compound.getCompound("fuel"));
 
         }
-        /*
-        countGraphiteRod = compound.getInt("countGraphiteRod");
-        countUraniumRod = compound.getInt("countUraniumRod");
-        graphiteTimer = compound.getInt("graphiteTimer");
-        uraniumTimer = compound.getInt("uraniumTimer");
-        heat = compound.getInt("heat");
-*/
         total = compound.getDouble("total");
         super.read(compound, clientPacket);
     }
@@ -170,40 +163,13 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
             compound.put("cooler", coolerItem.serializeNBT());
             compound.put("fuel", fuelItem.serializeNBT());
         }
-        /*compound.putInt("countGraphiteRod", countGraphiteRod);
-        compound.putInt("countUraniumRod", countUraniumRod);
-        compound.putInt("graphiteTimer", graphiteTimer);
-        compound.putInt("uraniumTimer", uraniumTimer);
-        compound.putInt("heat", heat);
-        compound.putString("state", powered.name());
-        compound.put("screen_pattern", screen_pattern);
-*/
+
         compound.putDouble("total", calculateProgress());
         super.write(compound, clientPacket);
     }
 
     public enum State {
         ON, OFF;
-    }
-
-    private void explodeReactorCore(Level level, BlockPos pos) {
-        CreateNuclear.LOGGER.warn("Exploding reactor core at position: " + pos);
-        for (int x = -1; x <= 1; x++) {
-            for (int y = -1; y <= 1; y++) {
-                for (int z = -1; z <= 1; z++) {
-                    BlockPos currentPos = pos.offset(x, y, z);
-                    //le problème viens de la il ne rentre pas dans le if
-                    CreateNuclear.LOGGER.warn("d:; {}", level.getBlockState(currentPos));
-                    if (level.getBlockState(currentPos).is(CNBlocks.REACTOR_CORE.get())) {
-                        CreateNuclear.LOGGER.warn("Found REACTOR_CORE block at position: " + currentPos);
-                        // Create and execute the explosion
-                        Explosion explosion = new Explosion(level, null, currentPos.getX(), currentPos.getY(), currentPos.getZ(), 4.0F, false, Explosion.BlockInteraction.DESTROY);
-                        explosion.explode();
-                        explosion.finalizeExplosion(true);
-                    }
-                }
-            }
-        }
     }
 
     @Override
@@ -284,7 +250,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
             if (overFlowHeatTimer >= overFlowLimiter) {
                 overHeat+=1;
                 overFlowHeatTimer= 0;
-                if (overFlowLimiter > 2) {
+                if (overFlowLimiter > 1) {
                     overFlowLimiter -= 1;
                 }
             }
