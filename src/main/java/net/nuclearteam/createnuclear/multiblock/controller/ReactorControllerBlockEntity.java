@@ -372,12 +372,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
             if (level.getBlockState(pos).getBlock() instanceof ReactorOutput) {
                 ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
                 ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
-                CreateNuclear.LOGGER.warn(rotation + "");
                 if (state.getValue(ASSEMBLED)) { // Starting the energy
-                    //CreateNuclear.LOGGER.info("Change " + pos);
                     entity.speed = rotation;
                     entity.heat = rotation;
-                    CreateNuclear.LOGGER.warn("rotation: " + rotation + " heat: " + entity.heat);
                     entity.updateSpeed = true;
                     entity.updateGeneratedRotation();
                 } else { // stopping the energy

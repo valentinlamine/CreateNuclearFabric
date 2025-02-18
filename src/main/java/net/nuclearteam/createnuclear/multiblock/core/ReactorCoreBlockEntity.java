@@ -2,17 +2,26 @@ package net.nuclearteam.createnuclear.multiblock.core;
 
 import lib.multiblock.test.SimpleMultiBlockAislePatternBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
+import net.nuclearteam.createnuclear.effects.CNEffects;
 import net.nuclearteam.createnuclear.multiblock.IHeat;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
 import net.nuclearteam.createnuclear.multiblock.frame.ReactorBlockEntity;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static net.nuclearteam.createnuclear.CNMultiblock.*;
 
@@ -52,6 +61,25 @@ public class ReactorCoreBlockEntity extends ReactorBlockEntity {
         return 10F + countUraniumRod; // Ajuste selon tes besoins
     }
 
+    private void applyRadiationEffect(Level level, BlockPos center, float radius) {
+        AABB explosionArea = new AABB(
+                center.getX() - radius, center.getY() - radius, center.getZ() - radius,
+                center.getX() + radius, center.getY() + radius, center.getZ() + radius
+        );
+
+        List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, explosionArea);
+
+        for (LivingEntity entity : entities) {
+            double distance = entity.distanceToSqr(center.getX() + 0.5, center.getY() + 0.5, center.getZ() + 0.5);
+            if (distance <= radius * radius) {
+                entity.addEffect(new MobEffectInstance(CNEffects.RADIATION.get(), 20 * 20, 1)); // 20s, Slowness II
+            }
+        }
+    }
+
+
+    private final Set<BlockPos> radiationZone = new HashSet<>();
+
     private void explodeReactorCore(Level level, BlockPos center, float radius) {
         int r = (int) Math.ceil(radius);
 
@@ -73,28 +101,15 @@ public class ReactorCoreBlockEntity extends ReactorBlockEntity {
                             }
 
                             level.destroyBlock(currentPos, false);
-
-                            // Ajoute du feu au-dessus des blocs détruits avec une probabilité de 20%
-                            if (level.random.nextDouble() < 0.2) { // 20% de chance de feu
-                                BlockPos abovePos = currentPos.above();
-                                BlockState blockBelow = level.getBlockState(currentPos);
-                                BlockState blockAbove = level.getBlockState(abovePos);
-
-                                // Vérifie que le bloc au-dessus est de l'air et que le bloc en dessous est solide (pas remplacé par de l'air)
-                                if (blockAbove.isAir() && blockBelow.isSolidRender(level, currentPos)) {
-                                    level.setBlock(abovePos, Blocks.FIRE.defaultBlockState(), 3);
-                                    CreateNuclear.LOGGER.info("Fire added at: " + abovePos);
-                                }
-                            }
                         }
+
+                        // Ajoute cette position à la zone contaminée
+                        radiationZone.add(currentPos.immutable());
                     }
                 }
             }
         }
     }
-
-
-
 
     private static BlockPos FindController(char character) {
         return SimpleMultiBlockAislePatternBuilder.start()
