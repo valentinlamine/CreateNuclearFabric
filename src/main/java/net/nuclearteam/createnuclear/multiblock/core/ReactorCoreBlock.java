@@ -1,8 +1,8 @@
 package net.nuclearteam.createnuclear.multiblock.core;
 
-import net.nuclearteam.createnuclear.multiblock.frame.ReactorBlock;
+import net.nuclearteam.createnuclear.multiblock.casing.ReactorCasingBlock;
 
-public class ReactorCoreBlock extends ReactorBlock {
+public class ReactorCoreBlock extends ReactorCasingBlock {
     public ReactorCoreBlock(Properties properties) {
         super(properties, TypeBlock.CORE);
     }

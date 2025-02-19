@@ -42,7 +42,7 @@ public class CNMechanicalCraftingRecipeGen extends CreateRecipeProvider {
                     .patternLine(" U   ")
                     .patternLine("U    ")
             ),
-        REACTOR_MAIN_FRAME = create(CNBlocks.REACTOR_MAIN_FRAME::get)
+        REACTOR_FRAME = create(CNBlocks.REACTOR_FRAME::get)
             .recipe(b -> b
                     .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
                     .key('G', Ingredient.of(CNBlocks.REINFORCED_GLASS))
@@ -70,7 +70,7 @@ public class CNMechanicalCraftingRecipeGen extends CreateRecipeProvider {
                     .patternLine("CCCCC")
             ),
 
-        REACTOR_COOLING_FRAME= create(CNBlocks.REACTOR_COOLING_FRAME::get)
+        REACTOR_COOLER = create(CNBlocks.REACTOR_COOLER::get)
             .recipe(b -> b
                     .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
                     .key('I', Ingredient.of(Blocks.BLUE_ICE))

@@ -29,9 +29,8 @@ import net.nuclearteam.createnuclear.groups.CNGroup;
 import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem.DyeItemList;
-import net.nuclearteam.createnuclear.multiblock.bluePrintItem.ReactorBluePrintItem;
+import net.nuclearteam.createnuclear.multiblock.blueprint.ReactorBluePrint;
 import net.nuclearteam.createnuclear.tags.CNTag;
-import net.nuclearteam.createnuclear.tools.CustomSpawnEgg;
 import net.nuclearteam.createnuclear.utils.TextUtils;
 
 public class CNItems {
@@ -178,8 +177,8 @@ public class CNItems {
                 .register();
     });
 
-    public static final ItemEntry<ReactorBluePrintItem> REACTOR_BLUEPRINT = CreateNuclear.REGISTRATE
-            .item("reactor_blueprint_item", ReactorBluePrintItem::new)
+    public static final ItemEntry<ReactorBluePrint> REACTOR_BLUEPRINT = CreateNuclear.REGISTRATE
+            .item("reactor_blueprint_item", ReactorBluePrint::new)
             .lang("Reactor Blueprint")
             .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/reactor_blueprint")))
             .properties(p -> p.stacksTo(1))
