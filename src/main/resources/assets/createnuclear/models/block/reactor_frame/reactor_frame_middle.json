@@ -3,8 +3,8 @@
 	"parent": "block/block",
 	"textures": {
 		"0": "createnuclear:block/reactor/frame/reactor_frame_window",
-		"1": "createnuclear:block/fluid/uranium_flow",
-		"2": "createnuclear:block/fluid/uranium_still",
+		"1": "createnuclear:fluid/uranium_flow",
+		"2": "createnuclear:fluid/uranium_still",
 		"3": "createnuclear:block/reactor/casing/reactor_casing",
 		"particle": "createnuclear:block/reactor/frame/reactor_frame_window"
 	},

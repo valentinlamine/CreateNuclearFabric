@@ -14,6 +14,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -272,7 +273,6 @@ public class CNBlocks {
                 .ignitedByLava()
             ))
             .properties(BlockBehaviour.Properties::replaceable)
-            .simpleItem()
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(axeOrPickaxe())
             .tag(CNTag.BlockTags.CAMPFIRE.tag, CNTag.BlockTags.ALL_CAMPFIRE.tag)
@@ -295,7 +295,14 @@ public class CNBlocks {
                 )
             )
             .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
+            .item()
+            .model((c, p) ->
+                p.withExistingParent(c.getName(), new ResourceLocation("item/generated"))
+                    .texture("layer0", p.modLoc("item/enriching_flame_campfire"))
+            )
+            .build()
             .register();
+
 
 
 
