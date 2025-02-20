@@ -418,10 +418,6 @@ public class CNBlocks {
         return Blocks.DIAMOND_ORE;
     }
 
-    private static void addBlockToCreateNuclearItemGroup(FabricItemGroupEntries entries) {
-        //entries.accept(ENRICHING_CAMPFIRE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
-    }
-
     public static void registerCNBlocks() {
         CreateNuclear.LOGGER.info("Registering ModBlocks for " + CreateNuclear.MOD_ID);
     }
