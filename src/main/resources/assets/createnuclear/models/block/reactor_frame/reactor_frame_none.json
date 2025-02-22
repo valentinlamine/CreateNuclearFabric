@@ -8,7 +8,7 @@
 		"8": "createnuclear:block/reactor/casing/old/reactor_casing_inner",
 		"9": "createnuclear:block/reactor/casing/old/reactor_casing_top",
 		"10": "createnuclear:block/reactor/frame/reactor_frame_window_single",
-		"particle": "createnuclear:block/fluid/uranium_still"
+		"particle": "createnuclear:fluid/uranium_still"
 	},
 	"elements": [
 		{
