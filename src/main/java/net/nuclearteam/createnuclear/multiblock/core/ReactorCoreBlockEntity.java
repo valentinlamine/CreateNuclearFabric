@@ -49,7 +49,6 @@ public class ReactorCoreBlockEntity extends ReactorBlockEntity {
                     explodeReactorCore(level, getBlockPos(), explosionRadius);
                 } else {
                     countdownTicks++;
-                    CreateNuclear.LOGGER.warn("Countdown: " + countdownTicks + " ticks");
                 }
             } else {
                 countdownTicks = 0; // Réinitialise le compte à rebours si la chaleur n'est pas en danger

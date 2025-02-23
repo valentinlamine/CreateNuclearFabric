@@ -121,13 +121,20 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
             tooltip.add(componentSpacing.plainCopy().append(Lang.translateDirect("gui.gauge.info_header")));
             IHeat.HeatLevel.getName("reactor_controller").style(ChatFormatting.GRAY).forGoggles(tooltip);
 
-            if (fuelItem != null || coolerItem != null) {
-                IHeat.HeatLevel.getFormattedHeatText(configuredPattern.getOrCreateTag().getInt("heat")).forGoggles(tooltip);
-                if (fuelItem != null) IHeat.HeatLevel.getFormattedItemText(fuelItem).forGoggles(tooltip);
-                if (coolerItem != null) IHeat.HeatLevel.getFormattedItemText(coolerItem).forGoggles(tooltip);
+            IHeat.HeatLevel.getFormattedHeatText(configuredPattern.getOrCreateTag().getInt("heat")).forGoggles(tooltip);
+
+            if (fuelItem.isEmpty()) {
+                // if rod empty we initialize it at 1 (and display it as 0) to avoid having air item displayed instead of the rod
+                IHeat.HeatLevel.getFormattedItemText(new ItemStack(CNItems.URANIUM_ROD.asItem(), 1), true).forGoggles(tooltip);
+            } else {
+                IHeat.HeatLevel.getFormattedItemText(fuelItem, false).forGoggles(tooltip);
             }
-            else {
-                IHeat.HeatLevel.getFormattedItemText(new ItemStack(Items.AIR, 0)).forGoggles(tooltip);
+
+            if (fuelItem.isEmpty()) {
+                // if rod empty we initialize it at 1 (and display it as 0) to avoid having air item displayed instead of the rod
+                IHeat.HeatLevel.getFormattedItemText(new ItemStack(CNItems.GRAPHITE_ROD.asItem(), 1), true).forGoggles(tooltip);
+            } else {
+                IHeat.HeatLevel.getFormattedItemText(coolerItem, false).forGoggles(tooltip);
             }
         }
 
@@ -170,6 +177,23 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
 
     public enum State {
         ON, OFF;
+    }
+
+    private void explodeReactorCore(Level level, BlockPos pos) {
+        for (int x = -1; x <= 1; x++) {
+            for (int y = -1; y <= 1; y++) {
+                for (int z = -1; z <= 1; z++) {
+                    BlockPos currentPos = pos.offset(x, y, z);
+                    //le problème viens de la il ne rentre pas dans le if
+                    if (level.getBlockState(currentPos).is(CNBlocks.REACTOR_CORE.get())) {
+                        // Create and execute the explosion
+                        Explosion explosion = new Explosion(level, null, currentPos.getX(), currentPos.getY(), currentPos.getZ(), 4.0F, false, Explosion.BlockInteraction.DESTROY);
+                        explosion.explode();
+                        explosion.finalizeExplosion(true);
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -342,9 +366,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     private CompoundTag convertePattern(CompoundTag compoundTag) {
         ListTag pattern = compoundTag.getList("Items", Tag.TAG_COMPOUND);
 
-        CreateNuclear.LOGGER.warn("pattern: " + pattern);
-
-
         return null;
     }
 
@@ -412,7 +433,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                 configuredPattern = heldItem;
                 //player.setItemInHand(hand, ItemStack.EMPTY);
             }
-            CreateNuclear.LOGGER.warn(""+inventory.getStackInSlot(0).getOrCreateTag());
             notifyUpdate();
             return InteractionResult.SUCCESS;
         }

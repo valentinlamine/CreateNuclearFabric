@@ -103,7 +103,6 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
                 withBlockEntityDo(worldIn, pos, be -> {
                     be.inventory.setStackInSlot(0, heldItem);
                     be.configuredPattern = heldItem;
-                    CreateNuclear.LOGGER.warn(""+be.inventory.getStackInSlot(0).getOrCreateTag());
 
                     player.setItemInHand(handIn, ItemStack.EMPTY);
                 });
@@ -177,6 +176,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos);
         var result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(level, pos); // control the pattern
         if (result != null) { // the pattern is correct
+
             for (Player player : players) {
                 if (create && !entity.created) {
                     player.sendSystemMessage(Component.translatable("reactor.info.assembled.creator"));
