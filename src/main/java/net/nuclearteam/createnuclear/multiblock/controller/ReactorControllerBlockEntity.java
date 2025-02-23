@@ -121,13 +121,20 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
             tooltip.add(componentSpacing.plainCopy().append(Lang.translateDirect("gui.gauge.info_header")));
             IHeat.HeatLevel.getName("reactor_controller").style(ChatFormatting.GRAY).forGoggles(tooltip);
 
-            if (fuelItem != null || coolerItem != null) {
-                IHeat.HeatLevel.getFormattedHeatText(configuredPattern.getOrCreateTag().getInt("heat")).forGoggles(tooltip);
-                if (fuelItem != null) IHeat.HeatLevel.getFormattedItemText(fuelItem).forGoggles(tooltip);
-                if (coolerItem != null) IHeat.HeatLevel.getFormattedItemText(coolerItem).forGoggles(tooltip);
+            IHeat.HeatLevel.getFormattedHeatText(configuredPattern.getOrCreateTag().getInt("heat")).forGoggles(tooltip);
+
+            if (fuelItem.isEmpty()) {
+                // if rod empty we initialize it at 1 (and display it as 0) to avoid having air item displayed instead of the rod
+                IHeat.HeatLevel.getFormattedItemText(new ItemStack(CNItems.URANIUM_ROD.asItem(), 1), true).forGoggles(tooltip);
+            } else {
+                IHeat.HeatLevel.getFormattedItemText(fuelItem, false).forGoggles(tooltip);
             }
-            else {
-                IHeat.HeatLevel.getFormattedItemText(new ItemStack(Items.AIR, 0)).forGoggles(tooltip);
+
+            if (fuelItem.isEmpty()) {
+                // if rod empty we initialize it at 1 (and display it as 0) to avoid having air item displayed instead of the rod
+                IHeat.HeatLevel.getFormattedItemText(new ItemStack(CNItems.GRAPHITE_ROD.asItem(), 1), true).forGoggles(tooltip);
+            } else {
+                IHeat.HeatLevel.getFormattedItemText(coolerItem, false).forGoggles(tooltip);
             }
         }
 
@@ -187,15 +194,12 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     }
 
     private void explodeReactorCore(Level level, BlockPos pos) {
-        CreateNuclear.LOGGER.warn("Exploding reactor core at position: " + pos);
         for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++) {
                 for (int z = -1; z <= 1; z++) {
                     BlockPos currentPos = pos.offset(x, y, z);
                     //le problème viens de la il ne rentre pas dans le if
-                    CreateNuclear.LOGGER.warn("d:; {}", level.getBlockState(currentPos));
                     if (level.getBlockState(currentPos).is(CNBlocks.REACTOR_CORE.get())) {
-                        CreateNuclear.LOGGER.warn("Found REACTOR_CORE block at position: " + currentPos);
                         // Create and execute the explosion
                         Explosion explosion = new Explosion(level, null, currentPos.getX(), currentPos.getY(), currentPos.getZ(), 4.0F, false, Explosion.BlockInteraction.DESTROY);
                         explosion.explode();
@@ -376,9 +380,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     private CompoundTag convertePattern(CompoundTag compoundTag) {
         ListTag pattern = compoundTag.getList("Items", Tag.TAG_COMPOUND);
 
-        CreateNuclear.LOGGER.warn("pattern: " + pattern);
-
-
         return null;
     }
 
@@ -406,12 +407,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
             if (level.getBlockState(pos).getBlock() instanceof ReactorOutput) {
                 ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
                 ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
-                CreateNuclear.LOGGER.warn(rotation + "");
                 if (state.getValue(ASSEMBLED)) { // Starting the energy
-                    //CreateNuclear.LOGGER.info("Change " + pos);
                     entity.speed = rotation;
                     entity.heat = rotation;
-                    CreateNuclear.LOGGER.warn("rotation: " + rotation + " heat: " + entity.heat);
                     entity.updateSpeed = true;
                     entity.updateGeneratedRotation();
                 } else { // stopping the energy
@@ -449,7 +447,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                 configuredPattern = heldItem;
                 //player.setItemInHand(hand, ItemStack.EMPTY);
             }
-            CreateNuclear.LOGGER.warn(""+inventory.getStackInSlot(0).getOrCreateTag());
             notifyUpdate();
             return InteractionResult.SUCCESS;
         }

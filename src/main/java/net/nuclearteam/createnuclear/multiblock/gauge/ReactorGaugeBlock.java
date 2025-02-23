@@ -129,12 +129,10 @@ public class ReactorGaugeBlock extends Block implements IWrenchable {
                 for (int z = pos.getZ()-5; z != pos.getZ()+5; z+=1) {
                     newBlock = new BlockPos(x, y, z);
                     if (level.getBlockState(newBlock).is(CNBlocks.REACTOR_CONTROLLER.get())) { // verifying the pattern
-                        CreateNuclear.LOGGER.info("ReactorController FOUND!!!!!!!!!!: ");      // from the controller
                         ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(newBlock).getBlock();
                         controller.Verify(level.getBlockState(newBlock), newBlock, level, players, first);
                         return controller;
                     }
-                    //else CreateNuclear.LOGGER.info("newBlock: " + level.getBlockState(newBlock).getBlock());
                 }
             }
         }

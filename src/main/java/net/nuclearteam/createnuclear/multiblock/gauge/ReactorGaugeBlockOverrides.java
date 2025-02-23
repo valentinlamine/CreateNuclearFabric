@@ -14,10 +14,6 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 public class ReactorGaugeBlockOverrides {
     public static ItemModelBuilder addOverrideModels(DataGenContext<Item, ReactorGaugeBlockItem> c, RegistrateItemModelProvider p) {
         ItemModelBuilder builder = p.generated(c);
-        CreateNuclear.LOGGER.warn(" " + builder.override()
-                .model(p.getBuilder("block/reactor_main_frame/reactor_gauge_none")
-                        .parent(p.getExistingFile(p.modLoc("block/reactor_main_frame/reactor_gauge_none"))))
-                .end().toJson());
         return builder.override()
                 .model(p.getBuilder("block/reactor_main_frame/reactor_gauge_none")
                         .parent(p.getExistingFile(p.modLoc("block/reactor_main_frame/reactor_gauge_none"))))

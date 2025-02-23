@@ -81,7 +81,6 @@ public class ReactorBlock extends Block implements IWrenchable, IBE<ReactorBlock
                 for (int z = pos.getZ()-5; z != pos.getZ()+5; z+=1) {
                     newBlock = new BlockPos(x, y, z);
                     if (level.getBlockState(newBlock).is(CNBlocks.REACTOR_CONTROLLER.get())) { // verifying the pattern
-                        CreateNuclear.LOGGER.info("ReactorController FOUND!!!!!!!!!!: ");      // from the controller
                         ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(newBlock).getBlock();
                         controller.Verify(level.getBlockState(newBlock), newBlock, level, players, first);
                         ReactorControllerBlockEntity entity = controller.getBlockEntity(level, newBlock);
@@ -89,7 +88,6 @@ public class ReactorBlock extends Block implements IWrenchable, IBE<ReactorBlock
                             return controller;
                         }
                     }
-                    //else CreateNuclear.LOGGER.info("newBlock: " + level.getBlockState(newBlock).getBlock());
                 }
             }
         }

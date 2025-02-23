@@ -85,20 +85,24 @@ public interface IHeat extends IWrenchable {
             return builder;
         }
 
-        public static LangBuilder getFormattedItemText(ItemStack itemRod) {
+        public static LangBuilder getFormattedItemText(ItemStack itemRod, Boolean IsEmpty) {
             LangBuilder builder = Lang.builder(CreateNuclear.MOD_ID);
 
-            String tooltip = itemRod.is(CNTag.ItemTags.FUEL.tag)
-                    ? "uranium"
-                    : itemRod.is(CNTag.ItemTags.COOLER.tag)
-                        ? "graphene"
-                        : "unknown";
+            String tooltip = "unknown";
+            
+            if (itemRod.is(CNTag.ItemTags.FUEL.tag)) {
+                tooltip = "uranium";
+            }
+
+            if (itemRod.is(CNTag.ItemTags.COOLER.tag)) {
+                tooltip = "graphene";
+            }
 
             builder.translate("tooltip.item." + tooltip + ".rod")
-                    .add(Lang.number(Math.abs(itemRod.getCount())));
-
-            if (tooltip.contains("unknown")) builder.style(ChatFormatting.GRAY).style(ChatFormatting.ITALIC);
-            else builder.style(ChatFormatting.BLUE);
+                    // when it's empty, we show the number minus one to display zero because we fake the item count as 1
+                    .add(Lang.number(Math.abs((IsEmpty ? itemRod.getCount() - 1 : itemRod.getCount()))))
+                    .style(ChatFormatting.BLUE)
+            ;
 
             return builder;
         }

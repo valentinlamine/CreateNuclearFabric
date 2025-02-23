@@ -110,7 +110,6 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 
 		if (!hasSource() || getGeneratedSpeed() > getTheoreticalSpeed())
 		{
-			//CreateNuclear.LOGGER.info("Init SPEED : " + getSpeed2() + "  pos : " + getBlockPos());
 			FindController(getBlockPos(), Objects.requireNonNull(getLevel()));
 		}
 	}
