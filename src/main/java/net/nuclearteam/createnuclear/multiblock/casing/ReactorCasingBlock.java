@@ -88,7 +88,6 @@ public class ReactorCasingBlock extends Block implements IWrenchable, IBE<Reacto
                             return controller;
                         }
                     }
-                    //else CreateNuclear.LOGGER.info("newBlock: " + level.getBlockState(newBlock).getBlock());
                 }
             }
         }

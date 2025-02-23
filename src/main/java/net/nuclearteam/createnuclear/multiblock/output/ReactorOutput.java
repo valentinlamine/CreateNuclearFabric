@@ -125,7 +125,6 @@ public class ReactorOutput extends DirectionalKineticBlock implements IWrenchabl
 		Vec3i pos = new Vec3i(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 		newBlock = new BlockPos(pos.getX(), pos.getY() + 3, pos.getZ());
 		if (level.getBlockState(newBlock).is(CNBlocks.REACTOR_CONTROLLER.get())) { // verifying the pattern
-			CreateNuclear.LOGGER.info("ReactorController FOUND!!!!!!!!!!: ");      // from the controller
 			ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(newBlock).getBlock();
 			controller.Verify(level.getBlockState(newBlock), newBlock, level, players, first);
 			ReactorControllerBlockEntity entity = controller.getBlockEntity(level, newBlock);

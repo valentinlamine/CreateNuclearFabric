@@ -132,7 +132,6 @@ public class ReactorFrameBlock extends Block implements IWrenchable {
                         controller.Verify(level.getBlockState(newBlock), newBlock, level, players, first);
                         return controller;
                     }
-                    //else CreateNuclear.LOGGER.info("newBlock: " + level.getBlockState(newBlock).getBlock());
                 }
             }
         }

@@ -79,7 +79,6 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
                 withBlockEntityDo(worldIn, pos, be -> {
                     be.inventory.setStackInSlot(0, heldItem);
                     be.configuredPattern = heldItem;
-                    CreateNuclear.LOGGER.warn(""+be.inventory.getStackInSlot(0).getOrCreateTag());
 
                     player.setItemInHand(handIn, ItemStack.EMPTY);
                 });
@@ -180,7 +179,6 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
             ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
 
             if (Boolean.TRUE.equals(state.getValue(ASSEMBLED)) && rotation != 0) { // Starting the energy
-                //CreateNuclear.LOGGER.info("Change " + pos);
                 entity.speed = rotation;
                 entity.setSpeed(Math.abs(entity.speed));
                 entity.updateSpeed = true;

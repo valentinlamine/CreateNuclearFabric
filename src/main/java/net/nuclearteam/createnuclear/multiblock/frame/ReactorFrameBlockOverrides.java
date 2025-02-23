@@ -9,10 +9,7 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 public class ReactorFrameBlockOverrides {
     public static ItemModelBuilder addOverrideModels(DataGenContext<Item, ReactorFrameItem> c, RegistrateItemModelProvider p) {
         ItemModelBuilder builder = p.generated(c);
-        CreateNuclear.LOGGER.warn(" " + builder.override()
-                .model(p.getBuilder("block/reactor_frame/reactor_frame_none")
-                        .parent(p.getExistingFile(p.modLoc("block/reactor_frame/reactor_frame_none"))))
-                .end().toJson());
+
         return builder.override()
                 .model(p.getBuilder("block/reactor_frame/reactor_frame_none")
                         .parent(p.getExistingFile(p.modLoc("block/reactor_frame/reactor_frame_none"))))
