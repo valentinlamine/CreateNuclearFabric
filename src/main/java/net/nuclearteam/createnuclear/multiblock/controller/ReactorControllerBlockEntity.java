@@ -33,8 +33,8 @@ import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.gui.CNIconButton;
 import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.multiblock.IHeat;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutput;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutputEntity;
+import net.nuclearteam.createnuclear.multiblock.output.ReactorOutput;
+import net.nuclearteam.createnuclear.multiblock.output.ReactorOutputEntity;
 import net.nuclearteam.createnuclear.multiblock.input.ReactorInputEntity;
 import static net.nuclearteam.createnuclear.multiblock.bluePrintItem.ReactorBluePrintItem.getItemStorage;
 import org.jetbrains.annotations.Nullable;
@@ -379,9 +379,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                 .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
                 .aisle(AAAAA, AAAAA, AAAAA, AAAAA, AAOAA)
                 .where('A', a -> a.getState().is(CNBlocks.REACTOR_CASING.get()))
-                .where('B', a -> a.getState().is(CNBlocks.REACTOR_MAIN_FRAME.get()))
+                .where('B', a -> a.getState().is(CNBlocks.REACTOR_FRAME.get()))
                 .where('C', a -> a.getState().is(CNBlocks.REACTOR_CORE.get()))
-                .where('D', a -> a.getState().is(CNBlocks.REACTOR_COOLING_FRAME.get()))
+                .where('D', a -> a.getState().is(CNBlocks.REACTOR_COOLER.get()))
                 .where('*', a -> a.getState().is(CNBlocks.REACTOR_CONTROLLER.get()))
                 .where('O', a -> a.getState().is(CNBlocks.REACTOR_OUTPUT.get()))
                 .where('I', a -> a.getState().is(CNBlocks.REACTOR_INPUT.get()))

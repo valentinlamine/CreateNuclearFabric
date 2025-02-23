@@ -4,6 +4,7 @@ import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Bo
 import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Chestplate;
 import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Helmet;
 import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Leggings;
+import static net.nuclearteam.createnuclear.potion.CNPotions.registerPotionsRecipes;
 
 import com.tterrag.registrate.util.entry.EntityEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;
@@ -15,23 +16,16 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionBrewing;
-import net.minecraft.world.item.alchemy.Potions;
 import net.nuclearteam.createnuclear.CreateNuclear;
-import net.nuclearteam.createnuclear.effects.CNEffects;
 import net.nuclearteam.createnuclear.entity.CNMobEntityType;
 import net.nuclearteam.createnuclear.groups.CNGroup;
 import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem.DyeItemList;
-import net.nuclearteam.createnuclear.multiblock.bluePrintItem.ReactorBluePrintItem;
+import net.nuclearteam.createnuclear.multiblock.blueprint.ReactorBluePrint;
 import net.nuclearteam.createnuclear.tags.CNTag;
-import net.nuclearteam.createnuclear.tools.CustomSpawnEgg;
 import net.nuclearteam.createnuclear.utils.TextUtils;
 
 public class CNItems {
@@ -178,8 +172,8 @@ public class CNItems {
                 .register();
     });
 
-    public static final ItemEntry<ReactorBluePrintItem> REACTOR_BLUEPRINT = CreateNuclear.REGISTRATE
-            .item("reactor_blueprint_item", ReactorBluePrintItem::new)
+    public static final ItemEntry<ReactorBluePrint> REACTOR_BLUEPRINT = CreateNuclear.REGISTRATE
+            .item("reactor_blueprint_item", ReactorBluePrint::new)
             .lang("Reactor Blueprint")
             .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/reactor_blueprint")))
             .properties(p -> p.stacksTo(1))
@@ -189,10 +183,6 @@ public class CNItems {
     public static final ItemEntry<LazySpawnEggItem> SPAWN_CAT = registerSpawnEgg("cat_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_CAT, 0x382C19,0x742728, "Irradiated Cat Spawn Egg");
     public static final ItemEntry<LazySpawnEggItem> SPAWN_CHICKEN = registerSpawnEgg("chicken_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_CHICKEN, 0x6B9455,0x95393C, "Irradiated Chicken Spawn Egg");
 
-
-    public static final Potion potion_1 = registerPotion("potion_of_radiation_1", new Potion(new MobEffectInstance(CNEffects.RADIATION.get(), 900)));
-    public static final Potion potion_augment_1 = registerPotion("potion_of_radiation_augment_1", new Potion(new MobEffectInstance(CNEffects.RADIATION.get(), 1800)));
-    public static final Potion potion_2 = registerPotion("potion_of_radiation_2", new Potion(new MobEffectInstance(CNEffects.RADIATION.get(), 410, 1)));
     public static Object Bucket;
 
     private static void addItemToIngredientItemGroup(FabricItemGroupEntries entries) {
@@ -221,13 +211,4 @@ public class CNItems {
         registerPotionsRecipes();
     }
 
-    public static Potion registerPotion(String name, Potion potion) {
-        return Registry.register(BuiltInRegistries.POTION, CreateNuclear.asResource(name), potion);
-    }
-
-    public static void registerPotionsRecipes() {
-        PotionBrewing.addMix(Potions.AWKWARD, CNItems.ENRICHED_YELLOWCAKE.get(), CNItems.potion_1);
-        PotionBrewing.addMix(potion_1, Items.REDSTONE, CNItems.potion_augment_1);
-        PotionBrewing.addMix(potion_1, Items.GLOWSTONE_DUST, CNItems.potion_2);
-    }
 }

@@ -5,10 +5,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -17,7 +15,7 @@ import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.effects.CNEffects;
 import net.nuclearteam.createnuclear.multiblock.IHeat;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
-import net.nuclearteam.createnuclear.multiblock.frame.ReactorBlockEntity;
+import net.nuclearteam.createnuclear.multiblock.casing.ReactorCasingBlockEntity;
 
 import java.util.HashSet;
 import java.util.List;
@@ -25,7 +23,7 @@ import java.util.Set;
 
 import static net.nuclearteam.createnuclear.CNMultiblock.*;
 
-public class ReactorCoreBlockEntity extends ReactorBlockEntity {
+public class ReactorCoreBlockEntity extends ReactorCasingBlockEntity {
     private int countdownTicks = 0;
 
 
@@ -120,9 +118,9 @@ public class ReactorCoreBlockEntity extends ReactorBlockEntity {
                 .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
                 .aisle(AAAAA, AAAAA, AAAAA, AAAAA, AAOAA)
                 .where('A', a -> a.getState().is(CNBlocks.REACTOR_CASING.get()))
-                .where('B', a -> a.getState().is(CNBlocks.REACTOR_MAIN_FRAME.get()))
+                .where('B', a -> a.getState().is(CNBlocks.REACTOR_FRAME.get()))
                 .where('C', a -> a.getState().is(CNBlocks.REACTOR_CORE.get()))
-                .where('D', a -> a.getState().is(CNBlocks.REACTOR_COOLING_FRAME.get()))
+                .where('D', a -> a.getState().is(CNBlocks.REACTOR_COOLER.get()))
                 .where('*', a -> a.getState().is(CNBlocks.REACTOR_CONTROLLER.get()))
                 .where('O', a -> a.getState().is(CNBlocks.REACTOR_OUTPUT.get()))
                 .where('I', a -> a.getState().is(CNBlocks.REACTOR_INPUT.get()))

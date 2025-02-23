@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
 @SuppressWarnings("UnstableApiUsage")
 public class CNFluids {
 
-    public static final FluidEntry<SimpleFlowableFluid.Flowing> URANIUM = CreateNuclear.REGISTRATE.fluid("uranium", CreateNuclear.asResource("block/fluid/uranium_still"), CreateNuclear.asResource("block/fluid/uranium_flow"))
+    public static final FluidEntry<SimpleFlowableFluid.Flowing> URANIUM = CreateNuclear.REGISTRATE.fluid("uranium", CreateNuclear.asResource("fluid/uranium_still"), CreateNuclear.asResource("fluid/uranium_flow"))
             .fluidAttributes(() -> new CreateNuclearAttributeHandler("fluid.createnuclear.uranium", 2500, 1600))
             .fluidProperties(p -> p.levelDecreasePerBlock(2)
                     .tickRate(15)

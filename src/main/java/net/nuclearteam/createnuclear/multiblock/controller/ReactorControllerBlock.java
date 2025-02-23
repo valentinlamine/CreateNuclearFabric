@@ -1,31 +1,15 @@
 package net.nuclearteam.createnuclear.multiblock.controller;
 
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
-import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.item.ItemHelper;
-import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
-import io.github.fabricators_of_create.porting_lib.util.NetworkHooks;
-import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents;
-import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.fabricmc.fabric.mixin.command.CommandManagerMixin;
 import net.minecraft.ChatFormatting;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextColor;
-import net.minecraft.server.commands.TitleCommand;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -40,17 +24,9 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.blockentity.CNBlockEntities;
 import net.nuclearteam.createnuclear.item.CNItems;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutput;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutputEntity;
+import net.nuclearteam.createnuclear.multiblock.output.ReactorOutput;
+import net.nuclearteam.createnuclear.multiblock.output.ReactorOutputEntity;
 import net.nuclearteam.createnuclear.gui.CNIconButton;
-import net.nuclearteam.createnuclear.tools.HorizontalDirectionalReactorBlock;
-import net.nuclearteam.createnuclear.CNMultiblock;
-import net.nuclearteam.createnuclear.CreateNuclear;
-import net.nuclearteam.createnuclear.block.CNBlocks;
-import net.nuclearteam.createnuclear.blockentity.CNBlockEntities;
-import net.nuclearteam.createnuclear.gui.CNIconButton;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutput;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutputEntity;
 import net.nuclearteam.createnuclear.tools.HorizontalDirectionalReactorBlock;
 
 import org.jetbrains.annotations.Nullable;
@@ -166,7 +142,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         controller.Rotate(state, pos.below(3), level, 0);
         List<? extends Player> players = level.players();
         for (Player p : players) {
-            p.sendSystemMessage(Component.translatable("reactor.info.assembled.creator"));
+            p.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer"));
         }
     }
 
@@ -176,10 +152,8 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos);
         var result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(level, pos); // control the pattern
         if (result != null) { // the pattern is correct
-
             for (Player player : players) {
                 if (create && !entity.created) {
-                    player.sendSystemMessage(Component.translatable("reactor.info.assembled.creator"));
                     level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, true));
                     entity.created = true;
                     entity.destroyed = false;
@@ -192,7 +166,6 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         for (Player player : players) {
             if (!create && !entity.destroyed)
             {
-                player.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer"));
                 level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, false));
                 entity.created = false;
                 entity.destroyed = true;
