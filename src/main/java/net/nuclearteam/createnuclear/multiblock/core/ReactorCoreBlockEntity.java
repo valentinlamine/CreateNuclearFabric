@@ -2,20 +2,18 @@ package net.nuclearteam.createnuclear.multiblock.core;
 
 import lib.multiblock.test.SimpleMultiBlockAislePatternBuilder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.multiblock.IHeat;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
-import net.nuclearteam.createnuclear.multiblock.frame.ReactorBlockEntity;
+import net.nuclearteam.createnuclear.multiblock.casing.ReactorCasingBlockEntity;
 
 import static net.nuclearteam.createnuclear.CNMultiblock.*;
 
-public class ReactorCoreBlockEntity extends ReactorBlockEntity {
+public class ReactorCoreBlockEntity extends ReactorCasingBlockEntity {
     private int countdownTicks = 0;
 
 
@@ -60,9 +58,9 @@ public class ReactorCoreBlockEntity extends ReactorBlockEntity {
                 .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
                 .aisle(AAAAA, AAAAA, AAAAA, AAAAA, AAOAA)
                 .where('A', a -> a.getState().is(CNBlocks.REACTOR_CASING.get()))
-                .where('B', a -> a.getState().is(CNBlocks.REACTOR_MAIN_FRAME.get()))
+                .where('B', a -> a.getState().is(CNBlocks.REACTOR_FRAME.get()))
                 .where('C', a -> a.getState().is(CNBlocks.REACTOR_CORE.get()))
-                .where('D', a -> a.getState().is(CNBlocks.REACTOR_COOLING_FRAME.get()))
+                .where('D', a -> a.getState().is(CNBlocks.REACTOR_COOLER.get()))
                 .where('*', a -> a.getState().is(CNBlocks.REACTOR_CONTROLLER.get()))
                 .where('O', a -> a.getState().is(CNBlocks.REACTOR_OUTPUT.get()))
                 .where('I', a -> a.getState().is(CNBlocks.REACTOR_INPUT.get()))

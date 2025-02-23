@@ -1,6 +1,5 @@
 package net.nuclearteam.createnuclear.blockentity;
 
-import com.simibubi.create.Create;
 import com.simibubi.create.content.kinetics.base.HalfShaftInstance;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 
@@ -8,10 +7,9 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
 import net.nuclearteam.createnuclear.multiblock.core.ReactorCoreBlockEntity;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutputEntity;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutputRenderer;
-import net.nuclearteam.createnuclear.multiblock.frame.ReactorBlock;
-import net.nuclearteam.createnuclear.multiblock.frame.ReactorBlockEntity;
+import net.nuclearteam.createnuclear.multiblock.output.ReactorOutputEntity;
+import net.nuclearteam.createnuclear.multiblock.output.ReactorOutputRenderer;
+import net.nuclearteam.createnuclear.multiblock.casing.ReactorCasingBlockEntity;
 import net.nuclearteam.createnuclear.multiblock.input.ReactorInputEntity;
 import net.nuclearteam.createnuclear.tools.EnrichingCampfireBlockEntity;
 
@@ -38,8 +36,8 @@ public class CNBlockEntities {
                     .validBlocks(CNBlocks.ENRICHING_CAMPFIRE)
                     .register();
 
-    public static final BlockEntityEntry<ReactorBlockEntity> REACTOR_CASING =
-            CreateNuclear.REGISTRATE.blockEntity("reactor_casing", ReactorBlockEntity::new)
+    public static final BlockEntityEntry<ReactorCasingBlockEntity> REACTOR_CASING =
+            CreateNuclear.REGISTRATE.blockEntity("reactor_casing", ReactorCasingBlockEntity::new)
                     .validBlocks(CNBlocks.REACTOR_CASING)
                     .register();
 

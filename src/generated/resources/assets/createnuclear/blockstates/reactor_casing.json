@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "createnuclear:block/reactor_casing"
+      "model": "createnuclear:block/reactor_casing/reactor_casing"
     }
   }
 }

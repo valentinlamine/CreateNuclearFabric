@@ -10,9 +10,7 @@ import io.github.fabricators_of_create.porting_lib.util.StorageProvider;
 import lib.multiblock.test.SimpleMultiBlockAislePatternBuilder;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.fabricmc.fabric.api.transfer.v1.storage.base.ResourceAmount;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SidedStorageBlockEntity;
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -34,8 +32,8 @@ import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.gui.CNIconButton;
 import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.multiblock.IHeat;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutput;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutputEntity;
+import net.nuclearteam.createnuclear.multiblock.output.ReactorOutput;
+import net.nuclearteam.createnuclear.multiblock.output.ReactorOutputEntity;
 import net.nuclearteam.createnuclear.multiblock.input.ReactorInputEntity;
 import org.jetbrains.annotations.Nullable;
 
@@ -43,19 +41,6 @@ import java.util.List;
 
 import static net.nuclearteam.createnuclear.CNMultiblock.*;
 import static net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
-import net.nuclearteam.createnuclear.block.CNBlocks;
-import net.nuclearteam.createnuclear.gui.CNIconButton;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutput;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutputEntity;
-
-import java.util.List;
-
-import static net.nuclearteam.createnuclear.CNMultiblock.*;
-import static net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
-import static net.nuclearteam.createnuclear.packets.CNPackets.getChannel;
-
-import com.simibubi.create.content.schematics.requirement.ItemRequirement;
-import com.simibubi.create.content.schematics.requirement.ItemRequirement.ItemUseType;
 
 public class ReactorControllerBlockEntity extends SmartBlockEntity implements IInteractionChecker, SidedStorageBlockEntity, IHaveGoggleInformation {
     public boolean destroyed = false;
@@ -329,9 +314,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                 .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
                 .aisle(AAAAA, AAAAA, AAAAA, AAAAA, AAOAA)
                 .where('A', a -> a.getState().is(CNBlocks.REACTOR_CASING.get()))
-                .where('B', a -> a.getState().is(CNBlocks.REACTOR_MAIN_FRAME.get()))
+                .where('B', a -> a.getState().is(CNBlocks.REACTOR_FRAME.get()))
                 .where('C', a -> a.getState().is(CNBlocks.REACTOR_CORE.get()))
-                .where('D', a -> a.getState().is(CNBlocks.REACTOR_COOLING_FRAME.get()))
+                .where('D', a -> a.getState().is(CNBlocks.REACTOR_COOLER.get()))
                 .where('*', a -> a.getState().is(CNBlocks.REACTOR_CONTROLLER.get()))
                 .where('O', a -> a.getState().is(CNBlocks.REACTOR_OUTPUT.get()))
                 .where('I', a -> a.getState().is(CNBlocks.REACTOR_INPUT.get()))

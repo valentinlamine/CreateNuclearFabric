@@ -1,0 +1,7 @@
+{
+  "credit": "Made with Blockbench",
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "createnuclear:block/reactor/casing/reactor_casing"
+  }
+}

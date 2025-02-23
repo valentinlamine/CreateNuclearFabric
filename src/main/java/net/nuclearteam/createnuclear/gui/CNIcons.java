@@ -9,7 +9,7 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 
 public class CNIcons implements ScreenElement {
 
-    public static final ResourceLocation REACTOR_CONTROLLER_COMPONENTS = new ResourceLocation(CreateNuclear.MOD_ID, "textures/gui/reactor-controller-components.png");
+    //public static final ResourceLocation REACTOR_CONTROLLER_COMPONENTS = new ResourceLocation(CreateNuclear.MOD_ID, "textures/gui/reactor-controller-components.png");
 
 
     private static int x = 0, y = -1;
@@ -33,7 +33,6 @@ public class CNIcons implements ScreenElement {
     @Environment(EnvType.CLIENT)
     @Override
     public void render(GuiGraphics graphics, int x, int y) {
-        graphics.blit(REACTOR_CONTROLLER_COMPONENTS, x, y, 0, iconX, iconY, 16, 16, 256, 256);
-    }
 
+    }
 }
