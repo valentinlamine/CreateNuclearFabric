@@ -57,7 +57,7 @@ public class ReactorCasingBlock extends Block implements IWrenchable, IBE<Reacto
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         super.onPlace(state, level, pos, oldState, movedByPiston);
         CreateNuclear.LOGGER.info("ReactorBlock.onPlace");
-        changeBiome(Biomes.DESERT, 12, new Vec3(20, 20, 20), (ServerLevel) level);
+        //changeBiome(Biomes.DESERT, 12, new Vec3(20, 20, 20), (ServerLevel) level);
         List<? extends Player> players = level.players();
         FindController(pos, level, players, true);
     }
