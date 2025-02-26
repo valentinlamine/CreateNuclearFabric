@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "part=end": {
+      "model": "createnuclear:block/reactor_frame/reactor_frame_bottom"
+    },
+    "part=middle": {
+      "model": "createnuclear:block/reactor_frame/reactor_frame_middle"
+    },
+    "part=none": {
+      "model": "createnuclear:block/reactor_frame/reactor_frame_none"
+    },
+    "part=start": {
+      "model": "createnuclear:block/reactor_frame/reactor_frame_top"
+    }
+  }
+}

@@ -1,30 +1,15 @@
 package net.nuclearteam.createnuclear.multiblock.controller;
 
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
-import com.simibubi.create.content.processing.burner.BlazeBurnerBlock;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.item.ItemHelper;
-import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
-import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper;
-import io.github.fabricators_of_create.porting_lib.util.NetworkHooks;
-import net.fabricmc.fabric.api.client.message.v1.ClientSendMessageEvents;
-import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-import net.fabricmc.fabric.mixin.command.CommandManagerMixin;
 import net.minecraft.ChatFormatting;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextColor;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -39,17 +24,9 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.blockentity.CNBlockEntities;
 import net.nuclearteam.createnuclear.item.CNItems;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutput;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutputEntity;
+import net.nuclearteam.createnuclear.multiblock.output.ReactorOutput;
+import net.nuclearteam.createnuclear.multiblock.output.ReactorOutputEntity;
 import net.nuclearteam.createnuclear.gui.CNIconButton;
-import net.nuclearteam.createnuclear.tools.HorizontalDirectionalReactorBlock;
-import net.nuclearteam.createnuclear.CNMultiblock;
-import net.nuclearteam.createnuclear.CreateNuclear;
-import net.nuclearteam.createnuclear.block.CNBlocks;
-import net.nuclearteam.createnuclear.blockentity.CNBlockEntities;
-import net.nuclearteam.createnuclear.gui.CNIconButton;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutput;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutputEntity;
 import net.nuclearteam.createnuclear.tools.HorizontalDirectionalReactorBlock;
 
 import org.jetbrains.annotations.Nullable;
@@ -102,7 +79,6 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
                 withBlockEntityDo(worldIn, pos, be -> {
                     be.inventory.setStackInSlot(0, heldItem);
                     be.configuredPattern = heldItem;
-                    CreateNuclear.LOGGER.warn(""+be.inventory.getStackInSlot(0).getOrCreateTag());
 
                     player.setItemInHand(handIn, ItemStack.EMPTY);
                 });
@@ -154,9 +130,6 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         List<? extends Player> players = level.players();
         ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
         controller.Verify(state, pos, level, players, true);
-        for (Player p : players) {
-            p.sendSystemMessage(Component.translatable("reactor.info.is"));
-        }
     }
 
     @Override
@@ -179,15 +152,8 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         ReactorControllerBlockEntity entity = controller.getBlockEntity(level, pos);
         var result = CNMultiblock.REGISTRATE_MULTIBLOCK.findStructure(level, pos); // control the pattern
         if (result != null) { // the pattern is correct
-            CreateNuclear.LOGGER.info("structure verified, SUCCESS to create multiblock");
-
             for (Player player : players) {
                 if (create && !entity.created) {
-                    player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "playsound minecraft:block.beacon.activate master @a " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " 1 1");
-                    player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a times 20 60 20");
-                    player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a subtitle {\"text\":\"WARNING : Reactor Assembled\",\"bold\":true,\"color\":\"green\"}");
-                    player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a title {\"text\":\"\"}");
-
                     level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, true));
                     entity.created = true;
                     entity.destroyed = false;
@@ -197,16 +163,9 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         }
 
         // the pattern is incorrect
-        CreateNuclear.LOGGER.info("structure not verified, FAILED to create multiblock");
         for (Player player : players) {
             if (!create && !entity.destroyed)
             {
-                player.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer"));
-                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "playsound minecraft:block.anvil.destroy master @a " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " 1 1");
-                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a times 20 60 20");
-                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a subtitle {\"text\":\"WARNING : Reactor Destroyed\",\"bold\":true,\"color\":\"red\"}");
-                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a title {\"text\":\"\"}");
-
                 level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, false));
                 entity.created = false;
                 entity.destroyed = true;
@@ -220,7 +179,6 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
             ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
 
             if (Boolean.TRUE.equals(state.getValue(ASSEMBLED)) && rotation != 0) { // Starting the energy
-                //CreateNuclear.LOGGER.info("Change " + pos);
                 entity.speed = rotation;
                 entity.setSpeed(Math.abs(entity.speed));
                 entity.updateSpeed = true;
