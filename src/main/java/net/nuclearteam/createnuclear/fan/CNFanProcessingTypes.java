@@ -21,6 +21,7 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.effects.CNEffects;
 import net.nuclearteam.createnuclear.fan.EnrichedRecipe.EnrichedWrapper;
+import net.nuclearteam.createnuclear.particle.IrradiatedHeartParticlesData;
 import net.nuclearteam.createnuclear.tools.EnrichingCampfireBlock;
 
 import org.jetbrains.annotations.Nullable;
@@ -103,7 +104,7 @@ public class CNFanProcessingTypes extends AllFanProcessingTypes {
                     .multiply(1, 0.05f, 1)
                     .normalize()
                     .scale(0.15f));
-            level.addParticle(ParticleTypes.ANGRY_VILLAGER, pos.x, pos.y + .45f, pos.z, 0, 0, 0);
+            level.addParticle(new IrradiatedHeartParticlesData(), pos.x, pos.y + .45f, pos.z, 0, 0, 0);
             if (level.random.nextInt(2) == 0) level.addParticle(ParticleTypes.FIREWORK, pos.x, pos.y + .25f, pos.z, 0, 0, 0);
         }
 
