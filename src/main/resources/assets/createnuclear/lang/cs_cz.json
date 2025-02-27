@@ -54,7 +54,7 @@
   "block.createnuclear.deepslate_lead_ore": "Hlubinná olověná ruda",
   "block.createnuclear.deepslate_uranium_ore": "Hlubinná uranová ruda",
   "block.createnuclear.enriched_soul_soil": "Obohacená půda duší",
-  "block.createnuclear.enriched_soul_soil.tooltip.summary": "The _only_ block who create _enriched fire_.Can used to _craft_ enriched campfire or just to make a _green fire_.",
+  "block.createnuclear.enriched_soul_soil.tooltip.summary": ".",
   "block.createnuclear.enriching_campfire": "Obohacující táborák",
   "block.createnuclear.enriching_fire": "Obohacující oheň",
   "block.createnuclear.lead_block": "Blok olova",
