@@ -188,7 +188,7 @@
   "item.createnuclear.reactor_blueprint_item.tooltip.behaviour2": "_Right_ click on the reactor controller to open it.",
   "item.createnuclear.reactor_blueprint_item.tooltip.condition1": "Filled with graphite and uranium rods",
   "item.createnuclear.reactor_blueprint_item.tooltip.condition2": "The reactor must be assembled",
-  "item.createnuclear.reactor_blueprint_item.tooltip.summary": "It allows you to configure your own patern.",
+  "item.createnuclear.reactor_blueprint_item.tooltip.summary": "It allows you to configure your own pattern.",
   "item.createnuclear.red_anti_radiation_chestplate": "Red Anti Radiation Chestplate",
   "item.createnuclear.red_anti_radiation_helmet": "Red Anti Radiation Helmet",
   "item.createnuclear.red_anti_radiation_leggings": "Red Anti Radiation Leggings",
