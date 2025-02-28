@@ -108,7 +108,7 @@
   "createnuclear.tooltip.heatLevel.none": "Ingen",
   "createnuclear.tooltip.heatLevel.safety": "Säkerhet",
   "createnuclear.tooltip.heatLevel.warning": "Varning",
-  "createnuclear.tooltip.item.graphene.rod": "Grafenstav: ",
+  "createnuclear.tooltip.item.graphene.rod": "Graphite Rod: ",
   "createnuclear.tooltip.item.unknown.rod": "Okänd: ",
   "createnuclear.tooltip.item.uranium.rod": "Uranstav: ",
   "effect.createnuclear.radiation": "Radioaktivitet",
