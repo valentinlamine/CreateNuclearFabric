@@ -72,8 +72,8 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     public int proximityUraniumHeat = 5;
     public int proximityGraphiteHeat = -5;
     public int maxUraniumPerGraphite = 3;
-    public int graphiteTimer = 3600;
-    public int uraniumTimer = 3600;
+    public int graphiteTimer = 10000;
+    public int uraniumTimer = 10000;
     public int heat;
     public double total;
     public CompoundTag screen_pattern = new CompoundTag();
