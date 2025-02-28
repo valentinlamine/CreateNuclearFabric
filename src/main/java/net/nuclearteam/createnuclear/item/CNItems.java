@@ -4,7 +4,6 @@ import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Bo
 import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Chestplate;
 import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Helmet;
 import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Leggings;
-import static net.nuclearteam.createnuclear.potion.CNPotions.registerPotionsRecipes;
 
 import com.tterrag.registrate.util.entry.EntityEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;
@@ -208,7 +207,6 @@ public class CNItems {
     public static void registerCNItems() {
         CreateNuclear.LOGGER.info("Registering mod items for " + CreateNuclear.MOD_ID);
         ItemGroupEvents.modifyEntriesEvent(CNGroup.MAIN_KEY).register(CNItems::addItemToIngredientItemGroup);
-        registerPotionsRecipes();
     }
 
 }
