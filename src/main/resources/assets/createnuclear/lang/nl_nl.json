@@ -108,7 +108,7 @@
   "createnuclear.tooltip.heatLevel.none": "Geen",
   "createnuclear.tooltip.heatLevel.safety": "Veiligheid",
   "createnuclear.tooltip.heatLevel.warning": "Waarschuwing",
-  "createnuclear.tooltip.item.graphene.rod": "Grafeen Staaf: ",
+  "createnuclear.tooltip.item.graphene.rod": "Graphite Rod: ",
   "createnuclear.tooltip.item.unknown.rod": "Onbekend: ",
   "createnuclear.tooltip.item.uranium.rod": "Uranium Staaf: ",
   "effect.createnuclear.radiation": "Straling",
