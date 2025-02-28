@@ -108,7 +108,7 @@
   "createnuclear.tooltip.heatLevel.none": "Нет",
   "createnuclear.tooltip.heatLevel.safety": "Безопасность",
   "createnuclear.tooltip.heatLevel.warning": "Предупреждение",
-  "createnuclear.tooltip.item.graphene.rod": "Графитовый стержень: ",
+  "createnuclear.tooltip.item.graphene.rod": "Graphite Rod: ",
   "createnuclear.tooltip.item.unknown.rod": "Неизвестно: ",
   "createnuclear.tooltip.item.uranium.rod": "Урановый стержень: ",
   "effect.createnuclear.radiation": "Радиация",
