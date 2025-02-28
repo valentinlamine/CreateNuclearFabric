@@ -108,7 +108,7 @@
   "createnuclear.tooltip.heatLevel.none": "Trống",
   "createnuclear.tooltip.heatLevel.safety": "An toàn",
   "createnuclear.tooltip.heatLevel.warning": "Cảnh báo",
-  "createnuclear.tooltip.item.graphene.rod": "Thanh Graphene: ",
+  "createnuclear.tooltip.item.graphene.rod": "Graphite Rod: ",
   "createnuclear.tooltip.item.unknown.rod": "Không xác định: ",
   "createnuclear.tooltip.item.uranium.rod": "Thanh Uranium: ",
   "effect.createnuclear.radiation": "Phóng xạ",
