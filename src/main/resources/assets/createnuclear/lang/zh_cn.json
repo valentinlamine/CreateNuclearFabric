@@ -108,7 +108,7 @@
   "createnuclear.tooltip.heatLevel.none": "无",
   "createnuclear.tooltip.heatLevel.safety": "安全",
   "createnuclear.tooltip.heatLevel.warning": "警告",
-  "createnuclear.tooltip.item.graphene.rod": "石墨棒: ",
+  "createnuclear.tooltip.item.graphene.rod": "Graphite Rod: ",
   "createnuclear.tooltip.item.unknown.rod": "未知: ",
   "createnuclear.tooltip.item.uranium.rod": "铀棒: ",
   "effect.createnuclear.radiation": "辐射",
