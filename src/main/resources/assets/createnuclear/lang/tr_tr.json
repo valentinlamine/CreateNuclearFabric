@@ -108,7 +108,7 @@
   "createnuclear.tooltip.heatLevel.none": "Hiç",
   "createnuclear.tooltip.heatLevel.safety": "Güvenlık",
   "createnuclear.tooltip.heatLevel.warning": "Uyarı",
-  "createnuclear.tooltip.item.graphene.rod": "Grafen Çubuk::::::::: ",
+  "createnuclear.tooltip.item.graphene.rod": "Graphite Rod: ",
   "createnuclear.tooltip.item.unknown.rod": "Bilinmeyen ",
   "createnuclear.tooltip.item.uranium.rod": "Uranyum Çubğu.",
   "effect.createnuclear.radiation": "Radyasyon",
