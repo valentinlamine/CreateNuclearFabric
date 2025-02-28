@@ -31,7 +31,7 @@ public class CNCrushingRecipeGen extends ProcessingRecipeGen {
         ),
 
         GRANITE_URANIUM_POWDER = create(() -> Items.GRANITE, b -> b.duration(250)
-                .output(.05f, CNItems.URANIUM_POWDER)
+                .output(.5f, CNItems.URANIUM_POWDER)
                 .output(1f, Blocks.RED_SAND)
         )
 
