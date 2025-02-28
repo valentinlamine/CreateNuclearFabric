@@ -184,13 +184,13 @@ public class CNAdvancement implements DataProvider {
 
     REACTOR_COOLER = create("reactor_cooler", b -> b.icon(CNBlocks.REACTOR_COOLER)
             .title("Cooling The Reactor")
-            .description("Craft a reactor cooling frame to cool your reactor")
+            .description("Craft a reactor cooler to cool your reactor")
             .after(REACTOR_CASING)
             .whenIconCollected()),
 
     REACTOR_FRAME = create("reactor_frame", b -> b.icon(CNBlocks.REACTOR_FRAME)
-            .title("Reactor Main Frame")
-            .description("Craft a reactor main frame to build your nuclear reactor")
+            .title("Reactor Frame")
+            .description("Craft a reactor frame to build your nuclear reactor")
             .after(REACTOR_CASING)
             .whenIconCollected()),
 
