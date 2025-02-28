@@ -21,12 +21,12 @@
 
   "block.createnuclear.reactor_casing.tooltip.summary": "_Block_ used to build the _reactor_",
 
-  "block.createnuclear.reactor_cooling_frame.tooltip.summary": "_Block_ used to build the _reactor_",
+  "block.createnuclear.reactor_cooler.tooltip.summary": "_Block_ used to build the _reactor_",
 
   "block.createnuclear.reactor_core.tooltip.summary": "_Block_ used to build the _reactor_",
 
 
-  "block.createnuclear.reactor_main_frame.tooltip.summary": "_Block_ used to build the _reactor_",
+  "block.createnuclear.reactor_frame.tooltip.summary": "_Block_ used to build the _reactor_",
 
 
   "item.createnuclear.graphite_rod.tooltip.summary": "_Stick_ to be used in the _reactor input_ to operate it.",
