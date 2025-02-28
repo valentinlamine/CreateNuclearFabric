@@ -32,7 +32,7 @@ public class CreateNuclear implements ModInitializer {
 	public static final String MOD_ID = "createnuclear";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID);
-	public static final CreateNuclearRegistrate NUCLEAR_REGISTRATE = CreateNuclearRegistrate.create(MOD_ID);
+	public static final CreateNuclearRegistrate POTION_REGISTRATE = CreateNuclearRegistrate.create(MOD_ID);
 
 
 
@@ -59,7 +59,7 @@ public class CreateNuclear implements ModInitializer {
 		CNMobEntityType.registerCNMod();
 
 		REGISTRATE.register();
-		NUCLEAR_REGISTRATE.register();
+		POTION_REGISTRATE.register();
 		CNRecipeTypes.register();
 		CNPotions.registerPotionRecipes();
 
