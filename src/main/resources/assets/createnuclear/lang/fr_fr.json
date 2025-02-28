@@ -108,7 +108,7 @@
   "createnuclear.tooltip.heatLevel.none": "Aucune",
   "createnuclear.tooltip.heatLevel.safety": "Sécurité",
   "createnuclear.tooltip.heatLevel.warning": "Avertissement",
-  "createnuclear.tooltip.item.graphene.rod": "Barre de graphène : ",
+  "createnuclear.tooltip.item.graphene.rod": "Graphite Rod: ",
   "createnuclear.tooltip.item.unknown.rod": "Inconnue : ",
   "createnuclear.tooltip.item.uranium.rod": "Barre d'uranium : ",
   "effect.createnuclear.radiation": "Radiation",
