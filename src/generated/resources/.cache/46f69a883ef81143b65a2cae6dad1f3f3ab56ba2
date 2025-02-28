@@ -1,4 +1,4 @@
-// 1.20.1	2025-02-28T11:34:25.9615078	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-02-28T17:09:57.008982	CreateNuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 2b6958059c3a4c8aee7fb4c003feba12dd0ab252 assets\createnuclear\models\item\uranium_bucket.json
 4db93da70d6a7549155201b7d9d68355449652ac assets\createnuclear\models\item\red_cloth.json
 8cdcca32a87171e2c709e762165330b2f0389f90 assets\createnuclear\models\item\brown_cloth.json
@@ -52,8 +52,8 @@ e6c8783178a6b59ce468e2f1c8af88353ad6e0ca assets\createnuclear\blockstates\reacto
 f390b183f143546b21e10a1e29055a9709c0462f assets\createnuclear\blockstates\enriching_campfire.json
 649fce08e620f39f776ab8ae8dcb17e0fd77c82f assets\createnuclear\models\item\lead_ingot.json
 72f88d0ce0957c6e73603dc4c514dfb20798dbaa data\createnuclear\tags\blocks\fan_processing_catalysts\enriched.json
-528834e2d20914c30db28e8fb63e020e17cb1215 data\c\tags\items\nuggets.json
 7d3e368074b034e469543ea668953d675b4cfc77 data\createnuclear\tags\blocks\uranium_fire_base_blocks.json
+528834e2d20914c30db28e8fb63e020e17cb1215 data\c\tags\items\nuggets.json
 e76c0b96c978e266f39eca8e46cd5ba2388e1749 data\createnuclear\loot_tables\blocks\reactor_controller.json
 fba1c32ae3c38d735ebb0b4c3912afc8f9e9cde4 assets\createnuclear\models\item\anti_radiation_boots.json
 327ebe73a77656f0dc4f6e43f749c44e9f77cca0 data\c\tags\items\boots.json
