@@ -108,7 +108,7 @@
   "createnuclear.tooltip.heatLevel.none": "Intet",
   "createnuclear.tooltip.heatLevel.safety": "Sikkert",
   "createnuclear.tooltip.heatLevel.warning": "Advarsel",
-  "createnuclear.tooltip.item.graphene.rod": "Grafen stang: ",
+  "createnuclear.tooltip.item.graphene.rod": "Graphite Rod: ",
   "createnuclear.tooltip.item.unknown.rod": "Ukendt: ",
   "createnuclear.tooltip.item.uranium.rod": "Uran stang: ",
   "effect.createnuclear.radiation": "Stråling",
