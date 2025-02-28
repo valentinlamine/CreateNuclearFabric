@@ -108,7 +108,7 @@
   "createnuclear.tooltip.heatLevel.none": "Nimic",
   "createnuclear.tooltip.heatLevel.safety": "Siguranţă",
   "createnuclear.tooltip.heatLevel.warning": "Atenție",
-  "createnuclear.tooltip.item.graphene.rod": "Tijă de Grafen:",
+  "createnuclear.tooltip.item.graphene.rod": "Graphite Rod: ",
   "createnuclear.tooltip.item.unknown.rod": "Necunoscut:",
   "createnuclear.tooltip.item.uranium.rod": "Tijă de Uraniu:",
   "effect.createnuclear.radiation": "Radiaţie",
