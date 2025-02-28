@@ -72,8 +72,8 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     public int proximityUraniumHeat = 5;
     public int proximityGraphiteHeat = -5;
     public int maxUraniumPerGraphite = 3;
-    public int graphiteTimer = 10000;
-    public int uraniumTimer = 10000;
+    public int graphiteTimer = 3600;
+    public int uraniumTimer = 3600;
     public int heat;
     public double total;
     public CompoundTag screen_pattern = new CompoundTag();
@@ -245,17 +245,15 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
 
     private boolean updateTimers() {
 
-        double constTotal = calculateProgress();
-
-        total -= 10;
+        total -= 1;
         return total <= 0;//(total/constTotal) <= 0;
     }
 
     private double calculateProgress() {
         countGraphiteRod = configuredPattern.getOrCreateTag().getInt("countGraphiteRod");
         countUraniumRod = configuredPattern.getOrCreateTag().getInt("countUraniumRod");
-        graphiteTimer = configuredPattern.getOrCreateTag().getInt("graphiteTime");
-        uraniumTimer = configuredPattern.getOrCreateTag().getInt("uraniumTime");
+        // graphiteTimer = configuredPattern.getOrCreateTag().getInt("graphiteTime");
+        // uraniumTimer = configuredPattern.getOrCreateTag().getInt("uraniumTime");
 
         double totalGraphiteRodLife = (double) graphiteTimer / countGraphiteRod;
         double totalUraniumRodLife = (double) uraniumTimer / countUraniumRod;
