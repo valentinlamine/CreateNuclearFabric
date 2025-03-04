@@ -20,7 +20,7 @@
   "advancement.createnuclear.raw_lead": "Raw Lead",
   "advancement.createnuclear.raw_lead.desc": "Obtain some raw lead by mining lead ore",
   "advancement.createnuclear.raw_uranium": "The Raw Power",
-  "advancement.createnuclear.raw_uranium.desc": "Mine uranium ore to obtain raw uranium for further processing",
+  "advancement.createnuclear.raw_uranium.desc": "",
   "advancement.createnuclear.reactor_blueprint": "Blueprint For Power",
   "advancement.createnuclear.reactor_blueprint.desc": "Craft a reactor blueprint to design the layout of rods in your reactor",
   "advancement.createnuclear.reactor_casing": "The Power Of The Reactor",
