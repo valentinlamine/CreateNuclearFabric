@@ -67,7 +67,7 @@
   "block.createnuclear.reactor_controller.tooltip.behaviour1": "_enerji üretmek_ için gereken tüm hesaplamaları yapar, çalışması için bir patern ile bir _reaktör planına_ ihtiyaç duyar",
   "block.createnuclear.reactor_controller.tooltip.condition1": "Reaktör bir araya getirildiğinde",
   "block.createnuclear.reactor_controller.tooltip.summary": " The _Reactor Controller_ is the _most important_ block for operating the reactor",
-  "block.createnuclear.reactor_cooler": "Reactor Cooler",
+  "block.createnuclear.reactor_cooler": "Reaktör soğutucu",
   "block.createnuclear.reactor_cooler.tooltip.summary": "_Block_ used to build the _reactor_",
   "block.createnuclear.reactor_core": "Reaktör Çekirdeği",
   "block.createnuclear.reactor_core.tooltip.summary": "_Block_ used to build the _reactor_",
