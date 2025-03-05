@@ -22,7 +22,7 @@
   "advancement.createnuclear.raw_uranium": "The Raw Power",
   "advancement.createnuclear.raw_uranium.desc": "Mine uranium ore to obtain raw uranium for further processing",
   "advancement.createnuclear.reactor_blueprint": "Blueprint For Power",
-  "advancement.createnuclear.reactor_blueprint.desc": "Craft a reactor blueprint to design the layout of rods in your reactor",
+  "advancement.createnuclear.reactor_blueprint.desc": "",
   "advancement.createnuclear.reactor_casing": "The Power Of The Reactor",
   "advancement.createnuclear.reactor_casing.desc": "Craft a reactor casing to begin building your nuclear reactor",
   "advancement.createnuclear.reactor_controller": "Controller Of The Core",
