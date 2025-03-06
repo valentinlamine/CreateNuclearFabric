@@ -27,7 +27,7 @@
   "advancement.createnuclear.reactor_casing.desc": "Stwórz obudowę reaktora, aby rozpocząć budowę swojego reaktora jądrowego",
   "advancement.createnuclear.reactor_controller": "Kontroler rdzenia",
   "advancement.createnuclear.reactor_controller.desc": "Stwórz kontroler reaktora, aby zarządzać i regulować swój reaktor",
-  "advancement.createnuclear.reactor_cooler": "Chłodzenie reaktora",
+  "advancement.createnuclear.reactor_cooler": "Schładzanie Reaktora",
   "advancement.createnuclear.reactor_cooler.desc": "Stwórz chłodnicę reaktora, by ochłodzić swój reaktor",
   "advancement.createnuclear.reactor_core": "Rdzeń mocy",
   "advancement.createnuclear.reactor_core.desc": "Stwórz rdzeń reaktora, aby wykorzystać pełną energię swojego reaktora jądrowego",
