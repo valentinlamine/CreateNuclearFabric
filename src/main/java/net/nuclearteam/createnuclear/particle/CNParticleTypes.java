@@ -15,7 +15,7 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 import java.util.function.Supplier;
 
 public enum CNParticleTypes {
-    IRRADIATED_HEART(IrradiatedHeartParticlesData::new),
+    IRRADIATED_PARTICLES(IrradiatedParticlesData::new),
     ;
 
     private final ParticleEntry<?> entry;

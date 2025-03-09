@@ -5,9 +5,9 @@ import net.minecraft.client.particle.*;
 
 import javax.annotation.Nullable;
 
-public class IrradiatedHeartParticles extends TextureSheetParticle {
-    protected IrradiatedHeartParticles(ClientLevel pLevel, double pX, double pY, double pZ,
-                                       SpriteSet spriteSet, double pXSpeed, double pYSpeed, double pZSpeed) {
+public class IrradiatedParticles extends TextureSheetParticle {
+    protected IrradiatedParticles(ClientLevel pLevel, double pX, double pY, double pZ,
+                                  SpriteSet spriteSet, double pXSpeed, double pYSpeed, double pZSpeed) {
         super(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed);
 
         this.friction = 0.8f;
@@ -25,7 +25,7 @@ public class IrradiatedHeartParticles extends TextureSheetParticle {
         return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
-    public static class Provider implements ParticleProvider<IrradiatedHeartParticlesData> {
+    public static class Provider implements ParticleProvider<IrradiatedParticlesData> {
         private final SpriteSet spriteSet;
 
         public Provider(SpriteSet spriteSet) {
@@ -34,9 +34,9 @@ public class IrradiatedHeartParticles extends TextureSheetParticle {
 
         @Nullable
         @Override
-        public Particle createParticle(IrradiatedHeartParticlesData pType, ClientLevel pLevel, double pX, double pY, double pZ,
+        public Particle createParticle(IrradiatedParticlesData pType, ClientLevel pLevel, double pX, double pY, double pZ,
                                        double pXSpeed, double pYSpeed, double pZSpeed) {
-            return new IrradiatedHeartParticles(pLevel, pX, pY, pZ, this.spriteSet, pXSpeed, pYSpeed, pZSpeed);
+            return new IrradiatedParticles(pLevel, pX, pY, pZ, this.spriteSet, pXSpeed, pYSpeed, pZSpeed);
         }
     }
 }
