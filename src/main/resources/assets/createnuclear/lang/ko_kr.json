@@ -108,7 +108,7 @@
   "createnuclear.tooltip.heatLevel.none": "없음",
   "createnuclear.tooltip.heatLevel.safety": "안전",
   "createnuclear.tooltip.heatLevel.warning": "경고",
-  "createnuclear.tooltip.item.graphene.rod": "Graphite Rod: ",
+  "createnuclear.tooltip.item.graphene.rod": "그래핀 제어봉: ",
   "createnuclear.tooltip.item.unknown.rod": "미상: ",
   "createnuclear.tooltip.item.uranium.rod": "우라늄 연료봉: ",
   "effect.createnuclear.radiation": "방사선",
