@@ -1,0 +1,15 @@
+{
+  "type": "create:crushing",
+  "ingredients": [
+    {
+      "item": "createnuclear:raw_lead_block"
+    }
+  ],
+  "processingTime": 250,
+  "results": [
+    {
+      "count": 9,
+      "item": "create:crushed_raw_lead"
+    }
+  ]
+}
