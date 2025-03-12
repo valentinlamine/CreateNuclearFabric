@@ -67,6 +67,15 @@ public class CNAdvancement implements DataProvider {
             .after(URANIUM_LIQUID)
             .whenIconCollected()),
 
+    EATED_YELLOWCAKE = create("eated_yellowcake", b -> b.icon(CNItems.YELLOWCAKE)
+            .title("Eating Yellowcake")
+            .description("What did you expect ?")
+            .after(YELLOWCAKE)
+            .whenItemEaten(CNItems.YELLOWCAKE.get())
+            .special(SECRET)),
+
+
+
     ENRICHED_YELLOWCAKE = create("enriched_yellowcake", b -> b.icon(CNItems.ENRICHED_YELLOWCAKE)
             .title("Enhancing Yellowcake")
             .description("Use a fan to enrich yellowcake and make it more powerful")
