@@ -13,8 +13,6 @@ import net.nuclearteam.createnuclear.tags.CNTag;
 public class RadiationEffect extends MobEffect {
     public RadiationEffect() {
         super(MobEffectCategory.HARMFUL, 15453236);
-
-
     }
 
     @Override
