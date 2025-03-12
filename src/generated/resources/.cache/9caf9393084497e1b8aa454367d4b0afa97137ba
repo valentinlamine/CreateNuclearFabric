@@ -1,4 +1,4 @@
-// 1.20.1	2025-03-12T10:00:07.9313189	Create Nuclear/Create Nuclear Advancements
+// 1.20.1	2025-03-12T11:45:55.8847253	Create Nuclear/Create Nuclear Advancements
 2c2cfb8724f39fc5e101a34dce08de6e33f6d1f8 data\createnuclear\advancements\dye_anti_radiation_armor.json
 06d1bfea924a4ea35ce78937adcab967cce02b67 data\createnuclear\advancements\uranium_rod.json
 91aab6f0a18aee167c63a3aece5fa9778cf52b0b data\createnuclear\advancements\reinforced_glass.json
@@ -9,8 +9,8 @@ bf6947708102180f9cd08e31305253774187d763 data\createnuclear\advancements\reactor
 fb039aef2e300f0f4eb946b8367e154a1772cc90 data\createnuclear\advancements\full_anti_radiation_armor.json
 eda669191bc6149e3feee4a2b9b25b64e1d7da60 data\createnuclear\advancements\enriched_yellowcake.json
 95a8f2e9970f421bd1df1cfd13b9ce807127898a data\createnuclear\advancements\eated_yellowcake.json
-2e8127a4546d680ab502c6e3c71f49d8df2b1b18 data\createnuclear\advancements\coal_dust.json
 bffbc5007ddb20829768a122cc514f84c2dee1e0 data\createnuclear\advancements\graphene.json
+2e8127a4546d680ab502c6e3c71f49d8df2b1b18 data\createnuclear\advancements\coal_dust.json
 01ac168072fa666f64148113ae806ec0b5ea5158 data\createnuclear\advancements\uranium_powder.json
 07e0edb7519c4e755446e95086487f5c8bbbbb17 data\createnuclear\advancements\lead_ingot.json
 7f34bd9000a575b4d1790c745f164a054afc3986 data\createnuclear\advancements\yellowcake.json

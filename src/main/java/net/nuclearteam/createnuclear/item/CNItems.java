@@ -5,6 +5,7 @@ import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Ch
 import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Helmet;
 import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Leggings;
 
+import com.mojang.blaze3d.shaders.Effect;
 import com.tterrag.registrate.util.entry.EntityEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;
 
