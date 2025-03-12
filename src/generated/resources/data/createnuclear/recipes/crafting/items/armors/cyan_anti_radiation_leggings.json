@@ -7,15 +7,12 @@
     },
     "Y": {
       "item": "createnuclear:cyan_cloth"
-    },
-    "Z": {
-      "item": "createnuclear:reinforced_glass"
     }
   },
   "pattern": [
     "YXY",
-    "Z Z",
-    "X X"
+    "X X",
+    "Y Y"
   ],
   "result": {
     "item": "createnuclear:cyan_anti_radiation_leggings"

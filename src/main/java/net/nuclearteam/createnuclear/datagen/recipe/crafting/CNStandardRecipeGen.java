@@ -167,10 +167,9 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
             .viaShaped(i -> i
                     .define('X', CNItems.LEAD_INGOT)
                     .define('Y', ClothItem.Cloths.getByColor(color).get())
-                    .define('Z', CNBlocks.REINFORCED_GLASS)
                     .pattern("YXY")
-                    .pattern("Z Z")
                     .pattern("X X")
+                    .pattern("Y Y")
                     .showNotification(true)
             )
         )
