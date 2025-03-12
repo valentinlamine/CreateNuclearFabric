@@ -47,7 +47,7 @@ public class CNClientEvent {
     private static void hudRender(GuiGraphics graphics, float partialTicks) {
         ResourceLocation IRRADIATED_VISION = CreateNuclear.asResource("textures/misc/irradiated_vision.png");
 
-        ResourceLocation HELMETTEST = CreateNuclear.asResource("textures/misc/test_texture.png");
+        ResourceLocation HELMETTEST = CreateNuclear.asResource("textures/misc/masque_4.png");
        
 
         LocalPlayer localPlayer = Minecraft.getInstance().player;
@@ -58,6 +58,7 @@ public class CNClientEvent {
         }
 
         if (localPlayer.getInventory().getArmor(3).is(CNTag.ItemTags.ANTI_RADIATION_HELMET_DYE.tag)) {
+            //localPlayer.getInventory().getArmor(3).get
             renderTextureOverlay(graphics, HELMETTEST, 1.0f);
         }
     }
