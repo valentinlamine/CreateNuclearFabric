@@ -47,7 +47,7 @@ public class CNClientEvent {
     private static void hudRender(GuiGraphics graphics, float partialTicks) {
         ResourceLocation IRRADIATED_VISION = CreateNuclear.asResource("textures/misc/irradiated_vision.png");
 
-        ResourceLocation HELMETTEST = CreateNuclear.asResource("textures/misc/helmettest.png");
+        ResourceLocation HELMETTEST = CreateNuclear.asResource("textures/misc/test_texture.png");
        
 
         LocalPlayer localPlayer = Minecraft.getInstance().player;
