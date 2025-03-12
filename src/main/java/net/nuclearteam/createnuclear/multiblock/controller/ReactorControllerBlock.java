@@ -17,7 +17,6 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.server.commands.TitleCommand;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -155,6 +154,9 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         List<? extends Player> players = level.players();
         ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
         controller.Verify(state, pos, level, players, true);
+        for (Player p : players) {
+            p.sendSystemMessage(Component.translatable("reactor.info.is"));
+        }
     }
 
     @Override
@@ -167,7 +169,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         controller.Rotate(state, pos.below(3), level, 0);
         List<? extends Player> players = level.players();
         for (Player p : players) {
-            p.sendSystemMessage(Component.translatable("reactor.info.assembled.creator"));
+            p.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer"));
         }
     }
 
@@ -181,7 +183,11 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
 
             for (Player player : players) {
                 if (create && !entity.created) {
-                    player.sendSystemMessage(Component.translatable("reactor.info.assembled.creator"));
+                    player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "playsound minecraft:block.beacon.activate master @a " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " 1 1");
+                    player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a times 20 60 20");
+                    player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a subtitle {\"text\":\"WARNING : Reactor Assembled\",\"bold\":true,\"color\":\"green\"}");
+                    player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a title {\"text\":\"\"}");
+
                     level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, true));
                     entity.created = true;
                     entity.destroyed = false;
@@ -196,6 +202,11 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
             if (!create && !entity.destroyed)
             {
                 player.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer"));
+                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "playsound minecraft:block.anvil.destroy master @a " + pos.getX() + " " + pos.getY() + " " + pos.getZ() + " 1 1");
+                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a times 20 60 20");
+                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a subtitle {\"text\":\"WARNING : Reactor Destroyed\",\"bold\":true,\"color\":\"red\"}");
+                player.getServer().getCommands().performPrefixedCommand(player.createCommandSourceStack(), "title @a title {\"text\":\"\"}");
+
                 level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, false));
                 entity.created = false;
                 entity.destroyed = true;
