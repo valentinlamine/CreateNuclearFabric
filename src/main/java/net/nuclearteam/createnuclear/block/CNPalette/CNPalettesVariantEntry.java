@@ -1,10 +1,6 @@
 package net.nuclearteam.createnuclear.block.CNPalette;
 
 import com.google.common.collect.ImmutableList;
-import com.simibubi.create.Create;
-import com.simibubi.create.content.decoration.palettes.AllPaletteStoneTypes;
-import com.simibubi.create.content.decoration.palettes.PaletteBlockPartial;
-import com.simibubi.create.content.decoration.palettes.PaletteBlockPattern;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.builders.ItemBuilder;
@@ -23,16 +19,16 @@ import static com.simibubi.create.Create.REGISTRATE;
 import static com.simibubi.create.foundation.data.CreateRegistrate.connectedTextures;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 
-public class CNPaletteVariantEntry {
+public class CNPalettesVariantEntry {
     public final ImmutableList<BlockEntry<? extends Block>> registeredBlocks;
     public final ImmutableList<BlockEntry<? extends Block>> registeredPartials;
 
-    public CNPaletteVariantEntry(String name, CNPaletteStoneTypes cnPaletteVariantEntry) {
+    public CNPalettesVariantEntry(String name, CNPalettesStoneTypes cnPalettesVariantEntry) {
         ImmutableList.Builder<BlockEntry<? extends Block>> registeredBlocks = ImmutableList.builder();
         ImmutableList.Builder<BlockEntry<? extends Block>> registeredPartials = ImmutableList.builder();
-        NonNullSupplier<Block> baseBlock = cnPaletteVariantEntry.baseBlock;
+        NonNullSupplier<Block> baseBlock = cnPalettesVariantEntry.baseBlock;
 
-        for (PaletteBlockPattern pattern : cnPaletteVariantEntry.variantTypes) {
+        for (CNPaletteBlockPattern pattern : cnPalettesVariantEntry.variantTypes) {
             BlockBuilder<? extends Block, CreateRegistrate> builder =
                     REGISTRATE.block(pattern.createName(name), pattern.getBlockFactory())
                             .initialProperties(baseBlock)
@@ -51,7 +47,7 @@ public class CNPaletteVariantEntry {
             if (itemTags != null)
                 itemBuilder.tag(itemTags);
 
-            itemBuilder.tag(cnPaletteVariantEntry.materialTag);
+            itemBuilder.tag(cnPalettesVariantEntry.materialTag);
 
             if (pattern.isTranslucent())
                 builder.addLayer(() -> RenderType::translucent);
@@ -59,7 +55,7 @@ public class CNPaletteVariantEntry {
                     .ifPresent(b -> builder.onRegister(connectedTextures(b)));
 
             builder.recipe((c, p) -> {
-                p.stonecutting(DataIngredient.tag(cnPaletteVariantEntry.materialTag), RecipeCategory.BUILDING_BLOCKS, c);
+                p.stonecutting(DataIngredient.tag(cnPalettesVariantEntry.materialTag), RecipeCategory.BUILDING_BLOCKS, c);
                 pattern.addRecipes(baseBlock, c, p);
             });
 
@@ -67,15 +63,15 @@ public class CNPaletteVariantEntry {
             BlockEntry<? extends Block> block = builder.register();
             registeredBlocks.add(block);
 
-            for (PaletteBlockPartial<? extends Block> partialBlock : pattern.getPartials())
-                registeredPartials.add(partialBlock.create(name, pattern, block, cnPaletteVariantEntry)
+            for (CNPaletteBlockPartial<? extends Block> partialBlock : pattern.getPartials())
+                registeredPartials.add(partialBlock.create(name, pattern, block, cnPalettesVariantEntry)
                         .register());
         }
 
-        Create.REGISTRATE.addDataGenerator(ProviderType.RECIPE,
-                p -> p.stonecutting(DataIngredient.tag(cnPaletteVariantEntry.materialTag), RecipeCategory.BUILDING_BLOCKS,
+        REGISTRATE.addDataGenerator(ProviderType.RECIPE,
+                p -> p.stonecutting(DataIngredient.tag(cnPalettesVariantEntry.materialTag), RecipeCategory.BUILDING_BLOCKS,
                         baseBlock));
-        Create.REGISTRATE.addDataGenerator(ProviderType.ITEM_TAGS, p -> p.addTag(cnPaletteVariantEntry.materialTag)
+        REGISTRATE.addDataGenerator(ProviderType.ITEM_TAGS, p -> p.addTag(cnPalettesVariantEntry.materialTag)
                 .add(baseBlock.get()
                         .asItem()));
 

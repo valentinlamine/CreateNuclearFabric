@@ -2,8 +2,6 @@ package net.nuclearteam.createnuclear.block.CNPalette;
 
 import com.simibubi.create.AllTags;
 import com.simibubi.create.Create;
-import com.simibubi.create.content.decoration.palettes.PaletteBlockPattern;
-import com.simibubi.create.content.decoration.palettes.PalettesVariantEntry;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.utility.Lang;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
@@ -13,14 +11,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.MapColor;
-import
 
 import java.util.function.Function;
 
-import static com.simibubi.create.content.decoration.palettes.PaletteBlockPattern.STANDARD_RANGE;
-import static com.simibubi.create.content.decoration.palettes.PaletteBlockPattern.VANILLA_RANGE;
+import static net.nuclearteam.createnuclear.block.CNPalette.CNPaletteBlockPattern.STANDARD_RANGE;
+import static net.nuclearteam.createnuclear.block.CNPalette.CNPaletteBlockPattern.VANILLA_RANGE;
 
-public enum CNPaletteStoneTypes {
+public enum CNPalettesStoneTypes {
     DEEPSLATE(VANILLA_RANGE, r -> () -> Blocks.DEEPSLATE),
 
 
@@ -32,13 +29,13 @@ public enum CNPaletteStoneTypes {
 
 
     private Function<CreateRegistrate, NonNullSupplier<Block>> factory;
-    private PalettesVariantEntry variants;
+    private CNPalettesVariantEntry variants;
 
     public NonNullSupplier<Block> baseBlock;
-    public PaletteBlockPattern[] variantTypes;
+    public CNPaletteBlockPattern[] variantTypes;
     public TagKey<Item> materialTag;
 
-    private CNPaletteStoneTypes(PaletteBlockPattern[] variantTypes,
+    private CNPalettesStoneTypes(CNPaletteBlockPattern[] variantTypes,
                                  Function<CreateRegistrate, NonNullSupplier<Block>> factory) {
         this.factory = factory;
         this.variantTypes = variantTypes;
@@ -48,18 +45,18 @@ public enum CNPaletteStoneTypes {
         return baseBlock;
     }
 
-    public PalettesVariantEntry getVariants() {
+    public CNPalettesVariantEntry getVariants() {
         return variants;
     }
 
     public static void register(CreateRegistrate registrate) {
-        for (CNPaletteStoneTypes cnpaletteStoneVariants : values()) {
+        for (CNPalettesStoneTypes cnpaletteStoneVariants : values()) {
             NonNullSupplier<Block> baseBlock = cnpaletteStoneVariants.factory.apply(registrate);
             cnpaletteStoneVariants.baseBlock = baseBlock;
             String id = Lang.asId(cnpaletteStoneVariants.name());
             cnpaletteStoneVariants.materialTag =
                     AllTags.optionalTag(BuiltInRegistries.ITEM, Create.asResource("stone_types/" + id));
-            cnpaletteStoneVariants.variants = new CNPaletteVariantEntry(id, cnpaletteStoneVariants);
+            cnpaletteStoneVariants.variants = new CNPalettesVariantEntry(id, cnpaletteStoneVariants);
         }
     }
 
