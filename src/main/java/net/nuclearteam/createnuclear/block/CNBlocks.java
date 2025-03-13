@@ -241,7 +241,7 @@ public class CNBlocks {
     public static final BlockEntry<ReinforcedGlassBlock> REINFORCED_GLASS =
             CreateNuclear.REGISTRATE.block("reinforced_glass", ReinforcedGlassBlock::new)
                     .initialProperties(CNBlocks::getGlass)
-                    .properties(p -> p.explosionResistance(1200F).destroyTime(2F))
+                    .properties(p -> p.explosionResistance(7.0F).destroyTime(2F))
                     .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(CNSpriteShifts.REACTOR_GLASS)))
                     .onRegister(casingConnectivity((block,cc) -> cc.makeCasing(block, CNSpriteShifts.REACTOR_GLASS)))
                     .loot(RegistrateBlockLootTables::dropWhenSilkTouch)
