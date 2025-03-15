@@ -1,4 +1,4 @@
-package net.nuclearteam.createnuclear.block.CNPalette;
+package net.nuclearteam.createnuclear.block.palette;
 
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 

@@ -1,4 +1,4 @@
-package net.nuclearteam.createnuclear.block.CNPalette;
+package net.nuclearteam.createnuclear.block.palette;
 
 import com.google.common.collect.ImmutableList;
 import com.simibubi.create.foundation.data.CreateRegistrate;

@@ -1,4 +1,4 @@
-package net.nuclearteam.createnuclear.block.CNPalette;
+package net.nuclearteam.createnuclear.block.palette;
 
 import com.simibubi.create.Create;
 import com.simibubi.create.content.decoration.palettes.ConnectedPillarBlock;
@@ -26,9 +26,9 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 
-import static net.nuclearteam.createnuclear.block.CNPalette.CNPaletteBlockPartial.ALL_PARTIALS;
-import static net.nuclearteam.createnuclear.block.CNPalette.CNPaletteBlockPattern.PatternNameType.*;
-import static net.nuclearteam.createnuclear.block.CNPalette.CNPaletteBlockPartial.FOR_POLISHED;
+import static net.nuclearteam.createnuclear.block.palette.CNPaletteBlockPartial.ALL_PARTIALS;
+import static net.nuclearteam.createnuclear.block.palette.CNPaletteBlockPattern.PatternNameType.*;
+import static net.nuclearteam.createnuclear.block.palette.CNPaletteBlockPartial.FOR_POLISHED;
 public class CNPaletteBlockPattern {
 
     public static final CNPaletteBlockPattern

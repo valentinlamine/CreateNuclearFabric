@@ -51,6 +51,7 @@
   "advancement.createnuclear.uranium_rod.desc": "Create your first uranium rod using enriched yellowcake in a mechanical crafter",
   "advancement.createnuclear.yellowcake": "The Yellowcake Process",
   "advancement.createnuclear.yellowcake.desc": "Compact uranium liquid to create yellowcake",
+  "block.createnuclear.autunite": "Autunite",
   "block.createnuclear.deepslate_lead_ore": "Deepslate Lead Ore",
   "block.createnuclear.deepslate_uranium_ore": "Deepslate Uranium Ore",
   "block.createnuclear.enriched_soul_soil": "Enriched Soul Soil",

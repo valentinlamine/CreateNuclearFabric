@@ -16,6 +16,7 @@
     "createnuclear:reactor_cooler",
     "createnuclear:reactor_casing",
     "createnuclear:reactor_frame",
-    "createnuclear:reactor_input"
+    "createnuclear:reactor_input",
+    "createnuclear:asurine"
   ]
 }

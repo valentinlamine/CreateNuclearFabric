@@ -1,4 +1,4 @@
-package net.nuclearteam.createnuclear.block.CNPalette;
+package net.nuclearteam.createnuclear.block.palette;
 
 import com.simibubi.create.AllTags;
 import com.simibubi.create.Create;
@@ -14,14 +14,14 @@ import net.minecraft.world.level.material.MapColor;
 
 import java.util.function.Function;
 
-import static net.nuclearteam.createnuclear.block.CNPalette.CNPaletteBlockPattern.STANDARD_RANGE;
-import static net.nuclearteam.createnuclear.block.CNPalette.CNPaletteBlockPattern.VANILLA_RANGE;
+import static net.nuclearteam.createnuclear.block.palette.CNPaletteBlockPattern.STANDARD_RANGE;
+import static net.nuclearteam.createnuclear.block.palette.CNPaletteBlockPattern.VANILLA_RANGE;
 
 public enum CNPalettesStoneTypes {
     DEEPSLATE(VANILLA_RANGE, r -> () -> Blocks.DEEPSLATE),
 
 
-    AUTUNITE(STANDARD_RANGE, r -> r.paletteStoneBlock("autunite", () -> Blocks.DEEPSLATE, true, true)
+    AUTUNITE(STANDARD_RANGE, r -> r.paletteStoneBlock("asurine", () -> Blocks.DEEPSLATE, true, true)
             .properties(p -> p.destroyTime(1.25f)
                     .mapColor(MapColor.COLOR_GREEN))
             .register()),

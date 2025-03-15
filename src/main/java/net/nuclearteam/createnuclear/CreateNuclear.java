@@ -9,6 +9,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.resources.ResourceLocation;
 import net.nuclearteam.createnuclear.block.CNBlocks;
+import net.nuclearteam.createnuclear.block.palette.CNPalettesStoneTypes;
 import net.nuclearteam.createnuclear.blockentity.CNBlockEntities;
 import net.nuclearteam.createnuclear.effects.CNEffects;
 import net.nuclearteam.createnuclear.entity.CNMobDefaultAttribute;
@@ -46,6 +47,7 @@ public class CreateNuclear implements ModInitializer {
 		CNEffects.register();
 		CNItems.registerCNItems();
 		CNBlocks.registerCNBlocks();
+		CNPalettesStoneTypes.register(CreateNuclear.REGISTRATE);
 		CNMenus.register();
 		CNBlockEntities.register();
 		CNGroup.registrer();
