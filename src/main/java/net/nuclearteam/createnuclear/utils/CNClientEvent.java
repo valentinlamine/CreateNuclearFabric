@@ -58,8 +58,8 @@ public class CNClientEvent {
         }
 
         if (localPlayer.getInventory().getArmor(3).is(CNTag.ItemTags.ANTI_RADIATION_HELMET_DYE.tag)) {
-            //localPlayer.getInventory().getArmor(3).get
-            renderTextureOverlay(graphics, HELMETTEST, 1.0f);
+            renderTextureOverlay(graphics, HELMETTEST, 1f);
+            Minecraft.getInstance().gui.renderHotbar(12f, graphics);
         }
     }
 
