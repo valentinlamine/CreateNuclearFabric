@@ -33,6 +33,7 @@ import net.nuclearteam.createnuclear.multiblock.IHeat;
 import net.nuclearteam.createnuclear.multiblock.output.ReactorOutput;
 import net.nuclearteam.createnuclear.multiblock.output.ReactorOutputEntity;
 import net.nuclearteam.createnuclear.multiblock.input.ReactorInputEntity;
+import static net.nuclearteam.createnuclear.multiblock.bluePrintItem.ReactorBluePrintItem.getItemStorage;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -239,17 +240,15 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
 
     private boolean updateTimers() {
 
-        double constTotal = calculateProgress();
-
-        total -= 10;
+        total -= 1;
         return total <= 0;//(total/constTotal) <= 0;
     }
 
     private double calculateProgress() {
         countGraphiteRod = configuredPattern.getOrCreateTag().getInt("countGraphiteRod");
         countUraniumRod = configuredPattern.getOrCreateTag().getInt("countUraniumRod");
-        graphiteTimer = configuredPattern.getOrCreateTag().getInt("graphiteTime");
-        uraniumTimer = configuredPattern.getOrCreateTag().getInt("uraniumTime");
+        // graphiteTimer = configuredPattern.getOrCreateTag().getInt("graphiteTime");
+        // uraniumTimer = configuredPattern.getOrCreateTag().getInt("uraniumTime");
 
         double totalGraphiteRodLife = (double) graphiteTimer / countGraphiteRod;
         double totalUraniumRodLife = (double) uraniumTimer / countUraniumRod;
