@@ -58,7 +58,7 @@ public abstract class IrradiatedMob extends LivingEntity implements Targeting {
             } else if (this.convertsInIrradiatedPotion()) {
                 if (this.hasEffect(CNEffects.RADIATION.get())) {
                     if (this.getHealth() < (this.getMaxHealth() * 15) / 100) {
-                        this.startPotionConversion(3);
+                        this.startIrradiatedConversion(3);
                     }
                 }
             }
@@ -80,10 +80,5 @@ public abstract class IrradiatedMob extends LivingEntity implements Targeting {
         return !CNTag.EntityTypeTags.IRRADIATED_IMMUNE.matches(this.getType());
     }
 
-    @Unique
-    private void startPotionConversion(int conversionTime) {
-        this.conversionIrradiatedTime = conversionTime;
-        this.getEntityData().set(DATA_IRRADIATED_CONVERSION_ID, true);
-    }
 
 }
