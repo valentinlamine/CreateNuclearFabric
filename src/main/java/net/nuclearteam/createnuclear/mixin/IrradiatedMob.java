@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear.mixin;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -66,9 +67,20 @@ public abstract class IrradiatedMob extends LivingEntity implements Targeting {
         }
     }
 
+    @Inject(at = @At("TAIL"), method = "addAdditionalSaveData")
+    public void irradiatedAddAdditionalSaveData(CompoundTag compound, CallbackInfo ci) {
+        compound.putInt("IrradiatedConversionTime", this.isIrradiatedConversion() ? this.conversionIrradiatedTime : -1);
+    }
+
+    @Inject(at = @At("TAIL"), method = "readAdditionalSaveData")
+    public void irradiatedReadAdditionalSaveData(CompoundTag compound, CallbackInfo ci) {
+        if (compound.contains("IrradiatedConversionTime", 99) && compound.getInt("IrradiatedConversionTime") > -1) {
+            this.startIrradiatedConversion(compound.getInt("IrradiatedConversionTime"));
+        }
+    }
+
     @Unique
     protected void doConvertIrradiatedEntityEffect() {
-        CreateNuclear.LOGGER.warn("getType: {}, irradiatedType: {}", this.getType(), MobIrradiatedConversion.getByIrradiatedType(this.getType()));
         Mob mob = this.convertTo(MobIrradiatedConversion.getByIrradiatedType(this.getType()), true);
         if (!this.isSilent()) {
             this.level().levelEvent(null, 1040, this.blockPosition(), 0);

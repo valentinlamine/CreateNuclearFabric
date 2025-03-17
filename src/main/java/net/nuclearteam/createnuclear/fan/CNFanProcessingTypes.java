@@ -31,6 +31,7 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.effects.CNEffects;
 import net.nuclearteam.createnuclear.entity.CNMobEntityType;
+import net.nuclearteam.createnuclear.entity.MobIrradiatedConversion;
 import net.nuclearteam.createnuclear.entity.irradiatedcat.IrradiatedCat;
 import net.nuclearteam.createnuclear.entity.irradiatedchicken.IrradiatedChicken;
 import net.nuclearteam.createnuclear.entity.irradiatedwolf.IrradiatedWolf;
@@ -148,10 +149,36 @@ public class CNFanProcessingTypes extends AllFanProcessingTypes {
             }
 
             if (entity instanceof LivingEntity livingEntity) {
-                //livingEntity.addEffect(new MobEffectInstance(CNEffects.RADIATION.get(), 10, 0, true, true));
+                if (livingEntity.isAlive() && MobIrradiatedConversion.isPresent(livingEntity.getType())) {
+                    int progress = livingEntity.getCustomData().getInt("CreateNuclearRadiationEntity");
+                    if (progress < 100) {
+                        if (progress % 10 == 0) {
+                            level.playSound(null, entity.blockPosition(), SoundEvents.SOUL_ESCAPE, SoundSource.NEUTRAL,
+                                    1f, 1.5f * progress / 100f);
+                        }
+                        livingEntity.getCustomData().putInt("CreateNuclearRadiationEntity", progress + 1);
+                        return;
+                    }
+
+                    level.playSound(null, entity.blockPosition(), SoundEvents.GENERIC_EXTINGUISH_FIRE,
+                            SoundSource.NEUTRAL, 1.25f, 0.65f);
+
+                    LivingEntity newIrradiatedEntity = (LivingEntity) MobIrradiatedConversion.getByIrradiatedType(livingEntity.getType()).create(level);
+                    //IrradiatedChicken IrradiatedChicken = CNMobEntityType.IRRADIATED_CHICKEN.create(level);
+                    CompoundTag serializeNBT = livingEntity.saveWithoutId(new CompoundTag());
+                    serializeNBT.remove("UUID");
+
+                    NBTSerializer.deserializeNBT(newIrradiatedEntity, serializeNBT);
+                    newIrradiatedEntity.setPos(livingEntity.getPosition(0));
+                    level.addFreshEntity(newIrradiatedEntity);
+                    livingEntity.discard();
+
+                } else {
+                    livingEntity.addEffect(new MobEffectInstance(CNEffects.RADIATION.get(), 10, 0, true, true));
+                }
             }
 
-            if (entity instanceof Chicken chicken) {
+            /*if (entity instanceof Chicken chicken) {
                 int progress = chicken.getCustomData().getInt("CreateNuclearRadiationChicken");
                 if (progress < 100) {
                     if (progress % 10 == 0) {
@@ -221,7 +248,7 @@ public class CNFanProcessingTypes extends AllFanProcessingTypes {
                 IrradiatedCat.setPos(cat.getPosition(0));
                 level.addFreshEntity(IrradiatedCat);
                 cat.discard();
-            }
+            }*/
         }
     }
 }
