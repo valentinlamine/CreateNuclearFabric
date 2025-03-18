@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "createnuclear:uranium_rod"
+    "createnuclear:uranium_rod",
+    "create:shaft"
   ]
 }
