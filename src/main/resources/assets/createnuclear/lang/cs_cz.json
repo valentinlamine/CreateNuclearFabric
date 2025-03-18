@@ -62,7 +62,7 @@
   "block.createnuclear.raw_lead_block": "Blok surového olova",
   "block.createnuclear.raw_uranium_block": "Blok surového Uranu",
   "block.createnuclear.reactor_casing": "Reaktorové pouzdro",
-  "block.createnuclear.reactor_casing.tooltip.summary": "Reaktorová ocel",
+  "block.createnuclear.reactor_casing.tooltip.summary": "_Blok_, kterým se staví _reaktor_",
   "block.createnuclear.reactor_controller": "Řízení reaktoru",
   "block.createnuclear.reactor_controller.tooltip.behaviour1": "provádí veškeré kalkulace k _generování energie, potřebuje _plánek reaktoru_ se vzorem, aby fungoval",
   "block.createnuclear.reactor_controller.tooltip.condition1": "Když je reaktor sestaven",
