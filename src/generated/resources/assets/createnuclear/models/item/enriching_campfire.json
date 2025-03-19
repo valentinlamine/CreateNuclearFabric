@@ -1,3 +1,6 @@
 {
-  "parent": "createnuclear:block/enriching_campfire"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "createnuclear:item/enriching_flame_campfire"
+  }
 }
