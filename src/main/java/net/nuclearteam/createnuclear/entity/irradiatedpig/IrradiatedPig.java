@@ -34,15 +34,12 @@ import net.minecraft.world.phys.Vec3;
 import net.nuclearteam.createnuclear.entity.CNMobEntityType;
 import org.jetbrains.annotations.Nullable;
 
-public class IrradiatedPig extends Animal implements ItemSteerable, Saddleable {
-    private static final EntityDataAccessor<Boolean> DATA_SADDLE_ID;
+public class IrradiatedPig extends Animal {
     private static final EntityDataAccessor<Integer> DATA_BOOST_TIME;
     private static final Ingredient FOOD_ITEMS;
-    private final ItemBasedSteering steering;
 
     public IrradiatedPig(EntityType<? extends IrradiatedPig> entityType, Level level) {
         super(entityType, level);
-        this.steering = new ItemBasedSteering(this.entityData, DATA_BOOST_TIME, DATA_SADDLE_ID);
     }
 
     protected void registerGoals() {
@@ -77,27 +74,21 @@ public class IrradiatedPig extends Animal implements ItemSteerable, Saddleable {
     }
 
     public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
-        if (DATA_BOOST_TIME.equals(key) && this.level().isClientSide) {
-            this.steering.onSynced();
-        }
 
         super.onSyncedDataUpdated(key);
     }
 
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(DATA_SADDLE_ID, false);
         this.entityData.define(DATA_BOOST_TIME, 0);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        this.steering.addAdditionalSaveData(compound);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.steering.readAdditionalSaveData(compound);
     }
 
     protected SoundEvent getAmbientSound() {
@@ -148,15 +139,7 @@ public class IrradiatedPig extends Animal implements ItemSteerable, Saddleable {
     }
 
     public boolean isSaddled() {
-        return this.steering.hasSaddle();
-    }
-
-    public void equipSaddle(@Nullable SoundSource source) {
-        this.steering.setSaddle(true);
-        if (source != null) {
-            this.level().playSound((Player)null, this, SoundEvents.PIG_SADDLE, source, 0.5F, 1.0F);
-        }
-
+        return false;
     }
 
     public Vec3 getDismountLocationForPassenger(LivingEntity passenger) {
@@ -222,7 +205,6 @@ public class IrradiatedPig extends Animal implements ItemSteerable, Saddleable {
         super.tickRidden(player, travelVector);
         this.setRot(player.getYRot(), player.getXRot() * 0.5F);
         this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
-        this.steering.tickBoost();
     }
 
     protected Vec3 getRiddenInput(Player player, Vec3 travelVector) {
@@ -230,12 +212,9 @@ public class IrradiatedPig extends Animal implements ItemSteerable, Saddleable {
     }
 
     protected float getRiddenSpeed(Player player) {
-        return (float)(this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.225 * (double)this.steering.boostFactor());
+        return (float)(this.getAttributeValue(Attributes.MOVEMENT_SPEED) * 0.225);
     }
 
-    public boolean boost() {
-        return this.steering.boost(this.getRandom());
-    }
 
     @Nullable
     public IrradiatedPig getBreedOffspring(ServerLevel level, AgeableMob ageableMob) {
@@ -251,7 +230,6 @@ public class IrradiatedPig extends Animal implements ItemSteerable, Saddleable {
     }
 
     static {
-        DATA_SADDLE_ID = SynchedEntityData.defineId(IrradiatedPig.class, EntityDataSerializers.BOOLEAN);
         DATA_BOOST_TIME = SynchedEntityData.defineId(IrradiatedPig.class, EntityDataSerializers.INT);
         FOOD_ITEMS = Ingredient.of(new ItemLike[]{Items.CARROT, Items.POTATO, Items.BEETROOT});
     }
