@@ -43,7 +43,7 @@ public class ReactorCoreBlockEntity extends ReactorCasingBlockEntity {
         if (level.getBlockEntity(controllerPos) instanceof ReactorControllerBlockEntity reactorController) {
             int heat = (int) reactorController.configuredPattern.getOrCreateTag().getDouble("heat");
             if (IHeat.HeatLevel.of(heat) == IHeat.HeatLevel.DANGER) {
-                if (countdownTicks >= CNConfigs.common().rods.time.get()) { // 300 ticks = 15 secondes
+                if (countdownTicks >= CNConfigs.common().explose.time.get()) { // 300 ticks = 15 secondes
                     float explosionRadius = calculateExplosionRadius(reactorController.countUraniumRod);
                     explodeReactorCore(level, getBlockPos(), explosionRadius);
                 } else {

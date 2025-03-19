@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
+import net.nuclearteam.createnuclear.config.CNConfigs;
 import net.nuclearteam.createnuclear.gui.CNIconButton;
 import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.multiblock.IHeat;
@@ -72,8 +73,8 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     public int proximityUraniumHeat = 5;
     public int proximityGraphiteHeat = -5;
     public int maxUraniumPerGraphite = 3;
-    public int graphiteTimer = 3600;
-    public int uraniumTimer = 3600;
+    public int graphiteTimer = CNConfigs.common().rods.graphiteRodLifetime.get();
+    public int uraniumTimer = CNConfigs.common().rods.uraniumRodLifetime.get();
     public int heat;
     public double total;
     public CompoundTag screen_pattern = new CompoundTag();
