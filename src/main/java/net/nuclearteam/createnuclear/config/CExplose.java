@@ -1,8 +1,8 @@
 package net.nuclearteam.createnuclear.config;
 
 public class CExplose extends CNConfigBase {
-    public final ConfigInt size = i(10, "Size of the reactor explosion.");
-    public final ConfigInt type = i(1, 0, 2, "Type of explosion.", Comments.type);
+    public final ConfigInt size = i(10, "Size of the reactor explosion");
+    public final ConfigInt type = i(1, 0, 2, "Type of explosion", Comments.type);
     public final ConfigInt time = i(600, 100, 1200, "Duration before exploration", Comments.explosionTime, Comments.hintExplosion);
 
     @Override
