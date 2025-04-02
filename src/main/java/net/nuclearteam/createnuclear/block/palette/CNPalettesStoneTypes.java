@@ -21,7 +21,7 @@ public enum CNPalettesStoneTypes {
     DEEPSLATE(VANILLA_RANGE, r -> () -> Blocks.DEEPSLATE),
 
 
-    AUTUNITE(STANDARD_RANGE, r -> r.paletteStoneBlock("asurine", () -> Blocks.DEEPSLATE, true, true)
+    AUTUNITE(STANDARD_RANGE, r -> r.paletteStoneBlock("autunite", () -> Blocks.DEEPSLATE, true, true)
             .properties(p -> p.destroyTime(1.25f)
                     .mapColor(MapColor.COLOR_GREEN))
             .register()),
@@ -59,6 +59,4 @@ public enum CNPalettesStoneTypes {
             cnpaletteStoneVariants.variants = new CNPalettesVariantEntry(id, cnpaletteStoneVariants);
         }
     }
-
-
 }

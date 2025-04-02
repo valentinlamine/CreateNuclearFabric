@@ -1,8 +1,8 @@
-// 1.20.1	2025-03-14T10:18:41.2542665	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-04-02T16:42:15.275279	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 16749c98d03d4ab79af8aabf0464efc8525e9079 data\c\tags\items\rods.json
 a0c45a5183b5590b7463a37f43051f5bdd56ad88 assets\createnuclear\blockstates\reactor_controller.json
-576b0bf970ddbdd11ec06963e1d65e08e63d69e1 data\createnuclear\loot_tables\blocks\reactor_frame.json
 efe2ad634ad8b801a8fa69f45516b30157b46771 data\createnuclear\loot_tables\blocks\lead_block.json
+576b0bf970ddbdd11ec06963e1d65e08e63d69e1 data\createnuclear\loot_tables\blocks\reactor_frame.json
 3b03793c0f5786f258c593e0b140cd6bd10c3b7b assets\createnuclear\models\item\uranium_powder.json
 681a801a88c73d8eb9427815a49eb8124262ed35 data\c\tags\blocks\ores_in_ground\stone.json
 e3acc02d9c87edea70fb57e88e172209b2b17a3f assets\createnuclear\models\item\light_blue_anti_radiation_leggings.json

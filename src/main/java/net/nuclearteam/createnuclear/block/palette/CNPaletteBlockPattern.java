@@ -44,12 +44,12 @@ public class CNPaletteBlockPattern {
 
     LAYERED = create("layered", PREFIX).blockStateFactory(p -> p::cubeColumn)
             .textures("layered", "cap")
-            .connectedTextures(v -> new HorizontalCTBehaviour(ct(v, CNPaletteBlockPattern.CTs.LAYERED), ct(v, CNPaletteBlockPattern.CTs.CAP))),
+            .connectedTextures(v -> new HorizontalCTBehaviour(ct(v, CTs.LAYERED), ct(v, CTs.CAP))),
 
     PILLAR = create("pillar", SUFFIX).blockStateFactory(p -> p::pillar)
             .block(ConnectedPillarBlock::new)
             .textures("pillar", "cap")
-            .connectedTextures(v -> new RotatedPillarCTBehaviour(ct(v, CNPaletteBlockPattern.CTs.PILLAR), ct(v, CNPaletteBlockPattern.CTs.CAP)))
+            .connectedTextures(v -> new RotatedPillarCTBehaviour(ct(v, CTs.PILLAR), ct(v, CTs.CAP)))
 
             ;
 

@@ -31,6 +31,7 @@ import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonnullType;
 
 import io.github.fabricators_of_create.porting_lib.models.generators.ModelFile;
+import net.nuclearteam.createnuclear.CreateNuclear;
 
 public abstract class CNPaletteBlockPartial<B extends Block> {
 
@@ -202,7 +203,7 @@ public abstract class CNPaletteBlockPartial<B extends Block> {
                     .requires(ingredient)
                     .requires(ingredient)
                     .unlockedBy("has_" + c.getName(), ingredient.getCritereon(p))
-                    .save(p, Create.ID + ":" + c.getName() + "_recycling");
+                    .save(p, CreateNuclear.MOD_ID + ":" + c.getName() + "_recycling");
         }
 
         @Override
