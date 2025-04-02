@@ -21,6 +21,8 @@ import net.nuclearteam.createnuclear.tags.CNTag;
 
 public class CNClientEvent {
 
+    private static float irradiatedVisionAlpha = 0.0f; // Variable to manage alpha
+
     public static void register() {
         ClientEvents.ModBusEvents.registerClientReloadListeners();
 
@@ -38,26 +40,34 @@ public class CNClientEvent {
         Fluid fluid = fluidState.getType();
 
         if (CNFluids.URANIUM.get().isSame(fluid)){
-            event.setRed(56/ 255F);
-            event.setGreen(255/ 255F);
-            event.setBlue(8/ 255F);
+            event.setRed(56 / 255F);
+            event.setGreen(255 / 255F);
+            event.setBlue(8 / 255F);
         }
     }
 
     private static void hudRender(GuiGraphics graphics, float partialTicks) {
         ResourceLocation IRRADIATED_VISION = CreateNuclear.asResource("textures/misc/irradiated_vision.png");
-
-        ResourceLocation HELMETTEST = CreateNuclear.asResource("textures/misc/masque_4.png");
-       
+        ResourceLocation HELMETTEST = CreateNuclear.asResource("textures/misc/test_texture.png");
 
         LocalPlayer localPlayer = Minecraft.getInstance().player;
         RenderSystem.enableBlend();
 
         if (localPlayer.getEffect(CNEffects.RADIATION.get()) != null) {
-            renderTextureOverlay(graphics, IRRADIATED_VISION, 1.0f);
+            if (irradiatedVisionAlpha < 1.0f) {
+                irradiatedVisionAlpha += 0.01f; // Increment alpha gradually
+            }
+        } else {
+            if (irradiatedVisionAlpha > 0.0f) {
+                irradiatedVisionAlpha -= 0.01f; // Decrement alpha gradually
+            }
         }
 
-        if (localPlayer.getInventory().getArmor(3).is(CNTag.ItemTags.ANTI_RADIATION_HELMET_DYE.tag)) {
+        if (irradiatedVisionAlpha > 0.0f) {
+            renderTextureOverlay(graphics, IRRADIATED_VISION, irradiatedVisionAlpha);
+        }
+
+        if (localPlayer.getInventory().getArmor(3).is(CNTag.ItemTags.ANTI_RADIATION_HELMET_FULL_DYE.tag)) {
             renderTextureOverlay(graphics, HELMETTEST, 1f);
             Minecraft.getInstance().gui.renderHotbar(12f, graphics);
         }
