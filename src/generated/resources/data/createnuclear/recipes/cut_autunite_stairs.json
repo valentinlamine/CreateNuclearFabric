@@ -3,7 +3,9 @@
   "category": "building",
   "group": "cut_autunite_stairs",
   "key": {
-    "X": []
+    "X": {
+      "item": "createnuclear:cut_autunite"
+    }
   },
   "pattern": [
     "X  ",

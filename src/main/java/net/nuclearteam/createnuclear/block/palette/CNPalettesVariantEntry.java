@@ -14,21 +14,24 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.nuclearteam.createnuclear.CreateNuclear;
 
 import static com.simibubi.create.Create.REGISTRATE;
 import static com.simibubi.create.foundation.data.CreateRegistrate.connectedTextures;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 
 public class CNPalettesVariantEntry {
+    private static final CreateRegistrate REGISTRATE = CreateNuclear.REGISTRATE;
+
     public final ImmutableList<BlockEntry<? extends Block>> registeredBlocks;
     public final ImmutableList<BlockEntry<? extends Block>> registeredPartials;
 
-    public CNPalettesVariantEntry(String name, CNPalettesStoneTypes cnPalettesVariantEntry) {
+    public CNPalettesVariantEntry(String name, CNPalettesStoneTypes paletteStoneVariants) {
         ImmutableList.Builder<BlockEntry<? extends Block>> registeredBlocks = ImmutableList.builder();
         ImmutableList.Builder<BlockEntry<? extends Block>> registeredPartials = ImmutableList.builder();
-        NonNullSupplier<Block> baseBlock = cnPalettesVariantEntry.baseBlock;
+        NonNullSupplier<Block> baseBlock = paletteStoneVariants.baseBlock;
 
-        for (CNPaletteBlockPattern pattern : cnPalettesVariantEntry.variantTypes) {
+        for (CNPaletteBlockPattern pattern : paletteStoneVariants.variantTypes) {
             BlockBuilder<? extends Block, CreateRegistrate> builder =
                     REGISTRATE.block(pattern.createName(name), pattern.getBlockFactory())
                             .initialProperties(baseBlock)
@@ -47,7 +50,7 @@ public class CNPalettesVariantEntry {
             if (itemTags != null)
                 itemBuilder.tag(itemTags);
 
-            itemBuilder.tag(cnPalettesVariantEntry.materialTag);
+            itemBuilder.tag(paletteStoneVariants.materialTag);
 
             if (pattern.isTranslucent())
                 builder.addLayer(() -> RenderType::translucent);
@@ -55,7 +58,7 @@ public class CNPalettesVariantEntry {
                     .ifPresent(b -> builder.onRegister(connectedTextures(b)));
 
             builder.recipe((c, p) -> {
-                p.stonecutting(DataIngredient.tag(cnPalettesVariantEntry.materialTag), RecipeCategory.BUILDING_BLOCKS, c);
+                p.stonecutting(DataIngredient.tag(paletteStoneVariants.materialTag), RecipeCategory.BUILDING_BLOCKS, c);
                 pattern.addRecipes(baseBlock, c, p);
             });
 
@@ -64,14 +67,14 @@ public class CNPalettesVariantEntry {
             registeredBlocks.add(block);
 
             for (CNPaletteBlockPartial<? extends Block> partialBlock : pattern.getPartials())
-                registeredPartials.add(partialBlock.create(name, pattern, block, cnPalettesVariantEntry)
+                registeredPartials.add(partialBlock.create(name, pattern, block, paletteStoneVariants)
                         .register());
         }
 
         REGISTRATE.addDataGenerator(ProviderType.RECIPE,
-                p -> p.stonecutting(DataIngredient.tag(cnPalettesVariantEntry.materialTag), RecipeCategory.BUILDING_BLOCKS,
+                p -> p.stonecutting(DataIngredient.tag(paletteStoneVariants.materialTag), RecipeCategory.BUILDING_BLOCKS,
                         baseBlock));
-        REGISTRATE.addDataGenerator(ProviderType.ITEM_TAGS, p -> p.addTag(cnPalettesVariantEntry.materialTag)
+        REGISTRATE.addDataGenerator(ProviderType.ITEM_TAGS, p -> p.addTag(paletteStoneVariants.materialTag)
                 .add(baseBlock.get()
                         .asItem()));
 

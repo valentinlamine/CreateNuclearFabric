@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "tag": "createnuclear:stone_types/autunite"
+  },
+  "result": "createnuclear:autunite_pillar"
+}

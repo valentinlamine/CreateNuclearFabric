@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "createnuclear:block/small_autunite_brick_slab"
+    },
+    "type=double": {
+      "model": "createnuclear:block/small_autunite_bricks"
+    },
+    "type=top": {
+      "model": "createnuclear:block/small_autunite_brick_slab_top"
+    }
+  }
+}

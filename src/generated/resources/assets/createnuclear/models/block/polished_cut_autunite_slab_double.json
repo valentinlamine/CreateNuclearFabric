@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "createnuclear:block/palettes/stone_types/polished/autunite_cut_polished",
+    "side": "createnuclear:block/palettes/stone_types/slab/autunite_cut_slab"
+  }
+}

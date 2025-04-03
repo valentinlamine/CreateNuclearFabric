@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_air": {
+    "has_polished_cut_autunite": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:air"
+              "createnuclear:polished_cut_autunite"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_air",
+      "has_polished_cut_autunite",
       "has_the_recipe"
     ]
   ],

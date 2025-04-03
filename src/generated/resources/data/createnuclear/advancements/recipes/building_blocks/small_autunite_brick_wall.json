@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_air": {
+    "has_small_autunite_bricks": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:air"
+              "createnuclear:small_autunite_bricks"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_air",
+      "has_small_autunite_bricks",
       "has_the_recipe"
     ]
   ],

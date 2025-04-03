@@ -3,7 +3,9 @@
   "category": "building",
   "group": "small_autunite_brick_stairs",
   "key": {
-    "X": []
+    "X": {
+      "item": "createnuclear:small_autunite_bricks"
+    }
   },
   "pattern": [
     "X  ",

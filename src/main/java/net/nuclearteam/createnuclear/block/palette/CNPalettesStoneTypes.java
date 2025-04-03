@@ -1,8 +1,6 @@
 package net.nuclearteam.createnuclear.block.palette;
 
-import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllTags;
-import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.utility.Lang;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
@@ -17,7 +15,6 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 import java.util.function.Function;
 
 import static net.nuclearteam.createnuclear.block.palette.CNPaletteBlockPattern.STANDARD_RANGE;
-import static net.nuclearteam.createnuclear.block.palette.CNPaletteBlockPattern.VANILLA_RANGE;
 
 public enum CNPalettesStoneTypes {
 
@@ -35,8 +32,8 @@ public enum CNPalettesStoneTypes {
     public CNPaletteBlockPattern[] variantTypes;
     public TagKey<Item> materialTag;
 
-    private CNPalettesStoneTypes(CNPaletteBlockPattern[] variantTypes,
-                                 Function<CreateRegistrate, NonNullSupplier<Block>> factory) {
+    CNPalettesStoneTypes(CNPaletteBlockPattern[] variantTypes,
+                         Function<CreateRegistrate, NonNullSupplier<Block>> factory) {
         this.factory = factory;
         this.variantTypes = variantTypes;
     }

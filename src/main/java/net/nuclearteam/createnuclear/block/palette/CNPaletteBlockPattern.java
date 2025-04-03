@@ -1,6 +1,5 @@
 package net.nuclearteam.createnuclear.block.palette;
 
-import com.simibubi.create.Create;
 import com.simibubi.create.content.decoration.palettes.ConnectedPillarBlock;
 import com.simibubi.create.foundation.block.connected.*;
 import com.tterrag.registrate.providers.DataGenContext;
@@ -30,29 +29,22 @@ import java.util.function.Supplier;
 import static net.nuclearteam.createnuclear.block.palette.CNPaletteBlockPartial.ALL_PARTIALS;
 import static net.nuclearteam.createnuclear.block.palette.CNPaletteBlockPattern.PatternNameType.*;
 import static net.nuclearteam.createnuclear.block.palette.CNPaletteBlockPartial.FOR_POLISHED;
+
 public class CNPaletteBlockPattern {
 
     public static final CNPaletteBlockPattern
-
-            CUT =
-            create("cut", PREFIX, ALL_PARTIALS),
-
-    BRICKS = create("cut_bricks", WRAP, ALL_PARTIALS).textures("brick"),
-
-    SMALL_BRICKS = create("small_bricks", WRAP, ALL_PARTIALS).textures("small_brick"),
-
-    POLISHED = create("polished_cut", PREFIX, FOR_POLISHED).textures("polished", "slab"),
-
-    LAYERED = create("layered", PREFIX).blockStateFactory(p -> p::cubeColumn)
+        CUT = create("cut", PREFIX, ALL_PARTIALS),
+        BRICKS = create("cut_bricks", WRAP, ALL_PARTIALS).textures("brick"),
+        SMALL_BRICKS = create("small_bricks", WRAP, ALL_PARTIALS).textures("small_brick"),
+        POLISHED = create("polished_cut", PREFIX, FOR_POLISHED).textures("polished", "slab"),
+        LAYERED = create("layered", PREFIX).blockStateFactory(p -> p::cubeColumn)
             .textures("layered", "cap")
             .connectedTextures(v -> new HorizontalCTBehaviour(ct(v, CTs.LAYERED), ct(v, CTs.CAP))),
-
-    PILLAR = create("pillar", SUFFIX).blockStateFactory(p -> p::pillar)
+        PILLAR = create("pillar", SUFFIX).blockStateFactory(p -> p::pillar)
             .block(ConnectedPillarBlock::new)
             .textures("pillar", "cap")
             .connectedTextures(v -> new RotatedPillarCTBehaviour(ct(v, CTs.PILLAR), ct(v, CTs.CAP)))
-
-            ;
+    ;
 
     public static final CNPaletteBlockPattern[] VANILLA_RANGE = { CUT, POLISHED, BRICKS, SMALL_BRICKS, LAYERED, PILLAR };
 
@@ -91,7 +83,7 @@ public class CNPaletteBlockPattern {
         return pattern;
     }
 
-    public CNPaletteBlockPattern.IPatternBlockStateGenerator getBlockStateGenerator() {
+    public IPatternBlockStateGenerator getBlockStateGenerator() {
         return blockStateGenerator;
     }
 
@@ -153,13 +145,13 @@ public class CNPaletteBlockPattern {
 
     // Model generators
 
-    public CNPaletteBlockPattern.IBlockStateProvider cubeAll(String variant) {
+    public IBlockStateProvider cubeAll(String variant) {
         ResourceLocation all = toLocation(variant, textures[0]);
         return (ctx, prov) -> prov.simpleBlock(ctx.get(), prov.models()
                 .cubeAll(createName(variant), all));
     }
 
-    public CNPaletteBlockPattern.IBlockStateProvider cubeBottomTop(String variant) {
+    public IBlockStateProvider cubeBottomTop(String variant) {
         ResourceLocation side = toLocation(variant, textures[0]);
         ResourceLocation bottom = toLocation(variant, textures[1]);
         ResourceLocation top = toLocation(variant, textures[2]);
@@ -167,7 +159,7 @@ public class CNPaletteBlockPattern {
                 .cubeBottomTop(createName(variant), side, bottom, top));
     }
 
-    public CNPaletteBlockPattern.IBlockStateProvider pillar(String variant) {
+    public IBlockStateProvider pillar(String variant) {
         ResourceLocation side = toLocation(variant, textures[0]);
         ResourceLocation end = toLocation(variant, textures[1]);
 
@@ -191,7 +183,7 @@ public class CNPaletteBlockPattern {
                         ConnectedPillarBlock.EAST, ConnectedPillarBlock.WEST);
     }
 
-    public CNPaletteBlockPattern.IBlockStateProvider cubeColumn(String variant) {
+    public IBlockStateProvider cubeColumn(String variant) {
         ResourceLocation side = toLocation(variant, textures[0]);
         ResourceLocation end = toLocation(variant, textures[1]);
         return (ctx, prov) -> prov.simpleBlock(ctx.get(), prov.models()
@@ -226,7 +218,7 @@ public class CNPaletteBlockPattern {
 
     @FunctionalInterface
     static interface IPatternBlockStateGenerator
-            extends Function<CNPaletteBlockPattern, Function<String, CNPaletteBlockPattern.IBlockStateProvider>> {
+            extends Function<CNPaletteBlockPattern, Function<String, IBlockStateProvider>> {
     }
 
     @FunctionalInterface
@@ -252,12 +244,12 @@ public class CNPaletteBlockPattern {
         private Function<String, ResourceLocation> srcFactory;
         private Function<String, ResourceLocation> targetFactory;
 
-        private CTs(CTType type, Function<String, ResourceLocation> factory) {
+        CTs(CTType type, Function<String, ResourceLocation> factory) {
             this(type, factory, factory);
         }
 
-        private CTs(CTType type, Function<String, ResourceLocation> srcFactory,
-                    Function<String, ResourceLocation> targetFactory) {
+        CTs(CTType type, Function<String, ResourceLocation> srcFactory,
+            Function<String, ResourceLocation> targetFactory) {
             this.type = type;
             this.srcFactory = srcFactory;
             this.targetFactory = targetFactory;
