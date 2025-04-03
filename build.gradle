@@ -8,7 +8,7 @@ targetCompatibility = JavaVersion.VERSION_17
 
 String runNumber = System.getenv("GITHUB_RUN_NUMBER")
 String build = runNumber != null ? "build.$runNumber" : "local"
-version = "$mod_version-$build+$minecraft_version"
+version = "$mod_version-$build+$minecraft_version-fabric"
 
 group = project.maven_group
 archivesBaseName="createnuclear"

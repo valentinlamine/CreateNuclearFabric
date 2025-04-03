@@ -2,20 +2,28 @@ package net.nuclearteam.createnuclear.multiblock.core;
 
 import lib.multiblock.test.SimpleMultiBlockAislePatternBuilder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Explosion;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.TntBlock;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
+import net.nuclearteam.createnuclear.effects.CNEffects;
 import net.nuclearteam.createnuclear.multiblock.IHeat;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
-import net.nuclearteam.createnuclear.multiblock.frame.ReactorBlockEntity;
+import net.nuclearteam.createnuclear.multiblock.casing.ReactorCasingBlockEntity;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static net.nuclearteam.createnuclear.CNMultiblock.*;
 
-public class ReactorCoreBlockEntity extends ReactorBlockEntity {
+public class ReactorCoreBlockEntity extends ReactorCasingBlockEntity {
     private int countdownTicks = 0;
 
 
@@ -27,14 +35,13 @@ public class ReactorCoreBlockEntity extends ReactorBlockEntity {
     public void tick() {
         super.tick();
 
-        if (level.isClientSide)
-            return;
+        if (level.isClientSide()) return;
 
         BlockPos controllerPos = getBlockPosForReactor();
         if (level.getBlockEntity(controllerPos) instanceof ReactorControllerBlockEntity reactorController) {
             int heat = (int) reactorController.configuredPattern.getOrCreateTag().getDouble("heat");
             if (IHeat.HeatLevel.of(heat) == IHeat.HeatLevel.DANGER) {
-                if (countdownTicks >= 1200) { // 1200 ticks = 60 seconds
+                if (countdownTicks >= 300) { // 300 ticks = 15 seconds
                     explodeReactorCore(level, getBlockPos());
                 } else {
                     countdownTicks++;
@@ -46,7 +53,7 @@ public class ReactorCoreBlockEntity extends ReactorBlockEntity {
         }
     }
 
-    private void explodeReactorCore(Level level, BlockPos pos) {
+    private void explodeReactorCore(Level world, BlockPos pos) {
         level.explode(null, pos.getX(), pos.getY(), pos.getZ(), 20F, Level.ExplosionInteraction.BLOCK);
     }
 
@@ -60,9 +67,9 @@ public class ReactorCoreBlockEntity extends ReactorBlockEntity {
                 .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)
                 .aisle(AAAAA, AAAAA, AAAAA, AAAAA, AAOAA)
                 .where('A', a -> a.getState().is(CNBlocks.REACTOR_CASING.get()))
-                .where('B', a -> a.getState().is(CNBlocks.REACTOR_MAIN_FRAME.get()))
+                .where('B', a -> a.getState().is(CNBlocks.REACTOR_FRAME.get()))
                 .where('C', a -> a.getState().is(CNBlocks.REACTOR_CORE.get()))
-                .where('D', a -> a.getState().is(CNBlocks.REACTOR_COOLING_FRAME.get()))
+                .where('D', a -> a.getState().is(CNBlocks.REACTOR_COOLER.get()))
                 .where('*', a -> a.getState().is(CNBlocks.REACTOR_CONTROLLER.get()))
                 .where('O', a -> a.getState().is(CNBlocks.REACTOR_OUTPUT.get()))
                 .where('I', a -> a.getState().is(CNBlocks.REACTOR_INPUT.get()))
