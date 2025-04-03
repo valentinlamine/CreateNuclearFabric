@@ -1,8 +1,8 @@
-// 1.20.1	2025-04-02T16:42:15.275279	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-04-03T10:31:01.4036254	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 16749c98d03d4ab79af8aabf0464efc8525e9079 data\c\tags\items\rods.json
 a0c45a5183b5590b7463a37f43051f5bdd56ad88 assets\createnuclear\blockstates\reactor_controller.json
-efe2ad634ad8b801a8fa69f45516b30157b46771 data\createnuclear\loot_tables\blocks\lead_block.json
 576b0bf970ddbdd11ec06963e1d65e08e63d69e1 data\createnuclear\loot_tables\blocks\reactor_frame.json
+efe2ad634ad8b801a8fa69f45516b30157b46771 data\createnuclear\loot_tables\blocks\lead_block.json
 3b03793c0f5786f258c593e0b140cd6bd10c3b7b assets\createnuclear\models\item\uranium_powder.json
 681a801a88c73d8eb9427815a49eb8124262ed35 data\c\tags\blocks\ores_in_ground\stone.json
 e3acc02d9c87edea70fb57e88e172209b2b17a3f assets\createnuclear\models\item\light_blue_anti_radiation_leggings.json
@@ -128,8 +128,8 @@ fdc9cf972cf27ce343d4f098ddcdc9a4e19d2404 data\minecraft\tags\fluids\lava.json
 f7504d5f748fe938bf07d2eb5d0ba46bbfa0499d assets\createnuclear\blockstates\reinforced_glass.json
 b8574d7ee3d3e733dab79700062554cf4b58bd6f assets\createnuclear\models\item\blue_anti_radiation_helmet.json
 daa4fad27f07fd72cb25a524464edea9efe771b7 data\createnuclear\loot_tables\blocks\reactor_core.json
-5e91eecf2e5def0f863b5d7d9b3625a62e4de7af assets\createnuclear\models\item\magenta_anti_radiation_leggings.json
 113d87359e902ec9112e063f87adf5646cd01dbc data\createnuclear\loot_tables\blocks\deepslate_lead_ore.json
+5e91eecf2e5def0f863b5d7d9b3625a62e4de7af assets\createnuclear\models\item\magenta_anti_radiation_leggings.json
 62f405d930be8b534e863c8aac205687b943f3ef data\createnuclear\loot_tables\blocks\enriching_campfire.json
 401811bf59cdb43ffb0c0bb5ba40eb954d7fa216 data\createnuclear\loot_tables\blocks\uranium_ore.json
 d0f9a216114a583e097ef8369c4ed74f50270672 assets\createnuclear\models\item\green_anti_radiation_helmet.json

@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "createnuclear:cut_autunite_stairs",
+    "createnuclear:cut_autunite_wall",
+    "createnuclear:polished_cut_autunite_stairs",
+    "createnuclear:polished_cut_autunite_wall",
+    "createnuclear:cut_autunite_brick_stairs",
+    "createnuclear:cut_autunite_brick_wall",
+    "createnuclear:small_autunite_brick_stairs",
+    "createnuclear:small_autunite_brick_wall"
+  ]
+}

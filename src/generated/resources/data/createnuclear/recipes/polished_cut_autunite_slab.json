@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "polished_cut_autunite_slab",
+  "key": {
+    "X": []
+  },
+  "pattern": [
+    "XXX"
+  ],
+  "result": {
+    "count": 6,
+    "item": "createnuclear:polished_cut_autunite_slab"
+  },
+  "show_notification": true
+}

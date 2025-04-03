@@ -20,6 +20,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.nuclearteam.createnuclear.CreateNuclear;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -212,7 +213,7 @@ public class CNPaletteBlockPattern {
     }
 
     public static ResourceLocation toLocation(String variant, String texture) {
-        return Create.asResource(
+        return CreateNuclear.asResource(
                 String.format(TEXTURE_LOCATION, texture, variant + (texture.equals("cut") ? "_" : "_cut_") + texture));
     }
 

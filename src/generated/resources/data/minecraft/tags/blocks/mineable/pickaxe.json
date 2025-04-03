@@ -17,6 +17,18 @@
     "createnuclear:reactor_casing",
     "createnuclear:reactor_frame",
     "createnuclear:reactor_input",
-    "createnuclear:asurine"
+    "createnuclear:autunite",
+    "createnuclear:cut_autunite_stairs",
+    "createnuclear:cut_autunite_slab",
+    "createnuclear:cut_autunite_wall",
+    "createnuclear:polished_cut_autunite_stairs",
+    "createnuclear:polished_cut_autunite_slab",
+    "createnuclear:polished_cut_autunite_wall",
+    "createnuclear:cut_autunite_brick_stairs",
+    "createnuclear:cut_autunite_brick_slab",
+    "createnuclear:cut_autunite_brick_wall",
+    "createnuclear:small_autunite_brick_stairs",
+    "createnuclear:small_autunite_brick_slab",
+    "createnuclear:small_autunite_brick_wall"
   ]
 }

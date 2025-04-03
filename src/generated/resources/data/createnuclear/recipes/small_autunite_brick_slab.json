@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "small_autunite_brick_slab",
+  "key": {
+    "X": []
+  },
+  "pattern": [
+    "XXX"
+  ],
+  "result": {
+    "count": 6,
+    "item": "createnuclear:small_autunite_brick_slab"
+  },
+  "show_notification": true
+}

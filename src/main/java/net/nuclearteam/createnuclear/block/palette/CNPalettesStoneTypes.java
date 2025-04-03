@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear.block.palette;
 
+import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.Create;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -11,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.MapColor;
+import net.nuclearteam.createnuclear.CreateNuclear;
 
 import java.util.function.Function;
 
@@ -18,10 +20,8 @@ import static net.nuclearteam.createnuclear.block.palette.CNPaletteBlockPattern.
 import static net.nuclearteam.createnuclear.block.palette.CNPaletteBlockPattern.VANILLA_RANGE;
 
 public enum CNPalettesStoneTypes {
-    DEEPSLATE(VANILLA_RANGE, r -> () -> Blocks.DEEPSLATE),
 
-
-    AUTUNITE(STANDARD_RANGE, r -> r.paletteStoneBlock("autunite", () -> Blocks.DEEPSLATE, true, true)
+    AUTUNITE(STANDARD_RANGE, r -> r.paletteStoneBlock("autunite", () -> Blocks.ANDESITE, true, true)
             .properties(p -> p.destroyTime(1.25f)
                     .mapColor(MapColor.COLOR_GREEN))
             .register()),
@@ -55,7 +55,7 @@ public enum CNPalettesStoneTypes {
             cnpaletteStoneVariants.baseBlock = baseBlock;
             String id = Lang.asId(cnpaletteStoneVariants.name());
             cnpaletteStoneVariants.materialTag =
-                    AllTags.optionalTag(BuiltInRegistries.ITEM, Create.asResource("stone_types/" + id));
+                    AllTags.optionalTag(BuiltInRegistries.ITEM, CreateNuclear.asResource("stone_types/" + id));
             cnpaletteStoneVariants.variants = new CNPalettesVariantEntry(id, cnpaletteStoneVariants);
         }
     }
