@@ -54,13 +54,9 @@ public class CNClientEvent {
         RenderSystem.enableBlend();
 
         if (localPlayer.getEffect(CNEffects.RADIATION.get()) != null) {
-            if (irradiatedVisionAlpha < 1.0f) {
-                irradiatedVisionAlpha += 0.01f; // Increment alpha gradually
-            }
+            irradiatedVisionAlpha = Math.min(1.0f, irradiatedVisionAlpha + 0.01f);
         } else {
-            if (irradiatedVisionAlpha > 0.0f) {
-                irradiatedVisionAlpha -= 0.01f; // Decrement alpha gradually
-            }
+            irradiatedVisionAlpha = Math.max(0.0f, irradiatedVisionAlpha - 0.01f);
         }
 
         if (irradiatedVisionAlpha > 0.0f) {
