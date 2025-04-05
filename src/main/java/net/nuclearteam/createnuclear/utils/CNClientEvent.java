@@ -10,6 +10,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.level.Level;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.material.FluidState;
@@ -21,7 +22,7 @@ import net.nuclearteam.createnuclear.tags.CNTag;
 
 public class CNClientEvent {
 
-    private static float irradiatedVisionAlpha = 0.0f; // Variable to manage alpha
+    private static float irradiatedVisionAlpha = 0.0f; // Variable to manage alpha <- Put it in the player to have it per character and not globally.
 
     public static void register() {
         ClientEvents.ModBusEvents.registerClientReloadListeners();
@@ -48,7 +49,7 @@ public class CNClientEvent {
 
     private static void hudRender(GuiGraphics graphics, float partialTicks) {
         ResourceLocation IRRADIATED_VISION = CreateNuclear.asResource("textures/misc/irradiated_vision.png");
-        ResourceLocation HELMETTEST = CreateNuclear.asResource("textures/misc/test_texture.png");
+        ResourceLocation HELMET = CreateNuclear.asResource("textures/misc/test_texture.png");
 
         LocalPlayer localPlayer = Minecraft.getInstance().player;
         RenderSystem.enableBlend();
@@ -63,8 +64,8 @@ public class CNClientEvent {
             renderTextureOverlay(graphics, IRRADIATED_VISION, irradiatedVisionAlpha);
         }
 
-        if (localPlayer.getInventory().getArmor(3).is(CNTag.ItemTags.ANTI_RADIATION_HELMET_FULL_DYE.tag)) {
-            renderTextureOverlay(graphics, HELMETTEST, 1f);
+        if (localPlayer.getInventory().getArmor(EquipmentSlot.HEAD.getIndex()).is(CNTag.ItemTags.ANTI_RADIATION_HELMET_FULL_DYE.tag)) {
+            renderTextureOverlay(graphics, HELMET, 1f);
             Minecraft.getInstance().gui.renderHotbar(12f, graphics);
         }
     }
