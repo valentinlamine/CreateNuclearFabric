@@ -43,11 +43,11 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 	@Override
 	public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
 		super.addBehaviours(behaviours);
-		generatedSpeed = new KineticScrollValueBehaviour(Lang.translateDirect("kinetics.reactor_output.rotation_speed"), this, new ReactorOutputValue());
+		/*generatedSpeed = new KineticScrollValueBehaviour(Lang.translateDirect("kinetics.reactor_output.rotation_speed"), this, new ReactorOutputValue());
 		generatedSpeed.between(-1500000, 1500000);
 		generatedSpeed.setValue(speed);
 		generatedSpeed.withCallback(i -> this.updateGeneratedRotation());
-		behaviours.add(generatedSpeed);
+		behaviours.add(generatedSpeed);*/
 
 	}
 

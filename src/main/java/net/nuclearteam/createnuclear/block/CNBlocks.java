@@ -3,6 +3,7 @@ package net.nuclearteam.createnuclear.block;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.decoration.encasing.EncasedCTBehaviour;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
+import com.simibubi.create.content.kinetics.waterwheel.WaterWheelBlock;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
@@ -257,7 +258,8 @@ public class CNBlocks {
                 .tag(AllTags.AllBlockTags.SAFE_NBT.tag, CNTag.BlockTags.NEEDS_DIAMOND_TOOL.tag)
                 .transform(pickaxeOnly())
                 .blockstate(new ReactorOutputGenerator()::generate)
-                .transform(BlockStressDefaults.setCapacity(10240))
+                .transform(BlockStressDefaults.setCapacity(10240.0))
+                .transform(BlockStressDefaults.setGeneratorSpeed(ReactorOutput::getSpeedRange))
                 .item()
                 .transform(customItemModel())
                 .register();

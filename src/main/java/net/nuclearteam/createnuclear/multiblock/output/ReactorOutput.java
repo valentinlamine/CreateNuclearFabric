@@ -4,6 +4,7 @@ import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
 
 import com.simibubi.create.foundation.block.IBE;
+import com.simibubi.create.foundation.utility.Couple;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
@@ -134,5 +135,9 @@ public class ReactorOutput extends DirectionalKineticBlock implements IWrenchabl
 		}
         return null;
     }
+
+	public static Couple<Integer> getSpeedRange() {
+		return Couple.create(-1500000, 1500000);
+	}
 }
 
