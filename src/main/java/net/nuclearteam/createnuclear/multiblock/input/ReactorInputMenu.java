@@ -1,7 +1,10 @@
 package net.nuclearteam.createnuclear.multiblock.input;
 
 import com.simibubi.create.foundation.gui.menu.MenuBase;
+import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil;
 import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.FriendlyByteBuf;
@@ -10,10 +13,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.nuclearteam.createnuclear.CreateNuclear;
+import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.menu.CNMenus;
+import net.nuclearteam.createnuclear.tags.CNTag;
 
 public class ReactorInputMenu extends MenuBase<ReactorInputEntity> {
 
@@ -28,16 +34,6 @@ public class ReactorInputMenu extends MenuBase<ReactorInputEntity> {
 
     public static ReactorInputMenu create(int id, Inventory inv, ReactorInputEntity contentHolder) {
         return new ReactorInputMenu(CNMenus.SLOT_ITEM_STORAGE.get(), id, inv, contentHolder);
-    }
-
-    @Override
-    public ItemStack quickMoveStack(Player player, int index) {
-        Slot clickedSlot = getSlot(index);
-        if (!clickedSlot.hasItem()) return ItemStack.EMPTY;
-        ItemStack stack = clickedSlot.getItem();
-        if (index < 2) moveItemStackTo(stack, 2, slots.size(), false);
-        else moveItemStackTo(stack, 0, 2, false);
-        return ItemStack.EMPTY;
     }
 
     @Override
@@ -96,5 +92,35 @@ public class ReactorInputMenu extends MenuBase<ReactorInputEntity> {
             return;
         }
         super.clicked(slotId, button, clickType, player);
+    }
+
+    @Override
+    public ItemStack quickMoveStack(Player playerIn, int index) {
+        Slot clickedSlot = getSlot(index);
+
+        if (!clickedSlot.hasItem()) return ItemStack.EMPTY;
+        ItemStack stack = clickedSlot.getItem();
+
+        //if (!CNTag.ItemTags.COOLER.matches(stack) || !CNTag.ItemTags.FUEL.matches(stack)) return ItemStack.EMPTY;
+        CreateNuclear.LOGGER.warn("index: {}, clickedSlot: {}, stack: {}, slotMax: {}, cooler: {}",
+                index, clickedSlot, stack, this.slots.size(), !CNTag.ItemTags.COOLER.matches(stack));
+
+
+        moveItemStackTo(stack, 0, slots.size(), false);
+
+        if (CNTag.ItemTags.FUEL.matches(stack)) {
+            try (Transaction t = TransferUtil.getTransaction()) {
+                contentHolder.inventory.insertSlot(0, ItemVariant.of(stack), stack.getCount(), t);
+                clickedSlot.setChanged();
+            }
+        } else if (CNTag.ItemTags.COOLER.matches(stack)) {
+            try (Transaction t = TransferUtil.getTransaction()) {
+                contentHolder.inventory.insertSlot(1, ItemVariant.of(stack), stack.getCount(), t);
+                clickedSlot.setChanged();
+            }
+        }
+
+
+        return stack;
     }
 }
