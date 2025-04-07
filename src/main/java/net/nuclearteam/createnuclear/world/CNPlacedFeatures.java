@@ -18,6 +18,7 @@ public class CNPlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> URANIUM_ORE = registerKey("uranium_ore");
     public static final ResourceKey<PlacedFeature> LEAD_ORE = registerKey("lead_ore");
+    public static final ResourceKey<PlacedFeature> STRIATED_ORES_OVERWORLD = registerKey("striated_ores_overworld");
 
     public static ResourceKey<PlacedFeature> registerKey(String name) {
         return ResourceKey.create(Registries.PLACED_FEATURE, CreateNuclear.asResource(name));
@@ -28,15 +29,12 @@ public class CNPlacedFeatures {
         HolderGetter<ConfiguredFeature<?, ?>> featureLookup = context.lookup(Registries.CONFIGURED_FEATURE);
         Holder<ConfiguredFeature<?,?>> uraniumOre = featureLookup.getOrThrow(CNConfiguredFeatures.URANIUM_ORE_KEY);
         Holder<ConfiguredFeature<?,?>> leadOre = featureLookup.getOrThrow(CNConfiguredFeatures.LEAD_ORE);
+        Holder<ConfiguredFeature<?,?>> striatedOresOverworld = featureLookup.getOrThrow(CNConfiguredFeatures.STRIATED_ORES_OVERWORLD);
 
         register(context, URANIUM_ORE, uraniumOre, placement(CountPlacement.of(6), -64,64));
         register(context, LEAD_ORE, leadOre, placement(CountPlacement.of(10), -64,64));
+        register(context, STRIATED_ORES_OVERWORLD, striatedOresOverworld, placement(RarityFilter.onAverageOnceEvery(100), -65, 255));
 
-
-
-        /*register(context, URANIUM_ORE_PLACED_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(CNConfiguredFeatures.URANIUM_ORE_KEY),
-                CNOrePlacement.modifiersWithCount(6, // Veins per Chunk
-                        HeightRangePlacement.uniform(VerticalAnchor.aboveBottom(-64), VerticalAnchor.belowTop(64))));*/ // Height Range
 
 
     }

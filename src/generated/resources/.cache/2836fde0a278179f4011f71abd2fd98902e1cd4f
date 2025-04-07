@@ -1,4 +1,4 @@
-// 1.20.1	2025-04-03T16:35:01.1991859	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-04-07T18:50:27.1638225	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 c53fd5df1d52d6e9919c9600e483697e8db75f4d data\createnuclear\advancements\recipes\building_blocks\cut_autunite_from_stone_types_autunite_stonecutting.json
 0057844c28c996dceebfc28e95e0f022a26db0aa assets\createnuclear\models\block\polished_cut_autunite_stairs.json
 baced15580735dd63848a96763f8c7ffe61f3376 assets\createnuclear\models\block\cut_autunite_wall_side.json
@@ -84,8 +84,8 @@ aa1f3455bb6fba50a9bf1b7ac6fbe6ffc364b0e2 data\createnuclear\recipes\cut_autunite
 b4ddee28d16f837d70e311c84748b18fe3cdc21a assets\createnuclear\models\item\green_anti_radiation_chestplate.json
 e6e624e978fdacfa3cdd123d23d021f504308149 data\createnuclear\loot_tables\blocks\cut_autunite_stairs.json
 35c8b46c14daa4da11187ddd916ac31020663819 assets\createnuclear\models\item\reactor_casing.json
-fdc9cf972cf27ce343d4f098ddcdc9a4e19d2404 data\c\tags\fluids\uranium.json
 589197f2c386dacb0193e0e101edafd39cd153ea data\minecraft\tags\blocks\slabs.json
+fdc9cf972cf27ce343d4f098ddcdc9a4e19d2404 data\c\tags\fluids\uranium.json
 ef76b3a3a97b5d1901d7e8ac17009381de418ab8 assets\createnuclear\models\item\reactor_blueprint_item.json
 0ee5240b012d2705c7d868b3e88dd707fa3df1a0 assets\createnuclear\lang\en_ud.json
 0632d6a6ba895efbfa6a347c9693240cc601e114 assets\createnuclear\models\block\small_autunite_bricks_wall_post.json
@@ -348,8 +348,8 @@ cf8b4d604330762358b21b6e079aaab1eb2987f4 assets\createnuclear\models\block\raw_l
 758591933d4e0c314b23457c7538631df928a0c5 data\minecraft\tags\blocks\moss_replaceable.json
 b5820f4051f471efa9b221712afe1070ed65de23 data\createnuclear\tags\items\uranium_ores.json
 4132d0cc3bca17631674ee463ca4f09dbd3f3f17 data\createnuclear\recipes\cut_autunite_stairs_from_stone_types_autunite_stonecutting.json
-f28efa9fb383b86c770b8c7344fc30f6ab9200d3 data\createnuclear\loot_tables\blocks\cut_autunite_wall.json
 e7e05a64ade7d10ed54cbb2637dc04e1631ba48f data\minecraft\tags\blocks\stairs.json
+f28efa9fb383b86c770b8c7344fc30f6ab9200d3 data\createnuclear\loot_tables\blocks\cut_autunite_wall.json
 ee9510875a49164a5930fcbfa596400bf1ecf200 data\c\tags\blocks\storage_blocks\raw_uranium.json
 0b2c76c9cff305eacfdfb57c4b703f94ca6dc903 assets\createnuclear\blockstates\autunite.json
 4b0492cf73c071f13538ce485419e46a164c99c7 assets\createnuclear\models\item\steel_nugget.json
