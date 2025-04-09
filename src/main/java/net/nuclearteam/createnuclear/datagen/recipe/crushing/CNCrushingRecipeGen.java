@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear.datagen.recipe.crushing;
 
+import com.simibubi.create.AllItems;
 import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
@@ -47,9 +48,12 @@ public class CNCrushingRecipeGen extends ProcessingRecipeGen {
         ),
         RAW_URANIUM_BLOCK = create(() -> CNBlocks.RAW_URANIUM_BLOCK, b -> b.duration(250)
             .output(1, CNItems.URANIUM_POWDER,81)
-        )
+        ),
 
-    ;
+        RAW_ZINC_ORE = rawOre(AllItems.RAW_ZINC::get, AllItems.CRUSHED_ZINC::get, 1)
+
+
+            ;
 
     public CNCrushingRecipeGen(FabricDataOutput generator) {
         super(generator);
@@ -78,6 +82,18 @@ public class CNCrushingRecipeGen extends ProcessingRecipeGen {
     <T extends ProcessingRecipe<?>> GeneratedRecipe create(Supplier<ItemLike> singleIngredient,
                                                            UnaryOperator<ProcessingRecipeBuilder<T>> transform) {
         return create(CreateNuclear.MOD_ID, singleIngredient, transform);
+    }
+
+    <T extends ProcessingRecipe<?>> GeneratedRecipe createC(Supplier<ItemLike> singleIngredient,
+                                                           UnaryOperator<ProcessingRecipeBuilder<T>> transform) {
+        return create(CreateNuclear.MOD_ID, singleIngredient, transform);
+    }
+
+    protected GeneratedRecipe rawOre(Supplier<ItemLike> input, Supplier<ItemLike> result, int amount) {
+        return createC(input, b -> b.duration(400)
+                .output(result.get(), amount)
+                .output(.75f, AllItems.EXP_NUGGET.get(), (result.get() == AllItems.CRUSHED_GOLD.get() ? 2 : 1) * amount)
+                .output(1f, CNItems.URANIUM_POWDER, 1));
     }
 
     @Override
