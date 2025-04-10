@@ -57,7 +57,7 @@ public class CNConfiguredFeatures {
                 CNLayerPatterns.AUTUNITE.get()
         );
 
-        register(context, STRIATED_ORES_OVERWORLD, AllFeatures.LAYERED_ORE.get(), new LayeredOreConfiguration(overworldLayerPatterns, 64, 0));
+        register(context, STRIATED_ORES_OVERWORLD, AllFeatures.LAYERED_ORE.get(), new LayeredOreConfiguration(overworldLayerPatterns, 32, 0));
 
 
     }

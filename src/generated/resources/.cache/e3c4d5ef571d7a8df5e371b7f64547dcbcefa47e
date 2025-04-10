@@ -1,7 +1,7 @@
-// 1.20.1	2025-04-07T18:50:27.1802829	Create Nuclear/CreateNuclear Generated Registry Entries
+// 1.20.1	2025-04-10T18:24:39.4001904	Create Nuclear/CreateNuclear Generated Registry Entries
 b0e1ee7314412507fd7346cb48b29d105f6186ad data\createnuclear\worldgen\configured_feature\uranium_ore.json
-06120ed6a00e684c347732b8178cef3bdf095ded data\createnuclear\worldgen\placed_feature\uranium_ore.json
+bed936158c61471513252910d9e3b0e2de610f1a data\createnuclear\worldgen\placed_feature\uranium_ore.json
 b68555f371c9700aa4ecfa9370b010de8fe25b60 data\createnuclear\worldgen\configured_feature\lead_ore.json
-d37ff142bc58bd199b09c889d4b48609a57bf36e data\createnuclear\worldgen\placed_feature\lead_ore.json
-3b2247eaf8eda209338efca9f6431b9b95777312 data\createnuclear\worldgen\configured_feature\striated_ores_overworld.json
-65d3f2863bc8ad22da63d273cfb01d4420191998 data\createnuclear\worldgen\placed_feature\striated_ores_overworld.json
+243fabbf636dbc10e451fdbc18a870d5cc32ab0e data\createnuclear\worldgen\placed_feature\lead_ore.json
+fd3b5de9954837d6d725353bad8d383bdbb180e4 data\createnuclear\worldgen\configured_feature\striated_ores_overworld.json
+f26be417cb34461ecb180e77a9a749eaaf4c9880 data\createnuclear\worldgen\placed_feature\striated_ores_overworld.json
