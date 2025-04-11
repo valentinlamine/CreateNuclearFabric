@@ -23,7 +23,7 @@ import net.nuclearteam.createnuclear.menu.CNMenus;
 import net.nuclearteam.createnuclear.packets.CNPackets;
 import net.nuclearteam.createnuclear.potion.CNPotions;
 import net.nuclearteam.createnuclear.tags.CNTag;
-import net.nuclearteam.createnuclear.world.gen.CNWorldGeneration;
+import net.nuclearteam.createnuclear.world.gen.CNBiomeModifier;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +56,6 @@ public class CreateNuclear implements ModInitializer {
 		CNPackets.registerPackets();
 		CNPackets.getChannel().initServerListener();
 		CNPotions.init();
-		CNWorldGeneration.generateModWorldGen();
 		CNMobDefaultAttribute.register();
 		CNMobEntityType.registerCNMod();
 
@@ -67,6 +66,7 @@ public class CreateNuclear implements ModInitializer {
 
 		CNFanProcessingTypes.register();
 		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);
+		CNBiomeModifier.bootstrap();
 
 	}
 

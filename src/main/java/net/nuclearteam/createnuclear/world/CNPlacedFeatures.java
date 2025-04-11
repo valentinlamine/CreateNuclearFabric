@@ -33,8 +33,7 @@ public class CNPlacedFeatures {
 
         register(context, URANIUM_ORE, uraniumOre, placement(CountPlacement.of(6), -64,64));
         register(context, LEAD_ORE, leadOre, placement(CountPlacement.of(10), -64,64));
-        register(context, STRIATED_ORES_OVERWORLD, striatedOresOverworld, placement(RarityFilter.onAverageOnceEvery(100), -65, 255));
-
+        register(context, STRIATED_ORES_OVERWORLD, striatedOresOverworld, placementUniforme(RarityFilter.onAverageOnceEvery(18), -30, 70));
 
 
     }
@@ -45,6 +44,15 @@ public class CNPlacedFeatures {
             InSquarePlacement.spread(),
             HeightRangePlacement.uniform(VerticalAnchor.absolute(minHeight), VerticalAnchor.absolute(maxHeight)),
             ConfigPlacementFilter.INSTANCE
+        );
+    }
+
+    private static List<PlacementModifier> placementUniforme(PlacementModifier frequency, int minHeight, int maxHeight) {
+        return List.of(
+                frequency,
+                InSquarePlacement.spread(),
+                HeightRangePlacement.uniform(VerticalAnchor.absolute(minHeight), VerticalAnchor.absolute(maxHeight)),
+                ConfigPlacementFilter.INSTANCE
         );
     }
 
