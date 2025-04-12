@@ -14,6 +14,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.nuclearteam.createnuclear.menu.CNMenus;
+import net.nuclearteam.createnuclear.multiblock.controller.RodProfiler;
 import net.nuclearteam.createnuclear.tags.CNTag;
 
 import static net.nuclearteam.createnuclear.multiblock.blueprint.ReactorBluePrint.getItemStorage;
@@ -21,8 +22,8 @@ import static net.nuclearteam.createnuclear.multiblock.blueprint.ReactorBluePrin
 public class ReactorBluePrintMenu extends GhostItemMenu<ItemStack> {
 
     public float heat = 0F;
-    public int graphiteTime = 5000;
-    public int uraniumTime = 3600;
+    public int graphiteTime = RodProfiler.CoolerRodType.GRAPHITE.getProfiler().time();
+    public int uraniumTime = RodProfiler.HeatRodType.URANIUM.getProfiler().time();
     public int countGraphiteRod = 0;
     public int countUraniumRod = 0;
     public double progress = 0;
@@ -59,8 +60,8 @@ public class ReactorBluePrintMenu extends GhostItemMenu<ItemStack> {
             }
         }
 
-        contentHolder.getOrCreateTag().putInt("uraniumTime", 3600);
-        contentHolder.getOrCreateTag().putInt("graphiteTime", 5000);
+        contentHolder.getOrCreateTag().putInt("uraniumTime", this.uraniumTime);
+        contentHolder.getOrCreateTag().putInt("graphiteTime", this.graphiteTime);
         contentHolder.getOrCreateTag().putInt("countGraphiteRod", 0);
         contentHolder.getOrCreateTag().putInt("countUraniumRod", 0);
 
@@ -111,7 +112,12 @@ public class ReactorBluePrintMenu extends GhostItemMenu<ItemStack> {
     protected void saveData(ItemStack contentHolder) {
         for (int i = 0; i < ghostInventory.getSlotCount(); i++) {
             if (ghostInventory.getStackInSlot(i).isEmpty() || ghostInventory.getStackInSlot(i) == null) ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
-            if (!(ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.FUEL.tag) || ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.COOLER.tag))&& !ghostInventory.getStackInSlot(i).isEmpty()) ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
+            if (
+                    !(ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.FUEL.tag)
+                        || ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.COOLER.tag))
+                    && !ghostInventory.getStackInSlot(i).isEmpty()
+            )
+                ghostInventory.setStackInSlot(i, ItemStack.EMPTY);
             if (ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.COOLER.tag)) countGraphiteRod += 1;
             if (ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.FUEL.tag)) countUraniumRod += 1;
         }
@@ -122,7 +128,11 @@ public class ReactorBluePrintMenu extends GhostItemMenu<ItemStack> {
 
         for (int i = 0; i < ghostInventory.getSlotCount(); i++) {
             if (ghostInventory.getStackInSlot(i).isEmpty() || ghostInventory.getStackInSlot(i) == null) ghostInventory.setStackInSlot(i, new ItemStack(Items.GLASS_PANE));
-            if (!(ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.FUEL.tag) || ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.COOLER.tag))&& !ghostInventory.getStackInSlot(i).isEmpty()) ghostInventory.setStackInSlot(i, new ItemStack(Items.GLASS_PANE));
+            if (
+                    !(ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.FUEL.tag) || ghostInventory.getStackInSlot(i).is(CNTag.ItemTags.COOLER.tag))
+                    && !ghostInventory.getStackInSlot(i).isEmpty()
+            )
+                ghostInventory.setStackInSlot(i, new ItemStack(Items.GLASS_PANE));
         }
 
         contentHolder.getOrCreateTag().put("patternAll", ghostInventory.serializeNBT());
