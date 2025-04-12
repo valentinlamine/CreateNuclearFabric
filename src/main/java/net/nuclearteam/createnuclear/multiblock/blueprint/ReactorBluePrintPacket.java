@@ -4,6 +4,7 @@ import com.simibubi.create.foundation.networking.SimplePacketBase;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
+import net.nuclearteam.createnuclear.multiblock.controller.RodProfiler;
 
 public class ReactorBluePrintPacket extends SimplePacketBase {
 
@@ -28,11 +29,11 @@ public class ReactorBluePrintPacket extends SimplePacketBase {
     }
 
     public ReactorBluePrintPacket(CompoundTag tag) {
-        this(tag, 0f, 3600, 5000, 0, 0);
+        this(tag, 0f, RodProfiler.CoolerRodType.GRAPHITE.getProfiler().time(),  RodProfiler.HeatRodType.URANIUM.getProfiler().time(), 0, 0);
     }
 
     public ReactorBluePrintPacket(float heat) {
-        this(new CompoundTag(), heat, 3600,5000, 0, 0);
+        this(new CompoundTag(), heat, RodProfiler.CoolerRodType.GRAPHITE.getProfiler().time(), RodProfiler.HeatRodType.URANIUM.getProfiler().time(), 0, 0);
     }
 
     public ReactorBluePrintPacket(int graphiteTime, int uraniumTime, int countGraphiteRod, int countUraniumRod) {
@@ -85,6 +86,6 @@ public class ReactorBluePrintPacket extends SimplePacketBase {
     }
 
     public static double calculateTotalInit(int a, int b) {
-        return Math.pow(3600, a) + Math.pow(5000, b);
+        return Math.pow(RodProfiler.CoolerRodType.GRAPHITE.getProfiler().time(), a) + Math.pow( RodProfiler.HeatRodType.URANIUM.getProfiler().time(), b);
     }
 }

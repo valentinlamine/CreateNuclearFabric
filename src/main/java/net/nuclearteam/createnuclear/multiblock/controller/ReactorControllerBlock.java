@@ -76,6 +76,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         }
         else {
             if (heldItem.is(CNItems.REACTOR_BLUEPRINT.get()) && controllerBlockEntity.inventory.getItem(0).isEmpty()){
+                CreateNuclear.LOGGER.warn("heldItem: {}", heldItem.serializeNBT());
                 withBlockEntityDo(worldIn, pos, be -> {
                     be.inventory.setStackInSlot(0, heldItem);
                     be.configuredPattern = heldItem;
@@ -125,7 +126,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
     @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         super.onPlace(state, level, pos, oldState, movedByPiston);
-        if (Boolean.TRUE.equals(state.getValue(ASSEMBLED)))
+        if (state.getValue(ASSEMBLED))
             return;
         List<? extends Player> players = level.players();
         ReactorControllerBlock controller = (ReactorControllerBlock) state.getBlock();
@@ -180,7 +181,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
             ReactorOutput block = (ReactorOutput) level.getBlockState(pos).getBlock();
             ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
 
-            if (Boolean.TRUE.equals(state.getValue(ASSEMBLED)) && rotation != 0) { // Starting the energy
+            if (state.getValue(ASSEMBLED) && rotation != 0) { // Starting the energy
                 entity.speed = rotation;
                 entity.setSpeed(Math.abs(entity.speed));
                 entity.updateSpeed = true;

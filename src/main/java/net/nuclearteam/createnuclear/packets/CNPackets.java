@@ -1,6 +1,5 @@
 package net.nuclearteam.createnuclear.packets;
 
-import com.simibubi.create.AllPackets;
 import com.simibubi.create.foundation.networking.SimplePacketBase;
 import me.pepperbell.simplenetworking.S2CPacket;
 import me.pepperbell.simplenetworking.SimpleChannel;
@@ -44,7 +43,7 @@ public enum CNPackets {
     }
 
     public static void sendToNear(Level world, BlockPos pos, int range, Object message) {
-        AllPackets.getChannel().sendToClientsAround((S2CPacket) message, (ServerLevel) world, pos, range);
+        CNPackets.getChannel().sendToClientsAround((S2CPacket) message, (ServerLevel) world, pos, range);
     }
 
     private static class PacketType<T extends SimplePacketBase> {

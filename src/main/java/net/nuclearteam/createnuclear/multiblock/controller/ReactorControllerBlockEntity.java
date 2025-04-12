@@ -1,6 +1,5 @@
 package net.nuclearteam.createnuclear.multiblock.controller;
 
-import com.mojang.authlib.minecraft.client.ObjectMapper;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -23,27 +22,24 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
-import net.nuclearteam.createnuclear.gui.CNIconButton;
 import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.multiblock.IHeat;
 import net.nuclearteam.createnuclear.multiblock.output.ReactorOutput;
 import net.nuclearteam.createnuclear.multiblock.output.ReactorOutputEntity;
 import net.nuclearteam.createnuclear.multiblock.input.ReactorInputEntity;
+import net.nuclearteam.createnuclear.multiblock.controller.RodProfiler.CoolerRodType;
+import net.nuclearteam.createnuclear.multiblock.controller.RodProfiler.HeatRodType;
 
 import net.nuclearteam.createnuclear.tags.CNTag;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static net.nuclearteam.createnuclear.CNMultiblock.*;
 import static net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
@@ -51,41 +47,29 @@ import static net.nuclearteam.createnuclear.multiblock.controller.ReactorControl
 public class ReactorControllerBlockEntity extends SmartBlockEntity implements IInteractionChecker, SidedStorageBlockEntity, IHaveGoggleInformation {
     public boolean destroyed = false;
     public boolean created = false;
-    public boolean test = true;
-    //public int speed = 16; // This is the result speed of the reactor, change this to change the total capacity
-
-    public boolean sendUpdate;
 
     public ReactorControllerBlock controller;
 
     public ReactorControllerInventory inventory;
 
-    //private boolean powered;
-    public State powered = State.OFF;
-    public float reactorPower;
-    public float lastReactorPower;
     public int countUraniumRod;
     public int countGraphiteRod;
     int overFlowHeatTimer = 0;
     int overFlowLimiter = 30;
     double overHeat = 0;
-    public int baseUraniumHeat = 25;
-    public int baseGraphiteHeat = -10;
-    public int proximityUraniumHeat = 5;
-    public int proximityGraphiteHeat = -5;
     public int maxUraniumPerGraphite = 3;
-    public int graphiteTimer = 3600;
-    public int uraniumTimer = 3600;
+
+    private final RodProfiler fuelRodProfiler;
+    private final RodProfiler coolerRodProfiler;
+
     public int heat;
     public double total;
-    public CompoundTag screen_pattern = new CompoundTag();
-    private List<CNIconButton> switchButtons;
     public ItemStack configuredPattern;
 
     private ItemStack fuelItem;
     private ItemStack coolerItem;
 
-    private int[][] formattedPattern = new int[][]{
+    private final int[][] formattedPattern = new int[][]{
             {99,99,99,0,1,2,99,99,99},
             {99,99,3,4,5,6,7,99,99},
             {99,8,9,10,11,12,13,14,99},
@@ -96,7 +80,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
             {99,99,49,50,51,52,53,99,99},
             {99,99,99,54,55,56,99,99,99}
     };
-    private int[][] offsets = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
+    private final int[][] offsets = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
 
 
 
@@ -104,6 +88,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         super(type, pos, state);
         inventory = new ReactorControllerInventory(this);
         configuredPattern = ItemStack.EMPTY;
+
+        this.coolerRodProfiler = CoolerRodType.GRAPHITE.getProfiler();
+        this.fuelRodProfiler = HeatRodType.URANIUM.getProfiler();
     }
 
     @Override
@@ -113,7 +100,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
 
     public boolean getAssembled() { // permet de savoir si le réacteur est assemblé ou pas.
         BlockState state = getBlockState();
-        return Boolean.TRUE.equals(state.getValue(ASSEMBLED));
+        return state.getValue(ASSEMBLED);
     }
 
     @SuppressWarnings("deprecation")
@@ -153,7 +140,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         configuredPattern = ItemStack.of(compound.getCompound("items"));
         if (ItemStack.of(compound.getCompound("cooler")) != null || ItemStack.of(compound.getCompound("fuel")) != null) {
             coolerItem = ItemStack.of(compound.getCompound("cooler"));
+            coolerRodProfiler.getCoolerRodType(coolerItem);
             fuelItem = ItemStack.of(compound.getCompound("fuel"));
+            fuelRodProfiler.getCoolerRodType(fuelItem);
 
         }
         total = compound.getDouble("total");
@@ -169,16 +158,12 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         compound.put("items", configuredPattern.serializeNBT());
 
         if (coolerItem != null || fuelItem != null) {
-            compound.put("cooler", coolerItem.serializeNBT());
-            compound.put("fuel", fuelItem.serializeNBT());
+            compound.put("cooler", coolerRodProfiler.items().serializeNBT());
+            compound.put("fuel", fuelRodProfiler.items().serializeNBT());
         }
 
         compound.putDouble("total", calculateProgress());
         super.write(compound, clientPacket);
-    }
-
-    public enum State {
-        ON, OFF;
     }
 
     private void explodeReactorCore(Level level, BlockPos pos) {
@@ -257,8 +242,8 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         // graphiteTimer = configuredPattern.getOrCreateTag().getInt("graphiteTime");
         // uraniumTimer = configuredPattern.getOrCreateTag().getInt("uraniumTime");
 
-        double totalGraphiteRodLife = (double) graphiteTimer / countGraphiteRod;
-        double totalUraniumRodLife = (double) uraniumTimer / countUraniumRod;
+        double totalGraphiteRodLife = (double) coolerRodProfiler.time() / countGraphiteRod;
+        double totalUraniumRodLife = (double) fuelRodProfiler.time() / countUraniumRod;
 
         return totalGraphiteRodLife + totalUraniumRodLife;
     }
@@ -292,10 +277,10 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         ListTag list = inventory.getStackInSlot(0).getOrCreateTag().getCompound("pattern").getList("Items", Tag.TAG_COMPOUND);
         for (int i = 0; i < list.size(); i++) {
             if (CNTag.ItemTags.FUEL.matches(ItemStack.of(list.getCompound(i)))) {
-                heat += baseUraniumHeat;
+                heat += fuelRodProfiler.baseHeat();
                 currentRod = "u";
             } else if (CNTag.ItemTags.COOLER.matches(ItemStack.of(list.getCompound(i)))) {
-                heat += baseGraphiteHeat;
+                heat += coolerRodProfiler.baseHeat();
                 currentRod = "g";
             }
             for (int j = 0; j < formattedPattern.length; j++) {
@@ -324,9 +309,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                                 if (currentRod.equals("u")) {
                                     ItemStack stack = ItemStack.of(list.getCompound(l));
                                     if (CNTag.ItemTags.FUEL.matches(stack)) {
-                                        heat += proximityUraniumHeat;
+                                        heat += fuelRodProfiler.proximityHeat();
                                     } else if (CNTag.ItemTags.COOLER.matches(stack)) {
-                                        heat += proximityGraphiteHeat;
+                                        heat += coolerRodProfiler.proximityHeat();
                                     }
                                 }
                             }
@@ -361,12 +346,6 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         }
 
         return posInput;
-    }
-
-    private CompoundTag convertePattern(CompoundTag compoundTag) {
-        ListTag pattern = compoundTag.getList("Items", Tag.TAG_COMPOUND);
-
-        return null;
     }
 
     private static BlockPos FindController(char character) {
