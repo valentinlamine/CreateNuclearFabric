@@ -8,6 +8,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.nuclearteam.createnuclear.CreateNuclear;
+import net.nuclearteam.createnuclear.config.CNConfigs;
 import net.nuclearteam.createnuclear.tags.CNTag;
 
 public interface IHeat extends IWrenchable {
@@ -58,12 +59,55 @@ public interface IHeat extends IWrenchable {
 
             heat = Math.abs(heat);
 
-            if (heat > 0 && heat < 500) return SAFETY;
-            if (heat >= 501 && heat <= 800) return CAUTION;
-            if (heat >= 801 && heat <= 1000) return WARNING;
-            if (heat >= 1001) return DANGER;
+            HeatThresholds thresholds = HeatThresholds.of(CNConfigs.common().rods.maxHeat.get());
+            int h = Math.min(heat, thresholds.maxHeat());
 
-            return NONE;
+            return h < thresholds.safety() ? SAFETY
+                 : h < thresholds.caution() ? CAUTION
+                 : h < thresholds.maxHeat() ? WARNING
+                 : DANGER;
+
+        }
+
+        public static HeatLevel ofTest1(int heat) {
+            if (heat < 0) return NONE;
+
+            heat = Math.abs(heat);
+
+            HeatThresholds thresholds = HeatThresholds.of(CNConfigs.common().rods.maxHeat.get());
+
+            if (heat < thresholds.safety()) {
+                return SAFETY;
+            }
+
+            if (heat < thresholds.caution()) {
+                return CAUTION;
+            }
+
+            if (heat < thresholds.maxHeat()) {
+                return WARNING;
+            }
+
+            return DANGER;
+        }
+        public static HeatLevel ofTest2(int heat) {
+            if (heat < 0) return NONE;
+
+            heat = Math.abs(heat);
+
+            int maxHeat = CNConfigs.common().rods.maxHeat.get();
+
+            int safetyThreshold = (int) (0.5 * maxHeat);  // 50%
+            int cautionThreshold = (int) (0.8 * maxHeat); // 80%
+
+            HeatLevelMapper mapper = HeatLevelMapper.newBuilder()
+                    .level(HeatLevel.SAFETY).ifHeatBelow(safetyThreshold)
+                    .level(HeatLevel.CAUTION).ifHeatBetween(safetyThreshold, cautionThreshold)
+                    .level(HeatLevel.WARNING).ifHeatBetween(cautionThreshold + 1, maxHeat)
+                    .otherwise(HeatLevel.DANGER)
+                    .build();
+
+            return mapper.map(heat);
         }
 
         public static LangBuilder getFormattedHeatText(int heat) {

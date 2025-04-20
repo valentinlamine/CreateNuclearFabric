@@ -5,7 +5,12 @@ public class CRod extends CNConfigBase {
     public final ConfigInt graphiteRodLifetime = i(3600, 100, 5000, "Graphite rod lifespan", Comments.GraphiteRodLifetime, Comments.hintTick);
     public final ConfigInt maxHeat = i(1000, 200, 1000, "Maximum reactor heat", Comments.maxHeat, Comments.hintHeat);
 
-    public final ConfigGroup rodInfo = group(1, "", Comments.warning);
+    //public final ConfigGroup rodInfo = group(1, "Uranium Rod infos", Comments.warning);
+    public final ConfigInt uraMaxGraph = i(3, 0, 20, "Uranium max for graphite", Comments.warning, Comments.maxUraniumPerGraphite);
+    public final ConfigInt BoProxiUranium = i(5, -20, 20, "Uranium proxy bonus", Comments.warning, Comments.uraniumProximityBonus);
+    public final ConfigInt MaProxigraphite = i(-5, -20, 20, "Graphite proxy Malus", Comments.warning, Comments.graphiteProximityMalus);
+    public final ConfigInt baseValueUranium = i(25, -50, 50, "Base value Uranium", Comments.warning, Comments.uraniumBaseValue);
+    public final ConfigInt baseValueGraphite = i(-10, -50, 50, "Base value Graphite", Comments.warning, Comments.graphiteBaseValue);
 
     @Override
     public String getName() {
