@@ -1,20 +1,16 @@
 package net.nuclearteam.createnuclear.world.biome.surface;
 
-
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.SurfaceRules;
-import net.minecraft.world.level.levelgen.material.MaterialRuleList;
-import net.nuclearteam.createnuclear.block.CNBlocks;
-import net.nuclearteam.createnuclear.world.biome.CNBiome;
+import net.nuclearteam.createnuclear.world.biome.d;
 
-public class CNMaterialRules {
+public class IrradiatedSurfaceRuleData {
 
-    public static final SurfaceRules.RuleSource DIRT = makeStateRule(Blocks.DIRT);
-    public static final SurfaceRules.RuleSource GRASS_BLOCK = makeStateRule(Blocks.GRASS_BLOCK);
-    public static final SurfaceRules.RuleSource NETHERITE_BLOCK = makeStateRule(Blocks.NETHERITE_BLOCK);
-    public static final SurfaceRules.RuleSource LEAD_ORE = makeStateRule(CNBlocks.LEAD_ORE.get());
-
+    private static final SurfaceRules.RuleSource DIRT = makeStateRule(Blocks.DIRT);
+    private static final SurfaceRules.RuleSource GRASS_BLOCK = makeStateRule(Blocks.GRASS_BLOCK);
+    private static final SurfaceRules.RuleSource RED_TERRACOTTA = makeStateRule(Blocks.RED_TERRACOTTA);
+    private static final SurfaceRules.RuleSource BLUE_TERRACOTTA = makeStateRule(Blocks.BLUE_TERRACOTTA);
 
     public static SurfaceRules.RuleSource makeRules()
     {
@@ -22,17 +18,16 @@ public class CNMaterialRules {
         SurfaceRules.RuleSource grassSurface = SurfaceRules.sequence(SurfaceRules.ifTrue(isAtOrAboveWaterLevel, GRASS_BLOCK), DIRT);
 
         return SurfaceRules.sequence(
-                SurfaceRules.ifTrue(SurfaceRules.isBiome(CNBiome.IRRADIATED_BIOME), LEAD_ORE),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(d.HOT_RED.getBiome()), RED_TERRACOTTA),
+                SurfaceRules.ifTrue(SurfaceRules.isBiome(d.COLD_BLUE.getBiome()), BLUE_TERRACOTTA),
 
                 // Default to a grass and dirt surface
                 SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, grassSurface)
-
         );
     }
 
-    public static SurfaceRules.RuleSource makeStateRule(Block block)
+    private static SurfaceRules.RuleSource makeStateRule(Block block)
     {
         return SurfaceRules.state(block.defaultBlockState());
     }
-
 }

@@ -1,9 +1,6 @@
-package net.nuclearteam.createnuclear.world.biome;
+package net.nuclearteam.createnuclear.world.biome.old;
 
 
-import com.mojang.blaze3d.shaders.Effect;
-import com.simibubi.create.AllParticleTypes;
-import com.simibubi.create.content.kinetics.base.RotationIndicatorParticleData;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;

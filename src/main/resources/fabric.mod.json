@@ -34,7 +34,7 @@
 			"net.nuclearteam.createnuclear.compact.recipe.emi.CNEmi"
 		],
 		"terrablender": [
-			"net.nuclearteam.createnuclear.world.biome.CNTerraBlenderAPI"
+          "net.nuclearteam.createnuclear.world.biome.Biomes"
 		]
 	},
 	"mixins": [

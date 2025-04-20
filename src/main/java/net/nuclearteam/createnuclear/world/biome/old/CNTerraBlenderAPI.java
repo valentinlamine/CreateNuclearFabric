@@ -1,15 +1,11 @@
-package net.nuclearteam.createnuclear.world.biome;
+package net.nuclearteam.createnuclear.world.biome.old;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.nuclearteam.createnuclear.CreateNuclear;
-import net.nuclearteam.createnuclear.world.biome.surface.CNMaterialRules;
-import terrablender.api.Region;
+import net.nuclearteam.createnuclear.world.biome.old.surface.CNMaterialRules;
 import terrablender.api.Regions;
 import terrablender.api.SurfaceRuleManager;
 import terrablender.api.TerraBlenderApi;
-
-import java.util.concurrent.locks.ReentrantLock;
 
 public class CNTerraBlenderAPI implements TerraBlenderApi {
     @Override

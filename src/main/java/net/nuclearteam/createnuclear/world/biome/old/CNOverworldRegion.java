@@ -1,4 +1,4 @@
-package net.nuclearteam.createnuclear.world.biome;
+package net.nuclearteam.createnuclear.world.biome.old;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Registry;

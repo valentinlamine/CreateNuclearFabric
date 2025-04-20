@@ -8,7 +8,7 @@ import net.minecraft.data.PackOutput;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.world.CNConfiguredFeatures;
 import net.nuclearteam.createnuclear.world.CNPlacedFeatures;
-import net.nuclearteam.createnuclear.world.biome.CNBiomeData;
+import net.nuclearteam.createnuclear.world.biome.old.CNBiomeData;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
