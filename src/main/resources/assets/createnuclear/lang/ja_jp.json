@@ -7,6 +7,8 @@
   "advancement.createnuclear.coal_dust.desc": "石炭や木炭を砕いて、重要なクラフト材料である石炭粉を得る。",
   "advancement.createnuclear.dye_anti_radiation_armor": "私の鎧を改造する",
   "advancement.createnuclear.dye_anti_radiation_armor.desc": "放射線防護服を好きな色に染める",
+  "advancement.createnuclear.eated_yellowcake": "Eating Yellowcake",
+  "advancement.createnuclear.eated_yellowcake.desc": "What did you expect ?\n§7(Hidden Advancement)",
   "advancement.createnuclear.enriched_yellowcake": "イエローケーキの強化",
   "advancement.createnuclear.enriched_yellowcake.desc": "ファンを使ってイエローケーキを豊かにし、より強力にする",
   "advancement.createnuclear.full_anti_radiation_armor": "完全に保護",
