@@ -243,5 +243,7 @@
   "tag.item.createnuclear.fuel": "Fuel",
   "tag.item.minecraft.all.campfires": "All Campfires",
   "tag.item.minecraft.campfires": "Campfires",
-  "tag.item.trinkets.head.face": "Head Face"
+  "tag.item.trinkets.head.face": "Head Face",
+
+  "overlay.event_message": "⚠ Warning ⚠ %s timer"
 }

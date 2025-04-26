@@ -11,8 +11,10 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.multiblock.blueprint.ReactorBluePrintPacket;
+import net.nuclearteam.createnuclear.multiblock.controller.EventTriggerPacket;
 
 import static com.simibubi.create.foundation.networking.SimplePacketBase.NetworkDirection;
+import static com.simibubi.create.foundation.networking.SimplePacketBase.NetworkDirection.PLAY_TO_CLIENT;
 import static com.simibubi.create.foundation.networking.SimplePacketBase.NetworkDirection.PLAY_TO_SERVER;
 
 import java.util.function.Function;
@@ -21,6 +23,9 @@ public enum CNPackets {
     // To server
     //CONFIGURE_REACTOR_CONTROLLER(ConfigureReactorControllerPacket.class, ConfigureReactorControllerPacket::new, PLAY_TO_SERVER),
     CONFIGURE_REACTOR_PATTERN(ReactorBluePrintPacket.class, ReactorBluePrintPacket::new, PLAY_TO_SERVER),
+
+    // To client
+    TRIGGER_EVENT_TEXT_OVERLAY(EventTriggerPacket.class, EventTriggerPacket::new, PLAY_TO_CLIENT),
     ;
 
     public static final ResourceLocation CHANNEL_NAME = CreateNuclear.asResource("main");
@@ -28,7 +33,7 @@ public enum CNPackets {
     public static final String NETWORK_VERSION_STR = String.valueOf(NETWORK_VERSION);
     private static SimpleChannel channel;
 
-    private PacketType<?> packetType;
+    private final PacketType<?> packetType;
 
     <T extends SimplePacketBase> CNPackets(Class<T> type, Function<FriendlyByteBuf, T> factory, NetworkDirection direction) {
         packetType = new PacketType<>(type, factory, direction);
@@ -50,9 +55,9 @@ public enum CNPackets {
     private static class PacketType<T extends SimplePacketBase> {
         private static int index = 0;
 
-        private Function<FriendlyByteBuf, T> decoder;
-        private Class<T> type;
-        private NetworkDirection direction;
+        private final Function<FriendlyByteBuf, T> decoder;
+        private final Class<T> type;
+        private final NetworkDirection direction;
 
         private PacketType(Class<T> type, Function<FriendlyByteBuf, T> factory, NetworkDirection direction) {
             decoder = factory;
