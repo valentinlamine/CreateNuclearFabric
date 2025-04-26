@@ -1,10 +1,5 @@
-<<<<<<< HEAD:src/generated/resources/.cache/315ef53ca22190e8ae77c43fa79bbc348927a8bd
-// 1.20.1	2025-04-26T17:57:18.1821678	CreateNuclear/CreateNuclear's Processing Recipes
-420333091a2e425a6db6fb157266c5626ac2d9b3 data\createnuclear\recipes\crushing\granite.json
-=======
-// 1.20.1	2025-03-15T11:15:54.321	Create Nuclear/CreateNuclear's Processing Recipes
+// 1.20.1	2025-04-26T18:39:40.050044	Create Nuclear/CreateNuclear's Processing Recipes
 57154e35ebb09170bb39f5b3a72ecd49182697f2 data\createnuclear\recipes\crushing\granite.json
->>>>>>> main:src/generated/resources/.cache/5a34b29ec4d8a06e1e209d57e402a991866435fb
 4516b5574960b0f83f2c191949e62d85039028c7 data\createnuclear\recipes\compacting\uranium_fluid_to_yellowcake.json
 607980178060555690388cdb2325b69156878012 data\createnuclear\recipes\crushing\charcoal.json
 91c07d7804d0960aaa17a6258f00f1731ca458f5 data\createnuclear\recipes\item_application\reactor_output_from_shaft_and_reactor_casing.json

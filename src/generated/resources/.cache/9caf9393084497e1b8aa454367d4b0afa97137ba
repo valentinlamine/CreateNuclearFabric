@@ -1,12 +1,8 @@
-<<<<<<< HEAD:src/generated/resources/.cache/6a67f91da53a9bdd56109ef3b2943bce7c567c88
-// 1.20.1	2025-04-26T17:57:18.158776	CreateNuclear/Create Nuclear Advancements
-=======
-// 1.20.1	2025-03-15T11:15:54.3241002	Create Nuclear/Create Nuclear Advancements
->>>>>>> main:src/generated/resources/.cache/9caf9393084497e1b8aa454367d4b0afa97137ba
+// 1.20.1	2025-04-26T18:39:40.0530903	Create Nuclear/Create Nuclear Advancements
 4f963ff2f6c09a0272c25ebdb46423700e5256eb data\createnuclear\advancements\reactor_input.json
 91aab6f0a18aee167c63a3aece5fa9778cf52b0b data\createnuclear\advancements\reinforced_glass.json
-8e89393b2e396243d12cf5b29e283ab97c814519 data\createnuclear\advancements\graphite_rod.json
 5a41894d2428fb7297b98a6b78925a17af2a3095 data\createnuclear\advancements\uranium_liquid.json
+8e89393b2e396243d12cf5b29e283ab97c814519 data\createnuclear\advancements\graphite_rod.json
 384b002f95b70c595cedc692ed219d45931f1f5b data\createnuclear\advancements\anti_radiation_armor.json
 46f6044ed5c777f9fe08f7957c3d26e39d69f3c5 data\createnuclear\advancements\reactor_casing.json
 41069c530d33ea7d59cccddada0ceececd69f5af data\createnuclear\advancements\automatic_uranium.json
