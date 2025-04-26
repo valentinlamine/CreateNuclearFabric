@@ -29,8 +29,8 @@ public class CNPlacedFeatures {
         Holder<ConfiguredFeature<?,?>> uraniumOre = featureLookup.getOrThrow(CNConfiguredFeatures.URANIUM_ORE_KEY);
         Holder<ConfiguredFeature<?,?>> leadOre = featureLookup.getOrThrow(CNConfiguredFeatures.LEAD_ORE);
 
-        register(context, URANIUM_ORE, uraniumOre, placement(CountPlacement.of(6), -64,64));
-        register(context, LEAD_ORE, leadOre, placement(CountPlacement.of(10), -64,64));
+        register(context, URANIUM_ORE, uraniumOre, placement(CountPlacement.of(6), -64,20));
+        register(context, LEAD_ORE, leadOre, placement(CountPlacement.of(10), -64,320));
 
 
 
@@ -45,7 +45,7 @@ public class CNPlacedFeatures {
         return List.of(
             frequency,
             InSquarePlacement.spread(),
-            HeightRangePlacement.uniform(VerticalAnchor.absolute(minHeight), VerticalAnchor.absolute(maxHeight)),
+            HeightRangePlacement.triangle(VerticalAnchor.absolute(minHeight), VerticalAnchor.absolute(maxHeight)),
             CNConfigPlacementFilter.INSTANCE
         );
     }

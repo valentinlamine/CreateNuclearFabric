@@ -118,7 +118,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         controller.Rotate(state, pos.below(3), worldIn, 0);
         List<? extends Player> players = worldIn.players();
         for (Player p : players) {
-            p.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer"));
+            p.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer").withStyle(ChatFormatting.RED));
         }
     }
 
@@ -142,7 +142,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         controller.Rotate(state, pos.below(3), level, 0);
         List<? extends Player> players = level.players();
         for (Player p : players) {
-            p.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer"));
+            p.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer").withStyle(ChatFormatting.RED));
         }
     }
 
@@ -154,6 +154,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         if (result != null) { // the pattern is correct
             for (Player player : players) {
                 if (create && !entity.created) {
+                    player.sendSystemMessage(Component.translatable("reactor.info.assembled.creator").withStyle(ChatFormatting.GREEN));
                     level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, true));
                     entity.created = true;
                     entity.destroyed = false;
@@ -166,6 +167,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
         for (Player player : players) {
             if (!create && !entity.destroyed)
             {
+                player.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer").withStyle(ChatFormatting.RED));
                 level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, false));
                 entity.created = false;
                 entity.destroyed = true;

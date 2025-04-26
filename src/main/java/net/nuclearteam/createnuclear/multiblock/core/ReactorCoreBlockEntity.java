@@ -36,8 +36,7 @@ public class ReactorCoreBlockEntity extends ReactorCasingBlockEntity {
     public void tick() {
         super.tick();
 
-        if (level.isClientSide)
-            return;
+        if (level.isClientSide()) return;
 
         BlockPos controllerPos = getBlockPosForReactor();
         if (level.getBlockEntity(controllerPos) instanceof ReactorControllerBlockEntity reactorController) {
@@ -48,9 +47,10 @@ public class ReactorCoreBlockEntity extends ReactorCasingBlockEntity {
                     explodeReactorCore(level, getBlockPos(), explosionRadius);
                 } else {
                     countdownTicks++;
+                    CreateNuclear.LOGGER.warn("Countdown: " + countdownTicks + " ticks");
                 }
             } else {
-                countdownTicks = 0; // Réinitialise le compte à rebours si la chaleur n'est pas en danger
+                countdownTicks = 0; // Reset the countdown if the heat level is not in danger
             }
         }
     }
@@ -78,35 +78,8 @@ public class ReactorCoreBlockEntity extends ReactorCasingBlockEntity {
 
     private final Set<BlockPos> radiationZone = new HashSet<>();
 
-    private void explodeReactorCore(Level level, BlockPos center, float radius) {
-        int r = (int) Math.ceil(radius);
-
-        for (int x = -r; x <= r; x++) {
-            for (int y = -r; y <= r; y++) {
-                for (int z = -r; z <= r; z++) {
-                    BlockPos currentPos = center.offset(x, y, z);
-                    double distanceSquared = x * x + y * y + z * z;
-                    double distance = Math.sqrt(distanceSquared);
-
-                    if (distance <= radius) {
-                        BlockState blockState = level.getBlockState(currentPos);
-                        if (!blockState.isAir() && !blockState.is(Blocks.BEDROCK)) {
-                            double probability = distance / radius;
-                            double noise = level.random.nextDouble();
-
-                            if (distance > radius * 0.7 && noise < 0.4) {
-                                continue;
-                            }
-
-                            level.destroyBlock(currentPos, false);
-                        }
-
-                        // Ajoute cette position à la zone contaminée
-                        radiationZone.add(currentPos.immutable());
-                    }
-                }
-            }
-        }
+    private void explodeReactorCore(Level world, BlockPos pos) {
+        level.explode(null, pos.getX(), pos.getY(), pos.getZ(), 20F, Level.ExplosionInteraction.BLOCK);
     }
 
     private static BlockPos FindController(char character) {

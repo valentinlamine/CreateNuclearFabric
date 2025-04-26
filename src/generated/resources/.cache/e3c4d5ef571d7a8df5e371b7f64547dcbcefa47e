@@ -1,0 +1,13 @@
+<<<<<<< HEAD:src/generated/resources/.cache/eeb0c0177a0a58e9de2243c4ed5e6e9c67b63075
+// 1.20.1	2025-04-26T17:57:18.1852421	CreateNuclear/CreateNuclear Generated Registry Entries
+b0e1ee7314412507fd7346cb48b29d105f6186ad data\createnuclear\worldgen\configured_feature\uranium_ore.json
+a61c7bfb479500e63d7aeac1b68ff8d6f5882a99 data\createnuclear\worldgen\placed_feature\uranium_ore.json
+b68555f371c9700aa4ecfa9370b010de8fe25b60 data\createnuclear\worldgen\configured_feature\lead_ore.json
+a3541d64edfb321b304cac4ab7f5cf00269ac101 data\createnuclear\worldgen\placed_feature\lead_ore.json
+=======
+// 1.20.1	2025-03-15T11:15:54.3078299	Create Nuclear/CreateNuclear Generated Registry Entries
+b0e1ee7314412507fd7346cb48b29d105f6186ad data\createnuclear\worldgen\configured_feature\uranium_ore.json
+400d0e12dba1703877340f7c1c5472f1f8f3586c data\createnuclear\worldgen\placed_feature\uranium_ore.json
+b68555f371c9700aa4ecfa9370b010de8fe25b60 data\createnuclear\worldgen\configured_feature\lead_ore.json
+baa08c4449306a98ebbae935f2300173b366c431 data\createnuclear\worldgen\placed_feature\lead_ore.json
+>>>>>>> main:src/generated/resources/.cache/e3c4d5ef571d7a8df5e371b7f64547dcbcefa47e

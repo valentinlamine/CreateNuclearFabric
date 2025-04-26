@@ -21,6 +21,7 @@ import net.nuclearteam.createnuclear.groups.CNGroup;
 import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.menu.CNMenus;
 import net.nuclearteam.createnuclear.packets.CNPackets;
+import net.nuclearteam.createnuclear.potion.CNPotions;
 import net.nuclearteam.createnuclear.tags.CNTag;
 import net.nuclearteam.createnuclear.world.CNConfigPlacementFilter;
 import net.nuclearteam.createnuclear.world.CNPlacementModifiers;
@@ -34,6 +35,7 @@ public class CreateNuclear implements ModInitializer {
 	public static final String MOD_ID = "createnuclear";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 	public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID);
+	public static final CreateNuclearRegistrate POTION_REGISTRATE = CreateNuclearRegistrate.create(MOD_ID);
 
 
 
@@ -54,16 +56,18 @@ public class CreateNuclear implements ModInitializer {
 		CNTag.registerModItems();
 		CNPackets.registerPackets();
 		CNPackets.getChannel().initServerListener();
-
+		CNPotions.init();
 		CNWorldGeneration.generateModWorldGen();
 		CNMobDefaultAttribute.register();
 		CNMobEntityType.registerCNMod();
 
 		REGISTRATE.register();
+		POTION_REGISTRATE.register();
 		CNRecipeTypes.register();
 		CNPlacementModifiers.register();
 
 		CNConfigs.register();
+		CNPotions.registerPotionRecipes();
 
 		CNFanProcessingTypes.register();
 		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);
