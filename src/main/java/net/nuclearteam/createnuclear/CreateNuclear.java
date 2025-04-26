@@ -22,6 +22,8 @@ import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.menu.CNMenus;
 import net.nuclearteam.createnuclear.packets.CNPackets;
 import net.nuclearteam.createnuclear.tags.CNTag;
+import net.nuclearteam.createnuclear.world.CNConfigPlacementFilter;
+import net.nuclearteam.createnuclear.world.CNPlacementModifiers;
 import net.nuclearteam.createnuclear.world.gen.CNWorldGeneration;
 
 import org.slf4j.Logger;
@@ -59,6 +61,7 @@ public class CreateNuclear implements ModInitializer {
 
 		REGISTRATE.register();
 		CNRecipeTypes.register();
+		CNPlacementModifiers.register();
 
 		CNConfigs.register();
 

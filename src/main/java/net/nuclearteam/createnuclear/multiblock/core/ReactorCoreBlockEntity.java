@@ -43,7 +43,7 @@ public class ReactorCoreBlockEntity extends ReactorCasingBlockEntity {
         if (level.getBlockEntity(controllerPos) instanceof ReactorControllerBlockEntity reactorController) {
             int heat = (int) reactorController.configuredPattern.getOrCreateTag().getDouble("heat");
             if (IHeat.HeatLevel.of(heat) == IHeat.HeatLevel.DANGER) {
-                if (countdownTicks >= CNConfigs.common().explose.time.get()) { // 300 ticks = 15 secondes
+                if (countdownTicks >= CNConfigs.common().explode.time.get()) { // 300 ticks = 15 secondes
                     float explosionRadius = calculateExplosionRadius(reactorController.countUraniumRod);
                     explodeReactorCore(level, getBlockPos(), explosionRadius);
                 } else {
@@ -56,7 +56,7 @@ public class ReactorCoreBlockEntity extends ReactorCasingBlockEntity {
     }
 
     private float calculateExplosionRadius(int countUraniumRod) {
-        return 10F + countUraniumRod; // Ajuste selon tes besoins
+        return CNConfigs.common().explode.size.getF() + countUraniumRod;
     }
 
     private void applyRadiationEffect(Level level, BlockPos center, float radius) {
