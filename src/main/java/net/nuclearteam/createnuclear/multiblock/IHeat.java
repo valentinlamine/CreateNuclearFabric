@@ -55,6 +55,23 @@ public interface IHeat extends IWrenchable {
         }
 
         public static HeatLevel of(int heat) {
+            return ofTest3(heat);
+        }
+
+        public static HeatLevel ofInit(int heat) {
+            if (heat < 0) return NONE;
+
+            heat = Math.abs(heat);
+
+            if (heat > 0 && heat < 500) return SAFETY;
+            if (heat >= 501 && heat <= 800) return CAUTION;
+            if (heat >= 801 && heat <= 1000) return WARNING;
+            if (heat >= 1001) return DANGER;
+
+            return NONE;
+        }
+
+        public static HeatLevel ofTest1(int heat) {
             if (heat < 0) return NONE;
 
             heat = Math.abs(heat);
@@ -69,7 +86,7 @@ public interface IHeat extends IWrenchable {
 
         }
 
-        public static HeatLevel ofTest1(int heat) {
+        public static HeatLevel ofTest2(int heat) {
             if (heat < 0) return NONE;
 
             heat = Math.abs(heat);
@@ -90,7 +107,8 @@ public interface IHeat extends IWrenchable {
 
             return DANGER;
         }
-        public static HeatLevel ofTest2(int heat) {
+
+        public static HeatLevel ofTest3(int heat) {
             if (heat < 0) return NONE;
 
             heat = Math.abs(heat);

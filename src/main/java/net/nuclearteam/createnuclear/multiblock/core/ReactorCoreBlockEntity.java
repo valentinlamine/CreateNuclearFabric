@@ -44,7 +44,7 @@ public class ReactorCoreBlockEntity extends ReactorCasingBlockEntity {
             if (IHeat.HeatLevel.of(heat) == IHeat.HeatLevel.DANGER) {
                 if (countdownTicks >= CNConfigs.common().explode.time.get()) { // 300 ticks = 15 secondes
                     float explosionRadius = calculateExplosionRadius(reactorController.countUraniumRod);
-                    explodeReactorCore(level, getBlockPos());
+                    explodeReactorCore(level, getBlockPos(), explosionRadius);
                 } else {
                     countdownTicks++;
                     CreateNuclear.LOGGER.warn("Countdown: " + countdownTicks + " ticks");
@@ -78,8 +78,8 @@ public class ReactorCoreBlockEntity extends ReactorCasingBlockEntity {
 
     private final Set<BlockPos> radiationZone = new HashSet<>();
 
-    private void explodeReactorCore(Level world, BlockPos pos) {
-        level.explode(null, pos.getX(), pos.getY(), pos.getZ(), 20F, Level.ExplosionInteraction.BLOCK);
+    private void explodeReactorCore(Level world, BlockPos pos, float radius) {
+        level.explode(null, pos.getX(), pos.getY(), pos.getZ(), radius, Level.ExplosionInteraction.BLOCK);
     }
 
     private static BlockPos FindController(char character) {

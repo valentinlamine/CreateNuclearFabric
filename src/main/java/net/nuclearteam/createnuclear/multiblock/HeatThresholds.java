@@ -12,4 +12,19 @@ public record HeatThresholds(int safety, int caution, int maxHeat) {
         int tCaution = 800  * maxHeat / 1000;  // ancien 800 → 80%
         return new HeatThresholds(tSafety, tCaution, maxHeat);
     }
+
+    @Override
+    public int maxHeat() {
+        return maxHeat + 1;
+    }
+
+    @Override
+    public int caution() {
+        return caution + 1;
+    }
+
+    @Override
+    public int safety() {
+        return safety + 1;
+    }
 }
