@@ -53,7 +53,7 @@ public class HelmetOverlay  implements HudOverlay {
         RadiationOverlay.setCoverage(COVERAGE_FACTORS[index]);
 
         // Render helmet overlay texture
-        RenderHelper.renderTextureOverlay(graphics, HELMET_TEXTURES[index], 1f);
+        RenderHelper.renderTextureOverlay(graphics, HELMET_TEXTURES[index], 1f, 1f);
         // Render the hotbar behind the helmet overlay
         Minecraft.getInstance().gui.renderHotbar(12f, graphics);
     }
