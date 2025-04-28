@@ -5,7 +5,6 @@ import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Ch
 import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Helmets;
 import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Leggings;
 
-import com.mojang.blaze3d.shaders.Effect;
 import com.tterrag.registrate.util.entry.EntityEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;
 
@@ -16,28 +15,24 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.effects.CNEffects;
 import net.nuclearteam.createnuclear.entity.CNMobEntityType;
 import net.nuclearteam.createnuclear.groups.CNGroup;
-import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem;
-import net.nuclearteam.createnuclear.item.cloth.ClothItem.DyeItemList;
+import net.nuclearteam.createnuclear.item.cloth.ClothItem.DyeItemListCloth;
+import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.DyeItemList;
 import net.nuclearteam.createnuclear.multiblock.blueprint.ReactorBluePrint;
 import net.nuclearteam.createnuclear.tags.CNTag;
 import net.nuclearteam.createnuclear.utils.TextUtils;
 
 public class CNItems {
-
-
-
     public static final ItemEntry<Item>
         URANIUM_POWDER = CreateNuclear.REGISTRATE
                 .item("uranium_powder", Item::new)
@@ -178,7 +173,7 @@ public class CNItems {
             .register();
 
 
-    public static final DyeItemList<ClothItem> CLOTHS = new DyeItemList<>(color -> {
+    public static final DyeItemListCloth<ClothItem> CLOTHS = new DyeItemListCloth<>(color -> {
         String colorName = color.getSerializedName();
         return CreateNuclear.REGISTRATE.item(colorName+ "_cloth", p -> new ClothItem(p, color))
                 .tag(CNTag.ItemTags.CLOTH.tag)
