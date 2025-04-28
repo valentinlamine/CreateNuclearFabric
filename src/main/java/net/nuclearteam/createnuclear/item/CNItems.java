@@ -1,8 +1,8 @@
 package net.nuclearteam.createnuclear.item;
 
-import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Boot;
-import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Chestplate;
-import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Helmet;
+import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Boots;
+import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Chestplates;
+import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Helmets;
 import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Leggings;
 
 import com.mojang.blaze3d.shaders.Effect;
@@ -111,12 +111,12 @@ public class CNItems {
 
     ;
   
-    public static final Helmet.DyeItemHelmetList<Helmet> ANTI_RADIATION_HELMETS = new Helmet.DyeItemHelmetList<>(color -> {
+    public static final DyeItemList<Helmets> ANTI_RADIATION_HELMETS = new DyeItemList<>(color -> {
        String colorName = color.getSerializedName();
         TagKey<Item> tag = !colorName.equals("white")
                 ? CNTag.ItemTags.ANTI_RADIATION_HELMET_DYE.tag
                 : CNTag.ItemTags.ANTI_RADIATION_ARMOR.tag;
-        return CreateNuclear.REGISTRATE.item(colorName + "_anti_radiation_helmet", p -> new Helmet(p, color))
+        return CreateNuclear.REGISTRATE.item(colorName + "_anti_radiation_helmet", p -> new Helmets(p, color))
                .tag(
                    CNTag.forgeItemTag("helmets"),
                    CNTag.forgeItemTag("armors"),
@@ -130,13 +130,13 @@ public class CNItems {
 
     });
 
-    public static final Chestplate.DyeItemChestplateList<Chestplate> ANTI_RADIATION_CHESTPLATES = new Chestplate.DyeItemChestplateList<>(color -> {
+    public static final DyeItemList<Chestplates> ANTI_RADIATION_CHESTPLATES = new DyeItemList<>(color -> {
         String colorName = color.getSerializedName();
 
         TagKey<Item> tag = !colorName.equals("white")
                 ? CNTag.ItemTags.ANTI_RADIATION_CHESTPLATE_DYE.tag
                 : CNTag.ItemTags.ANTI_RADIATION_ARMOR.tag;
-        return CreateNuclear.REGISTRATE.item(colorName + "_anti_radiation_chestplate",  p -> new Chestplate(p, color))
+        return CreateNuclear.REGISTRATE.item(colorName + "_anti_radiation_chestplate",  p -> new Chestplates(p, color))
                 .tag(
                     CNTag.forgeItemTag("chestplates"),
                     CNTag.forgeItemTag("armors"),
@@ -150,7 +150,7 @@ public class CNItems {
 
     });
 
-    public static final Leggings.DyeItemLeggingsList<Leggings> ANTI_RADIATION_LEGGINGS = new Leggings.DyeItemLeggingsList<>(color -> {
+    public static final DyeItemList<Leggings> ANTI_RADIATION_LEGGINGS = new DyeItemList<>(color -> {
 
         String colorName = color.getSerializedName();
         TagKey<Item> tag = !colorName.equals("white")
@@ -170,8 +170,8 @@ public class CNItems {
 
     });
 
-    public static final ItemEntry<? extends AntiRadiationArmorItem.Boot>
-            ANTI_RADIATION_BOOTS = CreateNuclear.REGISTRATE.item("anti_radiation_boots", Boot::new)
+    public static final ItemEntry<? extends Boots>
+            ANTI_RADIATION_BOOTS = CreateNuclear.REGISTRATE.item("anti_radiation_boots", Boots::new)
             .tag(CNTag.forgeItemTag("boots"), CNTag.forgeItemTag("armors"), CNTag.ItemTags.ANTI_RADIATION_BOOTS_DYE.tag, CNTag.ItemTags.ANTI_RADIATION_ARMOR.tag, CNTag.ItemTags.ALL_ANTI_RADIATION_ARMORS.tag)
             .lang("Anti Radiation Boots")
             .model((c, p) -> p.generated(c, CreateNuclear.asResource("item/armors/anti_radiation_boots")))

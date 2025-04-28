@@ -8,6 +8,7 @@ import com.simibubi.create.foundation.item.TooltipModifier;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.resources.ResourceLocation;
+import net.nuclearteam.createnuclear.attributes.CNAttributes;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.blockentity.CNBlockEntities;
 import net.nuclearteam.createnuclear.effects.CNEffects;
@@ -62,6 +63,7 @@ public class CreateNuclear implements ModInitializer {
 		POTION_REGISTRATE.register();
 		CNRecipeTypes.register();
 		CNPotions.registerPotionRecipes();
+		CNAttributes.register();
 
 		CNFanProcessingTypes.register();
 		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);

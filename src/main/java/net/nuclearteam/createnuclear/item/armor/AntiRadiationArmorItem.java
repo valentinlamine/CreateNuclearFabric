@@ -1,20 +1,28 @@
 package net.nuclearteam.createnuclear.item.armor;
 
+import com.google.common.base.Suppliers;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
 import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import io.github.fabricators_of_create.porting_lib.item.ArmorTextureItem;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.*;
 import net.nuclearteam.createnuclear.CreateNuclear;
+import net.nuclearteam.createnuclear.attributes.CNAttributes;
 import net.nuclearteam.createnuclear.item.CNItems;
-import net.nuclearteam.createnuclear.item.cloth.ClothItem;
+
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class AntiRadiationArmorItem {
 
@@ -24,317 +32,199 @@ public class AntiRadiationArmorItem {
     public static final ArmorItem.Type BOOTS = ArmorItem.Type.BOOTS;
     public static final ArmorMaterial ARMOR_MATERIAL = CNArmorMaterials.ANTI_RADIATION_SUIT;
 
+    private static abstract class IrradiationImmuneArmor extends ArmorItem {
+        private final Supplier<Multimap<Attribute, AttributeModifier>> extraModifiers;
 
-    public static class Helmet extends ArmorItem implements ArmorTextureItem {
+        public IrradiationImmuneArmor(ArmorMaterial material, Type type, Properties properties) {
+            super(material, type, properties);
+            this.extraModifiers = Suppliers.memoize(() -> {
+                ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+                builder.put(CNAttributes.IRRADIATED_RESISTANCE.get(), new AttributeModifier(UUID.fromString("2AD30246-FEE1-4E67-B886-69FD380BB150"), "Irradiation Immune", 1, AttributeModifier.Operation.ADDITION));
+
+                return builder.build();
+            });
+        }
+
+        public IrradiationImmuneArmor(Type type, Properties properties) {
+            this(ARMOR_MATERIAL, type, properties);
+        }
+
+        @Override
+        public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
+            Multimap<Attribute, AttributeModifier> modifiers = super.getDefaultAttributeModifiers(slot);
+            ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+
+            for (Map.Entry<Attribute, AttributeModifier> entry : modifiers.entries()) {
+                builder.put(entry.getKey(), entry.getValue());
+            }
+
+            for (Map.Entry<Attribute, AttributeModifier> entry : extraModifiers.get().entries()) {
+                if (slot.getIndex() == EquipmentSlot.HEAD.getIndex()) {
+                    builder.put(entry.getKey(), entry.getValue());
+                }
+            }
+
+            return builder.build();
+        }
+    }
+
+    private static abstract class ColoredIrradiationImmuneArmor extends IrradiationImmuneArmor implements ArmorTextureItem {
         protected final DyeColor color;
-        public Helmet(Properties properties, DyeColor color) {
-            super(ARMOR_MATERIAL, HELMET, properties);
+
+        public ColoredIrradiationImmuneArmor(ArmorMaterial material, Type type, Properties properties, DyeColor color) {
+            super(material, type, properties);
             this.color = color;
+        }
+
+        public ColoredIrradiationImmuneArmor(Type type, Properties properties, DyeColor color) {
+           this(ARMOR_MATERIAL, type, properties, color);
         }
 
         @Override
         public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-            return String.valueOf(CreateNuclear.asResource("textures/models/armor/"+color+"_anti_radiation_suit_layer_"+(slot == EquipmentSlot.LEGS ? 2 : 1)+".png"));
+            int typeTexture = slot == EquipmentSlot.LEGS ? 2 : 1;
+            return CreateNuclear.asResource("textures/models/armor/"+color+"_anti_radiation_suit_layer_"+typeTexture+".png").toString();
         }
-
-        public static class DyeItemHelmetList<T extends Helmet> implements Iterable<ItemEntry<T>> {
-            private static final int COLOR_AMOUNT = DyeColor.values().length;
-
-            private final ItemEntry<?>[] entrys = new ItemEntry<?>[COLOR_AMOUNT];
-
-            public DyeItemHelmetList(Function<DyeColor, ItemEntry<? extends T>> filler) {
-                for (DyeColor color : DyeColor.values()) {
-                    entrys[color.ordinal()] = filler.apply(color);
-                }
-            }
-
-            @SuppressWarnings("unchecked")
-            public ItemEntry<T> get(DyeColor color) {
-                return (ItemEntry<T>) entrys[color.ordinal()];
-            }
-
-            public boolean contains(Item block) {
-                for (ItemEntry<?> entry : entrys) {
-                    if (entry.is(block)) return true;
-                }
-                return false;
-            }
-
-            @SuppressWarnings("unchecked")
-            public ItemEntry<T>[] toArray() {
-                return (ItemEntry<T>[]) Arrays.copyOf(entrys, entrys.length);
-            }
-
-            @Override
-            public Iterator<ItemEntry<T>> iterator() {
-                return new Iterator<>() {
-                    private int index = 0;
-                    @Override
-                    public boolean hasNext() {
-                        return index < entrys.length;
-                    }
-
-                    @SuppressWarnings("unchecked")
-                    @Override
-                    public ItemEntry<T> next() {
-                        if (!hasNext()) throw new NoSuchElementException();
-                        return (ItemEntry<T>) entrys[index++];
-                    }
-                };
-            }
-        }
-
-
     }
 
-    public static class Chestplate extends ArmorItem implements ArmorTextureItem {
-        protected final DyeColor color;
-
-        public Chestplate(Properties properties, DyeColor color) {
-            super(ARMOR_MATERIAL, CHESTPLATE, properties);
-            this.color = color;
-
+    public static class Helmets extends ColoredIrradiationImmuneArmor {
+        public Helmets(Properties properties, DyeColor color) {
+            super(HELMET, properties, color);
         }
-
-        @Override
-        public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-            return String.valueOf(CreateNuclear.asResource("textures/models/armor/"+color+"_anti_radiation_suit_layer_"+(slot == EquipmentSlot.LEGS ? 2 : 1)+".png"));
-        }
-
-        public static class DyeItemChestplateList<T extends Chestplate> implements Iterable<ItemEntry<T>> {
-            private static final int COLOR_AMOUNT = DyeColor.values().length;
-
-            private final ItemEntry<?>[] entrys = new ItemEntry<?>[COLOR_AMOUNT];
-
-            public DyeItemChestplateList(Function<DyeColor, ItemEntry<? extends T>> filler) {
-                for (DyeColor color : DyeColor.values()) {
-                    entrys[color.ordinal()] = filler.apply(color);
-                }
-            }
-
-            @SuppressWarnings("unchecked")
-            public ItemEntry<T> get(DyeColor color) {
-                return (ItemEntry<T>) entrys[color.ordinal()];
-            }
-
-            public boolean contains(Item block) {
-                for (ItemEntry<?> entry : entrys) {
-                    if (entry.is(block)) return true;
-                }
-                return false;
-            }
-
-            @SuppressWarnings("unchecked")
-            public ItemEntry<T>[] toArray() {
-                return (ItemEntry<T>[]) Arrays.copyOf(entrys, entrys.length);
-            }
-
-            @Override
-            public Iterator<ItemEntry<T>> iterator() {
-                return new Iterator<>() {
-                    private int index = 0;
-                    @Override
-                    public boolean hasNext() {
-                        return index < entrys.length;
-                    }
-
-                    @SuppressWarnings("unchecked")
-                    @Override
-                    public ItemEntry<T> next() {
-                        if (!hasNext()) throw new NoSuchElementException();
-                        return (ItemEntry<T>) entrys[index++];
-                    }
-                };
-            }
-        }
-
     }
 
-    public static class Leggings extends ArmorItem implements ArmorTextureItem {
-        protected final DyeColor color;
+    public static class Chestplates extends ColoredIrradiationImmuneArmor {
+        public Chestplates(Properties properties, DyeColor color) {
+            super(CHESTPLATE, properties, color);
+        }
+    }
+
+    public static class Leggings extends ColoredIrradiationImmuneArmor {
 
         public Leggings(Properties properties, DyeColor color) {
-            super(ARMOR_MATERIAL, LEGGINGS, properties);
-            this.color = color;
-
+            super(LEGGINGS, properties, color);
         }
-
-        @Override
-        public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-            return String.valueOf(CreateNuclear.asResource("textures/models/armor/"+color+"_anti_radiation_suit_layer_"+(slot == EquipmentSlot.LEGS ? 2 : 1)+".png"));
-        }
-
-        public static class DyeItemLeggingsList<T extends Leggings> implements Iterable<ItemEntry<T>> {
-            private static final int COLOR_AMOUNT = DyeColor.values().length;
-
-            private final ItemEntry<?>[] entrys = new ItemEntry<?>[COLOR_AMOUNT];
-
-            public DyeItemLeggingsList(Function<DyeColor, ItemEntry<? extends T>> filler) {
-                for (DyeColor color : DyeColor.values()) {
-                    entrys[color.ordinal()] = filler.apply(color);
-                }
-            }
-
-            @SuppressWarnings("unchecked")
-            public ItemEntry<T> get(DyeColor color) {
-                return (ItemEntry<T>) entrys[color.ordinal()];
-            }
-
-            public boolean contains(Item block) {
-                for (ItemEntry<?> entry : entrys) {
-                    if (entry.is(block)) return true;
-                }
-                return false;
-            }
-
-            @SuppressWarnings("unchecked")
-            public ItemEntry<T>[] toArray() {
-                return (ItemEntry<T>[]) Arrays.copyOf(entrys, entrys.length);
-            }
-
-            @Override
-            public Iterator<ItemEntry<T>> iterator() {
-                return new Iterator<>() {
-                    private int index = 0;
-                    @Override
-                    public boolean hasNext() {
-                        return index < entrys.length;
-                    }
-
-                    @SuppressWarnings("unchecked")
-                    @Override
-                    public ItemEntry<T> next() {
-                        if (!hasNext()) throw new NoSuchElementException();
-                        return (ItemEntry<T>) entrys[index++];
-                    }
-                };
-            }
-        }
-
     }
 
-    public static class Boot extends ArmorItem implements ArmorTextureItem {
-        public Boot(Properties properties) {
+    public static class Boots extends IrradiationImmuneArmor implements ArmorTextureItem {
+        public Boots(Properties properties) {
             super(ARMOR_MATERIAL, BOOTS, properties);
         }
 
         @Override
         public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-            return String.valueOf(CreateNuclear.asResource("textures/models/armor/white_anti_radiation_suit_layer_1.png"));
+            return CreateNuclear.asResource("textures/models/armor/white_anti_radiation_suit_layer_1.png").toString();
 
         }
     }
 
-    public static class DyeRecipArmorList implements Iterable<CreateRecipeProvider.GeneratedRecipe> {
+
+    public static class DyeItemList<T extends Item> implements Iterable<ItemEntry<T>> {
         private static final int COLOR_AMOUNT = DyeColor.values().length;
+        private final ItemEntry<?>[] entries = new ItemEntry<?>[COLOR_AMOUNT];
 
-        protected final CreateRecipeProvider.GeneratedRecipe[] recipes = new CreateRecipeProvider.GeneratedRecipe[getColorCount()];
-
-        public DyeRecipArmorList(Function<@NotNull DyeColor, CreateRecipeProvider.GeneratedRecipe> filler) {
+        public DyeItemList(Function<DyeColor, ItemEntry<? extends T>> filler) {
             for (DyeColor color : DyeColor.values()) {
-                recipes[color.ordinal()] = filler.apply(color);
+                entries[color.ordinal()] = filler.apply(color);
             }
         }
 
-        protected int getColorCount() {
-            return COLOR_AMOUNT;
+        @SuppressWarnings("unchecked")
+        public ItemEntry<T> get(DyeColor color) {
+            return (ItemEntry<T>) entries[color.ordinal()];
+        }
+
+        public boolean contains(Item item) {
+            return Arrays.stream(entries).anyMatch(e -> e.is(item));
+        }
+
+        @SuppressWarnings("unchecked")
+        public ItemEntry<T>[] toArray() {
+            return (ItemEntry<T>[]) Arrays.copyOf(entries, entries.length);
+        }
+
+        @Override
+        public Iterator<ItemEntry<T>> iterator() {
+            return Arrays.stream(entries).map(e -> (ItemEntry<T>) e).iterator();
+        }
+    }
+
+    public static class DyeRecipeArmorList implements Iterable<CreateRecipeProvider.GeneratedRecipe> {
+        private static final int COLOR_AMOUNT = DyeColor.values().length;
+        private final CreateRecipeProvider.GeneratedRecipe[] recipes = new CreateRecipeProvider.GeneratedRecipe[COLOR_AMOUNT];
+
+        public DyeRecipeArmorList(Function<DyeColor, CreateRecipeProvider.GeneratedRecipe> filler) {
+            for (DyeColor color : DyeColor.values()) {
+                recipes[color.ordinal()] = filler.apply(color);
+            }
         }
 
         public CreateRecipeProvider.GeneratedRecipe get(@Nullable DyeColor color) {
             return recipes[color.ordinal()];
         }
 
-        public CreateRecipeProvider.GeneratedRecipe[] toArrays() {
+        public CreateRecipeProvider.GeneratedRecipe[] toArray() {
             return Arrays.copyOf(recipes, recipes.length);
         }
 
-        @NotNull
         @Override
         public Iterator<CreateRecipeProvider.GeneratedRecipe> iterator() {
-            return new Iterator<>() {
-                private int index = 0;
-
-                @Override
-                public boolean hasNext() {
-                    return index < recipes.length;
-                }
-
-                @Override
-                public CreateRecipeProvider.GeneratedRecipe next() {
-                    if (!hasNext()) throw new NoSuchElementException();
-                    return recipes[index++];
-                }
-            };
+            return Arrays.stream(recipes).iterator();
         }
     }
 
     public enum Armor {
-        WHITE_ARMOR(DyeColor.WHITE),
-        YELLOW_ARMOR(DyeColor.YELLOW),
-        RED_ARMOR(DyeColor.RED),
-        BLUE_ARMOR(DyeColor.BLUE),
-        GREEN_ARMOR(DyeColor.GREEN),
-        BLACK_ARMOR(DyeColor.BLACK),
-        ORANGE_ARMOR(DyeColor.ORANGE),
-        PURPLE_ARMOR(DyeColor.PURPLE),
-        BROWN_ARMOR(DyeColor.BROWN),
-        PINK_ARMOR(DyeColor.PINK),
-        CYAN_ARMOR(DyeColor.CYAN),
-        LIGHT_GRAY_ARMOR(DyeColor.LIGHT_GRAY),
-        GRAY_ARMOR(DyeColor.GRAY),
-        LIGHT_BLUE_ARMOR(DyeColor.LIGHT_BLUE),
-        LIME_ARMOR(DyeColor.LIME),
-        MAGENTA_ARMOR(DyeColor.MAGENTA);
+        WHITE(DyeColor.WHITE),
+        YELLOW(DyeColor.YELLOW),
+        RED(DyeColor.RED),
+        BLUE(DyeColor.BLUE),
+        GREEN(DyeColor.GREEN),
+        BLACK(DyeColor.BLACK),
+        ORANGE(DyeColor.ORANGE),
+        PURPLE(DyeColor.PURPLE),
+        BROWN(DyeColor.BROWN),
+        PINK(DyeColor.PINK),
+        CYAN(DyeColor.CYAN),
+        LIGHT_GRAY(DyeColor.LIGHT_GRAY),
+        GRAY(DyeColor.GRAY),
+        LIGHT_BLUE(DyeColor.LIGHT_BLUE),
+        LIME(DyeColor.LIME),
+        MAGENTA(DyeColor.MAGENTA);
 
-        private static final Map<DyeColor, ItemEntry<Helmet>> helmetMap = new EnumMap<>(DyeColor.class);
-        private static final Map<DyeColor, ItemEntry<Chestplate>> chestplateMap = new EnumMap<>(DyeColor.class);
-        private static final Map<DyeColor, ItemEntry<Leggings>> leggingsMap = new EnumMap<>(DyeColor.class);
+        private static final Map<DyeColor, ItemEntry<Helmets>> helmets = new EnumMap<>(DyeColor.class);
+        private static final Map<DyeColor, ItemEntry<Chestplates>> chestplates = new EnumMap<>(DyeColor.class);
+        private static final Map<DyeColor, ItemEntry<Leggings>> leggings = new EnumMap<>(DyeColor.class);
 
         static {
             for (DyeColor color : DyeColor.values()) {
-                helmetMap.put(color, CNItems.ANTI_RADIATION_HELMETS.get(color));
-                chestplateMap.put(color, CNItems.ANTI_RADIATION_CHESTPLATES.get(color));
-                leggingsMap.put(color, CNItems.ANTI_RADIATION_LEGGINGS.get(color));
+                helmets.put(color, CNItems.ANTI_RADIATION_HELMETS.get(color));
+                chestplates.put(color, CNItems.ANTI_RADIATION_CHESTPLATES.get(color));
+                leggings.put(color, CNItems.ANTI_RADIATION_LEGGINGS.get(color));
             }
         }
 
         private final DyeColor color;
 
-        Armor(DyeColor dyeColor) {
-            this.color = dyeColor;
+        Armor(DyeColor color) {
+            this.color = color;
         }
 
-        public ItemEntry<Helmet> getHelmetItem() {
-            return helmetMap.get(this.color);
+        public ItemEntry<Helmets> getHelmet() {
+            return helmets.get(color);
+        }
+        public ItemEntry<Chestplates> getChestplate() {
+            return chestplates.get(color);
+        }
+        public ItemEntry<Leggings> getLeggings() {
+            return leggings.get(color);
         }
 
-        public static ItemEntry<Helmet> getHelmetByColor(DyeColor color) {
-            return helmetMap.get(color);
-        }
-
-        public ItemEntry<Chestplate> getChestplateItem() {
-            return chestplateMap.get(this.color);
-        }
-
-        public static ItemEntry<Chestplate> getChestplateByColor(DyeColor color) {
-            return chestplateMap.get(color);
-        }
-
-        public ItemEntry<Leggings> getLeggingsItem() {
-            return leggingsMap.get(this.color);
-        }
-
-        public static ItemEntry<Leggings> getLeggingsByColor(DyeColor color) {
-            return leggingsMap.get(color);
-        }
-
-
-        public static boolean isArmored(ItemStack item) {
-            return CNItems.ANTI_RADIATION_HELMETS.contains(item.getItem())
-                    || CNItems.ANTI_RADIATION_CHESTPLATES.contains(item.getItem())
-                    || CNItems.ANTI_RADIATION_LEGGINGS.contains(item.getItem())
-                    || CNItems.ANTI_RADIATION_BOOTS.is(item.getItem())
-                    ;
+        public static boolean isArmored(ItemStack stack) {
+            Item item = stack.getItem();
+            return CNItems.ANTI_RADIATION_HELMETS.contains(item)
+                    || CNItems.ANTI_RADIATION_CHESTPLATES.contains(item)
+                    || CNItems.ANTI_RADIATION_LEGGINGS.contains(item)
+                    || CNItems.ANTI_RADIATION_BOOTS.is(item);
         }
     }
 

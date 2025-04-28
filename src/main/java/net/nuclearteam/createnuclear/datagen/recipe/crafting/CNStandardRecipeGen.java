@@ -27,7 +27,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.item.CNItems;
-import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.DyeRecipArmorList;
+import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem;
+import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.DyeRecipeArmorList;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem;
 import net.nuclearteam.createnuclear.tags.CNTag;
 
@@ -133,8 +134,8 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
 
         private String CRAFTING_ITEMS = enterFolder("crafting/items/armors");
 
-    DyeRecipArmorList
-        ANTI_RADIATION_HELMETS = new DyeRecipArmorList(color -> create(CNItems.ANTI_RADIATION_HELMETS.get(color))
+    DyeRecipeArmorList
+        ANTI_RADIATION_HELMETS = new DyeRecipeArmorList(color -> create(CNItems.ANTI_RADIATION_HELMETS.get(color))
             .unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag)
             .withCategory(RecipeCategory.COMBAT)
             .viaShaped(i -> i
@@ -147,7 +148,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
             )
         ),
 
-        ANTI_RADIATION_CHESTPLATES = new DyeRecipArmorList(color -> create(CNItems.ANTI_RADIATION_CHESTPLATES.get(color))
+        ANTI_RADIATION_CHESTPLATES = new DyeRecipeArmorList(color -> create(CNItems.ANTI_RADIATION_CHESTPLATES.get(color))
             .unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag)
             .withCategory(RecipeCategory.COMBAT)
             .viaShaped(i -> i
@@ -161,7 +162,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
             )
         ),
 
-        ANTI_RADIATION_LEGGINS = new DyeRecipArmorList(color -> create(CNItems.ANTI_RADIATION_LEGGINGS.get(color))
+        ANTI_RADIATION_LEGGINS = new DyeRecipeArmorList(color -> create(CNItems.ANTI_RADIATION_LEGGINGS.get(color))
             .unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag)
             .withCategory(RecipeCategory.COMBAT)
             .viaShaped(i -> i
