@@ -8,8 +8,13 @@
   "processingTime": 250,
   "results": [
     {
-      "count": 81,
-      "item": "createnuclear:uranium_powder"
+      "count": 9,
+      "item": "create:crushed_raw_uranium"
+    },
+    {
+      "chance": 0.75,
+      "count": 18,
+      "item": "create:experience_nugget"
     }
   ]
 }

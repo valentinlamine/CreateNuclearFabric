@@ -1,4 +1,4 @@
-// 1.20.1	2025-04-30T14:24:35.60501	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-04-30T17:41:53.8970202	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 a6f90dfcfc0659663335d4c80129ce41d0c8e47a assets\createnuclear\blockstates\deepslate_uranium_ore.json
 fdc9cf972cf27ce343d4f098ddcdc9a4e19d2404 data\c\tags\fluids\uranium.json
 95a90d9d9a553448c878dfdf4b153ceada923030 data\createnuclear\loot_tables\blocks\reactor_cooler.json

@@ -27,6 +27,7 @@ public class CNWashingRecipeGen extends ProcessingRecipeGen {
     GeneratedRecipe
 
             CRUSHED_LEAD = crushedOre(AllItems.CRUSHED_LEAD, () -> CNItems.LEAD_NUGGET, () -> AllItems.EXP_NUGGET, .5f)
+
     ;
 
     public GeneratedRecipe crushedOre(ItemEntry<TagDependentIngredientItem> crushed, Supplier<ItemLike> nugget, Supplier<ItemLike> secondary,
