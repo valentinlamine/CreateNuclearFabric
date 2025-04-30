@@ -174,7 +174,9 @@ public class CreateNuclearAdvancement {
         Builder whenIconCollected() {
             return externalTrigger(InventoryChangeTrigger.TriggerInstance.hasItems(icon.getItem()));
         }
-
+        Builder whenItemEaten(Item item) {
+            return externalTrigger(ConsumeItemTrigger.TriggerInstance.usedItem(item));
+        }
         Builder whenItemCollected(ItemProviderEntry<?> item) {
             return whenItemCollected(item.asStack()
                     .getItem());

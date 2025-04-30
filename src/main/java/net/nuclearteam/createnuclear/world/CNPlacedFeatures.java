@@ -42,7 +42,7 @@ public class CNPlacedFeatures {
         return List.of(
             frequency,
             InSquarePlacement.spread(),
-            HeightRangePlacement.uniform(VerticalAnchor.absolute(minHeight), VerticalAnchor.absolute(maxHeight)),
+            HeightRangePlacement.triangle(VerticalAnchor.absolute(minHeight), VerticalAnchor.absolute(maxHeight)),
             ConfigPlacementFilter.INSTANCE
         );
     }
