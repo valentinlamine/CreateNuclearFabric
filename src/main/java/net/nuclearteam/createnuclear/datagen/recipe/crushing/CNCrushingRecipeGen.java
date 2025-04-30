@@ -1,6 +1,8 @@
 package net.nuclearteam.createnuclear.datagen.recipe.crushing;
 
+import com.simibubi.create.AllItems;
 import com.simibubi.create.AllRecipeTypes;
+import com.simibubi.create.Create;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
@@ -47,6 +49,16 @@ public class CNCrushingRecipeGen extends ProcessingRecipeGen {
         ),
         RAW_URANIUM_BLOCK = create(() -> CNBlocks.RAW_URANIUM_BLOCK, b -> b.duration(250)
             .output(1, CNItems.URANIUM_POWDER,81)
+        ),
+
+        RAW_LEAD_BLOCK = create(() -> CNBlocks.RAW_LEAD_BLOCK, b -> b.duration(250)
+            .output(1, CNItems.RAW_LEAD,9)
+            .output(.75f, AllItems.EXP_NUGGET, 18)
+        ),
+
+        RAW_LEAD = create(() -> CNItems.RAW_LEAD, b -> b.duration(250)
+                .output(1, AllItems.CRUSHED_LEAD,1)
+                .output(.75f, AllItems.EXP_NUGGET, 2)
         ),
 
         RAW_ZINC_ORE = rawOre(AllItems.RAW_ZINC::get, AllItems.CRUSHED_ZINC::get, 1),

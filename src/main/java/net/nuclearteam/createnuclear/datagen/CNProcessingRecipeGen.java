@@ -10,6 +10,7 @@ import net.nuclearteam.createnuclear.datagen.recipe.enriched.CNEnrichedRecipeGen
 import net.nuclearteam.createnuclear.datagen.recipe.item_application.CNItemApplicationRecipeGen;
 import net.nuclearteam.createnuclear.datagen.recipe.mixing.CNMixingRecipeGen;
 import net.nuclearteam.createnuclear.datagen.recipe.pressing.CNPressingRecipeGen;
+import net.nuclearteam.createnuclear.datagen.recipe.washing.CNWashingRecipeGen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public abstract class CNProcessingRecipeGen {
         GENERATORS.add(new CNMixingRecipeGen(output));
         GENERATORS.add(new CNPressingRecipeGen(output));
         GENERATORS.add(new CNItemApplicationRecipeGen(output));
+        GENERATORS.add(new CNWashingRecipeGen(output));
 
         return new DataProvider() {
 
