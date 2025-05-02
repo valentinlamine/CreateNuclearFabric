@@ -63,6 +63,8 @@ public class CreateNuclear implements ModInitializer {
 		CNRecipeTypes.register();
 		CNPotions.registerPotionRecipes();
 
+		CNFluids.registerFluidInteractions();
+
 		CNFanProcessingTypes.register();
 		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);
 
