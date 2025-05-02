@@ -5,7 +5,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
-import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.fluid.FluidInteractionManager;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,7 +24,6 @@ public abstract class CNLiquidBlockMixin {
         Optional<Boolean> result = FluidInteractionManager.applyRules(fluid, level, pos);
 
         if (result.isPresent()) {
-            CreateNuclear.LOGGER.info("Fluid interaction at {} returned {}", pos, result.get());
             cir.setReturnValue(result.get());
             cir.cancel();
         }

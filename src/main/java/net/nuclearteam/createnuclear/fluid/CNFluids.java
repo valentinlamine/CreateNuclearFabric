@@ -28,12 +28,15 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
+import net.nuclearteam.createnuclear.block.palette.CNPalettesStoneTypes;
 import net.nuclearteam.createnuclear.effects.CNEffects;
 import net.nuclearteam.createnuclear.tags.CNTag;
 
 import net.nuclearteam.createnuclear.fluid.FluidInteractionManager.FluidInteractionRule;
 
 import javax.annotation.Nullable;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 @SuppressWarnings("UnstableApiUsage")
 public class CNFluids {
@@ -89,14 +92,14 @@ public class CNFluids {
     }
 
     public static void registerFluidInteractions() {
+        Function<Boolean, BlockState> AUTUNITE = isSource -> CNPalettesStoneTypes.AUTUNITE.getBaseBlock().get().defaultBlockState();
         // Uranium + water interaction
         FluidInteractionManager.addRule(
             CNFluids.URANIUM.get(),
             new FluidInteractionRule(
                 100,
                 fs -> fs.is(FluidTags.WATER),
-                true,
-                isSource -> Blocks.GOLD_BLOCK.defaultBlockState(),
+                true, AUTUNITE,
                 ctx -> {},
                 false
             )
@@ -108,8 +111,7 @@ public class CNFluids {
             new FluidInteractionRule(
                 100,
                 fs -> fs.is(FluidTags.LAVA),
-                true,
-                isSource -> Blocks.EMERALD_BLOCK.defaultBlockState(),
+                true, AUTUNITE,
                 ctx -> {},
                 false
             )
