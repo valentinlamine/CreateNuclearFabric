@@ -3,7 +3,7 @@
   "criteria": {
     "0": {
       "conditions": {},
-      "trigger": "create:automatic_uranium_builtin"
+      "trigger": "createnuclear:automatic_uranium_builtin"
     }
   },
   "display": {
