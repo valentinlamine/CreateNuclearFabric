@@ -2,14 +2,14 @@
   "type": "create:crushing",
   "ingredients": [
     {
-      "item": "createnuclear:raw_uranium_block"
+      "item": "createnuclear:raw_lead_block"
     }
   ],
   "processingTime": 250,
   "results": [
     {
       "count": 9,
-      "item": "create:crushed_raw_uranium"
+      "item": "create:crushed_raw_lead"
     },
     {
       "chance": 0.75,

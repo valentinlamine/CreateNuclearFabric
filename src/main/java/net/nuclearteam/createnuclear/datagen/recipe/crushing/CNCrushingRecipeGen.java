@@ -50,16 +50,31 @@ public class CNCrushingRecipeGen extends ProcessingRecipeGen {
 
     ;
     GeneratedRecipe
-        RAW_URANIUM = create(() -> CNItems.RAW_URANIUM, b -> b.duration(250)
+        RAW_URANIUM = create(() -> AllItems.CRUSHED_URANIUM, b -> b.duration(250)
                 .output(1, CNItems.URANIUM_POWDER,9)
+        ),
 
-
-
+        RAW_URANIUM_BLOCK = create(() -> CNBlocks.RAW_URANIUM_BLOCK, b -> b.duration(250)
+            .output(1, AllItems.CRUSHED_URANIUM,9)
+            .output(.75f, AllItems.EXP_NUGGET, 18)
 
         ),
-        RAW_URANIUM_BLOCK = create(() -> CNBlocks.RAW_URANIUM_BLOCK, b -> b.duration(250)
-            .output(1, CNItems.URANIUM_POWDER,81)
-        )
+
+        RAW_LEAD = create(() -> CNItems.RAW_LEAD, b -> b.duration(250)
+                .output(1, AllItems.CRUSHED_LEAD,1)
+        ),
+
+        RAW_LEAD_BLOCK = create(() -> CNBlocks.RAW_LEAD_BLOCK, b -> b.duration(250)
+            .output(1, AllItems.CRUSHED_LEAD,9)
+            .output(.75f, AllItems.EXP_NUGGET, 18)
+        ),
+
+
+
+        RAW_ZINC_ORE = rawOre(AllItems.RAW_ZINC::get, AllItems.CRUSHED_ZINC::get, 1),
+        RAW_COPPER_ORE = rawOre(() -> Items.RAW_COPPER, AllItems.CRUSHED_COPPER::get, 1)
+
+
 
     ;
 
@@ -92,8 +107,20 @@ public class CNCrushingRecipeGen extends ProcessingRecipeGen {
         return create(CreateNuclear.MOD_ID, singleIngredient, transform);
     }
 
+    <T extends ProcessingRecipe<?>> GeneratedRecipe createC(Supplier<ItemLike> singleIngredient,
+                                                           UnaryOperator<ProcessingRecipeBuilder<T>> transform) {
+        return create(Create.ID, singleIngredient, transform);
+    }
+
+    protected GeneratedRecipe rawOre(Supplier<ItemLike> input, Supplier<ItemLike> result, int amount) {
+        return createC(input, b -> b.duration(400)
+                .output(result.get(), amount)
+                .output(.75f, AllItems.EXP_NUGGET.get(), (result.get() == AllItems.CRUSHED_GOLD.get() ? 2 : 1) * amount)
+                .output(.15f, CNItems.LEAD_NUGGET, 1));
+    }
+
     @Override
     public String getName() {
-        return "CreateNuclear's Processing Recipes: " + getRecipeType().getId().getPath();
+        return "CreateNuclear Processing Recipes: " + getRecipeType().getId().getPath();
     }
 }
