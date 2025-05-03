@@ -1,20 +1,4 @@
-// 1.20.1	2025-04-30T17:41:53.8970202	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
-a6f90dfcfc0659663335d4c80129ce41d0c8e47a assets\createnuclear\blockstates\deepslate_uranium_ore.json
-fdc9cf972cf27ce343d4f098ddcdc9a4e19d2404 data\c\tags\fluids\uranium.json
-95a90d9d9a553448c878dfdf4b153ceada923030 data\createnuclear\loot_tables\blocks\reactor_cooler.json
-78240d0c081d144592e76af622d0c9929569db17 assets\createnuclear\models\item\graphene.json
-16a24701834ac20900286c10afda2df6a2fc474e assets\createnuclear\models\item\reactor_output.json
-561c9f9a4e153fc648a3c7224812c71c8ac2da5c assets\createnuclear\models\block\raw_uranium_block.json
-0232233443f2f7c7c638642a6319fffb0536c617 data\c\tags\items\nuggets\lead.json
-63a629668c374e8fd66f018679913741a898502e data\c\tags\items\nuggets\steel.json
-b59b6afe006c0b7ae8053453eefd643a81a83257 data\createnuclear\tags\items\anti_radiation_helmet_full_dye.json
-d0f9a216114a583e097ef8369c4ed74f50270672 assets\createnuclear\models\item\green_anti_radiation_helmet.json
-e1b8fdc0555a1fdabda54f66cca868e444d1110b assets\createnuclear\models\block\enriched_soul_soil.json
-de649e8356e85e802df3e64df8fd663ce62ba16d assets\createnuclear\models\item\cyan_cloth.json
-16ebf77088c88bb57fed6faae5e470644e6ca9a6 data\c\tags\items\ingots\lead.json
-e5ce9ec90cc899a20b84697b8d9ada9a455d56bf data\c\tags\items\raw_materials\uranium.json
-a892570aae7bbd46d02481c78816750bfe4f2c26 data\c\tags\blocks\storage_blocks\raw_lead.json
-42cfe17c0aa332a7553f031b2f710c94a8848091 assets\createnuclear\blockstates\reactor_casing.json
+
 2f306ea7c3e8809abc159f81f4b4b38885c7857b data\c\tags\blocks\storage_blocks\steel.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets\createnuclear\models\item\chicken_irradiated_spawn_egg.json
 1f160865067749c0bed163a84a61581631294141 assets\createnuclear\models\item\deepslate_uranium_ore.json

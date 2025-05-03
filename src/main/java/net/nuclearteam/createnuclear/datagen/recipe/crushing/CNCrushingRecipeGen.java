@@ -35,10 +35,20 @@ public class CNCrushingRecipeGen extends ProcessingRecipeGen {
         GRANITE_URANIUM_POWDER = create(() -> Items.GRANITE, b -> b.duration(250)
                 .output(.5f, CNItems.URANIUM_POWDER)
                 .output(1f, Blocks.RED_SAND)
+        ),
+
+        RAW_ZINC = create(() -> AllItems.RAW_ZINC, b -> b.duration(250)
+                .output(1, AllItems.CRUSHED_ZINC, 1)
+                .output(.75f, AllItems.EXP_NUGGET, 1)
+                .output(.25f, CNItems.LEAD_NUGGET,1)
+        ),
+        RAW_COPPER = create(() -> Items.RAW_COPPER, b -> b.duration(250)
+                .output(1, AllItems.CRUSHED_COPPER, 1)
+                .output(.75f, AllItems.EXP_NUGGET, 1)
+                .output(.15f, CNItems.LEAD_NUGGET,1)
         )
 
     ;
-
     GeneratedRecipe
         RAW_URANIUM = create(() -> AllItems.CRUSHED_URANIUM, b -> b.duration(250)
                 .output(1, CNItems.URANIUM_POWDER,9)
