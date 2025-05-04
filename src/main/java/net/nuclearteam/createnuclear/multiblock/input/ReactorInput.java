@@ -5,6 +5,7 @@ import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.item.ItemHelper;
 import io.github.fabricators_of_create.porting_lib.util.NetworkHooks;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -28,6 +29,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.blockentity.CNBlockEntities;
+import net.nuclearteam.createnuclear.multiblock.ReactorStructureHelper;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.nuclearteam.createnuclear.shape.CNShapes;
 import net.nuclearteam.createnuclear.tools.HorizontalDirectionalReactorBlock;
@@ -43,8 +45,12 @@ import net.nuclearteam.createnuclear.tools.HorizontalDirectionalReactorBlock;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
+@SuppressWarnings("deprecation")
 public class ReactorInput extends HorizontalDirectionalReactorBlock implements IWrenchable, IBE<ReactorInputEntity> {
 
     public ReactorInput(Properties properties) {
@@ -73,18 +79,18 @@ public class ReactorInput extends HorizontalDirectionalReactorBlock implements I
         return InteractionResult.PASS;
     }
 
-    @Override
-    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
-        super.onPlace(state, level, pos, oldState, isMoving);
+    @Override // Called when the block is placed on the world
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+        super.onPlace(state, level, pos, oldState, movedByPiston);
         List<? extends Player> players = level.players();
-        FindController(pos, level, players, true);
+        ReactorStructureHelper.findController(level, pos, players, true);
     }
 
-    @Override
+    @Override // called when the player destroys the block, with or without a tool
     public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
         super.playerDestroy(level, player, pos, state, blockEntity, tool);
         List<? extends Player> players = level.players();
-        FindController(pos, level, players, false);
+        ReactorStructureHelper.invalidateCache(pos);
     }
 
     @Override
@@ -95,7 +101,7 @@ public class ReactorInput extends HorizontalDirectionalReactorBlock implements I
         pLevel.removeBlockEntity(pPos);
 
         List<? extends Player> players = pLevel.players();
-        FindController(pPos, pLevel, players, false);
+        ReactorStructureHelper.invalidateCache(pPos);
     }
 
     public ReactorControllerBlock FindController(BlockPos blockPos, Level level, List<? extends Player> players, boolean first){ // Function that checks the surrounding blocks in order
