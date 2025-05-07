@@ -1,6 +1,5 @@
 package net.nuclearteam.createnuclear.multiblock.controller;
 
-import com.mojang.authlib.minecraft.client.ObjectMapper;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
@@ -23,12 +22,10 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.gui.CNIconButton;
 import net.nuclearteam.createnuclear.item.CNItems;
@@ -36,12 +33,10 @@ import net.nuclearteam.createnuclear.multiblock.IHeat;
 import net.nuclearteam.createnuclear.multiblock.output.ReactorOutput;
 import net.nuclearteam.createnuclear.multiblock.output.ReactorOutputEntity;
 import net.nuclearteam.createnuclear.multiblock.input.ReactorInputEntity;
-
+import static net.nuclearteam.createnuclear.multiblock.bluePrintItem.ReactorBluePrintItem.getItemStorage;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static net.nuclearteam.createnuclear.CNMultiblock.*;
 import static net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock.ASSEMBLED;

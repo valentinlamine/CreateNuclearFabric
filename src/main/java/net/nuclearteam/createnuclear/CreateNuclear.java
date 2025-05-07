@@ -20,6 +20,7 @@ import net.nuclearteam.createnuclear.groups.CNGroup;
 import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.menu.CNMenus;
 import net.nuclearteam.createnuclear.packets.CNPackets;
+import net.nuclearteam.createnuclear.particle.CNParticleTypes;
 import net.nuclearteam.createnuclear.potion.CNPotions;
 import net.nuclearteam.createnuclear.tags.CNTag;
 import net.nuclearteam.createnuclear.world.gen.CNWorldGeneration;
@@ -61,6 +62,8 @@ public class CreateNuclear implements ModInitializer {
 		REGISTRATE.register();
 		POTION_REGISTRATE.register();
 		CNRecipeTypes.register();
+
+		CNParticleTypes.register();
 		CNPotions.registerPotionRecipes();
 
 		CNFanProcessingTypes.register();
