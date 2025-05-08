@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "createnuclear:block/palettes/stone_types/cap/autunite_cut_cap",
+    "side": "createnuclear:block/palettes/stone_types/layered/autunite_cut_layered"
+  }
+}

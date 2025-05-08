@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "createnuclear:block/polished_cut_autunite_slab"
+    },
+    "type=double": {
+      "model": "createnuclear:block/polished_cut_autunite_slab_double"
+    },
+    "type=top": {
+      "model": "createnuclear:block/polished_cut_autunite_slab_top"
+    }
+  }
+}

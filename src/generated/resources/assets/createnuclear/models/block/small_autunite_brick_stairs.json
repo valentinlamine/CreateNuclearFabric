@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "createnuclear:block/palettes/stone_types/small_brick/autunite_cut_small_brick",
+    "side": "createnuclear:block/palettes/stone_types/small_brick/autunite_cut_small_brick",
+    "top": "createnuclear:block/palettes/stone_types/small_brick/autunite_cut_small_brick"
+  }
+}

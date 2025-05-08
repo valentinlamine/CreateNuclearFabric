@@ -1,0 +1,16 @@
+{
+  "base_block": "createnuclear:polished_cut_autunite",
+  "map_color": "green",
+  "name": "polished_cut_autunite",
+  "recipes": "stonecutting",
+  "textures": "createnuclear:block/palettes/stone_types/polished/autunite_cut_polished",
+  "types_to_generate": [
+    "arch",
+    "octagonal_column",
+    "round_arch",
+    "roof",
+    "wall_column",
+    "wall_post",
+    "facade"
+  ]
+}

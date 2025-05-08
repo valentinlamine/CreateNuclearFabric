@@ -1,0 +1,16 @@
+{
+  "base_block": "createnuclear:small_autunite_bricks",
+  "map_color": "green",
+  "name": "small_autunite_bricks",
+  "recipes": "stonecutting",
+  "textures": "createnuclear:block/palettes/stone_types/small_brick/autunite_cut_small_brick",
+  "types_to_generate": [
+    "arch",
+    "octagonal_column",
+    "round_arch",
+    "roof",
+    "wall_column",
+    "wall_post",
+    "facade"
+  ]
+}
