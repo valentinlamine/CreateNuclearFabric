@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.resources.ResourceLocation;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.blockentity.CNBlockEntities;
+import net.nuclearteam.createnuclear.config.CNConfigs;
 import net.nuclearteam.createnuclear.effects.CNEffects;
 import net.nuclearteam.createnuclear.entity.CNMobDefaultAttribute;
 import net.nuclearteam.createnuclear.entity.CNMobEntityType;
@@ -22,6 +23,8 @@ import net.nuclearteam.createnuclear.menu.CNMenus;
 import net.nuclearteam.createnuclear.packets.CNPackets;
 import net.nuclearteam.createnuclear.potion.CNPotions;
 import net.nuclearteam.createnuclear.tags.CNTag;
+import net.nuclearteam.createnuclear.world.CNConfigPlacementFilter;
+import net.nuclearteam.createnuclear.world.CNPlacementModifiers;
 import net.nuclearteam.createnuclear.world.gen.CNWorldGeneration;
 
 import org.slf4j.Logger;
@@ -61,6 +64,9 @@ public class CreateNuclear implements ModInitializer {
 		REGISTRATE.register();
 		POTION_REGISTRATE.register();
 		CNRecipeTypes.register();
+		CNPlacementModifiers.register();
+
+		CNConfigs.register();
 		CNPotions.registerPotionRecipes();
 
 		CNFanProcessingTypes.register();

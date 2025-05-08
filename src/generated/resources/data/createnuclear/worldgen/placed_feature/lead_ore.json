@@ -21,7 +21,7 @@
       }
     },
     {
-      "type": "create:config_filter"
+      "type": "createnuclear:config_filter"
     }
   ]
 }

@@ -30,13 +30,14 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
+import net.nuclearteam.createnuclear.config.CNConfigs;
 import net.nuclearteam.createnuclear.gui.CNIconButton;
 import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.multiblock.IHeat;
 import net.nuclearteam.createnuclear.multiblock.output.ReactorOutput;
 import net.nuclearteam.createnuclear.multiblock.output.ReactorOutputEntity;
 import net.nuclearteam.createnuclear.multiblock.input.ReactorInputEntity;
-
+import static net.nuclearteam.createnuclear.multiblock.blueprint.ReactorBluePrint.getItemStorage;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -67,13 +68,13 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     int overFlowHeatTimer = 0;
     int overFlowLimiter = 30;
     double overHeat = 0;
-    public int baseUraniumHeat = 25;
-    public int baseGraphiteHeat = -10;
-    public int proximityUraniumHeat = 5;
-    public int proximityGraphiteHeat = -5;
-    public int maxUraniumPerGraphite = 3;
-    public int graphiteTimer = 3600;
-    public int uraniumTimer = 3600;
+    public int baseUraniumHeat = CNConfigs.common().rods.baseValueUranium.get();
+    public int baseGraphiteHeat = CNConfigs.common().rods.baseValueGraphite.get();
+    public int proximityUraniumHeat = CNConfigs.common().rods.BoProxiUranium.get();
+    public int proximityGraphiteHeat = -CNConfigs.common().rods.MaProxigraphite.get();
+    public int maxUraniumPerGraphite = CNConfigs.common().rods.uraMaxGraph.get();
+    public int graphiteTimer = CNConfigs.common().rods.graphiteRodLifetime.get();
+    public int uraniumTimer = CNConfigs.common().rods.uraniumRodLifetime.get();
     public int heat;
     public double total;
     public CompoundTag screen_pattern = new CompoundTag();
@@ -83,7 +84,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     private ItemStack fuelItem;
     private ItemStack coolerItem;
 
-    private int[][] formattedPattern = new int[][]{
+    private final int[][] formattedPattern = new int[][]{
             {99,99,99,0,1,2,99,99,99},
             {99,99,3,4,5,6,7,99,99},
             {99,8,9,10,11,12,13,14,99},
@@ -94,7 +95,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
             {99,99,49,50,51,52,53,99,99},
             {99,99,99,54,55,56,99,99,99}
     };
-    private int[][] offsets = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
+    private final int[][] offsets = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
 
 
 

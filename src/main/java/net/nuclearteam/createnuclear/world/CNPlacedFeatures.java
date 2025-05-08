@@ -46,7 +46,7 @@ public class CNPlacedFeatures {
             frequency,
             InSquarePlacement.spread(),
             HeightRangePlacement.triangle(VerticalAnchor.absolute(minHeight), VerticalAnchor.absolute(maxHeight)),
-            ConfigPlacementFilter.INSTANCE
+            CNConfigPlacementFilter.INSTANCE
         );
     }
 
