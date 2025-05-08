@@ -162,6 +162,11 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 			return direction.getAxis() != facing.getAxis();
 		}
 
+		@Override
+		public boolean testHit(BlockState state, Vec3 localHit) {
+			return false;
+		}
+
 	}
 }
 
