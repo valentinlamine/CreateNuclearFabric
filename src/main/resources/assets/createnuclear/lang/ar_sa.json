@@ -248,6 +248,7 @@
   "item.minecraft.tipped_arrow.effect.potion_of_radiation_augment_1": "سهم الإشعاع",
   "itemGroup.createnuclear.main": "الصناعة نووي",
   "itemgroup.uranium": "مجموعة اليورانيوم",
+  "overlay.event_message": "⚠ Warning ⚠ %s timer",
   "reactor.info.assembled.creator": "تم تركيب المفاعل",
   "reactor.info.assembled.destroyer": "تم تفكيك المفاعل",
   "reactor.info.assembled.none": "المفاعل لم يتم تركيبه",
