@@ -36,7 +36,7 @@ public class RadiationEffect extends MobEffect {
 
 
             }
-            else if (livingEntity.getType().is(CNTag.EntityTypeTags.IRRADIATED_IMMUNE.tag)) {
+            else if (livingEntity.radiationImmune()) {
                 livingEntity.removeEffect(this);
             }
             else {
