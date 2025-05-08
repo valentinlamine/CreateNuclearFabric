@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // 1.20.1	2025-04-26T18:39:40.0530903	Create Nuclear/Create Nuclear Advancements
+=======
+// 1.20.1	2025-04-11T17:10:40.2341612	Create Nuclear/Create Nuclear Advancements
+>>>>>>> main
 4f963ff2f6c09a0272c25ebdb46423700e5256eb data\createnuclear\advancements\reactor_input.json
 91aab6f0a18aee167c63a3aece5fa9778cf52b0b data\createnuclear\advancements\reinforced_glass.json
 5a41894d2428fb7297b98a6b78925a17af2a3095 data\createnuclear\advancements\uranium_liquid.json
@@ -25,4 +29,3 @@ eda669191bc6149e3feee4a2b9b25b64e1d7da60 data\createnuclear\advancements\enriche
 e9d8bd7f04cac0f3ea72a02a5cdc4cc98f728d98 data\createnuclear\advancements\reactor_blueprint.json
 f88401b0664256c3b2cb35c018f8f738b60bc3e9 data\createnuclear\advancements\reactor_core.json
 95a8f2e9970f421bd1df1cfd13b9ce807127898a data\createnuclear\advancements\eated_yellowcake.json
-b19a554150aa4d9dee594574e310c436d7bfc66d data\createnuclear\advancements\reactor_output.json
