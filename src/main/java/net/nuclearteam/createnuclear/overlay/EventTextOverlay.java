@@ -14,7 +14,7 @@ public class EventTextOverlay implements HudOverlay {
     private static int timer = 0;
 
     /**
-     * Called via network packet to activate the overlay for a specific duration.
+     * Called via a network packet to activate the overlay for a specific duration.
      * @param displayDuration duration in ticks
      */
     public static void triggerEvent(int displayDuration) {

@@ -3,7 +3,7 @@ package net.nuclearteam.createnuclear.overlay;
 import net.minecraft.client.gui.GuiGraphics;
 
 /**
- * Abstract HUD overlay with smooth fade-in/out (ease-in-out) effect.
+ * Abstract HUD overlay with a smooth fade-in/out (ease-in-out) effect.
  */
 public abstract class EasingHudOverlay implements HudOverlay {
     private float progress = 0f;
@@ -11,7 +11,7 @@ public abstract class EasingHudOverlay implements HudOverlay {
 
     @Override
     public void render(GuiGraphics graphics, float partialTicks) {
-        // Update progress based on active state
+        // Update progress based on the active state
         progress = isActive()
                 ? Math.min(1f, progress + fadeSpeed)
                 : Math.max(0f, progress - fadeSpeed);

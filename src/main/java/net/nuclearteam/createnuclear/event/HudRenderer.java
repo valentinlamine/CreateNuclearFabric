@@ -1,8 +1,6 @@
 package net.nuclearteam.createnuclear.event;
 
-import com.simibubi.create.Create;
 import net.minecraft.client.gui.GuiGraphics;
-import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.overlay.EventTextOverlay;
 import net.nuclearteam.createnuclear.overlay.HelmetOverlay;
 import net.nuclearteam.createnuclear.overlay.HudOverlay;

@@ -21,8 +21,8 @@ public class HelmetOverlay  implements HudOverlay {
             CreateNuclear.asResource("textures/misc/helmet_crack2.png"),
             CreateNuclear.asResource("textures/misc/helmet_almost_broken.png")
     };
-    private static final float[] COVERAGE_FACTORS = {1f, 1f, 1.05f, 1.45f, 1.98f};
-    private static final int BASE_PRIORITY = 200;
+    private static final float[] COVERAGE_FACTORS = {.5f, 1f, 1.05f, 1.45f, 1.98f};
+    private static final int BASE_PRIORITY = 50;
 
     @Override
     public boolean isActive() {
@@ -53,7 +53,7 @@ public class HelmetOverlay  implements HudOverlay {
         RadiationOverlay.setCoverage(COVERAGE_FACTORS[index]);
 
         // Render helmet overlay texture
-        RenderHelper.renderTextureOverlay(graphics, HELMET_TEXTURES[index], 1f, 1f);
+        RenderHelper.renderFirstPersonOverlay(graphics, HELMET_TEXTURES[index], 1f, 1f);
         // Render the hotbar behind the helmet overlay
         Minecraft.getInstance().gui.renderHotbar(12f, graphics);
     }

@@ -19,7 +19,7 @@ public class CNClientEvent {
 
     public static void register() {
         ClientEvents.ModBusEvents.registerClientReloadListeners();
-        CreateNuclear.LOGGER.warn("hum ClientReloadListeners ?");
+
         FogEvents.SET_COLOR.register(CNClientEvent::getForColor);
         HudRenderCallback.EVENT.register(HUD_RENDERER::onHudRender);
     }

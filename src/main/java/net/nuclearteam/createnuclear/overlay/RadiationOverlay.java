@@ -27,13 +27,13 @@ public class RadiationOverlay extends EasingHudOverlay {
     @Override
     public boolean isActive() {
         LocalPlayer player = Minecraft.getInstance().player;
-        return player != null && player.getEffect(CNEffects.RADIATION.get()) != null;
+        return player != null && player.hasEffect(CNEffects.RADIATION.get());
     }
 
     @Override
     protected void renderWithAlpha(GuiGraphics graphics, float partialTicks, float alpha) {
         // Render radiation overlay with dynamic coverage and alpha
-        RenderHelper.renderTextureOverlay(graphics, RADIATION_TEXTURE, alpha, coverage);
+        RenderHelper.renderTextureOverlay(graphics, RADIATION_TEXTURE, Math.round(alpha * coverage));
     }
 
     @Override
