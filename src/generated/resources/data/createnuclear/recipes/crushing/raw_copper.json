@@ -5,7 +5,7 @@
       "item": "minecraft:raw_copper"
     }
   ],
-  "processingTime": 400,
+  "processingTime": 250,
   "results": [
     {
       "item": "create:crushed_raw_copper"

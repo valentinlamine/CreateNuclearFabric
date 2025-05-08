@@ -5,7 +5,7 @@
       "item": "create:raw_zinc"
     }
   ],
-  "processingTime": 400,
+  "processingTime": 250,
   "results": [
     {
       "item": "create:crushed_raw_zinc"
@@ -15,7 +15,7 @@
       "item": "create:experience_nugget"
     },
     {
-      "chance": 0.15,
+      "chance": 0.25,
       "item": "createnuclear:lead_nugget"
     }
   ]
