@@ -248,6 +248,7 @@
   "item.minecraft.tipped_arrow.effect.potion_of_radiation_augment_1": "Mũi tên phóng xạ",
   "itemGroup.createnuclear.main": "Tạo ra hạt nhân",
   "itemgroup.uranium": "Nhóm Uranium",
+  "overlay.event_message": "⚠ Warning ⚠ %s timer",
   "reactor.info.assembled.creator": "Lò phản ứng đã được lắp vào",
   "reactor.info.assembled.destroyer": "Lò phản ứng đã bị tháo ra",
   "reactor.info.assembled.none": "Lò phản ứng không được lắp ráp",
