@@ -248,6 +248,7 @@
   "item.minecraft.tipped_arrow.effect.potion_of_radiation_augment_1": "Стрела радиации",
   "itemGroup.createnuclear.main": "Create Nuclear",
   "itemgroup.uranium": "Группа урана",
+  "overlay.event_message": "⚠ Warning ⚠ %s timer",
   "reactor.info.assembled.creator": "Реактор собран",
   "reactor.info.assembled.destroyer": "Реактор разобран",
   "reactor.info.assembled.none": "Реактор не собран",
