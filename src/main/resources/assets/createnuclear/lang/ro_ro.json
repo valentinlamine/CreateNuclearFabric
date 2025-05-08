@@ -248,6 +248,7 @@
   "item.minecraft.tipped_arrow.effect.potion_of_radiation_augment_1": "Săgeată de Radiație ",
   "itemGroup.createnuclear.main": "Creează Nuclear",
   "itemgroup.uranium": "Grupa Uraniumului",
+  "overlay.event_message": "⚠ Warning ⚠ %s timer",
   "reactor.info.assembled.creator": "Reactorul a fost asamblat",
   "reactor.info.assembled.destroyer": "Reactorul a fost dezasamblat",
   "reactor.info.assembled.none": "Reactorul nu este asamblat",
