@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-// 1.20.1	2025-05-08T12:41:02.4962702	Create Nuclear/CreateNuclair's Mechanical Crafting Recipes
-=======
-// 1.20.1	2025-05-08T16:55:44.3221831	Create Nuclear/CreateNuclair's Mechanical Crafting Recipes
->>>>>>> main
+// 1.20.1	2025-05-08T17:07:38.7714936	Create Nuclear/CreateNuclair's Mechanical Crafting Recipes
 0a1d26105f14cb2a01b18b9f050c900412f917fb data\createnuclear\recipes\mechanical_crafting\uranium_rod.json
 2e34bda29300215b28c0179960ac02f2ce569b8c data\createnuclear\recipes\mechanical_crafting\reactor_frame.json
 123aa4e9b991e5bebbaefa8a632790fd4c5df9a8 data\createnuclear\recipes\mechanical_crafting\reactor_core.json

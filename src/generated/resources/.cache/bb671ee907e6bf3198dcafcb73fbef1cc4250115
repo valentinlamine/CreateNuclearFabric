@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-// 1.20.1	2025-05-08T12:41:02.4917174	Create Nuclear/CreateNuclear's Standard Recipes
-=======
-// 1.20.1	2025-05-08T16:55:44.3175242	Create Nuclear/CreateNuclear's Standard Recipes
->>>>>>> main
+// 1.20.1	2025-05-08T17:07:38.7679055	Create Nuclear/CreateNuclear's Standard Recipes
 f3cecbff7e26c16f7cf09b5c79cd6b4dce3c1c2f data\createnuclear\recipes\crafting\items\armors\yellow_anti_radiation_leggings.json
 4e906e85482d81e1a9a14dc275063d3124226a4c data\createnuclear\advancements\recipes\combat\crafting\items\armors\black_anti_radiation_leggings.json
 e16241f452e526d76f0dae2eff6f045c18207a47 data\createnuclear\advancements\recipes\combat\crafting\items\armors\magenta_anti_radiation_leggings.json
@@ -12,8 +8,8 @@ b5cea62bde58a7b539a746b62d73805b7de9661a data\createnuclear\recipes\crafting\ite
 ab22bb70038dffd682947134deb29890ef5519ce data\createnuclear\recipes\crafting\items\armors\green_anti_radiation_helmet.json
 3a3331bf48286bd50d6011974158bfdefa4d66d0 data\createnuclear\advancements\recipes\combat\crafting\items\armors\orange_anti_radiation_chestplate.json
 f97cdac2db61fc9a726bbe3498419d864cdf8abc data\createnuclear\advancements\recipes\combat\crafting\items\armors\blue_anti_radiation_leggings.json
-0f090ddbc9878b2351702930660ba4e83030a6f8 data\createnuclear\advancements\recipes\combat\crafting\items\armors\red_anti_radiation_chestplate.json
 994c303b720b9195df5332abdb6035fc0663d86b data\createnuclear\advancements\recipes\combat\crafting\items\armors\black_anti_radiation_chestplate.json
+0f090ddbc9878b2351702930660ba4e83030a6f8 data\createnuclear\advancements\recipes\combat\crafting\items\armors\red_anti_radiation_chestplate.json
 8ee5858eabbd21c145ee9318cc0042790ec07818 data\createnuclear\advancements\recipes\misc\crafting\materials\lead_ingot_from_compacting.json
 c0d06ee8170bf32013d21539c86e8e7b0c759b92 data\createnuclear\recipes\crafting\items\armors\red_anti_radiation_chestplate.json
 ff48d4c5d757fbe63b0fd609db35a9595727c854 data\createnuclear\recipes\crafting\items\armors\magenta_anti_radiation_helmet.json

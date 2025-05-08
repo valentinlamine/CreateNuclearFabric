@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-// 1.20.1	2025-05-08T12:41:02.4861377	Create Nuclear/CreateNuclear Generated Registry Entries
-=======
-// 1.20.1	2025-05-08T16:55:44.3050347	Create Nuclear/CreateNuclear Generated Registry Entries
->>>>>>> main
+// 1.20.1	2025-05-08T17:07:38.7585983	Create Nuclear/CreateNuclear Generated Registry Entries
 b0e1ee7314412507fd7346cb48b29d105f6186ad data\createnuclear\worldgen\configured_feature\uranium_ore.json
 2f6b17e72a83c6515b317cf32c2cc9f7d83a591c data\createnuclear\worldgen\placed_feature\uranium_ore.json
 b68555f371c9700aa4ecfa9370b010de8fe25b60 data\createnuclear\worldgen\configured_feature\lead_ore.json
