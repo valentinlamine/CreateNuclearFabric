@@ -248,6 +248,7 @@
   "item.minecraft.tipped_arrow.effect.potion_of_radiation_augment_1": "Šíp ozáření",
   "itemGroup.createnuclear.main": "Create Nukleární",
   "itemgroup.uranium": "Skupina Uranu",
+  "overlay.event_message": "⚠ Warning ⚠ %s timer",
   "reactor.info.assembled.creator": "Reaktor byl sestaven",
   "reactor.info.assembled.destroyer": "Reaktor byl rozebrán",
   "reactor.info.assembled.none": "Reaktor není sestaven",
