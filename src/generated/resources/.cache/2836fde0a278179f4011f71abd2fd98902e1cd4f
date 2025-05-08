@@ -1,4 +1,4 @@
-// 1.20.1	2025-05-03T21:00:13.587663	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-05-08T12:41:02.4726351	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 2b6958059c3a4c8aee7fb4c003feba12dd0ab252 assets\createnuclear\models\item\uranium_bucket.json
 4db93da70d6a7549155201b7d9d68355449652ac assets\createnuclear\models\item\red_cloth.json
 8cdcca32a87171e2c709e762165330b2f0389f90 assets\createnuclear\models\item\brown_cloth.json
@@ -85,9 +85,9 @@ a1970879fd57836f5ae5d23352cdca277095bc7d assets\createnuclear\models\item\yellow
 35c8b46c14daa4da11187ddd916ac31020663819 assets\createnuclear\models\item\reactor_casing.json
 fdc9cf972cf27ce343d4f098ddcdc9a4e19d2404 data\c\tags\fluids\uranium.json
 c88d66c0a041c51ee8089e5596169dc6c353fb13 assets\createnuclear\models\item\gray_anti_radiation_helmet.json
-b20aeafcdcd235c7d89067d5331b823535b82522 assets\createnuclear\models\item\yellow_anti_radiation_leggings.json
 ef76b3a3a97b5d1901d7e8ac17009381de418ab8 assets\createnuclear\models\item\reactor_blueprint_item.json
-5e91d6cd9b44d7c7abd6b58795e91cf7b0cd71e9 assets\createnuclear\lang\en_ud.json
+b20aeafcdcd235c7d89067d5331b823535b82522 assets\createnuclear\models\item\yellow_anti_radiation_leggings.json
+14925d155a430008e8c2e24f7506a0b6f058b8c4 assets\createnuclear\lang\en_ud.json
 b5d03bd4b800741cb96a95835567b67df0de2507 data\createnuclear\tags\items\anti_radiation_leggings_full_dye.json
 37af2b0b5eacf53995703344a45fb3f4d0efe1f9 data\createnuclear\loot_tables\blocks\reactor_output.json
 d61337a67071319320d75383a62ecac11c3222d1 assets\createnuclear\models\item\brown_anti_radiation_helmet.json
@@ -170,7 +170,7 @@ af14c1a038ff14285b1d78dfbcab0a8e44df14e5 assets\createnuclear\models\item\orange
 5a2694d92c4708ca23ddfa67666ea26be66b9a45 assets\createnuclear\models\item\enriched_soul_soil.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets\createnuclear\models\item\chicken_irradiated_spawn_egg.json
 f91f43a39c80f583f878ea1a0d944798c05f2388 data\createnuclear\loot_tables\entities\irradiated_wolf.json
-c19d8aeb109e1bb8d8989f9eb1523c9225a40112 assets\createnuclear\lang\en_us.json
+f8792c3e553746e9fa032898a9b81a877aeca214 assets\createnuclear\lang\en_us.json
 57c846a957e9250bc45f2f1091bf3f78b2a77344 assets\createnuclear\blockstates\steel_block.json
 8633aa61a16a7b249c4aea578a9520eca7347c3a assets\createnuclear\models\item\reactor_core.json
 e5ce9ec90cc899a20b84697b8d9ada9a455d56bf data\c\tags\items\raw_materials\uranium.json
