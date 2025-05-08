@@ -7,15 +7,12 @@
     },
     "Y": {
       "item": "createnuclear:purple_cloth"
-    },
-    "Z": {
-      "item": "createnuclear:reinforced_glass"
     }
   },
   "pattern": [
     "YXY",
-    "Z Z",
-    "X X"
+    "X X",
+    "Y Y"
   ],
   "result": {
     "item": "createnuclear:purple_anti_radiation_leggings"

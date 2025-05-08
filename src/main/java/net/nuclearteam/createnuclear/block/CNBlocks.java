@@ -6,8 +6,6 @@ import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
-import com.simibubi.create.foundation.data.recipe.StandardRecipeGen;
-import com.simibubi.create.foundation.utility.Couple;
 import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import io.github.fabricators_of_create.porting_lib.models.generators.ConfiguredModel;
@@ -16,14 +14,11 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.data.loot.BlockLootSubProvider;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LightBlock;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -35,15 +30,15 @@ import net.nuclearteam.createnuclear.blockentity.ReinforcedGlassBlock;
 import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerGenerator;
-import net.nuclearteam.createnuclear.multiblock.cooling.ReactorCoolingBlock;
 import net.nuclearteam.createnuclear.multiblock.core.ReactorCoreBlock;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutput;
-import net.nuclearteam.createnuclear.multiblock.energy.ReactorOutputGenerator;
-import net.nuclearteam.createnuclear.multiblock.frame.ReactorBlock;
-import net.nuclearteam.createnuclear.multiblock.gauge.ReactorGaugeBlock;
-import net.nuclearteam.createnuclear.multiblock.gauge.ReactorGaugeBlockItem;
+import net.nuclearteam.createnuclear.multiblock.output.ReactorOutput;
+import net.nuclearteam.createnuclear.multiblock.output.ReactorOutputGenerator;
+import net.nuclearteam.createnuclear.multiblock.casing.ReactorCasingBlock;
+import net.nuclearteam.createnuclear.multiblock.frame.ReactorFrameBlock;
+import net.nuclearteam.createnuclear.multiblock.frame.ReactorFrameItem;
 import net.nuclearteam.createnuclear.multiblock.input.ReactorInput;
 import net.nuclearteam.createnuclear.multiblock.input.ReactorInputGenerator;
+import net.nuclearteam.createnuclear.multiblock.cooler.ReactorCoolerBlock;
 import net.nuclearteam.createnuclear.tags.CNTag;
 import net.nuclearteam.createnuclear.tools.EnrichingCampfireBlock;
 import net.nuclearteam.createnuclear.tools.EnrichingFireBlock;
@@ -53,7 +48,6 @@ import static com.simibubi.create.foundation.data.CreateRegistrate.casingConnect
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
 import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
 import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
-import static java.lang.Integer.MAX_VALUE;
 
 public class CNBlocks {
 
@@ -247,7 +241,7 @@ public class CNBlocks {
     public static final BlockEntry<ReinforcedGlassBlock> REINFORCED_GLASS =
             CreateNuclear.REGISTRATE.block("reinforced_glass", ReinforcedGlassBlock::new)
                     .initialProperties(CNBlocks::getGlass)
-                    .properties(p -> p.explosionResistance(1200F).destroyTime(2F))
+                    .properties(p -> p.explosionResistance(7.0F).destroyTime(2F))
                     .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(CNSpriteShifts.REACTOR_GLASS)))
                     .onRegister(casingConnectivity((block,cc) -> cc.makeCasing(block, CNSpriteShifts.REACTOR_GLASS)))
                     .loot(RegistrateBlockLootTables::dropWhenSilkTouch)
@@ -279,7 +273,6 @@ public class CNBlocks {
                 .ignitedByLava()
             ))
             .properties(BlockBehaviour.Properties::replaceable)
-            .simpleItem()
             .addLayer(() -> RenderType::cutoutMipped)
             .transform(axeOrPickaxe())
             .tag(CNTag.BlockTags.CAMPFIRE.tag, CNTag.BlockTags.ALL_CAMPFIRE.tag)
@@ -302,7 +295,14 @@ public class CNBlocks {
                 )
             )
             .tag(CNTag.BlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
+            .item()
+            .model((c, p) ->
+                p.withExistingParent(c.getName(), new ResourceLocation("item/generated"))
+                    .texture("layer0", p.modLoc("item/enriching_flame_campfire"))
+            )
+            .build()
             .register();
+
 
 
 
@@ -326,7 +326,7 @@ public class CNBlocks {
                     .blockstate((c, p) ->
                         p.getVariantBuilder(c.getEntry())
                         .forAllStates(state -> ConfiguredModel.builder()
-                            .modelFile(p.models().getExistingFile(p.modLoc("block/reactor_core")))
+                            .modelFile(p.models().getExistingFile(p.modLoc("block/reactor_core/reactor_core")))
                             .uvLock(false)
                             .build())
                     )
@@ -334,8 +334,8 @@ public class CNBlocks {
                     .simpleItem()
                     .register();
 
-    public static final BlockEntry<ReactorCoolingBlock> REACTOR_COOLING_FRAME =
-            CreateNuclear.REGISTRATE.block("reactor_cooling_frame", ReactorCoolingBlock::new)
+    public static final BlockEntry<ReactorCoolerBlock> REACTOR_COOLER =
+            CreateNuclear.REGISTRATE.block("reactor_cooler", ReactorCoolerBlock::new)
                     .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(3F))
                     .properties(p -> p.destroyTime(4F))
@@ -345,19 +345,19 @@ public class CNBlocks {
                     .blockstate((c, p) ->
                         p.getVariantBuilder(c.getEntry())
                             .forAllStatesExcept(state -> ConfiguredModel.builder()
-                                .modelFile(p.models().getExistingFile(p.modLoc("block/reactor_cooling_frame/reactor_cooling_frame")))
+                                .modelFile(p.models().getExistingFile(p.modLoc("block/reactor_cooler/reactor_cooler")))
                                 .uvLock(false)
                                 .build())
                     )
                     .register();
 
-    public static final BlockEntry<ReactorBlock> REACTOR_CASING =
-            CreateNuclear.REGISTRATE.block("reactor_casing", p -> new ReactorBlock(p, ReactorBlock.TypeBlock.CASING))
+    public static final BlockEntry<ReactorCasingBlock> REACTOR_CASING =
+            CreateNuclear.REGISTRATE.block("reactor_casing", p -> new ReactorCasingBlock(p, ReactorCasingBlock.TypeBlock.CASING))
                     .properties(p -> p.explosionResistance(3F).destroyTime(4F))
                     .transform(pickaxeOnly())
                     .blockstate((c,p) ->
                         p.getVariantBuilder(c.getEntry()).forAllStates((state) -> ConfiguredModel.builder()
-                            .modelFile(p.models().getExistingFile(p.modLoc("block/reactor_casing")))
+                            .modelFile(p.models().getExistingFile(p.modLoc("block/reactor_casing/reactor_casing")))
                             .build()))
                     .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(CNSpriteShifts.REACTOR_CASING)))
                     .onRegister(casingConnectivity((block,cc) -> cc.makeCasing(block, CNSpriteShifts.REACTOR_CASING)))
@@ -366,8 +366,8 @@ public class CNBlocks {
                     .transform(pickaxeOnly())
                     .register();
 
-    public static final BlockEntry<ReactorGaugeBlock> REACTOR_MAIN_FRAME =
-            CreateNuclear.REGISTRATE.block("reactor_main_frame", ReactorGaugeBlock::new)
+    public static final BlockEntry<ReactorFrameBlock> REACTOR_FRAME =
+            CreateNuclear.REGISTRATE.block("reactor_frame", ReactorFrameBlock::new)
                     .initialProperties(SharedProperties::stone)
                     .properties(p -> p.explosionResistance(3F))
                     .properties(p -> p.destroyTime(2F))
@@ -377,8 +377,8 @@ public class CNBlocks {
                     .blockstate((c, p) ->
                         p.getVariantBuilder(c.getEntry())
                         .forAllStatesExcept(state -> {
-                            ReactorGaugeBlock.Part part = state.getValue(ReactorGaugeBlock.PART);
-                            String baseFile = "block/reactor_main_frame/reactor_gauge_";
+                            ReactorFrameBlock.Part part = state.getValue(ReactorFrameBlock.PART);
+                            String baseFile = "block/reactor_frame/reactor_frame_";
                             ModelFile start = p.models().getExistingFile(p.modLoc(baseFile + "top"));
                             ModelFile middle = p.models().getExistingFile(p.modLoc(baseFile + "middle"));
                             ModelFile bottom = p.models().getExistingFile(p.modLoc(baseFile + "bottom"));
@@ -395,8 +395,7 @@ public class CNBlocks {
                             .build();
                         })
                     )
-                    .item(ReactorGaugeBlockItem::new)
-                    //.model(ReactorGaugeBlockOverrides::addOverrideModels)
+                    .item(ReactorFrameItem::new)
                     .model(AssetLookup::customItemModel)
                     .build()
                     .register();
@@ -426,14 +425,8 @@ public class CNBlocks {
         return Blocks.DIAMOND_ORE;
     }
 
-    private static void addBlockToCreateNuclearItemGroup(FabricItemGroupEntries entries) {
-        //entries.accept(ENRICHING_CAMPFIRE, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
-    }
-
     public static void registerCNBlocks() {
         CreateNuclear.LOGGER.info("Registering ModBlocks for " + CreateNuclear.MOD_ID);
-
-        //ItemGroupEvents.modifyEntriesEvent(CNGroup.MAIN_KEY).register(CNBlocks::addBlockToCreateNuclearItemGroup);
     }
 
 

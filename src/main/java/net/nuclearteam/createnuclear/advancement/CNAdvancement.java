@@ -67,6 +67,15 @@ public class CNAdvancement implements DataProvider {
             .after(URANIUM_LIQUID)
             .whenIconCollected()),
 
+    EATED_YELLOWCAKE = create("eated_yellowcake", b -> b.icon(CNItems.YELLOWCAKE)
+            .title("Eating Yellowcake")
+            .description("What did you expect ?")
+            .after(YELLOWCAKE)
+            .whenItemEaten(CNItems.YELLOWCAKE.get())
+            .special(SECRET)),
+
+
+
     ENRICHED_YELLOWCAKE = create("enriched_yellowcake", b -> b.icon(CNItems.ENRICHED_YELLOWCAKE)
             .title("Enhancing Yellowcake")
             .description("Use a fan to enrich yellowcake and make it more powerful")
@@ -182,15 +191,15 @@ public class CNAdvancement implements DataProvider {
             .after(REACTOR_CONTROLLER)
             .whenIconCollected()),
 
-    REACTOR_COOLING_FRAME = create("reactor_cooling_frame", b -> b.icon(CNBlocks.REACTOR_COOLING_FRAME)
+    REACTOR_COOLER = create("reactor_cooler", b -> b.icon(CNBlocks.REACTOR_COOLER)
             .title("Cooling The Reactor")
-            .description("Craft a reactor cooling frame to cool your reactor")
+            .description("Craft a reactor cooler to cool your reactor")
             .after(REACTOR_CASING)
             .whenIconCollected()),
 
-    REACTOR_MAIN_FRAME = create("reactor_main_frame", b -> b.icon(CNBlocks.REACTOR_MAIN_FRAME)
-            .title("Reactor Main Frame")
-            .description("Craft a reactor main frame to build your nuclear reactor")
+    REACTOR_FRAME = create("reactor_frame", b -> b.icon(CNBlocks.REACTOR_FRAME)
+            .title("Reactor Frame")
+            .description("Craft a reactor frame to build your nuclear reactor")
             .after(REACTOR_CASING)
             .whenIconCollected()),
 

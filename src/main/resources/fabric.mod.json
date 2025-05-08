@@ -2,8 +2,8 @@
 	"schemaVersion": 1,
 	"id": "createnuclear",
 	"version": "${minecraft_version}",
-	"name": "CreateNuclear",
-	"description": "This is an addon of Create mod, it adds nuclear power to the game.",
+	"name": "Create Nuclear",
+	"description": "Create nuclear is a mod that add a whole nuclear system to the create mod. An optimized reactor produces over two millions SU.",
 	"authors": [
 		"Create Nuclear"
 	],

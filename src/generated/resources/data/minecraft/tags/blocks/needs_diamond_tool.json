@@ -8,9 +8,9 @@
     "createnuclear:reactor_output",
     "createnuclear:reactor_controller",
     "createnuclear:reactor_core",
-    "createnuclear:reactor_cooling_frame",
+    "createnuclear:reactor_cooler",
     "createnuclear:reactor_casing",
-    "createnuclear:reactor_main_frame",
+    "createnuclear:reactor_frame",
     "createnuclear:reactor_input"
   ]
 }

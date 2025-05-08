@@ -14,9 +14,12 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -30,6 +33,7 @@ import net.minecraft.world.entity.animal.horse.Llama;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.*;
@@ -39,21 +43,23 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import net.nuclearteam.createnuclear.effects.CNEffects;
 import net.nuclearteam.createnuclear.entity.CNMobEntityType;
 import net.nuclearteam.createnuclear.item.CNItems;
+import net.nuclearteam.createnuclear.tags.CNTag;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+@ParametersAreNonnullByDefault
 public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
     private static final EntityDataAccessor<Boolean> DATA_INTERESTED_ID;
-    //private static final EntityDataAccessor<Integer> DATA_COLLAR_COLOR;
     private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME;
     public static final Predicate<LivingEntity> PREY_SELECTOR;
-    public static final float START_HEALTH = 8.0F;
-    public static final float TAME_HEALTH = 20.0F;
+
     private float interestedAngle;
     private float interestedAngleO;
     private boolean isWet;
@@ -87,11 +93,8 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new OwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(3, (new HurtByTargetGoal(this, new Class[0])).setAlertOthers(new Class[0]));
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
-        this.targetSelector.addGoal(5, new NonTameRandomTargetGoal<>(this, Animal.class, false, PREY_SELECTOR));
-        this.targetSelector.addGoal(6, new NonTameRandomTargetGoal<>(this, Turtle.class, false, Turtle.BABY_ON_LAND_SELECTOR));
-        this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, AbstractSkeleton.class, false));
-        this.targetSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, PathfinderMob.class, false, PREY_SELECTOR));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -101,10 +104,10 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
                 .add(Attributes.ATTACK_DAMAGE, 2.0);
     }
 
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_INTERESTED_ID, false);
-        //this.entityData.define(DATA_COLLAR_COLOR, DyeColor.RED.getId());
         this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
     }
 
@@ -114,16 +117,11 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        //compound.putByte("CollarColor", (byte)this.getCollarColor().getId());
         this.addPersistentAngerSaveData(compound);
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-       /* if (compound.contains("CollarColor", 99)) {
-            this.setCollarColor(DyeColor.byId(compound.getInt("CollarColor")));
-        }*/
-
         this.readPersistentAngerSaveData(this.level(), compound);
     }
 
@@ -273,13 +271,23 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
         }
     }
 
+    @Override
     public boolean doHurtTarget(Entity target) {
-        boolean bl = target.hurt(this.damageSources().mobAttack(this), (float)((int)this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
-        if (bl) {
-            this.doEnchantDamageEffects(this, target);
+        if (super.doHurtTarget(target)) {
+            if (target instanceof LivingEntity) {
+                int i = 0;
+                if (this.level().getDifficulty() == Difficulty.NORMAL) {
+                    i = 7;
+                } else if (this.level().getDifficulty() == Difficulty.HARD) {
+                    i = 15;
+                }
+                if (i > 0) {
+                    ((LivingEntity)target).addEffect(new MobEffectInstance(CNEffects.RADIATION.get(), i * 20, 0), this);
+                }
+            }
+            return true;
         }
-
-        return bl;
+        return false;
     }
 
     public void setTame(boolean tamed) {
@@ -311,40 +319,10 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
                         this.heal((float)item.getFoodProperties().getNutrition());
                         return InteractionResult.SUCCESS;
                     }
-
-                   /* if (!(item instanceof DyeItem)) {
-                        break label90;
-                    }*/
-
-                    /*DyeItem dyeItem = (DyeItem)item;
-                    if (!this.isOwnedBy(player)) {
-                        break label90;
-                    }*/
-
-                    //DyeColor dyeColor = dyeItem.getDyeColor();
-                    /*if (dyeColor != this.getCollarColor()) {
-                        this.setCollarColor(dyeColor);
-                        if (!player.getAbilities().instabuild) {
-                            itemStack.shrink(1);
-                        }
-
-                        return InteractionResult.SUCCESS;
-                    }*/
                 }
-
                 return super.mobInteract(player, hand);
             }
 
-            /*InteractionResult interactionResult = super.mobInteract(player, hand);
-            if ((!interactionResult.consumesAction() || this.isBaby()) && this.isOwnedBy(player)) {
-                this.setOrderedToSit(!this.isOrderedToSit());
-                this.jumping = false;
-                this.navigation.stop();
-                this.setTarget((LivingEntity)null);
-                return InteractionResult.SUCCESS;
-            } else {
-                return interactionResult;
-            }*/
         }
     }
 
@@ -370,7 +348,6 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
     }
 
     public boolean isFood(ItemStack stack) {
-        //Item item = stack.getItem();
         return stack.is(CNItems.URANIUM_POWDER.get()); //item.isEdible() && item.getFoodProperties().isMeat();
     }
 
@@ -399,20 +376,9 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
         this.persistentAngerTarget = persistentAngerTarget;
     }
 
-    /*public DyeColor getCollarColor() {
-        return DyeColor.byId((Integer)this.entityData.get(DATA_COLLAR_COLOR));
-    }*/
-
-    /*public void setCollarColor(DyeColor collarColor) {
-        this.entityData.set(DATA_COLLAR_COLOR, collarColor.getId());
-    }*/
-
     @Nullable
     public IrradiatedWolf getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        //Wolf wolf = (Wolf)EntityType.WOLF.create(level);
-        IrradiatedWolf wolf = CNMobEntityType.IRRADIATED_WOLF.create(level);
-
-        return wolf;
+        return CNMobEntityType.IRRADIATED_WOLF.create(level);
     }
 
     public void setIsInterested(boolean isInterested) {
@@ -424,10 +390,9 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
             return false;
         } else if (!this.isTame()) {
             return false;
-        } else if (!(otherAnimal instanceof IrradiatedWolf)) {
+        } else if (!(otherAnimal instanceof IrradiatedWolf wolf)) {
             return false;
         } else {
-            IrradiatedWolf wolf = (IrradiatedWolf)otherAnimal;
             if (!wolf.isTame()) {
                 return false;
             } else if (wolf.isInSittingPose()) {
@@ -476,7 +441,7 @@ public class IrradiatedWolf extends TamableAnimal implements NeutralMob {
         DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(IrradiatedWolf.class, EntityDataSerializers.INT);
         PREY_SELECTOR = (entity) -> {
             EntityType<?> entityType = entity.getType();
-            return entityType == EntityType.SHEEP || entityType == EntityType.RABBIT || entityType == EntityType.FOX || entityType == CNMobEntityType.IRRADIATED_CAT.get();
+            return !CNTag.EntityTypeTags.IRRADIATED_IMMUNE.matches(entityType);
         };
         PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     }
