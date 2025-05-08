@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+// 1.20.1	2025-05-08T12:17:11.1159806	Create Nuclear/Create Nuclear Advancements
+=======
+<<<<<<< HEAD
 
 bf6947708102180f9cd08e31305253774187d763 data\createnuclear\advancements\reactor_controller.json
 2c2cfb8724f39fc5e101a34dce08de6e33f6d1f8 data\createnuclear\advancements\dye_anti_radiation_armor.json
@@ -28,6 +31,7 @@ b19a554150aa4d9dee594574e310c436d7bfc66d data\createnuclear\advancements\reactor
 4f963ff2f6c09a0272c25ebdb46423700e5256eb data\createnuclear\advancements\reactor_input.json
 =======
 // 1.20.1	2025-05-08T17:07:38.7777273	Create Nuclear/Create Nuclear Advancements
+>>>>>>> main
 4f963ff2f6c09a0272c25ebdb46423700e5256eb data\createnuclear\advancements\reactor_input.json
 91aab6f0a18aee167c63a3aece5fa9778cf52b0b data\createnuclear\advancements\reinforced_glass.json
 5a41894d2428fb7297b98a6b78925a17af2a3095 data\createnuclear\advancements\uranium_liquid.json
@@ -55,4 +59,7 @@ fb039aef2e300f0f4eb946b8367e154a1772cc90 data\createnuclear\advancements\full_an
 0ac2cb2226f212b6c56c2f05dfa882b46f066f6f data\createnuclear\advancements\raw_uranium.json
 95a8f2e9970f421bd1df1cfd13b9ce807127898a data\createnuclear\advancements\eated_yellowcake.json
 b19a554150aa4d9dee594574e310c436d7bfc66d data\createnuclear\advancements\reactor_output.json
+<<<<<<< HEAD
+=======
+>>>>>>> main
 >>>>>>> main

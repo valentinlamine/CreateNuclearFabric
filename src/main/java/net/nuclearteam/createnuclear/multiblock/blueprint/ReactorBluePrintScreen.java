@@ -2,6 +2,7 @@ package net.nuclearteam.createnuclear.multiblock.blueprint;
 
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import io.github.fabricators_of_create.porting_lib.util.PlayerEntityHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

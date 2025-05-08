@@ -44,6 +44,7 @@ import net.nuclearteam.createnuclear.multiblock.cooler.ReactorCoolerBlock;
 import net.nuclearteam.createnuclear.tags.CNTag;
 import net.nuclearteam.createnuclear.tools.EnrichingCampfireBlock;
 import net.nuclearteam.createnuclear.tools.EnrichingFireBlock;
+import net.nuclearteam.createnuclear.tools.EventTriggerBlock;
 import net.nuclearteam.createnuclear.tools.UraniumOreBlock;
 
 import static com.simibubi.create.foundation.data.CreateRegistrate.casingConnectivity;
@@ -414,6 +415,10 @@ public class CNBlocks {
                     .item()
                     .transform(customItemModel())
                     .register();
+
+    public static final BlockEntry<EventTriggerBlock> TEST_EVENT_TRIGGER_BLOCK = CreateNuclear.REGISTRATE.block("test_event_trigger_block", EventTriggerBlock::new)
+            .simpleItem()
+            .register();
 
     public static Block getSoulSoil() {
         return Blocks.SOUL_SOIL;
