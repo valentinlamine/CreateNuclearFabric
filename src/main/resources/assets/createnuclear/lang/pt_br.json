@@ -248,6 +248,7 @@
   "item.minecraft.tipped_arrow.effect.potion_of_radiation_augment_1": "Flecha Radioativa",
   "itemGroup.createnuclear.main": "Create Nuclear",
   "itemgroup.uranium": "Grupo do Urânio",
+  "overlay.event_message": "⚠ Warning ⚠ %s timer",
   "reactor.info.assembled.creator": "O Reator foi montado",
   "reactor.info.assembled.destroyer": "O Reator foi desmontado",
   "reactor.info.assembled.none": "O Reator não está montado",
