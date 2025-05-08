@@ -248,6 +248,7 @@
   "item.minecraft.tipped_arrow.effect.potion_of_radiation_augment_1": "Pfeil der Strahlung",
   "itemGroup.createnuclear.main": "Create Nuclear",
   "itemgroup.uranium": "Uran Gruppe",
+  "overlay.event_message": "⚠ Warning ⚠ %s timer",
   "reactor.info.assembled.creator": "Reaktor wurde zusammengebaut",
   "reactor.info.assembled.destroyer": "Reaktor wurde zerlegt",
   "reactor.info.assembled.none": "Reaktor ist nicht zusammengebaut",
