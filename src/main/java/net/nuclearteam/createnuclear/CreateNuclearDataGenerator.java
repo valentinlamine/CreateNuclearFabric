@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
 import net.nuclearteam.createnuclear.advancement.CNAdvancement;
+import net.nuclearteam.createnuclear.compact.archEx.CNArchExCompat;
 import net.nuclearteam.createnuclear.datagen.CNGeneratedEntriesProvider;
 import net.nuclearteam.createnuclear.datagen.CNProcessingRecipeGen;
 import net.nuclearteam.createnuclear.datagen.CNRegistrateTags;
@@ -30,6 +31,7 @@ public class CreateNuclearDataGenerator implements DataGeneratorEntrypoint {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 		CreateNuclear.REGISTRATE.setupDatagen(pack, helper);
 		getherData(pack, helper);
+		CNArchExCompat.init(pack);
 	}
 
 	@Override

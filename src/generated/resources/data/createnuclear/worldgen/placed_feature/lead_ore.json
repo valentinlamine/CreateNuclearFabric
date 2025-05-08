@@ -13,7 +13,7 @@
       "height": {
         "type": "minecraft:trapezoid",
         "max_inclusive": {
-          "absolute": 320
+          "absolute": 64
         },
         "min_inclusive": {
           "absolute": -64
@@ -21,7 +21,7 @@
       }
     },
     {
-      "type": "create:config_filter"
+      "type": "createnuclear:config_filter"
     }
   ]
 }

@@ -13,6 +13,7 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.nuclearteam.createnuclear.config.CNConfigs;
 import net.nuclearteam.createnuclear.menu.CNMenus;
 import net.nuclearteam.createnuclear.tags.CNTag;
 
@@ -21,8 +22,8 @@ import static net.nuclearteam.createnuclear.multiblock.blueprint.ReactorBluePrin
 public class ReactorBluePrintMenu extends GhostItemMenu<ItemStack> {
 
     public float heat = 0F;
-    public int graphiteTime = 5000;
-    public int uraniumTime = 3600;
+    public int graphiteTime = CNConfigs.common().rods.graphiteRodLifetime.get();
+    public int uraniumTime = CNConfigs.common().rods.uraniumRodLifetime.get();
     public int countGraphiteRod = 0;
     public int countUraniumRod = 0;
     public double progress = 0;
@@ -59,8 +60,8 @@ public class ReactorBluePrintMenu extends GhostItemMenu<ItemStack> {
             }
         }
 
-        contentHolder.getOrCreateTag().putInt("uraniumTime", 3600);
-        contentHolder.getOrCreateTag().putInt("graphiteTime", 5000);
+        contentHolder.getOrCreateTag().putInt("uraniumTime", CNConfigs.common().rods.uraniumRodLifetime.get());
+        contentHolder.getOrCreateTag().putInt("graphiteTime", CNConfigs.common().rods.graphiteRodLifetime.get());
         contentHolder.getOrCreateTag().putInt("countGraphiteRod", 0);
         contentHolder.getOrCreateTag().putInt("countUraniumRod", 0);
 

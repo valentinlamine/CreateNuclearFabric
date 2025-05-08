@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_polished_cut_autunite": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "createnuclear:polished_cut_autunite"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "createnuclear:polished_cut_autunite_stairs"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_polished_cut_autunite",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "createnuclear:polished_cut_autunite_stairs"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // 1.20.1	2025-05-08T12:41:02.4896907	Create Nuclear/CreateNuclear's Blasting Recipes
+=======
+// 1.20.1	2025-05-08T16:55:44.3138767	Create Nuclear/CreateNuclear's Blasting Recipes
+>>>>>>> main
 0c347228b63702ba70d4257c4b5642133fb8e5b8 data\createnuclear\advancements\recipes\misc\smelting\lead_ingot_for_lead_ore.json
 978cc9d92268673050da5697482f4013a63a65f1 data\createnuclear\recipes\blasting\raw_uranium_for_uranium_ore.json
 93fe12ad36a99451009518d71ac105969a1ef2aa data\createnuclear\recipes\smelting\raw_uranium_for_uranium_ore.json

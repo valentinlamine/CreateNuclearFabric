@@ -4,6 +4,7 @@ import com.tterrag.registrate.util.entry.EntityEntry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -24,7 +25,7 @@ public class CNMobEntityType {
     public static final EntityEntry<IrradiatedCat> IRRADIATED_CAT = CreateNuclear.REGISTRATE
             .entity("irradiated_cat", IrradiatedCat::new, MobCategory.CREATURE)
             .loot((tb, e) -> tb.add(e, LootTable.lootTable()))
-            .tag(CNTag.EntityTypeTags.IRRADIATED_IMMUNE.tag, CNTag.EntityTypeTags.FALL_DAMAGE_IMMUNE.tag)
+            .tag(CNTag.EntityTypeTags.IRRADIATED_IMMUNE.tag, EntityTypeTags.FALL_DAMAGE_IMMUNE)
             .properties(b -> b.dimensions(EntityDimensions.scalable(0.6f, 0.7f)))
             .lang("Irradiated Cat")
             .renderer(() -> IrradiatedCatRenderer::new)
@@ -34,7 +35,7 @@ public class CNMobEntityType {
     public static final EntityEntry<IrradiatedChicken> IRRADIATED_CHICKEN = CreateNuclear.REGISTRATE
             .entity("irradiated_chicken", IrradiatedChicken::new, MobCategory.CREATURE)
             .loot((tb, e) -> tb.add(e, LootTable.lootTable()))
-            .tag(CNTag.EntityTypeTags.IRRADIATED_IMMUNE.tag, CNTag.EntityTypeTags.FALL_DAMAGE_IMMUNE.tag)
+            .tag(CNTag.EntityTypeTags.IRRADIATED_IMMUNE.tag, EntityTypeTags.FALL_DAMAGE_IMMUNE)
             .properties(b -> b.dimensions(EntityDimensions.scalable(0.4f, 0.7f)))
             .lang("Irradiated Chicken")
             .renderer(() -> IrradiatedChickenRenderer::new)
