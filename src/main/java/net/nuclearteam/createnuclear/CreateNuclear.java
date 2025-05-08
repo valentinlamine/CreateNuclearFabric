@@ -26,7 +26,6 @@ import net.nuclearteam.createnuclear.potion.CNPotions;
 import net.nuclearteam.createnuclear.tags.CNTag;
 import net.nuclearteam.createnuclear.world.CNConfigPlacementFilter;
 import net.nuclearteam.createnuclear.world.CNPlacementModifiers;
-import net.nuclearteam.createnuclear.world.gen.CNWorldGeneration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,7 +73,6 @@ public class CreateNuclear implements ModInitializer {
 
 		CNFanProcessingTypes.register();
 		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);
-		CNBiomeModifier.bootstrap();
 
 	}
 
