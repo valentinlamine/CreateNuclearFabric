@@ -248,6 +248,7 @@
   "item.minecraft.tipped_arrow.effect.potion_of_radiation_augment_1": "Strålningspil",
   "itemGroup.createnuclear.main": "Create Nuclear",
   "itemgroup.uranium": "Uran grupp",
+  "overlay.event_message": "⚠ Warning ⚠ %s timer",
   "reactor.info.assembled.creator": "Reaktorn har satts ihop",
   "reactor.info.assembled.destroyer": "Reaktorn har tagits isär",
   "reactor.info.assembled.none": "Reaktorn är inte ihopsatt",
