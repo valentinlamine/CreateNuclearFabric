@@ -248,6 +248,7 @@
   "item.minecraft.tipped_arrow.effect.potion_of_radiation_augment_1": "Radyasyon Oku",
   "itemGroup.createnuclear.main": "Create Nuclear",
   "itemgroup.uranium": "Uranyum Grubu",
+  "overlay.event_message": "⚠ Warning ⚠ %s timer",
   "reactor.info.assembled.creator": "Reaktör Kuruldu",
   "reactor.info.assembled.destroyer": "Reaktör Söküldü",
   "reactor.info.assembled.none": "Reaktör Bir Arada Değil",
