@@ -2,20 +2,20 @@
   "type": "create:crushing",
   "ingredients": [
     {
-      "item": "create:raw_zinc"
+      "item": "minecraft:raw_copper"
     }
   ],
   "processingTime": 250,
   "results": [
     {
-      "item": "create:crushed_raw_zinc"
+      "item": "create:crushed_raw_copper"
     },
     {
       "chance": 0.75,
       "item": "create:experience_nugget"
     },
     {
-      "chance": 0.25,
+      "chance": 0.15,
       "item": "createnuclear:lead_nugget"
     }
   ]

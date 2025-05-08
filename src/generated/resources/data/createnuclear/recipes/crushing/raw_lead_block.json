@@ -2,21 +2,19 @@
   "type": "create:crushing",
   "ingredients": [
     {
-      "item": "create:raw_zinc"
+      "item": "createnuclear:raw_lead_block"
     }
   ],
   "processingTime": 250,
   "results": [
     {
-      "item": "create:crushed_raw_zinc"
+      "count": 9,
+      "item": "create:crushed_raw_lead"
     },
     {
       "chance": 0.75,
+      "count": 18,
       "item": "create:experience_nugget"
-    },
-    {
-      "chance": 0.25,
-      "item": "createnuclear:lead_nugget"
     }
   ]
 }
