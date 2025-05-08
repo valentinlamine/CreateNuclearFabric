@@ -62,6 +62,7 @@ import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 import net.nuclearteam.createnuclear.effects.CNEffects;
 import net.nuclearteam.createnuclear.entity.CNMobEntityType;
+import net.nuclearteam.createnuclear.tags.CNTag;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -81,6 +82,11 @@ public class IrradiatedBee extends Animal implements NeutralMob, FlyingAnimal {
     public static final String TAG_FLOWER_POS = "FlowerPos";
     public static final String TAG_HIVE_POS = "HivePos";
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    public static final Predicate<LivingEntity> PREY_SELECTOR = (entity) -> {
+        EntityType<?> entityType = entity.getType();
+        return !CNTag.EntityTypeTags.IRRADIATED_IMMUNE.matches(entityType);
+    };
+
     @Nullable
     private UUID persistentAngerTarget;
     private float rollAmount;
@@ -146,6 +152,7 @@ public class IrradiatedBee extends Animal implements NeutralMob, FlyingAnimal {
         this.goalSelector.addGoal(7, new BeeGrowCropGoal());
         this.goalSelector.addGoal(8, new BeeWanderGoal());
         this.goalSelector.addGoal(9, new FloatGoal(this));
+        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, PathfinderMob.class, false, PREY_SELECTOR));
         this.targetSelector.addGoal(1, new BeeHurtByOtherGoal(this).setAlertOthers());
         this.targetSelector.addGoal(2, new IrradiatedBecomeAngryTargetGoal(this));
         this.targetSelector.addGoal(3, new ResetUniversalAngerTargetGoal<>(this, true));

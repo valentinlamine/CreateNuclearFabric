@@ -19,6 +19,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.player.Player;
@@ -32,11 +33,19 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.nuclearteam.createnuclear.entity.CNMobEntityType;
+import net.nuclearteam.createnuclear.tags.CNTag;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Predicate;
 
 public class IrradiatedPig extends Animal {
     private static final EntityDataAccessor<Integer> DATA_BOOST_TIME;
     private static final Ingredient FOOD_ITEMS;
+    public static final Predicate<LivingEntity> PREY_SELECTOR = (entity) -> {
+        EntityType<?> entityType = entity.getType();
+        return !CNTag.EntityTypeTags.IRRADIATED_IMMUNE.matches(entityType);
+    };
+
 
     public IrradiatedPig(EntityType<? extends IrradiatedPig> entityType, Level level) {
         super(entityType, level);
@@ -52,6 +61,8 @@ public class IrradiatedPig extends Animal {
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, PathfinderMob.class, false, PREY_SELECTOR));
+
     }
 
     public static AttributeSupplier.Builder createAttributes() {
