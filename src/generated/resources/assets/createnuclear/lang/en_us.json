@@ -225,6 +225,7 @@
   "item.minecraft.tipped_arrow.effect.potion_of_radiation_augment_1": "Arrow of Radiation",
   "itemGroup.createnuclear.main": "Create Nuclear",
   "itemgroup.uranium": "Uranium Group",
+  "overlay.event_message": "⚠ Warning ⚠ %s timer",
   "reactor.info.assembled.creator": "Reactor has been assembled",
   "reactor.info.assembled.destroyer": "Reactor has been disassembled",
   "reactor.info.assembled.none": "Reactor is not assembled",
@@ -243,7 +244,5 @@
   "tag.item.createnuclear.fuel": "Fuel",
   "tag.item.minecraft.all.campfires": "All Campfires",
   "tag.item.minecraft.campfires": "Campfires",
-  "tag.item.trinkets.head.face": "Head Face",
-
-  "overlay.event_message": "⚠ Warning ⚠ %s timer"
+  "tag.item.trinkets.head.face": "Head Face"
 }
