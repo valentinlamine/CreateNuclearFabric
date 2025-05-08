@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "createnuclear:block/palettes/stone_types/small_brick/autunite_cut_small_brick"
+  }
+}

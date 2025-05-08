@@ -2,6 +2,7 @@ package net.nuclearteam.createnuclear.datagen.recipe.cooking;
 
 import com.google.common.base.Supplier;
 import com.google.gson.JsonObject;
+import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
 import com.simibubi.create.foundation.utility.RegisteredObjects;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
@@ -34,7 +35,8 @@ public class CNCookingRecipeGen extends CreateRecipeProvider {
     GeneratedRecipe
         URANIUM_ORE_TO_URANIUM_POWDER = blastFurnaceRecipeTags(() -> CNItems.RAW_URANIUM::get, () -> CNTag.ItemTags.URANIUM_ORES.tag, "_for_uranium_ore", 4),
         RAW_LEAD_ORES = blastFurnaceRecipeTags(() -> CNItems.LEAD_INGOT::get, () -> CNTag.ItemTags.LEAD_ORES.tag, "_for_lead_ore", 1),
-        RAW_LEAD = blastFurnaceRecipe(CNItems.LEAD_INGOT::get, CNItems.RAW_LEAD::get, "_for_raw_lead", 1)
+        RAW_LEAD = blastFurnaceRecipe(CNItems.LEAD_INGOT::get, CNItems.RAW_LEAD::get, "_for_raw_lead", 1),
+        CRUSHED_LEAD = blastFurnaceRecipe(CNItems.LEAD_INGOT::get, AllItems.CRUSHED_LEAD::get, "_for_crushed_lead", 1)
         ;
 
 

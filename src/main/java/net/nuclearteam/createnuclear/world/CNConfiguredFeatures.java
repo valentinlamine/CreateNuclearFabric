@@ -1,6 +1,9 @@
 package net.nuclearteam.createnuclear.world;
 
 
+import com.simibubi.create.infrastructure.worldgen.AllFeatures;
+import com.simibubi.create.infrastructure.worldgen.LayerPattern;
+import com.simibubi.create.infrastructure.worldgen.LayeredOreConfiguration;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
@@ -16,6 +19,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 
+import net.nuclearteam.createnuclear.world.layer.CNLayerPatterns;
 import org.intellij.lang.annotations.Identifier;
 
 import java.util.List;
@@ -24,6 +28,7 @@ public class CNConfiguredFeatures {
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> URANIUM_ORE_KEY = registerKey("uranium_ore");
     public static final ResourceKey<ConfiguredFeature<?, ?>> LEAD_ORE = registerKey("lead_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> STRIATED_ORES_OVERWORLD = registerKey("striated_ores_overworld");
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, CreateNuclear.asResource(name));
@@ -48,14 +53,11 @@ public class CNConfiguredFeatures {
 
         register(context, LEAD_ORE, Feature.ORE, new OreConfiguration(leadTargetStates, 7));
 
+        List<LayerPattern> overworldLayerPatterns = List.of(
+                CNLayerPatterns.AUTUNITE.get()
+        );
 
-        /*List<OreConfiguration> overworldOres =
-                List.of(new OreConfiguration(stoneReplaceable, CNBlocks.URANIUM_ORE.getDefaultState(), 12),
-                        new OreConfiguration(templateReplaceable, CNBlocks.DEEPSLATE_URANIUM_ORE.getDefaultState(), 12));
-
-
-
-    register(context, URANIUM_ORE_KEY, Feature.ORE, new OreConfiguration(stoneReplaceable, CNBlocks.URANIUM_ORE.getDefaultState(), 7));*/
+        register(context, STRIATED_ORES_OVERWORLD, AllFeatures.LAYERED_ORE.get(), new LayeredOreConfiguration(overworldLayerPatterns, 32, 0));
 
 
     }

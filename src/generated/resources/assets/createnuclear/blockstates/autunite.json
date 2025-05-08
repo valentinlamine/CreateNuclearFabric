@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "createnuclear:block/autunite_natural_0"
+      },
+      {
+        "model": "createnuclear:block/autunite_natural_1"
+      },
+      {
+        "model": "createnuclear:block/autunite_natural_2"
+      },
+      {
+        "model": "createnuclear:block/autunite_natural_3"
+      }
+    ]
+  }
+}

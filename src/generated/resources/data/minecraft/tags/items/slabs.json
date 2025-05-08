@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "createnuclear:cut_autunite_slab",
+    "createnuclear:polished_cut_autunite_slab",
+    "createnuclear:cut_autunite_brick_slab",
+    "createnuclear:small_autunite_brick_slab"
+  ]
+}
