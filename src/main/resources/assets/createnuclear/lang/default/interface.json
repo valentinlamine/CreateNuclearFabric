@@ -2,8 +2,8 @@
   "itemGroup.createnuclear.main": "Create Nuclear",
   "itemgroup.uranium": "Uranium Group",
 
-  "createnuclear.enriched.fan.recipe": "Bulk Enriched",
-  "emi.category.createnuclear.fan_enriched": "Bulk Enriched",
+  "createnuclear.enriched.fan.recipe": "Bulk Enriching",
+  "emi.category.createnuclear.fan_enriched": "Bulk Enriching",
   "create.recipe.fan_enriched.fan": "Fan behind Enriched Fire",
 
   "gui.createnuclear.reactor_controller.title": "Reactor Controller",

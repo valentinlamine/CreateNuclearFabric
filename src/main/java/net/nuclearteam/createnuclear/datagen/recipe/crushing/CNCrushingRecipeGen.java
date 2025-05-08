@@ -76,7 +76,7 @@ public class CNCrushingRecipeGen extends ProcessingRecipeGen {
 
 
 
-    ;
+            ;
 
     public CNCrushingRecipeGen(FabricDataOutput generator) {
         super(generator);

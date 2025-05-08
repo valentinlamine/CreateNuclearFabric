@@ -8,8 +8,12 @@ import com.simibubi.create.foundation.item.TooltipModifier;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.resources.ResourceLocation;
+import net.nuclearteam.createnuclear.advancement.CNAdvancement;
+import net.nuclearteam.createnuclear.advancement.CNTriggers;
 import net.nuclearteam.createnuclear.block.CNBlocks;
+import net.nuclearteam.createnuclear.block.palette.CNPalettesStoneTypes;
 import net.nuclearteam.createnuclear.blockentity.CNBlockEntities;
+import net.nuclearteam.createnuclear.config.CNConfigs;
 import net.nuclearteam.createnuclear.effects.CNEffects;
 import net.nuclearteam.createnuclear.entity.CNMobDefaultAttribute;
 import net.nuclearteam.createnuclear.entity.CNMobEntityType;
@@ -22,7 +26,8 @@ import net.nuclearteam.createnuclear.menu.CNMenus;
 import net.nuclearteam.createnuclear.packets.CNPackets;
 import net.nuclearteam.createnuclear.potion.CNPotions;
 import net.nuclearteam.createnuclear.tags.CNTag;
-import net.nuclearteam.createnuclear.world.gen.CNWorldGeneration;
+import net.nuclearteam.createnuclear.world.CNConfigPlacementFilter;
+import net.nuclearteam.createnuclear.world.CNPlacementModifiers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +51,7 @@ public class CreateNuclear implements ModInitializer {
 		CNEffects.register();
 		CNItems.registerCNItems();
 		CNBlocks.registerCNBlocks();
+		CNPalettesStoneTypes.register(CreateNuclear.REGISTRATE);
 		CNMenus.register();
 		CNBlockEntities.register();
 		CNGroup.registrer();
@@ -54,14 +60,21 @@ public class CreateNuclear implements ModInitializer {
 		CNPackets.registerPackets();
 		CNPackets.getChannel().initServerListener();
 		CNPotions.init();
-		CNWorldGeneration.generateModWorldGen();
 		CNMobDefaultAttribute.register();
 		CNMobEntityType.registerCNMod();
 
 		REGISTRATE.register();
 		POTION_REGISTRATE.register();
 		CNRecipeTypes.register();
+		CNPlacementModifiers.register();
+
+		CNConfigs.register();
 		CNPotions.registerPotionRecipes();
+
+		CNFluids.registerFluidInteractions();
+
+		CNAdvancement.register();
+		CNTriggers.register();
 
 		CNFanProcessingTypes.register();
 		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);

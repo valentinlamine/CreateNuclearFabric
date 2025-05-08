@@ -13,8 +13,9 @@ import net.nuclearteam.createnuclear.tags.CNTag;
 public class RadiationEffect extends MobEffect {
     public RadiationEffect() {
         super(MobEffectCategory.HARMFUL, 15453236);
-
-
+        this.addAttributeModifier(Attributes.MOVEMENT_SPEED, "91AEAA56-376B-4498-935B-2F7F68070635", -0.2D, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        this.addAttributeModifier(Attributes.ATTACK_DAMAGE, "648D7064-6A60-4F59-8ABE-C2C23A6DD7A9", -0.2D, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        this.addAttributeModifier(Attributes.ATTACK_SPEED, "55FCED67-E92A-486E-9800-B47F202C4386", -0.2D, AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 
     @Override
@@ -26,8 +27,9 @@ public class RadiationEffect extends MobEffect {
     public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
         //If the player has the radiation effect and is wearing the anti-radiation armor, they will not take damage
         livingEntity.getArmorSlots().forEach(e -> {
-            if (livingEntity.hasEffect(CNEffects.RADIATION.get()) && AntiRadiationArmorItem.Armor.isArmored2(e)) {
+            if (livingEntity.hasEffect(CNEffects.RADIATION.get()) && AntiRadiationArmorItem.Armor.isArmored(e)) {
                 livingEntity.hurt(livingEntity.damageSources().magic(), 0.0F);
+                this.removeAttributeModifiers(livingEntity, livingEntity.getAttributes(), 0);
             }
             else if (livingEntity.getType().is(CNTag.EntityTypeTags.IRRADIATED_IMMUNE.tag)) {
                 livingEntity.removeEffect(this);

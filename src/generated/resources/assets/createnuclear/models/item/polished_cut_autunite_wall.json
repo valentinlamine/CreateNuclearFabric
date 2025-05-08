@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "createnuclear:block/palettes/stone_types/polished/autunite_cut_polished"
+  }
+}

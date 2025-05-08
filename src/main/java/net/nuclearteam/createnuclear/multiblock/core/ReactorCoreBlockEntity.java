@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
+import net.nuclearteam.createnuclear.config.CNConfigs;
 import net.nuclearteam.createnuclear.effects.CNEffects;
 import net.nuclearteam.createnuclear.multiblock.IHeat;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
@@ -41,8 +42,9 @@ public class ReactorCoreBlockEntity extends ReactorCasingBlockEntity {
         if (level.getBlockEntity(controllerPos) instanceof ReactorControllerBlockEntity reactorController) {
             int heat = (int) reactorController.configuredPattern.getOrCreateTag().getDouble("heat");
             if (IHeat.HeatLevel.of(heat) == IHeat.HeatLevel.DANGER) {
-                if (countdownTicks >= 300) { // 300 ticks = 15 seconds
-                    explodeReactorCore(level, getBlockPos());
+                if (countdownTicks >= CNConfigs.common().explode.time.get()) { // 300 ticks = 15 secondes
+                    float explosionRadius = calculateExplosionRadius(reactorController.countUraniumRod);
+                    explodeReactorCore(level, getBlockPos(), explosionRadius);
                 } else {
                     countdownTicks++;
                     CreateNuclear.LOGGER.warn("Countdown: " + countdownTicks + " ticks");
@@ -53,8 +55,31 @@ public class ReactorCoreBlockEntity extends ReactorCasingBlockEntity {
         }
     }
 
-    private void explodeReactorCore(Level world, BlockPos pos) {
-        level.explode(null, pos.getX(), pos.getY(), pos.getZ(), 20F, Level.ExplosionInteraction.BLOCK);
+    private float calculateExplosionRadius(int countUraniumRod) {
+        return CNConfigs.common().explode.size.getF() + countUraniumRod;
+    }
+
+    private void applyRadiationEffect(Level level, BlockPos center, float radius) {
+        AABB explosionArea = new AABB(
+                center.getX() - radius, center.getY() - radius, center.getZ() - radius,
+                center.getX() + radius, center.getY() + radius, center.getZ() + radius
+        );
+
+        List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, explosionArea);
+
+        for (LivingEntity entity : entities) {
+            double distance = entity.distanceToSqr(center.getX() + 0.5, center.getY() + 0.5, center.getZ() + 0.5);
+            if (distance <= radius * radius) {
+                entity.addEffect(new MobEffectInstance(CNEffects.RADIATION.get(), 20 * 20, 1)); // 20s, Slowness II
+            }
+        }
+    }
+
+
+    private final Set<BlockPos> radiationZone = new HashSet<>();
+
+    private void explodeReactorCore(Level world, BlockPos pos, float radius) {
+        level.explode(null, pos.getX(), pos.getY(), pos.getZ(), radius, Level.ExplosionInteraction.BLOCK);
     }
 
     private static BlockPos FindController(char character) {

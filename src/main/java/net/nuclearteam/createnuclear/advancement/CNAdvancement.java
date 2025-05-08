@@ -1,7 +1,6 @@
 package net.nuclearteam.createnuclear.advancement;
 
 import com.google.common.collect.Sets;
-import com.simibubi.create.AllItems;
 
 import com.simibubi.create.foundation.advancement.CreateAdvancement;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -12,7 +11,6 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.level.ItemLike;
 import net.nuclearteam.createnuclear.advancement.CreateNuclearAdvancement.Builder;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.fluid.CNFluids;
@@ -66,6 +64,15 @@ public class CNAdvancement implements DataProvider {
             .description("Compact uranium liquid to create yellowcake")
             .after(URANIUM_LIQUID)
             .whenIconCollected()),
+
+    EATED_YELLOWCAKE = create("eated_yellowcake", b -> b.icon(CNItems.YELLOWCAKE)
+            .title("Eating Yellowcake")
+            .description("What did you expect ?")
+            .after(YELLOWCAKE)
+            .whenItemEaten(CNItems.YELLOWCAKE.get())
+            .special(SECRET)),
+
+
 
     ENRICHED_YELLOWCAKE = create("enriched_yellowcake", b -> b.icon(CNItems.ENRICHED_YELLOWCAKE)
             .title("Enhancing Yellowcake")
@@ -210,22 +217,20 @@ public class CNAdvancement implements DataProvider {
             .title("Core of Power")
             .description("Craft the reactor core to harness the full energy of your nuclear reactor")
             .after(REACTOR_CASING)
-            .whenIconCollected())
+            .whenIconCollected()),
 
 
-
-
-
-
-
+    END = null
 
     ;
-
-    private final PackOutput output;
 
     private static CreateNuclearAdvancement create(String id, UnaryOperator<Builder> b) {
         return new CreateNuclearAdvancement(id, b);
     }
+
+    // Datagen
+
+    private final PackOutput output;
 
     public CNAdvancement(FabricDataOutput output) {
         this.output = output;
@@ -260,5 +265,8 @@ public class CNAdvancement implements DataProvider {
     public static void provideLang(BiConsumer<String, String> consumer) {
         for (CreateNuclearAdvancement advancement : ENTRIES)
             advancement.provideLang(consumer);
+    }
+
+    public static void register() {
     }
 }

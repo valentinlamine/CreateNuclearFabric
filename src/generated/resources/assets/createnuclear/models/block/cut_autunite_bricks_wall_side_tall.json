@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side_tall",
+  "textures": {
+    "wall": "createnuclear:block/palettes/stone_types/brick/autunite_cut_brick"
+  }
+}
