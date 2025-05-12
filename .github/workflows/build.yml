@@ -1,14 +1,7 @@
 name: Build Mod
+
 on:
   workflow_dispatch:
-    inputs:
-      name:
-        required: true
-        default: CreateNuclear
-        description: Mod file name
-      version:
-        required: true
-        description: Mod version
 
 jobs:
   build:
@@ -16,9 +9,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Validate Gradle Wrapper
-        uses: gradle/actions/wrapper-validation@v4
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -29,19 +19,27 @@ jobs:
       - name: Make Gradle Wrapper Executable
         run: chmod +x ./gradlew
 
-      - name: Build Mod
+      - name: Build the mod
         run: ./gradlew clean build
 
-      - name: Rename Output Jar
+      - name: Read version from gradle.properties
+        id: get_version
+        run: |
+          VERSION=$(grep '^mod_version=' gradle.properties | cut -d'=' -f2)
+          echo "MOD_VERSION=$VERSION" >> $GITHUB_ENV
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Rename Jar
         run: |
           mkdir renamed
           FILE=$(find build/libs -name "*.jar" | grep -v sources | head -n 1)
           echo "Found jar: $FILE"
-          cp "$FILE" "renamed/${{ github.event.inputs.name }}-${{ github.event.inputs.version }}.jar"
-          ls renamed/
+          cp "$FILE" "renamed/createnuclear-${MOD_VERSION}-fabric.jar"
+        env:
+          MOD_VERSION: ${{ env.MOD_VERSION }}
 
-      - name: Upload Artifacts
+      - name: Upload Renamed Jar
         uses: actions/upload-artifact@v4
         with:
-          name: Renamed-Jar
+          name: createnuclear-${{ env.MOD_VERSION }}-fabric.jar
           path: renamed/
