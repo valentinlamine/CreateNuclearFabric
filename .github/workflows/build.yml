@@ -1,5 +1,4 @@
 name: Build Mod
-
 on:
   workflow_dispatch:
     inputs:
@@ -9,7 +8,7 @@ on:
         description: Mod file name
       version:
         required: true
-        description: Mod version (ex: 1.0.0)
+        description: Mod version
 
 jobs:
   build:
