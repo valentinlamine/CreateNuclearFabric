@@ -1,50 +1,48 @@
-# Automatically build the project and run any configured tests for every push
-# and submitted pull request. This can help catch issues that only occur on
-# certain platforms or Java versions, and provides a first line of defence
-# against bad commits.
+name: Build Mod
 
-name: Build
 on:
   workflow_dispatch:
     inputs:
-      modtag:
-        required: false
-        description: "Mod Version: Create Nuclear for Release"
       name:
         required: true
         default: CreateNuclear
         description: Mod file name
-      version: 
-        required: false
-        description: Mod version
-      version-type:
+      version:
         required: true
-        default: alpha
-        description: Version type
-      changelog:
-        required: true
-        default: No change log
-        description: Changelog for version
+        description: Mod version (ex: 1.0.0)
 
 jobs:
   build:
-    strategy:
-      matrix:
-        # Use these Java versions
-        java: [
-          21,    # Current Java LTS & minimum supported by Minecraft
-        ]
-        # and run on both Linux and Windows
-        os: [[ubuntu-22.04]]
-    runs-on: ${{ matrix.os }}
-    permissions:
-      contents: write
+    runs-on: ubuntu-latest
     steps:
-      - name: checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Run a multi-line script
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Make Gradle Wrapper Executable
+        run: chmod +x ./gradlew
+
+      - name: Build Mod
+        run: ./gradlew clean build
+
+      - name: Rename Output Jar
         run: |
-          echo ${{ github.ref_name }}
-          name=$(git --no-pager tag --sort=creatordate --merged main | tail -2 | head -1)
-          echo "previousTag: $name"
+          mkdir renamed
+          FILE=$(find build/libs -name "*.jar" | grep -v sources | head -n 1)
+          echo "Found jar: $FILE"
+          cp "$FILE" "renamed/${{ github.event.inputs.name }}-${{ github.event.inputs.version }}.jar"
+          ls renamed/
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Renamed-Jar
+          path: renamed/
