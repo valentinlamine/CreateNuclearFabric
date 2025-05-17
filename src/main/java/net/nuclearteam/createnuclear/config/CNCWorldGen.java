@@ -12,6 +12,6 @@ public class CNCWorldGen extends CNConfigBase {
     }
 
     private static class Comments {
-        static String disable = "Prevents all worldgen added by Create from taking effect";
+        static String disable = "Prevents all worldgen added by CreateNuclear from taking effect";
     }
 }
