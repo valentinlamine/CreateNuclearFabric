@@ -10,6 +10,7 @@ import net.nuclearteam.createnuclear.overlay.EventTextOverlay;
 public class EventTriggerPacket extends SimplePacketBase {
     // Duration in ticks for which the overlay should be displayed
     private final int duration;
+    public static int timer = 0;
 
     public EventTriggerPacket(int duration) {
         this.duration = duration;
@@ -28,6 +29,7 @@ public class EventTriggerPacket extends SimplePacketBase {
     @Override
     public boolean handle(Context context) {
         context.enqueueWork(() -> {
+            if (timer > 0) timer--;
             EventTextOverlay.triggerEvent(duration);
         });
         return true;

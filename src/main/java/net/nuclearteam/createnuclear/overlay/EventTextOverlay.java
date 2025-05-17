@@ -6,6 +6,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.nuclearteam.createnuclear.CreateNuclear;
+import net.nuclearteam.createnuclear.multiblock.controller.EventTriggerPacket;
 
 /**
  * HUD overlay for displaying localized text when a specific event occurs.
@@ -28,8 +29,8 @@ public class EventTextOverlay implements HudOverlay {
 
     @Override
     public void render(GuiGraphics graphics, float partialTicks) {
-        if (timer-- <= 0) return;
-        CreateNuclear.LOGGER.warn("hum EventTextOverlay: {}", timer);
+        if (EventTriggerPacket.timer <= 0) return;
+        CreateNuclear.LOGGER.warn("hum EventTextOverlay: {}", EventTriggerPacket.timer);
         LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) return;
         Component text = Component.translatable("overlay.event_message", timer).withStyle(ChatFormatting.RED);

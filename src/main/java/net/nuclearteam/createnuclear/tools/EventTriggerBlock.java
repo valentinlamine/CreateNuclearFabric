@@ -24,7 +24,7 @@ public class EventTriggerBlock extends Block {
                                  Player player, InteractionHand hand, BlockHitResult hit) {
         if (!level.isClientSide) {
             // Send packet to all clients around this block within 16 blocks
-            EventTriggerPacket packet = new EventTriggerPacket(100); // display for 100 ticks
+            EventTriggerPacket packet = new EventTriggerPacket(1500); // display for 100 ticks
             CreateNuclear.LOGGER.warn("hum EventTriggerBlock ? {}", packet);
             CNPackets.getChannel().sendToClientsAround(packet, (ServerLevel) level, new Vec3(pos.getX(), pos.getY(), pos.getZ()), 16);
         }

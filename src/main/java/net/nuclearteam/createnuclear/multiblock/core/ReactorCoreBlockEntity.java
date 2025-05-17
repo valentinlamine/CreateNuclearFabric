@@ -2,6 +2,7 @@ package net.nuclearteam.createnuclear.multiblock.core;
 
 import lib.multiblock.test.SimpleMultiBlockAislePatternBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -10,13 +11,16 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.config.CNConfigs;
 import net.nuclearteam.createnuclear.effects.CNEffects;
 import net.nuclearteam.createnuclear.multiblock.IHeat;
+import net.nuclearteam.createnuclear.multiblock.controller.EventTriggerPacket;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
 import net.nuclearteam.createnuclear.multiblock.casing.ReactorCasingBlockEntity;
+import net.nuclearteam.createnuclear.packets.CNPackets;
 
 import java.util.HashSet;
 import java.util.List;
@@ -26,6 +30,8 @@ import static net.nuclearteam.createnuclear.CNMultiblock.*;
 
 public class ReactorCoreBlockEntity extends ReactorCasingBlockEntity {
     private int countdownTicks = 0;
+    private final int explodeTimePacket = CNConfigs.common().explode.time.get();
+    private EventTriggerPacket packet = new EventTriggerPacket(explodeTimePacket);
 
 
     public ReactorCoreBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -42,15 +48,23 @@ public class ReactorCoreBlockEntity extends ReactorCasingBlockEntity {
         if (level.getBlockEntity(controllerPos) instanceof ReactorControllerBlockEntity reactorController) {
             int heat = (int) reactorController.configuredPattern.getOrCreateTag().getDouble("heat");
             if (IHeat.HeatLevel.of(heat) == IHeat.HeatLevel.DANGER) {
-                if (countdownTicks >= CNConfigs.common().explode.time.get()) { // 300 ticks = 15 secondes
+                if (countdownTicks >= CNConfigs.common().explode.time.get()) {
                     float explosionRadius = calculateExplosionRadius(reactorController.countUraniumRod);
                     explodeReactorCore(level, getBlockPos(), explosionRadius);
                 } else {
+                    if (countdownTicks == 0) {
+                        packet = new EventTriggerPacket(explodeTimePacket);
+                        CreateNuclear.LOGGER.warn("hum EventTriggerBlock ? {}", packet);
+                        CNPackets.getChannel().sendToClientsAround(packet, (ServerLevel) level, new Vec3(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ()), 16);
+                    }
                     countdownTicks++;
+
                     CreateNuclear.LOGGER.warn("Countdown: " + countdownTicks + " ticks");
                 }
             } else {
                 countdownTicks = 0; // Reset the countdown if the heat level is not in danger
+                packet = new EventTriggerPacket(0);
+                CNPackets.getChannel().sendToClientsAround(packet, (ServerLevel) level, new Vec3(getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ()), 16);
             }
         }
     }
