@@ -416,9 +416,9 @@ public class CNBlocks {
                     .transform(customItemModel())
                     .register();
 
-    public static final BlockEntry<EventTriggerBlock> TEST_EVENT_TRIGGER_BLOCK = CreateNuclear.REGISTRATE.block("test_event_trigger_block", EventTriggerBlock::new)
+    /*public static final BlockEntry<EventTriggerBlock> TEST_EVENT_TRIGGER_BLOCK = CreateNuclear.REGISTRATE.block("test_event_trigger_block", EventTriggerBlock::new)
             .simpleItem()
-            .register();
+            .register();*/
 
     public static Block getSoulSoil() {
         return Blocks.SOUL_SOIL;
