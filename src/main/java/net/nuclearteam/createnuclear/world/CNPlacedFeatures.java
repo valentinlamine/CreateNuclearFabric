@@ -1,12 +1,10 @@
 package net.nuclearteam.createnuclear.world;
 
-import com.simibubi.create.infrastructure.worldgen.ConfigPlacementFilter;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
@@ -33,7 +31,7 @@ public class CNPlacedFeatures {
 
         register(context, URANIUM_ORE, uraniumOre, placement(CountPlacement.of(6), -64,64));
         register(context, LEAD_ORE, leadOre, placement(CountPlacement.of(10), -64,64));
-        register(context, STRIATED_ORES_OVERWORLD, striatedOresOverworld, placementUniforme(RarityFilter.onAverageOnceEvery(18), -30, 70));
+        register(context, STRIATED_ORES_OVERWORLD, striatedOresOverworld, placementUniform(RarityFilter.onAverageOnceEvery(18), -30, 70));
 
 
     }
@@ -47,12 +45,12 @@ public class CNPlacedFeatures {
         );
     }
 
-    private static List<PlacementModifier> placementUniforme(PlacementModifier frequency, int minHeight, int maxHeight) {
+    private static List<PlacementModifier> placementUniform(PlacementModifier frequency, int minHeight, int maxHeight) {
         return List.of(
-                frequency,
-                InSquarePlacement.spread(),
-                HeightRangePlacement.uniform(VerticalAnchor.absolute(minHeight), VerticalAnchor.absolute(maxHeight)),
-                ConfigPlacementFilter.INSTANCE
+            frequency,
+            InSquarePlacement.spread(),
+            HeightRangePlacement.uniform(VerticalAnchor.absolute(minHeight), VerticalAnchor.absolute(maxHeight)),
+            CNConfigPlacementFilter.INSTANCE
         );
     }
 

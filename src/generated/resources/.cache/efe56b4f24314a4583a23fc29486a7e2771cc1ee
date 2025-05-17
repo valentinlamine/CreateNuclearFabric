@@ -1,6 +1,6 @@
-// 1.20.1	2025-05-17T14:27:02.7881105	Create Nuclear/CreateNuclear's Shapeless Recipes
-0963a19bb89ddbbd20079a0c2c02f7f83697563c data\createnuclear\recipes\shapeless\raw_uranium_from_decompacting.json
+// 1.20.1	2025-05-17T14:40:36.6211121	Create Nuclear/CreateNuclear's Shapeless Recipes
 59b98fa258e358bd45be744cc1c70a1d3c6003ff data\createnuclear\advancements\recipes\building_blocks\shapeless\cloth\pink_cloth.json
+0963a19bb89ddbbd20079a0c2c02f7f83697563c data\createnuclear\recipes\shapeless\raw_uranium_from_decompacting.json
 41106df4ff80c468a24dbabac260cb606ae1a127 data\createnuclear\advancements\recipes\misc\shapeless\lead_ingot_from_decompacting.json
 ab94d1c13af2e4bef0c92b8486108940180d3f9d data\createnuclear\recipes\shapeless\cloth\light_gray_cloth.json
 d02fe65c0c4f06b58fa7565d7254902de5018e8b data\createnuclear\advancements\recipes\building_blocks\shapeless\cloth\black_cloth.json
@@ -34,8 +34,8 @@ e0e977da29462d2fc41b669d1cc0a05186922c02 data\createnuclear\advancements\recipes
 8e194709b50fd2ca2ef2138b5d2528e092b45e4f data\createnuclear\recipes\shapeless\reactor_blueprint_item_clear.json
 106b21181a49e73524be22319ba318719b7db0c9 data\createnuclear\recipes\shapeless\steel_nugget_from_decompacting.json
 9690e12858db1c546576ce70847e723c005f814e data\createnuclear\advancements\recipes\building_blocks\shapeless\cloth\blue_cloth.json
-c18ef9568592104904be5dc42f9d38ca1b347229 data\createnuclear\advancements\recipes\building_blocks\shapeless\cloth\light_blue_cloth.json
 fe147f38895f8b99412c53a6f7530a1e9575003c data\createnuclear\recipes\shapeless\cloth\light_blue_cloth.json
+c18ef9568592104904be5dc42f9d38ca1b347229 data\createnuclear\advancements\recipes\building_blocks\shapeless\cloth\light_blue_cloth.json
 887cfc7346e0791157a15a2afd3dae39dac8a82d data\createnuclear\advancements\recipes\building_blocks\shapeless\cloth\white_cloth.json
 2cd96d4f78b81393bff120448e9a14235cf2376b data\createnuclear\recipes\shapeless\cloth\lime_cloth.json
 1713ce33da8ce2fd0145e9921cab615d31fa5e66 data\createnuclear\recipes\shapeless\cloth\black_cloth.json
