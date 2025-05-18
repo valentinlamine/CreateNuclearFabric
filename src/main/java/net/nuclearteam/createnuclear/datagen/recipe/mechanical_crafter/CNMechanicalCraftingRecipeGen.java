@@ -18,6 +18,7 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.fluid.CNFluids;
 import net.nuclearteam.createnuclear.item.CNItems;
+import net.nuclearteam.createnuclear.tags.CNTag;
 
 import java.util.function.UnaryOperator;
 
@@ -26,7 +27,7 @@ public class CNMechanicalCraftingRecipeGen extends CreateRecipeProvider {
     GeneratedRecipe
         GRAPHITE_ROD = create(CNItems.GRAPHITE_ROD::get)
             .recipe(b -> b
-                    .key('S', Ingredient.of(CNItems.STEEL_INGOT))
+                    .key('S', Ingredient.of(CNTag.forgeItemTag("ingots/steel")))
                     .key('G', Ingredient.of(CNItems.GRAPHENE))
                     .patternLine("SGS")
                     .patternLine("SGS")
@@ -47,7 +48,7 @@ public class CNMechanicalCraftingRecipeGen extends CreateRecipeProvider {
                     .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
                     .key('G', Ingredient.of(CNBlocks.REINFORCED_GLASS))
                     .key('B', Ingredient.of(CNFluids.URANIUM.get().getBucket()))
-                    .key('S', Ingredient.of(CNItems.STEEL_INGOT))
+                    .key('S', Ingredient.of(CNTag.forgeItemTag("ingots/steel")))
                     .patternLine("CCCCC")
                     .patternLine("CSGSC")
                     .patternLine("CGBGC")
@@ -75,7 +76,7 @@ public class CNMechanicalCraftingRecipeGen extends CreateRecipeProvider {
                     .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
                     .key('I', Ingredient.of(Blocks.BLUE_ICE))
                     .key('G', Ingredient.of(CNBlocks.REINFORCED_GLASS))
-                    .key('S', Ingredient.of(CNItems.STEEL_INGOT))
+                    .key('S', Ingredient.of(CNTag.forgeItemTag("ingots/steel")))
                     .patternLine("CCCCC")
                     .patternLine("CSGSC")
                     .patternLine("CIGIC")
@@ -90,7 +91,7 @@ public class CNMechanicalCraftingRecipeGen extends CreateRecipeProvider {
                     .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
                     .key('P', Ingredient.of(AllItems.PRECISION_MECHANISM))
                     .key('B', Ingredient.of(CNFluids.URANIUM.get().getBucket()))
-                    .key('S', Ingredient.of(CNItems.STEEL_INGOT))
+                    .key('S', Ingredient.of(CNTag.forgeItemTag("ingots/steel")))
                     .patternLine("CCCCC")
                     .patternLine("CPSPC")
                     .patternLine("CSBSC")

@@ -12,7 +12,7 @@
       "item": "createnuclear:reinforced_glass"
     },
     "S": {
-      "item": "createnuclear:steel_ingot"
+      "tag": "c:ingots/steel"
     }
   },
   "pattern": [
