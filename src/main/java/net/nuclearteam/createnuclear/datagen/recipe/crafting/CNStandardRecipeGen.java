@@ -41,7 +41,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
     GeneratedRecipe
         WHITE_CLOTH_FROM_STRING = create(ClothItem.Cloths.WHITE_CLOTH::getItem).unlockedBy(() -> Items.STRING)
             .viaShaped(b -> b
-               .define('#', Items.STRING)
+               .define('#', Tags.Items.STRING)
                 .pattern("###")
                 .pattern("###")
                 .showNotification(true)
@@ -122,8 +122,8 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
     GeneratedRecipe
         REINFORCED_GLASS = create(CNBlocks.REINFORCED_GLASS).unlockedBy(CNBlocks.REACTOR_CASING::get)
                 .viaShaped(b -> b
-                        .define('G', Blocks.GLASS)
-                        .define('S', CNItems.LEAD_INGOT)
+                        .define('G', CNTag.forgeItemTag("glass_blocks"))
+                        .define('S', CNTag.forgeItemTag("ingots/lead"))
                         .pattern("SGS")
                         .pattern("GSG")
                         .pattern("SGS")
@@ -138,7 +138,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
             .unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag)
             .withCategory(RecipeCategory.COMBAT)
             .viaShaped(i -> i
-                .define('X', CNItems.LEAD_INGOT)
+                .define('X', CNTag.forgeItemTag("ingots/lead"))
                 .define('Y', ClothItem.Cloths.getByColor(color).get())
                 .define('Z', CNBlocks.REINFORCED_GLASS)
                 .pattern("YXY")
@@ -151,7 +151,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
             .unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag)
             .withCategory(RecipeCategory.COMBAT)
             .viaShaped(i -> i
-                    .define('X', CNItems.LEAD_INGOT)
+                    .define('X', CNTag.forgeItemTag("ingots/lead"))
                     .define('Y', ClothItem.Cloths.getByColor(color).get())
                     .define('Z', CNItems.GRAPHITE_ROD)
                     .pattern("Y Y")
@@ -165,7 +165,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
             .unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag)
             .withCategory(RecipeCategory.COMBAT)
             .viaShaped(i -> i
-                    .define('X', CNItems.LEAD_INGOT)
+                    .define('X', CNTag.forgeItemTag("ingots/lead"))
                     .define('Y', ClothItem.Cloths.getByColor(color).get())
                     .pattern("YXY")
                     .pattern("X X")
@@ -178,7 +178,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
     GeneratedRecipe
         ANTI_RADIATION_BOOTS = create(CNItems.ANTI_RADIATION_BOOTS).unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag).withCategory(RecipeCategory.COMBAT)
             .viaShaped(b -> b
-                    .define('X', CNItems.LEAD_INGOT)
+                    .define('X', CNTag.forgeItemTag("ingots/lead"))
                     .define('Y', ClothItem.Cloths.WHITE_CLOTH.getItem())
                     .pattern("Y Y")
                     .pattern("X X")

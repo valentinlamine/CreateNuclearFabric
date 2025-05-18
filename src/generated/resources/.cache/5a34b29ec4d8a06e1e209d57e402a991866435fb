@@ -1,4 +1,4 @@
-// 1.20.1	2025-05-17T14:40:36.6133417	Create Nuclear/CreateNuclear's Processing Recipes
+// 1.20.1	2025-05-18T10:42:41.6662039	Create Nuclear/CreateNuclear's Processing Recipes
 57154e35ebb09170bb39f5b3a72ecd49182697f2 data\createnuclear\recipes\crushing\granite.json
 607980178060555690388cdb2325b69156878012 data\createnuclear\recipes\crushing\charcoal.json
 4516b5574960b0f83f2c191949e62d85039028c7 data\createnuclear\recipes\compacting\uranium_fluid_to_yellowcake.json
@@ -13,7 +13,7 @@ e42be7d17c5e057e62c4b1176cbf43319a157f51 data\createnuclear\recipes\enriched\enr
 24c35af7a9dc3d740f3200bdd1ad96ad125df00a data\createnuclear\recipes\crushing\coal.json
 a19aa8fe76e6c69683e4e33ee3526ec8d3c6b607 data\createnuclear\recipes\crushing\raw_lead.json
 3f530b7bf9b6dc229c96f7e47ee48e46136f1f29 data\createnuclear\recipes\crushing\raw_copper.json
-5cee3df3d7c7cd41d6a94a36b713dddc77f2acc4 data\createnuclear\recipes\item_application\reactor_casing_from_steel_and_brass_casing.json
+efbef3e0726b9384c60c033143ca13e684acabf1 data\createnuclear\recipes\item_application\reactor_casing_from_steel_and_brass_casing.json
 3b0bd8d00165a6b9fe25684a5aefc3b2c37898d4 data\createnuclear\recipes\crushing\crushed_raw_uranium.json
 5613aa5cd61f77be2a80d3d785223351af98758c data\createnuclear\recipes\crushing\raw_zinc.json
 6cb73e79475790b219fcd59290d61f773f750e77 data\createnuclear\recipes\crushing\raw_lead_block.json

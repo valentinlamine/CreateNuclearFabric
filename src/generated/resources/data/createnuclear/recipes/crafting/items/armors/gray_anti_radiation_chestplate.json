@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "X": {
-      "item": "createnuclear:lead_ingot"
+      "tag": "c:ingots/lead"
     },
     "Y": {
       "item": "createnuclear:gray_cloth"

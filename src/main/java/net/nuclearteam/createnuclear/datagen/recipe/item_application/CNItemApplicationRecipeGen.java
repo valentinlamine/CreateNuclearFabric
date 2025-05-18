@@ -15,11 +15,12 @@ import net.minecraft.world.level.block.Blocks;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.item.CNItems;
+import net.nuclearteam.createnuclear.tags.CNTag;
 
 public class CNItemApplicationRecipeGen extends ProcessingRecipeGen {
 
     GeneratedRecipe REACTOR_CASING = itemApplication("reactor_casing_from_steel_and_brass_casing",
-            CNItems.STEEL_INGOT.get(),
+            Ingredient.of(CNTag.forgeItemTag("ingots/steel")),
             AllBlocks.BRASS_CASING.get(),
             CNBlocks.REACTOR_CASING.get()
     );

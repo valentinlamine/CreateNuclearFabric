@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "#": {
-      "item": "minecraft:string"
+      "tag": "c:string"
     }
   },
   "pattern": [

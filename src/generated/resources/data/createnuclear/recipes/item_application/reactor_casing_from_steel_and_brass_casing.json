@@ -5,7 +5,7 @@
       "item": "create:brass_casing"
     },
     {
-      "item": "createnuclear:steel_ingot"
+      "tag": "c:ingots/steel"
     }
   ],
   "results": [

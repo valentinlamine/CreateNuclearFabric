@@ -6,7 +6,7 @@
       "item": "createnuclear:graphene"
     },
     "S": {
-      "item": "createnuclear:steel_ingot"
+      "tag": "c:ingots/steel"
     }
   },
   "pattern": [

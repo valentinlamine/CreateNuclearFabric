@@ -249,7 +249,9 @@ public class CNBlocks {
                     .onRegister(casingConnectivity((block,cc) -> cc.makeCasing(block, CNSpriteShifts.REACTOR_GLASS)))
                     .loot(RegistrateBlockLootTables::dropWhenSilkTouch)
                     .tag(CNTag.forgeBlockTag("glass_blocks"))
-                    .simpleItem()
+                    .item()
+                    .tag(CNTag.forgeItemTag("glass_blocks"))
+                    .build()
                     .register();
 
     public static final BlockEntry<ReactorOutput> REACTOR_OUTPUT =
