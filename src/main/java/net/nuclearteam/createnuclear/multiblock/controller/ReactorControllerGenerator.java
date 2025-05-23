@@ -6,7 +6,6 @@ import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
 import io.github.fabricators_of_create.porting_lib.models.generators.ModelFile;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class ReactorControllerGenerator extends SpecialBlockStateGen {

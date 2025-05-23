@@ -1,5 +1,5 @@
 package net.nuclearteam.createnuclear.multiblock;
 
-public enum TypeMutliblock {
+public enum TypeMultiBlock {
     REACTOR
 }

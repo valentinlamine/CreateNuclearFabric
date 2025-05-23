@@ -25,11 +25,11 @@ public enum CNPalettesStoneTypes {
     ;
 
 
-    private Function<CreateRegistrate, NonNullSupplier<Block>> factory;
+    private final Function<CreateRegistrate, NonNullSupplier<Block>> factory;
     private CNPalettesVariantEntry variants;
 
     public NonNullSupplier<Block> baseBlock;
-    public CNPaletteBlockPattern[] variantTypes;
+    public final CNPaletteBlockPattern[] variantTypes;
     public TagKey<Item> materialTag;
 
     CNPalettesStoneTypes(CNPaletteBlockPattern[] variantTypes,
@@ -47,13 +47,12 @@ public enum CNPalettesStoneTypes {
     }
 
     public static void register(CreateRegistrate registrate) {
-        for (CNPalettesStoneTypes cnpaletteStoneVariants : values()) {
-            NonNullSupplier<Block> baseBlock = cnpaletteStoneVariants.factory.apply(registrate);
-            cnpaletteStoneVariants.baseBlock = baseBlock;
-            String id = Lang.asId(cnpaletteStoneVariants.name());
-            cnpaletteStoneVariants.materialTag =
+        for (CNPalettesStoneTypes cnPalettesStoneTypes : values()) {
+            cnPalettesStoneTypes.baseBlock = cnPalettesStoneTypes.factory.apply(registrate);
+            String id = Lang.asId(cnPalettesStoneTypes.name());
+            cnPalettesStoneTypes.materialTag =
                     AllTags.optionalTag(BuiltInRegistries.ITEM, CreateNuclear.asResource("stone_types/" + id));
-            cnpaletteStoneVariants.variants = new CNPalettesVariantEntry(id, cnpaletteStoneVariants);
+            cnPalettesStoneTypes.variants = new CNPalettesVariantEntry(id, cnPalettesStoneTypes);
         }
     }
 }

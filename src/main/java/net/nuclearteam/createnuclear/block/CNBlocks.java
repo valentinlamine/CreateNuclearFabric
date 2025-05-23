@@ -10,13 +10,11 @@ import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import io.github.fabricators_of_create.porting_lib.models.generators.ConfiguredModel;
 import io.github.fabricators_of_create.porting_lib.models.generators.ModelFile;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -28,7 +26,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.nuclearteam.createnuclear.CreateNuclear;
-import net.nuclearteam.createnuclear.blockentity.ReinforcedGlassBlock;
+import net.nuclearteam.createnuclear.tools.ReinforcedGlassBlock;
 import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerGenerator;
@@ -44,7 +42,6 @@ import net.nuclearteam.createnuclear.multiblock.cooler.ReactorCoolerBlock;
 import net.nuclearteam.createnuclear.tags.CNTag;
 import net.nuclearteam.createnuclear.tools.EnrichingCampfireBlock;
 import net.nuclearteam.createnuclear.tools.EnrichingFireBlock;
-import net.nuclearteam.createnuclear.tools.EventTriggerBlock;
 import net.nuclearteam.createnuclear.tools.UraniumOreBlock;
 
 import static com.simibubi.create.foundation.data.CreateRegistrate.casingConnectivity;
@@ -290,7 +287,6 @@ public class CNBlocks {
                         .uvLock(false)
                         .rotationY(switch (facing) {
                             case NORTH -> 180;
-                            case SOUTH -> 0;
                             case WEST -> 90;
                             case EAST -> 270;
                             default -> 0;
@@ -374,8 +370,10 @@ public class CNBlocks {
     public static final BlockEntry<ReactorFrameBlock> REACTOR_FRAME =
             CreateNuclear.REGISTRATE.block("reactor_frame", ReactorFrameBlock::new)
                     .initialProperties(SharedProperties::stone)
-                    .properties(p -> p.explosionResistance(3F))
-                    .properties(p -> p.destroyTime(2F))
+                    .properties(p -> p
+                            .explosionResistance(3F)
+                            .destroyTime(2F)
+                    )
                     .addLayer(() -> RenderType::cutoutMipped)
                     .transform(pickaxeOnly())
                     .tag(BlockTags.NEEDS_DIAMOND_TOOL)

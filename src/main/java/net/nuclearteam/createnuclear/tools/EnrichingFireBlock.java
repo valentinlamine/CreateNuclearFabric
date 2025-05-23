@@ -1,6 +1,7 @@
 package net.nuclearteam.createnuclear.tools;
 
 import com.tterrag.registrate.util.nullness.NonNullUnaryOperator;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -11,6 +12,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.nuclearteam.createnuclear.tags.CNTag;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+@SuppressWarnings("deprecation")
 public class EnrichingFireBlock extends BaseFireBlock {
     public EnrichingFireBlock(Properties properties, float fireDamage) {
         super(properties, fireDamage);

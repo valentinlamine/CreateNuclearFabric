@@ -7,8 +7,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.block.palette.CNPalettesStoneTypes;
 
-import java.util.function.Function;
-
+@SuppressWarnings("unused")
 public enum CNLayerPatterns {
     AUTUNITE(LayerPattern.builder()
         .layer(l -> l.weight(2)

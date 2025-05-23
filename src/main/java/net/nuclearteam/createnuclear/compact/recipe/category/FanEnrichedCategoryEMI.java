@@ -10,9 +10,9 @@ import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.compact.recipe.emi.CNEmi;
 import net.nuclearteam.createnuclear.fan.EnrichedRecipe;
 
-public class FanEnrichecCategoryEMI extends FanEmiRecipe.MultiOutput<EnrichedRecipe>{
-    public FanEnrichecCategoryEMI(EnrichedRecipe recipe) {
-        super(CNEmi.FAN_ENRIGING, recipe);
+public class FanEnrichedCategoryEMI extends FanEmiRecipe.MultiOutput<EnrichedRecipe>{
+    public FanEnrichedCategoryEMI(EnrichedRecipe recipe) {
+        super(CNEmi.FAN_ENRICHING, recipe);
     }
 
     @Override

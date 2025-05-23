@@ -2,6 +2,7 @@ package net.nuclearteam.createnuclear.datagen;
 
 import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.nuclearteam.createnuclear.datagen.recipe.compacting.CNCompactingRecipeGen;
@@ -12,10 +13,14 @@ import net.nuclearteam.createnuclear.datagen.recipe.mixing.CNMixingRecipeGen;
 import net.nuclearteam.createnuclear.datagen.recipe.pressing.CNPressingRecipeGen;
 import net.nuclearteam.createnuclear.datagen.recipe.washing.CNWashingRecipeGen;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+@SuppressWarnings("unused")
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 public abstract class CNProcessingRecipeGen {
 
     protected static final List<ProcessingRecipeGen> GENERATORS = new ArrayList<>();

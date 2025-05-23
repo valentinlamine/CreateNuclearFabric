@@ -45,7 +45,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
-import net.nuclearteam.createnuclear.compact.recipe.category.FanEnrichecCategoryEMI;
+import net.nuclearteam.createnuclear.compact.recipe.category.FanEnrichedCategoryEMI;
 import net.nuclearteam.createnuclear.fan.CNRecipeTypes;
 
 import org.jetbrains.annotations.NotNull;
@@ -57,15 +57,15 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+@SuppressWarnings({"rawtypes", "unchecked", "unused"})
 public class CNEmi implements EmiPlugin {
     public static final Map<ResourceLocation, EmiRecipeCategory> ALL = new LinkedHashMap<>();
 
     public static final EmiRecipeCategory
-            FAN_ENRIGING = register("fan_enriched", DoubleItemIcon.of(AllItems.PROPELLER.get(), CNBlocks.ENRICHING_CAMPFIRE))
-            ;
+        FAN_ENRICHING = register("fan_enriched", DoubleItemIcon.of(AllItems.PROPELLER.get(), CNBlocks.ENRICHING_CAMPFIRE))
+    ;
 
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
     @Override
     public void register(EmiRegistry registry) {
         registry.removeEmiStacks(s -> {
@@ -89,20 +89,17 @@ public class CNEmi implements EmiPlugin {
         registry.addDragDropHandler(LinkedControllerScreen.class, new GhostIngredientHandler());
         registry.addDragDropHandler(ScheduleScreen.class, new GhostIngredientHandler());
 
-        registerGeneratedRecipes(registry);
+        //registerGeneratedRecipes(registry);
 
         registry.setDefaultComparison(AllFluids.POTION.get().getSource(), c -> Comparison.compareNbt());
 
         ALL.forEach((id, category) -> registry.addCategory(category));
 
-        registry.addWorkstation(FAN_ENRIGING, FanEmiRecipe.getFan("fan_enriched"));
+        registry.addWorkstation(FAN_ENRICHING, FanEmiRecipe.getFan("fan_enriched"));
 
         RecipeManager manager = registry.getRecipeManager();
 
-
-
-
-        addAll(registry, CNRecipeTypes.ENRICHED, FanEnrichecCategoryEMI::new);
+        addAll(registry, CNRecipeTypes.ENRICHED, FanEnrichedCategoryEMI::new);
 
         // Introspective recipes based on present stacks need to make sure
         // all stacks are populated by other plugins
@@ -134,7 +131,7 @@ public class CNEmi implements EmiPlugin {
      * @param output The stack that will be outputted from this interaction recipe
      */
     private void addFluidInteractionRecipe(@NotNull EmiRegistry registry, String outputId, Fluid left, Fluid right, Block output) {
-        // EmiStack doesnt accept flowing fluids, must always be a source
+        // EmiStack doesn't accept flowing fluids, must always be a source
         if (left instanceof SimpleFlowableFluid.Flowing flowing)
             left = flowing.getSource();
         if (right instanceof SimpleFlowableFluid.Flowing flowing)
@@ -164,7 +161,6 @@ public class CNEmi implements EmiPlugin {
                     Ingredient bottle = Ingredient.of(Items.GLASS_BOTTLE);
                     ResourceLocation iid = BuiltInRegistries.ITEM.getKey(i);
                     ResourceLocation pid = BuiltInRegistries.POTION.getKey(PotionUtils.getPotion(is));
-                    continue;
                 }
             }
         }
@@ -194,9 +190,6 @@ public class CNEmi implements EmiPlugin {
                     CreateEmiRecipe.getResultEmi(r), new ResourceLocation("emi", recipeName)));
         });
         // for EMI we don't do this since it already has a category, World Interaction
-//		LogStrippingFakeRecipes.createRecipes().forEach(r -> {
-//			registry.addRecipe(new ItemApplicationEmiRecipe(r));
-//		});
     }
 
     public static boolean doInputsMatch(Recipe<?> a, Recipe<?> b) {

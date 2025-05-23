@@ -1,8 +1,5 @@
 package net.nuclearteam.createnuclear.config;
 
-import com.simibubi.create.foundation.config.ConfigBase;
-import com.simibubi.create.infrastructure.config.CWorldGen;
-
 public class CNCWorldGen extends CNConfigBase {
     public final ConfigBool disable = b(false, "disableWorldGen", Comments.disable);
 

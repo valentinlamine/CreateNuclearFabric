@@ -23,7 +23,6 @@ public class CNPlacedFeatures {
     }
 
     public static void boostrap(BootstapContext<PlacedFeature> context) {
-        //var configuredFeatureRegistryEntryLookup = context.lookup(Registries.CONFIGURED_FEATURE);
         HolderGetter<ConfiguredFeature<?, ?>> featureLookup = context.lookup(Registries.CONFIGURED_FEATURE);
         Holder<ConfiguredFeature<?,?>> uraniumOre = featureLookup.getOrThrow(CNConfiguredFeatures.URANIUM_ORE_KEY);
         Holder<ConfiguredFeature<?,?>> leadOre = featureLookup.getOrThrow(CNConfiguredFeatures.LEAD_ORE);

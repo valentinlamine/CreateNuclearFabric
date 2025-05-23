@@ -1,22 +1,25 @@
 package net.nuclearteam.createnuclear.compact.archEx;
 
 import com.google.gson.JsonObject;
-import com.simibubi.create.compat.archEx.ArchExGroup;
+
 import java.nio.file.Path;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
-import net.nuclearteam.createnuclear.block.palette.CNPaletteBlockPartial;
 import net.nuclearteam.createnuclear.block.palette.CNPaletteBlockPattern;
 import net.nuclearteam.createnuclear.block.palette.CNPalettesStoneTypes;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 public class CNGroupProvider implements DataProvider {
     public static final Set<CNPaletteBlockPattern> EXTENDABLE_PATTERNS = Set.of(
             CNPaletteBlockPattern.CUT, CNPaletteBlockPattern.POLISHED, CNPaletteBlockPattern.BRICKS, CNPaletteBlockPattern.SMALL_BRICKS

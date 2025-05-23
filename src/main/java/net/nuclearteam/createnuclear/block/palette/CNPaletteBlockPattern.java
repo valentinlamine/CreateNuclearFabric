@@ -11,6 +11,7 @@ import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import io.github.fabricators_of_create.porting_lib.models.generators.ConfiguredModel;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -21,6 +22,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -30,6 +32,9 @@ import static net.nuclearteam.createnuclear.block.palette.CNPaletteBlockPartial.
 import static net.nuclearteam.createnuclear.block.palette.CNPaletteBlockPattern.PatternNameType.*;
 import static net.nuclearteam.createnuclear.block.palette.CNPaletteBlockPartial.FOR_POLISHED;
 
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+@SuppressWarnings({"unused"})
 public class CNPaletteBlockPattern {
 
     public static final CNPaletteBlockPattern
@@ -217,12 +222,12 @@ public class CNPaletteBlockPattern {
     }
 
     @FunctionalInterface
-    static interface IPatternBlockStateGenerator
+    interface IPatternBlockStateGenerator
             extends Function<CNPaletteBlockPattern, Function<String, IBlockStateProvider>> {
     }
 
     @FunctionalInterface
-    static interface IBlockStateProvider
+    interface IBlockStateProvider
             extends NonNullBiConsumer<DataGenContext<Block, ? extends Block>, RegistrateBlockstateProvider> {
     }
 
@@ -230,7 +235,7 @@ public class CNPaletteBlockPattern {
         PREFIX, SUFFIX, WRAP
     }
 
-    // Textures with connectability, used by Spriteshifter
+    // Textures with connectability, used by Sprite shifter
 
     public enum CTs {
 
@@ -240,9 +245,9 @@ public class CNPaletteBlockPattern {
 
         ;
 
-        public CTType type;
-        private Function<String, ResourceLocation> srcFactory;
-        private Function<String, ResourceLocation> targetFactory;
+        public final CTType type;
+        private final Function<String, ResourceLocation> srcFactory;
+        private final Function<String, ResourceLocation> targetFactory;
 
         CTs(CTType type, Function<String, ResourceLocation> factory) {
             this(type, factory, factory);

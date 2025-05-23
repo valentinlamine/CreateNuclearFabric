@@ -19,6 +19,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
+@SuppressWarnings({"unused", "deprecation"})
 public class CNTag {
     public static <T> TagKey<T> optionalTag(Registry<T> registry, ResourceLocation id) {
         return TagKey.create(registry.key(), id);
@@ -48,15 +49,15 @@ public class CNTag {
 
         public final String id;
         public final boolean optionalDefault;
-        public final boolean alwayDatagenDefault;
+        public final boolean alwaysDatagenDefault;
 
         NameSpace(String id) {
             this(id, true, false);
         }
-        NameSpace(String id, boolean optionalDefault, boolean alwayDatagenDefault) {
+        NameSpace(String id, boolean optionalDefault, boolean alwaysDatagenDefault) {
             this.id = id;
             this.optionalDefault = optionalDefault;
-            this.alwayDatagenDefault = alwayDatagenDefault;
+            this.alwaysDatagenDefault = alwaysDatagenDefault;
         }
     }
 
@@ -65,26 +66,26 @@ public class CNTag {
         ;
 
         public final TagKey<Fluid> tag;
-        public final boolean alwayDatagen;
+        public final boolean alwaysDatagen;
 
         FluidTag() {
             this(MOD);
         }
         FluidTag(NameSpace nameSpace) {
-            this(nameSpace, nameSpace.optionalDefault, nameSpace.alwayDatagenDefault);
+            this(nameSpace, nameSpace.optionalDefault, nameSpace.alwaysDatagenDefault);
         }
         FluidTag(NameSpace nameSpace, String path) {
-            this(nameSpace, path, nameSpace.optionalDefault, nameSpace.alwayDatagenDefault);
+            this(nameSpace, path, nameSpace.optionalDefault, nameSpace.alwaysDatagenDefault);
         }
 
-        FluidTag(NameSpace nameSpace, boolean optional, boolean alwayDatagen) {
-            this(nameSpace, null, optional, alwayDatagen);
+        FluidTag(NameSpace nameSpace, boolean optional, boolean alwaysDatagen) {
+            this(nameSpace, null, optional, alwaysDatagen);
         }
 
-        FluidTag(NameSpace nameSpace, String path, boolean optional, boolean alwayDatagen) {
+        FluidTag(NameSpace nameSpace, String path, boolean optional, boolean alwaysDatagen) {
             ResourceLocation id = new ResourceLocation(nameSpace.id, path == null ? Lang.asId(name()) : path);
             tag = optionalTag(BuiltInRegistries.FLUID, id);
-            this.alwayDatagen = alwayDatagen;
+            this.alwaysDatagen = alwaysDatagen;
         }
 
         @SuppressWarnings("deprecation")
@@ -114,13 +115,13 @@ public class CNTag {
         }
 
         BlockTags(NameSpace namespace) {
-            this(namespace, namespace.optionalDefault, namespace.alwayDatagenDefault);
+            this(namespace, namespace.optionalDefault, namespace.alwaysDatagenDefault);
         }
 
-        BlockTags(NameSpace namespace, String path) { this(namespace, path, namespace.optionalDefault, namespace.alwayDatagenDefault); }
+        BlockTags(NameSpace namespace, String path) { this(namespace, path, namespace.optionalDefault, namespace.alwaysDatagenDefault); }
 
         BlockTags(String path) {
-            this(MOD, path, MOD.optionalDefault, MOD.alwayDatagenDefault);
+            this(MOD, path, MOD.optionalDefault, MOD.alwaysDatagenDefault);
         }
 
         BlockTags(NameSpace namespace, boolean optional, boolean alwaysDatagen) {
@@ -175,11 +176,11 @@ public class CNTag {
         }
 
         ItemTags(NameSpace namespace) {
-            this(namespace, namespace.optionalDefault, namespace.alwayDatagenDefault);
+            this(namespace, namespace.optionalDefault, namespace.alwaysDatagenDefault);
         }
 
         ItemTags(NameSpace nameSpace, String path) {
-            this(nameSpace, nameSpace.optionalDefault, nameSpace.alwayDatagenDefault);
+            this(nameSpace, nameSpace.optionalDefault, nameSpace.alwaysDatagenDefault);
         }
         
         ItemTags(NameSpace nameSpace, boolean optional, boolean alwaysDatagen) {
@@ -192,7 +193,7 @@ public class CNTag {
             this.alwaysDatagen = alwaysDatagen;
         }
 
-        @SuppressWarnings("deprecation")
+
         public boolean matches(Item item) {
             return item.builtInRegistryHolder()
                     .is(tag);
@@ -217,15 +218,15 @@ public class CNTag {
         }
 
         EntityTypeTags(NameSpace namespace) {
-            this(namespace, namespace.optionalDefault, namespace.alwayDatagenDefault);
+            this(namespace, namespace.optionalDefault, namespace.alwaysDatagenDefault);
         }
 
         EntityTypeTags(String path) {
-            this(MOD, path, MOD.optionalDefault, MOD.alwayDatagenDefault);
+            this(MOD, path, MOD.optionalDefault, MOD.alwaysDatagenDefault);
         }
 
         EntityTypeTags(NameSpace namespace, String path) {
-            this(namespace, path, namespace.optionalDefault, namespace.alwayDatagenDefault);
+            this(namespace, path, namespace.optionalDefault, namespace.alwaysDatagenDefault);
         }
 
         EntityTypeTags(NameSpace namespace, boolean optional, boolean alwaysDatagen) {

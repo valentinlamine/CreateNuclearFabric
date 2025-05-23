@@ -1,6 +1,7 @@
 package net.nuclearteam.createnuclear.entity.irradiatedwolf;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -10,6 +11,10 @@ import net.nuclearteam.createnuclear.entity.CNModelLayers;
 
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 public class IrradiatedWolfRenderer extends MobRenderer<IrradiatedWolf, IrradiatedWolfModel<IrradiatedWolf>> {
     private static final ResourceLocation WOLF_LOCATION = CreateNuclear.asResource("textures/entity/irradiated_wolf.png");
     private static final ResourceLocation WOLF_TAME_LOCATION = CreateNuclear.asResource("textures/entity/irradiated_wolf.png");
@@ -17,7 +22,6 @@ public class IrradiatedWolfRenderer extends MobRenderer<IrradiatedWolf, Irradiat
 
     public IrradiatedWolfRenderer(EntityRendererProvider.Context context) {
         super(context, new IrradiatedWolfModel<>(context.bakeLayer(CNModelLayers.IRRADIATED_WOLF)), 0.5F);
-        //this.addLayer(new IrradiatedWoldCollarLayer(this));
     }
 
     protected float getBob(IrradiatedWolf livingBase, float partialTicks) {
@@ -27,12 +31,12 @@ public class IrradiatedWolfRenderer extends MobRenderer<IrradiatedWolf, Irradiat
     public void render(IrradiatedWolf entity, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLight) {
         if (entity.isWet()) {
             float f = entity.getWetShade(partialTicks);
-            ((IrradiatedWolfModel<?>)this.model).setColor(f, f, f);
+            this.model.setColor(f, f, f);
         }
 
         super.render(entity, entityYaw, partialTicks, matrixStack, buffer, packedLight);
         if (entity.isWet()) {
-            ((IrradiatedWolfModel<?>)this.model).setColor(1.0F, 1.0F, 1.0F);
+            this.model.setColor(1.0F, 1.0F, 1.0F);
         }
 
     }

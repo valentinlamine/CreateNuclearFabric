@@ -5,18 +5,18 @@ package net.nuclearteam.createnuclear.entity.irradiatedwolf;// Made with Blockbe
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.model.ColorableAgeableListModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import net.nuclearteam.createnuclear.CreateNuclear;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+@SuppressWarnings("unused")
 public class IrradiatedWolfModel<T extends IrradiatedWolf> extends ColorableAgeableListModel<T> {
 	private final ModelPart head;
 	private final ModelPart pustule1;
@@ -35,6 +35,7 @@ public class IrradiatedWolfModel<T extends IrradiatedWolf> extends ColorableAgea
 	private final ModelPart leg3;
 	private final ModelPart leg4;
 	private final ModelPart tail;
+
 	public IrradiatedWolfModel(ModelPart root) {
 		this.head = root.getChild("head");
 		this.pustule1 = this.head.getChild("pustule1");
@@ -54,6 +55,7 @@ public class IrradiatedWolfModel<T extends IrradiatedWolf> extends ColorableAgea
 		this.leg4 = root.getChild("leg4");
 		this.tail = root.getChild("tail");
 	}
+
 	public static LayerDefinition getTexturedModelData() {
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition modelPartData = modelData.getRoot();

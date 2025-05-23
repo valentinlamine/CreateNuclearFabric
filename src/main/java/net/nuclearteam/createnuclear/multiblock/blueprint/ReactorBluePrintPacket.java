@@ -6,6 +6,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.nuclearteam.createnuclear.config.CNConfigs;
 
+@SuppressWarnings("unused")
 public class ReactorBluePrintPacket extends SimplePacketBase {
 
     private final CompoundTag tag;

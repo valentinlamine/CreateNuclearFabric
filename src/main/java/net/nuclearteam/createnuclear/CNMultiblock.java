@@ -3,12 +3,12 @@ package net.nuclearteam.createnuclear;
 import lib.multiblock.test.SimpleMultiBlockAislePatternBuilder;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.multiblock.MultiBlockManagerBeta;
-import net.nuclearteam.createnuclear.multiblock.TypeMutliblock;
+import net.nuclearteam.createnuclear.multiblock.TypeMultiBlock;
 
 
 public class CNMultiblock {
 
-    public static final MultiBlockManagerBeta<TypeMutliblock> REGISTRATE_MULTIBLOCK = new MultiBlockManagerBeta<>();
+    public static final MultiBlockManagerBeta<TypeMultiBlock> REGISTRATE_MULTIBLOCK = new MultiBlockManagerBeta<>();
     public static final String AAAAA = "AAAAA";
     public static final String AABAA = "AABAA";
     public static final String ADADA = "ADADA";
@@ -19,7 +19,7 @@ public class CNMultiblock {
 
     static {
         REGISTRATE_MULTIBLOCK.register("createnuclear:reactor",
-                TypeMutliblock.REACTOR,
+                TypeMultiBlock.REACTOR,
                 SimpleMultiBlockAislePatternBuilder.start()
                     .aisle(AAAAA, AAAAA, AAAAA, AAAAA, AAAAA)
                     .aisle(AABAA, ADADA, BACAB, ADADA, AABAA)

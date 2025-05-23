@@ -4,11 +4,16 @@ import com.simibubi.create.compat.jei.category.ProcessingViaFanCategory;
 import com.simibubi.create.compat.jei.category.animations.AnimatedKinetics;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import com.simibubi.create.foundation.gui.element.GuiGameElement;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.fan.EnrichedRecipe;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 public class FanEnrichedCategoryJEI extends ProcessingViaFanCategory.MultiOutput<EnrichedRecipe>{
 
     public FanEnrichedCategoryJEI(Info<EnrichedRecipe> info) {
