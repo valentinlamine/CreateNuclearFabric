@@ -3,10 +3,8 @@ package net.nuclearteam.createnuclear.multiblock.core;
 import lib.multiblock.test.SimpleMultiBlockAislePatternBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -24,6 +22,7 @@ import java.util.Set;
 
 import static net.nuclearteam.createnuclear.CNMultiblock.*;
 
+@SuppressWarnings("unused")
 public class ReactorCoreBlockEntity extends ReactorCasingBlockEntity {
     private int countdownTicks = 0;
 
@@ -47,7 +46,7 @@ public class ReactorCoreBlockEntity extends ReactorCasingBlockEntity {
                     explodeReactorCore(level, getBlockPos(), explosionRadius);
                 } else {
                     countdownTicks++;
-                    CreateNuclear.LOGGER.warn("Countdown: " + countdownTicks + " ticks");
+                    CreateNuclear.LOGGER.warn("Countdown: {} ticks", countdownTicks);
                 }
             } else {
                 countdownTicks = 0; // Reset the countdown if the heat level is not in danger

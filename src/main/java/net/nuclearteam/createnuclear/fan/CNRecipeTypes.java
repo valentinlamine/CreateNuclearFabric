@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-
+@SuppressWarnings({"unused", "unchecked"})
 public enum CNRecipeTypes implements IRecipeTypeInfo {
     ENRICHED(EnrichedRecipe::new);
 
@@ -36,11 +36,10 @@ public enum CNRecipeTypes implements IRecipeTypeInfo {
         if (registerType) {
             typeObject = typeSupplier.get();
             Registry.register(BuiltInRegistries.RECIPE_TYPE, id, typeObject);
-            type = typeSupplier;
         } else {
             typeObject = null;
-            type = typeSupplier;
         }
+        type = typeSupplier;
     }
 
     CNRecipeTypes(Supplier<RecipeSerializer<?>> serializerSupplier) {
@@ -58,7 +57,7 @@ public enum CNRecipeTypes implements IRecipeTypeInfo {
 
     public static <T extends Recipe<?>> RecipeType<T> simpleType(ResourceLocation id) {
         String stringId = id.toString();
-        return new RecipeType<T>() {
+        return new RecipeType<>() {
             @Override
             public String toString() {
                 return stringId;
@@ -74,14 +73,12 @@ public enum CNRecipeTypes implements IRecipeTypeInfo {
         return id;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public <T extends RecipeSerializer<?>> T getSerializer() {
         return (T) serializerObject;
     }
 
 
-    @SuppressWarnings("unchecked")
     @Override
     public <T extends RecipeType<?>> T getType() {
         return (T) type.get();
@@ -91,5 +88,4 @@ public enum CNRecipeTypes implements IRecipeTypeInfo {
         return world.getRecipeManager()
                 .getRecipeFor(getType(), inv, world);
     }
-
 }

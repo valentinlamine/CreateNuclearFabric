@@ -3,6 +3,7 @@ package net.nuclearteam.createnuclear.multiblock.casing;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.utility.Lang;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -10,7 +11,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.StringRepresentable;
-import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -19,7 +19,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeResolver;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -27,9 +26,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkStatus;
-import net.minecraft.world.level.gameevent.GameEventListener;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
@@ -40,11 +37,15 @@ import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBloc
 import net.nuclearteam.createnuclear.multiblock.input.ReactorInput;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+@SuppressWarnings({"deprecation", "unused"})
 public class ReactorCasingBlock extends Block implements IWrenchable, IBE<ReactorCasingBlockEntity> {
-    private TypeBlock typeBlock;
+    private final TypeBlock typeBlock;
     public boolean biomeUnchanged = true;
 
     public ReactorCasingBlock(Properties properties, TypeBlock tBlock) {
@@ -99,7 +100,7 @@ public class ReactorCasingBlock extends Block implements IWrenchable, IBE<Reacto
                     newBlock = new BlockPos(x, y, z);
                     if (level.getBlockState(newBlock).is(CNBlocks.REACTOR_CONTROLLER.get())) { // verifying the pattern
                         ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(newBlock).getBlock();
-                        controller.Verify(level.getBlockState(newBlock), newBlock, level, players, first);
+                        controller.verify(level.getBlockState(newBlock), newBlock, level, players, first);
                         ReactorControllerBlockEntity entity = controller.getBlockEntity(level, newBlock);
                         if (entity.created) {
                             return controller;
@@ -122,7 +123,7 @@ public class ReactorCasingBlock extends Block implements IWrenchable, IBE<Reacto
         double passes = 13;
         BoundingBox boundingbox = BoundingBox.fromCorners(floorAll(300 + (passes - 1) * 5.0 + effectCenter.x, 300 + (passes - 1) * 5.0 + effectCenter.y, range + (passes - 1) * 5.0 + effectCenter.z), floorAll(effectCenter.x - range + (passes - 1) * 5.0, effectCenter.y - range + (passes - 1) * 5.0, effectCenter.z - range + (passes - 1) * 5.0));
         ArrayList<ChunkAccess> chunks = new ArrayList<>();
-CreateNuclear.LOGGER.info("ReactorBlock.change: {}", boundingbox);
+        CreateNuclear.LOGGER.info("ReactorBlock.change: {}", boundingbox);
         for (int k = SectionPos.blockToSectionCoord(boundingbox.minZ()); k <= SectionPos.blockToSectionCoord(boundingbox.maxZ()); ++k) {
             for (int l = SectionPos.blockToSectionCoord(boundingbox.minX()); l <= SectionPos.blockToSectionCoord(boundingbox.maxX()); ++l) {
                 ChunkAccess chunkAccess = serverLevel.getChunk(l, k, ChunkStatus.FULL, false);

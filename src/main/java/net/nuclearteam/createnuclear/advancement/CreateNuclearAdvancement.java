@@ -2,6 +2,7 @@ package net.nuclearteam.createnuclear.advancement;
 
 import com.simibubi.create.foundation.utility.Components;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.FrameType;
@@ -20,6 +21,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
+@MethodsReturnNonnullByDefault
+@SuppressWarnings({"unused", "DataFlowIssue", "ClassEscapesDefinedScope"})
 public class CreateNuclearAdvancement {
 
     static final ResourceLocation BACKGROUND = CreateNuclear.asResource("textures/block/steel_block.png");
@@ -67,8 +70,6 @@ public class CreateNuclearAdvancement {
         return titleKey() + ".desc";
     }
 
-
-
     public void awardTo(Player player) {
         if (!(player instanceof ServerPlayer sp))
             return;
@@ -103,7 +104,7 @@ public class CreateNuclearAdvancement {
         consumer.accept(descriptionKey(), description);
     }
 
-    static enum TaskType {
+    enum TaskType {
 
         SILENT(FrameType.TASK, false, false, false),
         NORMAL(FrameType.TASK, true, false, false),

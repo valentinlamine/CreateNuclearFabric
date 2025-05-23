@@ -22,7 +22,6 @@ public abstract class CNLiquidBlockMixin {
     @Inject(at = @At("HEAD"), method = "shouldSpreadLiquid", cancellable = true)
     private void shouldSpreadLiquid(Level level, BlockPos pos, BlockState state, CallbackInfoReturnable<Boolean> cir) {
         Optional<Boolean> result = FluidInteractionManager.applyRules(fluid, level, pos);
-
         if (result.isPresent()) {
             cir.setReturnValue(result.get());
             cir.cancel();

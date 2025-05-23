@@ -7,7 +7,7 @@ import com.tterrag.registrate.providers.ProviderType;
 import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.nuclearteam.createnuclear.advancement.CNAdvancement;
 import net.nuclearteam.createnuclear.compact.archEx.CNArchExCompat;
 import net.nuclearteam.createnuclear.datagen.CNGeneratedEntriesProvider;
@@ -21,24 +21,24 @@ import net.nuclearteam.createnuclear.ponder.CNPonderIndex;
 
 import com.simibubi.create.foundation.ponder.PonderLocalization;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+@SuppressWarnings("unused")
 public class CreateNuclearDataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		ExistingFileHelper helper = ExistingFileHelper.withResourcesFromArg();
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 		CreateNuclear.REGISTRATE.setupDatagen(pack, helper);
-		getherData(pack, helper);
+		gatherData(pack, helper);
 		CNArchExCompat.init(pack);
 	}
 
-	@Override
-	public void buildRegistry(RegistrySetBuilder registryBuilder) {
-	}
-
-	public static void getherData(FabricDataGenerator.Pack pack, ExistingFileHelper existingFileHelper) {
+    public static void gatherData(FabricDataGenerator.Pack pack, ExistingFileHelper existingFileHelper) {
 		addExtraRegistrateData();
 
 		pack.addProvider(CNAdvancement::new);

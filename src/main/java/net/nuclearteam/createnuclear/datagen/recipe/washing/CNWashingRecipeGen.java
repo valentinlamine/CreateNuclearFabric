@@ -22,18 +22,16 @@ import net.nuclearteam.createnuclear.item.CNItems;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
+@SuppressWarnings("unused")
 public class CNWashingRecipeGen extends ProcessingRecipeGen {
-
     GeneratedRecipe
-
-            CRUSHED_LEAD = crushedOre(AllItems.CRUSHED_LEAD, () -> CNItems.LEAD_NUGGET, () -> AllItems.EXP_NUGGET, .5f)
-
+        CRUSHED_LEAD = crushedOre(AllItems.CRUSHED_LEAD, () -> CNItems.LEAD_NUGGET, () -> AllItems.EXP_NUGGET, .5f)
     ;
 
     public GeneratedRecipe crushedOre(ItemEntry<TagDependentIngredientItem> crushed, Supplier<ItemLike> nugget, Supplier<ItemLike> secondary,
                                       float secondaryChance) {
         return create(crushed.getId(), b -> b
-                .withItemIngredients(Ingredient.of(crushed.get())) // Ajout explicite de l'ingrédient
+                .withItemIngredients(Ingredient.of(crushed.get()))
                 .output(nugget.get(), 9)
                 .output(secondaryChance, secondary.get(), 1));
     }

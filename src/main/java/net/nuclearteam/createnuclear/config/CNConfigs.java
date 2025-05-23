@@ -2,15 +2,21 @@ package net.nuclearteam.createnuclear.config;
 
 import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry;
 import fuzs.forgeconfigapiport.api.config.v2.ModConfigEvents;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.config.ModConfig;
 
 import net.nuclearteam.createnuclear.CreateNuclear;
 import org.apache.commons.lang3.tuple.Pair;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+@SuppressWarnings("unused")
 public class CNConfigs {
     private static final Map<ModConfig.Type, CNConfigBase> CONFIGS = new EnumMap<ModConfig.Type, CNConfigBase>(ModConfig.Type.class);
 

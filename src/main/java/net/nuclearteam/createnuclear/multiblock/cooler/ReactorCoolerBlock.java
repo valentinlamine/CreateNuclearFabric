@@ -1,24 +1,27 @@
 package net.nuclearteam.createnuclear.multiblock.cooler;
 
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
 
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+@SuppressWarnings("deprecation")
 public class ReactorCoolerBlock extends Block implements IWrenchable {
     public ReactorCoolerBlock(Properties properties) {
         super(properties);
@@ -55,7 +58,7 @@ public class ReactorCoolerBlock extends Block implements IWrenchable {
                     newBlock = new BlockPos(x, y, z);
                     if (level.getBlockState(newBlock).is(CNBlocks.REACTOR_CONTROLLER.get())) { // verifying the pattern
                         ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(newBlock).getBlock();
-                        controller.Verify(level.getBlockState(newBlock), newBlock, level, players, first);
+                        controller.verify(level.getBlockState(newBlock), newBlock, level, players, first);
                         ReactorControllerBlockEntity entity = controller.getBlockEntity(level, newBlock);
                         if (entity.created) {
                             return controller;

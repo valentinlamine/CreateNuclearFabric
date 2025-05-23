@@ -2,7 +2,6 @@ package net.nuclearteam.createnuclear.multiblock.blueprint;
 
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import io.github.fabricators_of_create.porting_lib.util.PlayerEntityHelper;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -11,8 +10,11 @@ import net.minecraft.world.item.ItemStack;
 import net.nuclearteam.createnuclear.gui.CNGuiTextures;
 import net.nuclearteam.createnuclear.packets.CNPackets;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import static com.simibubi.create.foundation.gui.AllGuiTextures.PLAYER_INVENTORY;
 
+@ParametersAreNonnullByDefault
 public class ReactorBluePrintScreen extends AbstractSimiContainerScreen<ReactorBluePrintMenu> {
     protected static final CNGuiTextures BG = CNGuiTextures.CONFIGURED_PATTERN_GUI;
 
@@ -28,7 +30,6 @@ public class ReactorBluePrintScreen extends AbstractSimiContainerScreen<ReactorB
         clearWidgets();
     }
 
-
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         int x = leftPos;
@@ -41,7 +42,6 @@ public class ReactorBluePrintScreen extends AbstractSimiContainerScreen<ReactorB
 
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void containerTick() {
         super.containerTick();
@@ -59,10 +59,7 @@ public class ReactorBluePrintScreen extends AbstractSimiContainerScreen<ReactorB
                 tag.getInt("countUraniumRod"),
                 tag.getInt("countGraphiteRod")+3
         );
-
-
     }
-
 
     private static void sendValueUpdate(CompoundTag tag, float heat, int graphiteTime, int uraniumTime, int countGraphiteRod, int countUraniumRod) {
         CNPackets.getChannel()

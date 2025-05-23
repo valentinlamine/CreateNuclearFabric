@@ -5,12 +5,12 @@ import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.LangBuilder;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.config.CNConfigs;
 import net.nuclearteam.createnuclear.tags.CNTag;
 
+@SuppressWarnings("unused")
 public interface IHeat extends IWrenchable {
 
     enum HeatLevel {

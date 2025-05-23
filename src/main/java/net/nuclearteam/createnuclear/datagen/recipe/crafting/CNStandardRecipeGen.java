@@ -12,6 +12,7 @@ import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
@@ -27,17 +28,21 @@ import net.minecraft.world.level.block.Blocks;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.item.CNItems;
-import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.DyeRecipArmorList;
+import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.DyeRecipeArmorList;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem;
 import net.nuclearteam.createnuclear.tags.CNTag;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
+@SuppressWarnings("unused")
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 public class CNStandardRecipeGen extends CreateRecipeProvider {
 
-    private String CRAFTING = enterFolder("crafting");
+    private final String CRAFTING = enterFolder("crafting");
     GeneratedRecipe
         WHITE_CLOTH_FROM_STRING = create(ClothItem.Cloths.WHITE_CLOTH::getItem).unlockedBy(() -> Items.STRING)
             .viaShaped(b -> b
@@ -54,6 +59,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                 .pattern("###")
                 .showNotification(true)
             ),
+
         ENRICHED_SOUL_SOIL = create(CNBlocks.ENRICHED_SOUL_SOIL).unlockedBy(() -> Items.NETHER_STAR)
             .viaShaped(b -> b
                     .define('S', Blocks.SOUL_SOIL)
@@ -77,19 +83,19 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
             ),
 
         REACTOR_BLUEPRINT_ITEM = create(CNItems.REACTOR_BLUEPRINT).unlockedBy(CNBlocks.REACTOR_CONTROLLER::get)
-                .viaShaped(b -> b
-                        .define('S', CNTag.forgeItemTag("ingots/steel"))
-                        .define('D', AllBlocks.DISPLAY_BOARD)
-                        .define('P', AllItems.PRECISION_MECHANISM)
-                        .define('E', AllItems.EMPTY_SCHEMATIC)
-                        .pattern("SDS")
-                        .pattern("SPS")
-                        .pattern("SES")
-                        .showNotification(true)
-                )
-        ;
+            .viaShaped(b -> b
+                .define('S', CNTag.forgeItemTag("ingots/steel"))
+                .define('D', AllBlocks.DISPLAY_BOARD)
+                .define('P', AllItems.PRECISION_MECHANISM)
+                .define('E', AllItems.EMPTY_SCHEMATIC)
+                .pattern("SDS")
+                .pattern("SPS")
+                .pattern("SES")
+                .showNotification(true)
+            )
+    ;
 
-        private String CRAFTING_MATERIALS = enterFolder("crafting/materials");
+    private final String CRAFTING_MATERIALS = enterFolder("crafting/materials");
 
     GeneratedRecipe
         RAW_URANIUM_BLOCK = create(CNBlocks.RAW_URANIUM_BLOCK).unlockedBy(CNItems.RAW_URANIUM::get)
@@ -104,7 +110,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
             ImmutableList.of(() -> CNTag.forgeItemTag("nuggets/lead"), () -> CNTag.forgeItemTag("ingots/lead"), () -> CNTag.forgeItemTag("storage_blocks/lead"))),
 
         STEEL_COMPACTING = metalCompacting(ImmutableList.of(CNItems.STEEL_NUGGET, CNItems.STEEL_INGOT, CNBlocks.STEEL_BLOCK),
-                ImmutableList.of(() -> CNTag.forgeItemTag("nuggets/steel"), () -> CNTag.forgeItemTag("ingots/steel"), () -> CNTag.forgeItemTag("storage_blocks/steel"))),
+            ImmutableList.of(() -> CNTag.forgeItemTag("nuggets/steel"), () -> CNTag.forgeItemTag("ingots/steel"), () -> CNTag.forgeItemTag("storage_blocks/steel"))),
 
         RAW_LEAD_BLOCK = create(CNBlocks.RAW_LEAD_BLOCK).unlockedBy(CNItems.RAW_LEAD::get)
             .viaShaped(b -> b.define('R', CNItems.RAW_LEAD.get())
@@ -113,28 +119,27 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                 .pattern("RRR")
                 .showNotification(true)
             )
+    ;
 
-        ;
 
-
-        private String CRAFTING_REACTOR = enterFolder("crafting/reactor");
+    private final String CRAFTING_REACTOR = enterFolder("crafting/reactor");
 
     GeneratedRecipe
         REINFORCED_GLASS = create(CNBlocks.REINFORCED_GLASS).unlockedBy(CNBlocks.REACTOR_CASING::get)
-                .viaShaped(b -> b
-                        .define('G', CNTag.forgeItemTag("glass_blocks"))
-                        .define('S', CNTag.forgeItemTag("ingots/lead"))
-                        .pattern("SGS")
-                        .pattern("GSG")
-                        .pattern("SGS")
-                        .showNotification(true)
-                )
+            .viaShaped(b -> b
+                .define('G', CNTag.forgeItemTag("glass_blocks"))
+                .define('S', CNTag.forgeItemTag("ingots/lead"))
+                .pattern("SGS")
+                .pattern("GSG")
+                .pattern("SGS")
+                .showNotification(true)
+            )
         ;
 
-        private String CRAFTING_ITEMS = enterFolder("crafting/items/armors");
+        private final String CRAFTING_ITEMS = enterFolder("crafting/items/armors");
 
-    DyeRecipArmorList
-        ANTI_RADIATION_HELMETS = new DyeRecipArmorList(color -> create(CNItems.ANTI_RADIATION_HELMETS.get(color))
+    DyeRecipeArmorList
+        ANTI_RADIATION_HELMETS = new DyeRecipeArmorList(color -> create(CNItems.ANTI_RADIATION_HELMETS.get(color))
             .unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag)
             .withCategory(RecipeCategory.COMBAT)
             .viaShaped(i -> i
@@ -147,30 +152,30 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
             )
         ),
 
-        ANTI_RADIATION_CHESTPLATES = new DyeRecipArmorList(color -> create(CNItems.ANTI_RADIATION_CHESTPLATES.get(color))
+        ANTI_RADIATION_CHESTPLATES = new DyeRecipeArmorList(color -> create(CNItems.ANTI_RADIATION_CHESTPLATES.get(color))
             .unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag)
             .withCategory(RecipeCategory.COMBAT)
             .viaShaped(i -> i
-                    .define('X', CNTag.forgeItemTag("ingots/lead"))
-                    .define('Y', ClothItem.Cloths.getByColor(color).get())
-                    .define('Z', CNItems.GRAPHITE_ROD)
-                    .pattern("Y Y")
-                    .pattern("XXX")
-                    .pattern("ZXZ")
-                    .showNotification(true)
+                .define('X', CNTag.forgeItemTag("ingots/lead"))
+                .define('Y', ClothItem.Cloths.getByColor(color).get())
+                .define('Z', CNItems.GRAPHITE_ROD)
+                .pattern("Y Y")
+                .pattern("XXX")
+                .pattern("ZXZ")
+                .showNotification(true)
             )
         ),
 
-        ANTI_RADIATION_LEGGINS = new DyeRecipArmorList(color -> create(CNItems.ANTI_RADIATION_LEGGINGS.get(color))
+        ANTI_RADIATION_LEGGINS = new DyeRecipeArmorList(color -> create(CNItems.ANTI_RADIATION_LEGGINGS.get(color))
             .unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag)
             .withCategory(RecipeCategory.COMBAT)
             .viaShaped(i -> i
-                    .define('X', CNTag.forgeItemTag("ingots/lead"))
-                    .define('Y', ClothItem.Cloths.getByColor(color).get())
-                    .pattern("YXY")
-                    .pattern("X X")
-                    .pattern("Y Y")
-                    .showNotification(true)
+                .define('X', CNTag.forgeItemTag("ingots/lead"))
+                .define('Y', ClothItem.Cloths.getByColor(color).get())
+                .pattern("YXY")
+                .pattern("X X")
+                .pattern("Y Y")
+                .showNotification(true)
             )
         )
     ;
@@ -178,18 +183,18 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
     GeneratedRecipe
         ANTI_RADIATION_BOOTS = create(CNItems.ANTI_RADIATION_BOOTS).unlockedByTag(() -> CNTag.ItemTags.CLOTH.tag).withCategory(RecipeCategory.COMBAT)
             .viaShaped(b -> b
-                    .define('X', CNTag.forgeItemTag("ingots/lead"))
-                    .define('Y', ClothItem.Cloths.WHITE_CLOTH.getItem())
-                    .pattern("Y Y")
-                    .pattern("X X")
-                    .showNotification(true)
+                .define('X', CNTag.forgeItemTag("ingots/lead"))
+                .define('Y', ClothItem.Cloths.WHITE_CLOTH.getItem())
+                .pattern("Y Y")
+                .pattern("X X")
+                .showNotification(true)
             )
         ;
 
     String currentFolder = "";
 
-    String enterFolder(String foldedr) {
-        currentFolder = foldedr;
+    String enterFolder(String folder) {
+        currentFolder = folder;
         return currentFolder;
     }
 
@@ -226,7 +231,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
 
     class GeneratedRecipeBuilder {
 
-        private String path;
+        private final String path;
         private String suffix;
         private Supplier<? extends ItemLike> result;
         private ResourceLocation compatDatagenOutput;
@@ -356,7 +361,7 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
 
         class GeneratedCookingRecipeBuilder {
 
-            private Supplier<Ingredient> ingredient;
+            private final Supplier<Ingredient> ingredient;
             private float exp;
             private int cookingTime;
 
@@ -439,19 +444,8 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
         super(output);
     }
 
-    private static class ModdedCookingRecipeResult implements FinishedRecipe {
-
-        private FinishedRecipe wrapped;
-        private ResourceLocation outputOverride;
-        private List<ConditionJsonProvider> conditions;
-
-        public ModdedCookingRecipeResult(FinishedRecipe wrapped, ResourceLocation outputOverride,
-                                         List<ConditionJsonProvider> conditions) {
-            this.wrapped = wrapped;
-            this.outputOverride = outputOverride;
-            this.conditions = conditions;
-        }
-
+    private record ModdedCookingRecipeResult(FinishedRecipe wrapped, ResourceLocation outputOverride,
+                                             List<ConditionJsonProvider> conditions) implements FinishedRecipe {
         @Override
         public ResourceLocation getId() {
             return wrapped.getId();
@@ -481,6 +475,4 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
         }
 
     }
-
-
 }

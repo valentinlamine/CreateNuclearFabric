@@ -1,4 +1,4 @@
-package net.nuclearteam.createnuclear.blockentity;
+package net.nuclearteam.createnuclear.tools;
 
 import net.minecraft.world.level.block.GlassBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;

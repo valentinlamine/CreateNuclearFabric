@@ -19,6 +19,7 @@ import static com.simibubi.create.foundation.networking.SimplePacketBase.Network
 
 import java.util.function.Function;
 
+@SuppressWarnings("unused")
 public enum CNPackets {
     // To server
     //CONFIGURE_REACTOR_CONTROLLER(ConfigureReactorControllerPacket.class, ConfigureReactorControllerPacket::new, PLAY_TO_SERVER),

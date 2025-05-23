@@ -21,7 +21,7 @@ public class CNGroup {
         return new ItemStack(CNItems.URANIUM_POWDER);
     }
 
-    public static void registrer() {
+    public static void register() {
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, MAIN_KEY, MAIN);
         ItemGroupEvents.modifyEntriesEvent(MAIN_KEY).register(content -> {
             CreateNuclear.REGISTRATE.getAll(Registries.ITEM).forEach(entry -> {

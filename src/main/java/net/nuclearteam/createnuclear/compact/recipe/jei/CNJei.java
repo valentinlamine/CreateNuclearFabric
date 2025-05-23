@@ -43,6 +43,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 
+@SuppressWarnings({ "unused", "rawtypes"})
 public class CNJei implements IModPlugin {
     private static final ResourceLocation JEIID = CreateNuclear.asResource("jei_plugin");
     private final List<CreateRecipeCategory<?>> allCategories = new ArrayList<>();
@@ -248,7 +249,7 @@ public class CNJei implements IModPlugin {
                     return recipes;
                 };
             } else {
-                recipesSupplier = () -> Collections.emptyList();
+                recipesSupplier = Collections::emptyList;
             }
 
             CreateRecipeCategory.Info<T> info = new CreateRecipeCategory.Info<>(

@@ -82,9 +82,9 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
         this.goalSelector.addGoal(3, new CatRelaxOnOwnerGoal(this));
         this.goalSelector.addGoal(4, this.temptGoal);
-        this.goalSelector.addGoal(5, new CatLieOnBedGoal(this, 1.1, 8));
+        this.goalSelector.addGoal(5, new IrradiatedCatLieOnBedGoal(this, 1.1, 8));
         this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0, 10.0F, 5.0F, false));
-        this.goalSelector.addGoal(7, new CatSitOnBlockGoal(this, 0.8));
+        this.goalSelector.addGoal(7, new IrradiatedCatSitOnBlockGoal(this, 0.8));
         this.goalSelector.addGoal(8, new LeapAtTargetGoal(this, 0.3F));
         this.goalSelector.addGoal(9, new OcelotAttackGoal(this));
         this.goalSelector.addGoal(10, new BreedGoal(this, 0.8));

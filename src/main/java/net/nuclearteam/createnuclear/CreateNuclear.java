@@ -15,7 +15,6 @@ import net.nuclearteam.createnuclear.block.palette.CNPalettesStoneTypes;
 import net.nuclearteam.createnuclear.blockentity.CNBlockEntities;
 import net.nuclearteam.createnuclear.config.CNConfigs;
 import net.nuclearteam.createnuclear.effects.CNEffects;
-import net.nuclearteam.createnuclear.entity.CNMobDefaultAttribute;
 import net.nuclearteam.createnuclear.entity.CNMobEntityType;
 import net.nuclearteam.createnuclear.fan.CNFanProcessingTypes;
 import net.nuclearteam.createnuclear.fan.CNRecipeTypes;
@@ -26,7 +25,6 @@ import net.nuclearteam.createnuclear.menu.CNMenus;
 import net.nuclearteam.createnuclear.packets.CNPackets;
 import net.nuclearteam.createnuclear.potion.CNPotions;
 import net.nuclearteam.createnuclear.tags.CNTag;
-import net.nuclearteam.createnuclear.world.CNConfigPlacementFilter;
 import net.nuclearteam.createnuclear.world.CNPlacementModifiers;
 
 import net.nuclearteam.createnuclear.world.gen.CNBiomeModifier;
@@ -55,13 +53,12 @@ public class CreateNuclear implements ModInitializer {
 		CNPalettesStoneTypes.register(CreateNuclear.REGISTRATE);
 		CNMenus.register();
 		CNBlockEntities.register();
-		CNGroup.registrer();
+		CNGroup.register();
 		CNFluids.register();
 		CNTag.registerModItems();
 		CNPackets.registerPackets();
 		CNPackets.getChannel().initServerListener();
 		CNPotions.init();
-		CNMobDefaultAttribute.register();
 		CNMobEntityType.registerCNMod();
 
 		REGISTRATE.register();

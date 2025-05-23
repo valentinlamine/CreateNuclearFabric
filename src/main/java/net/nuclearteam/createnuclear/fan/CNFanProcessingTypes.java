@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@SuppressWarnings("unused")
 public class CNFanProcessingTypes extends AllFanProcessingTypes {
     public static final EnrichedType ENRICHED = register("enriched", new EnrichedType());
     private static final Map<String, FanProcessingType> LEGACY_NAME_MAP;
@@ -70,10 +71,7 @@ public class CNFanProcessingTypes extends AllFanProcessingTypes {
         public boolean isValidAt(Level level, BlockPos pos) {
             BlockState blockState = level.getBlockState(pos);
             if (FAN_PROCESSING_CATALYSTS_ENRICHED.matches(blockState)) {
-                if (blockState.is(CNBlocks.ENRICHING_CAMPFIRE.get()) && blockState.hasProperty(EnrichingCampfireBlock.LIT) && ! blockState.getValue(EnrichingCampfireBlock.LIT)) {
-                    return false;
-                }
-                return true;
+                return !blockState.is(CNBlocks.ENRICHING_CAMPFIRE.get()) || !blockState.hasProperty(EnrichingCampfireBlock.LIT) || blockState.getValue(EnrichingCampfireBlock.LIT);
             }
             return false;
         }

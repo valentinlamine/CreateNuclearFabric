@@ -6,6 +6,7 @@ import net.minecraft.world.level.material.MapColor;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings({"unused"})
 public enum CNMapColorSerialization {
     COLOR_BLUE(MapColor.COLOR_BLUE, "blue"),
     COLOR_RED(MapColor.COLOR_RED, "red"),

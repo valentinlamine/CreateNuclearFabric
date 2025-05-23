@@ -2,12 +2,11 @@ package net.nuclearteam.createnuclear.multiblock.input;
 
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import com.simibubi.create.foundation.utility.Iterate;
-import io.github.fabricators_of_create.porting_lib.util.StorageProvider;
 import lib.multiblock.test.SimpleMultiBlockAislePatternBuilder;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SidedStorageBlockEntity;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -19,18 +18,20 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
-import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
-import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerInventory;
 
 import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import static net.nuclearteam.createnuclear.CNMultiblock.*;
 
 import java.util.List;
 
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+@SuppressWarnings("unused")
 public class ReactorInputEntity extends SmartBlockEntity implements MenuProvider, SidedStorageBlockEntity {
     protected BlockPos block;
     protected ReactorControllerBlockEntity controller;

@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear.entity.irradiatedchicken;
 
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -25,6 +26,11 @@ import net.nuclearteam.createnuclear.entity.CNMobEntityType;
 
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+@SuppressWarnings("unused")
 public class IrradiatedChicken extends Animal {
     private static final Ingredient FOOD_ITEMS = Ingredient.of(
             Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS,

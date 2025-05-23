@@ -15,6 +15,7 @@ import org.joml.Matrix4f;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+@SuppressWarnings("unused")
 public class TextUtils {
     public static String titleCaseConversion(String inputString)
     {

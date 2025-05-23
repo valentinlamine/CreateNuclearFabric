@@ -1,6 +1,7 @@
 package net.nuclearteam.createnuclear.item.cloth;
 
 import com.tterrag.registrate.util.entry.ItemEntry;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.nuclearteam.createnuclear.item.CNItems;
@@ -8,11 +9,14 @@ import net.nuclearteam.createnuclear.item.CNItems;
 import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider.GeneratedRecipe;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.*;
 import java.util.function.Function;
 
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+@SuppressWarnings({"unused", "unchecked"})
 public class ClothItem extends Item {
     private final DyeColor color;
 
@@ -26,7 +30,7 @@ public class ClothItem extends Item {
 
         protected final GeneratedRecipe[] recipes = new GeneratedRecipe[getColorCount()];
 
-        public DyeRecipeList(Function<@NotNull DyeColor, GeneratedRecipe> filler) {
+        public DyeRecipeList(Function<DyeColor, GeneratedRecipe> filler) {
             for (DyeColor color : DyeColor.values()) {
                 recipes[color.ordinal()] = filler.apply(color);
             }
@@ -36,7 +40,7 @@ public class ClothItem extends Item {
             return COLOR_AMOUNT;
         }
 
-        public GeneratedRecipe get(@Nullable DyeColor color) {
+        public GeneratedRecipe get(DyeColor color) {
             return recipes[color.ordinal()];
         }
 
@@ -64,7 +68,7 @@ public class ClothItem extends Item {
         }
 
         public static class NullableDyedRecipeList extends DyeRecipeList {
-            public NullableDyedRecipeList(Function<@Nullable DyeColor, GeneratedRecipe> fillter) {
+            public NullableDyedRecipeList(Function<DyeColor, GeneratedRecipe> fillter) {
                 super(fillter);
                 recipes[recipes.length - 1] = fillter.apply(null);
             }
@@ -75,7 +79,7 @@ public class ClothItem extends Item {
             }
 
             @Override
-            public GeneratedRecipe get(@Nullable DyeColor color) {
+            public GeneratedRecipe get(DyeColor color) {
                 return color == null ? recipes[recipes.length - 1] : super.get(color);
             }
         }
@@ -84,29 +88,27 @@ public class ClothItem extends Item {
     public static class DyeItemList<T extends Item> implements Iterable<ItemEntry<T>> {
         private static final int COLOR_AMOUNT = DyeColor.values().length;
 
-        private final ItemEntry<?>[] entrys = new ItemEntry<?>[COLOR_AMOUNT];
+        private final ItemEntry<?>[] entry = new ItemEntry<?>[COLOR_AMOUNT];
 
         public DyeItemList(Function<DyeColor, ItemEntry<? extends T>> filler) {
             for (DyeColor color : DyeColor.values()) {
-                entrys[color.ordinal()] = filler.apply(color);
+                entry[color.ordinal()] = filler.apply(color);
             }
         }
 
-        @SuppressWarnings("unchecked")
         public ItemEntry<T> get(DyeColor color) {
-            return (ItemEntry<T>) entrys[color.ordinal()];
+            return (ItemEntry<T>) entry[color.ordinal()];
         }
 
         public boolean contains(Item block) {
-            for (ItemEntry<?> entry : entrys) {
+            for (ItemEntry<?> entry : entry) {
                 if (entry.is(block)) return true;
             }
             return false;
         }
 
-        @SuppressWarnings("unchecked")
         public ItemEntry<T>[] toArray() {
-            return (ItemEntry<T>[]) Arrays.copyOf(entrys, entrys.length);
+            return (ItemEntry<T>[]) Arrays.copyOf(entry, entry.length);
         }
 
         @Override
@@ -115,14 +117,13 @@ public class ClothItem extends Item {
                 private int index = 0;
                 @Override
                 public boolean hasNext() {
-                    return index < entrys.length;
+                    return index < entry.length;
                 }
 
-                @SuppressWarnings("unchecked")
                 @Override
                 public ItemEntry<T> next() {
                     if (!hasNext()) throw new NoSuchElementException();
-                    return (ItemEntry<T>) entrys[index++];
+                    return (ItemEntry<T>) entry[index++];
                 }
             };
         }

@@ -9,6 +9,7 @@ import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
 import com.simibubi.create.foundation.utility.RegisteredObjects;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -21,6 +22,7 @@ import net.nuclearteam.createnuclear.item.CNItems;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
+@MethodsReturnNonnullByDefault
 public class CNCrushingRecipeGen extends ProcessingRecipeGen {
 
     GeneratedRecipe
@@ -37,6 +39,7 @@ public class CNCrushingRecipeGen extends ProcessingRecipeGen {
                 .output(1f, Blocks.RED_SAND)
         )
     ;
+
     GeneratedRecipe
         RAW_URANIUM = create(() -> AllItems.CRUSHED_URANIUM, b -> b.duration(250)
                 .output(1, CNItems.URANIUM_POWDER,9)
@@ -45,7 +48,6 @@ public class CNCrushingRecipeGen extends ProcessingRecipeGen {
         RAW_URANIUM_BLOCK = create(() -> CNBlocks.RAW_URANIUM_BLOCK, b -> b.duration(250)
             .output(1, AllItems.CRUSHED_URANIUM,9)
             .output(.75f, AllItems.EXP_NUGGET, 18)
-
         ),
 
         RAW_LEAD = create(() -> CNItems.RAW_LEAD, b -> b.duration(250)
@@ -59,9 +61,6 @@ public class CNCrushingRecipeGen extends ProcessingRecipeGen {
 
         RAW_ZINC_ORE = rawOre(AllItems.RAW_ZINC::get, AllItems.CRUSHED_ZINC::get, 1),
         RAW_COPPER_ORE = rawOre(() -> Items.RAW_COPPER, AllItems.CRUSHED_COPPER::get, 1)
-
-
-
     ;
 
     public CNCrushingRecipeGen(FabricDataOutput generator) {

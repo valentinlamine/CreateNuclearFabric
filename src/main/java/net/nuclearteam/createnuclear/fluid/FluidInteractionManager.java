@@ -14,7 +14,6 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 /**
  * Central manager for registering and applying fluid interaction rules.
@@ -78,7 +77,7 @@ public class FluidInteractionManager {
         for (FluidInteractionRule rule : sorted) {
             boolean adjacentMatch = DIRS.stream()
                     .map(d -> world.getFluidState(pos.relative(d)))
-                    .anyMatch(fs -> rule.checkFluid().test(fs) && (!rule.excludeSelf() || !fs.getType().isSame(fluid)));;
+                    .anyMatch(fs -> rule.checkFluid().test(fs) && (!rule.excludeSelf() || !fs.getType().isSame(fluid)));
             if (!adjacentMatch) continue;
 
             // replace block

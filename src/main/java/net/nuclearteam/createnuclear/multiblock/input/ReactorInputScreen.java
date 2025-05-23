@@ -7,8 +7,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.nuclearteam.createnuclear.gui.CNGuiTextures;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import static com.simibubi.create.foundation.gui.AllGuiTextures.PLAYER_INVENTORY;
 
+@ParametersAreNonnullByDefault
 public class ReactorInputScreen extends AbstractSimiContainerScreen<ReactorInputMenu> {
 
     protected static final CNGuiTextures background = CNGuiTextures.REACTOR_SLOT_INVENTOR;
