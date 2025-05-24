@@ -6,6 +6,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.ItemStack;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem;
 import net.nuclearteam.createnuclear.tags.CNTag;
@@ -25,18 +26,24 @@ public class RadiationEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-        //If the player has the radiation effect and is wearing the anti-radiation armor, they will not take damage
-        livingEntity.getArmorSlots().forEach(e -> {
-            if (livingEntity.hasEffect(CNEffects.RADIATION.get()) && AntiRadiationArmorItem.Armor.isArmored(e)) {
-                livingEntity.hurt(livingEntity.damageSources().magic(), 0.0F);
-                this.removeAttributeModifiers(livingEntity, livingEntity.getAttributes(), 0);
+        if (livingEntity.getType().is(CNTag.EntityTypeTags.IRRADIATED_IMMUNE.tag)) {
+            livingEntity.removeEffect(this);
+            return;
+        }
+
+        boolean isWearingAntiRadiationArmor = false;
+        for (ItemStack armor : livingEntity.getArmorSlots()) {
+            if (AntiRadiationArmorItem.Armor.isArmored(armor)) {
+                isWearingAntiRadiationArmor = true;
+                break;
             }
-            else if (livingEntity.getType().is(CNTag.EntityTypeTags.IRRADIATED_IMMUNE.tag)) {
-                livingEntity.removeEffect(this);
-            }
-            else {
-                livingEntity.hurt(livingEntity.damageSources().magic(), 1 << amplifier);
-            }
-        });
+        }
+
+        if (isWearingAntiRadiationArmor) {
+            return;
+        }
+
+        int damage = 1 << amplifier;
+        livingEntity.hurt(livingEntity.damageSources().magic(), damage);
     }
 }
