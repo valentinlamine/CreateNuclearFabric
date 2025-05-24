@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class HudRenderer {
     private final List<HudOverlay> overlays = List.of(
-            new RadiationOverlay(),
+            //new RadiationOverlay(),
             new HelmetOverlay(),
             new EventTextOverlay()
     );

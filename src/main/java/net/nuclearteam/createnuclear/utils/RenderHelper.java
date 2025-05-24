@@ -96,4 +96,14 @@ public class RenderHelper {
         graphics.blit(texture, 0, 0, -90, 0, 0, width, height, width, height);
         RenderSystem.disableBlend();
     }
+
+    public static void renderTextureOverlayTest(GuiGraphics guiGraphics, ResourceLocation shaderLocation, float alpha) {
+        RenderSystem.disableDepthTest();
+        RenderSystem.depthMask(false);
+        guiGraphics.setColor(1.0f, 1.0f, 1.0f, alpha);
+        guiGraphics.blit(shaderLocation, 0, 0, -90, 0.0f, 0.0f, guiGraphics.guiWidth(), guiGraphics.guiHeight(), guiGraphics.guiWidth(), guiGraphics.guiHeight());
+        RenderSystem.depthMask(true);
+        RenderSystem.enableDepthTest();
+        guiGraphics.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+    }
 }
