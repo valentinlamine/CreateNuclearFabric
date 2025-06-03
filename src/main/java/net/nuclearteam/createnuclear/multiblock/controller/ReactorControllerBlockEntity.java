@@ -147,12 +147,10 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         configuredPattern = ItemStack.of(compound.getCompound("items"));
 
 
-        ItemStack cooler = ItemStack.of(compound.getCompound("cooler"));
-        ItemStack fuel = ItemStack.of(compound.getCompound("fuel"));
+        if (ItemStack.of(compound.getCompound("cooler")) != null || ItemStack.of(compound.getCompound("fuel")) != null) {
+            coolerItem = ItemStack.of(compound.getCompound("cooler"));
+            fuelItem = ItemStack.of(compound.getCompound("fuel"));
 
-        if (!cooler.isEmpty() || !fuel.isEmpty()) {
-            coolerItem = cooler;
-            fuelItem = fuel;
         }
 
         total = compound.getDouble("total");
@@ -168,11 +166,8 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
 
         compound.put("items", configuredPattern.serializeNBT());
 
-        if (!coolerItem.isEmpty()) {
+        if (coolerItem != null || fuelItem != null) {
             compound.put("cooler", coolerItem.serializeNBT());
-        }
-
-        if (!fuelItem.isEmpty()) {
             compound.put("fuel", fuelItem.serializeNBT());
         }
 
