@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 /**
  * Helper class for rendering full-screen overlays with optional scaling and caching.
  */
+@SuppressWarnings("unused")
 public class RenderHelper {
     private static float lastAlpha = Float.NaN;
     private static float lastCoverage = Float.NaN;

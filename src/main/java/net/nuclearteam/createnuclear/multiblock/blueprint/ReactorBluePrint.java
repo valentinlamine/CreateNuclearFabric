@@ -2,6 +2,7 @@ package net.nuclearteam.createnuclear.multiblock.blueprint;
 
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import io.github.fabricators_of_create.porting_lib.util.NetworkHooks;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -19,6 +20,10 @@ import net.minecraft.world.level.Level;
 import net.nuclearteam.createnuclear.item.CNItems;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 public class ReactorBluePrint extends Item implements MenuProvider {
 
     public ReactorBluePrint(Properties properties) {
@@ -49,16 +54,12 @@ public class ReactorBluePrint extends Item implements MenuProvider {
 
         if (!player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
             if (!world.isClientSide && player instanceof ServerPlayer)
-                NetworkHooks.openScreen((ServerPlayer) player, this, buf -> {
-                    buf.writeItem(heldItem);
-                });
+                NetworkHooks.openScreen((ServerPlayer) player, this, buf -> buf.writeItem(heldItem));
             return InteractionResultHolder.success(heldItem);
         }
         else if (player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
             if (!world.isClientSide && player instanceof ServerPlayer) {
-                NetworkHooks.openScreen((ServerPlayer) player, this, buf -> {
-                    buf.writeItem(heldItem);
-                });
+                NetworkHooks.openScreen((ServerPlayer) player, this, buf -> buf.writeItem(heldItem));
             }
             return InteractionResultHolder.success(heldItem);
         }

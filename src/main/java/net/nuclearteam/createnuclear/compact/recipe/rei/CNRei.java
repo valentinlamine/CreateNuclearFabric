@@ -304,7 +304,7 @@ public class CNRei implements REIClientPlugin {
                     return recipes;
                 };
             } else {
-                recipesSupplier = () -> Collections.emptyList();
+                recipesSupplier = Collections::emptyList;
             }
 
             if (width <= 0 || height <= 0) {

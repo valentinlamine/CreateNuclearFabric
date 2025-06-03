@@ -8,6 +8,7 @@ import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -19,6 +20,8 @@ import net.nuclearteam.createnuclear.tags.CNTag;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
+@MethodsReturnNonnullByDefault
+@SuppressWarnings("unused")
 public class CNPressingRecipeGen extends ProcessingRecipeGen {
 
     GeneratedRecipe
@@ -27,8 +30,6 @@ public class CNPressingRecipeGen extends ProcessingRecipeGen {
             .output(CNItems.GRAPHENE)
         )
     ;
-
-
 
     <T extends ProcessingRecipe<?>> GeneratedRecipe create(String name, UnaryOperator<ProcessingRecipeBuilder<T>> transform) {
         return create(CreateNuclear.asResource(name), transform);

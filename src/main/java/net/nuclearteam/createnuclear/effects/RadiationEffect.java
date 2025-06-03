@@ -3,13 +3,15 @@ package net.nuclearteam.createnuclear.effects;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.ItemStack;
-import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem;
 import net.nuclearteam.createnuclear.tags.CNTag;
+
+import java.util.stream.StreamSupport;
+
+import net.minecraft.world.item.ItemStack;
+import net.nuclearteam.createnuclear.CreateNuclear;
 
 /**
  * Represents a harmful radiation status effect applied to living entities.

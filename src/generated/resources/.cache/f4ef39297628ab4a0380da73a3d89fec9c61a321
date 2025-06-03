@@ -1,7 +1,7 @@
-// 1.20.1	2025-05-24T17:22:50.0467073	Create Nuclear/CreateNuclair's Mechanical Crafting Recipes
-0a1d26105f14cb2a01b18b9f050c900412f917fb data\createnuclear\recipes\mechanical_crafting\uranium_rod.json
+// 1.20.1	2025-05-23T22:50:11.8500131	Create Nuclear/CreateNuclair's Mechanical Crafting Recipes
 906d44706d5949b2e2b5ef94bda210a364f528a7 data\createnuclear\recipes\mechanical_crafting\reactor_frame.json
-06a71c19a7ed16464775e4e3767b092c00210a9a data\createnuclear\recipes\mechanical_crafting\reactor_core.json
 29f8180140877a1482d0e80240ddeda84f8bd46a data\createnuclear\recipes\mechanical_crafting\graphite_rod.json
-85f68439da9d4bb70d1308b7b64db0e30fec9e51 data\createnuclear\recipes\mechanical_crafting\reactor_controller.json
 3288fbf9a31dd2ca64b1ea3fceed6551cdae0ad6 data\createnuclear\recipes\mechanical_crafting\reactor_cooler.json
+85f68439da9d4bb70d1308b7b64db0e30fec9e51 data\createnuclear\recipes\mechanical_crafting\reactor_controller.json
+06a71c19a7ed16464775e4e3767b092c00210a9a data\createnuclear\recipes\mechanical_crafting\reactor_core.json
+0a1d26105f14cb2a01b18b9f050c900412f917fb data\createnuclear\recipes\mechanical_crafting\uranium_rod.json

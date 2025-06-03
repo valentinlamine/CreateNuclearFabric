@@ -2,6 +2,7 @@ package net.nuclearteam.createnuclear.multiblock.input;
 
 import com.simibubi.create.foundation.gui.menu.MenuBase;
 import io.github.fabricators_of_create.porting_lib.transfer.item.SlotItemHandler;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.FriendlyByteBuf;
@@ -12,12 +13,13 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.menu.CNMenus;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 public class ReactorInputMenu extends MenuBase<ReactorInputEntity> {
-
-
     public ReactorInputMenu(MenuType<?> type, int id, Inventory inv, FriendlyByteBuf extraData) {
         super(type, id, inv, extraData);
     }
@@ -53,12 +55,10 @@ public class ReactorInputMenu extends MenuBase<ReactorInputEntity> {
 
     @Override
     protected void initAndReadInventory(ReactorInputEntity contentHolder) {
-
     }
 
     @Override
     protected void addSlots() {
-
         // player Slots
         for (int hotbarSlot = 0; hotbarSlot < 9; ++hotbarSlot) {
             this.addSlot(new Slot(player.getInventory(), hotbarSlot, -31 + hotbarSlot * 18, 155));
@@ -75,8 +75,6 @@ public class ReactorInputMenu extends MenuBase<ReactorInputEntity> {
 
         addSlot(slot1);
         addSlot(slot2);
-
-
     }
 
     @Override

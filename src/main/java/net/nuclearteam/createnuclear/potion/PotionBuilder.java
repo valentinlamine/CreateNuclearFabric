@@ -3,12 +3,10 @@ package net.nuclearteam.createnuclear.potion;
 import com.tterrag.registrate.AbstractRegistrate;
 import com.tterrag.registrate.builders.AbstractBuilder;
 import com.tterrag.registrate.builders.BuilderCallback;
-import com.tterrag.registrate.providers.ProviderType;
-import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import com.tterrag.registrate.util.nullness.NonnullType;
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistry;
-import net.minecraft.Util;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -17,7 +15,8 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.alchemy.Potion;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
-@SuppressWarnings("null")
+@MethodsReturnNonnullByDefault
+@SuppressWarnings({"null", "unused"})
 public class PotionBuilder<T extends Potion, P> extends AbstractBuilder<Potion, T, P, PotionBuilder<T, P>> {
 
     private MobEffectInstance effects;

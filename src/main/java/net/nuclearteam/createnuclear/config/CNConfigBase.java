@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+@SuppressWarnings("unused")
 public abstract class CNConfigBase {
     public ForgeConfigSpec specification;
 
@@ -38,7 +39,7 @@ public abstract class CNConfigBase {
     public abstract String getName();
 
     @FunctionalInterface
-    protected static interface ICNValueProvider<V, T extends ConfigValue<V>> extends Function<ForgeConfigSpec.Builder, T> {
+    protected interface ICNValueProvider<V, T extends ConfigValue<V>> extends Function<ForgeConfigSpec.Builder, T> {
     }
 
     protected ConfigBool b(boolean current, String name, String... comment) {
@@ -93,7 +94,7 @@ public abstract class CNConfigBase {
     public class CNCValue<V, T extends ConfigValue<V>> {
         protected ConfigValue<V> value;
         protected String name;
-        private ICNValueProvider<V, T> provider;
+        private final ICNValueProvider<V, T> provider;
 
         public CNCValue(String name, ICNValueProvider<V, T> provider, String... comment) {
             this.name = name;
@@ -138,8 +139,8 @@ public abstract class CNConfigBase {
      */
     public class ConfigGroup extends CNCValue<Boolean, BooleanValue> {
 
-        private int groupDepth;
-        private String[] comment;
+        private final int groupDepth;
+        private final String[] comment;
 
         public ConfigGroup(String name, int depth, String... comment) {
             super(name, builder -> null, comment);

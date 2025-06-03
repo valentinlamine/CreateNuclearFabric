@@ -21,8 +21,6 @@ import net.nuclearteam.createnuclear.block.CNBlocks;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlock;
 import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
 
-import static net.nuclearteam.createnuclear.multiblock.output.ReactorOutput.DIR;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -107,24 +105,13 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 	public void FindController(BlockPos pos, Level level){
 		if (level.getBlockState(pos.above(3)).getBlock() == CNBlocks.REACTOR_CONTROLLER.get()){
             ReactorControllerBlock controller = (ReactorControllerBlock)level.getBlockState(pos.above(3)).getBlock();
-			controller.Verify(controller.defaultBlockState(), pos.above(3), level, level.players(), false);
+			controller.verify(controller.defaultBlockState(), pos.above(3), level, level.players(), false);
 		}
 	}
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
-
-
-	public int getDir() {
-        BlockState state = getBlockState();
-        return state.getValue(DIR);
-    }
-
-	public void setDir(int dir, Level level, BlockPos pos) {
-        BlockState state = getBlockState();
-		level.setBlockAndUpdate(pos, state.setValue(DIR, dir));
-    }
 
 	@Override
 	public float getGeneratedSpeed() {
@@ -138,7 +125,7 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 		return super.getStressConfigKey();
 	}
 
-	class ReactorOutputValue extends ValueBoxTransform.Sided {
+	static class ReactorOutputValue extends ValueBoxTransform.Sided {
 
 		@Override
 		protected Vec3 getSouthLocation() {

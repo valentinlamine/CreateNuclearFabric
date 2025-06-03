@@ -1,22 +1,20 @@
 package net.nuclearteam.createnuclear.datagen.recipe.item_application;
 
 import com.simibubi.create.AllBlocks;
-import com.simibubi.create.AllItems;
 import com.simibubi.create.AllRecipeTypes;
-import com.simibubi.create.foundation.data.CreateBlockEntityBuilder;
 import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Blocks;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.block.CNBlocks;
-import net.nuclearteam.createnuclear.item.CNItems;
 import net.nuclearteam.createnuclear.tags.CNTag;
 
+@SuppressWarnings("unused")
+@MethodsReturnNonnullByDefault
 public class CNItemApplicationRecipeGen extends ProcessingRecipeGen {
 
     GeneratedRecipe REACTOR_CASING = itemApplication("reactor_casing_from_steel_and_brass_casing",
@@ -25,7 +23,7 @@ public class CNItemApplicationRecipeGen extends ProcessingRecipeGen {
             CNBlocks.REACTOR_CASING.get()
     );
 
-    GeneratedRecipe REACTOR_OUPUT = itemApplication("reactor_output_from_shaft_and_reactor_casing",
+    GeneratedRecipe REACTOR_OUTPUT = itemApplication("reactor_output_from_shaft_and_reactor_casing",
             AllBlocks.SHAFT.asItem(),
             CNBlocks.REACTOR_CASING.get(),
             CNBlocks.REACTOR_OUTPUT.get()
@@ -52,10 +50,6 @@ public class CNItemApplicationRecipeGen extends ProcessingRecipeGen {
                         .output(output)
         );
     }
-
-
-
-
 
     public CNItemApplicationRecipeGen(FabricDataOutput generator) {
         super(generator);

@@ -15,7 +15,6 @@ import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.nuclearteam.createnuclear.multiblock.input.ReactorInputScreen;
 
 public class CNMenus {
-    //public static final MenuEntry<ReactorControllerMenu> REACTOR_CONTROLLER = menu("reactor_controller", ReactorControllerMenu::new, ReactorControllerScreen::new);
     public static final MenuEntry<ReactorBluePrintMenu> REACTOR_BLUEPRINT_MENU = menu("reactor_blueprint_menu", ReactorBluePrintMenu::new, () -> ReactorBluePrintScreen::new);
     public static final MenuEntry<ReactorInputMenu> SLOT_ITEM_STORAGE = menu("slot_item_menu", ReactorInputMenu::new, () -> ReactorInputScreen::new);
 

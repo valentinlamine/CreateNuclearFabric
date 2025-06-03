@@ -2,7 +2,6 @@ package net.nuclearteam.createnuclear.compact.archEx;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.simibubi.create.Create;
 import com.simibubi.create.compat.archEx.*;
 import com.simibubi.create.foundation.utility.Lang;
 import net.minecraft.core.registries.BuiltInRegistries;

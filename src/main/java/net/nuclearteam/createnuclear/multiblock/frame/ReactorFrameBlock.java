@@ -2,6 +2,7 @@ package net.nuclearteam.createnuclear.multiblock.frame;
 
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.utility.Lang;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -24,12 +25,14 @@ import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBloc
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
+@SuppressWarnings("deprecation")
 public class ReactorFrameBlock extends Block implements IWrenchable {
-
     public static final Property<Part> PART = EnumProperty.create("part", Part.class);
-
 
     public ReactorFrameBlock(Properties properties) {
         super(properties);
@@ -136,7 +139,7 @@ public class ReactorFrameBlock extends Block implements IWrenchable {
                     newBlock = new BlockPos(x, y, z);
                     if (level.getBlockState(newBlock).is(CNBlocks.REACTOR_CONTROLLER.get())) { // verifying the pattern
                         ReactorControllerBlock controller = (ReactorControllerBlock) level.getBlockState(newBlock).getBlock();
-                        controller.Verify(level.getBlockState(newBlock), newBlock, level, players, first);
+                        controller.verify(level.getBlockState(newBlock), newBlock, level, players, first);
                         return controller;
                     }
                 }

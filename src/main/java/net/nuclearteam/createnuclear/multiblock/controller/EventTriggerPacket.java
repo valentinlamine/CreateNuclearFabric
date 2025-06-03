@@ -27,9 +27,7 @@ public class EventTriggerPacket extends SimplePacketBase {
 
     @Override
     public boolean handle(Context context) {
-        context.enqueueWork(() -> {
-            EventTextOverlay.triggerEvent(duration);
-        });
+        context.enqueueWork(() -> EventTextOverlay.triggerEvent(duration));
         return true;
     }
 }

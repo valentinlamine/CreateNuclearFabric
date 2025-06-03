@@ -12,6 +12,7 @@ import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.resource.conditions.v1.ConditionJsonProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
@@ -37,45 +38,46 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
+@MethodsReturnNonnullByDefault
+@SuppressWarnings("unused")
 public class CNShapelessRecipeGen extends CreateRecipeProvider {
 
-    private String SHAPELESS = enterFolder("shapeless");
+    private final String SHAPELESS = enterFolder("shapeless");
     GeneratedRecipe
-
         RAW_URANIUM = create(CNItems.RAW_URANIUM).returns(9)
-                .withSuffix("_from_decompacting")
-                .unlockedBy(CNItems.RAW_URANIUM::get)
-                .viaShapeless(b -> b.requires(CNBlocks.RAW_URANIUM_BLOCK.get())),
+            .withSuffix("_from_decompacting")
+            .unlockedBy(CNItems.RAW_URANIUM::get)
+            .viaShapeless(b -> b.requires(CNBlocks.RAW_URANIUM_BLOCK.get())),
 
         RAW_LEAD = create(CNItems.RAW_LEAD).returns(9)
-                .withSuffix("_from_decompacting")
-                .unlockedBy(CNItems.RAW_LEAD::get)
-                .viaShapeless(b -> b.requires(CNBlocks.RAW_LEAD_BLOCK.get())),
+            .withSuffix("_from_decompacting")
+            .unlockedBy(CNItems.RAW_LEAD::get)
+            .viaShapeless(b -> b.requires(CNBlocks.RAW_LEAD_BLOCK.get())),
 
         LEAD_INGOT = create(CNItems.LEAD_INGOT).returns(9)
-                .withSuffix("_from_decompacting")
-                .unlockedBy(CNItems.LEAD_INGOT::get)
-                .viaShapeless(b -> b.requires(CNBlocks.LEAD_BLOCK.get())),
+            .withSuffix("_from_decompacting")
+            .unlockedBy(CNItems.LEAD_INGOT::get)
+            .viaShapeless(b -> b.requires(CNBlocks.LEAD_BLOCK.get())),
 
         LEAD_NUGGET = create(CNItems.LEAD_NUGGET).returns(9)
-                .withSuffix("_from_decompacting")
-                .unlockedBy(CNItems.LEAD_NUGGET::get)
-                .viaShapeless(b -> b.requires(CNItems.LEAD_INGOT.get())),
+            .withSuffix("_from_decompacting")
+            .unlockedBy(CNItems.LEAD_NUGGET::get)
+            .viaShapeless(b -> b.requires(CNItems.LEAD_INGOT.get())),
 
         STEEL_INGOT = create(CNItems.STEEL_INGOT).returns(9)
-                .withSuffix("_from_decompacting")
-                .unlockedBy(CNItems.STEEL_INGOT::get)
-                .viaShapeless(b -> b.requires(CNBlocks.STEEL_BLOCK.get())),
+            .withSuffix("_from_decompacting")
+            .unlockedBy(CNItems.STEEL_INGOT::get)
+            .viaShapeless(b -> b.requires(CNBlocks.STEEL_BLOCK.get())),
 
         STEEL_NUGGET = create(CNItems.STEEL_NUGGET).returns(9)
-                .withSuffix("_from_decompacting")
-                .unlockedBy(CNItems.STEEL_NUGGET::get)
-                .viaShapeless(b -> b.requires(CNItems.STEEL_INGOT.get())),
+            .withSuffix("_from_decompacting")
+            .unlockedBy(CNItems.STEEL_NUGGET::get)
+            .viaShapeless(b -> b.requires(CNItems.STEEL_INGOT.get())),
 
         REACTOR_BLUEPRINT_ITEM_CLEAR = clearData(CNItems.REACTOR_BLUEPRINT)
     ;
 
-    private String SHAPELESS_CLOTH = enterFolder("shapeless/cloth");
+    private final String SHAPELESS_CLOTH = enterFolder("shapeless/cloth");
 
     DyeRecipeList CLOTH_CHANGING = new DyeRecipeList(color -> {
         List<Item> ingredients = new ArrayList<>(Arrays.asList(Items.WHITE_DYE, Items.ORANGE_DYE, Items.MAGENTA_DYE, Items.LIGHT_BLUE_DYE, Items.YELLOW_DYE, Items.LIME_DYE, Items.PINK_DYE, Items.GRAY_DYE, Items.LIGHT_GRAY_DYE, Items.CYAN_DYE, Items.PURPLE_DYE, Items.BLUE_DYE, Items.BROWN_DYE, Items.GREEN_DYE, Items.RED_DYE, Items.BLACK_DYE));
@@ -92,8 +94,8 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
 
     String currentFolder = "";
 
-    String enterFolder(String foldedr) {
-        currentFolder = foldedr;
+    String enterFolder(String folder) {
+        currentFolder = folder;
         return currentFolder;
     }
 
@@ -134,7 +136,7 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
 
     class GeneratedRecipeBuilder {
 
-        private String path;
+        private final String path;
         private String suffix;
         private Supplier<? extends ItemLike> result;
         private ResourceLocation compatDatagenOutput;
@@ -264,7 +266,7 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
 
         class GeneratedCookingRecipeBuilder {
 
-            private Supplier<Ingredient> ingredient;
+            private final Supplier<Ingredient> ingredient;
             private float exp;
             private int cookingTime;
 
@@ -347,19 +349,8 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
         super(output);
     }
 
-    private static class ModdedCookingRecipeResult implements FinishedRecipe {
-
-        private FinishedRecipe wrapped;
-        private ResourceLocation outputOverride;
-        private List<ConditionJsonProvider> conditions;
-
-        public ModdedCookingRecipeResult(FinishedRecipe wrapped, ResourceLocation outputOverride,
-                                         List<ConditionJsonProvider> conditions) {
-            this.wrapped = wrapped;
-            this.outputOverride = outputOverride;
-            this.conditions = conditions;
-        }
-
+    private record ModdedCookingRecipeResult(FinishedRecipe wrapped, ResourceLocation outputOverride,
+                                             List<ConditionJsonProvider> conditions) implements FinishedRecipe {
         @Override
         public ResourceLocation getId() {
             return wrapped.getId();
@@ -387,8 +378,5 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
 
             ConditionJsonProvider.write(object, conditions.toArray(new ConditionJsonProvider[0]));
         }
-
     }
-
-
 }

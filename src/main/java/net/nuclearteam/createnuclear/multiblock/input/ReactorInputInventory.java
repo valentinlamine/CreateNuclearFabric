@@ -3,7 +3,6 @@ package net.nuclearteam.createnuclear.multiblock.input;
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemStackHandler;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.nuclearteam.createnuclear.item.CNItems;
-import net.nuclearteam.createnuclear.multiblock.controller.ReactorControllerBlockEntity;
 
 public class ReactorInputInventory extends ItemStackHandler {
     private final ReactorInputEntity be;

@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear.tools;
 
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -14,6 +15,11 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.multiblock.controller.EventTriggerPacket;
 import net.nuclearteam.createnuclear.packets.CNPackets;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+@SuppressWarnings({"deprecation", "unused"})
 public class EventTriggerBlock extends Block {
     public EventTriggerBlock(Properties properties) {
         super(properties);

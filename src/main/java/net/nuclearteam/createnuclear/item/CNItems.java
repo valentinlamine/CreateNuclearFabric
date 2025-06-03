@@ -5,28 +5,20 @@ import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Ch
 import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Helmet;
 import static net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem.Leggings;
 
-import com.mojang.blaze3d.shaders.Effect;
 import com.tterrag.registrate.util.entry.EntityEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;
 
 import io.github.fabricators_of_create.porting_lib.util.LazySpawnEggItem;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.effects.CNEffects;
 import net.nuclearteam.createnuclear.entity.CNMobEntityType;
-import net.nuclearteam.createnuclear.groups.CNGroup;
 import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem;
 import net.nuclearteam.createnuclear.item.cloth.ClothItem.DyeItemList;
@@ -34,81 +26,77 @@ import net.nuclearteam.createnuclear.multiblock.blueprint.ReactorBluePrint;
 import net.nuclearteam.createnuclear.tags.CNTag;
 import net.nuclearteam.createnuclear.utils.TextUtils;
 
+@SuppressWarnings("unused")
 public class CNItems {
-
-
-
     public static final ItemEntry<Item>
         URANIUM_POWDER = CreateNuclear.REGISTRATE
-                .item("uranium_powder", Item::new)
-                .register(),
+            .item("uranium_powder", Item::new)
+            .register(),
 
         YELLOWCAKE = CreateNuclear.REGISTRATE
-                .item("yellowcake", Item::new)
-                .properties(p -> p.food(new FoodProperties.Builder()
-                        .nutrition(20)
-                        .saturationMod(0.3F)
-                        .alwaysEat()
-                        .effect((new MobEffectInstance(CNEffects.RADIATION.get(),600,2)) , 1.0F)
-                        .effect(new MobEffectInstance(MobEffects.HUNGER, 600, 1), 1.0F)
-                        .build())
-                )
-                .register(),
+            .item("yellowcake", Item::new)
+            .properties(p -> p.food(new FoodProperties.Builder()
+                .nutrition(20)
+                .saturationMod(0.3F)
+                .alwaysEat()
+                .effect((new MobEffectInstance(CNEffects.RADIATION.get(),600,2)) , 1.0F)
+                .effect(new MobEffectInstance(MobEffects.HUNGER, 600, 1), 1.0F)
+                .build())
+            )
+            .register(),
 
         ENRICHED_YELLOWCAKE = CreateNuclear.REGISTRATE
-                    .item("enriched_yellowcake", Item::new)
-                    .register(),
+            .item("enriched_yellowcake", Item::new)
+            .register(),
 
         COAL_DUST = CreateNuclear.REGISTRATE
-                    .item("coal_dust", Item::new)
-                    .tag(CNTag.forgeItemTag("dusts"), CNTag.forgeItemTag("coal_dusts"))
-                    .register(),
+            .item("coal_dust", Item::new)
+            .tag(CNTag.forgeItemTag("dusts"), CNTag.forgeItemTag("coal_dusts"))
+            .register(),
 
         GRAPHENE = CreateNuclear.REGISTRATE
-                    .item("graphene", Item::new)
-                    .register(),
+            .item("graphene", Item::new)
+            .register(),
 
         STEEL_INGOT = CreateNuclear.REGISTRATE
-                    .item("steel_ingot", Item::new)
-                    .tag(CNTag.forgeItemTag("ingots"), CNTag.forgeItemTag("ingots/steel"))
-                    .register(),
+            .item("steel_ingot", Item::new)
+            .tag(CNTag.forgeItemTag("ingots"), CNTag.forgeItemTag("ingots/steel"))
+            .register(),
 
         RAW_URANIUM = CreateNuclear.REGISTRATE
-                    .item("raw_uranium", Item::new)
-                    .tag(CNTag.forgeItemTag("raw_ores"), CNTag.forgeItemTag("raw_materials"), CNTag.forgeItemTag("raw_materials/uranium"))
-                    .register(),
+            .item("raw_uranium", Item::new)
+            .tag(CNTag.forgeItemTag("raw_ores"), CNTag.forgeItemTag("raw_materials"), CNTag.forgeItemTag("raw_materials/uranium"))
+            .register(),
 
         RAW_LEAD = CreateNuclear.REGISTRATE
-                .item("raw_lead", Item::new)
-                .tag(CNTag.forgeItemTag("raw_ores"), CNTag.forgeItemTag("raw_materials"), CNTag.forgeItemTag("raw_materials/lead"))
-                .register(),
+            .item("raw_lead", Item::new)
+            .tag(CNTag.forgeItemTag("raw_ores"), CNTag.forgeItemTag("raw_materials"), CNTag.forgeItemTag("raw_materials/lead"))
+            .register(),
 
         LEAD_INGOT = CreateNuclear.REGISTRATE
-                .item("lead_ingot", Item::new)
-                .tag(CNTag.forgeItemTag("ingots"), CNTag.forgeItemTag("ingots/lead"))
-                .register(),
+            .item("lead_ingot", Item::new)
+            .tag(CNTag.forgeItemTag("ingots"), CNTag.forgeItemTag("ingots/lead"))
+            .register(),
 
         LEAD_NUGGET = CreateNuclear.REGISTRATE
-                .item("lead_nugget", Item::new)
-                .tag(CNTag.forgeItemTag("nuggets"), CNTag.forgeItemTag("nuggets/lead"))
-                .register(),
+            .item("lead_nugget", Item::new)
+            .tag(CNTag.forgeItemTag("nuggets"), CNTag.forgeItemTag("nuggets/lead"))
+            .register(),
 
         STEEL_NUGGET = CreateNuclear.REGISTRATE
-                .item("steel_nugget", Item::new)
-                .tag(CNTag.forgeItemTag("nuggets"), CNTag.forgeItemTag("nuggets/steel"))
-                .register(),
+            .item("steel_nugget", Item::new)
+            .tag(CNTag.forgeItemTag("nuggets"), CNTag.forgeItemTag("nuggets/steel"))
+            .register(),
 
         URANIUM_ROD = CreateNuclear.REGISTRATE
-                .item("uranium_rod", Item::new)
-                .tag(CNTag.forgeItemTag("rods"), CNTag.ItemTags.FUEL.tag)
-                .register(),
+            .item("uranium_rod", Item::new)
+            .tag(CNTag.forgeItemTag("rods"), CNTag.ItemTags.FUEL.tag)
+            .register(),
 
         GRAPHITE_ROD = CreateNuclear.REGISTRATE
-                .item("graphite_rod", Item::new)
-                .tag(CNTag.forgeItemTag("rods"), CNTag.ItemTags.COOLER.tag)
-                .register()
-
-
+            .item("graphite_rod", Item::new)
+            .tag(CNTag.forgeItemTag("rods"), CNTag.ItemTags.COOLER.tag)
+            .register()
     ;
   
     public static final Helmet.DyeItemHelmetList<Helmet> ANTI_RADIATION_HELMETS = new Helmet.DyeItemHelmetList<>(color -> {
@@ -198,20 +186,6 @@ public class CNItems {
     public static final ItemEntry<LazySpawnEggItem> SPAWN_CAT = registerSpawnEgg("cat_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_CAT, 0x382C19,0x742728, "Irradiated Cat Spawn Egg");
     public static final ItemEntry<LazySpawnEggItem> SPAWN_CHICKEN = registerSpawnEgg("chicken_irradiated_spawn_egg", CNMobEntityType.IRRADIATED_CHICKEN, 0x6B9455,0x95393C, "Irradiated Chicken Spawn Egg");
 
-    public static Object Bucket;
-
-    private static void addItemToIngredientItemGroup(FabricItemGroupEntries entries) {
-        /*entries.accept(YELLOW_CAKE_NETHER_STAR, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);*/
-    }
-
-    private static Item registerItem(String name, Item item) {
-        return Registry.register(BuiltInRegistries.ITEM, CreateNuclear.asResource(name), item);
-    }
-
-    private static ItemEntry<Item> registerItemEntry(String path) {
-        return CreateNuclear.REGISTRATE.item(path + "_cloth", Item::new).tag(CNTag.ItemTags.CLOTH.tag).register();
-    }
-
     private static ItemEntry<LazySpawnEggItem> registerSpawnEgg(String name, EntityEntry<? extends Mob> mobEntityType, int backgroundColor, int highlightColor, String nameItems) {
         return CreateNuclear.REGISTRATE
                 .item(name, p -> new LazySpawnEggItem(mobEntityType, backgroundColor,highlightColor, p))
@@ -221,8 +195,7 @@ public class CNItems {
     }
 
     public static void registerCNItems() {
-        CreateNuclear.LOGGER.info("Registering mod items for " + CreateNuclear.MOD_ID);
-        ItemGroupEvents.modifyEntriesEvent(CNGroup.MAIN_KEY).register(CNItems::addItemToIngredientItemGroup);
+        CreateNuclear.LOGGER.info("Registering mod items for {}", CreateNuclear.MOD_ID);
     }
 
 }

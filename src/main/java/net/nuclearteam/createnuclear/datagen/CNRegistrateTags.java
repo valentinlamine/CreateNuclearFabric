@@ -14,6 +14,7 @@ import net.nuclearteam.createnuclear.tags.CNTag;
 
 import static net.nuclearteam.createnuclear.tags.CNTag.EntityTypeTags;
 
+@SuppressWarnings({"unused", "deprecated"})
 public class CNRegistrateTags {
     public static void addGenerators() {
         CreateNuclear.REGISTRATE.addDataGenerator(ProviderType.ENTITY_TAGS, CNRegistrateTags::genEntityTags);
@@ -23,15 +24,11 @@ public class CNRegistrateTags {
     private static void genEntityTags(RegistrateTagsProvider<EntityType<?>> provIn) {
         TagGen.CreateTagsProvider<EntityType<?>> prov = new TagGen.CreateTagsProvider<>(provIn, EntityType::builtInRegistryHolder);
 
-        /*prov.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE.tag)
-                .add(CNMobEntityType.IRRADIATED_CAT)
-                .add(CNMobEntityType.IRRADIATED_CHICKEN)
-        ;
-        prov.tag(EntityTypeTags.IRRADIATED_IMMUNE.tag)
-                .add(CNMobEntityType.IRRADIATED_CHICKEN)
-                .add(CNMobEntityType.IRRADIATED_CAT)
-                .add(CNMobEntityType.IRRADIATED_WOLF)
-        ;*/
+        for (CNTag.EntityTypeTags tag : CNTag.EntityTypeTags.values()) {
+            if (tag.alwaysDatagen) {
+                prov.getOrCreateRawBuilder(tag.tag);
+            }
+        }
     }
 
     private static void genItemTags(RegistrateTagsProvider<Item> provIn) {

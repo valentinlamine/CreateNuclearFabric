@@ -6,6 +6,7 @@ import java.util.function.IntPredicate;
 
 import net.nuclearteam.createnuclear.multiblock.IHeat.HeatLevel;
 
+@SuppressWarnings("unused")
 public class HeatLevelMapper {
     private final List<LevelRule> rules = new ArrayList<>();
     private HeatLevel defaultLevel = HeatLevel.NONE;

@@ -4,8 +4,6 @@ import lib.multiblock.test.impl.IMultiBlockPattern;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Rotation;
-import net.nuclearteam.createnuclear.multiblock.CNBlockPattern;
 
 import java.util.ArrayList;
 import java.util.List;

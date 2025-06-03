@@ -1,18 +1,18 @@
 package net.nuclearteam.createnuclear.datagen.recipe.compacting;
 
 import com.simibubi.create.AllRecipeTypes;
-import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
-import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.world.level.ItemLike;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.fluid.CNFluids;
 import net.nuclearteam.createnuclear.item.CNItems;
 
-import java.util.function.Supplier;
-import java.util.function.UnaryOperator;
+import javax.annotation.ParametersAreNonnullByDefault;
 
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
+@SuppressWarnings("unused")
 public class CNCompactingRecipeGen extends ProcessingRecipeGen {
 
     GeneratedRecipe
