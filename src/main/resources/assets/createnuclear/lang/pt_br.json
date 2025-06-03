@@ -95,7 +95,7 @@
   "block.createnuclear.reactor_frame": "Estrutura do Reator",
   "block.createnuclear.reactor_frame.tooltip.summary": "_Bloco_ usado para construir o _reator_",
   "block.createnuclear.reactor_input": "Entrada do Reator",
-  "block.createnuclear.reactor_input.tooltip.behaviour1": "Insira _ hastes_de _ urânio _ e _ grafeno _ em grandes quantidades para alimentar _ o reator_ ",
+  "block.createnuclear.reactor_input.tooltip.behaviour1": "Insira _hastes de urânio_ e _grafeno_ em grandes quantidades para alimentar _o reator_ ",
   "block.createnuclear.reactor_input.tooltip.condition1": "Quando o Reator é montado",
   "block.createnuclear.reactor_input.tooltip.summary": "_A Entrada do Reator_ é um _bloco_ que pode ser usado para inserir hastes de _urânio_ e _grafeno_ no _Reator_",
   "block.createnuclear.reactor_output": "Saída do Reator",
