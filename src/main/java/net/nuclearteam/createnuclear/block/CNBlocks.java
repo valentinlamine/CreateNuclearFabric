@@ -63,13 +63,15 @@ public class CNBlocks {
                                 .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
                     ))))
                     .tag(BlockTags.NEEDS_DIAMOND_TOOL,
-                            BlockTags.NEEDS_IRON_TOOL,
-                            CNTag.forgeBlockTag("ores"),
-                            CNTag.forgeBlockTag("ores_in_ground/deepslate"),
-                            CNTag.BlockTags.URANIUM_ORES.tag
+                        BlockTags.NEEDS_IRON_TOOL,
+                        CNTag.forgeBlockTag("ores"),
+                        CNTag.forgeBlockTag("ores_in_ground/deepslate"),
+                        CNTag.forgeBlockTag("uranium_ores"),
+                        CNTag.BlockTags.URANIUM_ORES.tag
                     )
                     .item()
-                    .tag(CNTag.ItemTags.URANIUM_ORES.tag)
+                    .tag(CNTag.ItemTags.URANIUM_ORES.tag,
+                        CNTag.forgeItemTag("uranium_ores"))
                     .build()
                     .register();
 
@@ -88,10 +90,12 @@ public class CNBlocks {
                             BlockTags.NEEDS_IRON_TOOL,
                             CNTag.forgeBlockTag("ores"),
                             CNTag.forgeBlockTag("ores_in_ground/stone"),
+                            CNTag.forgeBlockTag("uranium_ores"),
                             CNTag.BlockTags.URANIUM_ORES.tag
                     )
                     .item()
-                    .tag(CNTag.ItemTags.URANIUM_ORES.tag)
+                    .tag(CNTag.ItemTags.URANIUM_ORES.tag,
+                        CNTag.forgeItemTag("uranium_ores"))
                     .build()
                     .register();
 
@@ -108,11 +112,13 @@ public class CNBlocks {
                     .tag(BlockTags.NEEDS_IRON_TOOL,
                             CNTag.forgeBlockTag("ores"),
                             CNTag.forgeBlockTag("ores_in_ground/deepslate"),
+                            CNTag.forgeBlockTag("lead_ores"),
                             CNTag.BlockTags.LEAD_ORES.tag
 
                     )
                     .item()
-                    .tag(CNTag.ItemTags.LEAD_ORES.tag)
+                    .tag(CNTag.ItemTags.LEAD_ORES.tag,
+                            CNTag.forgeItemTag("lead_ores"))
                     .build()
                     .register();
 
@@ -129,10 +135,12 @@ public class CNBlocks {
                     .tag(BlockTags.NEEDS_IRON_TOOL,
                             CNTag.forgeBlockTag("ores"),
                             CNTag.forgeBlockTag("ores_in_ground/stone"),
+                            CNTag.forgeBlockTag("lead_ores"),
                             CNTag.BlockTags.LEAD_ORES.tag
                     )
                     .item()
-                    .tag(CNTag.ItemTags.LEAD_ORES.tag)
+                    .tag(CNTag.ItemTags.LEAD_ORES.tag,
+                            CNTag.forgeItemTag("lead_ores"))
                     .build()
                     .register();
 
