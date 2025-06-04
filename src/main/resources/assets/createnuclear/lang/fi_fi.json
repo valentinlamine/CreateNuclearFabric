@@ -137,7 +137,7 @@
   "createnuclear.tooltip.item.unknown.rod": "Tuntematon: ",
   "createnuclear.tooltip.item.uranium.rod": "Uraanisauva: ",
   "effect.createnuclear.radiation": "Säteily",
-  "emi.category.createnuclear.fan_enriched": "Bulk Enriched",
+  "emi.category.createnuclear.fan_enriched": "Irtotavarana rikastettu",
   "entity.createnuclear.irradiated_cat": "Säteilytetty Kissa",
   "entity.createnuclear.irradiated_chicken": "Säteilytetty Kana",
   "entity.createnuclear.irradiated_wolf": "Säteilytetty Susi",
