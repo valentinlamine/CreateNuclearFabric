@@ -95,7 +95,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
                 be.rotate(be.getBlockState(), be.getBlockPos().below(3), world, 0);
                 be.notifyUpdate();
             });
-            world.setBlock(pos, state.setValue(ASSEMBLED, false), 3);
+            //world.setBlock(pos, state.setValue(ASSEMBLED, false), 3);
             return InteractionResult.SUCCESS;
         }
 

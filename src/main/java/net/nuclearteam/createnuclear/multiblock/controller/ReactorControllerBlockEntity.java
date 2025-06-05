@@ -66,7 +66,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
     public int baseUraniumHeat = CNConfigs.common().rods.baseValueUranium.get();
     public int baseGraphiteHeat = CNConfigs.common().rods.baseValueGraphite.get();
     public int proximityUraniumHeat = CNConfigs.common().rods.BoProxyUranium.get();
-    public int proximityGraphiteHeat = -CNConfigs.common().rods.MaProxigraphite.get();
+    public int proximityGraphiteHeat = CNConfigs.common().rods.MaProxigraphite.get();
     public int maxUraniumPerGraphite = CNConfigs.common().rods.uraMaxGraph.get();
     public int graphiteTimer = CNConfigs.common().rods.graphiteRodLifetime.get();
     public int uraniumTimer = CNConfigs.common().rods.uraniumRodLifetime.get();
