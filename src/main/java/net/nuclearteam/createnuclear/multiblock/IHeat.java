@@ -55,7 +55,7 @@ public interface IHeat extends IWrenchable {
         }
 
         public static HeatLevel of(int heat) {
-            return ofTest3(heat);
+            return ofInit(heat);
         }
 
         public static HeatLevel ofInit(int heat) {
