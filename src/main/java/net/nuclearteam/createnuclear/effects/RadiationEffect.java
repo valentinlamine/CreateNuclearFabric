@@ -5,6 +5,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.nuclearteam.createnuclear.effects.damageTypes.CNDamageSources;
 import net.nuclearteam.createnuclear.item.armor.AntiRadiationArmorItem;
 import net.nuclearteam.createnuclear.tags.CNTag;
 
@@ -87,6 +88,6 @@ public class RadiationEffect extends MobEffect {
 
         // Apply radiation damage (magic type), scaled by amplifier
         int damage = 1 << amplifier;
-        livingEntity.hurt(livingEntity.damageSources().magic(), damage);
+        livingEntity.hurt(CNDamageSources.RADIANCE.create(livingEntity.level()), damage);
     }
 }

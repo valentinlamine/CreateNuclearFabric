@@ -1,5 +1,6 @@
 {
   "effect.createnuclear.radiation": "Radiation",
+  "death.attack.createnuclear.irradiated": "%1$s withered away from radiation.",
 
   "item.minecraft.potion.effect.potion_of_radiation_1": "Potion of Radiation",
   "item.minecraft.splash_potion.effect.potion_of_radiation_1": "Splash Potion of Radiation",
