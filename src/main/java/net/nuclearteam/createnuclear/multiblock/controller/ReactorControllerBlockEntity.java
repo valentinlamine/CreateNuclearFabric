@@ -34,6 +34,7 @@ import net.nuclearteam.createnuclear.multiblock.IHeat;
 import net.nuclearteam.createnuclear.multiblock.output.ReactorOutput;
 import net.nuclearteam.createnuclear.multiblock.output.ReactorOutputEntity;
 import net.nuclearteam.createnuclear.multiblock.input.ReactorInputEntity;
+import net.nuclearteam.createnuclear.tags.CNTag;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -289,10 +290,10 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
         String currentRod = "";
         ListTag list = inventory.getStackInSlot(0).getOrCreateTag().getCompound("pattern").getList("Items", Tag.TAG_COMPOUND);
         for (int i = 0; i < list.size(); i++) {
-            if (list.getCompound(i).getString("id").equals("createnuclear:uranium_rod")) {
+            if (ItemStack.of(list.getCompound(i)).is(CNTag.ItemTags.FUEL.tag)) {
                 heat += baseUraniumHeat;
                 currentRod = "u";
-            } else if (list.getCompound(i).getString("id").equals("createnuclear:graphite_rod")) {
+            } else if (ItemStack.of(list.getCompound(i)).is(CNTag.ItemTags.COOLER.tag)) {
                 heat += baseGraphiteHeat;
                 currentRod = "g";
             }
@@ -320,10 +321,10 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity implements II
                             if (list.getCompound(l).getInt("Slot") == neighborSlot) {
                                 // If currentRod equals "u", apply the corresponding heat
                                 if (currentRod.equals("u")) {
-                                    String id = list.getCompound(l).getString("id");
-                                    if (id.equals("createnuclear:uranium_rod")) {
+                                    ItemStack stack = ItemStack.of(list.getCompound(i));
+                                    if (stack.is(CNTag.ItemTags.FUEL.tag)) {
                                         heat += proximityUraniumHeat;
-                                    } else if (id.equals("createnuclear:graphite_rod")) {
+                                    } else if (stack.is(CNTag.ItemTags.COOLER.tag)) {
                                         heat += proximityGraphiteHeat;
                                     }
                                 }
