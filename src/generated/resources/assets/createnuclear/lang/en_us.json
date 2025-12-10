@@ -140,6 +140,7 @@
   "emi.category.createnuclear.fan_enriched": "Bulk Enriching",
   "entity.createnuclear.irradiated_cat": "Irradiated Cat",
   "entity.createnuclear.irradiated_chicken": "Irradiated Chicken",
+  "entity.createnuclear.irradiated_cow": "Irradiated Cow",
   "entity.createnuclear.irradiated_wolf": "Irradiated Wolf",
   "fluid.createnuclear.uranium": "Liquid Uranium",
   "gui.createnuclear.reactor_controller.title": "Reactor Controller",
