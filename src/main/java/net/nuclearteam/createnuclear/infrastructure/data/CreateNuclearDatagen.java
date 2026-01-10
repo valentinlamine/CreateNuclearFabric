@@ -7,7 +7,6 @@ import com.simibubi.create.foundation.utility.FilesHelper;
 import com.tterrag.registrate.providers.ProviderType;
 import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper;
 import net.createmod.ponder.foundation.PonderIndex;
-import net.createmod.ponder.foundation.registration.PonderLocalization;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -16,7 +15,6 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.compat.archEx.CNArchExCompat;
 import net.nuclearteam.createnuclear.foundation.advancement.CNAdvancement;
 import net.nuclearteam.createnuclear.foundation.data.recipe.*;
-import net.nuclearteam.createnuclear.foundation.ponder.CNPonderIndex;
 import net.nuclearteam.createnuclear.foundation.ponder.CreateNuclearPonderPlugin;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -45,7 +43,6 @@ public class CreateNuclearDatagen implements DataGeneratorEntrypoint {
 		pack.addProvider(GeneratedEntriesProvider::new);
 		pack.addProvider(CNProcessingRecipeGen::registerAll);
 		pack.addProvider(CNStandardRecipeGen::new);
-//		pack.addProvider(CNCookingRecipeGen::new);
 		pack.addProvider(CNMechanicalCraftingRecipeGen::new);
 		pack.addProvider(CNShapelessRecipeGen::new);
 	}
