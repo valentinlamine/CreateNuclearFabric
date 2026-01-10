@@ -105,7 +105,7 @@ dependencies {
 
 java {
     withSourcesJar()
-    toolchain.languageVersion = JavaLanguageVersion.of(21)
+    toolchain.languageVersion = JavaLanguageVersion.of(17)
 }
 
 tasks.named<JavaCompile>("compileJava") {
