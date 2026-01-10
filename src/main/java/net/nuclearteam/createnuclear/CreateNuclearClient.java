@@ -7,7 +7,6 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.renderer.RenderType;
 import net.nuclearteam.createnuclear.foundation.events.CNClientEvent;
-import net.nuclearteam.createnuclear.foundation.ponder.CNPonderIndex;
 
 import static net.nuclearteam.createnuclear.CNPackets.getChannel;
 
@@ -16,15 +15,15 @@ public class CreateNuclearClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        BlockRenderLayerMap.INSTANCE.putBlock(CNBlocks.REINFORCED_GLASS.get(), RenderType.translucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(CNBlocks.ENRICHING_FIRE.get(), RenderType.cutout());
+       BlockRenderLayerMap.INSTANCE.putBlock(CNBlocks.REINFORCED_GLASS.get(), RenderType.translucent());
+       BlockRenderLayerMap.INSTANCE.putBlock(CNBlocks.ENRICHING_FIRE.get(), RenderType.cutout());
 
-        CNEntityType.registerCNMod();
-        CNEntityType.registerModelLayer();
+       CNEntityType.register();
+       CNEntityType.registerModelLayer();
 
 
-        getChannel().initClientListener();
-        CNClientEvent.register();
+       getChannel().initClientListener();
+       CNClientEvent.register();
 
     }
 }
