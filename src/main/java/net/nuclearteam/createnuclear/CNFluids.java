@@ -3,21 +3,17 @@ package net.nuclearteam.createnuclear;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.fabric.SimpleFlowableFluid;
 import com.tterrag.registrate.util.entry.FluidEntry;
+import io.github.fabricators_of_create.porting_lib.fluids.FluidInteractionRegistry;
+import io.github.fabricators_of_create.porting_lib.fluids.FluidInteractionRegistry.InteractionInformation;
+import io.github.fabricators_of_create.porting_lib.fluids.PortingLibFluids;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributeHandler;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.nuclearteam.createnuclear.content.decoration.palettes.CNPaletteStoneTypes;
-import net.nuclearteam.createnuclear.content.fluids.FluidInteractionManager;
-import net.nuclearteam.createnuclear.content.fluids.FluidInteractionManager.FluidInteractionRule;
 import net.nuclearteam.createnuclear.CNTags.CNFluidTags;
 
 import javax.annotation.Nullable;
-import java.util.function.Function;
 
 @SuppressWarnings("UnstableApiUsage")
 public class CNFluids {
@@ -63,41 +59,17 @@ public class CNFluids {
         }
     }
 
-    public static void handleFluidEffect(ServerLevel world) {
-        world.players().forEach(player -> {
-            if (player.isAlive() && !player.isSpectator()) {
-                if (player.tickCount % 20 != 0) return;
-                if (player.updateFluidHeightAndDoFluidPushing(CNFluidTags.URANIUM.tag, 0.014) || player.updateFluidHeightAndDoFluidPushing(CNFluidTags.URANIUM.tag, 0.014)) {
-                    player.addEffect(new MobEffectInstance(CNEffects.RADIATION.get(), 100, 0));
-                }
-            }
-        });
-    }
+
 
     public static void registerFluidInteractions() {
-        Function<Boolean, BlockState> AUTUNITE = isSource -> CNPaletteStoneTypes.AUTUNITE.getBaseBlock().get().defaultBlockState();
-        // Uranium + water interaction
-        FluidInteractionManager.addRule(
-            CNFluids.URANIUM.get(),
-            new FluidInteractionRule(
-                100,
-                fs -> fs.is(FluidTags.WATER),
-                true, AUTUNITE,
-                ctx -> {},
-                false
-            )
-        );
+        FluidInteractionRegistry.addInteraction(PortingLibFluids.WATER_TYPE, new InteractionInformation(
+                URANIUM.get().getFluidType(),
+                fluidState -> CNPaletteStoneTypes.AUTUNITE.getBaseBlock().get().defaultBlockState()
+        ));
+        FluidInteractionRegistry.addInteraction(PortingLibFluids.LAVA_TYPE, new InteractionInformation(
+                URANIUM.get().getFluidType(),
+                fluidState -> CNPaletteStoneTypes.AUTUNITE.getBaseBlock().get().defaultBlockState()
+        ));
 
-        // Uranium + lava interaction
-        FluidInteractionManager.addRule(
-            CNFluids.URANIUM.get(),
-            new FluidInteractionRule(
-                100,
-                fs -> fs.is(FluidTags.LAVA),
-                true, AUTUNITE,
-                ctx -> {},
-                false
-            )
-        );
     }
 }

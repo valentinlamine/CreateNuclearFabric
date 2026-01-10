@@ -3,8 +3,7 @@
   "package": "net.nuclearteam.createnuclear.foundation.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "CNBaseFireBlockMixin",
-    "CNLiquidBlockMixin"
+    "CNBaseFireBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
