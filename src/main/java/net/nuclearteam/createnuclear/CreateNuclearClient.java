@@ -1,12 +1,14 @@
 package net.nuclearteam.createnuclear;
 
 
+import net.createmod.ponder.foundation.PonderIndex;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.renderer.RenderType;
 import net.nuclearteam.createnuclear.foundation.events.CNClientEvent;
+import net.nuclearteam.createnuclear.foundation.ponder.CreateNuclearPonderPlugin;
 
 import static net.nuclearteam.createnuclear.CNPackets.getChannel;
 
@@ -21,6 +23,7 @@ public class CreateNuclearClient implements ClientModInitializer {
        CNEntityType.register();
        CNEntityType.registerModelLayer();
 
+        PonderIndex.addPlugin(new CreateNuclearPonderPlugin());
 
        getChannel().initClientListener();
        CNClientEvent.register();
