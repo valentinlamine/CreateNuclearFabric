@@ -72,8 +72,8 @@ dependencies {
 
     modApiInclude(libs.flywheel)
     modApiInclude(libs.flywheel.api)
-    modApiInclude(libs.ponder)
-    modApiInclude(libs.ponder.commun)
+//    modApiInclude(libs.ponder)
+//    modApiInclude(libs.ponder.commun)
     modApiInclude(libs.bundles.config)
     modApiInclude(libs.rea)
     modApiInclude(libs.milk)
@@ -158,12 +158,10 @@ tasks.named<ProcessResources>("processResources") {
         "minecraft_version" to libs.versions.minecraft.get(),
         "loader_version" to libs.versions.fabric.loader.get(),
         "fabric_version" to libs.versions.fabric.api.get(),
-        "flywheel_version" to libs.versions.flywheel.get(),
-        "ponder_version" to libs.versions.ponder.get(),
-        "registrate_version" to libs.versions.registrate.get(),
-        "forge_config_version" to libs.versions.forge.config.get(),
-        "milk_lib_version" to libs.versions.milk.get(),
-//        "reach_entity_attributes_version" to libs.versions.rea.get()
+        "create_version" to libs.versions.create.get(),
+        "jei_version" to libs.versions.jei.get(),
+        "rei_version" to libs.versions.rei.get(),
+        "emi_version" to libs.versions.emi.get(),
     )
 
     for (module: MinimalExternalModuleDependency in libs.bundles.porting.lib.get()) {
