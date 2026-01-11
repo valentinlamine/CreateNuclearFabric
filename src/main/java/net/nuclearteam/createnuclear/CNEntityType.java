@@ -5,7 +5,6 @@ import com.tterrag.registrate.util.entry.EntityEntry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -62,7 +61,7 @@ public class CNEntityType {
         EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_WOLF, IrradiatedWolfModel::getTexturedModelData);
     }
 
-    public static void registerCNMod() {
+    public static void register() {
         CreateNuclear.LOGGER.info("Registering ModEntity for {}", CreateNuclear.MOD_ID);
     }
 

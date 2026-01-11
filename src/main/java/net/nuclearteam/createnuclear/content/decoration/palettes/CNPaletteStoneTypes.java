@@ -1,6 +1,5 @@
 package net.nuclearteam.createnuclear.content.decoration.palettes;
 
-import com.simibubi.create.AllTags;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.createmod.catnip.lang.Lang;

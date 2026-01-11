@@ -1,13 +1,14 @@
 package net.nuclearteam.createnuclear;
 
 
+import net.createmod.ponder.foundation.PonderIndex;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.client.renderer.RenderType;
 import net.nuclearteam.createnuclear.foundation.events.CNClientEvent;
-import net.nuclearteam.createnuclear.foundation.ponder.CNPonderIndex;
+import net.nuclearteam.createnuclear.foundation.ponder.CreateNuclearPonderPlugin;
 
 import static net.nuclearteam.createnuclear.CNPackets.getChannel;
 
@@ -16,15 +17,16 @@ public class CreateNuclearClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        BlockRenderLayerMap.INSTANCE.putBlock(CNBlocks.REINFORCED_GLASS.get(), RenderType.translucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(CNBlocks.ENRICHING_FIRE.get(), RenderType.cutout());
+       BlockRenderLayerMap.INSTANCE.putBlock(CNBlocks.REINFORCED_GLASS.get(), RenderType.translucent());
+       BlockRenderLayerMap.INSTANCE.putBlock(CNBlocks.ENRICHING_FIRE.get(), RenderType.cutout());
 
-        CNEntityType.registerCNMod();
-        CNEntityType.registerModelLayer();
+       CNEntityType.register();
+       CNEntityType.registerModelLayer();
 
+        PonderIndex.addPlugin(new CreateNuclearPonderPlugin());
 
-        getChannel().initClientListener();
-        CNClientEvent.register();
+       getChannel().initClientListener();
+       CNClientEvent.register();
 
     }
 }

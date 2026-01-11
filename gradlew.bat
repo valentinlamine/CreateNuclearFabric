@@ -37,7 +37,7 @@ for %%i in ("%APP_HOME%") do set APP_HOME=%%~fi
 set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"
 
 
-set JAVA_HOME=../jdk21
+set JAVA_HOME=../jdk17
 
 @rem Find java.exe
 if defined JAVA_HOME goto findJavaFromJavaHome

@@ -39,31 +39,14 @@
 	],
 	"accessWidener": "createnuclear.accesswidener",
 	"depends": {
-      "minecraft": "${minecraft_version}",
-      "fabricloader": ">=${loader_version}",
-      "fabric-api": ">=${fabric_version}",
-
-      "flywheel": ">=${flywheel_version}",
-      "ponder": ">=${ponder_version}",
-      "registrate-fabric": ">=${registrate_version}",
-
-      "porting_lib_accessors": ">=${port_lib_accessors_version}",
-      "porting_lib_base": ">=${port_lib_base_version}",
-      "porting_lib_entity": ">=${port_lib_entity_version}",
-      "porting_lib_extensions": ">=${port_lib_extensions_version}",
-      "porting_lib_networking": ">=${port_lib_networking_version}",
-      "porting_lib_obj_loader": ">=${port_lib_obj_loader_version}",
-      "porting_lib_tags": ">=${port_lib_tags_version}",
-      "porting_lib_transfer": ">=${port_lib_transfer_version}",
-      "porting_lib_models": ">=${port_lib_models_version}",
-      "porting_lib_client_events": ">=${port_lib_client_events_version}",
-
-      "forgeconfigapiport": ">=${forge_config_version}",
-      "milk": ">=${milk_lib_version}"
+		"minecraft": "${minecraft_version}",
+		"fabricloader": ">=${loader_version}",
+		"fabric-api": ">=${fabric_version}",
+		"create": ">=${create_version}"
 	},
 	"suggests": {
-		"JEI": "15.20.0.106",
-		"REI": "12.1.785",
-		"EMI": "1.1.22+1.20.1"
+		"JEI": ">=${jei_version}",
+		"REI": ">=${rei_version}",
+		"EMI": ">=${emi_version}"
 	}
 }
