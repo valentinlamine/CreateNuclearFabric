@@ -4,20 +4,19 @@ import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
-import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import net.createmod.catnip.lang.FontHelper;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 
 import net.minecraft.world.item.CreativeModeTab;
-import net.nuclearteam.createnuclear.content.decoration.palettes.CNPaletteStoneTypes;
+import net.nuclearteam.createnuclear.content.decoration.palettes.CNPaletteBlocks;
 import net.nuclearteam.createnuclear.content.kinetics.fan.processing.CNFanProcessingTypes;
 import net.nuclearteam.createnuclear.foundation.advancement.CNAdvancement;
 import net.nuclearteam.createnuclear.foundation.advancement.CNTriggers;
 import net.nuclearteam.createnuclear.foundation.data.CreateNuclearRegistrate;
+import net.nuclearteam.createnuclear.foundation.events.CNCommonEvents;
 import net.nuclearteam.createnuclear.infrastructure.config.CNConfigs;
 import net.nuclearteam.createnuclear.infrastructure.worldgen.CNBiomeModifiers;
 import net.nuclearteam.createnuclear.infrastructure.worldgen.CNPlacementModifiers;
@@ -45,37 +44,49 @@ public class CreateNuclear implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		CNEffects.register();
-		CNItems.registerCNItems();
-		CNBlocks.registerCNBlocks();
-		CNPaletteStoneTypes.register(CreateNuclear.REGISTRATE);
-		CNMenus.register();
-		CNBlockEntityTypes.register();
+		LOGGER.info("{} initializing!", NAME);
+
 		CNCreativeModeTabs.register();
+		CNBlocks.registerCNBlocks();
+		CNItems.registerCNItems();
 		CNFluids.register();
-		CNTags.register();
-		CNPackets.registerPackets();
-		CNPackets.getChannel().initServerListener();
-		CNPotions.init();
-		CNEntityType.registerCNMod();
+		CNPaletteBlocks.register();
+		CNMenus.register();
+		CNEntityType.register();
+		CNBlockEntityTypes.register();
+		CNRecipeTypes.register();
 
 		REGISTRATE.register();
 		POTION_REGISTRATE.register();
-		CNRecipeTypes.register();
+
+		CNPackets.registerPackets();
 		CNPlacementModifiers.register();
 
 		CNConfigs.register();
-		CNPotions.registerPotionRecipes();
 
+
+		CNEffects.register();
+		CNTags.register();
+		CNPotions.init();
+
+
+		CreateNuclear.init();
+		CreateNuclear.onRegister();
+
+		CNCommonEvents.register();
+		CNPackets.getChannel().initServerListener();
+		CNBiomeModifiers.bootstrap();
+	}
+
+	public static void init() {
 		CNFluids.registerFluidInteractions();
-
 		CNAdvancement.register();
 		CNTriggers.register();
+	}
 
+	public static void onRegister() {
+		CNFluids.registerFluidInteractions();
 		CNFanProcessingTypes.register();
-		CNBiomeModifiers.bootstrap();
-		ServerTickEvents.START_WORLD_TICK.register(CNFluids::handleFluidEffect);
-
 	}
 
 	public static ResourceLocation asResource(String path) {
