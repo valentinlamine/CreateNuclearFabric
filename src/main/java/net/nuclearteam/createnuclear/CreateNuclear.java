@@ -70,7 +70,7 @@ public class CreateNuclear implements ModInitializer {
 		CNAdvancement.register();
 		CNTriggers.register();
 
-        CNSounds.register();
+        CNSoundEvents.register();
 
 		CNFanProcessingTypes.register();
 		CNBiomeModifiers.bootstrap();

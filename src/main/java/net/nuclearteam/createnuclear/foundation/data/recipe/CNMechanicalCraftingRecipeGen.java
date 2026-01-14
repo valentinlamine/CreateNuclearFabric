@@ -14,6 +14,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.nuclearteam.createnuclear.*;
+import org.apache.commons.compress.harmony.unpack200.IcTuple;
 
 import java.util.function.UnaryOperator;
 
@@ -93,6 +94,19 @@ public class CNMechanicalCraftingRecipeGen extends CreateRecipeProvider {
                 .patternLine("CSBSC")
                 .patternLine("CPSPC")
                 .patternLine("CCCCC")
+            ),
+
+            REACTOR_ALARM = create(CNBlocks.REACTOR_ALARM::get)
+            .recipe(b -> b
+                .key('S', Ingredient.of(CNBlocks.STEEL_BLOCK))
+                .key('C', Ingredient.of(Items.CLOCK))
+                .key('R', Ingredient.of(Blocks.REPEATER))
+                .key('N', Ingredient.of(Blocks.NOTE_BLOCK))
+                .patternLine("SSSSS")
+                .patternLine("SNRNS")
+                .patternLine("SRCRS")
+                .patternLine("SNRNS")
+                .patternLine("SSSSS")
             );
 
     GeneratedRecipeBuilder create(Supplier<ItemLike> result) {

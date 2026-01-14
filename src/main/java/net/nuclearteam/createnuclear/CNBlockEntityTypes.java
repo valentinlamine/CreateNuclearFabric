@@ -1,7 +1,10 @@
 package net.nuclearteam.createnuclear;
 
 import com.simibubi.create.content.kinetics.base.HalfShaftInstance;
+import com.simibubi.create.foundation.data.SharedProperties;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
+import com.tterrag.registrate.util.entry.BlockEntry;
+import net.minecraft.world.level.block.Block;
 import net.nuclearteam.createnuclear.content.enriching.campfire.EnrichingCampfireBlockEntity;
 import net.nuclearteam.createnuclear.content.multiblock.casing.ReactorCasingBlockEntity;
 import net.nuclearteam.createnuclear.content.multiblock.controller.ReactorControllerBlockEntity;
@@ -10,6 +13,8 @@ import net.nuclearteam.createnuclear.content.multiblock.input.ReactorInputEntity
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputEntity;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputRenderer;
 import net.nuclearteam.createnuclear.content.test.TestBlockEntity;
+
+import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 
 
 public class CNBlockEntityTypes {
@@ -45,6 +50,10 @@ public class CNBlockEntityTypes {
                     .validBlocks(CNBlocks.REACTOR_CORE)
                     .register();
 
+    public static final BlockEntityEntry<ReactorCoreBlockEntity> REACTOR_ALARM =
+            CreateNuclear.REGISTRATE.blockEntity("reactor_alarm", ReactorCoreBlockEntity::new)
+                    .validBlocks(CNBlocks.REACTOR_ALARM)
+                    .register();
 
     public static void register() {
     }

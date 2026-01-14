@@ -7,9 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.SoundType;
 
-import java.rmi.registry.Registry;
-
-public class CNSounds {
+public class CNSoundEvents {
 
     public static final LazyRegistrar<SoundEvent> SOUND_EVENTS = LazyRegistrar.create(BuiltInRegistries.SOUND_EVENT, CreateNuclear.MOD_ID);
 
@@ -18,6 +16,12 @@ public class CNSounds {
     public static final RegistryObject<SoundEvent> REACTOR_CASING_PLACE = registerSoundEvent("reactor_casing_place");
     public static final RegistryObject<SoundEvent> REACTOR_CASING_HIT = registerSoundEvent("reactor_casing_hit");
     public static final RegistryObject<SoundEvent> REACTOR_CASING_FALL = registerSoundEvent("reactor_casing_fall");
+
+    public static final RegistryObject<SoundEvent> REACTOR_ALARM_BREAK = registerSoundEvent("reactor_alarm_break");
+    public static final RegistryObject<SoundEvent> REACTOR_ALARM_STEP = registerSoundEvent("reactor_alarm_step");
+    public static final RegistryObject<SoundEvent> REACTOR_ALARM_PLACE = registerSoundEvent("reactor_alarm_place");
+    public static final RegistryObject<SoundEvent> REACTOR_ALARM_HIT = registerSoundEvent("reactor_alarm_hit");
+    public static final RegistryObject<SoundEvent> REACTOR_ALARM_FALL = registerSoundEvent("reactor_alarm_fall");
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name,
@@ -34,6 +38,5 @@ public class CNSounds {
                 SoundEvent.createVariableRangeEvent(new ResourceLocation(CreateNuclear.MOD_ID, id + "_hit")),
                 SoundEvent.createVariableRangeEvent(new ResourceLocation(CreateNuclear.MOD_ID, id + "_fall")));
     }
-
 
 }

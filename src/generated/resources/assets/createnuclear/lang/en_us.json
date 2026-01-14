@@ -82,6 +82,7 @@
   "block.createnuclear.polished_cut_autunite_wall": "Polished Cut Autunite Wall",
   "block.createnuclear.raw_lead_block": "Raw Lead Block",
   "block.createnuclear.raw_uranium_block": "Raw Uranium Block",
+  "block.createnuclear.reactor_alarm": "Reactor Alarm",
   "block.createnuclear.reactor_casing": "Reactor Casing",
   "block.createnuclear.reactor_casing.tooltip.summary": "_Block_ used to build the _reactor_",
   "block.createnuclear.reactor_controller": "Reactor Controller",
