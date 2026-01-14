@@ -22,17 +22,17 @@ public class IrradiatedCowModel<T extends IrradiatedCow> extends AgeableListMode
 	private final ModelPart pustule2;
 
 	public IrradiatedCowModel(ModelPart root) {
-		this.head = root.getChild("head");
-		this.pustule = root.getChild("pustule");
-		this.body = root.getChild("body");
-		this.pustule3 = root.getChild("pustule3");
-		this.legs = root.getChild("legs");
-		this.leg1 = root.getChild("leg1");
-		this.leg2 = root.getChild("leg2");
-		this.leg3 = root.getChild("leg3");
-		this.leg4 = root.getChild("leg4");
-		this.pustule2 = root.getChild("pustule2");
-	}
+        this.head = root.getChild("head");
+        this.pustule = this.head.getChild("pustule");
+        this.body = root.getChild("body");
+        this.pustule3 = this.body.getChild("pustule3");
+        this.legs = root.getChild("legs");
+        this.leg1 = this.legs.getChild("leg1");
+        this.leg2 = this.legs.getChild("leg2");
+        this.leg3 = this.legs.getChild("leg3");
+        this.leg4 = this.legs.getChild("leg4");
+        this.pustule2 = this.leg4.getChild("pustule2");
+    }
 
     public static LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = new MeshDefinition();
@@ -87,9 +87,6 @@ public class IrradiatedCowModel<T extends IrradiatedCow> extends AgeableListMode
         head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         legs.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        pustule.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        pustule2.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-        pustule3.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
     }
     @Override
     protected Iterable<ModelPart> headParts() {
@@ -98,7 +95,7 @@ public class IrradiatedCowModel<T extends IrradiatedCow> extends AgeableListMode
 
     @Override
     protected Iterable<ModelPart> bodyParts() {
-        return ImmutableList.of(this.body, this.leg1, this.leg2, this.leg3, this.leg4, this.pustule, this.pustule2, this.pustule3);
+        return ImmutableList.of(this.body, this.leg1, this.leg2, this.leg3, this.leg4);
     }
 
 }
