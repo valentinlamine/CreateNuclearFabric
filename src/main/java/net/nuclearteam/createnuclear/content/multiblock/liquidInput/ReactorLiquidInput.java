@@ -50,7 +50,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.Fluid;
@@ -64,6 +66,7 @@ import net.nuclearteam.createnuclear.foundation.block.MultiDirectionalReactorBlo
 
 public class ReactorLiquidInput extends MultiDirectionalReactorBlock implements IWrenchable, IBE<ReactorLiquidInputEntity>, CustomSoundTypeBlock {
 
+	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 	public static final BooleanProperty TOP = BooleanProperty.create("top");
 	public static final BooleanProperty BOTTOM = BooleanProperty.create("bottom");
 	public static final EnumProperty<Shape> SHAPE = EnumProperty.create("shape", Shape.class);
@@ -87,7 +90,9 @@ public class ReactorLiquidInput extends MultiDirectionalReactorBlock implements 
 	protected ReactorLiquidInput(Properties p_i48440_1_, boolean creative) {
 		super(setLightFunction(p_i48440_1_));
 		this.creative = creative;
-		registerDefaultState(defaultBlockState().setValue(TOP, true)
+		registerDefaultState(defaultBlockState()
+			.setValue(FACING, Direction.UP)
+			.setValue(TOP, true)
 			.setValue(BOTTOM, true)
 			.setValue(SHAPE, Shape.WINDOW)
 			.setValue(LIGHT_LEVEL, 0));
@@ -116,7 +121,7 @@ public class ReactorLiquidInput extends MultiDirectionalReactorBlock implements 
 
 	@Override
 	protected void createBlockStateDefinition(Builder<Block, BlockState> p_206840_1_) {
-		p_206840_1_.add(TOP, BOTTOM, SHAPE, LIGHT_LEVEL);
+		p_206840_1_.add(FACING, TOP, BOTTOM, SHAPE, LIGHT_LEVEL);
 	}
 
 	@Override
