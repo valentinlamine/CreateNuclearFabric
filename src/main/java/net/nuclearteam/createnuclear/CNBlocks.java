@@ -314,6 +314,7 @@ public class CNBlocks {
                     .build()
                     .register();
 
+
     public static final BlockEntry<ReactorOutput> REACTOR_OUTPUT =
             CreateNuclear.REGISTRATE.block("reactor_output", ReactorOutput::new)
                 .properties(p -> p.explosionResistance(6F).destroyTime(4F))
