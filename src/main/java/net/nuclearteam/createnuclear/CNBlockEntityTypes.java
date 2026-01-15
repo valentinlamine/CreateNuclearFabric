@@ -7,6 +7,7 @@ import net.nuclearteam.createnuclear.content.multiblock.casing.ReactorCasingBloc
 import net.nuclearteam.createnuclear.content.multiblock.controller.ReactorControllerBlockEntity;
 import net.nuclearteam.createnuclear.content.multiblock.core.ReactorCoreBlockEntity;
 import net.nuclearteam.createnuclear.content.multiblock.input.ReactorInputEntity;
+import net.nuclearteam.createnuclear.content.multiblock.liquidInput.ReactorLiquidInputEntity;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputEntity;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputRenderer;
 import net.nuclearteam.createnuclear.content.test.TestBlockEntity;
@@ -28,6 +29,16 @@ public class CNBlockEntityTypes {
                     .instance(() -> HalfShaftInstance::new, false)
                     .validBlocks(CNBlocks.REACTOR_OUTPUT)
                     .renderer(() -> ReactorOutputRenderer::new)
+                    .register();
+
+        public static final BlockEntityEntry<ReactorLiquidInputEntity> REACTOR_LIQUID_INPUT =
+            CreateNuclear.REGISTRATE.blockEntity("reactor_liquid_input", ReactorLiquidInputEntity::new)
+                    .validBlocks(CNBlocks.REACTOR_LIQUID_INPUT)
+                    .register();
+
+    public static final BlockEntityEntry<ReactorLiquidInputEntity> CREATIVE_REACTOR_LIQUID_INPUT =
+            CreateNuclear.REGISTRATE.blockEntity("reactor_liquid_input", ReactorLiquidInputEntity::new)
+                    .validBlocks(CNBlocks.REACTOR_LIQUID_INPUT)
                     .register();
 
     public static final BlockEntityEntry<EnrichingCampfireBlockEntity> ENRICHING_CAMPFIRE_BLOCK =
