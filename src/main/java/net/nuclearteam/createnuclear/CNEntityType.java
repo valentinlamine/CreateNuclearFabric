@@ -21,6 +21,9 @@ import net.nuclearteam.createnuclear.content.contraptions.irradiated.cow.Irradia
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf.IrradiatedWolf;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf.IrradiatedWolfModel;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf.IrradiatedWolfRenderer;
+import net.nuclearteam.createnuclear.content.contraptions.irradiated.zombie.IrradiatedZombie;
+import net.nuclearteam.createnuclear.content.contraptions.irradiated.zombie.IrradiatedZombieModel;
+import net.nuclearteam.createnuclear.content.contraptions.irradiated.zombie.IrradiatedZombieRenderer;
 
 public class CNEntityType {
 
@@ -64,6 +67,16 @@ public class CNEntityType {
         .attributes(IrradiatedWolf::createAttributes)
         .register();
 
+    public static final EntityEntry<IrradiatedZombie> IRRADIATED_ZOMBIE = CreateNuclear.REGISTRATE
+        .entity("irradiated_zombie", IrradiatedZombie::new, MobCategory.CREATURE)
+        .loot((tb, e) -> tb.add(e, LootTable.lootTable()))
+        .tag(CNTags.CNEntityTypeTags.IRRADIATED_IMMUNE.tag)
+        .properties(b -> b.dimensions(EntityDimensions.scalable(0.6f, 0.85f)))
+        .lang("Irradiated Zombie")
+        .renderer(() -> IrradiatedZombieRenderer::new)
+        .attributes(IrradiatedZombie::createAttributes)
+        .register();
+
 
     @Environment(EnvType.CLIENT)
     public static void registerModelLayer() {
@@ -71,6 +84,7 @@ public class CNEntityType {
         EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_CHICKEN, IrradiatedChickenModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_WOLF, IrradiatedWolfModel::getTexturedModelData);
         EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_COW, IrradiatedCowModel::createBodyLayer);
+        EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_ZOMBIE, IrradiatedZombieModel::createBodyLayer);
     }
 
     public static void registerCNMod() {

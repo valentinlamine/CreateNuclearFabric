@@ -142,6 +142,7 @@
   "entity.createnuclear.irradiated_chicken": "Irradiated Chicken",
   "entity.createnuclear.irradiated_cow": "Irradiated Cow",
   "entity.createnuclear.irradiated_wolf": "Irradiated Wolf",
+  "entity.createnuclear.irradiated_zombie": "Irradiated Zombie",
   "fluid.createnuclear.uranium": "Liquid Uranium",
   "gui.createnuclear.reactor_controller.title": "Reactor Controller",
   "gui.createnuclear.reactor_input.title": "Reactor Input Storage",
