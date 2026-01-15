@@ -1,4 +1,4 @@
-// 1.20.1	2025-11-19T14:07:08.6889694	Create Nuclear/CreateNuclear's Shapeless Recipes
+// 1.20.1	2026-01-15T08:57:10.2001902	Create Nuclear/CreateNuclear's Shapeless Recipes
 106b21181a49e73524be22319ba318719b7db0c9 data\createnuclear\recipes\shapeless\steel_nugget_from_decompacting.json
 86f89b475c96b9bd9f0fda3688c83126eaedd2c8 data\createnuclear\recipes\shapeless\thorium_ingot_from_decompacting.json
 fe147f38895f8b99412c53a6f7530a1e9575003c data\createnuclear\recipes\shapeless\cloth\light_blue_cloth.json
@@ -45,7 +45,7 @@ a68afd8036c827e4ee599ad27d3ef0d4466f69b3 data\createnuclear\advancements\recipes
 e6ec8d394df502aa1dcebd16d1ed0275f92e9d2a data\createnuclear\recipes\shapeless\cloth\brown_cloth.json
 9690e12858db1c546576ce70847e723c005f814e data\createnuclear\advancements\recipes\building_blocks\shapeless\cloth\blue_cloth.json
 8f4c8eabbc94a8562646b19d969aac1df83c7456 data\createnuclear\recipes\shapeless\raw_thorium_from_decompacting.json
-54fa61448a4b09c025353426f635cf411e01f25b data\createnuclear\advancements\recipes\building_blocks\shapeless\cloth\gray_cloth.json
 e0e977da29462d2fc41b669d1cc0a05186922c02 data\createnuclear\advancements\recipes\building_blocks\shapeless\cloth\light_gray_cloth.json
+54fa61448a4b09c025353426f635cf411e01f25b data\createnuclear\advancements\recipes\building_blocks\shapeless\cloth\gray_cloth.json
 ed9ab20ee581416a581c8bb9ebb773bb09b56204 data\createnuclear\advancements\recipes\misc\shapeless\thorium_ingot_from_decompacting.json
 ee9f6e45a6c733f1ce2a702c868b60a0d96bbb13 data\createnuclear\recipes\shapeless\raw_lead_from_decompacting.json

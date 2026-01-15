@@ -1,4 +1,4 @@
-// 1.20.1	2025-11-19T14:07:08.6849784	Create Nuclear/CreateNuclear's Blasting Recipes
+// 1.20.1	2026-01-15T08:57:10.1941931	Create Nuclear/CreateNuclear's Blasting Recipes
 d7cfc6f1ff4d39df0df526ec3723e8d18d198945 data\createnuclear\advancements\recipes\misc\smelting\raw_uranium_for_uranium_ore.json
 b2ec2f955ece9110bf315a2773b70999e268f81d data\createnuclear\recipes\blasting\lead_ingot_for_lead_ore.json
 0cb0e35b14a83085aa5868116e23fb4fb81c1234 data\createnuclear\recipes\smelting\lead_ingot_for_raw_lead.json

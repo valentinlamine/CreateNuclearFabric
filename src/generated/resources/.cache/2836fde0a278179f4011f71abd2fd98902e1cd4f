@@ -1,4 +1,4 @@
-// 1.20.1	2025-11-19T14:07:08.6760039	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2026-01-15T08:57:10.1851904	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 6bdbdc93b69c388425345d6d1aeb862eed894e5a data\createnuclear\recipes\small_autunite_brick_wall_from_stone_types_autunite_stonecutting.json
 ed88d15d2f1a4af012371d523fb3b95bcedfad28 assets\createnuclear\models\item\blue_anti_radiation_leggings.json
 31283971103bb25159e8b049b63dfbc408e87d23 assets\createnuclear\models\item\white_anti_radiation_leggings.json
@@ -175,8 +175,8 @@ aa1f3455bb6fba50a9bf1b7ac6fbe6ffc364b0e2 data\createnuclear\recipes\cut_autunite
 5bad8990f31085232b63b11d295b90b581af9a82 assets\createnuclear\models\item\raw_uranium_block.json
 7bfc6778893ef6552c10e17e3489e201758d3a75 assets\createnuclear\blockstates\cut_autunite_brick_wall.json
 a021646becb7b6411eddd86644e5b17c8365582c data\createnuclear\loot_tables\blocks\autunite.json
-a6c2b4c287e4fc31b5d244becee33e92fa2fe620 data\minecraft\tags\blocks\needs_diamond_tool.json
 39cc8882ac0d27137f33e51b5d5de8661935e1b6 data\c\tags\items\ingots\steel.json
+a6c2b4c287e4fc31b5d244becee33e92fa2fe620 data\minecraft\tags\blocks\needs_diamond_tool.json
 ce9ecb359f206dd797854e06594ac4ec27b7f675 data\createnuclear\tags\items\anti_radiation_armor.json
 5c418f99d459390ecf2430958fa87eac5541b393 assets\createnuclear\models\item\enriching_campfire.json
 34c28d31d8b93699cc6ffab724d9c51670c0f3e2 assets\createnuclear\models\item\deepslate_lead_ore.json
