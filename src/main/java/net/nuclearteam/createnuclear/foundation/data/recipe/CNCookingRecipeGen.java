@@ -34,6 +34,7 @@ import java.util.function.UnaryOperator;
 @ParametersAreNonnullByDefault
 public class CNCookingRecipeGen extends CreateRecipeProvider {
 
+
     private final String BLAST_FURNACE = enterFolder("blast_furnace");
     GeneratedRecipe
         URANIUM_ORE_TO_URANIUM_POWDER = blastFurnaceRecipeTags(() -> CNItems.RAW_URANIUM::get, () -> CNTags.CNItemTags.URANIUM_ORES.tag, "_for_uranium_ore", 4),
