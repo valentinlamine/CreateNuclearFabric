@@ -4,11 +4,15 @@ import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import io.github.fabricators_of_create.porting_lib.item.ArmorTextureItem;
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.*;
 import net.nuclearteam.createnuclear.CNItems;
 import net.nuclearteam.createnuclear.CreateNuclear;
+import net.nuclearteam.createnuclear.content.contraptions.irradiated.CNModelLayers;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -37,7 +41,9 @@ public class AntiRadiationArmorItem {
 
         @Override
         public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-            return String.valueOf(CreateNuclear.asResource("textures/models/armor/"+color+"_anti_radiation_suit_layer_"+(slot == EquipmentSlot.LEGS ? 2 : 1)+".png"));
+        // Cela cherchera: assets/createnuclear/textures/models/armor/default_anti_radiation_suit.png (exemple)
+        //        return "createnuclear:textures/models/armor/" + color.getSerializedName() + "_anti_radiation_suit.png";
+            return "createnuclear:textures/models/armor/default_anti_radiation_suit.png";
         }
 
         public static class DyeItemHelmetList<T extends Helmet> implements Iterable<ItemEntry<T>> {
@@ -99,7 +105,7 @@ public class AntiRadiationArmorItem {
 
         @Override
         public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-            return String.valueOf(CreateNuclear.asResource("textures/models/armor/"+color+"_anti_radiation_suit_layer_"+(slot == EquipmentSlot.LEGS ? 2 : 1)+".png"));
+            return String.valueOf(CreateNuclear.asResource("textures/models/armor/"+color+"_anti_radiation_suit"+(slot == EquipmentSlot.LEGS ? 2 : 1)+".png"));
         }
 
         public static class DyeItemChestplateList<T extends Chestplate> implements Iterable<ItemEntry<T>> {

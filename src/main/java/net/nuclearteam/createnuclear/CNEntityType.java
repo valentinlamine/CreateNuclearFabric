@@ -18,6 +18,7 @@ import net.nuclearteam.createnuclear.content.contraptions.irradiated.chicken.Irr
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf.IrradiatedWolf;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf.IrradiatedWolfModel;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf.IrradiatedWolfRenderer;
+import net.nuclearteam.createnuclear.content.equipment.armor.AntiRadiationArmorModel;
 
 public class CNEntityType {
 
@@ -57,6 +58,7 @@ public class CNEntityType {
         EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_CAT, IrradiatedCatModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_CHICKEN, IrradiatedChickenModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_WOLF, IrradiatedWolfModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(CNModelLayers.ANTI_IRRADIATION_ARMOR, AntiRadiationArmorModel::createBodyLayer);
     }
 
     public static void registerCNMod() {

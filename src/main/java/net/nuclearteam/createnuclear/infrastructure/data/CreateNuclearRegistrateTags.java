@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear.infrastructure.data;
 
+import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.data.TagGen;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.ProviderType;
@@ -8,6 +9,7 @@ import com.tterrag.registrate.util.nullness.NonNullFunction;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -60,6 +62,12 @@ public class CreateNuclearRegistrateTags {
 
     private static void genItemTags(RegistrateTagsProvider<Item> provIn) {
         TagGen.CreateTagsProvider<Item> prov = new TagGen.CreateTagsProvider<>(provIn, Item::builtInRegistryHolder);
+
+        prov.tag(ItemTags.TRIM_MATERIALS)
+                .addTag(CNItemTags.CLOTH.tag);
+
+        prov.tag(ItemTags.TRIM_TEMPLATES)
+                .add(AllItems.PRECISION_MECHANISM.get());
 
         for (CNItemTags tag : CNItemTags.values()) {
             if (tag.alwaysDatagen) {

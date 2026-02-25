@@ -1,0 +1,45 @@
+{
+  "replace": false,
+  "sources": [
+    {
+      "type": "paletted_permutations",
+      "textures": [
+        "createnuclear:trims/models/armor/black_anti_radiation_suit",
+        "createnuclear:trims/models/armor/blue_anti_radiation_suit",
+        "createnuclear:trims/models/armor/brown_anti_radiation_suit",
+        "createnuclear:trims/models/armor/cyan_anti_radiation_suit",
+        "createnuclear:trims/models/armor/gray_anti_radiation_suit",
+        "createnuclear:trims/models/armor/green_anti_radiation_suit",
+        "createnuclear:trims/models/armor/light_blue_anti_radiation_suit",
+        "createnuclear:trims/models/armor/light_gray_anti_radiation_suit",
+        "createnuclear:trims/models/armor/lime_anti_radiation_suit",
+        "createnuclear:trims/models/armor/magenta_anti_radiation_suit",
+        "createnuclear:trims/models/armor/orange_anti_radiation_suit",
+        "createnuclear:trims/models/armor/pink_anti_radiation_suit",
+        "createnuclear:trims/models/armor/purple_anti_radiation_suit",
+        "createnuclear:trims/models/armor/red_anti_radiation_suit",
+        "createnuclear:trims/models/armor/white_anti_radiation_suit",
+        "createnuclear:trims/models/armor/yellow_anti_radiation_suit"
+
+      ],
+      "palette_key": "trims/color_palettes/trim_palette",
+      "permutations": {
+        "black": "trims/color_palettes/black",
+        "iron": "trims/color_palettes/iron",
+        "gold": "trims/color_palettes/gold",
+        "diamond": "trims/color_palettes/diamond",
+        "netherite": "trims/color_palettes/netherite",
+        "redstone": "trims/color_palettes/redstone",
+        "copper": "trims/color_palettes/copper",
+        "emerald": "trims/color_palettes/emerald",
+        "lapis": "trims/color_palettes/lapis",
+        "amethyst": "trims/color_palettes/amethyst",
+        "iron_darker": "trims/color_palettes/iron_darker",
+        "gold_darker": "trims/color_palettes/gold_darker",
+        "diamond_darker": "trims/color_palettes/diamond_darker",
+        "netherite_darker": "trims/color_palettes/netherite_darker",
+        "anti_radiation_trim_material_black": "createnuclear:trims/color_palettes/black"
+      }
+    }
+  ]
+}

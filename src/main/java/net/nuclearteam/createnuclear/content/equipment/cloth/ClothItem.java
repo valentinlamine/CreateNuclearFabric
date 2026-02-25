@@ -2,12 +2,16 @@ package net.nuclearteam.createnuclear.content.equipment.cloth;
 
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 
 import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider.GeneratedRecipe;
 
+import net.minecraft.world.item.armortrim.TrimMaterial;
 import net.nuclearteam.createnuclear.CNItems;
+import net.nuclearteam.createnuclear.CreateNuclear;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -163,6 +167,14 @@ public class ClothItem extends Item {
 
         public ItemEntry<ClothItem> getItem() {
             return clothMap.get(this.color);
+        }
+
+        public DyeColor getColor() {
+            return color;
+        }
+
+        public ResourceKey<TrimMaterial> getrimMaterialResourceKey() {
+            return ResourceKey.create(Registries.TRIM_MATERIAL, CreateNuclear.asResource(String.join("_", "anti_radiation_trim_material", color.name().toLowerCase(Locale.ROOT))));
         }
 
         public static ItemEntry<ClothItem> getByColor(DyeColor color) {
