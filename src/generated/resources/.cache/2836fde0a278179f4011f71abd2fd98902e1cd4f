@@ -1,4 +1,4 @@
-// 1.20.1	2025-12-10T13:20:15.8165125	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2026-03-18T11:46:13.3719395	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 4264bcbd283b0db714ef72fa85a11a14c9033aa8 data\c\tags\blocks\glass_blocks.json
 c9757e3fd9841ee17366b1d88563df6ea8106513 assets\createnuclear\models\block\lead_ore.json
 e3acc02d9c87edea70fb57e88e172209b2b17a3f assets\createnuclear\models\item\light_blue_anti_radiation_leggings.json
