@@ -62,6 +62,7 @@ public class CNTags {
 
     public enum CNFluidTags {
         URANIUM,
+        NITROGEN,
         ;
 
         public final TagKey<Fluid> tag;
@@ -104,7 +105,8 @@ public class CNTags {
         ENRICHING_FIRE_BASE_BLOCKS("uranium_fire_base_blocks"),
         URANIUM_ORES,
         LEAD_ORES,
-        REACTOR_CASING
+        REACTOR_CASING,
+        NITRATE_ORES
 
         ;
         public final TagKey<Block> tag;
@@ -157,6 +159,7 @@ public class CNTags {
         COOLER,
         URANIUM_ORES,
         LEAD_ORES,
+        NITRATE_ORES,
         ANTI_RADIATION_HELMET_DYE,
         ANTI_RADIATION_CHESTPLATE_DYE,
         ANTI_RADIATION_LEGGINGS_DYE,

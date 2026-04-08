@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-18T13:58:31.2235718	Create Nuclear/CreateNuclear's Processing Recipes
+// 1.20.1	2026-04-08T13:55:56.3520451	Create Nuclear/CreateNuclear's Processing Recipes
 5613aa5cd61f77be2a80d3d785223351af98758c data\createnuclear\recipes\crushing\raw_zinc.json
 3b0bd8d00165a6b9fe25684a5aefc3b2c37898d4 data\createnuclear\recipes\crushing\crushed_raw_uranium.json
 a19aa8fe76e6c69683e4e33ee3526ec8d3c6b607 data\createnuclear\recipes\crushing\raw_lead.json
@@ -11,6 +11,7 @@ efbef3e0726b9384c60c033143ca13e684acabf1 data\createnuclear\recipes\item_applica
 607980178060555690388cdb2325b69156878012 data\createnuclear\recipes\crushing\charcoal.json
 57154e35ebb09170bb39f5b3a72ecd49182697f2 data\createnuclear\recipes\crushing\granite.json
 94e6ba2d5f151fbf98d3a652275b5ea2fbd1d769 data\createnuclear\recipes\crushing\raw_uranium_block.json
+3a2d71e0f485f7f7d3204e95e5817d2956c9d632 data\createnuclear\recipes\mixing\nitrate.json
 21e5370f3ce9120f8ca1425a95a8c50790877f9b data\createnuclear\recipes\pressing\graphene.json
 1b03ca5007b5749783944c4e77ca7b7976034682 data\createnuclear\recipes\mixing\uranium_fluid.json
 4ee934a60476e0d3d0d77297406d8d6aea65af2c data\createnuclear\recipes\splashing\crushed_raw_lead.json

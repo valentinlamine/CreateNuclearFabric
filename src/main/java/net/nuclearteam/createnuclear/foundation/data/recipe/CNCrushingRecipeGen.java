@@ -1,8 +1,10 @@
 package net.nuclearteam.createnuclear.foundation.data.recipe;
 
+import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.Create;
+import com.simibubi.create.content.decoration.palettes.AllPaletteStoneTypes;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
@@ -38,6 +40,7 @@ public class CNCrushingRecipeGen extends ProcessingRecipeGen {
                 .output(.5f, CNItems.URANIUM_POWDER)
                 .output(1f, Blocks.RED_SAND)
         )
+
     ;
 
     GeneratedRecipe
