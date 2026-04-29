@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.Items;
 import net.nuclearteam.createnuclear.CNFluids;
 import net.nuclearteam.createnuclear.CNItems;
 import net.nuclearteam.createnuclear.CNTags;
@@ -40,7 +41,14 @@ public class CNMixingRecipeGen extends ProcessingRecipeGen {
                 .duration(250)
                 .output(.6f, CNItems.NITRATE, 1)
                 .output(.4f, CNItems.LEAD_NUGGET, 1)
-        )
+        ),
+
+        NITROGEN = create("liquid_nitrogen", b -> b
+                .require(CNItems.COOLED_NITROGEN_CONCENTRATE)
+                .duration(20)
+                .require(Items.ICE)
+                .output(CNFluids.LIQUID_NITROGEN.get(), 1000)
+        );
     ;
 
     <T extends ProcessingRecipe<?>> GeneratedRecipe create(String name, UnaryOperator<ProcessingRecipeBuilder<T>> transform) {

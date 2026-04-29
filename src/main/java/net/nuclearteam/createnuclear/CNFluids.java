@@ -31,7 +31,7 @@ public class CNFluids {
             .tag(CNFluidTags.URANIUM.tag)
             .register();
 
-    public static final FluidEntry<SimpleFlowableFluid.Flowing> NITROGEN = CreateNuclear.REGISTRATE.fluid("nitrogen", CreateNuclear.asResource("fluid/nitrogen_still"), CreateNuclear.asResource("fluid/nitrogen_flow"))
+    public static final FluidEntry<SimpleFlowableFluid.Flowing> LIQUID_NITROGEN = CreateNuclear.REGISTRATE.fluid("nitrogen", CreateNuclear.asResource("fluid/nitrogen_still"), CreateNuclear.asResource("fluid/nitrogen_flow"))
             .fluidAttributes(() -> new CreateNuclearAttributeHandler("fluid.createnuclear.nitrogen", 2500, 1600))
             .fluidProperties(p -> p.levelDecreasePerBlock(2)
                     .tickRate(15)

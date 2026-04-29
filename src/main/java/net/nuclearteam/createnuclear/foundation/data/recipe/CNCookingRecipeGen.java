@@ -40,7 +40,7 @@ public class CNCookingRecipeGen extends CreateRecipeProvider {
         RAW_LEAD_ORES = blastFurnaceRecipeTags(() -> CNItems.LEAD_INGOT::get, () -> CNTags.CNItemTags.LEAD_ORES.tag, "_for_lead_ore", 1),
         RAW_LEAD = blastFurnaceRecipe(CNItems.LEAD_INGOT::get, CNItems.RAW_LEAD::get, "_for_raw_lead", 1),
         CRUSHED_LEAD = blastFurnaceRecipe(CNItems.LEAD_INGOT::get, AllItems.CRUSHED_LEAD::get, "_for_crushed_lead", 1),
-        NITRATE = blastFurnaceRecipe(CNItems.NITROGEN_CONCENTRATE::get, CNItems.NITRATE::get, "_for_nitrate", 1)
+        NITROGEN_CONCENTRATE = blastFurnaceRecipe(CNItems.NITROGEN_CONCENTRATE::get, CNItems.NITRATE::get, "_for_nitrogen_concentrate", 1)
         ;
 
 
