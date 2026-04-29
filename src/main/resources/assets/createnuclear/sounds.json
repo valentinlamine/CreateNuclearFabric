@@ -29,34 +29,10 @@
             "createnuclear:reactor_casing/fall"
         ]
     },
-    "reactor_alarm_break": {
-        "subtitle": "subtitles.createnuclear.reactor_alarm_break",
+    "reactor_alarm": {
+        "subtitle": "subtitles.createnuclear.reactor_alarm",
         "sounds": [
-            "createnuclear:reactor_alarm/break"
-        ]
-    },
-    "reactor_alarm_step": {
-        "subtitle": "subtitles.createnuclear.reactor_alarm_step",
-        "sounds": [
-            "createnuclear:reactor_alarm/step"
-        ]
-    },
-    "reactor_alarm_place": {
-        "subtitle": "subtitles.createnuclear.reactor_alarm_place",
-        "sounds": [
-            "createnuclear:reactor_alarm/place"
-        ]
-    },
-    "reactor_alarm_hit": {
-        "subtitle": "subtitles.createnuclear.reactor_alarm_hit",
-        "sounds": [
-            "createnuclear:reactor_alarm/hit"
-        ]
-    },
-    "reactor_alarm_fall": {
-        "subtitle": "subtitles.createnuclear.reactor_alarm_fall",
-        "sounds": [
-            "createnuclear:reactor_alarm/fall"
+            "createnuclear:reactor_alarm"
         ]
     }
 }

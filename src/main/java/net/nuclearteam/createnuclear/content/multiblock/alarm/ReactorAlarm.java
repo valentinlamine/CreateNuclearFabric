@@ -14,7 +14,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.util.RandomSource;
 import net.nuclearteam.createnuclear.CNBlockEntityTypes;
 import net.nuclearteam.createnuclear.CNSoundEvents;
-import net.nuclearteam.createnuclear.CreateNuclear;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,7 +55,7 @@ public class ReactorAlarm extends Block implements IBE<ReactorAlarmEntity> {
     }
 
     private void startSound(Level level, BlockPos pos) {
-        ReactorAlarmInstance sound = new ReactorAlarmInstance(level, pos, CNSoundEvents.REACTOR_ALARM_BREAK.get());
+        ReactorAlarmInstance sound = new ReactorAlarmInstance(level, pos, CNSoundEvents.REACTOR_ALARM.getMainEvent());
         ACTIVE_SOUNDS.put(pos, sound);
         Minecraft.getInstance().getSoundManager().play(sound);
     }

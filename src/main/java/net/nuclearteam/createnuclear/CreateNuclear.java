@@ -41,6 +41,7 @@ public class CreateNuclear implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+        CNSoundEvents.prepare();
 		CNEffects.register();
 		CNItems.registerCNItems();
 		CNBlocks.registerCNBlocks();
@@ -69,8 +70,6 @@ public class CreateNuclear implements ModInitializer {
 
 		CNAdvancement.register();
 		CNTriggers.register();
-
-        CNSoundEvents.register();
 
 		CNFanProcessingTypes.register();
 		CNBiomeModifiers.bootstrap();

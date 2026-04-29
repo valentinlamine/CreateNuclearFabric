@@ -176,7 +176,7 @@ public class CNBlocks {
 
         public static final BlockEntry<ReactorAlarm> REACTOR_ALARM =
             CreateNuclear.REGISTRATE.block("reactor_alarm", ReactorAlarm::new)
-                    .properties(p -> p.explosionResistance(3F).destroyTime(4F).sound(CNSoundEvents.getSoundType("reactor_alarm")))
+                    .properties(p -> p.explosionResistance(3F).destroyTime(4F))
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
@@ -368,7 +368,7 @@ public class CNBlocks {
 
     public static final BlockEntry<ReactorCasingBlock> REACTOR_CASING =
             CreateNuclear.REGISTRATE.block("reactor_casing", p -> new ReactorCasingBlock(p, ReactorCasingBlock.TypeBlock.CASING))
-                    .properties(p -> p.explosionResistance(3F).destroyTime(4F).sound(CNSoundEvents.getSoundType("reactor_casing")))
+                    .properties(p -> p.explosionResistance(3F).destroyTime(4F))
                     .transform(pickaxeOnly())
                     .blockstate((c,p) ->
                         p.getVariantBuilder(c.getEntry()).forAllStates((state) -> ConfiguredModel.builder()
