@@ -41,21 +41,21 @@ public class CNCrushingRecipeGen extends ProcessingRecipeGen {
         GRANITE_URANIUM_POWDER = create(() -> Items.GRANITE, b -> b.duration(250)
                 .output(.5f, CNItems.URANIUM_POWDER)
                 .output(1f, Blocks.RED_SAND)
-        )
-    ;
+        ),
 
-    GeneratedRecipe
-        RAW_URANIUM = create(() -> AllItems.CRUSHED_URANIUM, b -> b.duration(250)
+
+        RAW_URANIUM = create(() -> CNItems.RAW_URANIUM, b -> b.duration(250)
                 .output(1, CNItems.URANIUM_POWDER,9)
         ),
 
         RAW_URANIUM_BLOCK = create(() -> CNBlocks.RAW_URANIUM_BLOCK, b -> b.duration(250)
             .output(1, AllItems.CRUSHED_URANIUM,9)
-            .output(.75f, AllItems.EXP_NUGGET, 18)
+            .output(.75f, AllItems.EXP_NUGGET, 2)
         ),
 
         RAW_LEAD = create(() -> CNItems.RAW_LEAD, b -> b.duration(250)
                 .output(1, AllItems.CRUSHED_LEAD,1)
+                .output(.75f, AllItems.EXP_NUGGET, 18)
         ),
 
         RAW_LEAD_BLOCK = create(() -> CNBlocks.RAW_LEAD_BLOCK, b -> b.duration(250)

@@ -106,6 +106,8 @@ public class CNTags {
         URANIUM_ORES,
         LEAD_ORES,
         THORIUM_ORES,
+        REACTOR_CASING
+
         ;
         public final TagKey<Block> tag;
         public final boolean alwaysDatagen;

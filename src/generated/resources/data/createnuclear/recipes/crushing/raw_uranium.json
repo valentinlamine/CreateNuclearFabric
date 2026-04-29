@@ -2,7 +2,7 @@
   "type": "create:crushing",
   "ingredients": [
     {
-      "item": "create:crushed_raw_uranium"
+      "item": "createnuclear:raw_uranium"
     }
   ],
   "processingTime": 250,

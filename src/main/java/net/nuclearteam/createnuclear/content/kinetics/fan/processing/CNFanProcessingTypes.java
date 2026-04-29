@@ -8,7 +8,6 @@ import com.simibubi.create.foundation.utility.Color;
 import com.simibubi.create.foundation.utility.VecHelper;
 import it.unimi.dsi.fastutil.objects.Object2ReferenceOpenHashMap;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -17,13 +16,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.nuclearteam.createnuclear.CNBlocks;
-import net.nuclearteam.createnuclear.CNEffects;
-import net.nuclearteam.createnuclear.CNRecipeTypes;
-import net.nuclearteam.createnuclear.CreateNuclear;
+import net.nuclearteam.createnuclear.*;
 import net.nuclearteam.createnuclear.content.enriching.campfire.EnrichingCampfireBlock;
 import net.nuclearteam.createnuclear.content.kinetics.fan.processing.EnrichedRecipe.EnrichedWrapper;
 
+import net.nuclearteam.createnuclear.content.particles.IrradiatedParticlesData;
 import org.jetbrains.annotations.Nullable;
 
 
@@ -103,16 +100,16 @@ public class CNFanProcessingTypes extends AllFanProcessingTypes {
                     .multiply(1, 0.05f, 1)
                     .normalize()
                     .scale(0.15f));
-            level.addParticle(ParticleTypes.ANGRY_VILLAGER, pos.x, pos.y + .45f, pos.z, 0, 0, 0);
-            if (level.random.nextInt(2) == 0) level.addParticle(ParticleTypes.FIREWORK, pos.x, pos.y + .25f, pos.z, 0, 0, 0);
+            level.addParticle(new IrradiatedParticlesData(), pos.x, pos.y + .45f, pos.z, 0, 0, 0);
+            if (level.random.nextInt(2) == 0) level.addParticle(new IrradiatedParticlesData(), pos.x, pos.y + .25f, pos.z, 0, 0, 0);
         }
 
         @Override
         public void morphAirFlow(AirFlowParticleAccess particleAccess, RandomSource random) {
-            particleAccess.setColor(Color.mixColors(0x0, 0x126568, random.nextFloat()));
+            particleAccess.setColor(Color.mixColors(0x0, 0x00FF33, random.nextFloat()));
             particleAccess.setAlpha(1f);
-            if (random.nextFloat() < 1 / 128f) particleAccess.spawnExtraParticle(ParticleTypes.ASH, .125f);
-            if (random.nextFloat() < 1 / 32f) particleAccess.spawnExtraParticle(ParticleTypes.DOLPHIN, .125f);
+            if (random.nextFloat() < 1 / 128f) particleAccess.spawnExtraParticle(new IrradiatedParticlesData(), .125f);
+            if (random.nextFloat() < 1 / 32f) particleAccess.spawnExtraParticle(new IrradiatedParticlesData(), .125f);
         }
 
         @Override

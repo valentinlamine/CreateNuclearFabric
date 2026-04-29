@@ -1,0 +1,32 @@
+{
+    "reactor_casing_break": {
+        "subtitle": "subtitles.createnuclear.reactor_casing_break",
+        "sounds": [
+            "createnuclear:reactor_casing/break"
+        ]
+    },
+    "reactor_casing_step": {
+        "subtitle": "subtitles.createnuclear.reactor_casing_step",
+        "sounds": [
+            "createnuclear:reactor_casing/step"
+        ]
+    },
+    "reactor_casing_place": {
+        "subtitle": "subtitles.createnuclear.reactor_casing_place",
+        "sounds": [
+            "createnuclear:reactor_casing/place"
+        ]
+    },
+    "reactor_casing_hit": {
+        "subtitle": "subtitles.createnuclear.reactor_casing_hit",
+        "sounds": [
+            "createnuclear:reactor_casing/hit"
+        ]
+    },
+    "reactor_casing_fall": {
+        "subtitle": "subtitles.createnuclear.reactor_casing_fall",
+        "sounds": [
+            "createnuclear:reactor_casing/fall"
+        ]
+    }
+}

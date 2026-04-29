@@ -308,7 +308,10 @@ public class CNBlocks {
                     .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(CNSpriteShifts.REACTOR_GLASS)))
                     .onRegister(casingConnectivity((block,cc) -> cc.makeCasing(block, CNSpriteShifts.REACTOR_GLASS)))
                     .loot(RegistrateBlockLootTables::dropWhenSilkTouch)
-                    .tag(CNTags.forgeBlockTag("glass_blocks"))
+                    .tag(
+                        CNTags.forgeBlockTag("glass_blocks"),
+                        CNBlockTags.REACTOR_CASING.tag
+                    )
                     .item()
                     .tag(CNTags.forgeItemTag("glass_blocks"))
                     .build()
@@ -417,7 +420,7 @@ public class CNBlocks {
 
     public static final BlockEntry<ReactorCasingBlock> REACTOR_CASING =
             CreateNuclear.REGISTRATE.block("reactor_casing", p -> new ReactorCasingBlock(p, ReactorCasingBlock.TypeBlock.CASING))
-                    .properties(p -> p.explosionResistance(3F).destroyTime(4F))
+                    .properties(p -> p.explosionResistance(3F).destroyTime(4F).sound(CNSounds.getSoundType("reactor_casing")))
                     .transform(pickaxeOnly())
                     .blockstate((c,p) ->
                         p.getVariantBuilder(c.getEntry()).forAllStates((state) -> ConfiguredModel.builder()
@@ -425,7 +428,7 @@ public class CNBlocks {
                             .build()))
                     .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(CNSpriteShifts.REACTOR_CASING)))
                     .onRegister(casingConnectivity((block,cc) -> cc.makeCasing(block, CNSpriteShifts.REACTOR_CASING)))
-                    .tag(BlockTags.NEEDS_DIAMOND_TOOL)
+                    .tag(BlockTags.NEEDS_DIAMOND_TOOL, CNBlockTags.REACTOR_CASING.tag)
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .register();
@@ -479,9 +482,6 @@ public class CNBlocks {
                     .transform(customItemModel())
                     .register();
 
-    /*public static final BlockEntry<EventTriggerBlock> TEST_EVENT_TRIGGER_BLOCK = CreateNuclear.REGISTRATE.block("test_event_trigger_block", EventTriggerBlock::new)
-            .simpleItem()
-            .register();*/
 
     public static Block getSoulSoil() {
         return Blocks.SOUL_SOIL;

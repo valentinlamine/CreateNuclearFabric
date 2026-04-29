@@ -12,6 +12,7 @@ import net.minecraft.world.level.Level;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.content.multiblock.bluePrintItem.ReactorBluePrintPacket;
 import net.nuclearteam.createnuclear.content.multiblock.controller.EventTriggerPacket;
+import net.nuclearteam.createnuclear.content.multiblock.itemRods.ItemRodTypeManager;
 
 import static com.simibubi.create.foundation.networking.SimplePacketBase.NetworkDirection;
 import static com.simibubi.create.foundation.networking.SimplePacketBase.NetworkDirection.PLAY_TO_CLIENT;
@@ -27,6 +28,7 @@ public enum CNPackets {
 
     // To client
     TRIGGER_EVENT_TEXT_OVERLAY(EventTriggerPacket.class, EventTriggerPacket::new, PLAY_TO_CLIENT),
+    SYNC_ITEM_ROD_TYPES(ItemRodTypeManager.SyncPacket.class, ItemRodTypeManager.SyncPacket::new, PLAY_TO_CLIENT),
     ;
 
     public static final ResourceLocation CHANNEL_NAME = CreateNuclear.asResource("main");

@@ -9,6 +9,11 @@
   "results": [
     {
       "item": "create:crushed_raw_lead"
+    },
+    {
+      "chance": 0.75,
+      "count": 18,
+      "item": "create:experience_nugget"
     }
   ]
 }

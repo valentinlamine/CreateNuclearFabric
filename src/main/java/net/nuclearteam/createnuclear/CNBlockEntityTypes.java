@@ -9,6 +9,7 @@ import net.nuclearteam.createnuclear.content.multiblock.core.ReactorCoreBlockEnt
 import net.nuclearteam.createnuclear.content.multiblock.input.ReactorInputEntity;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputEntity;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputRenderer;
+import net.nuclearteam.createnuclear.content.test.TestBlockEntity;
 
 
 public class CNBlockEntityTypes {

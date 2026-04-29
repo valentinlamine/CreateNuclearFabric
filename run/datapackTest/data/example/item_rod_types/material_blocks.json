@@ -1,0 +1,9 @@
+{
+  "items": [
+    "minecraft:grass_block"
+  ],
+  "type": "FUEL",
+  "baseValueRod": 999999,
+  "lifeTime":  6000,
+  "proxyBonus":  999999
+}
