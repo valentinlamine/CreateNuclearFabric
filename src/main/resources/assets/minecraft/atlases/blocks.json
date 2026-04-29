@@ -15,6 +15,14 @@
     {
       "type": "single",
       "resource": "createnuclear:fluid/uranium_still"
+    },
+    {
+      "type": "single",
+      "resource": "createnuclear:fluid/nitrogen_flow"
+    },
+    {
+      "type": "single",
+      "resource": "createnuclear:fluid/nitrogen_still"
     }
   ]
 }

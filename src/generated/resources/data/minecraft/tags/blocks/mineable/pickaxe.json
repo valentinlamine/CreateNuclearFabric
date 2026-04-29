@@ -3,6 +3,8 @@
   "values": [
     "createnuclear:deepslate_uranium_ore",
     "createnuclear:uranium_ore",
+    "createnuclear:deepslate_nitrate_ore",
+    "createnuclear:nitrate_ore",
     "createnuclear:deepslate_lead_ore",
     "createnuclear:lead_ore",
     "createnuclear:deepslate_thorium_ore",

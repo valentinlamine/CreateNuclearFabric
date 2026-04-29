@@ -1,8 +1,7 @@
 {
   "replace": false,
   "values": [
-    "createnuclear:deepslate_uranium_ore",
     "createnuclear:deepslate_nitrate_ore",
-    "createnuclear:deepslate_lead_ore"
+    "createnuclear:nitrate_ore"
   ]
 }

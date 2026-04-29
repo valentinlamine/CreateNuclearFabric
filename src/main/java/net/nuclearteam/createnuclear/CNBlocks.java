@@ -39,6 +39,7 @@ import net.nuclearteam.createnuclear.content.multiblock.input.ReactorInputGenera
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutput;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputGenerator;
 import net.nuclearteam.createnuclear.content.multiblock.reinforced.ReinforcedGlassBlock;
+import net.nuclearteam.createnuclear.content.nitrateOre.NitrateOreBlock;
 import net.nuclearteam.createnuclear.content.uraniumOre.UraniumOreBlock;
 import net.nuclearteam.createnuclear.CNTags.CNBlockTags;
 import net.nuclearteam.createnuclear.CNTags.CNItemTags;
@@ -94,6 +95,52 @@ public class CNBlocks {
                     .item()
                     .tag(CNItemTags.URANIUM_ORES.tag,
                         CNTags.forgeItemTag("uranium_ores"))
+                    .build()
+                    .register();
+
+    public static final BlockEntry<NitrateOreBlock> DEEPSLATE_NITRATE_ORE =
+            CreateNuclear.REGISTRATE.block("deepslate_nitrate_ore", NitrateOreBlock::new)
+                    .initialProperties(CNBlocks::getDiamondOre)
+                    .properties(NitrateOreBlock.litBlockEmission())
+                    .transform(pickaxeOnly())
+                    .loot((lt, b) -> lt.add(b,
+                        RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
+                            lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.NITRATE)
+                                .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
+                    ))))
+                    .tag(BlockTags.NEEDS_DIAMOND_TOOL,
+                        BlockTags.NEEDS_IRON_TOOL,
+                        CNTags.forgeBlockTag("ores"),
+                        CNTags.forgeBlockTag("ores_in_ground/deepslate"),
+                        CNTags.forgeBlockTag("nitrate_ores"),
+                        CNBlockTags.NITRATE_ORES.tag
+                    )
+                    .item()
+                    .tag(CNItemTags.NITRATE_ORES.tag,
+                        CNTags.forgeItemTag("nitrate_ores"))
+                    .build()
+                    .register();
+
+    public static final BlockEntry<NitrateOreBlock> NITRATE_ORE =
+            CreateNuclear.REGISTRATE.block("nitrate_ore", NitrateOreBlock::new)
+                    .initialProperties(SharedProperties::stone)
+                    .properties(NitrateOreBlock.litBlockEmission())
+                    .transform(pickaxeOnly())
+                    .loot((lt, b) -> lt.add(b,
+                        RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
+                            lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_URANIUM)
+                                .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
+                    ))))
+                    .tag(BlockTags.NEEDS_DIAMOND_TOOL,
+                        BlockTags.NEEDS_IRON_TOOL,
+                        CNTags.forgeBlockTag("ores"),
+                        CNTags.forgeBlockTag("ores_in_ground/stone"),
+                        CNTags.forgeBlockTag("nitrate_ores"),
+                        CNBlockTags.NITRATE_ORES.tag
+                    )
+                    .item()
+                    .tag(CNItemTags.NITRATE_ORES.tag,
+                        CNTags.forgeItemTag("nitrate_ores"))
                     .build()
                     .register();
 
