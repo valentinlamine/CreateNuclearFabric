@@ -1,6 +1,7 @@
 package net.nuclearteam.createnuclear.foundation.data.recipe;
 
 import com.simibubi.create.AllRecipeTypes;
+import com.simibubi.create.content.processing.recipe.HeatCondition;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
@@ -29,6 +30,13 @@ public class CNMixingRecipeGen extends ProcessingRecipeGen {
         URANIUM_FLUID = create("uranium_fluid", b -> b
             .require(CNItems.URANIUM_POWDER)
             .output(CNFluids.URANIUM.get(), 2025)
+            .requiresHeat(HeatCondition.HEATED)
+        ),
+
+        THORIUM_FLUID = create("thorium_fluid", b -> b
+            .require(CNItems.THORIUM_DUST)
+            .output(CNFluids.THORIUM.get(), 2025)
+            .requiresHeat(HeatCondition.HEATED)
         )
     ;
 

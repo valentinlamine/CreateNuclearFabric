@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "createnuclear:thorium_nugget",
     "createnuclear:lead_nugget",
     "createnuclear:steel_nugget"
   ]

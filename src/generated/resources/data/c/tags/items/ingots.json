@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "createnuclear:thorium_ingot",
     "createnuclear:steel_ingot",
     "createnuclear:lead_ingot"
   ]

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "createnuclear:thorium_rod",
     "createnuclear:uranium_rod",
     "createnuclear:graphite_rod"
   ]

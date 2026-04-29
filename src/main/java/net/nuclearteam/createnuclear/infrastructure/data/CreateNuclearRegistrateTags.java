@@ -79,6 +79,14 @@ public class CreateNuclearRegistrateTags {
                 .addTag(CNFluidTags.URANIUM.tag)
         ;
 
+        prov.tag(CNTags.forgeFluidTag("thorium"))
+                .addTag(CNFluidTags.THORIUM.tag)
+        ;
+
+        prov.tag(FluidTags.LAVA)
+                .addTag(CNFluidTags.THORIUM.tag)
+        ;
+
 
         for (CNFluidTags tag : CNFluidTags.values()) {
             prov.getOrCreateRawBuilder(tag.tag);

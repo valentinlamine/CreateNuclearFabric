@@ -16,7 +16,8 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class CNCompactingRecipeGen extends ProcessingRecipeGen {
 
     GeneratedRecipe
-        YELLOWCAKE = create(CreateNuclear.asResource("uranium_fluid_to_yellowcake"), b -> b.require(CNFluids.URANIUM.get(), 8100).output(CNItems.YELLOWCAKE, 1));
+        YELLOWCAKE = create(CreateNuclear.asResource("uranium_fluid_to_yellowcake"), b -> b.require(CNFluids.URANIUM.get(), 8100).output(CNItems.YELLOWCAKE, 1)),
+        THORIUM_INGOT = create(CreateNuclear.asResource("thorium_fluid_to_thorium_ingot"), b -> b.require(CNFluids.THORIUM.get(), 8100).output(CNItems.THORIUM_INGOT, 1));
 
 
     public CNCompactingRecipeGen(FabricDataOutput output) {

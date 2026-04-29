@@ -31,6 +31,16 @@ public class CNFluids {
             .tag(CNFluidTags.URANIUM.tag)
             .register();
 
+    public static final FluidEntry<SimpleFlowableFluid.Flowing> THORIUM = CreateNuclear.REGISTRATE.fluid("thorium", CreateNuclear.asResource("fluid/thorium_still"), CreateNuclear.asResource("fluid/thorium_flow"))
+            .fluidAttributes(() -> new CreateNuclearAttributeHandler("fluid.createnuclear.thorium", 2500, 1600))
+            .fluidProperties(p -> p.levelDecreasePerBlock(2)
+                    .tickRate(15)
+                    .flowSpeed(6)
+                    .blastResistance(100f))
+            .lang("Liquid Thorium")
+            .tag(CNFluidTags.THORIUM.tag)
+            .register();
+
     public static void register() {
     }
 
@@ -88,6 +98,29 @@ public class CNFluids {
         // Uranium + lava interaction
         FluidInteractionManager.addRule(
             CNFluids.URANIUM.get(),
+            new FluidInteractionRule(
+                100,
+                fs -> fs.is(FluidTags.LAVA),
+                true, AUTUNITE,
+                ctx -> {},
+                false
+            )
+        );
+        // Thorium + water interaction
+        FluidInteractionManager.addRule(
+            CNFluids.THORIUM.get(),
+            new FluidInteractionRule(
+                100,
+                fs -> fs.is(FluidTags.WATER),
+                true, AUTUNITE,
+                ctx -> {},
+                false
+            )
+        );
+
+        // Thorium + lava interaction
+        FluidInteractionManager.addRule(
+            CNFluids.THORIUM.get(),
             new FluidInteractionRule(
                 100,
                 fs -> fs.is(FluidTags.LAVA),

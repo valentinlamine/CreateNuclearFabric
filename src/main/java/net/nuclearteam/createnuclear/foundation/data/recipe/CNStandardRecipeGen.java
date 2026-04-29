@@ -106,8 +106,19 @@ public class CNStandardRecipeGen extends CreateRecipeProvider {
                 .showNotification(true)
             ),
 
+        RAW_THORIUM_BLOCK = create(CNBlocks.RAW_THORIUM_BLOCK).unlockedBy(CNItems.RAW_THORIUM::get)
+            .viaShaped(b -> b.define('R', CNItems.RAW_THORIUM.get())
+                .pattern("RRR")
+                .pattern("RRR")
+                .pattern("RRR")
+                .showNotification(true)
+            ),
+
         LEAD_COMPACTING = metalCompacting(ImmutableList.of(CNItems.LEAD_NUGGET, CNItems.LEAD_INGOT, CNBlocks.LEAD_BLOCK),
             ImmutableList.of(() -> CNTags.forgeItemTag("nuggets/lead"), () -> CNTags.forgeItemTag("ingots/lead"), () -> CNTags.forgeItemTag("storage_blocks/lead"))),
+
+        THORIUM_COMPACTING = metalCompacting(ImmutableList.of(CNItems.THORIUM_NUGGET, CNItems.THORIUM_INGOT, CNBlocks.THORIUM_BLOCK),
+            ImmutableList.of(() -> CNTags.forgeItemTag("nuggets/thorium"), () -> CNTags.forgeItemTag("ingots/thorium"), () -> CNTags.forgeItemTag("storage_blocks/thorium"))),
 
         STEEL_COMPACTING = metalCompacting(ImmutableList.of(CNItems.STEEL_NUGGET, CNItems.STEEL_INGOT, CNBlocks.STEEL_BLOCK),
             ImmutableList.of(() -> CNTags.forgeItemTag("nuggets/steel"), () -> CNTags.forgeItemTag("ingots/steel"), () -> CNTags.forgeItemTag("storage_blocks/steel"))),

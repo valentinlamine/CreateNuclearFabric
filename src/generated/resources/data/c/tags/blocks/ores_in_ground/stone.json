@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "createnuclear:uranium_ore",
-    "createnuclear:lead_ore"
+    "createnuclear:lead_ore",
+    "createnuclear:thorium_ore"
   ]
 }

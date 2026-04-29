@@ -46,6 +46,11 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
             .unlockedBy(CNItems.RAW_LEAD::get)
             .viaShapeless(b -> b.requires(CNBlocks.RAW_LEAD_BLOCK.get())),
 
+        RAW_THORIUM = create(CNItems.RAW_THORIUM).returns(9)
+            .withSuffix("_from_decompacting")
+            .unlockedBy(CNItems.RAW_THORIUM::get)
+            .viaShapeless(b -> b.requires(CNBlocks.RAW_THORIUM_BLOCK.get())),
+
         LEAD_INGOT = create(CNItems.LEAD_INGOT).returns(9)
             .withSuffix("_from_decompacting")
             .unlockedBy(CNItems.LEAD_INGOT::get)
@@ -55,6 +60,11 @@ public class CNShapelessRecipeGen extends CreateRecipeProvider {
             .withSuffix("_from_decompacting")
             .unlockedBy(CNItems.LEAD_NUGGET::get)
             .viaShapeless(b -> b.requires(CNItems.LEAD_INGOT.get())),
+
+        THORIUM_INGOT = create(CNItems.THORIUM_INGOT).returns(9)
+            .withSuffix("_from_decompacting")
+            .unlockedBy(CNItems.THORIUM_INGOT::get)
+            .viaShapeless(b -> b.requires(CNBlocks.THORIUM_BLOCK.get())),
 
         STEEL_INGOT = create(CNItems.STEEL_INGOT).returns(9)
             .withSuffix("_from_decompacting")

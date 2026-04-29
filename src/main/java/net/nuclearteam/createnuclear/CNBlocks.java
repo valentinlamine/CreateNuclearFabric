@@ -139,6 +139,49 @@ public class CNBlocks {
                     .build()
                     .register();
 
+    public static final BlockEntry<Block> DEEPSLATE_THORIUM_ORE =
+            CreateNuclear.REGISTRATE.block("deepslate_thorium_ore", Block::new)
+                    .initialProperties(CNBlocks::getDiamondOre)
+                    .transform(pickaxeOnly())
+                    .loot((lt, b) -> lt.add(b,
+                        RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
+                            lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_THORIUM)
+                                .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
+                    ))))
+                    .tag(BlockTags.NEEDS_DIAMOND_TOOL,
+                        CNTags.forgeBlockTag("ores"),
+                        CNTags.forgeBlockTag("ores_in_ground/deepslate"),
+                        CNTags.forgeBlockTag("thorium_ores"),
+                        CNBlockTags.THORIUM_ORES.tag
+                    )
+                    .item()
+                    .tag(CNItemTags.THORIUM_ORES.tag,
+                        CNTags.forgeItemTag("thorium_ores"))
+                    .build()
+                    .register();
+
+    public static final BlockEntry<Block> THORIUM_ORE =
+            CreateNuclear.REGISTRATE.block("thorium_ore", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .transform(pickaxeOnly())
+                    .loot((lt, b) -> lt.add(b,
+                        RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
+                            lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_THORIUM)
+                                .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
+                    ))))
+                    .tag(BlockTags.NEEDS_DIAMOND_TOOL,
+                        CNTags.forgeBlockTag("ores"),
+                        CNTags.forgeBlockTag("ores_in_ground/stone"),
+                        CNTags.forgeBlockTag("thorium_ores"),
+                        CNBlockTags.THORIUM_ORES.tag
+                    )
+                    .item()
+                    .tag(CNItemTags.THORIUM_ORES.tag,
+                        CNTags.forgeItemTag("thorium_ores"))
+                    .build()
+                    .register();
+
+
     public static final BlockEntry<Block> RAW_URANIUM_BLOCK =
             CreateNuclear.REGISTRATE.block("raw_uranium_block", Block::new)
                     .initialProperties(SharedProperties::stone)
@@ -157,12 +200,29 @@ public class CNBlocks {
                         CNTags.forgeBlockTag("storage_blocks/raw_lead"))
                     .register();
 
+    public static final BlockEntry<Block> RAW_THORIUM_BLOCK =
+            CreateNuclear.REGISTRATE.block("raw_thorium_block", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .simpleItem()
+                    .transform(pickaxeOnly())
+                    .tag(BlockTags.NEEDS_DIAMOND_TOOL,
+                        CNTags.forgeBlockTag("storage_blocks/raw_thorium"))
+                    .register();
+
     public static final BlockEntry<Block> LEAD_BLOCK =
             CreateNuclear.REGISTRATE.block("lead_block", Block::new)
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
                     .tag(CNTags.forgeBlockTag("storage_blocks/lead"))
+                    .register();
+
+    public static final BlockEntry<Block> THORIUM_BLOCK =
+            CreateNuclear.REGISTRATE.block("thorium_block", Block::new)
+                    .initialProperties(SharedProperties::stone)
+                    .simpleItem()
+                    .transform(pickaxeOnly())
+                    .tag(CNTags.forgeBlockTag("storage_blocks/thorium"))
                     .register();
 
     public static final BlockEntry<Block> STEEL_BLOCK =
@@ -256,6 +316,7 @@ public class CNBlocks {
                     .tag(CNTags.forgeItemTag("glass_blocks"))
                     .build()
                     .register();
+
 
     public static final BlockEntry<ReactorOutput> REACTOR_OUTPUT =
             CreateNuclear.REGISTRATE.block("reactor_output", ReactorOutput::new)

@@ -2,6 +2,14 @@
   "sources": [
     {
       "type": "single",
+      "resource": "createnuclear:fluid/thorium_flow"
+    },
+    {
+      "type": "single",
+      "resource": "createnuclear:fluid/thorium_still"
+    },
+    {
+      "type": "single",
       "resource": "createnuclear:fluid/uranium_flow"
     },
     {

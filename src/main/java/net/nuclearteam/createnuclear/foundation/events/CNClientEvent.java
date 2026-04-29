@@ -50,10 +50,15 @@ public class CNClientEvent {
 
         Fluid fluid = fluidState.getType();
 
-        if (CNFluids.URANIUM.get().isSame(fluid)){
+        if (CNFluids.URANIUM.get().isSame(fluid)) {
             event.setRed(56 / 255F);
             event.setGreen(255 / 255F);
             event.setBlue(8 / 255F);
+        }
+        if (CNFluids.THORIUM.get().isSame(fluid)){
+            event.setRed(8 / 255F);
+            event.setGreen(56 / 255F);
+            event.setBlue(255 / 255F);
         }
     }
 
