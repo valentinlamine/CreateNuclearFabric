@@ -4,7 +4,7 @@
   "cookingtime": 100,
   "experience": 0.1,
   "ingredient": {
-    "tag": "createnuclear:uranium_ores"
+    "tag": "createnuclear:disabled_uranium_ores"
   },
   "result": "createnuclear:raw_uranium"
 }
