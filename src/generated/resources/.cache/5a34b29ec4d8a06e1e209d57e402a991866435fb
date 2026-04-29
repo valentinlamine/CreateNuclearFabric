@@ -1,6 +1,5 @@
-// 1.20.1	2026-03-18T13:58:31.2235718	Create Nuclear/CreateNuclear's Processing Recipes
-5613aa5cd61f77be2a80d3d785223351af98758c data\createnuclear\recipes\crushing\raw_zinc.json
-3b0bd8d00165a6b9fe25684a5aefc3b2c37898d4 data\createnuclear\recipes\crushing\crushed_raw_uranium.json
+// 1.20.1	2026-03-18T11:46:13.383957	Create Nuclear/CreateNuclear's Processing Recipes
+e42be7d17c5e057e62c4b1176cbf43319a157f51 data\createnuclear\recipes\enriched\enriched_yellowcake.json
 a19aa8fe76e6c69683e4e33ee3526ec8d3c6b607 data\createnuclear\recipes\crushing\raw_lead.json
 91c07d7804d0960aaa17a6258f00f1731ca458f5 data\createnuclear\recipes\item_application\reactor_output_from_shaft_and_reactor_casing.json
 24c35af7a9dc3d740f3200bdd1ad96ad125df00a data\createnuclear\recipes\crushing\coal.json
