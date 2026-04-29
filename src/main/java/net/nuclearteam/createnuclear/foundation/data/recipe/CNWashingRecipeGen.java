@@ -16,15 +16,13 @@ import java.util.function.Supplier;
 @SuppressWarnings("unused")
 public class CNWashingRecipeGen extends ProcessingRecipeGen {
     GeneratedRecipe
-        CRUSHED_LEAD = crushedOre(AllItems.CRUSHED_LEAD, () -> CNItems.LEAD_NUGGET, () -> AllItems.EXP_NUGGET, .5f)
+        CRUSHED_LEAD = crushedOre(AllItems.CRUSHED_LEAD, () -> CNItems.LEAD_NUGGET)
     ;
 
-    public GeneratedRecipe crushedOre(ItemEntry<TagDependentIngredientItem> crushed, Supplier<ItemLike> nugget, Supplier<ItemLike> secondary,
-                                      float secondaryChance) {
+    public GeneratedRecipe crushedOre(ItemEntry<TagDependentIngredientItem> crushed, Supplier<ItemLike> nugget) {
         return create(crushed.getId(), b -> b
                 .withItemIngredients(Ingredient.of(crushed.get()))
-                .output(nugget.get(), 9)
-                .output(secondaryChance, secondary.get(), 1));
+                .output(nugget.get(), 9));
     }
 
     public CNWashingRecipeGen(FabricDataOutput output) {
