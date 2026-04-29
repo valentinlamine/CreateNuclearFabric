@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "#createnuclear:uranium",
+    "#createnuclear:thorium",
     "#createnuclear:nitrogen"
   ]
 }
