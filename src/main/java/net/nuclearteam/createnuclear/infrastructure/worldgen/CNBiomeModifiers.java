@@ -14,7 +14,9 @@ public class CNBiomeModifiers {
         Predicate<BiomeSelectionContext> isOverworld = BiomeSelectors.foundInOverworld();
 
         addOre(isOverworld, CNPlacedFeatures.URANIUM_ORE);
+        addOre(isOverworld, CNPlacedFeatures.NITRATE_ORE);
         addOre(isOverworld, CNPlacedFeatures.LEAD_ORE);
+        addOre(isOverworld, CNPlacedFeatures.THORIUM_ORE);
         addOre(isOverworld, CNPlacedFeatures.STRIATED_ORES_OVERWORLD);
     }
 

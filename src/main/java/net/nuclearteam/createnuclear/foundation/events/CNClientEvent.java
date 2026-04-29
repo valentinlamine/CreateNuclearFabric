@@ -5,6 +5,7 @@ import com.simibubi.create.foundation.events.ClientEvents;
 import io.github.fabricators_of_create.porting_lib.event.client.ClientWorldEvents;
 import io.github.fabricators_of_create.porting_lib.event.client.FogEvents;
 import io.github.fabricators_of_create.porting_lib.event.client.FogEvents.ColorData;
+import io.github.fabricators_of_create.porting_lib.event.client.ParticleManagerRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.Camera;
 import net.minecraft.client.gui.GuiGraphics;
@@ -17,6 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.material.FluidState;
 import net.nuclearteam.createnuclear.CNEffects;
 import net.nuclearteam.createnuclear.CNFluids;
+import net.nuclearteam.createnuclear.CNParticleTypes;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.minecraft.world.level.material.Fluid;
 
@@ -33,6 +35,8 @@ public class CNClientEvent {
         HudRenderCallback.EVENT.register(HUD_RENDERER::onHudRender);
         HudRenderCallback.EVENT.register(CNClientEvent::radiationOverlay);
 
+        ParticleManagerRegistrationCallback.EVENT.register(CNParticleTypes::registerFactories);
+
         ClientWorldEvents.LOAD.register(CommonEvents::onLoadWorld);
         ClientWorldEvents.UNLOAD.register(CommonEvents::onUnloadWorld);
     }
@@ -46,10 +50,15 @@ public class CNClientEvent {
 
         Fluid fluid = fluidState.getType();
 
-        if (CNFluids.URANIUM.get().isSame(fluid)){
+        if (CNFluids.URANIUM.get().isSame(fluid)) {
             event.setRed(56 / 255F);
             event.setGreen(255 / 255F);
             event.setBlue(8 / 255F);
+        }
+        if (CNFluids.THORIUM.get().isSame(fluid)){
+            event.setRed(8 / 255F);
+            event.setGreen(56 / 255F);
+            event.setBlue(255 / 255F);
         }
     }
 

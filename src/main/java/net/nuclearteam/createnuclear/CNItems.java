@@ -21,16 +21,17 @@ import net.nuclearteam.createnuclear.content.equipment.cloth.ClothItem;
 import net.nuclearteam.createnuclear.content.multiblock.bluePrintItem.ReactorBluePrint;
 import net.nuclearteam.createnuclear.foundation.utility.TextUtils;
 import net.nuclearteam.createnuclear.CNTags.CNItemTags;
+import net.nuclearteam.createnuclear.content.effects.RadiationItem;
 
 @SuppressWarnings("unused")
 public class CNItems {
-    public static final ItemEntry<Item>
+    public static final ItemEntry<? extends Item>
         URANIUM_POWDER = CreateNuclear.REGISTRATE
-            .item("uranium_powder", Item::new)
+            .item("uranium_powder", RadiationItem::new)
             .register(),
 
         YELLOWCAKE = CreateNuclear.REGISTRATE
-            .item("yellowcake", Item::new)
+            .item("yellowcake", RadiationItem::new)
             .properties(p -> p.food(new FoodProperties.Builder()
                 .nutrition(20)
                 .saturationMod(0.3F)
@@ -42,7 +43,7 @@ public class CNItems {
             .register(),
 
         ENRICHED_YELLOWCAKE = CreateNuclear.REGISTRATE
-            .item("enriched_yellowcake", Item::new)
+            .item("enriched_yellowcake", RadiationItem::new)
             .register(),
 
         COAL_DUST = CreateNuclear.REGISTRATE
@@ -54,13 +55,37 @@ public class CNItems {
             .item("graphene", Item::new)
             .register(),
 
+        RAW_THORIUM = CreateNuclear.REGISTRATE
+            .item("raw_thorium", Item::new)
+            .register(),
+
+        THORIUM_INGOT = CreateNuclear.REGISTRATE
+            .item("thorium_ingot", Item::new)
+            .tag(CNTags.forgeItemTag("ingots"), CNTags.forgeItemTag("ingots/thorium"))
+            .register(),
+
+        THORIUM_DUST = CreateNuclear.REGISTRATE
+            .item("thorium_dust", Item::new)
+            .tag(CNTags.forgeItemTag("dusts"), CNTags.forgeItemTag("thorium_dusts"))
+            .register(),
+
+        THORIUM_NUGGET = CreateNuclear.REGISTRATE
+            .item("thorium_nugget", Item::new)
+            .tag(CNTags.forgeItemTag("nuggets"), CNTags.forgeItemTag("nuggets/thorium"))
+            .register(),
+
+        THORIUM_ROD = CreateNuclear.REGISTRATE
+            .item("thorium_rod", Item::new)
+            .tag(CNTags.forgeItemTag("rods"), CNItemTags.FUEL.tag)
+            .register(),
+
         STEEL_INGOT = CreateNuclear.REGISTRATE
             .item("steel_ingot", Item::new)
             .tag(CNTags.forgeItemTag("ingots"), CNTags.forgeItemTag("ingots/steel"))
             .register(),
 
         RAW_URANIUM = CreateNuclear.REGISTRATE
-            .item("raw_uranium", Item::new)
+            .item("raw_uranium", RadiationItem::new)
             .tag(CNTags.forgeItemTag("raw_ores"), CNTags.forgeItemTag("raw_materials"), CNTags.forgeItemTag("raw_materials/uranium"))
             .register(),
 
@@ -86,14 +111,28 @@ public class CNItems {
             .register(),
 
         URANIUM_ROD = CreateNuclear.REGISTRATE
-            .item("uranium_rod", Item::new)
+            .item("uranium_rod", RadiationItem::new)
             .tag(CNTags.forgeItemTag("rods"), CNItemTags.FUEL.tag)
             .register(),
 
+
         GRAPHITE_ROD = CreateNuclear.REGISTRATE
-            .item("graphite_rod", Item::new)
+            .item("graphite_rod", RadiationItem::new)
             .tag(CNTags.forgeItemTag("rods"), CNItemTags.COOLER.tag)
+            .register(),
+
+        NITRATE = CreateNuclear.REGISTRATE
+            .item("nitrate", Item::new)
+            .register(),
+
+        NITROGEN_CONCENTRATE = CreateNuclear.REGISTRATE
+            .item("nitrogen_concentrate", Item::new)
+            .register(),
+
+        COOLED_NITROGEN_CONCENTRATE = CreateNuclear.REGISTRATE
+            .item("cooled_nitrogen_concentrate", Item::new)
             .register()
+
     ;
   
     public static final Helmet.DyeItemHelmetList<Helmet> ANTI_RADIATION_HELMETS = new Helmet.DyeItemHelmetList<>(color -> {

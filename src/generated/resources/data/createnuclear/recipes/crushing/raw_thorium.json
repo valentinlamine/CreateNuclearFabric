@@ -2,14 +2,14 @@
   "type": "create:crushing",
   "ingredients": [
     {
-      "item": "create:crushed_raw_uranium"
+      "item": "createnuclear:raw_thorium"
     }
   ],
   "processingTime": 250,
   "results": [
     {
-      "count": 9,
-      "item": "createnuclear:uranium_powder"
+      "chance": 0.5,
+      "item": "createnuclear:thorium_dust"
     }
   ]
 }

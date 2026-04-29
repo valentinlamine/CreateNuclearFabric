@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "createnuclear:deepslate_thorium_ore",
+    "createnuclear:thorium_ore"
+  ]
+}

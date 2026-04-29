@@ -22,7 +22,9 @@ import java.util.List;
 public class CNConfiguredFeatures {
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> URANIUM_ORE_KEY = registerKey("uranium_ore");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> LEAD_ORE = registerKey("lead_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LEAD_ORE_KEY = registerKey("lead_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> THORIUM_ORE_KEY = registerKey("thorium_ore");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> NITRATE_ORE_KEY = registerKey("nitrate_ore");
     public static final ResourceKey<ConfiguredFeature<?, ?>> STRIATED_ORES_OVERWORLD = registerKey("striated_ores_overworld");
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
@@ -41,12 +43,27 @@ public class CNConfiguredFeatures {
 
         register(context, URANIUM_ORE_KEY, Feature.ORE, new OreConfiguration(uraniumTargetStates, 7));
 
+        List<OreConfiguration.TargetBlockState> nitrateTargetStates = List.of(
+                OreConfiguration.target(stoneReplaceable, CNBlocks.NITRATE_ORE.get().defaultBlockState()),
+                OreConfiguration.target(deepslateReplaceable, CNBlocks.DEEPSLATE_NITRATE_ORE.get().defaultBlockState())
+        );
+
+        register(context, NITRATE_ORE_KEY, Feature.ORE, new OreConfiguration(nitrateTargetStates, 7));
+
         List<OreConfiguration.TargetBlockState> leadTargetStates = List.of(
                 OreConfiguration.target(stoneReplaceable, CNBlocks.LEAD_ORE.get().defaultBlockState()),
                 OreConfiguration.target(deepslateReplaceable, CNBlocks.DEEPSLATE_LEAD_ORE.get().defaultBlockState())
         );
 
-        register(context, LEAD_ORE, Feature.ORE, new OreConfiguration(leadTargetStates, 7));
+        register(context, LEAD_ORE_KEY, Feature.ORE, new OreConfiguration(leadTargetStates, 7));
+
+        List<OreConfiguration.TargetBlockState> thoriumTargetStates = List.of(
+                OreConfiguration.target(stoneReplaceable, CNBlocks.THORIUM_ORE.get().defaultBlockState()),
+                OreConfiguration.target(deepslateReplaceable, CNBlocks.DEEPSLATE_THORIUM_ORE.get().defaultBlockState())
+        );
+
+        register(context, THORIUM_ORE_KEY, Feature.ORE, new OreConfiguration(thoriumTargetStates, 7));
+
 
         List<LayerPattern> overworldLayerPatterns = List.of(
                 CNLayerPatterns.AUTUNITE.get()

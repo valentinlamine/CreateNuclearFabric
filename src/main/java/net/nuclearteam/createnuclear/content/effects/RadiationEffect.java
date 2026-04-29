@@ -23,7 +23,7 @@ public class RadiationEffect extends MobEffect {
      * Also applies attribute modifiers to reduce speed, attack damage, and attack speed.
      */
     public RadiationEffect() {
-        super(MobEffectCategory.HARMFUL, 15453236); // Custom color (hex value)
+        super(MobEffectCategory.HARMFUL, 0x00FF33); // Custom color (hex value)
 
         // Reduces movement speed by 20%
         this.addAttributeModifier(Attributes.MOVEMENT_SPEED,
