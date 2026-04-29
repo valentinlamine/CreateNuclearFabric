@@ -15,6 +15,9 @@ import net.nuclearteam.createnuclear.content.contraptions.irradiated.cat.Irradia
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.chicken.IrradiatedChicken;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.chicken.IrradiatedChickenModel;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.chicken.IrradiatedChickenRenderer;
+import net.nuclearteam.createnuclear.content.contraptions.irradiated.cow.IrradiatedCow;
+import net.nuclearteam.createnuclear.content.contraptions.irradiated.cow.IrradiatedCowModel;
+import net.nuclearteam.createnuclear.content.contraptions.irradiated.cow.IrradiatedCowRenderer;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf.IrradiatedWolf;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf.IrradiatedWolfModel;
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf.IrradiatedWolfRenderer;
@@ -41,6 +44,16 @@ public class CNEntityType {
         .attributes(IrradiatedChicken::createAttributes)
         .register();
 
+    public static final EntityEntry<IrradiatedCow> IRRADIATED_COW = CreateNuclear.REGISTRATE
+        .entity("irradiated_cow", IrradiatedCow::new, MobCategory.CREATURE)
+        .loot((tb, e) -> tb.add(e, LootTable.lootTable()))
+        .tag(CNTags.CNEntityTypeTags.IRRADIATED_IMMUNE.tag)
+        .properties(b -> b.dimensions(EntityDimensions.scalable(0.4f, 0.7f)))
+        .lang("Irradiated Cow")
+        .renderer(() -> IrradiatedCowRenderer::new)
+        .attributes(IrradiatedCow::createAttributes)
+        .register();
+
     public static final EntityEntry<IrradiatedWolf> IRRADIATED_WOLF = CreateNuclear.REGISTRATE
         .entity("irradiated_wolf", IrradiatedWolf::new, MobCategory.CREATURE)
         .loot((tb, e) -> tb.add(e, LootTable.lootTable()))
@@ -57,6 +70,7 @@ public class CNEntityType {
         EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_CAT, IrradiatedCatModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_CHICKEN, IrradiatedChickenModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_WOLF, IrradiatedWolfModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(CNModelLayers.IRRADIATED_COW, IrradiatedCowModel::createBodyLayer);
     }
 
     public static void registerCNMod() {

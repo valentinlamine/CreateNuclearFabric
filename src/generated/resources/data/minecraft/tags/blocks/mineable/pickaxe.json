@@ -15,6 +15,7 @@
     "createnuclear:lead_block",
     "createnuclear:thorium_block",
     "createnuclear:steel_block",
+    "createnuclear:reactor_alarm",
     "createnuclear:reactor_output",
     "createnuclear:enriching_campfire",
     "createnuclear:reactor_controller",

@@ -28,6 +28,7 @@ import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.nuclearteam.createnuclear.content.enriching.campfire.EnrichingCampfireBlock;
 import net.nuclearteam.createnuclear.content.enriching.fire.EnrichingFireBlock;
 import net.nuclearteam.createnuclear.content.multiblock.casing.ReactorCasingBlock;
+import net.nuclearteam.createnuclear.content.multiblock.alarm.ReactorAlarm;
 import net.nuclearteam.createnuclear.content.multiblock.controller.ReactorControllerBlock;
 import net.nuclearteam.createnuclear.content.multiblock.controller.ReactorControllerGenerator;
 import net.nuclearteam.createnuclear.content.multiblock.cooler.ReactorCoolerBlock;
@@ -280,6 +281,14 @@ public class CNBlocks {
                     .tag(CNTags.forgeBlockTag("storage_blocks/steel"))
                     .register();
 
+        public static final BlockEntry<ReactorAlarm> REACTOR_ALARM =
+            CreateNuclear.REGISTRATE.block("reactor_alarm", ReactorAlarm::new)
+                    .properties(p -> p.explosionResistance(3F).destroyTime(4F))
+                    .initialProperties(SharedProperties::stone)
+                    .simpleItem()
+                    .transform(pickaxeOnly())
+                    .register();
+
     public static final BlockEntry<Block> ENRICHED_SOUL_SOIL =
             CreateNuclear.REGISTRATE.block("enriched_soul_soil", Block::new)
                     .initialProperties(CNBlocks::getSoulSoil)
@@ -467,7 +476,7 @@ public class CNBlocks {
 
     public static final BlockEntry<ReactorCasingBlock> REACTOR_CASING =
             CreateNuclear.REGISTRATE.block("reactor_casing", p -> new ReactorCasingBlock(p, ReactorCasingBlock.TypeBlock.CASING))
-                    .properties(p -> p.explosionResistance(3F).destroyTime(4F).sound(CNSounds.getSoundType("reactor_casing")))
+                    .properties(p -> p.explosionResistance(3F).destroyTime(4F))
                     .transform(pickaxeOnly())
                     .blockstate((c,p) ->
                         p.getVariantBuilder(c.getEntry()).forAllStates((state) -> ConfiguredModel.builder()

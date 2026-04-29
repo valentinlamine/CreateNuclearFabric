@@ -28,5 +28,11 @@
         "sounds": [
             "createnuclear:reactor_casing/fall"
         ]
+    },
+    "reactor_alarm": {
+        "subtitle": "subtitles.createnuclear.reactor_alarm",
+        "sounds": [
+            "createnuclear:reactor_alarm"
+        ]
     }
 }
