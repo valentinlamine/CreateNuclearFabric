@@ -6,6 +6,7 @@ import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.world.level.block.Block;
 import net.nuclearteam.createnuclear.content.enriching.campfire.EnrichingCampfireBlockEntity;
+import net.nuclearteam.createnuclear.content.multiblock.alarm.ReactorAlarmEntity;
 import net.nuclearteam.createnuclear.content.multiblock.casing.ReactorCasingBlockEntity;
 import net.nuclearteam.createnuclear.content.multiblock.controller.ReactorControllerBlockEntity;
 import net.nuclearteam.createnuclear.content.multiblock.core.ReactorCoreBlockEntity;
@@ -35,6 +36,11 @@ public class CNBlockEntityTypes {
                     .renderer(() -> ReactorOutputRenderer::new)
                     .register();
 
+        public static final BlockEntityEntry<ReactorAlarmEntity> REACTOR_ALARM =
+            CreateNuclear.REGISTRATE.blockEntity("reactor_alarm", ReactorAlarmEntity::new)
+                    .validBlocks(CNBlocks.REACTOR_ALARM)
+                    .register();
+
     public static final BlockEntityEntry<EnrichingCampfireBlockEntity> ENRICHING_CAMPFIRE_BLOCK =
             CreateNuclear.REGISTRATE.blockEntity("enriching_campfire_block", EnrichingCampfireBlockEntity::new)
                     .validBlocks(CNBlocks.ENRICHING_CAMPFIRE)
@@ -48,11 +54,6 @@ public class CNBlockEntityTypes {
     public static final BlockEntityEntry<ReactorCoreBlockEntity> REACTOR_CORE =
             CreateNuclear.REGISTRATE.blockEntity("reactor_core", ReactorCoreBlockEntity::new)
                     .validBlocks(CNBlocks.REACTOR_CORE)
-                    .register();
-
-    public static final BlockEntityEntry<ReactorCoreBlockEntity> REACTOR_ALARM =
-            CreateNuclear.REGISTRATE.blockEntity("reactor_alarm", ReactorCoreBlockEntity::new)
-                    .validBlocks(CNBlocks.REACTOR_ALARM)
                     .register();
 
     public static void register() {
