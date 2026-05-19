@@ -21,6 +21,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.nuclearteam.createnuclear.CNBlockEntityTypes;
+import net.nuclearteam.createnuclear.CNSoundEvents;
 
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.CNItems;
@@ -165,6 +166,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
             players.forEach(player -> player.sendSystemMessage(Component.translatable("reactor.info.assembled.creator").withStyle(ChatFormatting.GREEN)));
             level.setBlockAndUpdate(pos, state.setValue(ASSEMBLED, true));
             entity.created = true;
+            CNSoundEvents.REACTOR_ASSEMBLED.playAt(level, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, 1f, 1f, false);
             entity.destroyed = false;
         } else if (!patternFound && !create && !entity.destroyed) {
             players.forEach(player -> player.sendSystemMessage(Component.translatable("reactor.info.assembled.destroyer").withStyle(ChatFormatting.RED)));

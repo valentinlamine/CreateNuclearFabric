@@ -66,6 +66,11 @@ public class CNSoundEvents {
             .category(SoundSource.BLOCKS)
             .build(),
 
+        REACTOR_ASSEMBLED = create("reactor_assembled")
+            .subtitle("Reactor Assembled")
+            .category(SoundSource.BLOCKS)
+            .build(),
+
         NUCLEAR_EXPLOSION = create("nuclear_explosion")
             .subtitle("Nuclear Explosion")
             .category(SoundSource.AMBIENT)

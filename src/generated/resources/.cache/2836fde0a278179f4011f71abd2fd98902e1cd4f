@@ -1,4 +1,4 @@
-// 1.20.1	2026-05-19T14:50:54.8892453	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2026-05-19T15:18:15.2266723	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 4264bcbd283b0db714ef72fa85a11a14c9033aa8 data\c\tags\blocks\glass_blocks.json
 c9757e3fd9841ee17366b1d88563df6ea8106513 assets\createnuclear\models\block\lead_ore.json
 e3acc02d9c87edea70fb57e88e172209b2b17a3f assets\createnuclear\models\item\light_blue_anti_radiation_leggings.json
@@ -37,8 +37,8 @@ af14c1a038ff14285b1d78dfbcab0a8e44df14e5 assets\createnuclear\models\item\orange
 d5fb5ebfe991980abfd6f1932575363d026d8859 data\createnuclear\loot_tables\blocks\polished_cut_autunite_slab.json
 b5820f4051f471efa9b221712afe1070ed65de23 data\createnuclear\tags\items\uranium_ores.json
 ef76b3a3a97b5d1901d7e8ac17009381de418ab8 assets\createnuclear\models\item\reactor_blueprint_item.json
-63a629668c374e8fd66f018679913741a898502e data\c\tags\items\nuggets\steel.json
 66985b0b6ada3a7869e778b4e10203f7e732da4d data\c\tags\blocks\nitrate_ores.json
+63a629668c374e8fd66f018679913741a898502e data\c\tags\items\nuggets\steel.json
 ab2a2b6038a5f6d841ec21a28db2e5e693d7ee82 data\createnuclear\loot_tables\blocks\deepslate_nitrate_ore.json
 72f88d0ce0957c6e73603dc4c514dfb20798dbaa data\createnuclear\tags\blocks\fan_processing_catalysts\enriched.json
 9d026f604e81ba3a5519e6ab1d7ce21d7d37df83 data\c\tags\items\chestplates.json
@@ -222,8 +222,8 @@ fdc9cf972cf27ce343d4f098ddcdc9a4e19d2404 data\createnuclear\tags\fluids\uranium.
 34c28d31d8b93699cc6ffab724d9c51670c0f3e2 assets\createnuclear\models\item\deepslate_lead_ore.json
 f10bbdbab6112c58bebf2d98dc0ed3eb9370c09c assets\createnuclear\blockstates\lead_block.json
 0703dcb90ab1cbe58167c0872bd9e9950de99531 assets\createnuclear\models\item\pink_anti_radiation_helmet.json
-ed7fef54fcaf191778ffdb588ed62fa72ec892b4 assets\createnuclear\models\block\nitrate_ore.json
 9cd62ff9cbce5c4a5293c7bfcb9c8c35d68ea91e data\createnuclear\recipes\polished_cut_autunite_stairs_from_stone_types_autunite_stonecutting.json
+ed7fef54fcaf191778ffdb588ed62fa72ec892b4 assets\createnuclear\models\block\nitrate_ore.json
 e40db55eb02cdbedc6f4dc52786069c74b267ada data\createnuclear\recipes\cut_autunite_brick_wall_from_stone_types_autunite_stonecutting.json
 b7a56e4ac63519df8fcefb9b18a2583991bd9f34 assets\createnuclear\models\item\red_anti_radiation_helmet.json
 66985b0b6ada3a7869e778b4e10203f7e732da4d data\c\tags\items\nitrate_ores.json

@@ -1,4 +1,14 @@
 {
+  "reactor_assembled": {
+    "sounds": [
+      {
+        "name": "createnuclear:reactor_assembled",
+        "type": "file"
+      }
+    ]
+  }
+}
+{
     "reactor_casing_break": {
         "subtitle": "subtitles.createnuclear.reactor_casing_break",
         "sounds": [
