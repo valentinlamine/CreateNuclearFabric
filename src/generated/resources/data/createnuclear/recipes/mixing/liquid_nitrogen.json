@@ -1,0 +1,18 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "createnuclear:cooled_nitrogen_concentrate"
+    },
+    {
+      "item": "minecraft:ice"
+    }
+  ],
+  "processingTime": 20,
+  "results": [
+    {
+      "amount": 1000,
+      "fluid": "createnuclear:nitrogen"
+    }
+  ]
+}
