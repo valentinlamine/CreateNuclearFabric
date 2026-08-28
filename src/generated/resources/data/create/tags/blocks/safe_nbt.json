@@ -1,8 +1,6 @@
 {
   "replace": false,
   "values": [
-    "createnuclear:reactor_output",
-    "createnuclear:reactor_controller",
-    "createnuclear:reactor_input"
+    "createnuclear:reactor_output"
   ]
 }

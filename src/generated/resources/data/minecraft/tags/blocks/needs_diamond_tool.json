@@ -1,16 +1,20 @@
 {
   "replace": false,
   "values": [
-    "createnuclear:deepslate_uranium_ore",
-    "createnuclear:uranium_ore",
-    "createnuclear:raw_uranium_block",
-    "createnuclear:enriched_soul_soil",
+    "createnuclear:reactor_casing",
+    "createnuclear:reactor_core",
+    "createnuclear:reactor_frame",
+    "createnuclear:reactor_cooler",
+    "createnuclear:reactor_rod_input",
+    "createnuclear:reactor_fluid_input",
     "createnuclear:reactor_output",
     "createnuclear:reactor_controller",
-    "createnuclear:reactor_core",
-    "createnuclear:reactor_cooler",
-    "createnuclear:reactor_casing",
-    "createnuclear:reactor_frame",
-    "createnuclear:reactor_input"
+    "createnuclear:enriched_soul_soil",
+    "createnuclear:deepslate_uranium_ore",
+    "createnuclear:deepslate_thorium_ore",
+    "createnuclear:uranium_ore",
+    "createnuclear:thorium_ore",
+    "createnuclear:raw_uranium_block",
+    "createnuclear:raw_thorium_block"
   ]
 }

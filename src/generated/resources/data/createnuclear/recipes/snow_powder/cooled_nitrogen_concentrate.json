@@ -1,0 +1,13 @@
+{
+  "type": "createnuclear:snow_powder",
+  "ingredients": [
+    {
+      "item": "createnuclear:nitrogen_concentrate"
+    }
+  ],
+  "results": [
+    {
+      "item": "createnuclear:cooled_nitrogen_concentrate"
+    }
+  ]
+}

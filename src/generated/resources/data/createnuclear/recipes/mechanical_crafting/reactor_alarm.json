@@ -1,0 +1,28 @@
+{
+  "type": "create:mechanical_crafting",
+  "acceptMirrored": true,
+  "key": {
+    "C": {
+      "item": "createnuclear:reactor_casing"
+    },
+    "L": {
+      "item": "minecraft:clock"
+    },
+    "N": {
+      "item": "minecraft:note_block"
+    },
+    "R": {
+      "item": "minecraft:repeater"
+    }
+  },
+  "pattern": [
+    "CCCCC",
+    "CNRNC",
+    "CRLRC",
+    "CNRNC",
+    "CCCCC"
+  ],
+  "result": {
+    "item": "createnuclear:reactor_alarm"
+  }
+}

@@ -27,20 +27,22 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.api.registration.*;
 import mezz.jei.api.runtime.IIngredientManager;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.ItemLike;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.resources.ResourceLocation;
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.CNRecipeTypes;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.compat.jei.category.FanEnrichedCategoryJEI;
+import net.nuclearteam.createnuclear.compat.jei.category.FanSnowPowderCategoryJEI;
 import net.nuclearteam.createnuclear.content.kinetics.fan.processing.EnrichedRecipe;
-import net.nuclearteam.createnuclear.content.multiblock.bluePrintItem.ReactorBluePrintScreen;
+import net.nuclearteam.createnuclear.content.kinetics.fan.processing.SnowPowderRecipe;
+import net.nuclearteam.createnuclear.content.multiblock.bluePrintItem.ReactorBluePrintItemScreen;
 import net.nuclearteam.createnuclear.foundation.utility.CreateNuclearLang;
-import net.nuclearteam.createnuclear.infrastructure.config.CNConfigBase;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -65,7 +67,13 @@ public class CNJei implements IModPlugin {
                     .catalystStack(ProcessingViaFanCategory.getFan("fan_enriched"))
                     .doubleItemIcon(AllItems.PROPELLER.get(), CNBlocks.ENRICHING_CAMPFIRE.get())
                     .emptyBackground(178, 72)
-                    .build("fan_enriched", FanEnrichedCategoryJEI::new)
+                    .build("fan_enriched", FanEnrichedCategoryJEI::new),
+            snowPowder = builder(SnowPowderRecipe.class)
+                    .addTypedRecipes(CNRecipeTypes.SNOW_POWDER)
+                    .catalystStack(ProcessingViaFanCategory.getFan("fan_snow_powder"))
+                    .doubleItemIcon(AllItems.PROPELLER.get(), Items.POWDER_SNOW_BUCKET)
+                    .emptyBackground(178, 72)
+                    .build("fan_snow_powder", FanSnowPowderCategoryJEI::new)
        ;
     }
 
@@ -109,7 +117,7 @@ public class CNJei implements IModPlugin {
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
         registration.addGenericGuiContainerHandler(AbstractSimiContainerScreen.class, new SlotMover());
 
-        registration.addGhostIngredientHandler(ReactorBluePrintScreen.class, new GhostIngredientHandler());
+        registration.addGhostIngredientHandler(ReactorBluePrintItemScreen.class, new GhostIngredientHandler());
     }
 
     private class CategoryBuilder<T extends Recipe<?>> {
@@ -128,11 +136,6 @@ public class CNJei implements IModPlugin {
 
         public CategoryBuilder<T> enableIf(Predicate<CRecipes> predicate) {
             this.predicate = predicate;
-            return this;
-        }
-
-        public CategoryBuilder<T> enableWhen(Function<CRecipes, CNConfigBase.ConfigBool> configValue) {
-            predicate = c -> configValue.apply(c).get();
             return this;
         }
 

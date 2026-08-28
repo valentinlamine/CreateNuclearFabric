@@ -1,0 +1,6 @@
+{
+  "parent": "createnuclear:item/default_anti_radiation_leggings/item",
+  "textures": {
+    "14": "createnuclear:item/armors/lime_anti_radiation_suit"
+  }
+}

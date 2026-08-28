@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "createnuclear:nitrate_ore",
+    "createnuclear:deepslate_nitrate_ore"
+  ]
+}

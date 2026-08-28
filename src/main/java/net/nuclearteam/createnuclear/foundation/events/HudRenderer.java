@@ -1,7 +1,6 @@
 package net.nuclearteam.createnuclear.foundation.events;
 
 import net.minecraft.client.gui.GuiGraphics;
-import net.nuclearteam.createnuclear.foundation.events.overlay.EventTextOverlay;
 import net.nuclearteam.createnuclear.foundation.events.overlay.HelmetOverlay;
 import net.nuclearteam.createnuclear.foundation.events.overlay.HudOverlay;
 
@@ -13,9 +12,7 @@ import java.util.List;
  */
 public class HudRenderer {
     private final List<HudOverlay> overlays = List.of(
-            //new RadiationOverlay(),
-            new HelmetOverlay(),
-            new EventTextOverlay()
+            new HelmetOverlay()
     );
 
     /**

@@ -1,0 +1,19 @@
+{
+  "type": "create:mechanical_crafting",
+  "acceptMirrored": true,
+  "key": {
+    "U": {
+      "item": "createnuclear:thorium_ingot"
+    }
+  },
+  "pattern": [
+    "U    ",
+    " U   ",
+    "  U  ",
+    "   U ",
+    "    U"
+  ],
+  "result": {
+    "item": "createnuclear:thorium_rod"
+  }
+}

@@ -1,20 +1,22 @@
 package net.nuclearteam.createnuclear;
 
 import net.createmod.catnip.lang.Lang;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
+import net.minecraft.tags.TagKey;
+import net.minecraft.resources.ResourceLocation;
 
 import static net.nuclearteam.createnuclear.CNTags.NameSpace.MOD;
 
@@ -41,7 +43,7 @@ public class CNTags {
     public enum NameSpace {
         MOD(CreateNuclear.MOD_ID, false, true),
         CREATE("create"),
-        FORGE("f"),
+        FORGE("c"),
         FABRIC("c"),
         MINECRAFT("minecraft")
         ;
@@ -62,6 +64,8 @@ public class CNTags {
 
     public enum CNFluidTags {
         URANIUM,
+        THORIUM,
+        NITROGEN,
         ;
 
         public final TagKey<Fluid> tag;
@@ -101,7 +105,9 @@ public class CNTags {
 
     public enum CNBlockTags {
         FAN_PROCESSING_CATALYSTS_ENRICHED("fan_processing_catalysts/enriched"),
-        ENRICHING_FIRE_BASE_BLOCKS("uranium_fire_base_blocks"),
+        FAN_PROCESSING_CATALYSTS_SNOW_POWDER("fan_processing_catalysts/snow_powder"),
+        ENRICHING_FIRE_BASE_BLOCKS,
+        ALL_CAMPFIRES(NameSpace.MINECRAFT, "all/campfires"),
         ;
         public final TagKey<Block> tag;
         public final boolean alwaysDatagen;
@@ -151,15 +157,9 @@ public class CNTags {
         CLOTH,
         FUEL,
         COOLER,
-        ANTI_RADIATION_HELMET_DYE,
-        ANTI_RADIATION_CHESTPLATE_DYE,
-        ANTI_RADIATION_LEGGINGS_DYE,
-        ANTI_RADIATION_BOOTS_DYE,
         ANTI_RADIATION_ARMOR,
+        COMPOSTABLE(NameSpace.FORGE),
         ALL_ANTI_RADIATION_ARMORS,
-        ANTI_RADIATION_HELMET_FULL_DYE,
-        ANTI_RADIATION_CHESTPLATE_FULL_DYE,
-        ANTI_RADIATION_LEGGINGS_FULL_DYE,
         ;
 
         public final TagKey<Item> tag;
@@ -176,7 +176,7 @@ public class CNTags {
         CNItemTags(NameSpace nameSpace, String path) {
             this(nameSpace, nameSpace.optionalDefault, nameSpace.alwaysDatagenDefault);
         }
-        
+
         CNItemTags(NameSpace nameSpace, boolean optional, boolean alwaysDatagen) {
             this(nameSpace, null, optional, alwaysDatagen);
         }
@@ -250,11 +250,32 @@ public class CNTags {
     }
 
 
+    public enum CNRecipeSerializerTags {
+        AUTOMATION_IGNORE;
+
+        public final TagKey<RecipeSerializer<?>> tag;
+        public final boolean alwaysDatagen;
+
+        CNRecipeSerializerTags() {
+            ResourceLocation id = new ResourceLocation(CreateNuclear.MOD_ID, Lang.asId(name()));
+            tag = optionalTag(BuiltInRegistries.RECIPE_SERIALIZER, id);
+            alwaysDatagen = true;
+        }
+
+        public boolean matches(RecipeSerializer<?> recipeSerializer) {
+            ResourceKey<RecipeSerializer<?>> key = BuiltInRegistries.RECIPE_SERIALIZER.getResourceKey(recipeSerializer).orElseThrow();
+            return BuiltInRegistries.RECIPE_SERIALIZER.getHolder(key).orElseThrow().is(tag);
+        }
+
+        private static void init() {}
+    }
+
     public static void register() {
         CreateNuclear.LOGGER.info("Registering mod tags for " + CreateNuclear.MOD_ID);
         CNFluidTags.init();
         CNBlockTags.init();
         CNItemTags.init();
         CNEntityTypeTags.init();
+        CNRecipeSerializerTags.init();
     }
 }

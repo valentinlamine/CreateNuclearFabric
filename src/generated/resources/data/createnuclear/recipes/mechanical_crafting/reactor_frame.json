@@ -3,7 +3,7 @@
   "acceptMirrored": true,
   "key": {
     "B": {
-      "item": "createnuclear:uranium_bucket"
+      "item": "minecraft:bucket"
     },
     "C": {
       "item": "createnuclear:reactor_casing"

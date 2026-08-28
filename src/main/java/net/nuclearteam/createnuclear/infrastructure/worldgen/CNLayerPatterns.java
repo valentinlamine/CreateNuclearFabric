@@ -7,38 +7,23 @@ import net.minecraft.world.level.block.Blocks;
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.content.decoration.palettes.CNPaletteStoneTypes;
 
-@SuppressWarnings("unused")
-public enum CNLayerPatterns {
-    AUTUNITE(LayerPattern.builder()
-        .layer(l -> l.weight(2)
-            .block(CNPaletteStoneTypes.AUTUNITE.getBaseBlock())
-            .size(2, 5))
-        .layer(l -> l.weight(1)
-            .block(AllPaletteStoneTypes.LIMESTONE.getBaseBlock())
-            .size(1, 2))
-        .layer(l -> l.weight(1)
-            .block(Blocks.CALCITE)
-            .size(2, 3))
-        .layer(l -> l.weight(1)
-            .passiveBlock()
-            .size(2, 2))
-        .layer(l -> l.weight(1)
-            .blocks(CNBlocks.URANIUM_ORE.get(), CNBlocks.DEEPSLATE_URANIUM_ORE.get())
-            .size(1, 1))),
-    ;
-
-    private final NonNullSupplier<LayerPattern> layerPattern;
-
-    CNLayerPatterns(NonNullSupplier<LayerPattern> pattern) {
-        this.layerPattern = pattern;
-    }
-
-
-    CNLayerPatterns(LayerPattern.Builder pattern) {
-        this.layerPattern = pattern::build;
-    }
-
-    public LayerPattern get() {
-        return layerPattern.get();
-    }
+public class CNLayerPatterns {
+    public static final NonNullSupplier<LayerPattern>
+        AUTUNITE = () -> LayerPattern.builder()
+            .layer(l -> l.weight(2)
+                .block(CNPaletteStoneTypes.AUTUNITE.getBaseBlock())
+                .size(2, 5))
+            .layer(l -> l.weight(1)
+                .block(AllPaletteStoneTypes.LIMESTONE.getBaseBlock())
+                .size(1, 2))
+            .layer(l -> l.weight(1)
+                .block(Blocks.CALCITE)
+                .size(2, 3))
+            .layer(l -> l.weight(1)
+                .passiveBlock()
+                .size(2, 2))
+            .layer(l -> l.weight(1)
+                .blocks(CNBlocks.URANIUM_ORE.get(), CNBlocks.DEEPSLATE_URANIUM_ORE.get())
+                .size(1, 1))
+            .build();
 }

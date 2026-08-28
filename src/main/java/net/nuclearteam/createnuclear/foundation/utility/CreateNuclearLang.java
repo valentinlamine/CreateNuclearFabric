@@ -4,10 +4,10 @@ import io.github.fabricators_of_create.porting_lib.fluids.FluidStack;
 import net.createmod.catnip.lang.Lang;
 import net.createmod.catnip.lang.LangBuilder;
 import net.createmod.catnip.lang.LangNumberFormat;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Component;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class CreateNuclearLang extends Lang {
     }
 
     public static LangBuilder itemName(ItemStack stack) {
-        return builder().add(stack.getHoverName()
+        return builder().add(stack.getName()
                 .copy());
     }
 

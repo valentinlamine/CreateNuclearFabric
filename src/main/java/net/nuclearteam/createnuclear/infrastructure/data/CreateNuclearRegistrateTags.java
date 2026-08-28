@@ -6,14 +6,14 @@ import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.ProviderType;
 import com.tterrag.registrate.providers.RegistrateTagsProvider;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.item.Item;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.material.Fluid;
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.CNEntityType;
 import net.nuclearteam.createnuclear.CNTags;
@@ -39,7 +39,7 @@ public class CreateNuclearRegistrateTags {
     }
 
     private static void genBlocksTags(RegistrateTagsProvider<Block> provIn) {
-        TagGen.CreateTagsProvider<Block> prov = new TagGen.CreateTagsProvider<>(provIn, Block::builtInRegistryHolder);
+        TagGen.CreateTagsProvider<Block> prov = new TagGen.CreateTagsProvider<>(provIn, Block::getRegistryEntry);
 
         prov.tag(BlockTags.CAMPFIRES)
             .add(CNBlocks.ENRICHING_CAMPFIRE.get())
@@ -53,6 +53,10 @@ public class CreateNuclearRegistrateTags {
             .add(CNBlocks.ENRICHING_FIRE.get())
         ;
 
+        prov.tag(CNBlockTags.FAN_PROCESSING_CATALYSTS_SNOW_POWDER.tag)
+            .add(Blocks.POWDER_SNOW)
+        ;
+
 
         for (CNBlockTags tag : CNBlockTags.values()) {
             if (tag.alwaysDatagen) {
@@ -62,7 +66,7 @@ public class CreateNuclearRegistrateTags {
     }
 
     private static void genItemTags(RegistrateTagsProvider<Item> provIn) {
-        TagGen.CreateTagsProvider<Item> prov = new TagGen.CreateTagsProvider<>(provIn, Item::builtInRegistryHolder);
+        TagGen.CreateTagsProvider<Item> prov = new TagGen.CreateTagsProvider<>(provIn, Item::getRegistryEntry);
 
         for (CNItemTags tag : CNItemTags.values()) {
             if (tag.alwaysDatagen) {
@@ -72,7 +76,7 @@ public class CreateNuclearRegistrateTags {
     }
 
     private static void genFluidTags(RegistrateTagsProvider<Fluid> provider) {
-        TagGen.CreateTagsProvider<Fluid> prov = new TagGen.CreateTagsProvider<>(provider, Fluid::builtInRegistryHolder);
+        TagGen.CreateTagsProvider<Fluid> prov = new TagGen.CreateTagsProvider<>(provider, Fluid::getRegistryEntry);
 
         prov.tag(CNTags.forgeFluidTag("uranium"))
                 .addTag(CNFluidTags.URANIUM.tag)
@@ -89,7 +93,7 @@ public class CreateNuclearRegistrateTags {
     }
 
     private static void genEntityTags(RegistrateTagsProvider<EntityType<?>> provIn) {
-        TagGen.CreateTagsProvider<EntityType<?>> prov = new TagGen.CreateTagsProvider<>(provIn, EntityType::builtInRegistryHolder);
+        TagGen.CreateTagsProvider<EntityType<?>> prov = new TagGen.CreateTagsProvider<>(provIn, EntityType::getRegistryEntry);
 
         prov.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE)
             .add(CNEntityType.IRRADIATED_CAT.get())

@@ -1,0 +1,54 @@
+package net.nuclearteam.createnuclear.content.contraptions.irradiated.cat;
+
+import javax.annotation.ParametersAreNonnullByDefault;
+import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelReader;
+import java.util.EnumSet;
+
+@ParametersAreNonnullByDefault
+public class CatLieOnBedGoal extends MoveToBlockGoal {
+    private final IrradiatedCat cat;
+
+    public CatLieOnBedGoal(IrradiatedCat cat, double speedModifier, int searchRange) {
+        super(cat, speedModifier, searchRange, 6);
+        this.cat = cat;
+        this.lowestY = -2;
+        this.setControls(EnumSet.of(Control.JUMP, Control.MOVE));
+    }
+
+    public boolean canUse() {
+        return this.cat.isTame() && !this.cat.isInSittingPose() && !this.cat.isLying() && super.canUse();
+    }
+
+    public void start() {
+        super.start();
+        this.cat.setInSittingPose(false);
+    }
+
+    protected int getInterval(PathfinderMob creature) {
+        return 40;
+    }
+
+    public void stop() {
+        super.stop();
+        this.cat.setLying(false);
+    }
+
+    public void tick() {
+        super.tick();
+        this.cat.setInSittingPose(false);
+        if (!this.hasReached()) {
+            this.cat.setLying(false);
+        } else if (!this.cat.isLying()) {
+            this.cat.setLying(true);
+        }
+
+    }
+
+    protected boolean isTargetPos(LevelReader level, BlockPos pos) {
+        return level.isAir(pos.up()) && level.getBlockState(pos).is(BlockTags.BEDS);
+    }
+}

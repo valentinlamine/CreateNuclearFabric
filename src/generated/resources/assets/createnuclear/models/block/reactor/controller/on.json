@@ -1,0 +1,7 @@
+{
+  "parent": "createnuclear:block/reactor/controller/block",
+  "textures": {
+    "1": "createnuclear:block/reactor/controller/controller_panel_on",
+    "particle": "createnuclear:block/reactor/controller/controller_panel_on"
+  }
+}

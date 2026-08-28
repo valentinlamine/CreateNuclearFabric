@@ -1,0 +1,104 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "createnuclear:item/colored/white_anti_radiation_leggings",
+      "predicate": {
+        "createnuclear:cloth_color": 0.0625
+      }
+    },
+    {
+      "model": "createnuclear:item/colored/orange_anti_radiation_leggings",
+      "predicate": {
+        "createnuclear:cloth_color": 0.125
+      }
+    },
+    {
+      "model": "createnuclear:item/colored/magenta_anti_radiation_leggings",
+      "predicate": {
+        "createnuclear:cloth_color": 0.1875
+      }
+    },
+    {
+      "model": "createnuclear:item/colored/light_blue_anti_radiation_leggings",
+      "predicate": {
+        "createnuclear:cloth_color": 0.25
+      }
+    },
+    {
+      "model": "createnuclear:item/colored/yellow_anti_radiation_leggings",
+      "predicate": {
+        "createnuclear:cloth_color": 0.3125
+      }
+    },
+    {
+      "model": "createnuclear:item/colored/lime_anti_radiation_leggings",
+      "predicate": {
+        "createnuclear:cloth_color": 0.375
+      }
+    },
+    {
+      "model": "createnuclear:item/colored/pink_anti_radiation_leggings",
+      "predicate": {
+        "createnuclear:cloth_color": 0.4375
+      }
+    },
+    {
+      "model": "createnuclear:item/colored/gray_anti_radiation_leggings",
+      "predicate": {
+        "createnuclear:cloth_color": 0.5
+      }
+    },
+    {
+      "model": "createnuclear:item/colored/light_gray_anti_radiation_leggings",
+      "predicate": {
+        "createnuclear:cloth_color": 0.5625
+      }
+    },
+    {
+      "model": "createnuclear:item/colored/cyan_anti_radiation_leggings",
+      "predicate": {
+        "createnuclear:cloth_color": 0.625
+      }
+    },
+    {
+      "model": "createnuclear:item/colored/purple_anti_radiation_leggings",
+      "predicate": {
+        "createnuclear:cloth_color": 0.6875
+      }
+    },
+    {
+      "model": "createnuclear:item/colored/blue_anti_radiation_leggings",
+      "predicate": {
+        "createnuclear:cloth_color": 0.75
+      }
+    },
+    {
+      "model": "createnuclear:item/colored/brown_anti_radiation_leggings",
+      "predicate": {
+        "createnuclear:cloth_color": 0.8125
+      }
+    },
+    {
+      "model": "createnuclear:item/colored/green_anti_radiation_leggings",
+      "predicate": {
+        "createnuclear:cloth_color": 0.875
+      }
+    },
+    {
+      "model": "createnuclear:item/colored/red_anti_radiation_leggings",
+      "predicate": {
+        "createnuclear:cloth_color": 0.9375
+      }
+    },
+    {
+      "model": "createnuclear:item/colored/black_anti_radiation_leggings",
+      "predicate": {
+        "createnuclear:cloth_color": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "createnuclear:item/armors/default_anti_radiation_leggings"
+  }
+}

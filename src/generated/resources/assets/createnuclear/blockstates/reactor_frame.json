@@ -1,16 +1,16 @@
 {
   "variants": {
     "part=end": {
-      "model": "createnuclear:block/reactor_frame/reactor_frame_bottom"
+      "model": "createnuclear:block/reactor/frame/frame_bottom"
     },
     "part=middle": {
-      "model": "createnuclear:block/reactor_frame/reactor_frame_middle"
+      "model": "createnuclear:block/reactor/frame/frame_middle"
     },
     "part=none": {
-      "model": "createnuclear:block/reactor_frame/reactor_frame_none"
+      "model": "createnuclear:block/reactor/frame/frame_none"
     },
     "part=start": {
-      "model": "createnuclear:block/reactor_frame/reactor_frame_top"
+      "model": "createnuclear:block/reactor/frame/frame_top"
     }
   }
 }

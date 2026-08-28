@@ -1,5 +1,5 @@
 {
-  "parent": "createnuclear:reactor_casing",
+  "parent": "createnuclear:reactor_core",
   "criteria": {
     "0": {
       "conditions": {

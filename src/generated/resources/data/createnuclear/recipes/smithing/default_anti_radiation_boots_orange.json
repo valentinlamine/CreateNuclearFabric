@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "createnuclear:orange_cloth"
+  },
+  "base": {
+    "item": "createnuclear:default_anti_radiation_boots"
+  },
+  "result": {
+    "item": "createnuclear:default_anti_radiation_boots"
+  },
+  "template": []
+}

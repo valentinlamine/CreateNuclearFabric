@@ -1,0 +1,7 @@
+{
+  "parent": "createnuclear:item/default_anti_radiation_helmet/item",
+  "textures": {
+    "layer0": "createnuclear:item/armors/lime_anti_radiation_suit",
+    "particle": "createnuclear:item/armors/lime_anti_radiation_suit"
+  }
+}

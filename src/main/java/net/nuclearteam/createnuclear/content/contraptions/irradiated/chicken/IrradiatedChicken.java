@@ -1,28 +1,41 @@
 package net.nuclearteam.createnuclear.content.contraptions.irradiated.chicken;
 
-import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.FollowParentGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-
+import net.minecraft.world.level.Level;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.nuclearteam.createnuclear.CNEntityType;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,18 +65,18 @@ public class IrradiatedChicken extends Animal {
     }
 
     @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.4));
-        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0, FOOD_ITEMS, false));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+    protected void initGoals() {
+        this.goalSelector.add(0, new FloatGoal(this));
+        this.goalSelector.add(1, new PanicGoal(this, 1.4));
+        this.goalSelector.add(2, new BreedGoal(this, 1.0));
+        this.goalSelector.add(3, new TemptGoal(this, 1.0, FOOD_ITEMS, false));
+        this.goalSelector.add(4, new FollowParentGoal(this, 1.1));
+        this.goalSelector.add(5, new WaterAvoidingRandomStrollGoal(this, 1.0));
+        this.goalSelector.add(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.add(7, new RandomLookAroundGoal(this));
     }
     @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
+    protected float getActiveEyeHeight(Pose pose, EntityDimensions dimensions) {
         return this.isBaby() ? dimensions.height * 0.85F : dimensions.height * 0.92F;
     }
 
@@ -73,8 +86,8 @@ public class IrradiatedChicken extends Animal {
                 .add(Attributes.MOVEMENT_SPEED, 0.25);
     }
     @Override
-    public void aiStep() {
-        super.aiStep();
+    public void tickMovement() {
+        super.tickMovement();
         this.oFlap = this.flap;
         this.oFlapSpeed = this.flapSpeed;
         this.flapSpeed += (this.onGround() ? -1.0F : 4.0F) * 0.3F;
@@ -84,59 +97,59 @@ public class IrradiatedChicken extends Animal {
         }
 
         this.flapping *= 0.9F;
-        Vec3 vec3 = this.getDeltaMovement();
+        Vec3 vec3 = this.getVelocity();
         if (!this.onGround() && vec3.y < 0.0) {
-            this.setDeltaMovement(vec3.multiply(1.0, 0.6, 1.0));
+            this.setVelocity(vec3.multiply(1.0, 0.6, 1.0));
         }
 
         this.flap += this.flapping * 2.0F;
         if (!this.level().isClientSide && this.isAlive() && !this.isBaby() && !this.isChickenJockey() && --this.eggTime <= 0) {
-            this.playSound(SoundEvents.CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-            this.spawnAtLocation(Items.EGG);
-            this.gameEvent(GameEvent.ENTITY_PLACE);
+            this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+            this.dropItem(Items.EGG);
+            this.emitGameEvent(GameEvent.ENTITY_PLACE);
             this.eggTime = this.random.nextInt(6000) + 6000;
         }
 
     }
     @Override
-    protected boolean isFlapping() {
-        return this.flyDist > this.nextFlap;
+    protected boolean isFlappingWings() {
+        return this.speed > this.nextFlap;
     }
     @Override
-    protected void onFlap() {
-        this.nextFlap = this.flyDist + this.flapSpeed / 2.0F;
+    protected void addFlapEffects() {
+        this.nextFlap = this.speed + this.flapSpeed / 2.0F;
     }
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.CHICKEN_AMBIENT;
+        return SoundEvents.ENTITY_CHICKEN_AMBIENT;
     }
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return SoundEvents.CHICKEN_HURT;
+        return SoundEvents.ENTITY_CHICKEN_HURT;
     }
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.CHICKEN_DEATH;
+        return SoundEvents.ENTITY_CHICKEN_DEATH;
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.CHICKEN_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.ENTITY_CHICKEN_STEP, 0.15F, 1.0F);
     }
 
     @Nullable
-    public IrradiatedChicken getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
+    public IrradiatedChicken createChild(ServerLevel level, AgeableMob otherParent) {
         return CNEntityType.IRRADIATED_CHICKEN.create(level);
     }
 
     @Override
-    public boolean isFood(ItemStack stack) {
+    public boolean isBreedingItem(ItemStack stack) {
         return FOOD_ITEMS.test(stack);
     }
 
     @Override
-    public int getExperienceReward() {
-        return this.isChickenJockey() ? 10 : super.getExperienceReward();
+    public int getXpToDrop() {
+        return this.isChickenJockey() ? 10 : super.getXpToDrop();
     }
 
     @Override
@@ -157,7 +170,7 @@ public class IrradiatedChicken extends Animal {
     }
 
     @Override
-    public boolean removeWhenFarAway(double distanceToClosestPlayer) {
+    public boolean canImmediatelyDespawn(double distanceToClosestPlayer) {
         return this.isChickenJockey();
     }
 

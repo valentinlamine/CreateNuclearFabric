@@ -1,0 +1,64 @@
+{
+  "parent": "createnuclear:anti_radiation_armor",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:player",
+              "equipment": {
+                "chest": {
+                  "items": [
+                    "createnuclear:default_anti_radiation_chestplate"
+                  ]
+                },
+                "feet": {
+                  "items": [
+                    "createnuclear:default_anti_radiation_boots"
+                  ]
+                },
+                "head": {
+                  "items": [
+                    "createnuclear:default_anti_radiation_helmet"
+                  ]
+                },
+                "legs": {
+                  "items": [
+                    "createnuclear:default_anti_radiation_leggings"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "color": "#DBA213",
+      "translate": "advancement.createnuclear.avoiding_cancer.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "createnuclear:default_anti_radiation_helmet",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.createnuclear.avoiding_cancer"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

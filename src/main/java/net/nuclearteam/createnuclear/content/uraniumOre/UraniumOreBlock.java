@@ -1,31 +1,31 @@
 package net.nuclearteam.createnuclear.content.uraniumOre;
 
 import com.tterrag.registrate.util.nullness.NonNullUnaryOperator;
-import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.phys.BlockHitResult;
 import org.joml.Vector3f;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -35,25 +35,25 @@ public class UraniumOreBlock extends Block {
 
     public UraniumOreBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.defaultBlockState().setValue(LIT, false));
+        this.setDefaultState(this.defaultBlockState().setValue(LIT, false));
     }
 
     @Override
-    public void attack(BlockState state, Level level, BlockPos pos, Player player) {
+    public void onBlockBreakStart(BlockState state, Level level, BlockPos pos, Player player) {
         interact(state, level, pos);
-        super.attack(state, level, pos, player);
+        super.onBlockBreakStart(state, level, pos, player);
     }
 
     @Override
-    public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
-        if (!entity.isSteppingCarefully()) {
+    public void onSteppedOn(Level level, BlockPos pos, BlockState state, Entity entity) {
+        if (!entity.bypassesSteppingEffects()) {
             interact(state, level, pos);
         }
-        super.stepOn(level, pos, state, entity);
+        super.onSteppedOn(level, pos, state, entity);
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult onUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (level.isClientSide) {
             spawnParticles(level, pos);
         } else {
@@ -74,7 +74,7 @@ public class UraniumOreBlock extends Block {
     }
 
     @Override
-    public boolean isRandomlyTicking(BlockState state) {
+    public boolean hasRandomTicks(BlockState state) {
         return state.getValue(LIT);
     }
 
@@ -86,16 +86,16 @@ public class UraniumOreBlock extends Block {
     }
 
     @Override
-    public void spawnAfterBreak(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean dropExperience) {
-        super.spawnAfterBreak(state, level, pos, stack, dropExperience);
-        if (dropExperience && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0) {
+    public void onStacksDropped(BlockState state, ServerLevel level, BlockPos pos, ItemStack stack, boolean dropExperience) {
+        super.onStacksDropped(state, level, pos, stack, dropExperience);
+        if (dropExperience && EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) == 0) {
             int i = 1 + level.random.nextInt(5);
-            this.popExperience(level, pos, i);
+            this.dropExperience(level, pos, i);
         }
     }
 
     @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+    public void randomDisplayTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (state.getValue(LIT)) {
             UraniumOreBlock.spawnParticles(level, pos);
         }
@@ -105,12 +105,12 @@ public class UraniumOreBlock extends Block {
         double d = 0.5625;
         RandomSource randomSource = level.random;
         for (Direction direction : Direction.values()) {
-            BlockPos blockPos = pos.relative(direction);
-            if (level.getBlockState(blockPos).isSolidRender(level, blockPos)) continue;
+            BlockPos blockPos = pos.offset(direction);
+            if (level.getBlockState(blockPos).isOpaqueFullCube(level, blockPos)) continue;
             Direction.Axis axis = direction.getAxis();
-            double e = axis == Direction.Axis.X ? 0.5 + 0.5625 * (double)direction.getStepX() : (double)randomSource.nextFloat();
-            double f = axis == Direction.Axis.Y ? 0.5 + 0.5625 * (double)direction.getStepY() : (double)randomSource.nextFloat();
-            double g = axis == Direction.Axis.Z ? 0.5 + 0.5625 * (double)direction.getStepZ() : (double)randomSource.nextFloat();
+            double e = axis == Direction.Axis.X ? 0.5 + 0.5625 * (double)direction.getOffsetX() : (double)randomSource.nextFloat();
+            double f = axis == Direction.Axis.Y ? 0.5 + 0.5625 * (double)direction.getOffsetY() : (double)randomSource.nextFloat();
+            double g = axis == Direction.Axis.Z ? 0.5 + 0.5625 * (double)direction.getOffsetZ() : (double)randomSource.nextFloat();
             level.addParticle(new DustParticleOptions(new Vector3f(57f / 255f, 191f / 255f, 82f / 255f), 1f), (double)pos.getX() + e, (double)pos.getY() + f, (double)pos.getZ() + g, 0.0, 0.0, 0.0);
         }
     }
@@ -121,6 +121,6 @@ public class UraniumOreBlock extends Block {
     }
 
     public static NonNullUnaryOperator<Properties> litBlockEmission() {
-        return p -> p.lightLevel(state -> state.getValue(LIT) ? 9 : 0);
+        return p -> p.luminance(state -> state.getValue(LIT) ? 9 : 0);
     }
 }

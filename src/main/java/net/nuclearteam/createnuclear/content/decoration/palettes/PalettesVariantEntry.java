@@ -8,12 +8,11 @@ import com.tterrag.registrate.providers.ProviderType;
 import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.tags.TagKey;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
 import static com.simibubi.create.foundation.data.CreateRegistrate.connectedTextures;
@@ -51,8 +50,6 @@ public class PalettesVariantEntry {
 
             itemBuilder.tag(paletteStoneVariants.materialTag);
 
-            if (pattern.isTranslucent())
-                builder.addLayer(() -> RenderType::translucent);
             pattern.createCTBehaviour(name)
                     .ifPresent(b -> builder.onRegister(connectedTextures(b)));
 

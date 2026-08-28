@@ -2,7 +2,6 @@ package net.nuclearteam.createnuclear.compat.archEx;
 
 import net.createmod.catnip.lang.Lang;
 import net.minecraft.world.level.material.MapColor;
-
 import java.util.HashMap;
 import java.util.Map;
 

@@ -15,5 +15,17 @@
 
   "item.minecraft.tipped_arrow.effect.potion_of_radiation_1": "Arrow of Radiation",
   "item.minecraft.tipped_arrow.effect.potion_of_radiation_augment_1": "Arrow of Radiation",
-  "item.minecraft.tipped_arrow.effect.potion_of_radiation_2": "Arrow of Radiation"
+  "item.minecraft.tipped_arrow.effect.potion_of_radiation_2": "Arrow of Radiation",
+
+  "effect.createnuclear.iodine": "Iodine",
+
+  "item.minecraft.potion.effect.potion_of_iodine": "Potion of Iodine",
+  "item.minecraft.splash_potion.effect.potion_of_iodine": "Splash Potion of Iodine",
+  "item.minecraft.lingering_potion.effect.potion_of_iodine": "Lingering Potion of Iodine",
+  "item.minecraft.tipped_arrow.effect.potion_of_iodine": "Arrow of Iodine",
+
+  "item.minecraft.potion.effect.potion_of_iodine_augment": "Potion of Iodine",
+  "item.minecraft.splash_potion.effect.potion_of_iodine_augment": "Splash Potion of Iodine",
+  "item.minecraft.lingering_potion.effect.potion_of_iodine_augment": "Lingering Potion of Iodine",
+  "item.minecraft.tipped_arrow.effect.potion_of_iodine_augment": "Arrow of Iodine"
 }

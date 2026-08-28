@@ -1,9 +1,11 @@
 package net.nuclearteam.createnuclear.infrastructure.config;
 
-public class CExplode extends CNConfigBase {
-    public final ConfigFloat size = f(10, 0, "Size of the reactor explosion");
+import net.createmod.catnip.config.ConfigBase;
+
+public class CExplode extends ConfigBase {
+    public final ConfigInt size = i(10, "Explosion size (radius in blocks)");
     public final ConfigInt type = i(1, 0, 2, "Type of explosion", Comments.type);
-    public final ConfigInt time = i(600, 100, 1200, "Duration before exploration", Comments.explosionTime, Comments.hintExplosion);
+    public final ConfigInt time = i(600, 100, 1200, "Delay before explosion (ticks)", Comments.explosionTime, Comments.hintExplosion);
 
     @Override
     public String getName() {
@@ -11,8 +13,8 @@ public class CExplode extends CNConfigBase {
     }
 
     private static class Comments {
-        static String explosionTime = "Create Nuclear Explosion Time";
-        static String hintExplosion = "300 ticks = 15 seconds";
-        static String type = "Explanation: 0 = no explosion, 1 = current explosion, 2 = new explosion.";
+        static String explosionTime = "Delay before the nuclear explosion (in ticks).";
+        static String hintExplosion = "300 ticks = 15 seconds.";
+        static String type = "0 = none, 1 = current explosion behavior, 2 = alternative explosion behavior.";
     }
 }

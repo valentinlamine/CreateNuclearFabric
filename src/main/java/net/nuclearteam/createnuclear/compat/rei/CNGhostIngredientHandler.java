@@ -1,12 +1,7 @@
 package net.nuclearteam.createnuclear.compat.rei;
 
 import com.simibubi.create.AllPackets;
-import com.simibubi.create.compat.rei.GhostIngredientHandler;
-import com.simibubi.create.content.equipment.blueprint.BlueprintScreen;
-import com.simibubi.create.content.logistics.filter.AbstractFilterScreen;
 import com.simibubi.create.content.logistics.filter.AttributeFilterScreen;
-import com.simibubi.create.content.redstone.link.controller.LinkedControllerScreen;
-import com.simibubi.create.content.trains.schedule.ScheduleScreen;
 import com.simibubi.create.foundation.gui.menu.AbstractSimiContainerScreen;
 import com.simibubi.create.foundation.gui.menu.GhostItemMenu;
 import com.simibubi.create.foundation.gui.menu.GhostItemSubmitPacket;
@@ -22,7 +17,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.nuclearteam.createnuclear.content.multiblock.bluePrintItem.ReactorBluePrintScreen;
+import net.nuclearteam.createnuclear.content.multiblock.bluePrintItem.ReactorBluePrintItemScreen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +28,12 @@ public class CNGhostIngredientHandler<T extends GhostItemMenu<?>>
         implements DraggableStackVisitor<AbstractSimiContainerScreen<T>> {
 
     @Override
-	public DraggedAcceptorResult acceptDraggedStack(DraggingContext<AbstractSimiContainerScreen<T>> context, DraggableStack stack) {
-		Stream<BoundsProvider> bounds = getDraggableAcceptingBounds(context, stack);
-		Point cursor = context.getCurrentPosition();
-		if (cursor != null) {
-			int x = cursor.getX();
-			int y = cursor.getY();
+    public DraggedAcceptorResult acceptDraggedStack(DraggingContext<AbstractSimiContainerScreen<T>> context, DraggableStack stack) {
+        Stream<BoundsProvider> bounds = getDraggableAcceptingBounds(context, stack);
+        Point cursor = context.getCurrentPosition();
+        if (cursor != null) {
+            int x = cursor.getX();
+            int y = cursor.getY();
             Optional<BoundsProvider> target = bounds.filter(b -> {
                 AABB box = b.bounds().bounds();
                 double minX = box.minX;
@@ -46,43 +41,43 @@ public class CNGhostIngredientHandler<T extends GhostItemMenu<?>>
                 double maxX = box.maxX;
                 double maxY = box.maxY;
                 return x >= minX && x <= maxX && y >= minY && y <= maxY && b instanceof GhostTarget;
-			}).findFirst();
-			if (target.isPresent() && target.get() instanceof GhostTarget ghost) {
-				Object held = stack.getStack().getValue();
-				if (held instanceof ItemStack item) {
-					ghost.accept(item);
-					return DraggedAcceptorResult.CONSUMED;
-				}
-			}
-		}
-		return DraggableStackVisitor.super.acceptDraggedStack(context, stack);
-	}
+            }).findFirst();
+            if (target.isPresent() && target.get() instanceof GhostTarget ghost) {
+                Object held = stack.getStack().getValue();
+                if (held instanceof ItemStack item) {
+                    ghost.accept(item);
+                    return DraggedAcceptorResult.CONSUMED;
+                }
+            }
+        }
+        return DraggableStackVisitor.super.acceptDraggedStack(context, stack);
+    }
 
-	@Override
-	public Stream<BoundsProvider> getDraggableAcceptingBounds(DraggingContext<AbstractSimiContainerScreen<T>> context, DraggableStack stack) {
-		List<BoundsProvider> targets = new ArrayList<>();
-		AbstractSimiContainerScreen<T> gui = context.getScreen();
-		boolean isAttributeFilter = gui instanceof AttributeFilterScreen;
+    @Override
+    public Stream<BoundsProvider> getDraggableAcceptingBounds(DraggingContext<AbstractSimiContainerScreen<T>> context, DraggableStack stack) {
+        List<BoundsProvider> targets = new ArrayList<>();
+        AbstractSimiContainerScreen<T> gui = context.getScreen();
+        boolean isAttributeFilter = gui instanceof AttributeFilterScreen;
 
-		if (stack.getStack().getValue() instanceof ItemStack) {
-			for (int i = 36; i < gui.getMenu().slots.size(); i++) {
-				if (gui.getMenu().slots.get(i)
-						.isActive())
-					targets.add(new GhostTarget<>(gui, i - 36, isAttributeFilter));
+        if (stack.getStack().getValue() instanceof ItemStack) {
+            for (int i = 36; i < gui.getMenu().slots.size(); i++) {
+                if (gui.getMenu().slots.get(i)
+                        .isActive())
+                    targets.add(new GhostTarget<>(gui, i - 36, isAttributeFilter));
 
-				// Only accept items in 1st slot. 2nd is used for functionality, don't wanna
-				// override that one
-				if (isAttributeFilter)
-					break;
-			}
-		}
+                // Only accept items in 1st slot. 2nd is used for functionality, don't wanna
+                // override that one
+                if (isAttributeFilter)
+                    break;
+            }
+        }
 
-		return targets.stream();
-	}
+        return targets.stream();
+    }
 
     @Override
     public <R extends Screen> boolean isHandingScreen(R screen) {
-        return screen instanceof ReactorBluePrintScreen;
+        return screen instanceof ReactorBluePrintItemScreen;
     }
 
     private static class GhostTarget<I, T extends GhostItemMenu<?>> implements BoundsProvider {

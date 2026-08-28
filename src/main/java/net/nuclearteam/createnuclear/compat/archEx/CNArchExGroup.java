@@ -4,11 +4,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.simibubi.create.compat.archEx.*;
 import net.createmod.catnip.lang.Lang;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.content.decoration.palettes.CNPaletteStoneTypes;
 import net.nuclearteam.createnuclear.content.decoration.palettes.PaletteBlockPattern;
@@ -56,7 +57,7 @@ public record CNArchExGroup(String name, Block base, Textures textures, Recipes 
                 throw new IllegalStateException("Unknown block: " + baseBlockName + " " + baseBlockName);
 
             ResourceLocation texture = PaletteBlockPattern.toLocation(variant, pattern.getTexture(0));
-            MapColor color = baseBlock.defaultMapColor();
+            MapColor color = baseBlock.getDefaultMapColor();
 
             return this.named(baseBlockName)
                     .basedOn(baseBlock)

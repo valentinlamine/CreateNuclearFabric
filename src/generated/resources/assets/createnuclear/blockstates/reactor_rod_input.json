@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "createnuclear:block/reactor/rod_input/rod_input_vertical",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "createnuclear:block/reactor/rod_input/rod_input",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "createnuclear:block/reactor/rod_input/rod_input",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "createnuclear:block/reactor/rod_input/rod_input"
+    },
+    "facing=up": {
+      "model": "createnuclear:block/reactor/rod_input/rod_input_vertical"
+    },
+    "facing=west": {
+      "model": "createnuclear:block/reactor/rod_input/rod_input",
+      "y": 90
+    }
+  }
+}

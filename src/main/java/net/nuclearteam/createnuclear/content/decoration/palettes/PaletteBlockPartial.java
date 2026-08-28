@@ -6,20 +6,20 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import net.createmod.catnip.lang.Lang;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.resources.ResourceLocation;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.builders.ItemBuilder;
@@ -212,7 +212,7 @@ public abstract class PaletteBlockPartial<B extends Block> {
         protected BlockBuilder<SlabBlock, CreateRegistrate> transformBlock(
                 BlockBuilder<SlabBlock, CreateRegistrate> builder,
                 String variantName, PaletteBlockPattern pattern) {
-            builder.loot((lt, block) -> lt.add(block, lt.createSlabItemTable(block)));
+            builder.loot((lt, block) -> lt.addDrop(block, lt.slabDrops(block)));
             return super.transformBlock(builder, variantName, pattern);
         }
 

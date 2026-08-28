@@ -4,10 +4,10 @@ import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.api.data.recipe.MechanicalCraftingRecipeGen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.nuclearteam.createnuclear.*;
 
 @SuppressWarnings("unused")
@@ -34,11 +34,22 @@ public class CNMechanicalCraftingRecipeGen extends MechanicalCraftingRecipeGen {
                     .patternLine(" U   ")
                     .patternLine("U    ")
             ),
+
+        THORIUM_ROD = create(CNItems.THORIUM_ROD::get)
+            .recipe(b -> b
+                .key('U', Ingredient.of(CNItems.THORIUM_INGOT))
+                .patternLine("U    ")
+                .patternLine(" U   ")
+                .patternLine("  U  ")
+                .patternLine("   U ")
+                .patternLine("    U")
+            ),
+
         REACTOR_FRAME = create(CNBlocks.REACTOR_FRAME::get)
             .recipe(b -> b
                 .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
                 .key('G', Ingredient.of(CNBlocks.REINFORCED_GLASS))
-                .key('B', Ingredient.of(CNFluids.URANIUM.get().getBucket()))
+                .key('B', Ingredient.of(Items.BUCKET))
                 .key('S', Ingredient.of(CNTags.forgeItemTag("ingots/steel")))
                 .patternLine("CCCCC")
                 .patternLine("CSGSC")
@@ -79,12 +90,25 @@ public class CNMechanicalCraftingRecipeGen extends MechanicalCraftingRecipeGen {
             .recipe(b -> b
                 .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
                 .key('P', Ingredient.of(AllItems.PRECISION_MECHANISM))
-                .key('B', Ingredient.of(CNFluids.URANIUM.get().getBucket()))
+                .key('B', Ingredient.of(CNFluids.URANIUM.get().getBucketItem()))
                 .key('S', Ingredient.of(CNTags.forgeItemTag("ingots/steel")))
                 .patternLine("CCCCC")
                 .patternLine("CPSPC")
                 .patternLine("CSBSC")
                 .patternLine("CPSPC")
+                .patternLine("CCCCC")
+            ),
+
+        REACTOR_ALARM = create(CNBlocks.REACTOR_ALARM::get)
+            .recipe(b -> b
+                .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
+                .key('N', Ingredient.of(Blocks.NOTE_BLOCK))
+                .key('R', Ingredient.of(Blocks.REPEATER))
+                .key('L', Ingredient.of(Items.CLOCK))
+                .patternLine("CCCCC")
+                .patternLine("CNRNC")
+                .patternLine("CRLRC")
+                .patternLine("CNRNC")
                 .patternLine("CCCCC")
             );
 

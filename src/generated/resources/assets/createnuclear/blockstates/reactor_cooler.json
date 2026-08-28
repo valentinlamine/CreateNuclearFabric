@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "createnuclear:block/reactor_cooler/reactor_cooler"
+      "model": "createnuclear:block/reactor/cooler/block"
     }
   }
 }

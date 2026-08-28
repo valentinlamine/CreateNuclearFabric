@@ -1,0 +1,39 @@
+{
+  "parent": "createnuclear:fueling_the_reactor",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "createnuclear:reactor_output"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "color": "#DBA213",
+      "translate": "advancement.createnuclear.unlimited_power.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "createnuclear:reactor_output"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.createnuclear.unlimited_power"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

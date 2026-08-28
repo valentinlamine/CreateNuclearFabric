@@ -34,21 +34,28 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import dev.emi.emi.api.widget.Bounds;
 import io.github.fabricators_of_create.porting_lib.fluids.FluidStack;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.PotionItem;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.material.Fluid;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.CNRecipeTypes;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
 import net.nuclearteam.createnuclear.compat.emi.category.FanEnrichedCategoryEMI;
-import net.nuclearteam.createnuclear.content.multiblock.bluePrintItem.ReactorBluePrintScreen;
+import net.nuclearteam.createnuclear.compat.emi.category.FanSnowPowderCategoryEMI;
+import net.nuclearteam.createnuclear.content.multiblock.bluePrintItem.ReactorBluePrintItemScreen;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashMap;
@@ -64,7 +71,8 @@ public class CNEmi implements EmiPlugin {
     public static final Map<ResourceLocation, EmiRecipeCategory> ALL = new LinkedHashMap<>();
 
     public static final EmiRecipeCategory
-        FAN_ENRICHING = register("fan_enriched", DoubleItemIcon.of(AllItems.PROPELLER.get(), CNBlocks.ENRICHING_CAMPFIRE))
+        FAN_ENRICHING = register("fan_enriched", DoubleItemIcon.of(AllItems.PROPELLER.get(), CNBlocks.ENRICHING_CAMPFIRE)),
+        FAN_SNOW_POWDER = register("fan_snow_powder", DoubleItemIcon.of(AllItems.PROPELLER.get(), Items.POWDER_SNOW_BUCKET))
     ;
 
 
@@ -84,7 +92,7 @@ public class CNEmi implements EmiPlugin {
         });
 
 
-        registry.addDragDropHandler(ReactorBluePrintScreen.class, new GhostIngredientHandler());
+        registry.addDragDropHandler(ReactorBluePrintItemScreen.class, new GhostIngredientHandler());
 
         //registerGeneratedRecipes(registry);
 
@@ -93,10 +101,12 @@ public class CNEmi implements EmiPlugin {
         ALL.forEach((id, category) -> registry.addCategory(category));
 
         registry.addWorkstation(FAN_ENRICHING, FanEmiRecipe.getFan("fan_enriched"));
+        registry.addWorkstation(FAN_SNOW_POWDER, FanEmiRecipe.getFan("fan_snow_powder"));
 
         RecipeManager manager = registry.getRecipeManager();
 
         addAll(registry, CNRecipeTypes.ENRICHED, FanEnrichedCategoryEMI::new);
+        addAll(registry, CNRecipeTypes.SNOW_POWDER, FanSnowPowderCategoryEMI::new);
 
         // Introspective recipes based on present stacks need to make sure
         // all stacks are populated by other plugins

@@ -2,7 +2,7 @@
   "type": "create:mixing",
   "ingredients": [
     {
-      "item": "createnuclear:uranium_powder"
+      "tag": "c:dusts/uranium"
     }
   ],
   "results": [

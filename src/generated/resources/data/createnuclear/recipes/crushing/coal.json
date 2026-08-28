@@ -2,7 +2,7 @@
   "type": "create:crushing",
   "ingredients": [
     {
-      "item": "minecraft:coal"
+      "tag": "minecraft:coals"
     }
   ],
   "processingTime": 250,

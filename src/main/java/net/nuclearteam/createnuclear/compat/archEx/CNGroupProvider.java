@@ -5,9 +5,10 @@ import com.google.gson.JsonObject;
 import java.nio.file.Path;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.DataProvider;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.nuclearteam.createnuclear.content.decoration.palettes.CNPaletteStoneTypes;
 import net.nuclearteam.createnuclear.content.decoration.palettes.PaletteBlockPattern;
 import org.jetbrains.annotations.NotNull;
@@ -36,8 +37,8 @@ public class CNGroupProvider implements DataProvider {
     @Override
     public CompletableFuture<?> run(CachedOutput output) {
         Path outputDir = out.getOutputFolder()
-            .resolve("staticdata")
-            .resolve("architecture_extensions");
+                .resolve("staticdata")
+                .resolve("architecture_extensions");
         List<CompletableFuture<?>> saveFutures = new ArrayList<>();
 
         this.groups.forEach(group -> {

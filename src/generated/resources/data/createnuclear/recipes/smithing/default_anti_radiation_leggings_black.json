@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "createnuclear:black_cloth"
+  },
+  "base": {
+    "item": "createnuclear:default_anti_radiation_leggings"
+  },
+  "result": {
+    "item": "createnuclear:default_anti_radiation_leggings"
+  },
+  "template": []
+}

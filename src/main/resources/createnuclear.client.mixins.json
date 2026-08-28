@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "refmap": "client-createnuclear-refmap.json",
+  "package": "net.nuclearteam.createnuclear.foundation.mixin.client",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "CameraAccessor",
+    "GameRendererMixin",
+    "PlayerEntityRendererMixin",
+    "RadiationHeartMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

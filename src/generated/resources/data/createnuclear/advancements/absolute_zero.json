@@ -1,0 +1,39 @@
+{
+  "parent": "createnuclear:chill_out",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "createnuclear:nitrogen_bucket"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "color": "#DBA213",
+      "translate": "advancement.createnuclear.absolute_zero.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "createnuclear:nitrogen_bucket"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.createnuclear.absolute_zero"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

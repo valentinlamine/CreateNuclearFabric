@@ -1,0 +1,6 @@
+{
+  "parent": "createnuclear:item/default_anti_radiation_boots/item",
+  "textures": {
+    "14": "createnuclear:item/armors/pink_anti_radiation_suit"
+  }
+}

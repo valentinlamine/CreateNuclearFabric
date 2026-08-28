@@ -5,6 +5,7 @@ import net.createmod.ponder.api.registration.PonderSceneRegistrationHelper;
 import net.createmod.ponder.api.registration.PonderTagRegistrationHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.nuclearteam.createnuclear.CreateNuclear;
+import net.nuclearteam.createnuclear.infrastructure.ponder.CNCreateNuclearPonderTags;
 
 public class CreateNuclearPonderPlugin implements PonderPlugin {
     @Override

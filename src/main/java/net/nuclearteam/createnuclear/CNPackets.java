@@ -2,16 +2,16 @@ package net.nuclearteam.createnuclear;
 
 import com.simibubi.create.AllPackets;
 import com.simibubi.create.foundation.networking.SimplePacketBase;
+import com.simibubi.create.foundation.networking.SimplePacketBase.NetworkDirection;
 import me.pepperbell.simplenetworking.S2CPacket;
 import me.pepperbell.simplenetworking.SimpleChannel;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.nuclearteam.createnuclear.CreateNuclear;
-import net.nuclearteam.createnuclear.content.multiblock.bluePrintItem.ReactorBluePrintPacket;
-import net.nuclearteam.createnuclear.content.multiblock.controller.EventTriggerPacket;
+import net.nuclearteam.createnuclear.content.multiblock.bluePrintItem.ReactorBluePrintItemPacket;
 
 import static com.simibubi.create.foundation.networking.SimplePacketBase.NetworkDirection;
 import static com.simibubi.create.foundation.networking.SimplePacketBase.NetworkDirection.PLAY_TO_CLIENT;
@@ -23,10 +23,7 @@ import java.util.function.Function;
 public enum CNPackets {
     // To server
     //CONFIGURE_REACTOR_CONTROLLER(ConfigureReactorControllerPacket.class, ConfigureReactorControllerPacket::new, PLAY_TO_SERVER),
-    CONFIGURE_REACTOR_PATTERN(ReactorBluePrintPacket.class, ReactorBluePrintPacket::new, PLAY_TO_SERVER),
-
-    // To client
-    TRIGGER_EVENT_TEXT_OVERLAY(EventTriggerPacket.class, EventTriggerPacket::new, PLAY_TO_CLIENT),
+    CONFIGURE_REACTOR_PATTERN(ReactorBluePrintItemPacket.class, ReactorBluePrintItemPacket::new, PLAY_TO_SERVER),
     ;
 
     public static final ResourceLocation CHANNEL_NAME = CreateNuclear.asResource("main");

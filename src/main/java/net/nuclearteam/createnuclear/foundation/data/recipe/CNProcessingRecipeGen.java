@@ -2,10 +2,9 @@ package net.nuclearteam.createnuclear.foundation.data.recipe;
 
 import com.simibubi.create.api.data.recipe.ProcessingRecipeGen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
-
+import net.minecraft.data.DataProvider;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,9 @@ public abstract class CNProcessingRecipeGen {
         GENERATORS.add(new CNMixingRecipeGen(output));
         GENERATORS.add(new CNPressingRecipeGen(output));
         GENERATORS.add(new CNItemApplicationRecipeGen(output));
+        GENERATORS.add(new CNSnowPowderRecipeGen(output));
         GENERATORS.add(new CNWashingRecipeGen(output));
+        GENERATORS.add(new CNDeployingRecipeGen(output));
 
         return new DataProvider() {
 
@@ -35,7 +36,7 @@ public abstract class CNProcessingRecipeGen {
             }
 
             @Override
-            public CompletableFuture<?> run(CachedOutput output) {
+            public CompletableFuture<?> run(DataProvider output) {
                 return CompletableFuture.allOf(GENERATORS.stream()
                         .map(gen -> gen.run(output))
                         .toArray(CompletableFuture[]::new));

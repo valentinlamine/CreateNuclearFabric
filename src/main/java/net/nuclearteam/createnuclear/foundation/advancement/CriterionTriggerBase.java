@@ -1,16 +1,16 @@
 package net.nuclearteam.createnuclear.foundation.advancement;
 
 import com.google.common.collect.Maps;
-import net.minecraft.advancements.CriterionTrigger;
-import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
-import net.minecraft.advancements.critereon.ContextAwarePredicate;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.PlayerAdvancements;
+import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
+import net.minecraft.advancements.CriterionTrigger;
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -25,18 +25,18 @@ public abstract class CriterionTriggerBase<T extends CriterionTriggerBase.Instan
     }
 
     private final ResourceLocation id;
-    protected final Map<PlayerAdvancements, Set<Listener<T>>> listeners = Maps.newHashMap();
+    protected final Map<PlayerAdvancements, Set<CriterionTrigger.Listener<T>>> listeners = Maps.newHashMap();
 
     @Override
-    public void addPlayerListener(PlayerAdvancements playerAdvancementsIn, Listener<T> listener) {
-        Set<Listener<T>> playerListeners = this.listeners.computeIfAbsent(playerAdvancementsIn, k -> new HashSet<>());
+    public void addPlayerListener(PlayerAdvancements playerAdvancementsIn, CriterionTrigger.Listener<T> listener) {
+        Set<CriterionTrigger.Listener<T>> playerListeners = this.listeners.computeIfAbsent(playerAdvancementsIn, k -> new HashSet<>());
 
         playerListeners.add(listener);
     }
 
     @Override
-    public void removePlayerListener(PlayerAdvancements playerAdvancementsIn, Listener<T> listener) {
-        Set<Listener<T>> playerListeners = this.listeners.get(playerAdvancementsIn);
+    public void removePlayerListener(PlayerAdvancements playerAdvancementsIn, CriterionTrigger.Listener<T> listener) {
+        Set<CriterionTrigger.Listener<T>> playerListeners = this.listeners.get(playerAdvancementsIn);
         if (playerListeners != null) {
             playerListeners.remove(listener);
             if (playerListeners.isEmpty()) {
@@ -57,11 +57,11 @@ public abstract class CriterionTriggerBase<T extends CriterionTriggerBase.Instan
 
     protected void trigger(ServerPlayer player, @Nullable List<Supplier<Object>> suppliers) {
         PlayerAdvancements playerAdvancements = player.getAdvancements();
-        Set<Listener<T>> playerListeners = this.listeners.get(playerAdvancements);
+        Set<CriterionTrigger.Listener<T>> playerListeners = this.listeners.get(playerAdvancements);
         if (playerListeners != null) {
-            List<Listener<T>> list = new LinkedList<>();
+            List<CriterionTrigger.Listener<T>> list = new LinkedList<>();
 
-            for (Listener<T> listener : playerListeners) {
+            for (CriterionTrigger.Listener<T> listener : playerListeners) {
                 if (listener.getTriggerInstance()
                         .test(suppliers)) {
                     list.add(listener);

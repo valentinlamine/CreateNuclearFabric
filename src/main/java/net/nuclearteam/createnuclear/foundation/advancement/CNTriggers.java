@@ -1,15 +1,14 @@
 package net.nuclearteam.createnuclear.foundation.advancement;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.advancements.CriteriaTriggers;
 
-import java.util.LinkedList;
-import java.util.List;
-
 public class CNTriggers {
-    private static final List<CriterionTriggerBase<?>> triggers = new LinkedList<>();
+    private static final List<CriterionTriggerBase<?>> triggers = new ArrayList<>();
 
-    public static SimpleCreateTrigger addSimple(String id) {
-        return add(new SimpleCreateTrigger(id));
+    public static SimpleCreateNuclearTrigger addSimple(String id) {
+        return add(new SimpleCreateNuclearTrigger(id));
     }
 
     private static <T extends CriterionTriggerBase<?>> T add(T instance) {

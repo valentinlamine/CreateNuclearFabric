@@ -1,0 +1,40 @@
+{
+  "carvers": {},
+  "downfall": 0.0,
+  "effects": {
+    "ambient_sound": "createnuclear:biomes/wasteland",
+    "fog_color": 4742718,
+    "foliage_color": 5660222,
+    "grass_color": 9211739,
+    "mood_sound": {
+      "block_search_extent": 8,
+      "offset": 2.0,
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000
+    },
+    "particle": {
+      "options": {
+        "type": "createnuclear:irradiated_particles",
+        "t": 0
+      },
+      "probability": 0.025
+    },
+    "sky_color": 3293490,
+    "water_color": 3887411,
+    "water_fog_color": 658954
+  },
+  "features": [],
+  "has_precipitation": false,
+  "spawn_costs": {},
+  "spawners": {
+    "ambient": [],
+    "axolotls": [],
+    "creature": [],
+    "misc": [],
+    "monster": [],
+    "underground_water_creature": [],
+    "water_ambient": [],
+    "water_creature": []
+  },
+  "temperature": 2.0
+}

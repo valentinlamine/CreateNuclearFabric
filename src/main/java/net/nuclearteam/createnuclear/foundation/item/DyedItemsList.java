@@ -1,13 +1,16 @@
 package net.nuclearteam.createnuclear.foundation.item;
 
 import com.tterrag.registrate.util.entry.ItemEntry;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.Item;
-
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
+import com.tterrag.registrate.providers.RegistrateRecipeProvider;
+import net.nuclearteam.createnuclear.api.data.recipe.SmithingClothRecipeBuilder;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.DyeColor;
+import net.nuclearteam.createnuclear.CNTags.CNItemTags;
 
 public class DyedItemsList<T extends Item> implements Iterable<ItemEntry<T>> {
 

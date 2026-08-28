@@ -1,0 +1,113 @@
+{
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"14": "createnuclear:item/default_anti_radiation_suit"
+	},
+	"elements": [
+		{
+			"name": "power_boot",
+			"from": [7.45, 0.2, 6.45],
+			"to": [11.95, 4.7, 10.95],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.8633, 12.0833, 9.7667]},
+			"faces": {
+				"north": {"uv": [11.5, 7.16667, 10.83333, 7.83333], "texture": "#14"},
+				"east": {"uv": [12.16667, 7.16667, 11.5, 7.83333], "texture": "#14"},
+				"south": {"uv": [12.83333, 7.16667, 12.16667, 7.83333], "texture": "#14"},
+				"west": {"uv": [10.83333, 7.16667, 10.16667, 7.83333], "texture": "#14"},
+				"up": {"uv": [10.83333, 7.16667, 11.5, 6.5], "texture": "#14"},
+				"down": {"uv": [11.5, 6.5, 12.16667, 7.16667], "texture": "#14"}
+			}
+		},
+		{
+			"name": "power_boot",
+			"from": [3.55, 0.2, 6.45],
+			"to": [8.05, 4.7, 10.95],
+			"rotation": {"angle": 0, "axis": "y", "origin": [4, 7.75, 10]},
+			"faces": {
+				"north": {"uv": [10.83333, 7.16667, 11.5, 7.83333], "texture": "#14"},
+				"east": {"uv": [10.16667, 7.16667, 10.83333, 7.83333], "texture": "#14"},
+				"south": {"uv": [12.16667, 7.16667, 12.83333, 7.83333], "texture": "#14"},
+				"west": {"uv": [11.5, 7.16667, 12.16667, 7.83333], "texture": "#14"},
+				"up": {"uv": [11.5, 7.16667, 10.83333, 6.5], "texture": "#14"},
+				"down": {"uv": [12.16667, 6.5, 11.5, 7.16667], "texture": "#14"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 3, 1],
+			"scale": [0.55, 0.55, 0.55]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [95, 0, 0],
+			"translation": [0, 0.5, 2.75],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"firstperson_righthand": {
+			"rotation": [-180, 32.75, -180],
+			"translation": [0, 3.5, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"firstperson_lefthand": {
+			"rotation": [-180, 32.75, -180],
+			"translation": [0, 3.5, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"ground": {
+			"translation": [0, 2.25, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"gui": {
+			"rotation": [-146, 45, -180],
+			"translation": [-0.5, 3, 2]
+		},
+		"head": {
+			"translation": [0, -37.25, -4],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"on_shelf": {
+			"rotation": [0, -180, 0]
+		}
+	},
+	"groups": [
+		{
+			"name": "black_anti_radiation_boots",
+			"origin": [8, 8, 8],
+			"scope": 0,
+			"color": 0,
+			"children": [
+				{
+					"name": "right_leg",
+					"origin": [9.67, -2.43333, 8.76667],
+					"scope": 0,
+					"color": 0,
+					"children": [
+						{
+							"name": "right_boot",
+							"origin": [9.7, -5.3, 8.7],
+							"scope": 0,
+							"color": 0,
+							"children": [0]
+						}
+					]
+				},
+				{
+					"name": "left_leg",
+					"origin": [5.78333, -2.43333, 8.76667],
+					"scope": 0,
+					"color": 0,
+					"children": [
+						{
+							"name": "left_boot",
+							"origin": [5.8, -5.3, 8.7],
+							"scope": 0,
+							"color": 0,
+							"children": [1]
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -3,11 +3,10 @@ package net.nuclearteam.createnuclear.foundation.data.recipe;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.api.data.recipe.ItemApplicationRecipeGen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.CNTags;
 import net.nuclearteam.createnuclear.CreateNuclear;
@@ -20,18 +19,6 @@ public class CNItemApplicationRecipeGen extends ItemApplicationRecipeGen {
             Ingredient.of(CNTags.forgeItemTag("ingots/steel")),
             AllBlocks.BRASS_CASING.get(),
             CNBlocks.REACTOR_CASING.get()
-    );
-
-    GeneratedRecipe REACTOR_OUTPUT = itemApplication("reactor_output_from_shaft_and_reactor_casing",
-            AllBlocks.SHAFT.asItem(),
-            CNBlocks.REACTOR_CASING.get(),
-            CNBlocks.REACTOR_OUTPUT.get()
-    );
-
-    GeneratedRecipe REACTOR_INPUT = itemApplication("reactor_input_from_hopper_and_reactor_casing",
-            Items.HOPPER,
-            CNBlocks.REACTOR_CASING.get(),
-            CNBlocks.REACTOR_INPUT.get()
     );
 
     protected GeneratedRecipe itemApplication(String name, Ingredient ingredient, ItemLike input, ItemLike output) {

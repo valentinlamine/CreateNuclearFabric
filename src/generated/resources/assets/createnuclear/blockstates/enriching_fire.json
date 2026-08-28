@@ -3,45 +3,45 @@
     {
       "apply": [
         {
-          "model": "createnuclear:block/enriching_fire/floor0"
+          "model": "createnuclear:block/enriching/fire/floor0"
         },
         {
-          "model": "createnuclear:block/enriching_fire/floor1"
+          "model": "createnuclear:block/enriching/fire/floor1"
         }
       ]
     },
     {
       "apply": [
         {
-          "model": "createnuclear:block/enriching_fire/side0"
+          "model": "createnuclear:block/enriching/fire/side0"
         },
         {
-          "model": "createnuclear:block/enriching_fire/side1"
+          "model": "createnuclear:block/enriching/fire/side1"
         },
         {
-          "model": "createnuclear:block/enriching_fire/side_alt0"
+          "model": "createnuclear:block/enriching/fire/side_alt0"
         },
         {
-          "model": "createnuclear:block/enriching_fire/side_alt1"
+          "model": "createnuclear:block/enriching/fire/side_alt1"
         }
       ]
     },
     {
       "apply": [
         {
-          "model": "createnuclear:block/enriching_fire/side0",
+          "model": "createnuclear:block/enriching/fire/side0",
           "y": 90
         },
         {
-          "model": "createnuclear:block/enriching_fire/side1",
+          "model": "createnuclear:block/enriching/fire/side1",
           "y": 90
         },
         {
-          "model": "createnuclear:block/enriching_fire/side_alt0",
+          "model": "createnuclear:block/enriching/fire/side_alt0",
           "y": 90
         },
         {
-          "model": "createnuclear:block/enriching_fire/side_alt1",
+          "model": "createnuclear:block/enriching/fire/side_alt1",
           "y": 90
         }
       ]
@@ -49,19 +49,19 @@
     {
       "apply": [
         {
-          "model": "createnuclear:block/enriching_fire/side0",
+          "model": "createnuclear:block/enriching/fire/side0",
           "y": 180
         },
         {
-          "model": "createnuclear:block/enriching_fire/side1",
+          "model": "createnuclear:block/enriching/fire/side1",
           "y": 180
         },
         {
-          "model": "createnuclear:block/enriching_fire/side_alt0",
+          "model": "createnuclear:block/enriching/fire/side_alt0",
           "y": 180
         },
         {
-          "model": "createnuclear:block/enriching_fire/side_alt1",
+          "model": "createnuclear:block/enriching/fire/side_alt1",
           "y": 180
         }
       ]
@@ -69,19 +69,19 @@
     {
       "apply": [
         {
-          "model": "createnuclear:block/enriching_fire/side0",
+          "model": "createnuclear:block/enriching/fire/side0",
           "y": 270
         },
         {
-          "model": "createnuclear:block/enriching_fire/side1",
+          "model": "createnuclear:block/enriching/fire/side1",
           "y": 270
         },
         {
-          "model": "createnuclear:block/enriching_fire/side_alt0",
+          "model": "createnuclear:block/enriching/fire/side_alt0",
           "y": 270
         },
         {
-          "model": "createnuclear:block/enriching_fire/side_alt1",
+          "model": "createnuclear:block/enriching/fire/side_alt1",
           "y": 270
         }
       ]

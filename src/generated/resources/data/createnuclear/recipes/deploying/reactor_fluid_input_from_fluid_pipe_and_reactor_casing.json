@@ -1,0 +1,16 @@
+{
+  "type": "create:deploying",
+  "ingredients": [
+    {
+      "item": "createnuclear:reactor_casing"
+    },
+    {
+      "item": "create:fluid_pipe"
+    }
+  ],
+  "results": [
+    {
+      "item": "createnuclear:reactor_fluid_input"
+    }
+  ]
+}

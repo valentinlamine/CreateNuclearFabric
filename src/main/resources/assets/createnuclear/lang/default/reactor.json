@@ -1,8 +1,14 @@
 {
-  "reactor.info.assembled.none": "Reactor is not assembled",
-  "reactor.info.assembled.destroyer": "Reactor has been disassembled",
   "reactor.info.assembled.creator": "Reactor has been assembled",
-  "reactor.info.is": "controller is",
   "reactor.item.gui.name": "Config Pattern",
-  "reactor.update.casing.input": "Update the casing in input"
+  "reactor.update.casing.input": "Update the casing in input",
+
+  "createnuclear.reactor.debug.title": "--- Reactor diagnostics ---",
+  "createnuclear.reactor.debug.summary": "%s: %s registered, %s valid",
+  "createnuclear.reactor.debug.registered_position": "  registered @ %s",
+  "createnuclear.reactor.debug.valid_position": "  valid @ %s",
+  "createnuclear.reactor.debug.label.input": "Input",
+  "createnuclear.reactor.debug.label.fluid_input": "Fluid Input",
+  "createnuclear.reactor.debug.label.output": "Output",
+  "createnuclear.reactor.debug.label.alarm": "Alarm"
 }

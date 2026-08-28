@@ -9,17 +9,14 @@ import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import io.github.fabricators_of_create.porting_lib.models.generators.ConfiguredModel;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.Item;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.core.Direction;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -40,7 +37,7 @@ public class PaletteBlockPattern {
     public static final PaletteBlockPattern
         CUT = create("cut", PREFIX, ALL_PARTIALS),
         BRICKS = create("cut_bricks", WRAP, ALL_PARTIALS).textures("brick"),
-        SMALL_BRICKS = create("small_bricks", WRAP, ALL_PARTIALS).textures("small_brick"),
+        SMALL_BRICKS = create("small_brick", WRAP, ALL_PARTIALS).textures("small_brick"),
         POLISHED = create("polished_cut", PREFIX, FOR_POLISHED).textures("polished", "slab"),
         LAYERED = create("layered", PREFIX).blockStateFactory(p -> p::cubeColumn)
             .textures("layered", "cap")
@@ -51,9 +48,9 @@ public class PaletteBlockPattern {
             .connectedTextures(v -> new RotatedPillarCTBehaviour(ct(v, CTs.PILLAR), ct(v, CTs.CAP)))
     ;
 
-    public static final PaletteBlockPattern[] VANILLA_RANGE = { CUT, POLISHED, BRICKS, SMALL_BRICKS, LAYERED, PILLAR };
+    public static final PaletteBlockPattern[] VANILLA_RANGE = { CUT, BRICKS, SMALL_BRICKS, POLISHED, LAYERED, PILLAR };
 
-    public static final PaletteBlockPattern[] STANDARD_RANGE = { CUT, POLISHED, BRICKS, SMALL_BRICKS, LAYERED, PILLAR };
+    public static final PaletteBlockPattern[] STANDARD_RANGE = { CUT, BRICKS, SMALL_BRICKS, POLISHED, LAYERED, PILLAR };
 
     static final String TEXTURE_LOCATION = "block/palettes/stone_types/%s/%s";
 
@@ -69,9 +66,6 @@ public class PaletteBlockPattern {
     private NonNullFunction<BlockBehaviour.Properties, ? extends Block> blockFactory;
     private NonNullFunction<NonNullSupplier<Block>, NonNullBiConsumer<DataGenContext<Block, ? extends Block>, RegistrateRecipeProvider>> additionalRecipes;
     private PaletteBlockPartial<? extends Block>[] partials;
-
-    @Environment(EnvType.CLIENT)
-    private RenderType renderType;
 
     private static PaletteBlockPattern create(String name, PaletteBlockPattern.PatternNameType nameType,
                                                                                           PaletteBlockPartial<?>... partials) {

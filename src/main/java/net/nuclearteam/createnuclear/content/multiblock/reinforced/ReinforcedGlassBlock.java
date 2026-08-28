@@ -1,14 +1,24 @@
 package net.nuclearteam.createnuclear.content.multiblock.reinforced;
 
-import net.minecraft.world.level.block.GlassBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import com.simibubi.create.content.decoration.palettes.ConnectedGlassBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.nuclearteam.createnuclear.content.multiblock.MultiblockHelpers;
+import net.nuclearteam.createnuclear.foundation.advancement.CNAdvancementBehaviour;
 
-public class ReinforcedGlassBlock extends GlassBlock {
-    public ReinforcedGlassBlock(BlockBehaviour.Properties properties) {
+import javax.annotation.Nullable;
+
+public class ReinforcedGlassBlock extends ConnectedGlassBlock {
+    public ReinforcedGlassBlock(Properties properties) {
         super(properties);
     }
 
-    public static final DirectionProperty FACING = BlockStateProperties.FACING;
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity pPlacer, ItemStack stack) {
+        super.setPlacedBy(level, pos, state, pPlacer, stack);
+        MultiblockHelpers.handleAdvancedPlacedBy(pos, level, pPlacer);
+    }
 }

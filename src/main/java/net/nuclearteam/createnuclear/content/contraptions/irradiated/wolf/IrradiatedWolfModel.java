@@ -1,18 +1,17 @@
 package net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf;
-// Made with Blockbench 4.10.1
-// Exported for Minecraft version 1.17 or later with Mojang mappings
-// Paste this class into your mod and generate all required imports
 
-
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.client.model.ColorableAgeableListModel;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.ColorableAgeableListModel;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.util.Mth;
-
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @MethodsReturnNonnullByDefault
@@ -25,16 +24,16 @@ public class IrradiatedWolfModel<T extends IrradiatedWolf> extends ColorableAgea
 	private final ModelPart croc1;
 	private final ModelPart croc2;
 	private final ModelPart body;
-	private final ModelPart body_rotation;
-	private final ModelPart pustule4;
-	private final ModelPart pustule5;
 	private final ModelPart mane;
 	private final ModelPart mane_rotation;
 	private final ModelPart leg1;
-	private final ModelPart pustule3;
 	private final ModelPart leg2;
-	private final ModelPart leg3;
+	private final ModelPart body_rotation;
+	private final ModelPart pustule4;
+	private final ModelPart pustule5;
 	private final ModelPart leg4;
+	private final ModelPart pustule3;
+	private final ModelPart leg3;
 	private final ModelPart tail;
 
 	public IrradiatedWolfModel(ModelPart root) {
@@ -57,7 +56,7 @@ public class IrradiatedWolfModel<T extends IrradiatedWolf> extends ColorableAgea
 		this.tail = root.getChild("tail");
 	}
 
-	public static LayerDefinition getTexturedModelData() {
+	public static LayerDefinition createBodyLayer() {
 		MeshDefinition modelData = new MeshDefinition();
 		PartDefinition modelPartData = modelData.getRoot();
 		PartDefinition head = modelPartData.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, -3.0F, -2.0F, 6.0F, 6.0F, 4.0F, new CubeDeformation(0.0F))
@@ -100,7 +99,7 @@ public class IrradiatedWolfModel<T extends IrradiatedWolf> extends ColorableAgea
 	}
 
 	@Override
-	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.head.xRot = headPitch * 0.017453292F;
 		this.head.yRot = netHeadYaw * 0.017453292F;
 		this.tail.xRot = ageInTicks;
@@ -127,24 +126,24 @@ public class IrradiatedWolfModel<T extends IrradiatedWolf> extends ColorableAgea
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
-		head.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		body.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		mane.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		leg1.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		leg2.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		leg3.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		leg4.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
-		tail.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
+	public void render(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		mane.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		leg1.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		leg2.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		leg3.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		leg4.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		tail.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override
-	protected Iterable<ModelPart> headParts() {
+	protected Iterable<ModelPart> getHeadParts() {
 		return null;
 	}
 
 	@Override
-	protected Iterable<ModelPart> bodyParts() {
+	protected Iterable<ModelPart> getBodyParts() {
 		return null;
 	}
 }

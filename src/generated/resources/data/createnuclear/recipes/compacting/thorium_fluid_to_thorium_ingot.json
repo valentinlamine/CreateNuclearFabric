@@ -1,0 +1,14 @@
+{
+  "type": "create:compacting",
+  "ingredients": [
+    {
+      "amount": 16200,
+      "fluidTag": "createnuclear:thorium"
+    }
+  ],
+  "results": [
+    {
+      "item": "createnuclear:thorium_ingot"
+    }
+  ]
+}

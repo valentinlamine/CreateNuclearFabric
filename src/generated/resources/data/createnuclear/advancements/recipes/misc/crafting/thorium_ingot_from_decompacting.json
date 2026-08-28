@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_storage_blocks_thorium": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "c:storage_blocks/thorium"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "createnuclear:crafting/thorium_ingot_from_decompacting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_storage_blocks_thorium",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "createnuclear:crafting/thorium_ingot_from_decompacting"
+    ]
+  },
+  "sends_telemetry_event": false
+}

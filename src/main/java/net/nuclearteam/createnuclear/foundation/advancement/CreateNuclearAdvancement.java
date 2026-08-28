@@ -1,37 +1,39 @@
 package net.nuclearteam.createnuclear.foundation.advancement;
 
-
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.critereon.*;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.TagKey;
+import net.minecraft.advancements.CriterionTriggerInstance;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.advancements.critereon.ItemUsedOnLocationTrigger;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.advancements.critereon.NbtPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.advancements.critereon.EnchantmentPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.tags.TagKey;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
-@MethodsReturnNonnullByDefault
-@SuppressWarnings({"unused", "DataFlowIssue", "ClassEscapesDefinedScope"})
+@SuppressWarnings("unused")
 public class CreateNuclearAdvancement {
 
-    static final ResourceLocation BACKGROUND = CreateNuclear.asResource("textures/block/steel_block.png");
+    static final ResourceLocation BACKGROUND = CreateNuclear.asResource("textures/gui/advancements/backgrounds/background_advancement.png");
     static final String LANG = "advancement." + CreateNuclear.MOD_ID + ".";
     static final String SECRET_SUFFIX = "\n\u00A77(Hidden Advancement)";
 
     private final Advancement.Builder builder;
-    private SimpleCreateTrigger builtinTrigger;
+    private SimpleCreateNuclearTrigger builtinTrigger;
     private CreateNuclearAdvancement parent;
 
     Advancement datagenResult;
@@ -42,7 +44,7 @@ public class CreateNuclearAdvancement {
 
 
     public CreateNuclearAdvancement(String id, UnaryOperator<Builder> b) {
-        this.builder = Advancement.Builder.advancement();
+        this.builder = Advancement.Builder.create();
         this.id = id;
 
         Builder t = new Builder();
@@ -50,11 +52,11 @@ public class CreateNuclearAdvancement {
 
         if (!t.externalTrigger) {
             builtinTrigger = CNTriggers.addSimple(id + "_builtin");
-            builder.addCriterion("0", builtinTrigger.instance());
+            builder.criterion("0", builtinTrigger.instance());
         }
 
         builder.display(t.icon, Component.translatable(titleKey()),
-                Component.translatable(descriptionKey()).withStyle(s -> s.withColor(0xDBA213)),
+                Component.translatable(descriptionKey()).styled(s -> s.withColor(0xDBA213)),
                 id.equals("root") ? BACKGROUND : null, t.type.frame, t.type.toast, t.type.announce, t.type.hide);
 
         if (t.type == TaskType.SECRET)
@@ -71,6 +73,19 @@ public class CreateNuclearAdvancement {
         return titleKey() + ".desc";
     }
 
+    public boolean isAlreadyAwardedTo(Player player) {
+        if (!(player instanceof ServerPlayer sp))
+            return true;
+        Advancement advancement = sp.getServer()
+                .getAdvancementLoader()
+                .get(CreateNuclear.asResource(id));
+        if (advancement == null)
+            return true;
+        return sp.getAdvancements()
+                .getProgress(advancement)
+                .isDone();
+    }
+
     public void awardTo(Player player) {
         if (!(player instanceof ServerPlayer sp))
             return;
@@ -83,21 +98,8 @@ public class CreateNuclearAdvancement {
     void save(Consumer<Advancement> t) {
         if (parent != null)
             builder.parent(parent.datagenResult);
-        datagenResult = builder.save(t, CreateNuclear.asResource(id)
+        datagenResult = builder.build(t, CreateNuclear.asResource(id)
                 .toString());
-    }
-
-    public boolean isAlreadyAwardedTo(Player player) {
-        if (!(player instanceof ServerPlayer sp))
-            return true;
-        Advancement advancement = sp.getServer()
-                .getAdvancements()
-                .getAdvancement(CreateNuclear.asResource(id));
-        if (advancement == null)
-            return true;
-        return sp.getAdvancements()
-                .getOrStartProgress(advancement)
-                .isDone();
     }
 
     void provideLang(BiConsumer<String, String> consumer) {
@@ -175,9 +177,7 @@ public class CreateNuclearAdvancement {
         Builder whenIconCollected() {
             return externalTrigger(InventoryChangeTrigger.TriggerInstance.hasItems(icon.getItem()));
         }
-        Builder whenItemEaten(Item item) {
-            return externalTrigger(ConsumeItemTrigger.TriggerInstance.usedItem(item));
-        }
+
         Builder whenItemCollected(ItemProviderEntry<?> item) {
             return whenItemCollected(item.asStack()
                     .getItem());
@@ -188,9 +188,9 @@ public class CreateNuclearAdvancement {
         }
 
         Builder whenItemCollected(TagKey<Item> tag) {
-            return externalTrigger(InventoryChangeTrigger.TriggerInstance
-                    .hasItems(new ItemPredicate(tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,
-                            EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY)));
+            return externalTrigger(InventoryChangeTrigger.Conditions
+                    .items(new ItemPredicate(tag, null, MinMaxBounds.IntRange.ANY, MinMaxBounds.IntRange.ANY,
+                            EnchantmentPredicate.ARRAY_OF_ANY, EnchantmentPredicate.ARRAY_OF_ANY, null, NbtPredicate.ANY)));
         }
 
         Builder awardedForFree() {
@@ -198,7 +198,7 @@ public class CreateNuclearAdvancement {
         }
 
         Builder externalTrigger(CriterionTriggerInstance trigger) {
-            builder.addCriterion(String.valueOf(keyIndex), trigger);
+            builder.criterion(String.valueOf(keyIndex), trigger);
             externalTrigger = true;
             keyIndex++;
             return this;

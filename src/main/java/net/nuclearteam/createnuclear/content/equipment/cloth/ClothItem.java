@@ -1,27 +1,24 @@
 package net.nuclearteam.createnuclear.content.equipment.cloth;
 
 import com.tterrag.registrate.util.entry.ItemEntry;
-import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
-
-
+import net.minecraft.world.item.DyeColor;
 import net.nuclearteam.createnuclear.CNItems;
-import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.*;
-import java.util.function.Function;
 
-@MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
-@SuppressWarnings({"unused", "unchecked"})
+@SuppressWarnings("unused")
 public class ClothItem extends Item {
+
     private final DyeColor color;
 
-    public ClothItem(Properties properties, DyeColor color) {
+    public ClothItem(Item.Properties properties, DyeColor color) {
         super(properties);
         this.color = color;
+    }
+
+    public DyeColor getColor() {
+      return color;
     }
 
     public enum Cloths {
@@ -60,8 +57,13 @@ public class ClothItem extends Item {
             return clothMap.get(this.color);
         }
 
+        public DyeColor getColor() {
+            return color;
+        }
+
         public static ItemEntry<ClothItem> getByColor(DyeColor color) {
             return clothMap.get(color);
         }
+
     }
 }

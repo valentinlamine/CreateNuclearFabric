@@ -1,19 +1,16 @@
 package net.nuclearteam.createnuclear.content.contraptions.irradiated.wolf;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.resources.ResourceLocation;
 import net.nuclearteam.createnuclear.CreateNuclear;
-
 import net.nuclearteam.createnuclear.content.contraptions.irradiated.CNModelLayers;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-@MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class IrradiatedWolfRenderer extends MobRenderer<IrradiatedWolf, IrradiatedWolfModel<IrradiatedWolf>> {
     private static final ResourceLocation WOLF_LOCATION = CreateNuclear.asResource("textures/entity/irradiated_wolf.png");
@@ -21,27 +18,27 @@ public class IrradiatedWolfRenderer extends MobRenderer<IrradiatedWolf, Irradiat
     private static final ResourceLocation WOLF_ANGRY_LOCATION = CreateNuclear.asResource("textures/entity/irradiated_wolf_angry.png");
 
     public IrradiatedWolfRenderer(EntityRendererProvider.Context context) {
-        super(context, new IrradiatedWolfModel<>(context.bakeLayer(CNModelLayers.IRRADIATED_WOLF)), 0.5F);
+        super(context, new IrradiatedWolfModel<>(context.getPart(CNModelLayers.IRRADIATED_WOLF)), 0.5F);
     }
 
-    protected float getBob(IrradiatedWolf livingBase, float partialTicks) {
+    protected float getAnimationProgress(IrradiatedWolf livingBase, float partialTicks) {
         return livingBase.getTailAngle();
     }
 
     public void render(IrradiatedWolf entity, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLight) {
         if (entity.isWet()) {
             float f = entity.getWetShade(partialTicks);
-            this.model.setColor(f, f, f);
+            this.model.setColorMultiplier(f, f, f);
         }
 
         super.render(entity, entityYaw, partialTicks, matrixStack, buffer, packedLight);
         if (entity.isWet()) {
-            this.model.setColor(1.0F, 1.0F, 1.0F);
+            this.model.setColorMultiplier(1.0F, 1.0F, 1.0F);
         }
 
     }
 
-    public @NotNull ResourceLocation getTextureLocation(IrradiatedWolf entity) {
+    public @NotNull ResourceLocation getTexture(IrradiatedWolf entity) {
         if (entity.isTame()) {
             return WOLF_TAME_LOCATION;
         } else {

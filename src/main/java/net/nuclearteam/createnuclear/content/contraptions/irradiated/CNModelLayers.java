@@ -2,7 +2,6 @@ package net.nuclearteam.createnuclear.content.contraptions.irradiated;
 
 import com.google.common.collect.Sets;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.resources.ResourceLocation;
 import net.nuclearteam.createnuclear.CreateNuclear;
 
 import java.util.Set;
@@ -13,6 +12,9 @@ public class CNModelLayers {
     public static final ModelLayerLocation IRRADIATED_CHICKEN = register("irradiated_chicken");
     public static final ModelLayerLocation IRRADIATED_WOLF = register("irradiated_wolf");
     public static final ModelLayerLocation IRRADIATED_CAT = register("irradiated_cat");
+    public static final ModelLayerLocation IRRADIATED_COW = register("irradiated_cow");
+
+    public static final ModelLayerLocation ANTI_IRRADIATION_ARMOR = register("default_anti_radiation_suit");
 
     private static ModelLayerLocation register(String path) {
         return register(path, "main");

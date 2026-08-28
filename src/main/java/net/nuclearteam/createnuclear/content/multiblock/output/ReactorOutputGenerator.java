@@ -1,14 +1,13 @@
 package net.nuclearteam.createnuclear.content.multiblock.output;
 
-import com.simibubi.create.foundation.data.AssetLookup;
 import com.simibubi.create.foundation.data.SpecialBlockStateGen;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
 import io.github.fabricators_of_create.porting_lib.models.generators.ModelFile;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.core.Direction;
 
 public class ReactorOutputGenerator extends SpecialBlockStateGen {
 
@@ -31,8 +30,9 @@ public class ReactorOutputGenerator extends SpecialBlockStateGen {
 
     @Override
     public <T extends Block> ModelFile getModel(DataGenContext<Block, T> ctx, RegistrateBlockstateProvider prov, BlockState state) {
-        return state.getValue(ReactorOutput.FACING).getAxis().isVertical()
-                ? AssetLookup.partialBaseModel(ctx, prov, "vertical")
-                : AssetLookup.partialBaseModel(ctx, prov);
+        return prov.models().getExistingFile(prov.modLoc(
+            "block/reactor/output/output"
+                + (state.getValue(ReactorOutput.FACING).getAxis().isVertical() ? "_vertical" : "")
+        ));
     }
 }

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "createnuclear:green_cloth"
+  },
+  "base": {
+    "item": "createnuclear:default_anti_radiation_chestplate"
+  },
+  "result": {
+    "item": "createnuclear:default_anti_radiation_chestplate"
+  },
+  "template": []
+}

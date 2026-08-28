@@ -1,0 +1,39 @@
+{
+  "parent": "createnuclear:root",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "createnuclear:nitrate"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "color": "#DBA213",
+      "translate": "advancement.createnuclear.chemistry_101.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "createnuclear:nitrate"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.createnuclear.chemistry_101"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

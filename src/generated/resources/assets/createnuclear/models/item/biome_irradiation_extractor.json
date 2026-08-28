@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "createnuclear:item/biome_irradiation_extractor/quarter",
+      "predicate": {
+        "createnuclear:biome_restore": 0.25
+      }
+    },
+    {
+      "model": "createnuclear:item/biome_irradiation_extractor/half",
+      "predicate": {
+        "createnuclear:biome_restore": 0.5
+      }
+    },
+    {
+      "model": "createnuclear:item/biome_irradiation_extractor/three_quarters",
+      "predicate": {
+        "createnuclear:biome_restore": 0.75
+      }
+    },
+    {
+      "model": "createnuclear:item/biome_irradiation_extractor/full",
+      "predicate": {
+        "createnuclear:biome_restore": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "createnuclear:item/biome_irradiation_extractor/empty"
+  }
+}

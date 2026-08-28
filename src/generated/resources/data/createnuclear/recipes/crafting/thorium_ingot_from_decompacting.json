@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "c:storage_blocks/thorium"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "createnuclear:thorium_ingot"
+  }
+}

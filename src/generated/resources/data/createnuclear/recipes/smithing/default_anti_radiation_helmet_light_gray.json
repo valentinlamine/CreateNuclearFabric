@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "createnuclear:light_gray_cloth"
+  },
+  "base": {
+    "item": "createnuclear:default_anti_radiation_helmet"
+  },
+  "result": {
+    "item": "createnuclear:default_anti_radiation_helmet"
+  },
+  "template": []
+}

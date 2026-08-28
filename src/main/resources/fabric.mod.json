@@ -1,52 +1,64 @@
 {
-	"schemaVersion": 1,
-	"id": "createnuclear",
-	"version": "${minecraft_version}",
-	"name": "Create Nuclear",
-	"description": "Create nuclear is a mod that add a whole nuclear system to the create mod. An optimized reactor produces over two millions SU.",
-	"authors": [
-		"Create Nuclear"
-	],
-	"contact": {
-		"homepage": "https://www.curseforge.com/minecraft/mc-mods/create-nuclear",
-		"sources": "https://github.com/valentinlamine/Create_Nuclear"
-	},
-	"license": "CC0-1.0",
-	"icon": "assets/createnuclear/icon.png",
-	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"net.nuclearteam.createnuclear.CreateNuclear"
-		],
-		"client": [
-			"net.nuclearteam.createnuclear.CreateNuclearClient"
-		],
-		"fabric-datagen": [
-          "net.nuclearteam.createnuclear.infrastructure.data.CreateNuclearDatagen"
-		],
-		"jei_mod_plugin": [
-			"net.nuclearteam.createnuclear.compat.jei.CNJei"
-		],
-		"rei_client": [
-			"net.nuclearteam.createnuclear.compat.rei.CNRei"
-		],
-		"emi": [
-			"net.nuclearteam.createnuclear.compat.emi.CNEmi"
-		]
-	},
-	"mixins": [
-		"createnuclear.mixins.json"
-	],
-	"accessWidener": "createnuclear.accesswidener",
-	"depends": {
-		"minecraft": "${minecraft_version}",
-		"fabricloader": ">=${loader_version}",
-		"fabric-api": ">=${fabric_version}",
-		"create": ">=${create_version}"
-	},
-	"suggests": {
-		"JEI": ">=${jei_version}",
-		"REI": ">=${rei_version}",
-		"EMI": ">=${emi_version}"
-	}
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${version}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
+  "authors": [
+    "${mod_author}"
+  ],
+  "contact": {
+    "homepage": "${mod_homepage}",
+    "sources": "${mod_sources}",
+    "issues": "${mod_issues}"
+  },
+  "license": "${mod_license}",
+  "icon": "assets/${mod_id}/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.nuclearteam.createnuclear.CreateNuclear"
+    ],
+    "client": [
+      "net.nuclearteam.createnuclear.CreateNuclearClient"
+    ],
+    "fabric-datagen": [
+      "net.nuclearteam.createnuclear.infrastructure.data.CreateNuclearDatagen"
+    ],
+    "fabric-gametest": [
+      "net.nuclearteam.createnuclear.gametest.DefaultHeatCalculatorGameTest",
+      "net.nuclearteam.createnuclear.gametest.ReactorInputFluidManagerGameTest"
+    ],
+    "jei_mod_plugin": [
+      "net.nuclearteam.createnuclear.compat.jei.CNJei"
+    ],
+    "rei_client": [
+      "net.nuclearteam.createnuclear.compat.rei.CNRei"
+    ],
+    "emi": [
+      "net.nuclearteam.createnuclear.compat.emi.CNEmi"
+    ]
+  },
+  "mixins": [
+    "createnuclear.mixins.json",
+    "createnuclear-radiation-worldgen.mixins.json",
+    {
+      "config": "createnuclear.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "accessWidener": "createnuclear.accesswidener",
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": ">=${fabric_version}",
+    "minecraft": "${minecraft_version}",
+    "java": ">=17",
+    "create": ">=${create_version}",
+    "forgeconfigapiport": ">=${forge_config_api_port_version}"
+  },
+  "suggests": {
+    "jei": ">=${jei_version}",
+    "roughlyenoughitems": ">=${rei_version}",
+    "emi": ">=${emi_version}"
+  }
 }

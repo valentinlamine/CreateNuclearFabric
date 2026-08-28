@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "createnuclear:all_anti_radiation_armors"
+            "tag": "createnuclear:anti_radiation_armor"
           }
         ]
       },
@@ -21,7 +21,7 @@
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "createnuclear:white_anti_radiation_helmet",
+      "item": "createnuclear:default_anti_radiation_helmet",
       "nbt": "{Damage:0}"
     },
     "show_toast": true,

@@ -1,0 +1,95 @@
+{
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"texture_size": [96, 96],
+	"textures": {
+		"particle": "createnuclear:item/default_anti_radiation_suit",
+		"layer0": "createnuclear:item/default_anti_radiation_suit"
+	},
+	"elements": [
+		{
+			"name": "power_helmet_inner",
+			"from": [3.8, 0.6, 4.8],
+			"to": [12.2, 9, 13.2],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 4.65, 9]},
+			"faces": {
+				"north": {"uv": [6.33333, 1.33333, 7.66667, 2.66667], "texture": "#layer0"},
+				"east": {"uv": [5, 1.33333, 6.33333, 2.66667], "texture": "#layer0"},
+				"south": {"uv": [9, 1.33333, 10.33333, 2.66667], "texture": "#layer0"},
+				"west": {"uv": [7.66667, 1.33333, 9, 2.66667], "texture": "#layer0"},
+				"up": {"uv": [7.66667, 1.33333, 6.33333, 0], "texture": "#layer0"},
+				"down": {"uv": [9, 0, 7.66667, 1.33333], "texture": "#layer0"}
+			}
+		},
+		{
+			"name": "power_helm_outer",
+			"from": [3.5, 0, 4.5],
+			"to": [12.5, 9, 13.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 4.65, 9]},
+			"faces": {
+				"north": {"uv": [6.33333, 4, 7.66667, 5.33333], "texture": "#layer0"},
+				"east": {"uv": [5, 4, 6.33333, 5.33333], "texture": "#layer0"},
+				"south": {"uv": [9, 4, 10.33333, 5.33333], "texture": "#layer0"},
+				"west": {"uv": [7.66667, 4, 9, 5.33333], "texture": "#layer0"},
+				"up": {"uv": [7.66667, 4, 6.33333, 2.66667], "texture": "#layer0"},
+				"down": {"uv": [9, 2.66667, 7.66667, 4], "texture": "#layer0"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 3, 1],
+			"scale": [0.55, 0.55, 0.55]
+		},
+		"thirdperson_lefthand": {
+			"translation": [0, 3, 1],
+			"scale": [0.55, 0.55, 0.55]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, -90, 25],
+			"translation": [1.13, 3.2, 1.13],
+			"scale": [0.68, 0.68, 0.68]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, -90, 25],
+			"translation": [1.13, 3.2, 1.13],
+			"scale": [0.68, 0.68, 0.68]
+		},
+		"ground": {
+			"translation": [0, 2, 0],
+			"scale": [0.5, 0.5, 0.5]
+		},
+		"gui": {
+			"rotation": [30, 135, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
+		"head": {
+			"rotation": [0, -180, 0],
+			"translation": [0, 13, 7]
+		},
+		"fixed": {
+			"translation": [0, 3.5, 0]
+		},
+		"on_shelf": {
+			"rotation": [0, -180, 0]
+		}
+	},
+	"groups": [
+		{
+			"name": "black_anti_radiation_helmet",
+			"origin": [8, 8, 8],
+			"scope": 0,
+			"color": 0,
+			"children": [
+				{
+					"name": "head",
+					"origin": [8, 36, 9],
+					"scope": 0,
+					"color": 0,
+					"children": [0, 1]
+				}
+			]
+		}
+	]
+}

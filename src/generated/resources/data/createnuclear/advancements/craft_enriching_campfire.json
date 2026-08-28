@@ -1,0 +1,46 @@
+{
+  "parent": "createnuclear:root",
+  "criteria": {
+    "0": {
+      "conditions": {
+        "ingredients": [
+          {
+            "items": [
+              "createnuclear:enriched_soul_soil"
+            ]
+          },
+          {
+            "tag": "minecraft:logs"
+          },
+          {
+            "tag": "c:wooden_rods"
+          }
+        ],
+        "recipe_id": "createnuclear:crafting/enriching_campfire"
+      },
+      "trigger": "minecraft:recipe_crafted"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "color": "#DBA213",
+      "translate": "advancement.createnuclear.craft_enriching_campfire.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "createnuclear:enriching_campfire"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.createnuclear.craft_enriching_campfire"
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

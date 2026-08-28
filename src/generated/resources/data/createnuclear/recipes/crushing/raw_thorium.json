@@ -1,0 +1,18 @@
+{
+  "type": "create:crushing",
+  "ingredients": [
+    {
+      "item": "createnuclear:raw_thorium"
+    }
+  ],
+  "processingTime": 125,
+  "results": [
+    {
+      "item": "createnuclear:thorium_dust"
+    },
+    {
+      "chance": 0.75,
+      "item": "create:experience_nugget"
+    }
+  ]
+}

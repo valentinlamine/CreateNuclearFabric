@@ -39,19 +39,21 @@ import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.plugin.common.BuiltinPlugin;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.ItemLike;
+import net.minecraft.resources.ResourceLocation;
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.CNRecipeTypes;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.compat.rei.category.FanEnrichedCategoryREI;
+import net.nuclearteam.createnuclear.compat.rei.category.FanSnowPowderCategoryREI;
 import net.nuclearteam.createnuclear.content.kinetics.fan.processing.EnrichedRecipe;
+import net.nuclearteam.createnuclear.content.kinetics.fan.processing.SnowPowderRecipe;
 import net.nuclearteam.createnuclear.foundation.utility.CreateNuclearLang;
-import net.nuclearteam.createnuclear.infrastructure.config.CNConfigBase;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.*;
@@ -77,7 +79,13 @@ public class CNRei implements REIClientPlugin {
                 .catalystStack(ProcessingViaFanCategory.getFan("fan_enriched"))
                 .doubleItemIcon(AllItems.PROPELLER.get(), CNBlocks.ENRICHING_CAMPFIRE)
                 .emptyBackground(178, 72)
-                .build("fan_enriched", FanEnrichedCategoryREI::new)
+                .build("fan_enriched", FanEnrichedCategoryREI::new),
+                snowPowder = builder(SnowPowderRecipe.class)
+                .addTypedRecipes(CNRecipeTypes.SNOW_POWDER)
+                .catalystStack(ProcessingViaFanCategory.getFan("fan_snow_powder"))
+                .doubleItemIcon(AllItems.PROPELLER.get(), Items.POWDER_SNOW_BUCKET)
+                .emptyBackground(178, 72)
+                .build("fan_snow_powder", FanSnowPowderCategoryREI::new)
                 ;
     }
 
@@ -168,11 +176,6 @@ public class CNRei implements REIClientPlugin {
 
         public CategoryBuilder<T> enableIf(Predicate<CRecipes> predicate) {
             this.predicate = predicate;
-            return this;
-        }
-
-        public CategoryBuilder<T> enableWhen(Function<CRecipes, CNConfigBase.ConfigBool> configValue) {
-            predicate = c -> configValue.apply(c).get();
             return this;
         }
 
@@ -337,13 +340,13 @@ public class CNRei implements REIClientPlugin {
 
     public static void consumeAllRecipes(Consumer<Recipe<?>> consumer) {
         Minecraft.getInstance().level.getRecipeManager()
-                .getRecipes()
+                .values()
                 .forEach(consumer);
     }
 
     public static <T extends Recipe<?>> void consumeTypedRecipes(Consumer<T> consumer, RecipeType<?> type) {
         Map<ResourceLocation, Recipe<?>> map = ((RecipeManagerAccessor) Minecraft.getInstance()
-                .getConnection()
+                .getNetworkHandler()
                 .getRecipeManager()).port_lib$getRecipes().get(type);
         if (map != null) {
             map.values().forEach(recipe -> consumer.accept((T) recipe));
@@ -371,7 +374,7 @@ public class CNRei implements REIClientPlugin {
         }
         ItemStack[] matchingStacks = recipe1.getIngredients()
                 .get(0)
-                .getItems();
+                .getMatchingStacks();
         if (matchingStacks.length == 0) {
             return false;
         }

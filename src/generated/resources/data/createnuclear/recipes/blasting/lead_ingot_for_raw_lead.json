@@ -4,7 +4,7 @@
   "cookingtime": 100,
   "experience": 0.1,
   "ingredient": {
-    "item": "createnuclear:raw_lead"
+    "tag": "c:raw_materials/lead"
   },
   "result": "createnuclear:lead_ingot"
 }

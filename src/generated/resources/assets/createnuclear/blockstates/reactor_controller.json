@@ -1,33 +1,63 @@
 {
   "variants": {
-    "assembled=false,facing=east": {
-      "model": "createnuclear:block/reactor_controller/block",
+    "active=false,assembled=false,facing=east": {
+      "model": "createnuclear:block/reactor/controller/off",
       "y": 270
     },
-    "assembled=false,facing=north": {
-      "model": "createnuclear:block/reactor_controller/block",
+    "active=false,assembled=false,facing=north": {
+      "model": "createnuclear:block/reactor/controller/off",
       "y": 180
     },
-    "assembled=false,facing=south": {
-      "model": "createnuclear:block/reactor_controller/block"
+    "active=false,assembled=false,facing=south": {
+      "model": "createnuclear:block/reactor/controller/off"
     },
-    "assembled=false,facing=west": {
-      "model": "createnuclear:block/reactor_controller/block",
+    "active=false,assembled=false,facing=west": {
+      "model": "createnuclear:block/reactor/controller/off",
       "y": 90
     },
-    "assembled=true,facing=east": {
-      "model": "createnuclear:block/reactor_controller/block",
+    "active=false,assembled=true,facing=east": {
+      "model": "createnuclear:block/reactor/controller/standby",
       "y": 270
     },
-    "assembled=true,facing=north": {
-      "model": "createnuclear:block/reactor_controller/block",
+    "active=false,assembled=true,facing=north": {
+      "model": "createnuclear:block/reactor/controller/standby",
       "y": 180
     },
-    "assembled=true,facing=south": {
-      "model": "createnuclear:block/reactor_controller/block"
+    "active=false,assembled=true,facing=south": {
+      "model": "createnuclear:block/reactor/controller/standby"
     },
-    "assembled=true,facing=west": {
-      "model": "createnuclear:block/reactor_controller/block",
+    "active=false,assembled=true,facing=west": {
+      "model": "createnuclear:block/reactor/controller/standby",
+      "y": 90
+    },
+    "active=true,assembled=false,facing=east": {
+      "model": "createnuclear:block/reactor/controller/off",
+      "y": 270
+    },
+    "active=true,assembled=false,facing=north": {
+      "model": "createnuclear:block/reactor/controller/off",
+      "y": 180
+    },
+    "active=true,assembled=false,facing=south": {
+      "model": "createnuclear:block/reactor/controller/off"
+    },
+    "active=true,assembled=false,facing=west": {
+      "model": "createnuclear:block/reactor/controller/off",
+      "y": 90
+    },
+    "active=true,assembled=true,facing=east": {
+      "model": "createnuclear:block/reactor/controller/on",
+      "y": 270
+    },
+    "active=true,assembled=true,facing=north": {
+      "model": "createnuclear:block/reactor/controller/on",
+      "y": 180
+    },
+    "active=true,assembled=true,facing=south": {
+      "model": "createnuclear:block/reactor/controller/on"
+    },
+    "active=true,assembled=true,facing=west": {
+      "model": "createnuclear:block/reactor/controller/on",
       "y": 90
     }
   }

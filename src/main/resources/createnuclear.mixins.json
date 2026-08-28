@@ -3,9 +3,11 @@
   "package": "net.nuclearteam.createnuclear.foundation.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "CNBaseFireBlockMixin"
+    "BaseFireBlockMixin",
+    "LivingEntityAttributeMixin",
+    "SmithingTransformRecipeMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-	}
+  }
 }

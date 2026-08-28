@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_campfire",
+  "textures": {
+    "fire": "createnuclear:block/enriching/campfire/enriching_flame",
+    "lit_log": "createnuclear:block/enriching/campfire/enriching_flame_log_lit"
+  }
+}

@@ -6,10 +6,10 @@ import com.tterrag.registrate.fabric.RegistryObject;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
-import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.nuclearteam.createnuclear.foundation.data.PotionBuilder.PotionFactory;
 
 @MethodsReturnNonnullByDefault

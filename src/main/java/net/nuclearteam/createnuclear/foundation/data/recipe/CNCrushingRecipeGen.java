@@ -1,15 +1,20 @@
 package net.nuclearteam.createnuclear.foundation.data.recipe;
 
 import com.simibubi.create.AllItems;
-import com.simibubi.create.Create;
 import com.simibubi.create.api.data.recipe.CrushingRecipeGen;
+import com.simibubi.create.content.decoration.palettes.AllPaletteStoneTypes;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
-import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.data.PackOutput;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.ItemLike;
+import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
+import net.createmod.catnip.lang.Lang;
+import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.data.CachedOutput;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.resources.ResourceLocation;
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.CNItems;
 import net.nuclearteam.createnuclear.CreateNuclear;
@@ -17,87 +22,85 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
-@MethodsReturnNonnullByDefault
 public class CNCrushingRecipeGen extends CrushingRecipeGen {
 
     GeneratedRecipe
-        COAL_DUST = create(() -> Items.COAL, b -> b.duration(250)
-                .output(.50f, CNItems.COAL_DUST)
-        ),
+        COAL_DUST = create("coal", b -> b
+            .duration(250)
+            .require(ItemTags.COALS)
+            .output(0.50f, CNItems.COAL_DUST)),
 
-        CHARCOAL_DUST = create(() -> Items.CHARCOAL, b -> b.duration(250)
-                .output(.50f, CNItems.COAL_DUST)
-        ),
+        GRANITE_URANIUM_POWDER = create(() -> Items.GRANITE, b -> b
+            .duration(250)
+            .output(0.5f, CNItems.URANIUM_POWDER)
+            .output(1f, Blocks.RED_SAND)),
 
-        GRANITE_URANIUM_POWDER = create(() -> Items.GRANITE, b -> b.duration(250)
-                .output(.5f, CNItems.URANIUM_POWDER)
-                .output(1f, Blocks.RED_SAND)
-        )
-    ;
+        RAW_URANIUM_BLOCK = create(() -> CNBlocks.RAW_URANIUM_BLOCK, b -> b
+            .duration(400)
+            .output(1, AllItems.CRUSHED_URANIUM, 9)
+            .output(0.75f, AllItems.EXP_NUGGET, 9)),
 
-    GeneratedRecipe
-        RAW_URANIUM = create(() -> AllItems.CRUSHED_URANIUM, b -> b.duration(250)
-                .output(1, CNItems.URANIUM_POWDER,9)
-        ),
+        RAW_URANIUM_ITEM = create(() -> CNItems.RAW_URANIUM, b -> b
+            .duration(400)
+            .output(1, AllItems.CRUSHED_URANIUM, 1)
+            .output(0.75f, AllItems.EXP_NUGGET, 1)),
 
-        RAW_URANIUM_BLOCK = create(() -> CNBlocks.RAW_URANIUM_BLOCK, b -> b.duration(250)
-            .output(1, AllItems.CRUSHED_URANIUM,9)
-            .output(.75f, AllItems.EXP_NUGGET, 18)
-        ),
+        FIX_RAW_URANIUM = createFix(CreateNuclear.MOD_ID, AllItems.CRUSHED_URANIUM::get, b -> b
+            .duration(255)
+            .output(1, CNItems.URANIUM_POWDER, 9)),
 
-        RAW_LEAD = create(() -> CNItems.RAW_LEAD, b -> b.duration(250)
-                .output(1, AllItems.CRUSHED_LEAD,1)
-        ),
+        RAW_THORIUM_BLOCK = create(() -> CNBlocks.RAW_THORIUM_BLOCK, b -> b
+            .duration(250)
+            .output(1, CNItems.THORIUM_DUST, 9)
+            .output(0.75f, AllItems.EXP_NUGGET, 9)),
 
-        RAW_LEAD_BLOCK = create(() -> CNBlocks.RAW_LEAD_BLOCK, b -> b.duration(250)
-            .output(1, AllItems.CRUSHED_LEAD,9)
-            .output(.75f, AllItems.EXP_NUGGET, 18)
-        ),
+        RAW_THORIUM_ITEM = create(() -> CNItems.RAW_THORIUM, b -> b
+            .duration(125)
+            .output(1, CNItems.THORIUM_DUST, 1)
+            .output(0.75f, AllItems.EXP_NUGGET, 1)),
 
-        RAW_ZINC_ORE = rawOre(AllItems.RAW_ZINC::get, AllItems.CRUSHED_ZINC::get, 1),
-        RAW_COPPER_ORE = rawOre(() -> Items.RAW_COPPER, AllItems.CRUSHED_COPPER::get, 1)
-    ;
+        RAW_ZINC = create(() -> AllItems.RAW_ZINC, b -> b
+            .duration(250)
+            .output(1, AllItems.CRUSHED_ZINC, 1)
+            .output(0.75f, AllItems.EXP_NUGGET, 1)
+            .output(0.25f, CNItems.LEAD_NUGGET, 1)),
 
+        RAW_COPPER = create(() -> Items.RAW_COPPER, b -> b
+            .duration(250)
+            .output(1, AllItems.CRUSHED_COPPER, 1)
+            .output(0.75f, AllItems.EXP_NUGGET, 1)
+            .output(0.15f, CNItems.LEAD_NUGGET, 1)),
 
-    public CNCrushingRecipeGen(PackOutput output) {
+        NITRATE = create("nitrate", b -> b
+            .require(AllPaletteStoneTypes.LIMESTONE.materialTag)
+            .duration(250)
+            .output(0.6f, CNItems.NITRATE, 1)
+            .output(0.4f, CNItems.LEAD_NUGGET, 1));
+
+    public CNCrushingRecipeGen(CachedOutput output) {
         super(output, CreateNuclear.MOD_ID);
     }
 
-
-//    protected <T extends ProcessingRecipe<?>> GeneratedRecipe create(String namespace,
-//                                                                     Supplier<ItemLike> singleIngredient, UnaryOperator<ProcessingRecipeBuilder<T>> transform) {
-//        ProcessingRecipeSerializer<T> serializer = getSerializer();
-//        GeneratedRecipe generatedRecipe = c -> {
-//            ItemLike itemLike = singleIngredient.get();
-//            transform
-//                    .apply(new ProcessingRecipeBuilder<>(serializer.getFactory(),
-//                            new ResourceLocation(namespace, RegisteredObjects.getKeyOrThrow(itemLike.asItem())
-//                                    .getPath())).withItemIngredients(Ingredient.of(itemLike)))
-//                    .build(c);
-//        };
-//        all.add(generatedRecipe);
-//        return generatedRecipe;
-//    }
-//
-//    <T extends ProcessingRecipe<?>> GeneratedRecipe create(Supplier<ItemLike> singleIngredient,
-//                                                           UnaryOperator<ProcessingRecipeBuilder<T>> transform) {
-//        return create(CreateNuclear.MOD_ID, singleIngredient, transform);
-//    }
-//
-    <T extends ProcessingRecipe<?>> GeneratedRecipe createC(Supplier<ItemLike> singleIngredient,
-                                                           UnaryOperator<ProcessingRecipeBuilder<T>> transform) {
-        return create(Create.ID, singleIngredient, transform);
+    protected GeneratedRecipe mineralRecycling(AllPaletteStoneTypes type,
+                                                UnaryOperator<ProcessingRecipeBuilder<ProcessingRecipe<?>>> transform) {
+        create(Lang.asId(type.name()) + "_recycling", b -> transform.apply(b.require(type.materialTag)));
+        return create(type.getBaseBlock()::get, transform);
     }
 
-    protected GeneratedRecipe rawOre(Supplier<ItemLike> input, Supplier<ItemLike> result, int amount) {
-        return createC(input, b -> b.duration(400)
-                .output(result.get(), amount)
-                .output(.75f, AllItems.EXP_NUGGET.get(), (result.get() == AllItems.CRUSHED_GOLD.get() ? 2 : 1) * amount)
-                .output(.15f, CNItems.LEAD_NUGGET, 1));
-    }
-
-    @Override
-    public String getName() {
-        return "CreateNuclear Processing Recipes: " + getRecipeType().getId().getPath();
+    protected <T extends ProcessingRecipe<?>> GeneratedRecipe createFix(
+        String namespace,
+        Supplier<ItemLike> singleIngredient,
+        UnaryOperator<ProcessingRecipeBuilder<T>> transform
+    ) {
+        ProcessingRecipeSerializer<T> serializer = getSerializer();
+        GeneratedRecipe generatedRecipe = consumer -> {
+            ItemLike item = singleIngredient.get();
+            transform.apply(new ProcessingRecipeBuilder<>(serializer.getFactory(),
+                    new ResourceLocation(namespace, "fix/" + CatnipServices.REGISTRIES.getKeyOrThrow(item.asItem()).getPath()))
+                .withItemIngredients(Ingredient.of(item)))
+                .build(consumer);
+        };
+        all.add(generatedRecipe);
+        return generatedRecipe;
     }
 }

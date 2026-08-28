@@ -1,66 +1,69 @@
 package net.nuclearteam.createnuclear.infrastructure.worldgen;
 
-
 import com.simibubi.create.infrastructure.worldgen.AllFeatures;
 import com.simibubi.create.infrastructure.worldgen.LayerPattern;
 import com.simibubi.create.infrastructure.worldgen.LayeredOreConfiguration;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration.TargetBlockState;
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.CreateNuclear;
+import static net.minecraft.data.worldgen.features.FeatureUtils.register;
 
 import java.util.List;
 
 public class CNConfiguredFeatures {
+    public static final ResourceKey<ConfiguredFeature<?, ?>>
+        URANIUM_ORE = key("uranium_ore"),
+        LEAD_ORE = key("lead_ore"),
+        THORIUM_ORE = key("thorium_ore"),
+        NITRATE_ORE = key("nitrate_ore"),
+        STRIATED_ORES_OVERWORLD = key("striated_ores_overworld")
+    ;
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> URANIUM_ORE_KEY = registerKey("uranium_ore");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> LEAD_ORE = registerKey("lead_ore");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> STRIATED_ORES_OVERWORLD = registerKey("striated_ores_overworld");
-
-    public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
+    private static ResourceKey<ConfiguredFeature<?, ?>> key(String name) {
         return ResourceKey.create(Registries.CONFIGURED_FEATURE, CreateNuclear.asResource(name));
     }
 
+    public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> ctx) {
+        RuleTest stoneOreReplaceable = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
+        RuleTest deepslateOreReplaceable = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
 
-    public static void boostrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
-        RuleTest stoneReplaceable = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
-        RuleTest deepslateReplaceable = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
-
-        List<OreConfiguration.TargetBlockState> uraniumTargetStates = List.of(
-                OreConfiguration.target(stoneReplaceable, CNBlocks.URANIUM_ORE.get().defaultBlockState()),
-                OreConfiguration.target(deepslateReplaceable, CNBlocks.DEEPSLATE_URANIUM_ORE.get().defaultBlockState())
+        List<TargetBlockState> uraniumTargetStates = List.of(
+                OreConfiguration.target(stoneOreReplaceable, CNBlocks.URANIUM_ORE.getDefaultState()),
+                OreConfiguration.target(deepslateOreReplaceable, CNBlocks.DEEPSLATE_URANIUM_ORE.getDefaultState())
         );
+        register(ctx, URANIUM_ORE, Feature.ORE, new OreConfiguration(uraniumTargetStates, 7));
 
-        register(context, URANIUM_ORE_KEY, Feature.ORE, new OreConfiguration(uraniumTargetStates, 7));
-
-        List<OreConfiguration.TargetBlockState> leadTargetStates = List.of(
-                OreConfiguration.target(stoneReplaceable, CNBlocks.LEAD_ORE.get().defaultBlockState()),
-                OreConfiguration.target(deepslateReplaceable, CNBlocks.DEEPSLATE_LEAD_ORE.get().defaultBlockState())
+        List<TargetBlockState> leadTargetStates = List.of(
+                OreConfiguration.target(stoneOreReplaceable, CNBlocks.LEAD_ORE.getDefaultState()),
+                OreConfiguration.target(deepslateOreReplaceable, CNBlocks.DEEPSLATE_LEAD_ORE.getDefaultState())
         );
+        register(ctx, LEAD_ORE, Feature.ORE, new OreConfiguration(leadTargetStates, 12));
 
-        register(context, LEAD_ORE, Feature.ORE, new OreConfiguration(leadTargetStates, 7));
+        List<TargetBlockState> thoriumTargetStates = List.of(
+                OreConfiguration.target(stoneOreReplaceable, CNBlocks.THORIUM_ORE.getDefaultState()),
+                OreConfiguration.target(deepslateOreReplaceable, CNBlocks.DEEPSLATE_THORIUM_ORE.getDefaultState())
+        );
+        register(ctx, THORIUM_ORE, Feature.ORE, new OreConfiguration(thoriumTargetStates, 12));
+
+        List<TargetBlockState> nitrateTargetStates = List.of(
+                OreConfiguration.target(stoneOreReplaceable, CNBlocks.NITRATE_ORE.getDefaultState()),
+                OreConfiguration.target(deepslateOreReplaceable, CNBlocks.DEEPSLATE_NITRATE_ORE.getDefaultState())
+        );
+        register(ctx, NITRATE_ORE, Feature.ORE, new OreConfiguration(nitrateTargetStates, 10));
 
         List<LayerPattern> overworldLayerPatterns = List.of(
                 CNLayerPatterns.AUTUNITE.get()
         );
 
-        register(context, STRIATED_ORES_OVERWORLD, AllFeatures.LAYERED_ORE.get(), new LayeredOreConfiguration(overworldLayerPatterns, 32, 0));
-
-
-    }
-
-
-
-    private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstapContext<ConfiguredFeature<?, ?>> context,
-                                                                                          ResourceKey<ConfiguredFeature<?, ?>> key, F feature, FC config) {
-        context.register(key, new ConfiguredFeature<>(feature, config));
+        register(ctx, STRIATED_ORES_OVERWORLD, AllFeatures.LAYERED_ORE.get(), new LayeredOreConfiguration(overworldLayerPatterns, 32, 0));
     }
 }

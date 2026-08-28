@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear.foundation.mixin;
 
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.BaseFireBlock;
