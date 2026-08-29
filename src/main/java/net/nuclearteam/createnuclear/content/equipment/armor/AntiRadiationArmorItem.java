@@ -69,9 +69,9 @@ public abstract class AntiRadiationArmorItem extends ArmorItem implements ArmorT
         }
 
         @Override
-        public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
-            if (slot != this.getType().getEquipmentSlot()) return super.getAttributeModifiers(slot);
-            Multimap<Attribute, AttributeModifier> map = super.getAttributeModifiers(slot);
+        public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
+            if (slot != this.getType().getSlot()) return super.getDefaultAttributeModifiers(slot);
+            Multimap<Attribute, AttributeModifier> map = super.getDefaultAttributeModifiers(slot);
             return AntiRadiationArmorItem.irradiatedArmorAttribute(map, Type.HELMET);
         }
     }
@@ -82,9 +82,9 @@ public abstract class AntiRadiationArmorItem extends ArmorItem implements ArmorT
         }
 
         @Override
-        public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
-            if (slot != this.getType().getEquipmentSlot()) return super.getAttributeModifiers(slot);
-            Multimap<Attribute, AttributeModifier> map = super.getAttributeModifiers(slot);
+        public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
+            if (slot != this.getType().getSlot()) return super.getDefaultAttributeModifiers(slot);
+            Multimap<Attribute, AttributeModifier> map = super.getDefaultAttributeModifiers(slot);
             return AntiRadiationArmorItem.irradiatedArmorAttribute(map, Type.CHESTPLATE);
         }
     }
@@ -95,9 +95,9 @@ public abstract class AntiRadiationArmorItem extends ArmorItem implements ArmorT
         }
 
         @Override
-        public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
-            if (slot != this.getType().getEquipmentSlot()) return super.getAttributeModifiers(slot);
-            Multimap<Attribute, AttributeModifier> map = super.getAttributeModifiers(slot);
+        public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
+            if (slot != this.getType().getSlot()) return super.getDefaultAttributeModifiers(slot);
+            Multimap<Attribute, AttributeModifier> map = super.getDefaultAttributeModifiers(slot);
             return AntiRadiationArmorItem.irradiatedArmorAttribute(map, Type.LEGGINGS);
         }
     }
@@ -108,16 +108,16 @@ public abstract class AntiRadiationArmorItem extends ArmorItem implements ArmorT
         }
 
         @Override
-        public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
-            if (slot != this.getType().getEquipmentSlot()) return super.getAttributeModifiers(slot);
-            Multimap<Attribute, AttributeModifier> map = super.getAttributeModifiers(slot);
+        public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
+            if (slot != this.getType().getSlot()) return super.getDefaultAttributeModifiers(slot);
+            Multimap<Attribute, AttributeModifier> map = super.getDefaultAttributeModifiers(slot);
             return AntiRadiationArmorItem.irradiatedArmorAttribute(map, Type.BOOTS);
         }
     }
 
     public interface IGoggleHelmet {
         static boolean isGoggleHelmet(LivingEntity entity) {
-            ItemStack headSlot = entity.getEquippedStack(EquipmentSlot.HEAD);
+            ItemStack headSlot = entity.getItemBySlot(EquipmentSlot.HEAD);
             return CNItems.ANTI_RADIATION_HELMETS.is(headSlot);
         }
     }

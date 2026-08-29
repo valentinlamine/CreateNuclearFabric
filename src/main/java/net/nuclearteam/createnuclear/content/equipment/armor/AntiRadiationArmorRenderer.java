@@ -1,6 +1,5 @@
 package net.nuclearteam.createnuclear.content.equipment.armor;
 
-import io.github.fabricators_of_create.porting_lib.item.ArmorTextureItem;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -22,11 +21,11 @@ public final class AntiRadiationArmorRenderer implements ArmorRenderer {
         if (!(stack.getItem() instanceof AntiRadiationArmorItem armorItem)) return;
         if (model == null) {
             model = new AntiRadiationArmorModel(Minecraft.getInstance()
-                    .getEntityModelLoader().getModelPart(CNModelLayers.ANTI_IRRADIATION_ARMOR));
+                    .getEntityModels().bakeLayer(CNModelLayers.ANTI_IRRADIATION_ARMOR));
         }
-        contextModel.copyBipedStateTo(model);
+        contextModel.copyPropertiesTo(model);
         model.currentSlot = slot;
-        String texturePath = ((ArmorTextureItem) armorItem).getArmorTexture(stack, entity, slot, null);
+        String texturePath = armorItem.getArmorTexture(stack, entity, slot, null);
         ArmorRenderer.renderPart(matrices, consumers, light, stack, model, new ResourceLocation(texturePath));
     }
 }

@@ -71,7 +71,7 @@ public class CNFanProcessingTypes {
         public boolean isValidAt(Level level, BlockPos pos) {
             BlockState state = level.getBlockState(pos);
             if (CNTags.CNBlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.matches(state)) {
-                return !state.is(CNBlocks.ENRICHING_CAMPFIRE.get()) || !state.contains(EnrichingCampfireBlock.LIT) || state.getValue(EnrichingCampfireBlock.LIT);
+                return !state.is(CNBlocks.ENRICHING_CAMPFIRE.get()) || !state.hasProperty(EnrichingCampfireBlock.LIT) || state.getValue(EnrichingCampfireBlock.LIT);
             }
             return false;
         }
@@ -102,7 +102,7 @@ public class CNFanProcessingTypes {
             pos = pos.add(VecHelper.offsetRandomly(Vec3.ZERO, level.random, 1)
                     .multiply(1, 0.5f, 1)
                     .normalize()
-                    .multiply(0.15f)
+                    .scale(0.15f)
             );
             level.addParticle(ParticleTypes.ANGRY_VILLAGER, pos.x, pos.y + .45f, pos.z, 0.0, 0.0, 0.0);
             if (level.random.nextInt(2) != 0) level.addParticle(ParticleTypes.FIREWORK, pos.x, pos.y + .25f, pos.z, 0.0, 0.0, 0.0);
@@ -157,7 +157,7 @@ public class CNFanProcessingTypes {
             pos = pos.add(VecHelper.offsetRandomly(Vec3.ZERO, level.random, 1)
                     .multiply(1, 0.5f, 1)
                     .normalize()
-                    .multiply(0.15f)
+                    .scale(0.15f)
             );
             level.addParticle(ParticleTypes.SNOWFLAKE, pos.x, pos.y + .45f, pos.z, 0.0, 0.0, 0.0);
             if (level.random.nextInt(2) != 0)
@@ -175,7 +175,7 @@ public class CNFanProcessingTypes {
         @Override
         public void affectEntity(Entity entity, Level level) {
             if (entity instanceof LivingEntity livingEntity) {
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 10, 0, true, true));
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 10, 0, true, true));
             }
         }
     }

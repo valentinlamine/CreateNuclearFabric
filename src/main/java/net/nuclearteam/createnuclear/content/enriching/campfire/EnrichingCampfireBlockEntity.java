@@ -22,12 +22,12 @@ public class EnrichingCampfireBlockEntity extends SmartBlockEntity {
                 EnrichingCampfireBlock.makeParticles(level, pos);
             }
         }
-        i = state.getValue(EnrichingCampfireBlock.FACING).getHorizontal();
+        i = state.getValue(EnrichingCampfireBlock.FACING).get2DDataValue();
     }
 
     private void markUpdated() {
         this.setChanged();
-        this.getLevel().updateListeners(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
+        this.getLevel().sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 3);
     }
 
     public void dowse() {

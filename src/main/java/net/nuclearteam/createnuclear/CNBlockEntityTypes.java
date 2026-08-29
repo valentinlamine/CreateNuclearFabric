@@ -1,5 +1,7 @@
 package net.nuclearteam.createnuclear;
 
+import com.simibubi.create.AllPartialModels;
+import com.simibubi.create.content.kinetics.base.OrientedRotatingVisual;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import net.nuclearteam.createnuclear.content.enriching.campfire.EnrichingCampfireBlockEntity;
@@ -8,9 +10,11 @@ import net.nuclearteam.createnuclear.content.multiblock.casing.ReactorCasingEnti
 import net.nuclearteam.createnuclear.content.multiblock.controller.ReactorControllerBlockEntity;
 import net.nuclearteam.createnuclear.content.multiblock.core.ReactorCoreEntity;
 import net.nuclearteam.createnuclear.content.multiblock.frame.ReactorFrameEntity;
+import net.nuclearteam.createnuclear.content.multiblock.frame.ReactorFrameRenderer;
 import net.nuclearteam.createnuclear.content.multiblock.input.item.ReactorRodInputEntity;
 import net.nuclearteam.createnuclear.content.multiblock.input.fluid.ReactorFluidInputEntity;
 import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputEntity;
+import net.nuclearteam.createnuclear.content.multiblock.output.ReactorOutputRenderer;
 
 public class CNBlockEntityTypes {
     private static final CreateRegistrate REGISTRATE = CreateNuclear.registrate();
@@ -33,6 +37,7 @@ public class CNBlockEntityTypes {
     public static final BlockEntityEntry<ReactorFrameEntity> REACTOR_FRAME =
             REGISTRATE.blockEntity("reactor_frame", ReactorFrameEntity::new)
                     .validBlocks(CNBlocks.REACTOR_FRAME)
+                    .renderer(() -> ReactorFrameRenderer::new)
                     .register();
 
     public static final BlockEntityEntry<ReactorRodInputEntity> REACTOR_ROD_INPUT =
@@ -47,7 +52,9 @@ public class CNBlockEntityTypes {
 
     public static final BlockEntityEntry<ReactorOutputEntity> REACTOR_OUTPUT =
             REGISTRATE.blockEntity("reactor_output", ReactorOutputEntity::new)
+                    .visual(() -> OrientedRotatingVisual.of(AllPartialModels.SHAFT_HALF), false)
                     .validBlocks(CNBlocks.REACTOR_OUTPUT)
+                    .renderer(() -> ReactorOutputRenderer::new)
                     .register();
 
     public static final BlockEntityEntry<ReactorControllerBlockEntity> REACTOR_CONTROLLER =

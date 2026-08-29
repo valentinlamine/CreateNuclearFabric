@@ -4,6 +4,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
+import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.content.radiation.capability.IRadiationCapability;
 import net.nuclearteam.createnuclear.content.radiation.capability.RadiationCapability;
 import net.nuclearteam.createnuclear.CNFluids;
@@ -15,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityRadiationMixin implements IRadiationCapability {
-    @Unique private static final String CREATENUCLEAR_STATE_KEY = "createnuclear:irradiated_resistance";
+    @Unique private static final String CREATENUCLEAR_STATE_KEY = CreateNuclear.asResource("irradiated_resistance").toString();
     @Unique private static final String FORGE_CAPS_KEY = "ForgeCaps";
 
     @Unique private double createnuclear$radiation;
@@ -31,7 +32,7 @@ public abstract class LivingEntityRadiationMixin implements IRadiationCapability
         RadiationCapability.tickRadiation(entity);
     }
 
-    @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void createnuclear$writeRadiation(CompoundTag entityNbt, CallbackInfo ci) {
         CompoundTag radiationNbt = new CompoundTag();
         radiationNbt.putDouble("radiation", createnuclear$radiation);
@@ -42,7 +43,7 @@ public abstract class LivingEntityRadiationMixin implements IRadiationCapability
         entityNbt.put(CREATENUCLEAR_STATE_KEY, radiationNbt);
     }
 
-    @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void createnuclear$readRadiation(CompoundTag entityNbt, CallbackInfo ci) {
         CompoundTag radiationNbt = null;
         if (entityNbt.contains(CREATENUCLEAR_STATE_KEY, Tag.TAG_COMPOUND)) {

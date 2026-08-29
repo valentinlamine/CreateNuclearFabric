@@ -25,13 +25,13 @@ public class ReactorRodInputScreen extends AbstractSimiContainerScreen<ReactorRo
     }
 
     @Override
-    protected void drawBackground(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
         int invX = getLeftOfCentered(PLAYER_INVENTORY.getWidth());
-        int invY = y + background.height + 4;
+        int invY = topPos + background.height + 4;
         renderPlayerInventory(guiGraphics, invX, invY);
 
-        int x = this.x;
-        int y = this.y;
+        int x = leftPos;
+        int y = topPos;
 
         background.render(guiGraphics, x, y);
 

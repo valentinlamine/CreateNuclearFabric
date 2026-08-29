@@ -1,6 +1,8 @@
 package net.nuclearteam.createnuclear.content.enriching.fire;
 
 import com.tterrag.registrate.util.nullness.NonNullUnaryOperator;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
@@ -22,32 +24,48 @@ public class EnrichingFireBlock extends BaseFireBlock {
         super(properties, fireDamage);
     }
 
-    public BlockState getPlacementState(BlockPlaceContext pContext) {
+    public BlockState getStateForPlacement() {
         return this.defaultBlockState();
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
-        return this.canPlaceAt(pState, pLevel, pCurrentPos)
-                ? this.defaultBlockState()
+    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
+        return this.canSurvive(pState, pLevel, pCurrentPos)
+                ? this.getStateForPlacement()
                 : Blocks.AIR.defaultBlockState();
     }
 
     @Override
-    public boolean canPlaceAt(BlockState state, LevelReader worldIn, BlockPos pos) {
-        return EnrichingFireBlock.canSurviveOnBlock(worldIn.getBlockState(pos.down()));
+    public boolean canSurvive(BlockState state, LevelReader worldIn, BlockPos pos) {
+        BlockPos blockpos = pos.below();
+        return worldIn.getBlockState(blockpos).isFaceSturdy(worldIn, blockpos, Direction.UP) || this.isValidFireLocation(worldIn, pos);
+    }
+
+    private boolean isValidFireLocation(BlockGetter pLevel, BlockPos pPos) {
+        for(Direction direction : Direction.values()) {
+            if (this.canCatchFire(pLevel, pPos.relative(direction), direction.getOpposite())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean canCatchFire(BlockGetter world, BlockPos pos, Direction face) {
+        FlammableBlockRegistry.Entry entry = FlammableBlockRegistry.getDefaultInstance().get(world.getBlockState(pos).getBlock());
+        return entry != null && entry.getBurnChance() > 0;
     }
 
     @Override
-    protected boolean isFlammable(BlockState state) {
+    protected boolean canBurn(BlockState p_49284_) {
         return true;
     }
 
-    public static boolean canSurviveOnBlock(BlockState state) {
-        return state.is(CNTags.CNBlockTags.ENRICHING_FIRE_BASE_BLOCKS.tag);
+    public static boolean canSurviveOnBlock(BlockState pState) {
+        return pState.is(CNTags.CNBlockTags.ENRICHING_FIRE_BASE_BLOCKS.tag);
     }
 
     public static NonNullUnaryOperator<Properties> getLight() {
-        return p -> p.luminance(a -> 15);
+        return p -> p.lightLevel(a -> 15);
     }
 }

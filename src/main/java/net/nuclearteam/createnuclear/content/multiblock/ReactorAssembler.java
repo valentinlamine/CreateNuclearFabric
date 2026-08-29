@@ -85,9 +85,9 @@ public final class ReactorAssembler {
     }
 
     public static void findAndRegisterSpecialBlocks(BoundingBox reactorPos, ReactorControllerBlockEntity entity, Level level) {
-        int xMin = reactorPos.getMinX(), xMax = reactorPos.getMaxX();
-        int yMin = reactorPos.getMinY(), yMax = reactorPos.getMaxY();
-        int zMin = reactorPos.getMinZ(), zMax = reactorPos.getMaxZ();
+        int xMin = reactorPos.minX(), xMax = reactorPos.maxX();
+        int yMin = reactorPos.minY(), yMax = reactorPos.maxY();
+        int zMin = reactorPos.minZ(), zMax = reactorPos.maxZ();
 
         final Block reactorOutputBlock = CNBlocks.REACTOR_OUTPUT.get();
         final Block reactorRodInputBlock = CNBlocks.REACTOR_ROD_INPUT.get();
@@ -129,7 +129,7 @@ public final class ReactorAssembler {
                         entity.addAlarm(mutablePos.immutable());
                     } else if (blockState.is(reactorFrameBlock)) {
                         if (level.getBlockEntity(mutablePos) instanceof ReactorFrameEntity frame) {
-                            frame.setController(entity.position());
+                            frame.setController(entity.getBlockPos());
                         }
                         frameMinY = Math.min(frameMinY, y);
                         frameMaxY = Math.max(frameMaxY, y);
@@ -185,8 +185,8 @@ public final class ReactorAssembler {
         int depth = size - 1;
         Direction into = facing.getOpposite();
 
-        int axisX = into.getOffsetX() * depth;
-        int axisZ = into.getOffsetZ() * depth;
+        int axisX = into.getStepX() * depth;
+        int axisZ = into.getStepZ() * depth;
 
         int minX = center.getX() + Math.min(0, axisX) - (axisX == 0 ? radius : 0);
         int maxX = center.getX() + Math.max(0, axisX) + (axisX == 0 ? radius : 0);

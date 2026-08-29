@@ -43,7 +43,7 @@ import java.util.function.Predicate;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class ReactorOutput extends DirectionalKineticBlock implements IWrenchable, IBE<ReactorOutputEntity> {
-    public static final IntegerProperty DIR = IntegerProperty.of("dir", 0, 2);
+    public static final IntegerProperty DIR = IntegerProperty.create("dir", 0, 2);
 
     private static final int placementHelperId = PlacementHelpers.register(new PlacementHelper());
 
@@ -77,31 +77,31 @@ public class ReactorOutput extends DirectionalKineticBlock implements IWrenchabl
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return CNShapes.REACTOR_OUTPUT.get(state.getValue(FACING));
     }
 
     @Override
-    public BlockState getPlacementState(BlockPlaceContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         Direction preferred = getPreferredFacing(context);
         if ((context.getPlayer() != null && context.getPlayer()
                 .isShiftKeyDown()) || preferred == null)
-            return super.getPlacementState(context);
-        return getDefaultState().setValue(FACING, preferred).setValue(DIR, 0);
+            return super.getStateForPlacement(context);
+        return defaultBlockState().setValue(FACING, preferred).setValue(DIR, 0);
     }
 
     @Override
-    public InteractionResult onUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         ItemStack heldItem = player.getItemInHand(hand);
         IPlacementHelper placementHelper = PlacementHelpers.get(placementHelperId);
-        if (!player.isShiftKeyDown() && player.canModifyBlocks()) {
+        if (!player.isShiftKeyDown() && player.mayBuild()) {
             if (placementHelper.matchesItem(heldItem) && placementHelper.getOffset(player, level, state, pos, hitResult)
                 .placeInWorld(level, (BlockItem) heldItem.getItem(), player, hand, hitResult)
-                .isAccepted())
+                .consumesAction())
                 return InteractionResult.SUCCESS;
         }
 
-        return super.onUse(state, level, pos, player, hand, hitResult);
+        return super.use(state, level, pos, player, hand, hitResult);
     }
 
     // IRotate:
@@ -123,7 +123,7 @@ public class ReactorOutput extends DirectionalKineticBlock implements IWrenchabl
     }
 
     @Override
-    public boolean canPathfindThrough(BlockState state, BlockGetter reader, BlockPos pos, PathComputationType type) {
+    public boolean isPathfindable(BlockState state, BlockGetter reader, BlockPos pos, PathComputationType type) {
         return false;
     }
 
@@ -152,9 +152,9 @@ public class ReactorOutput extends DirectionalKineticBlock implements IWrenchabl
         @Override
         public PlacementOffset getOffset(Player player, Level world, BlockState state, BlockPos pos, BlockHitResult ray) {
             Direction facing = state.getValue(FACING);
-            BlockPos target = pos.offset(facing);
+            BlockPos target = pos.relative(facing);
 
-            if (!world.getBlockState(target).isReplaceable())
+            if (!world.getBlockState(target).canBeReplaced())
                 return PlacementOffset.fail();
 
             return PlacementOffset.success(target, s -> s.setValue(BlockStateProperties.AXIS, facing.getAxis()));

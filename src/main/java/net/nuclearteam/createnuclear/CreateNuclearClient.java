@@ -6,12 +6,14 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.resources.ResourceLocation;
 import net.nuclearteam.createnuclear.content.biome.BiomeIrradiationExtractorItem;
+import net.nuclearteam.createnuclear.content.equipment.armor.AntiRadiationArmorRenderer;
 import net.nuclearteam.createnuclear.content.particles.IrradiatedParticles;
 import net.nuclearteam.createnuclear.content.particles.IrradiatedParticlesData;
 import net.nuclearteam.createnuclear.content.particles.NuclearMushroomCloudParticle;
@@ -34,7 +36,6 @@ public class CreateNuclearClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-       CNClientRegistrations.register();
        ReactorAlarmEntity.setClientTick(ReactorAlarmClient::tick);
        ReactorRodInputClient.register();
        ReactorControllerBlockEntity.setGoggleTooltipRenderer(ReactorGoggleTooltipRenderer::render);
@@ -47,6 +48,14 @@ public class CreateNuclearClient implements ClientModInitializer {
        CNClientEvent.register();
        ClientEvents.register();
        RodsTooltipHandler.register();
+
+        ArmorRenderer.register(
+                new AntiRadiationArmorRenderer(),
+                CNItems.ANTI_RADIATION_HELMETS.get(),
+                CNItems.ANTI_RADIATION_CHESTPLATES.get(),
+                CNItems.ANTI_RADIATION_LEGGINGS.get(),
+                CNItems.ANTI_RADIATION_BOOTS.get()
+        );
     }
 
     private static void registerItemProperties() {

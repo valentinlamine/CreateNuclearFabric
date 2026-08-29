@@ -129,15 +129,15 @@ public class CNAdvancedModelBox extends CNBasicModelPart {
     public void translateAndRotate(PoseStack matrixStackIn) {
         matrixStackIn.translate(this.rotationPointX / 16.0F, this.rotationPointY / 16.0F, (double)(this.rotationPointZ / 16.0F));
         if (this.rotateAngleZ != 0.0F) {
-            matrixStackIn.multiply(Axis.POSITIVE_Z.rotation(this.rotateAngleZ));
+            matrixStackIn.mulPose(Axis.ZP.rotation(this.rotateAngleZ));
         }
 
         if (this.rotateAngleY != 0.0F) {
-            matrixStackIn.multiply(Axis.POSITIVE_Y.rotation(this.rotateAngleY));
+            matrixStackIn.mulPose(Axis.YP.rotation(this.rotateAngleY));
         }
 
         if (this.rotateAngleX != 0.0F) {
-            matrixStackIn.multiply(Axis.POSITIVE_X.rotation(this.rotateAngleX));
+            matrixStackIn.mulPose(Axis.XP.rotation(this.rotateAngleX));
         }
 
         matrixStackIn.scale(this.scaleX, this.scaleY, this.scaleZ);
@@ -145,9 +145,9 @@ public class CNAdvancedModelBox extends CNBasicModelPart {
 
     public void render(PoseStack p_228309_1_, VertexConsumer p_228309_2_, int p_228309_3_, int p_228309_4_, float p_228309_5_, float p_228309_6_, float p_228309_7_, float p_228309_8_) {
         if (this.showModel && (!this.cubeList.isEmpty() || !this.childModels.isEmpty())) {
-            p_228309_1_.push();
+            p_228309_1_.pushPose();
             this.translateAndRotate(p_228309_1_);
-            this.doRender(p_228309_1_.peek(), p_228309_2_, p_228309_3_, p_228309_4_, p_228309_5_, p_228309_6_, p_228309_7_, p_228309_8_);
+            this.doRender(p_228309_1_.last(), p_228309_2_, p_228309_3_, p_228309_4_, p_228309_5_, p_228309_6_, p_228309_7_, p_228309_8_);
             ObjectListIterator var9 = this.childModels.iterator();
             if (!this.scaleChildren) {
                 p_228309_1_.scale(1.0F / Math.max(this.scaleX, 1.0E-4F), 1.0F / Math.max(this.scaleY, 1.0E-4F), 1.0F / Math.max(this.scaleZ, 1.0E-4F));
@@ -158,7 +158,7 @@ public class CNAdvancedModelBox extends CNBasicModelPart {
                 lvt_10_1_.render(p_228309_1_, p_228309_2_, p_228309_3_, p_228309_4_, p_228309_5_, p_228309_6_, p_228309_7_, p_228309_8_);
             }
 
-            p_228309_1_.pop();
+            p_228309_1_.popPose();
         }
 
     }

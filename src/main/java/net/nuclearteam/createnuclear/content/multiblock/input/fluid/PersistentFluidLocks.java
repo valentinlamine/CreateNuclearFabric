@@ -24,7 +24,7 @@ public class PersistentFluidLocks extends SavedData {
      */
 
     public static PersistentFluidLocks get(ServerLevel level) {
-        return level.getPersistentStateManager().getOrCreate(nbt -> {
+        return level.getDataStorage().computeIfAbsent(nbt -> {
             PersistentFluidLocks d = new PersistentFluidLocks();
             d.readFrom(nbt);
 
@@ -77,7 +77,7 @@ public class PersistentFluidLocks extends SavedData {
     }
 
     @Override
-    public CompoundTag writeNbt(CompoundTag nbt) {
+    public CompoundTag save(CompoundTag nbt) {
         ListTag list = new ListTag();
         locks.forEach((pos, fluid) -> {
             CompoundTag e = new CompoundTag();

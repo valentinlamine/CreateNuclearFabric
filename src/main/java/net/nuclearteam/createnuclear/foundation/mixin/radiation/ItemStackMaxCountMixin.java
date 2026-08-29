@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMaxCountMixin {
-    @Inject(method = "getMaxCount", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getMaxStackSize", at = @At("HEAD"), cancellable = true)
     private void createnuclear$chargedExtractorIsUnstackable(CallbackInfoReturnable<Integer> cir) {
         ItemStack self = (ItemStack) (Object) this;
         if (self.getItem() instanceof BiomeIrradiationExtractorItem

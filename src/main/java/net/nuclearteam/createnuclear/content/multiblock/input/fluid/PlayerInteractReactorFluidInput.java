@@ -85,7 +85,7 @@ public class PlayerInteractReactorFluidInput {
                         .getY() + flevel * (1 - .5f) + .25f, vec.z);
                 Vec3 motion = player.position()
                         .subtract(vec)
-                        .multiply(1 / 20f);
+                        .scale(1 / 20f);
                 vec = vec.add(motion);
                 level.addParticle(blockParticleData, vec.x, vec.y, vec.z, motion.x, motion.y, motion.z);
                 return InteractionResult.SUCCESS;

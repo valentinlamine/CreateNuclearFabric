@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class ReactorFrame extends Block implements IWrenchable, IBE<ReactorFrameEntity> {
-    public static final Property<Part> PART = EnumProperty.of("part", Part.class);
+    public static final Property<Part> PART = EnumProperty.create("part", Part.class);
     protected ReactorPattern pattern =  new ReactorPattern();
     public ReactorFrame(Properties properties) {
         super(properties);
@@ -47,14 +47,14 @@ public class ReactorFrame extends Block implements IWrenchable, IBE<ReactorFrame
         ;
 
         @Override
-        public @NotNull String asString() {
+        public @NotNull String getSerializedName() {
             return CreateNuclearLang.asId(name());
         }
     }
 
     @Nullable
     @Override
-    public BlockState getPlacementState(BlockPlaceContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         Level level = context.getLevel();
         BlockPos pos = context.getClickedPos();
         Direction.Axis axis = context.getClickedFace().getAxis();
@@ -65,7 +65,7 @@ public class ReactorFrame extends Block implements IWrenchable, IBE<ReactorFrame
     }
 
     @Override
-    public void neighborUpdate(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
         if (level.isClientSide) return;
 
         Direction.Axis axis = Direction.Axis.Y;
@@ -78,11 +78,11 @@ public class ReactorFrame extends Block implements IWrenchable, IBE<ReactorFrame
     }
 
     public BlockState getRelativeTop(Level level, BlockPos pos, Direction.Axis axis) {
-        return level.getBlockState(pos.offset(Direction.from(axis, Direction.AxisDirection.POSITIVE)));
+        return level.getBlockState(pos.relative(Direction.fromAxisAndDirection(axis, Direction.AxisDirection.POSITIVE)));
     }
 
     public  BlockState getRelativeBottom(Level level, BlockPos pos, Direction.Axis axis) {
-        return level.getBlockState(pos.offset(Direction.from(axis, Direction.AxisDirection.NEGATIVE)));
+        return level.getBlockState(pos.relative(Direction.fromAxisAndDirection(axis, Direction.AxisDirection.NEGATIVE)));
     }
 
     public Part getType(BlockState state, BlockState above, BlockState below) {

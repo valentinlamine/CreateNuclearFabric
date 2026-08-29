@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public class RadiationHeartMixin {
 
     private static final ResourceLocation RADIATION_ICONS = CreateNuclear.asResource("textures/gui/icons.png");
-    private static final ResourceLocation VANILLA_ICONS = new ResourceLocation("minecraft", "textures/gui/icons.png");
+    private static final ResourceLocation VANILLA_ICONS = new ResourceLocation("textures/gui/icons.png");
 
     @ModifyArg(
             method = "renderHeart", // La méthode singulière qui dessine VRAIMENT le coeur

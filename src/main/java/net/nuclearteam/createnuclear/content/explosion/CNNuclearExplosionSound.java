@@ -21,16 +21,16 @@ public class CNNuclearExplosionSound extends AbstractTickableSoundInstance {
     private final float fadeInBy;
 
     public CNNuclearExplosionSound(SoundEvent soundEvent, double x, double y, double z, int duration, int fadesAt, float fadeInBy, boolean looping) {
-        super(soundEvent, SoundSource.NEUTRAL, SoundInstance.createRandom());
-        this.attenuationType = AttenuationType.LINEAR;
-        this.repeat = looping;
+        super(soundEvent, SoundSource.NEUTRAL, SoundInstance.createUnseededRandom());
+        this.attenuation = Attenuation.LINEAR;
+        this.looping = looping;
         this.x = x;
         this.y = y;
         this.z = z;
         this.duration = duration;
         this.fadesAt = fadesAt;
         this.fadeInBy = fadeInBy;
-        this.repeatDelay = 0;
+        this.delay = 0;
         this.volume = RANGE_BOOST;
     }
 

@@ -59,23 +59,23 @@ public class ReactorFluidInput extends MultiDirectionalReactorBlock implements I
 	}
 
 	@Override
-	public VoxelShape getSidesShape(BlockState pState, BlockGetter pReader, BlockPos pPos) {
-		return Shapes.fullCube();
+	public VoxelShape getBlockSupportShape(BlockState pState, BlockGetter pReader, BlockPos pPos) {
+		return Shapes.block();
 	}
 
 	@Override
-	public BlockState getPlacementState(BlockPlaceContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return this.defaultBlockState()
-                .setValue(FACING, context.getPlayerLookDirection().getOpposite());
+                .setValue(FACING, context.getNearestLookingDirection().getOpposite());
 	}
 
 	@Override
-    public @NotNull VoxelShape getOutlineShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+    public @NotNull VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return CNShapes.REACTOR_FLUID_INPUT.get(state.getValue(FACING));
     }
 
 	@Override
-	public InteractionResult onUse(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand,
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand,
 								 BlockHitResult ray) {
 		ItemStack heldItem = player.getItemInHand(hand);
 		boolean onClient = world.isClientSide;
@@ -105,7 +105,7 @@ public class ReactorFluidInput extends MultiDirectionalReactorBlock implements I
 	}
 
 	@Override
-	public boolean hasComparatorOutput(BlockState state) {
+	public boolean hasAnalogOutputSignal(BlockState state) {
 		return true;
 	}
 }

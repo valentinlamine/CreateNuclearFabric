@@ -42,35 +42,25 @@ public class BiomeIrradiationExtractorItem extends Item {
         ItemStack charged = stack.copyWithCount(1);
         addCharge(charged, CHARGE_PER_CLICK);
 
-        stack.decrement(1);
+        stack.shrink(1);
         if (stack.isEmpty()) {
             return InteractionResultHolder.success(charged);
         }
 
-        if (!player.getInventory().insertStack(charged)) {
-            player.dropItem(charged, false);
+        if (!player.getInventory().add(charged)) {
+            player.drop(charged, false);
         }
         return InteractionResultHolder.success(stack);
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag tooltipFlag) {
-        super.appendTooltip(stack, level, tooltip, tooltipFlag);
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, level, tooltip, tooltipFlag);
         if (tooltipFlag.isAdvanced() && getCharge(stack) > 0) {
             tooltip
                 .add(CreateNuclearLang.translateDirect("tooltip.biome_irradiation_extractor." + TAG,  getCharge(stack), getMaxCharge())
                 .withStyle(ChatFormatting.GRAY));
         }
-    }
-
-    @Override
-    public int getItemBarStep(ItemStack stack) {
-        return Math.round(13.0f * getCharge(stack) / getMaxCharge());
-    }
-
-    @Override
-    public int getItemBarColor(ItemStack stack) {
-        return 0x4A90D9;
     }
 
     public static int getCharge(ItemStack stack) {

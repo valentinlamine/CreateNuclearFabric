@@ -40,12 +40,7 @@
     ]
   },
   "mixins": [
-    "createnuclear.mixins.json",
-    "createnuclear-radiation-worldgen.mixins.json",
-    {
-      "config": "createnuclear.client.mixins.json",
-      "environment": "client"
-    }
+    "createnuclear.mixins.json"
   ],
   "accessWidener": "createnuclear.accesswidener",
   "depends": {

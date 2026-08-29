@@ -25,12 +25,12 @@ public abstract class VicinityEffect extends MobEffect {
     }
 
     @Override
-    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-        long currentTime = entity.level().getTime();
+    public void applyEffectTick(LivingEntity entity, int amplifier) {
+        long currentTime = entity.level().getGameTime();
 
-        List<Entity> nearbyEntities = entity.level().getOtherEntities(
+        List<Entity> nearbyEntities = entity.level().getEntities(
                 entity,
-                entity.getBoundingBox().expand(areaSize.apply(amplifier)),
+                entity.getBoundingBox().inflate(areaSize.apply(amplifier)),
                 e -> e instanceof LivingEntity target && filter.test(target)
         );
 
@@ -56,7 +56,7 @@ public abstract class VicinityEffect extends MobEffect {
     protected abstract void onContaminate(LivingEntity nearby);
 
     @Override
-    public boolean canApplyUpdateEffect(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         return duration % 5 == 0;
     }
 }

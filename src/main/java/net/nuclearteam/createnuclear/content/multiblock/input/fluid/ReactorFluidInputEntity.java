@@ -99,7 +99,7 @@ public class ReactorFluidInputEntity extends SmartBlockEntity
             fluidLevel.chase(getFillState(), .5f, LerpedFloat.Chaser.EXP);
         }
         if (!getLevel().isClientSide && internalTank.getFluidAmount() == 0) {
-            ReactorControllerBlockEntity controller = MultiblockHelpers.getControllerForPart(getLevel(), pos);
+            ReactorControllerBlockEntity controller = MultiblockHelpers.getControllerForPart(getLevel(), worldPosition);
             if (controller != null) controller.clearLockIfAllInputsEmpty();
         }
     }
@@ -129,7 +129,7 @@ public class ReactorFluidInputEntity extends SmartBlockEntity
         @Override
         public long insert(FluidVariant resource, long maxAmount, TransactionContext transaction) {
             if (resource.isBlank() || maxAmount <= 0 || getLevel() == null) return 0;
-            ReactorControllerBlockEntity controller = MultiblockHelpers.getControllerForPart(getLevel(), pos);
+            ReactorControllerBlockEntity controller = MultiblockHelpers.getControllerForPart(getLevel(), worldPosition);
             BlockPos controllerPos = controller == null ? null : controller.getBlockPos();
 
             if (controllerPos != null && getLevel() instanceof ServerLevel serverWorld
@@ -154,7 +154,7 @@ public class ReactorFluidInputEntity extends SmartBlockEntity
                     && getLevel() instanceof ServerLevel serverWorld) {
                 TransactionCallback.onSuccess(transaction, () -> {
                     ReactorControllerBlockEntity controller =
-                            MultiblockHelpers.getControllerForPart(getLevel(), pos);
+                            MultiblockHelpers.getControllerForPart(getLevel(), worldPosition);
                     if (controller != null) {
                         PersistentFluidLocks.get(serverWorld).clearLock(controller.getBlockPos());
                     }

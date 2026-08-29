@@ -129,9 +129,9 @@ public class CNBasicModelPart {
 
     public void render(PoseStack matrixStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
         if (this.showModel && (!this.cubeList.isEmpty() || !this.childModels.isEmpty())) {
-            matrixStackIn.push();
+            matrixStackIn.pushPose();
             this.translateRotate(matrixStackIn);
-            this.doRender(matrixStackIn.peek(), bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+            this.doRender(matrixStackIn.last(), bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
             ObjectListIterator var9 = this.childModels.iterator();
 
             while(var9.hasNext()) {
@@ -139,7 +139,7 @@ public class CNBasicModelPart {
                 CNBasicModelPart.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
             }
 
-            matrixStackIn.pop();
+            matrixStackIn.popPose();
         }
 
     }
@@ -147,15 +147,15 @@ public class CNBasicModelPart {
     public void translateRotate(PoseStack matrixStackIn) {
         matrixStackIn.translate((double)(this.rotationPointX / 16.0F), (double)(this.rotationPointY / 16.0F), (double)(this.rotationPointZ / 16.0F));
         if (this.rotateAngleZ != 0.0F) {
-            matrixStackIn.multiply(Axis.POSITIVE_Z.rotation(this.rotateAngleZ));
+            matrixStackIn.mulPose(Axis.ZP.rotation(this.rotateAngleZ));
         }
 
         if (this.rotateAngleY != 0.0F) {
-            matrixStackIn.multiply(Axis.POSITIVE_Y.rotation(this.rotateAngleY));
+            matrixStackIn.mulPose(Axis.YP.rotation(this.rotateAngleY));
         }
 
         if (this.rotateAngleX != 0.0F) {
-            matrixStackIn.multiply(Axis.POSITIVE_X.rotation(this.rotateAngleX));
+            matrixStackIn.mulPose(Axis.XP.rotation(this.rotateAngleX));
         }
 
     }
@@ -299,7 +299,7 @@ public class CNBasicModelPart {
                 }
             }
 
-            this.normal = directionIn.getUnitVector();
+            this.normal = directionIn.step();
             if (mirrorIn) {
                 this.normal.mul(-1.0F, 1.0F, 1.0F);
             }

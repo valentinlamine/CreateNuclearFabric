@@ -59,7 +59,7 @@ public class ReactorRodInputEntity extends SmartBlockEntity implements MenuProvi
 
     @Nullable
     @Override
-    public Level getWorld() {
+    public Level getLevel() {
         return super.getLevel();
     }
 

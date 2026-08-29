@@ -1,7 +1,7 @@
 package net.nuclearteam.createnuclear.content.explosion;
 
 import java.util.function.Function;
-import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.RenderType;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -13,10 +13,10 @@ public abstract class CNBasicEntityModel<T extends Entity> extends EntityModel<T
     public int textureHeight;
 
     protected CNBasicEntityModel() {
-        this(RenderLayer::getEntityCutoutNoCull);
+        this(RenderType::entityCutoutNoCull);
     }
 
-    protected CNBasicEntityModel(Function<ResourceLocation, RenderLayer> p_102613_) {
+    protected CNBasicEntityModel(Function<ResourceLocation, RenderType> p_102613_) {
         super(p_102613_);
         this.textureWidth = 64;
         this.textureHeight = 32;
@@ -26,10 +26,21 @@ public abstract class CNBasicEntityModel<T extends Entity> extends EntityModel<T
         this.parts().forEach((p_103030_) -> p_103030_.render(p_103013_, p_103014_, p_103015_, p_103016_, p_103017_, p_103018_, p_103019_, p_103020_));
     }
 
+    @Override
+    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        this.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+    }
+
     public abstract Iterable<CNBasicModelPart> parts();
 
     public abstract void setAngles(T var1, float var2, float var3, float var4, float var5, float var6);
 
-    public void animateModel(T p_102614_, float p_102615_, float p_102616_, float p_102617_) {
+    @Override
+    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        this.setAngles(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+    }
+
+    @Override
+    public void prepareMobModel(T entity, float limbSwing, float limbSwingAmount, float partialTick) {
     }
 }

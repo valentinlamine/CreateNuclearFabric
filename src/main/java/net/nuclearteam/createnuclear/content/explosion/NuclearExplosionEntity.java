@@ -37,11 +37,11 @@ import java.util.UUID;
 
 public class NuclearExplosionEntity extends Entity {
     private static final EntityDataAccessor<Float> SIZE =
-        SynchedEntityData.registerData(NuclearExplosionEntity.class, EntityDataSerializers.FLOAT);
+        SynchedEntityData.defineId(NuclearExplosionEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Boolean> NO_GRIEFING =
-        SynchedEntityData.registerData(NuclearExplosionEntity.class, EntityDataSerializers.BOOLEAN);
+        SynchedEntityData.defineId(NuclearExplosionEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> INTENTIONAL_GAME_DESIGN =
-        SynchedEntityData.registerData(NuclearExplosionEntity.class, EntityDataSerializers.BOOLEAN);
+        SynchedEntityData.defineId(NuclearExplosionEntity.class, EntityDataSerializers.BOOLEAN);
     private static final TicketType<UUID> EXPLOSION_TICKET =
         TicketType.create("createnuclear:nuclear_explosion", UUID::compareTo);
 
@@ -57,7 +57,7 @@ public class NuclearExplosionEntity extends Entity {
     }
 
     @Override
-    public Packet<ClientGamePacketListener> createSpawnPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return new ClientboundAddEntityPacket(this);
     }
 
@@ -71,19 +71,19 @@ public class NuclearExplosionEntity extends Entity {
         if (!spawnedParticle) {
             spawnedParticle = true;
             int particleY = (int) Math.ceil(getY());
-            while (particleY > world.getBottomY()
+            while (particleY > world.getMinBuildHeight()
                 && particleY > getY() - radius / 2F
-                && isDestroyable(world.getBlockState(BlockPos.ofFloored(getX(), particleY, getZ())))) {
+                && isDestroyable(world.getBlockState(BlockPos.containing(getX(), particleY, getZ())))) {
                 particleY--;
             }
-            world.addImportantParticle(
+            world.addAlwaysVisibleParticle(
                 CNParticleRegistry.NUCLEAR_MUSHROOM_CLOUD.get(), true,
                 getX(), particleY + 2, getZ(), getSize(),
                 isIntentionalGameDesign() ? 1.0F : 0.0F, 0
             );
         }
 
-        if (age > 40 && destroyingChunks.isEmpty()) {
+        if (tickCount > 40 && destroyingChunks.isEmpty()) {
             remove(RemovalReason.DISCARDED);
             return;
         }
@@ -100,13 +100,13 @@ public class NuclearExplosionEntity extends Entity {
                 for (int x = -chunksAffected; x <= chunksAffected; x++) {
                     for (int y = -chunksAffected; y <= chunksAffected; y++) {
                         for (int z = -chunksAffected; z <= chunksAffected; z++) {
-                            destroyingChunks.push(center.add(x * 16, y * 16, z * 16));
+                            destroyingChunks.push(center.offset(x * 16, y * 16, z * 16));
                         }
                     }
                 }
                 destroyingChunks.sort((first, second) -> Double.compare(
-                    second.getManhattanDistance(blockPosition()),
-                    first.getManhattanDistance(blockPosition())
+                    second.distManhattan(blockPosition()),
+                    first.distManhattan(blockPosition())
                 ));
             } else {
                 int tickChunkCount = Math.min(destroyingChunks.size(), 3);
@@ -116,11 +116,11 @@ public class NuclearExplosionEntity extends Entity {
             }
         }
 
-        AABB killBox = getBoundingBox().expand(radius + radius * 0.5F, radius * 0.6, radius + radius * 0.5F);
+        AABB killBox = getBoundingBox().inflate(radius + radius * 0.5F, radius * 0.6, radius + radius * 0.5F);
         float flingStrength = getSize() * 0.33F;
         float maximumDistance = radius + radius * 0.5F + 1;
 
-        for (LivingEntity entity : world.getNonSpectatingEntities(LivingEntity.class, killBox)) {
+        for (LivingEntity entity : world.getEntitiesOfClass(LivingEntity.class, killBox)) {
             float distance = entity.distanceTo(this);
             float damage = calculateDamage(distance, maximumDistance);
             Vec3 direction = entity.position().subtract(position()).add(0, 0.3, 0).normalize();
@@ -131,9 +131,9 @@ public class NuclearExplosionEntity extends Entity {
                 entityFling *= 0.1F;
             }
             if (damage > 0) {
-                entity.damage(CNDamageSources.radiation(world), damage);
+                entity.hurt(CNDamageSources.radiation(world), damage);
             }
-            entity.setVelocity(direction.multiply(damage * 0.1F * entityFling));
+            entity.setDeltaMovement(direction.scale(damage * 0.1F * entityFling));
         }
     }
 
@@ -155,10 +155,10 @@ public class NuclearExplosionEntity extends Entity {
         if (!(level() instanceof ServerLevel serverWorld)) return;
 
         ServerChunkCache chunkManager = serverWorld.getChunkSource();
-        UUID ticketArgument = getUuid();
+        UUID ticketArgument = getUUID();
         if (!load) {
             for (ChunkPos chunk : ticketedChunks) {
-                chunkManager.removeTicket(EXPLOSION_TICKET, chunk, 0, ticketArgument);
+                chunkManager.removeRegionTicket(EXPLOSION_TICKET, chunk, 0, ticketArgument);
             }
             ticketedChunks.clear();
             return;
@@ -167,13 +167,13 @@ public class NuclearExplosionEntity extends Entity {
         ChunkPos center = new ChunkPos(blockPosition());
         int distance = Math.max(
             getChunksAffected(),
-            serverWorld.getServer().getPlayerManager().getViewDistance() / 2
+            serverWorld.getServer().getPlayerList().getViewDistance() / 2
         );
         for (int x = -distance; x <= distance; x++) {
             for (int z = -distance; z <= distance; z++) {
                 ChunkPos target = new ChunkPos(center.x + x, center.z + z);
                 if (ticketedChunks.add(target)) {
-                    chunkManager.addTicket(EXPLOSION_TICKET, target, 0, ticketArgument);
+                    chunkManager.addRegionTicket(EXPLOSION_TICKET, target, 0, ticketArgument);
                 }
             }
         }
@@ -201,7 +201,7 @@ public class NuclearExplosionEntity extends Entity {
                     boolean canSetToFire = false;
                     carve.set(
                         chunkCorner.getX() + x,
-                        Mth.clamp(chunkCorner.getY() + y, world.getBottomY(), world.getTopY()),
+                        Mth.clamp(chunkCorner.getY() + y, world.getMinBuildHeight(), world.getMaxBuildHeight()),
                         chunkCorner.getZ() + z
                     );
                     float noise = (Maths.sampleNoise3D(carve.getX(), carve.getY(), carve.getZ(), radius) - 0.5F)
@@ -211,8 +211,8 @@ public class NuclearExplosionEntity extends Entity {
                         0.6F,
                         0.2F
                     );
-                    double distanceToCenter = carve.getSquaredDistance(
-                        blockPosition().getX(), carve.getY() - 1, getBlockPos().getZ()
+                    double distanceToCenter = carve.distToLowCornerSqr(
+                        blockPosition().getX(), carve.getY() - 1, blockPosition().getZ()
                     );
                     double targetRadius = yDistance * (radius + noise * radius) * radius;
 
@@ -225,13 +225,13 @@ public class NuclearExplosionEntity extends Entity {
                             BlockPos immutablePos = carve.immutable();
                             Block destroyedBlock = state.getBlock();
                             if (world.getBlockState(immutablePos).is(destroyedBlock)) {
-                                world.breakBlock(immutablePos, true);
+                                world.destroyBlock(immutablePos, true, null, 512);
                             }
-                            destroyedBlock.onDestroyedByExplosion(world, immutablePos, dummyExplosion);
+                            destroyedBlock.wasExploded(world, immutablePos, dummyExplosion);
                         }
                     }
                     if (canSetToFire && random.nextFloat() < 0.15F && !world.getBlockState(carveBelow).isAir()) {
-                        world.setBlockAndUpdate(carveBelow.up(), CNBlocks.ENRICHING_FIRE.get().defaultBlockState());
+                        world.setBlockAndUpdate(carveBelow.above(), CNBlocks.ENRICHING_FIRE.get().defaultBlockState());
                     }
                 }
             }
@@ -239,14 +239,14 @@ public class NuclearExplosionEntity extends Entity {
     }
 
     private boolean isDestroyable(BlockState state) {
-        return state.getBlock().getBlastResistance() < 3_600_000;
+        return state.getBlock().getExplosionResistance() < 3_600_000;
     }
 
     @Override
-    protected void initDataTracker() {
-        entityData.startTracking(SIZE, 1.0F);
-        entityData.startTracking(NO_GRIEFING, false);
-        entityData.startTracking(INTENTIONAL_GAME_DESIGN, false);
+    protected void defineSynchedData() {
+        entityData.define(SIZE, 1.0F);
+        entityData.define(NO_GRIEFING, false);
+        entityData.define(INTENTIONAL_GAME_DESIGN, false);
     }
 
     public float getSize() {

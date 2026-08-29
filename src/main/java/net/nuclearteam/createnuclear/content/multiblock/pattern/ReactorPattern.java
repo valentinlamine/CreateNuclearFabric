@@ -108,6 +108,6 @@ public class ReactorPattern {
     }
 
     public boolean isInReactorRange(@Nullable BoundingBox reactorPos, BlockPos blockPos) {
-        return reactorPos != null && reactorPos.contains(blockPos);
+        return reactorPos != null && reactorPos.isInside(blockPos);
     }
 }

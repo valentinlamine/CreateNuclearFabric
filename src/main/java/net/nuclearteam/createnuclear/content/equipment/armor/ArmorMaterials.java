@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 public enum ArmorMaterials implements ArmorMaterial {
 
     ANTI_RADIATION_SUIT("anti_radiation_suit", 15, new int[]{1, 4, 5, 2}, 12,
-    SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 0.0f, 0.0f, () -> Ingredient.of(CNItems.LEAD_INGOT));
+    SoundEvents.ARMOR_EQUIP_NETHERITE, 0.0f, 0.0f, () -> Ingredient.of(CNItems.LEAD_INGOT));
 
     private final String name;
     private final int durabilityMultiplier;
@@ -39,17 +39,17 @@ public enum ArmorMaterials implements ArmorMaterial {
     }
 
     @Override
-    public int getDurability(ArmorItem.Type type) {
+    public int getDurabilityForType(ArmorItem.Type type) {
         return BASE_DURABILITY[type.ordinal()] * this.durabilityMultiplier;
     }
 
     @Override
-    public int getProtection(ArmorItem.Type type) {
+    public int getDefenseForType(ArmorItem.Type type) {
         return protectionAmounts[type.ordinal()];
     }
 
     @Override
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return this.enchantability;
     }
 
@@ -65,7 +65,7 @@ public enum ArmorMaterials implements ArmorMaterial {
 
     @Override
     public @NotNull String getName() {
-        return CreateNuclear.MOD_ID + ":" + this.name;
+        return CreateNuclear.asResource(this.name).toString();
     }
 
     @Override

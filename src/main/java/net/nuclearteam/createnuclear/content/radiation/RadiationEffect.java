@@ -31,7 +31,7 @@ public class RadiationEffect extends VicinityEffect {
                 "648D7064-6A60-4F59-8ABE-C2C23A6DD7A9", -0.2D, AttributeModifier.Operation.MULTIPLY_TOTAL);
 
         // Reduces attack speed by 20%
-        this.addAttributeModifier(Attributes.GENERIC_ATTACK_SPEED,
+        this.addAttributeModifier(Attributes.ATTACK_SPEED,
                 "55FCED67-E92A-486E-9800-B47F202C4386", -0.2D, AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 
@@ -44,7 +44,7 @@ public class RadiationEffect extends VicinityEffect {
      * @return true if the effect should apply on this tick.
      */
     @Override
-    public boolean canApplyUpdateEffect(int duration, int amplifier) {
+    public boolean isDurationEffectTick(int duration, int amplifier) {
         return true;
     }
 
@@ -54,8 +54,8 @@ public class RadiationEffect extends VicinityEffect {
     }
 
     @Override
-    public void applyUpdateEffect(LivingEntity entity, int amplifier) {
-        super.applyUpdateEffect(entity, amplifier);
+    public void applyEffectTick(LivingEntity entity, int amplifier) {
+        super.applyEffectTick(entity, amplifier);
 
         double resistance = RadiationCapability.getRadiationResistance(entity);
 
@@ -65,6 +65,6 @@ public class RadiationEffect extends VicinityEffect {
             return;
         }
 
-        entity.damage(CNDamageSources.radiation(entity.level()), damage);
+        entity.hurt(CNDamageSources.radiation(entity.level()), damage);
     }
 }

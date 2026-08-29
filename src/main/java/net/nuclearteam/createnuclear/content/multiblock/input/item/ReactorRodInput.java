@@ -48,13 +48,12 @@ public class ReactorRodInput extends MultiDirectionalReactorBlock implements IWr
     }
 
     @Override
-    public InteractionResult onUse(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         ItemStack itemInHand = player.getItemInHand(handIn);
 
         if (itemInHand.getItem() instanceof BlockItem) {
             return InteractionResult.PASS;
         }
-
 
         if (worldIn.isClientSide()) {return InteractionResult.SUCCESS;}
 
@@ -92,12 +91,12 @@ public class ReactorRodInput extends MultiDirectionalReactorBlock implements IWr
     }
 
     @Override
-    public BlockState getPlacementState(BlockPlaceContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState()
-                .setValue(FACING, context.getPlayerLookDirection().getOpposite());
+                .setValue(FACING, context.getNearestLookingDirection().getOpposite());
     }
     @Override
-    public @NotNull VoxelShape getOutlineShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
+    public @NotNull VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
         return CNShapes.REACTOR_ROD_INPUT.get(state.getValue(FACING));
     }
 

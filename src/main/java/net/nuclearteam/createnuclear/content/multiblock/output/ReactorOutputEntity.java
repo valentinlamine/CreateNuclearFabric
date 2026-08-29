@@ -65,7 +65,7 @@ public class ReactorOutputEntity extends GeneratingKineticBlockEntity {
 
         // Restore the output position, if present in the tag
         if (compound.contains("outputPos")) {
-            this.outputPos = BlockPos.fromLong(compound.getLong("outputPos"));
+            this.outputPos = BlockPos.of(compound.getLong("outputPos"));
         }
     }
 

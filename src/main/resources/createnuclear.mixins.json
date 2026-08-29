@@ -5,7 +5,15 @@
   "mixins": [
     "BaseFireBlockMixin",
     "LivingEntityAttributeMixin",
-    "SmithingTransformRecipeMixin"
+    "SmithingTransformRecipeMixin",
+    "radiation.ItemStackMaxCountMixin",
+    "radiation.LivingEntityRadiationMixin"
+  ],
+  "client": [
+    "client.CameraAccessor",
+    "client.GameRendererMixin",
+    "client.PlayerEntityRendererMixin",
+    "client.RadiationHeartMixin"
   ],
   "injectors": {
     "defaultRequire": 1

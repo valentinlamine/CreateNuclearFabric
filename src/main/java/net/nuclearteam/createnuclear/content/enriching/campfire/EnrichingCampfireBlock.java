@@ -53,7 +53,7 @@ import org.jetbrains.annotations.Nullable;
 @SuppressWarnings({"deprecation", "NullableProblems", "unused"})
 public class EnrichingCampfireBlock extends BaseEntityBlock
         implements SimpleWaterloggedBlock, IBE<EnrichingCampfireBlockEntity> {
-    protected static final VoxelShape SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 7.0, 16.0);
+    protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 7.0, 16.0);
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -62,80 +62,51 @@ public class EnrichingCampfireBlock extends BaseEntityBlock
     public EnrichingCampfireBlock(boolean spawnParticles, int fireDamage, BlockBehaviour.Properties properties) {
         super(properties);
         this.spawnParticles = spawnParticles;
-        this.setDefaultState(this.stateManager.defaultBlockState().setValue(LIT, true).setValue(WATERLOGGED, false).setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.stateDefinition.any().setValue(LIT, true).setValue(WATERLOGGED, false).setValue(FACING, Direction.NORTH));
     }
 
     @Override
-    public InteractionResult onUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        Direction face = hit.getDirection();
-        ItemStack heldItem = player.getItemInHand(hand);
-
-        if (face == Direction.DOWN) return InteractionResult.PASS;
-
-        if (heldItem.is(ItemTags.SHOVELS)) {
-            if (state.getValue(LIT)) {
-                if (!level.isClientSide) {
-                    level.syncWorldEvent(null, 1009, pos, 0);
-                    EnrichingCampfireBlock.dowse(player, level, pos, state);
-                    BlockState newState = state.setValue(LIT, false);
-                    level.setBlock(pos, newState, 11);
-                    level.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(player, newState));
-                    heldItem.damage(1, player, p -> p.sendToolBreakStatus(hand));
-                }
-                return InteractionResult.success(level.isClientSide);
-            }
-        }
-
-        if (heldItem.is(ItemTags.CREEPER_IGNITERS) && canLight(state)) {
-            if (!level.isClientSide) {
-                level.playSound(player, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0f, level.getRandom().nextFloat() * 0.4f + 0.8f);
-                level.setBlock(pos, state.setValue(LIT, true), 11);
-                level.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
-                heldItem.damage(1, player, p -> p.sendToolBreakStatus(hand));
-            }
-            return InteractionResult.success(level.isClientSide);
-        }
-
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         return InteractionResult.PASS;
     }
 
     @Override
-    public void onEntityCollision(BlockState state, Level level, BlockPos pos, Entity entity) {
+    public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (state.getValue(LIT) && entity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity)entity)) {
             ((LivingEntity) entity).addEffect(new MobEffectInstance(CNEffects.RADIATION.get(), 100, 0));
         }
-        super.onEntityCollision(state, level, pos, entity);
+        super.entityInside(state, level, pos, entity);
     }
 
     @Override
     @Nullable
-    public BlockState getPlacementState(BlockPlaceContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockPos blockPos;
         Level levelAccessor = context.getLevel();
-        boolean bl = levelAccessor.getFluidState(context.getClickedPos()).getFluid() == Fluids.WATER;
+        boolean bl = levelAccessor.getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
         return this.defaultBlockState().setValue(WATERLOGGED, bl).setValue(LIT, !bl).setValue(FACING, context.getHorizontalPlayerFacing());
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
-            level.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(level));
+            level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        return super.getStateForNeighborUpdate(state, direction, neighborState, level, pos, neighborPos);
+        return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
     @Override
-    public RenderShape getRenderType(BlockState state) {
+    public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }
 
     @Override
-    public void randomDisplayTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (!state.getValue(LIT)) {
             return;
         }
@@ -159,21 +130,21 @@ public class EnrichingCampfireBlock extends BaseEntityBlock
         if ((blockEntity = level.getBlockEntity(pos)) instanceof EnrichingCampfireBlockEntity) {
             ((EnrichingCampfireBlockEntity)blockEntity).dowse();
         }
-        level.emitGameEvent(entity, GameEvent.BLOCK_CHANGE, pos);
+        level.gameEvent(entity, GameEvent.BLOCK_CHANGE, pos);
     }
 
     @Override
-    public boolean tryFillWithFluid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluidState) {
-        if (!state.getValue(BlockStateProperties.WATERLOGGED) && fluidState.getFluid() == Fluids.WATER) {
+    public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluidState) {
+        if (!state.getValue(BlockStateProperties.WATERLOGGED) && fluidState.getType() == Fluids.WATER) {
             boolean bl = state.getValue(LIT);
             if (bl) {
                 if (!level.isClientSide()) {
-                    level.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0f, 1.0f);
+                    level.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0f, 1.0f);
                 }
                 EnrichingCampfireBlock.dowse(null, level, pos, state);
             }
             level.setBlock(pos, state.setValue(WATERLOGGED, true).setValue(LIT, false), 3);
-            level.scheduleFluidTick(pos, fluidState.getFluid(), fluidState.getFluid().getTickRate(level));
+            level.scheduleTick(pos, fluidState.getType(), fluidState.getType().getTickDelay(level));
             return true;
         }
         return false;
@@ -181,21 +152,21 @@ public class EnrichingCampfireBlock extends BaseEntityBlock
 
     @Override
     public void onProjectileHit(Level level, BlockState state, BlockHitResult hit, Projectile projectile) {
-        BlockPos blockPos = hit.getClickedPos();
-        if (!level.isClientSide && projectile.isOnFire() && projectile.canModifyAt(level, blockPos) && !state.getValue(LIT) && !state.getValue(WATERLOGGED)) {
+        BlockPos blockPos = hit.getBlockPos();
+        if (!level.isClientSide && projectile.isOnFire() && projectile.mayInteract(level, blockPos) && !state.getValue(LIT) && !state.getValue(WATERLOGGED)) {
             level.setBlock(blockPos, state.setValue(BlockStateProperties.LIT, true), 11);
         }
     }
 
     public static void makeParticles(Level level, BlockPos pos) {
         RandomSource randomSource = level.getRandom();
-        level.addImportantParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, true, (double)pos.getX() + 0.5 + randomSource.nextDouble() / 3.0 * (double)(randomSource.nextBoolean() ? 1 : -1), (double)pos.getY() + randomSource.nextDouble() + randomSource.nextDouble(), (double)pos.getZ() + 0.5 + randomSource.nextDouble() / 3.0 * (double)(randomSource.nextBoolean() ? 1 : -1), 0.0, 0.07, 0.0);
+        level.addAlwaysVisibleParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, true, (double)pos.getX() + 0.5 + randomSource.nextDouble() / 3.0 * (double)(randomSource.nextBoolean() ? 1 : -1), (double)pos.getY() + randomSource.nextDouble() + randomSource.nextDouble(), (double)pos.getZ() + 0.5 + randomSource.nextDouble() / 3.0 * (double)(randomSource.nextBoolean() ? 1 : -1), 0.0, 0.07, 0.0);
     }
 
     @Override
     public FluidState getFluidState(BlockState state) {
         if (state.getValue(WATERLOGGED)) {
-            return Fluids.WATER.getStill(false);
+            return Fluids.WATER.getSource(false);
         }
         return super.getFluidState(state);
     }
@@ -226,7 +197,7 @@ public class EnrichingCampfireBlock extends BaseEntityBlock
     }
 
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new EnrichingCampfireBlockEntity(CNBlockEntityTypes.ENRICHING_CAMPFIRE_BLOCK.get(), pos, state);
     }
 
@@ -235,18 +206,18 @@ public class EnrichingCampfireBlock extends BaseEntityBlock
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
         if (level.isClientSide) {
             if (state.getValue(LIT)) {
-                return EnrichingCampfireBlock.checkType(blockEntityType, CNBlockEntityTypes.ENRICHING_CAMPFIRE_BLOCK.get(), EnrichingCampfireBlockEntity::particleTick);
+                return EnrichingCampfireBlock.createTickerHelper(blockEntityType, CNBlockEntityTypes.ENRICHING_CAMPFIRE_BLOCK.get(), EnrichingCampfireBlockEntity::particleTick);
             }
         }
         return null;
     }
 
     @Override
-    public boolean canPathfindThrough(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
+    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
     }
 
-    public static boolean canLight(BlockState state) {
+    public static boolean getLight(BlockState state) {
         return state.is(BlockTags.CAMPFIRES, s -> s.hasProperty(WATERLOGGED) && s.hasProperty(LIT)) && !state.getValue(WATERLOGGED) && !state.getValue(LIT);
     }
 }

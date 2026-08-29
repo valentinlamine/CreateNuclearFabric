@@ -39,35 +39,35 @@ public class ReactorRodInputMenu extends MenuBase<ReactorRodInputEntity> {
     }
 
     public static ReactorRodInputMenu create(int id, Inventory inv, ReactorRodInputEntity contentHolder) {
-        return new ReactorRodInputMenu(CNMenus.SLOT_ITEM_STORAGE, id, inv, contentHolder);
+        return new ReactorRodInputMenu(CNMenus.SLOT_ITEM_STORAGE.get(), id, inv, contentHolder);
     }
 
     @Override
-    public ItemStack quickMove(Player playerIn, int index) {
+    public ItemStack quickMoveStack(Player playerIn, int index) {
         ItemStack result = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
-        if (slot != null && slot.hasStack()) {
+        if (slot != null && slot.hasItem()) {
             ItemStack stackInSlot = slot.getItem();
             result = stackInSlot.copy();
 
-            int playerInventorySize = player.getInventory().main.size(); // normally 36
+            int playerInventorySize = player.getInventory().items.size(); // normally 36
             int containerStart = playerInventorySize;
             int containerEnd = containerStart + 1; // 1 machine slot
 
             // Clicked a machine slot (after the player slots)
             if (index >= containerStart && index < containerEnd) {
-                if (!this.insertItem(stackInSlot, 0, playerInventorySize, true)) {
+                if (!this.moveItemStackTo(stackInSlot, 0, playerInventorySize, true)) {
                     return ItemStack.EMPTY;
                 }
             } else {
                 // Clicked a player slot — try moving the stack into the machine container
-                if (!this.insertItem(stackInSlot, containerStart, containerEnd, false)) {
+                if (!this.moveItemStackTo(stackInSlot, containerStart, containerEnd, false)) {
                     return ItemStack.EMPTY;
                 }
             }
 
             if (stackInSlot.isEmpty()) {
-                slot.setStackNoCallbacks(ItemStack.EMPTY);
+                slot.set(ItemStack.EMPTY);
             } else {
                 slot.setChanged();
             }
@@ -76,7 +76,7 @@ public class ReactorRodInputMenu extends MenuBase<ReactorRodInputEntity> {
                 return ItemStack.EMPTY;
             }
 
-            slot.onTakeItem(playerIn, stackInSlot);
+            slot.onTake(playerIn, stackInSlot);
         }
         return result;
     }
