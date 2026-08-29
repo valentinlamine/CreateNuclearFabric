@@ -17,6 +17,7 @@ import net.nuclearteam.createnuclear.content.multiblock.input.fluid.VirtualReact
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("UnstableApiUsage")
 public class ReactorInputFluidManager extends AbstractReactorIOManager implements ReactorInputFluidManagerI {
     private static final String NBT_KEY = "ReactorInputFluid";
 

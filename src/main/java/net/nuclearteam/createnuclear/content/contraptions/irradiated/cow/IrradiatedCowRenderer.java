@@ -10,13 +10,13 @@ public class IrradiatedCowRenderer extends MobRenderer<IrradiatedCow, Irradiated
     private static final ResourceLocation COW_LOCATION = CreateNuclear.asResource("textures/entity/irradiated_cow.png");
 
     public IrradiatedCowRenderer(EntityRendererProvider.Context context) {
-        super(context, new IrradiatedCowModel<>(context.getPart(CNModelLayers.IRRADIATED_COW)), 0.7f);
+        super(context, new IrradiatedCowModel<>(context.bakeLayer(CNModelLayers.IRRADIATED_COW)), 0.7f);
     }
 
     /**
      * Returns the location of an entity's texture.
      */
-    public ResourceLocation getTexture(IrradiatedCow pEntity) {
+    public ResourceLocation getTextureLocation(IrradiatedCow pEntity) {
         return COW_LOCATION;
     }
 }

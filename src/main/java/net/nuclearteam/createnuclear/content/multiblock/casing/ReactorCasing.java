@@ -93,7 +93,7 @@ public class ReactorCasing extends Block implements IWrenchable, IBE<ReactorCasi
         ;
 
         @Override
-        public String asString() {
+        public String getSerializedName() {
             return CreateNuclearLang.asId(name());
         }
     }

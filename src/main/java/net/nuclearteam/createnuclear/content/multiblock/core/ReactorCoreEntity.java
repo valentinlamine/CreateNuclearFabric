@@ -7,18 +7,7 @@ import net.nuclearteam.createnuclear.content.multiblock.casing.ReactorCasingEnti
 
 @SuppressWarnings({"unused"})
 public class ReactorCoreEntity extends ReactorCasingEntity {
-
-    private int countdownTicks = 0;
-    private boolean hasExploded = false;
-
     public ReactorCoreEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-
-        if (getLevel().isClientSide() || hasExploded) return;
     }
 }

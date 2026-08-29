@@ -16,8 +16,8 @@ public class IrradiatedParticles extends TextureSheetParticle {
         this.yo = randomSource.nextGaussian() * (double)1.0E-4f;
         this.zo = randomSource.nextGaussian() * (double)1.0E-6f;
 
-        this.scale *= this.random.nextFloat() * 0.6f + 0.6f;
-        this.collidesWithWorld = false;
+        this.quadSize *= this.random.nextFloat() * 0.6f + 0.6f;
+        this.hasPhysics = false;
         this.gravity = 0.0f;
 
         this.friction = 0.8f;
@@ -28,7 +28,7 @@ public class IrradiatedParticles extends TextureSheetParticle {
     }
 
     @Override
-    public ParticleRenderType getType() {
+    public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 

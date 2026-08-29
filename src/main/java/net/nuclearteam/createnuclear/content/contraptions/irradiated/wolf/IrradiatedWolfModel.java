@@ -99,7 +99,7 @@ public class IrradiatedWolfModel<T extends IrradiatedWolf> extends ColorableAgea
 	}
 
 	@Override
-	public void setAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.head.xRot = headPitch * 0.017453292F;
 		this.head.yRot = netHeadYaw * 0.017453292F;
 		this.tail.xRot = ageInTicks;
@@ -126,7 +126,7 @@ public class IrradiatedWolfModel<T extends IrradiatedWolf> extends ColorableAgea
 	}
 
 	@Override
-	public void render(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 		body.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 		mane.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
@@ -138,12 +138,12 @@ public class IrradiatedWolfModel<T extends IrradiatedWolf> extends ColorableAgea
 	}
 
 	@Override
-	protected Iterable<ModelPart> getHeadParts() {
+	protected Iterable<ModelPart> headParts() {
 		return null;
 	}
 
 	@Override
-	protected Iterable<ModelPart> getBodyParts() {
+	protected Iterable<ModelPart> bodyParts() {
 		return null;
 	}
 }

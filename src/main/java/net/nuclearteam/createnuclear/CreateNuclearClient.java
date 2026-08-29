@@ -23,10 +23,6 @@ import net.nuclearteam.createnuclear.foundation.events.ClientEvents;
 import net.nuclearteam.createnuclear.foundation.events.RodsTooltipHandler;
 import net.nuclearteam.createnuclear.foundation.ponder.CreateNuclearPonderPlugin;
 import net.nuclearteam.createnuclear.foundation.utility.ClothTagHelper;
-import net.nuclearteam.createnuclear.content.multiblock.alarm.ReactorAlarmClient;
-import net.nuclearteam.createnuclear.content.multiblock.alarm.ReactorAlarmEntity;
-import net.nuclearteam.createnuclear.content.multiblock.controller.ReactorControllerBlockEntity;
-import net.nuclearteam.createnuclear.content.multiblock.controller.display.ReactorGoggleTooltipRenderer;
 import net.nuclearteam.createnuclear.content.multiblock.input.item.ReactorRodInputClient;
 
 import static net.nuclearteam.createnuclear.CNPackets.getChannel;
@@ -36,9 +32,7 @@ public class CreateNuclearClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-       ReactorAlarmEntity.setClientTick(ReactorAlarmClient::tick);
        ReactorRodInputClient.register();
-       ReactorControllerBlockEntity.setGoggleTooltipRenderer(ReactorGoggleTooltipRenderer::render);
        registerItemProperties();
        registerParticles();
 

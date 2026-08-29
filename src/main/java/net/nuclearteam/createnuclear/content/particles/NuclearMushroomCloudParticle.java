@@ -7,7 +7,7 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.RenderType;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -44,7 +44,7 @@ public class NuclearMushroomCloudParticle extends Particle {
         this.gravity = 0.0F;
         this.lifetime = (int) Math.ceil(133.33F * scale);
         this.scale = scale + 0.2F;
-        this.setBoundingBoxSpacing(3.0F, 3.0F);
+        this.setSize(3.0F, 3.0F);
         this.pink = pink;
 
     }
@@ -74,8 +74,8 @@ public class NuclearMushroomCloudParticle extends Particle {
             float life = (float) (Math.log(1 + (age - BALL_FOR) / (float) (lifetime - BALL_FOR))) * 2F;
             float explosionSpread = (12 * life + 4F) * scale;
             for (int i = 0; i < (1 + random.nextInt(2)) * scale; i++) {
-                Vec3 from = new Vec3(level.random.nextFloat() - 0.5F, level.random.nextFloat() - 0.5F, level.random.nextFloat() - 0.5F).multiply(scale * 1.4F).add(this.x, this.y, this.z);
-                Vec3 away = new Vec3(level.random.nextFloat() - 0.5F, level.random.nextFloat() - 0.5F, level.random.nextFloat() - 0.5F).multiply(2.34F);
+                Vec3 from = new Vec3(level.random.nextFloat() - 0.5F, level.random.nextFloat() - 0.5F, level.random.nextFloat() - 0.5F).scale(scale * 1.4F).add(this.x, this.y, this.z);
+                Vec3 away = new Vec3(level.random.nextFloat() - 0.5F, level.random.nextFloat() - 0.5F, level.random.nextFloat() - 0.5F).scale(2.34F);
                 this.level.addParticle(CNParticleRegistry.NUCLEAR_MUSHROOM_CLOUD_SMOKE.get(), from.x, from.y, from.z, away.x, away.y, away.z);
             }
             for (int j = 0; j < scale * scale; j++) {
@@ -94,33 +94,33 @@ public class NuclearMushroomCloudParticle extends Particle {
     }
 
     private void playSound(SoundEvent soundEvent, int duration, int fadesAt, float fadeInBy, boolean looping){
-        Minecraft.getInstance().getSoundManager().playNextTick(new CNNuclearExplosionSound(soundEvent, this.x, this.y, this.z, duration, fadesAt, fadeInBy, looping));
+        Minecraft.getInstance().getSoundManager().queueTickingSound(new CNNuclearExplosionSound(soundEvent, this.x, this.y, this.z, duration, fadesAt, fadeInBy, looping));
     }
 
-    public void buildGeometry(VertexConsumer vertexConsumer, Camera camera, float partialTick) {
+    public void render(VertexConsumer vertexConsumer, Camera camera, float partialTick) {
         Vec3 vec3 = camera.getPosition();
-        float f = (float) (Mth.lerp((double) partialTick, this.xo, this.x) - vec3.getX());
-        float f1 = (float) (Mth.lerp((double) partialTick, this.yo, this.y) - vec3.getY());
-        float f2 = (float) (Mth.lerp((double) partialTick, this.zo, this.z) - vec3.getZ());
+        float f = (float) (Mth.lerp((double) partialTick, this.xo, this.x) - vec3.x());
+        float f1 = (float) (Mth.lerp((double) partialTick, this.yo, this.y) - vec3.y());
+        float f2 = (float) (Mth.lerp((double) partialTick, this.zo, this.z) - vec3.z());
         PoseStack posestack = new PoseStack();
-        posestack.push();
+        posestack.pushPose();
         posestack.translate(f, f1 - 0.5F, f2);
         posestack.scale(-scale, -scale, scale);
-        MultiBufferSource.Immediate multibuffersource$buffersource = Minecraft.getInstance().getBufferBuilders().getEntityVertexConsumers();
+        MultiBufferSource.BufferSource multibuffersource$buffersource = Minecraft.getInstance().renderBuffers().bufferSource();
         MODEL.hideFireball(age >= BALL_FOR);
         float life = (float) (Math.log(1 + (age - BALL_FOR + partialTick) / (lifetime - BALL_FOR))) * 2F;
         float glowLife = life < 1F ? 1F - life : 0;
         int left = lifetime - age;
         float alpha = left <= FADE_SPEED ? left / (float) FADE_SPEED : 1.0F;
         MODEL.animateParticle(age, Maths.smin(life, 1.0F, 0.5F), partialTick);
-        VertexConsumer baseConsumer = multibuffersource$buffersource.getBuffer(RenderLayer.getEntityTranslucent(pink ? TEXTURE_PINK : TEXTURE));
-        MODEL.render(posestack, baseConsumer, getBrightness(partialTick), OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, alpha);
-        multibuffersource$buffersource.draw();
-        posestack.pop();
+        VertexConsumer baseConsumer = multibuffersource$buffersource.getBuffer(RenderType.entityTranslucent(pink ? TEXTURE_PINK : TEXTURE));
+        MODEL.render(posestack, baseConsumer, getLightColor(partialTick), OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, alpha);
+        multibuffersource$buffersource.endBatch();
+        posestack.popPose();
     }
 
     @Override
-    public ParticleRenderType getType() {
+    public ParticleRenderType getRenderType() {
         return ParticleRenderType.CUSTOM;
     }
 

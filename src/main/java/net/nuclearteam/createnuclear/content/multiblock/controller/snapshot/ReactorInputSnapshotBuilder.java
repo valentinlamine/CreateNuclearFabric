@@ -12,43 +12,33 @@ import net.nuclearteam.createnuclear.content.multiblock.controller.manager.React
 import net.nuclearteam.createnuclear.content.multiblock.input.fluid.VirtualReactorInputFluid;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("UnstableApiUsage")
 public final class ReactorInputSnapshotBuilder {
-    private ReactorInputSnapshotBuilder() {
-    }
+    private ReactorInputSnapshotBuilder() {}
 
-    public static ReactorInputSnapshot build(
-            Level level,
-            ReactorInputManagerI inputManager,
-            ReactorInputFluidManagerI inputFluidManager
-    ) {
+    public static ReactorInputSnapshot build(Level level, ReactorInputManagerI inputManager, ReactorInputFluidManagerI inputFluidManager) {
         Map<Item, Integer> items = new HashMap<>();
         for (Storage<ItemVariant> storage : inputManager.getItemHandlers(level)) {
             for (StorageView<ItemVariant> view : storage.nonEmptyViews()) {
-                items.merge(
-                        view.getResource().getItem(),
-                        (int) Math.min(view.getAmount(), Integer.MAX_VALUE),
-                        ReactorInputSnapshotBuilder::saturatedAdd
-                );
+                items.merge(view.getResource().getItem(), (int) Math.min(view.getAmount(), Integer.MAX_VALUE), Integer::sum);
             }
         }
 
         long maxFluidCapacity = 0;
         for (Storage<FluidVariant> storage : inputFluidManager.getFuildHandlers(level)) {
-            for (StorageView<FluidVariant> view : storage) {
-                maxFluidCapacity = saturatedAdd(maxFluidCapacity, view.getCapacity());
+            Iterator<StorageView<FluidVariant>> views = storage.iterator();
+            if (views.hasNext()) {
+                maxFluidCapacity = saturatedAdd(maxFluidCapacity, views.next().getCapacity());
             }
         }
 
         VirtualReactorInputFluid virtualFluid = inputFluidManager.getInventory(level);
         List<BigFluidStack> fluids = VirtualReactorInputFluid.toBigList(virtualFluid.fluids());
         return new ReactorInputSnapshot(items, fluids, maxFluidCapacity);
-    }
-
-    private static int saturatedAdd(int left, int right) {
-        return (int) Math.min(Integer.MAX_VALUE, (long) left + right);
     }
 
     private static long saturatedAdd(long left, long right) {

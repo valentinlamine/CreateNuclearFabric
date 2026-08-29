@@ -46,13 +46,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.CatVariantTags;
@@ -69,11 +68,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.EntityGetter;
-import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.entity.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
@@ -104,32 +101,27 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
         super(entityType, level);
     }
 
-    @Override
-    public EntityGetter method_48926() {
-        return this.level();
-    }
-
     public ResourceLocation getResourceLocation() {
         return this.getVariant().texture();
     }
 
-    protected void initGoals() {
+    protected void registerGoals() {
         this.temptGoal = new CatTemptGoal(this, 0.6, TEMPT_INGREDIENT, true);
-        this.goalSelector.add(1, new FloatGoal(this));
-        this.goalSelector.add(1, new PanicGoal(this, 1.5));
-        this.goalSelector.add(2, new SitWhenOrderedToGoal(this));
-        this.goalSelector.add(3, new CatRelaxOnOwnerGoal(this));
-        this.goalSelector.add(4, this.temptGoal);
-        this.goalSelector.add(5, new CatLieOnBedGoal(this, 1.1, 8));
-        this.goalSelector.add(6, new FollowOwnerGoal(this, 1.0, 10.0F, 5.0F, false));
-        this.goalSelector.add(7, new CatSitOnBlockGoal(this, 0.8));
-        this.goalSelector.add(8, new LeapAtTargetGoal(this, 0.3F));
-        this.goalSelector.add(9, new MeleeAttackGoal(this));
-        this.goalSelector.add(10, new BreedGoal(this, 0.8));
-        this.goalSelector.add(11, new WaterAvoidingRandomStrollGoal(this, 0.8, 1.0000001E-5F));
-        this.goalSelector.add(12, new LookAtPlayerGoal(this, Player.class, 10.0F));
-        this.targetSelector.add(1, new NonTameRandomTargetGoal<>(this, Rabbit.class, false, (Predicate)null));
-        this.targetSelector.add(1, new NonTameRandomTargetGoal<>(this, Turtle.class, false, Turtle.BABY_TURTLE_ON_LAND_FILTER));
+        this.goalSelector.addGoal(1, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.5));
+        this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(3, new CatRelaxOnOwnerGoal(this));
+        this.goalSelector.addGoal(4, this.temptGoal);
+        this.goalSelector.addGoal(5, new CatLieOnBedGoal(this, 1.1, 8));
+        this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0, 10.0F, 5.0F, false));
+        this.goalSelector.addGoal(7, new CatSitOnBlockGoal(this, 0.8));
+        this.goalSelector.addGoal(8, new LeapAtTargetGoal(this, 0.3F));
+        this.goalSelector.addGoal(9, new MeleeAttackGoal(this, 1.0, false));
+        this.goalSelector.addGoal(10, new BreedGoal(this, 0.8));
+        this.goalSelector.addGoal(11, new WaterAvoidingRandomStrollGoal(this, 0.8, 1.0000001E-5F));
+        this.goalSelector.addGoal(12, new LookAtPlayerGoal(this, Player.class, 10.0F));
+        this.targetSelector.addGoal(1, new NonTameRandomTargetGoal<>(this, Rabbit.class, false, (Predicate)null));
+        this.targetSelector.addGoal(1, new NonTameRandomTargetGoal<>(this, Turtle.class, false, Turtle.BABY_ON_LAND_SELECTOR));
     }
 
     public CatVariant getVariant() {
@@ -164,8 +156,8 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
         this.entityData.set(DATA_COLLAR_COLOR, color.getId());
     }
 
-    protected void initDataTracker() {
-        super.initDataTracker();
+    protected void defineSynchedData() {
+        super.defineSynchedData();
         this.entityData.define(DATA_VARIANT_ID, (CatVariant) BuiltInRegistries.CAT_VARIANT.getOrThrow(CatVariant.BLACK));
         this.entityData.define(IS_LYING, false);
         this.entityData.define(RELAX_STATE_ONE, false);
@@ -191,9 +183,9 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
 
     }
 
-    public void mobTick() {
-        if (this.getMoveControl().isMoving()) {
-            double d = this.getMoveControl().getSpeed();
+    public void customServerAiStep() {
+        if (this.getMoveControl().hasWanted()) {
+            double d = this.getMoveControl().getSpeedModifier();
             if (d == 0.6) {
                 this.setPose(Pose.CROUCHING);
                 this.setSprinting(false);
@@ -215,63 +207,63 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
     protected SoundEvent getAmbientSound() {
         if (this.isTame()) {
             if (this.isInLove()) {
-                return SoundEvents.ENTITY_CAT_PURR;
+                return SoundEvents.CAT_PURR;
             } else {
-                return this.random.nextInt(4) == 0 ? SoundEvents.ENTITY_CAT_PURREOW : SoundEvents.ENTITY_CAT_AMBIENT;
+                return this.random.nextInt(4) == 0 ? SoundEvents.CAT_PURREOW : SoundEvents.CAT_AMBIENT;
             }
         } else {
-            return SoundEvents.ENTITY_CAT_STRAY_AMBIENT;
+            return SoundEvents.CAT_STRAY_AMBIENT;
         }
     }
 
-    public int getMinAmbientSoundDelay() {
+    public int getAmbientSoundInterval() {
         return 120;
     }
 
     public void hiss() {
-        this.playSound(SoundEvents.ENTITY_CAT_HISS, this.getSoundVolume(), this.getSoundPitch());
+        this.playSound(SoundEvents.CAT_HISS, this.getSoundVolume(), this.getVoicePitch());
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return SoundEvents.ENTITY_CAT_HURT;
+        return SoundEvents.CAT_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_CAT_DEATH;
+        return SoundEvents.CAT_DEATH;
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 10.0).add(Attributes.MOVEMENT_SPEED, 0.30000001192092896).add(Attributes.ATTACK_DAMAGE, 3.0);
     }
 
-    protected void eat(Player player, InteractionHand hand, ItemStack stack) {
+    protected void usePlayerItem(Player player, InteractionHand hand, ItemStack stack) {
         if (this.isBreedingItem(stack)) {
-            this.playSound(SoundEvents.ENTITY_CAT_EAT, 1.0F, 1.0F);
+            this.playSound(SoundEvents.CAT_EAT, 1.0F, 1.0F);
         }
 
-        super.eat(player, hand, stack);
+        super.usePlayerItem(player, hand, stack);
     }
 
     private float getAttackDamage() {
         return (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
     }
 
-    public boolean tryAttack(Entity target) {
-        return target.damage(this.getDamageSources().mobAttack(this), this.getAttackDamage());
+    public boolean doHurtTarget(Entity target) {
+        return target.hurt(this.damageSources().mobAttack(this), this.getAttackDamage());
     }
 
     public void tick() {
         super.tick();
-        if (this.temptGoal != null && this.temptGoal.isActive() && !this.isTame() && this.age % 100 == 0) {
-            this.playSound(SoundEvents.ENTITY_CAT_BEG_FOR_FOOD, 1.0F, 1.0F);
+        if (this.temptGoal != null && this.temptGoal.isRunning() && !this.isTame() && this.tickCount % 100 == 0) {
+            this.playSound(SoundEvents.CAT_BEG_FOR_FOOD, 1.0F, 1.0F);
         }
 
         this.handleLieDown();
     }
 
     private void handleLieDown() {
-        if ((this.isLying() || this.isRelaxStateOne()) && this.age % 5 == 0) {
-            this.playSound(SoundEvents.ENTITY_CAT_PURR, 0.6F + 0.4F * (this.random.nextFloat() - this.random.nextFloat()), 1.0F);
+        if ((this.isLying() || this.isRelaxStateOne()) && this.tickCount % 5 == 0) {
+            this.playSound(SoundEvents.CAT_PURR, 0.6F + 0.4F * (this.random.nextFloat() - this.random.nextFloat()), 1.0F);
         }
 
         this.updateLieDownAmount();
@@ -314,7 +306,7 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
     }
 
     @Nullable
-    public net.minecraft.world.entity.animal.Cat createChild(ServerLevel level, AgeableMob otherParent) {
+    public net.minecraft.world.entity.animal.Cat getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
         net.minecraft.world.entity.animal.Cat cat = (Cat)EntityType.CAT.create(level);
         if (cat != null && otherParent instanceof net.minecraft.world.entity.animal.Cat cat2) {
             if (this.random.nextBoolean()) {
@@ -324,8 +316,8 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
             }
 
             if (this.isTame()) {
-                cat.setOwnerUuid(this.getOwnerUuid());
-                cat.setTamed(true);
+                cat.setOwnerUUID(this.getOwnerUUID());
+                cat.setTame(true);
                 if (this.random.nextBoolean()) {
                     cat.setCollarColor(this.getCollarColor());
                 } else {
@@ -337,29 +329,29 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
         return cat;
     }
 
-    public boolean canBreedWith(Animal otherAnimal) {
+    public boolean canMate(Animal otherAnimal) {
         if (!this.isTame()) {
             return false;
         } else if (!(otherAnimal instanceof Cat)) {
             return false;
         } else {
             Cat cat = (Cat)otherAnimal;
-            return cat.isTame() && super.canBreedWith(otherAnimal);
+            return cat.isTame() && super.canMate(otherAnimal);
         }
     }
 
     @Nullable
-    public SpawnGroupData initialize(ServerLevelAccessor level, Difficulty difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
-        spawnData = super.initialize(level, difficulty, reason, spawnData, dataTag);
-        boolean bl = level.getMoonSize() > 0.9F;
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
+        spawnData = super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+        boolean bl = level.getMoonBrightness() > 0.9F;
         TagKey<CatVariant> tagKey = bl ? CatVariantTags.FULL_MOON_SPAWNS : CatVariantTags.DEFAULT_SPAWNS;
-        BuiltInRegistries.CAT_VARIANT.getEntryList(tagKey).flatMap((named) -> {
-            return named.getRandom(level.getRandom());
+        BuiltInRegistries.CAT_VARIANT.getTag(tagKey).flatMap((named) -> {
+            return named.getRandomElement(level.getRandom());
         }).ifPresent((holder) -> {
             this.setVariant((CatVariant)holder.value());
         });
-        ServerLevel serverLevel = level.toServerWorld();
-        if (serverLevel.getStructureAccessor().getStructureContaining(this.blockPosition(), StructureTags.CATS_SPAWN_AS_BLACK).hasChildren()) {
+        ServerLevel serverLevel = level.getLevel();
+        if (serverLevel.structureManager().getStructureWithPieceAt(this.blockPosition(), StructureTags.CATS_SPAWN_AS_BLACK).isValid()) {
             this.setVariant((CatVariant)BuiltInRegistries.CAT_VARIANT.getOrThrow(CatVariant.ALL_BLACK));
             this.setPersistenceRequired();
         }
@@ -381,25 +373,25 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
             if (this.isTame()) {
                 if (this.isOwnedBy(player)) {
                     if (!(item instanceof DyeItem)) {
-                        if (item.isFood() && this.isBreedingItem(itemStack) && this.getHealth() < this.getMaxHealth()) {
-                            this.eat(player, hand, itemStack);
-                            this.heal((float)item.getFoodComponent().getHunger());
+                        if (item.isEdible() && this.isBreedingItem(itemStack) && this.getHealth() < this.getMaxHealth()) {
+                            this.usePlayerItem(player, hand, itemStack);
+                            this.heal((float)item.getFoodProperties().getNutrition());
                             return InteractionResult.CONSUME;
                         }
 
                         interactionResult = super.mobInteract(player, hand);
-                        if (!interactionResult.isAccepted() || this.isBaby()) {
+                        if (!interactionResult.consumesAction() || this.isBaby()) {
                             this.setInSittingPose(!this.isInSittingPose());
                         }
 
                         return interactionResult;
                     }
 
-                    DyeColor dyeColor = ((DyeItem)item).getColor();
+                    DyeColor dyeColor = ((DyeItem)item).getDyeColor();
                     if (dyeColor != this.getCollarColor()) {
                         this.setCollarColor(dyeColor);
-                        if (!player.getAbilities().creativeMode) {
-                            itemStack.decrement(1);
+                        if (!player.getAbilities().instabuild) {
+                            itemStack.shrink(1);
                         }
 
                         this.setPersistenceRequired();
@@ -407,13 +399,13 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
                     }
                 }
             } else if (this.isBreedingItem(itemStack)) {
-                this.eat(player, hand, itemStack);
+                this.usePlayerItem(player, hand, itemStack);
                 if (this.random.nextInt(3) == 0) {
-                    this.setOwner(player);
+                    this.tame(player);
                     this.setInSittingPose(true);
-                    this.level().sendEntityStatus(this, (byte)7);
+                    this.level().broadcastEntityEvent(this, (byte)7);
                 } else {
-                    this.level().sendEntityStatus(this, (byte)6);
+                    this.level().broadcastEntityEvent(this, (byte)6);
                 }
 
                 this.setPersistenceRequired();
@@ -421,7 +413,7 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
             }
 
             interactionResult = super.mobInteract(player, hand);
-            if (interactionResult.isAccepted()) {
+            if (interactionResult.consumesAction()) {
                 this.setPersistenceRequired();
             }
 
@@ -433,36 +425,36 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
         return TEMPT_INGREDIENT.test(stack);
     }
 
-    protected float getActiveEyeHeight(Pose pose, EntityDimensions dimensions) {
+    protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
         return dimensions.height * 0.5F;
     }
 
-    public boolean canImmediatelyDespawn(double distanceToClosestPlayer) {
-        return !this.isTame() && this.age > 2400;
+    public boolean removeWhenFarAway(double distanceToClosestPlayer) {
+        return !this.isTame() && this.tickCount > 2400;
     }
 
-    protected void onTamedChanged() {
+    protected void reassessTameGoals() {
         if (this.avoidPlayersGoal == null) {
             this.avoidPlayersGoal = new CatAvoidEntityGoal<>(this, Player.class, 16.0F, 0.8, 1.33);
         }
 
-        this.goalSelector.remove(this.avoidPlayersGoal);
+        this.goalSelector.removeGoal(this.avoidPlayersGoal);
         if (!this.isTame()) {
-            this.goalSelector.add(4, this.avoidPlayersGoal);
+            this.goalSelector.addGoal(4, this.avoidPlayersGoal);
         }
 
     }
 
-    public boolean bypassesSteppingEffects() {
-        return this.isInSneakingPose() || super.bypassesSteppingEffects();
+    public boolean isSteppingCarefully() {
+        return this.isCrouching() || super.isSteppingCarefully();
     }
 
     static {
         TEMPT_INGREDIENT = Ingredient.of(new ItemLike[]{Items.COD, Items.SALMON});
-        DATA_VARIANT_ID = SynchedEntityData.registerData(Cat.class, EntityDataSerializers.CAT_VARIANT);
-        IS_LYING = SynchedEntityData.registerData(Cat.class, EntityDataSerializers.BOOLEAN);
-        RELAX_STATE_ONE = SynchedEntityData.registerData(Cat.class, EntityDataSerializers.BOOLEAN);
-        DATA_COLLAR_COLOR = SynchedEntityData.registerData(Cat.class, EntityDataSerializers.INTEGER);
+        DATA_VARIANT_ID = SynchedEntityData.defineId(Cat.class, EntityDataSerializers.CAT_VARIANT);
+        IS_LYING = SynchedEntityData.defineId(Cat.class, EntityDataSerializers.BOOLEAN);
+        RELAX_STATE_ONE = SynchedEntityData.defineId(Cat.class, EntityDataSerializers.BOOLEAN);
+        DATA_COLLAR_COLOR = SynchedEntityData.defineId(Cat.class, EntityDataSerializers.INT);
     }
 
     private static class CatTemptGoal extends TemptGoal {
@@ -478,15 +470,15 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
         public void tick() {
             super.tick();
             if (this.selectedPlayer == null && this.mob.getRandom().nextInt(this.adjustedTickDelay(600)) == 0) {
-                this.selectedPlayer = this.closestPlayer;
+                this.selectedPlayer = this.player;
             } else if (this.mob.getRandom().nextInt(this.adjustedTickDelay(500)) == 0) {
                 this.selectedPlayer = null;
             }
 
         }
 
-        protected boolean canBeScared() {
-            return this.selectedPlayer != null && this.selectedPlayer.equals(this.closestPlayer) ? false : super.canBeScared();
+        protected boolean canScare() {
+            return this.selectedPlayer != null && this.selectedPlayer.equals(this.player) ? false : super.canScare();
         }
 
         public boolean canUse() {
@@ -519,15 +511,15 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
                         return false;
                     }
 
-                    if (this.cat.squaredDistanceTo(this.ownerPlayer) > 100.0) {
+                    if (this.cat.distanceToSqr(this.ownerPlayer) > 100.0) {
                         return false;
                     }
 
                     BlockPos blockPos = this.ownerPlayer.blockPosition();
                     BlockState blockState = this.cat.level().getBlockState(blockPos);
                     if (blockState.is(BlockTags.BEDS)) {
-                        this.goalPos = (BlockPos)blockState.getOrEmpty(BedBlock.FACING).map((direction) -> {
-                            return blockPos.offset(direction.getOpposite());
+                        this.goalPos = (BlockPos)blockState.getOptionalValue(BedBlock.FACING).map((direction) -> {
+                            return blockPos.relative(direction.getOpposite());
                         }).orElseGet(() -> {
                             return new BlockPos(blockPos);
                         });
@@ -541,7 +533,7 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
 
         private boolean spaceIsOccupied() {
             assert this.goalPos != null;
-            List<IrradiatedCat> list = this.cat.level().getNonSpectatingEntities(IrradiatedCat.class, (new AABB(this.goalPos)).expand(2.0));
+            List<IrradiatedCat> list = this.cat.level().getEntitiesOfClass(IrradiatedCat.class, (new AABB(this.goalPos)).inflate(2.0));
             Iterator var2 = list.iterator();
 
             IrradiatedCat cat;
@@ -558,21 +550,21 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
             return true;
         }
 
-        public boolean shouldContinue() {
+        public boolean canContinueToUse() {
             return this.cat.isTame() && !this.cat.isInSittingPose() && this.ownerPlayer != null && this.ownerPlayer.isSleeping() && this.goalPos != null && !this.spaceIsOccupied();
         }
 
         public void start() {
             if (this.goalPos != null) {
                 this.cat.setInSittingPose(false);
-                this.cat.getNavigation().startMovingTo((double)this.goalPos.getX(), (double)this.goalPos.getY(), (double)this.goalPos.getZ(), 1.100000023841858);
+                this.cat.getNavigation().moveTo((double)this.goalPos.getX(), (double)this.goalPos.getY(), (double)this.goalPos.getZ(), 1.100000023841858);
             }
 
         }
 
         public void stop() {
             this.cat.setLying(false);
-            float f = this.cat.level().getSkyAngle(1.0F);
+            float f = this.cat.level().getTimeOfDay(1.0F);
             if (this.ownerPlayer.getSleepTimer() >= 100 && (double)f > 0.77 && (double)f < 0.8 && (double)this.cat.level().getRandom().nextFloat() < 0.7) {
                 this.giveMorningGift();
             }
@@ -585,17 +577,17 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
         private void giveMorningGift() {
             RandomSource randomSource = this.cat.getRandom();
             BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-            mutableBlockPos.set(this.cat.isLeashed() ? this.cat.getHoldingEntity().blockPosition() : this.cat.blockPosition());
-            this.cat.teleport((double)(mutableBlockPos.getX() + randomSource.nextInt(11) - 5), (double)(mutableBlockPos.getY() + randomSource.nextInt(5) - 2), (double)(mutableBlockPos.getZ() + randomSource.nextInt(11) - 5), false);
+            mutableBlockPos.set(this.cat.isLeashed() ? this.cat.getLeashHolder().blockPosition() : this.cat.blockPosition());
+            this.cat.randomTeleport((double)(mutableBlockPos.getX() + randomSource.nextInt(11) - 5), (double)(mutableBlockPos.getY() + randomSource.nextInt(5) - 2), (double)(mutableBlockPos.getZ() + randomSource.nextInt(11) - 5), false);
             mutableBlockPos.set(this.cat.blockPosition());
-            LootTable lootTable = this.cat.level().getServer().getLootManager().getLootTable(BuiltInLootTables.CAT_MORNING_GIFT_GAMEPLAY);
-            LootContext lootParams = (new LootContext.Builder((ServerLevel)this.cat.level())).add(LootContextParams.ORIGIN, this.cat.position()).add(LootContextParams.THIS_ENTITY, this.cat).build(LootContextParamSets.GIFT);
-            List<ItemStack> list = lootTable.generateLoot(lootParams);
+            LootTable lootTable = this.cat.level().getServer().getLootData().getLootTable(BuiltInLootTables.CAT_MORNING_GIFT);
+            LootParams lootParams = (new LootParams.Builder((ServerLevel)this.cat.level())).withParameter(LootContextParams.ORIGIN, this.cat.position()).withParameter(LootContextParams.THIS_ENTITY, this.cat).create(LootContextParamSets.GIFT);
+            List<ItemStack> list = lootTable.getRandomItems(lootParams);
             Iterator var6 = list.iterator();
 
             while(var6.hasNext()) {
                 ItemStack itemStack = (ItemStack)var6.next();
-                this.cat.level().spawnEntity(new ItemEntity(this.cat.level(), (double)mutableBlockPos.getX() - (double)Mth.sin(this.cat.bodyYaw * 0.017453292F), (double)mutableBlockPos.getY(), (double)mutableBlockPos.getZ() + (double)Mth.cos(this.cat.bodyYaw * 0.017453292F), itemStack));
+                this.cat.level().addFreshEntity(new ItemEntity(this.cat.level(), (double)mutableBlockPos.getX() - (double)Mth.sin(this.cat.yBodyRot * 0.017453292F), (double)mutableBlockPos.getY(), (double)mutableBlockPos.getZ() + (double)Mth.cos(this.cat.yBodyRot * 0.017453292F), itemStack));
             }
 
         }
@@ -603,14 +595,14 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
         public void tick() {
             if (this.ownerPlayer != null && this.goalPos != null) {
                 this.cat.setInSittingPose(false);
-                this.cat.getNavigation().startMovingTo((double)this.goalPos.getX(), (double)this.goalPos.getY(), (double)this.goalPos.getZ(), 1.100000023841858);
-                if (this.cat.squaredDistanceTo(this.ownerPlayer) < 2.5) {
+                this.cat.getNavigation().moveTo((double)this.goalPos.getX(), (double)this.goalPos.getY(), (double)this.goalPos.getZ(), 1.100000023841858);
+                if (this.cat.distanceToSqr(this.ownerPlayer) < 2.5) {
                     ++this.onBedTicks;
                     if (this.onBedTicks > this.adjustedTickDelay(16)) {
                         this.cat.setLying(true);
                         this.cat.setRelaxStateOne(false);
                     } else {
-                        this.cat.lookAtEntity(this.ownerPlayer, 45.0F, 45.0F);
+                        this.cat.lookAt(this.ownerPlayer, 45.0F, 45.0F);
                         this.cat.setRelaxStateOne(true);
                     }
                 } else {
@@ -626,7 +618,7 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
 
         public CatAvoidEntityGoal(IrradiatedCat cat, Class entityClassToAvoid, float maxDist, double walkSpeedModifier, double sprintSpeedModifier) {
             super(cat, entityClassToAvoid, maxDist, walkSpeedModifier, sprintSpeedModifier);
-            Predicate var10006 = EntitySelector.EXCEPT_CREATIVE_OR_SPECTATOR;
+            Predicate var10006 = EntitySelector.NO_CREATIVE_OR_SPECTATOR;
             Objects.requireNonNull(var10006);
             this.cat = cat;
         }
@@ -635,8 +627,8 @@ public class IrradiatedCat extends TamableAnimal implements VariantHolder<CatVar
             return !this.cat.isTame() && super.canUse();
         }
 
-        public boolean shouldContinue() {
-            return !this.cat.isTame() && super.shouldContinue();
+        public boolean canContinueToUse() {
+            return !this.cat.isTame() && super.canContinueToUse();
         }
     }
 }

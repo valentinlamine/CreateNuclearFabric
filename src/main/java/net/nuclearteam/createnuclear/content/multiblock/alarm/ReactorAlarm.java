@@ -26,7 +26,7 @@ public class ReactorAlarm extends Block implements IBE<ReactorAlarmEntity> {
 
     public ReactorAlarm(Properties props) {
         super(props);
-        this.setDefaultState(this.defaultBlockState().setValue(POWERED, false));
+        this.registerDefaultState(this.defaultBlockState().setValue(POWERED, false));
     }
 
     // Registers this alarm with the multiblock controller when placed
@@ -52,14 +52,14 @@ public class ReactorAlarm extends Block implements IBE<ReactorAlarmEntity> {
     }
 
     @Override
-    public BlockState getPlacementState(BlockPlaceContext ctx) {
-        return this.defaultBlockState().setValue(POWERED, ctx.getLevel().isReceivingRedstonePower(ctx.getClickedPos()));
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return this.defaultBlockState().setValue(POWERED, ctx.getLevel().hasNeighborSignal(ctx.getClickedPos()));
     }
 
     @Override
-    public void neighborUpdate(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
         if (level.isClientSide) return;
-        boolean poweredNow = level.isReceivingRedstonePower(pos);
+        boolean poweredNow = level.hasNeighborSignal(pos);
         if (state.getValue(POWERED) != poweredNow) {
             level.setBlock(pos, state.setValue(POWERED, poweredNow), 3);
         }

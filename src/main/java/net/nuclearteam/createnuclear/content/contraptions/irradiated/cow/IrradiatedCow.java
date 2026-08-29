@@ -41,22 +41,22 @@ public class IrradiatedCow extends Animal {
         super(pEntityType, pLevel);
     }
 
-    protected void initGoals() {
-        this.goalSelector.add(0, new FloatGoal(this));
-        this.goalSelector.add(1, new PanicGoal(this, 2.0D));
-        this.goalSelector.add(2, new BreedGoal(this, 1.0D));
-        this.goalSelector.add(3, new TemptGoal(this, 1.25D, Ingredient.of(Items.WHEAT), false));
-        this.goalSelector.add(4, new FollowParentGoal(this, 1.25D));
-        this.goalSelector.add(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.add(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.add(7, new RandomLookAroundGoal(this));
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25D, Ingredient.of(Items.WHEAT), false));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.25D));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
     }
 
     // Define the base food of the animal (e.g., Wheat for Cows)
     private static final Ingredient FOOD_ITEMS = Ingredient.of(CNItems.YELLOWCAKE);
 
     @Override
-    public boolean isBreedingItem(ItemStack stack) {
+    public boolean isFood(ItemStack stack) {
         // Check if the stack is a valid Yellowcake or the base food
         return AnimalUtil.isFood(stack, FOOD_ITEMS);
     }
@@ -66,19 +66,19 @@ public class IrradiatedCow extends Animal {
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_COW_AMBIENT;
+        return SoundEvents.COW_AMBIENT;
     }
 
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return SoundEvents.ENTITY_COW_HURT;
+        return SoundEvents.COW_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_COW_DEATH;
+        return SoundEvents.COW_DEATH;
     }
 
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {
-        this.playSound(SoundEvents.ENTITY_COW_STEP, 0.15F, 1.0F);
+        this.playSound(SoundEvents.COW_STEP, 0.15F, 1.0F);
     }
 
     /**
@@ -91,21 +91,21 @@ public class IrradiatedCow extends Animal {
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         if (itemstack.is(Items.BUCKET) && !this.isBaby()) {
-            pPlayer.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
-            ItemStack itemstack1 = ItemUtils.exchangeStack(itemstack, pPlayer, Items.MILK_BUCKET.getDefaultInstance());
-            pPlayer.setStackInHand(pHand, itemstack1);
-            return InteractionResult.success(this.level().isClientSide);
+            pPlayer.playSound(SoundEvents.COW_MILK, 1.0F, 1.0F);
+            ItemStack itemstack1 = ItemUtils.createFilledResult(itemstack, pPlayer, Items.MILK_BUCKET.getDefaultInstance());
+            pPlayer.setItemInHand(pHand, itemstack1);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         } else {
             return super.mobInteract(pPlayer, pHand);
         }
     }
 
     @Nullable
-    public IrradiatedCow createChild(ServerLevel pLevel, AgeableMob pOtherParent) {
+    public IrradiatedCow getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
         return CNEntityType.IRRADIATED_COW.create(pLevel);
     }
 
-    protected float getActiveEyeHeight(Pose pPose, EntityDimensions pSize) {
+    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
         return this.isBaby() ? pSize.height * 0.95F : 1.3F;
     }
 }

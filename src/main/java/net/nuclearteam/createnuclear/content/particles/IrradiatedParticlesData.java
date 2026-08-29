@@ -4,6 +4,8 @@ import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.simibubi.create.foundation.particle.ICustomParticleDataWithSprite;
+import net.minecraft.client.particle.ParticleEngine.SpriteParticleRegistration;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
@@ -11,7 +13,7 @@ import net.nuclearteam.createnuclear.CNParticleTypes;
 
 import java.util.Locale;
 
-public class IrradiatedParticlesData implements ParticleOptions {
+public class IrradiatedParticlesData implements ParticleOptions, ICustomParticleDataWithSprite<IrradiatedParticlesData> {
 
     public static final Codec<IrradiatedParticlesData> CODEC = RecordCodecBuilder.create(i ->
         i.group(
@@ -50,12 +52,27 @@ public class IrradiatedParticlesData implements ParticleOptions {
     }
 
     @Override
-    public void write(FriendlyByteBuf buffer) {
+    public void writeToNetwork(FriendlyByteBuf buffer) {
         buffer.writeInt(t);
     }
 
     @Override
-    public String asString() {
+    public String writeToString() {
         return String.format(Locale.ROOT, "%s %d", CNParticleTypes.IRRADIATED_PARTICLES.parameter(), t);
+    }
+
+    @Override
+    public Deserializer<IrradiatedParticlesData> getDeserializer() {
+        return DESERIALIZER;
+    }
+
+    @Override
+    public Codec<IrradiatedParticlesData> getCodec(ParticleType<IrradiatedParticlesData> type) {
+        return CODEC;
+    }
+
+    @Override
+    public SpriteParticleRegistration<IrradiatedParticlesData> getMetaFactory() {
+        return IrradiatedParticles.Provider::new;
     }
 }

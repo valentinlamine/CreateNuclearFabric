@@ -31,7 +31,7 @@ public class ReactorAlarmCoordinator implements IReactorAlarmCoordinator {
         if (alarmManager == null) return;
 
         for (BlockPos pos : alarmManager.getBlocksPosition(level)) {
-            if (!level.canSetBlock(pos)) continue;
+            if (!level.isLoaded(pos)) continue;
 
             BlockState state = level.getBlockState(pos);
 

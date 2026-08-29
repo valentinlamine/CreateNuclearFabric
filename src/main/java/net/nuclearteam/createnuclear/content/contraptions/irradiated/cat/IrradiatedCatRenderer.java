@@ -22,11 +22,11 @@ public class IrradiatedCatRenderer extends MobRenderer<IrradiatedCat, Irradiated
     private static final ResourceLocation IRRADIATED_CAT_LOCATION = CreateNuclear.asResource("textures/entity/irradiated_cat.png");
 
     public IrradiatedCatRenderer(EntityRendererProvider.Context context) {
-        super(context, new IrradiatedCatModel<>(context.getPart(CNModelLayers.IRRADIATED_CAT)), 0.4f);
+        super(context, new IrradiatedCatModel<>(context.bakeLayer(CNModelLayers.IRRADIATED_CAT)), 0.4f);
     }
 
     @Override
-    public ResourceLocation getTexture(IrradiatedCat entity) {
+    public ResourceLocation getTextureLocation(IrradiatedCat entity) {
         return IRRADIATED_CAT_LOCATION;
     }
     protected void scale(IrradiatedCat livingEntity, PoseStack matrixStack, float partialTickTime) {
@@ -34,14 +34,14 @@ public class IrradiatedCatRenderer extends MobRenderer<IrradiatedCat, Irradiated
         matrixStack.scale(0.8F, 0.8F, 0.8F);
     }
 
-    protected void setupTransforms(IrradiatedCat entityLiving, PoseStack matrixStack, float ageInTicks, float rotationYaw, float partialTicks) {
-        super.setupTransforms(entityLiving, matrixStack, ageInTicks, rotationYaw, partialTicks);
+    protected void setupRotations(IrradiatedCat entityLiving, PoseStack matrixStack, float ageInTicks, float rotationYaw, float partialTicks) {
+        super.setupRotations(entityLiving, matrixStack, ageInTicks, rotationYaw, partialTicks);
         float f = entityLiving.getLieDownAmount(partialTicks);
         if (f > 0.0F) {
             matrixStack.translate(0.4F * f, 0.15F * f, 0.1F * f);
-            matrixStack.multiply(Axis.POSITIVE_Z.rotationDegrees(Mth.lerpAngleDegrees(f, 0.0F, 90.0F)));
+            matrixStack.mulPose(Axis.ZP.rotationDegrees(Mth.rotLerp(f, 0.0F, 90.0F)));
             BlockPos blockPos = entityLiving.blockPosition();
-            List<Player> list = entityLiving.level().getNonSpectatingEntities(Player.class, (new AABB(blockPos)).expand(2.0, 2.0, 2.0));
+            List<Player> list = entityLiving.level().getEntitiesOfClass(Player.class, (new AABB(blockPos)).inflate(2.0, 2.0, 2.0));
 
             for (Player player : list) {
                 if (player.isSleeping()) {

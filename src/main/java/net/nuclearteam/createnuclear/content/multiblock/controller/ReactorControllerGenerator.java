@@ -15,7 +15,7 @@ public class ReactorControllerGenerator extends SpecialBlockStateGen {
 
     @Override
     protected int getYRotation(BlockState state) {
-        if (state == null || !state.contains(ReactorControllerBlock.FACING)) {
+        if (state == null || !state.hasProperty(ReactorControllerBlock.FACING)) {
             return 0;
         }
         return horizontalAngle(state.getValue(ReactorControllerBlock.FACING));
@@ -26,9 +26,9 @@ public class ReactorControllerGenerator extends SpecialBlockStateGen {
         final String controllerPath = "block/reactor/controller/controller_panel_";
 
         ControllerVisualState visualState = ControllerVisualState.OFF;
-        if (state.contains(ReactorControllerBlock.ASSEMBLED)
+        if (state.hasProperty(ReactorControllerBlock.ASSEMBLED)
             && state.getValue(ReactorControllerBlock.ASSEMBLED)) {
-            visualState = state.contains(ReactorControllerBlock.ACTIVE)
+            visualState = state.hasProperty(ReactorControllerBlock.ACTIVE)
                 && state.getValue(ReactorControllerBlock.ACTIVE)
                 ? ControllerVisualState.ON
                 : ControllerVisualState.STANDBY;

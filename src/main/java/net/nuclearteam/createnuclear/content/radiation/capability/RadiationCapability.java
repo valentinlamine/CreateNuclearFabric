@@ -60,8 +60,8 @@ public final class RadiationCapability {
             capability.setRadiation(Math.max(0, computeItemRadiation(entity)));
         }
 
-        ResourceKey<Biome> biomeKey = world.getBiome(entity.blockPosition()).getKey().orElse(null);
-        ResourceLocation biomeLocation = biomeKey != null ? biomeKey.getValue() : null;
+        ResourceKey<Biome> biomeKey = world.getBiome(entity.blockPosition()).unwrapKey().orElse(null);
+        ResourceLocation biomeLocation = biomeKey != null ? biomeKey.location() : null;
         if (!Objects.equals(biomeLocation, capability.getLastBiomeLocation())) {
             capability.setLastBiomeLocation(biomeLocation);
         }
@@ -80,12 +80,12 @@ public final class RadiationCapability {
 
     private static double computeItemRadiation(Player player) {
         double radiation = 0;
-        for (ItemStack stack : player.getInventory().main) {
+        for (ItemStack stack : player.getInventory().items) {
             if (stack.getItem() instanceof IRadiationSource source)
                 radiation += source.getRadiation(stack, player);
             radiation += RadiationRegistry.getRadiation(stack, player);
         }
-        for (ItemStack stack : player.getInventory().offHand) {
+        for (ItemStack stack : player.getInventory().offhand) {
             if (stack.getItem() instanceof IRadiationSource source)
                 radiation += source.getRadiation(stack, player);
             radiation += RadiationRegistry.getRadiation(stack, player);
@@ -102,11 +102,11 @@ public final class RadiationCapability {
 
     private static double computeItemRadiation(LivingEntity entity) {
         double radiation = 0;
-        for (ItemStack stack : entity.getArmorItems()) {
+        for (ItemStack stack : entity.getArmorSlots()) {
             radiation += getStackRadiation(stack, entity);
         }
-        radiation += getStackRadiation(entity.getMainHandStack(), entity);
-        radiation += getStackRadiation(entity.getOffHandStack(), entity);
+        radiation += getStackRadiation(entity.getMainHandItem(), entity);
+        radiation += getStackRadiation(entity.getOffhandItem(), entity);
         return radiation;
     }
 
@@ -159,9 +159,9 @@ public final class RadiationCapability {
         else
             amp = CNConfigs.server().radiation.amplifierLevel2.get();
 
-        MobEffectInstance current = entity.getStatusEffect(radiationEffect);
+        MobEffectInstance current = entity.getEffect(radiationEffect);
         if (current != null && current.getAmplifier() != amp) {
-            entity.removeStatusEffect(radiationEffect);
+            entity.removeEffect(radiationEffect);
             current = null;
         }
         if (current == null || current.getDuration() <= 40) {

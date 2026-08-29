@@ -44,7 +44,7 @@ public class ReactorAlarmManager extends AbstractReactorIOManager implements Rea
         List<BlockPos> toRemove = new ArrayList<>();
 
         for (BlockPos p : positions) {
-            if (!level.canSetBlock(p)) continue; // Don't remove the position if the chunk is merely unloaded
+            if (!level.isLoaded(p)) continue; // Don't remove the position if the chunk is merely unloaded
 
             BlockEntity be = level.getBlockEntity(p);
             // Mark for removal if the block no longer exists or is no longer an alarm
@@ -62,7 +62,7 @@ public class ReactorAlarmManager extends AbstractReactorIOManager implements Rea
         List<BlockPos> validPositions = new ArrayList<>();
         for (BlockPos p : this.positions) {
             // Check that the block entity is loaded and of the expected type
-            if (level.canSetBlock(p) && level.getBlockEntity(p) instanceof ReactorAlarmEntity) {
+            if (level.isLoaded(p) && level.getBlockEntity(p) instanceof ReactorAlarmEntity) {
                 validPositions.add(p);
             }
         }

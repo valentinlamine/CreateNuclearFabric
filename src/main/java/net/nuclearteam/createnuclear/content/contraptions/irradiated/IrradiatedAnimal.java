@@ -38,9 +38,9 @@ public interface IrradiatedAnimal {
 
         setConversionTime(conversionTime);
         setConverting();
-        animal.removeStatusEffect(MobEffects.WEAKNESS);
-        animal.addEffect(new MobEffectInstance(MobEffects.STRENGTH, conversionTime, Math.min(animal.level().getDifficulty().getId() -1, 0)));
-        animal.level().sendEntityStatus(animal, EntityEvent.PLAY_CURE_ZOMBIE_VILLAGER_SOUND);
+        animal.removeEffect(MobEffects.WEAKNESS);
+        animal.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, conversionTime, Math.min(animal.level().getDifficulty().getId() -1, 0)));
+        animal.level().broadcastEntityEvent(animal, EntityEvent.ZOMBIE_CONVERTING);
     }
 
     default void finishConversion(ServerLevel level) {
@@ -48,12 +48,12 @@ public interface IrradiatedAnimal {
         Animal vanillaAnimal = irradifiedAnimal.convertTo(getNormalVariant(), false);
 
         if (vanillaAnimal != null) {
-            vanillaAnimal.initialize(level, level.getLocalDifficulty(vanillaAnimal.blockPosition()), MobSpawnType.CONVERSION, null, null);
+            vanillaAnimal.finalizeSpawn(level, level.getCurrentDifficultyAt(vanillaAnimal.blockPosition()), MobSpawnType.CONVERSION, null, null);
             writeToVanilla(vanillaAnimal);
-            vanillaAnimal.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 200, 0));
+            vanillaAnimal.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, 0));
 
             if (!irradifiedAnimal.isSilent()) {
-                level.syncWorldEvent(null, LevelEvent.ZOMBIE_VILLAGER_CURED, irradifiedAnimal.blockPosition(), 0);
+                level.levelEvent(null, LevelEvent.SOUND_ZOMBIE_CONVERTED, irradifiedAnimal.blockPosition(), 0);
             }
 
             // Fabric API fires ServerLivingEntityEvents.MOB_CONVERSION from Entity#convertTo.

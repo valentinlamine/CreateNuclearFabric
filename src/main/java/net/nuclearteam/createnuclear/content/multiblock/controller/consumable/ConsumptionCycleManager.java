@@ -109,7 +109,7 @@ public class ConsumptionCycleManager {
         tag.getList("timers", Tag.TAG_COMPOUND)
                 .forEach(t -> timers.add(ConsumableTimer.deserializeNBT((CompoundTag) t)));
         CompoundTag snap = tag.getCompound("snapshot");
-        snap.getKeys().forEach(k -> patternSnapshot.put(k, snap.getInt(k)));
+        snap.getAllKeys().forEach(k -> patternSnapshot.put(k, snap.getInt(k)));
     }
 
     private void buildTimers(ItemStack pattern, Level level) {

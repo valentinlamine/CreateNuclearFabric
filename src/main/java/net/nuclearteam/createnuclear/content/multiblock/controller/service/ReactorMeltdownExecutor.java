@@ -15,7 +15,7 @@ import net.nuclearteam.createnuclear.infrastructure.worldgen.biome.CNBiomes;
 public class ReactorMeltdownExecutor implements IExplosionService {
     @Override
     public void triggerExplosion(ServerLevel level, BlockPos controllerPos, int reactorSize, int countFuelRod, int notifyRadius, boolean notifyWarnAll) {
-        BlockPos explosionPos = controllerPos.up(5);
+        BlockPos explosionPos = controllerPos.above(5);
 
         NotifyUtil.sendTitle(level, controllerPos,
                 CreateNuclearLang.translate("notification.reactor.destroyed"),
@@ -26,12 +26,12 @@ public class ReactorMeltdownExecutor implements IExplosionService {
         float size = computeExplosionSize(reactorSize, countFuelRod);
 
         NuclearExplosionEntity explosion = new NuclearExplosionEntity(CNEntityType.NUCLEAR_EXPLOSION.get(), level);
-        explosion.setPosition(explosionPos.getX() + 0.5D, explosionPos.getY() + 10.0D, explosionPos.getZ() - 2.0D);
+        explosion.setPos(explosionPos.getX() + 0.5D, explosionPos.getY() + 10.0D, explosionPos.getZ() - 2.0D);
         explosion.setSize(size);
-        explosion.setNoGriefing(!level.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING));
-        level.spawnEntity(explosion);
+        explosion.setNoGriefing(!level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING));
+        level.addFreshEntity(explosion);
 
-        level.breakBlock(controllerPos, false);
+        level.destroyBlock(controllerPos, false);
 
         BiomeIrradiationService.circularArea(level, explosionPos, CNBiomes.Irradiated.PLAIN, (int) (size * 30));
 

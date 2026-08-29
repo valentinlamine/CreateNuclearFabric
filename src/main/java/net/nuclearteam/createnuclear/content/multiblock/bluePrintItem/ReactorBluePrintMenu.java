@@ -39,7 +39,7 @@ public class ReactorBluePrintMenu extends GhostItemMenu<ItemStack> {
     }
 
     public static ReactorBluePrintMenu create(int id, Inventory inv, ItemStack stack) {
-        return new ReactorBluePrintMenu(CNMenus.REACTOR_BLUEPRINT_MENU, id, inv, stack);
+        return new ReactorBluePrintMenu(CNMenus.REACTOR_BLUEPRINT_MENU.get(), id, inv, stack);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class ReactorBluePrintMenu extends GhostItemMenu<ItemStack> {
     @Override
     @Environment(EnvType.CLIENT)
     protected ItemStack createOnClient(FriendlyByteBuf extraData) {
-        return extraData.readItemStack();
+        return extraData.readItem();
     }
 
     @Override
@@ -179,8 +179,8 @@ public class ReactorBluePrintMenu extends GhostItemMenu<ItemStack> {
     }
 
     @Override
-    public boolean canUse(Player player) {
-        return playerInventory.getMainHandStack() == contentHolder;
+    public boolean stillValid(Player player) {
+        return playerInventory.getSelected() == contentHolder;
     }
 
     @Override

@@ -58,7 +58,7 @@ public class ReactorBluePrintItemPacket extends SimplePacketBase {
     public boolean handle(Context context) {
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
-            if (player == null || !(player.currentScreenHandler instanceof ReactorBluePrintMenu c)) return;
+            if (player == null || !(player.containerMenu instanceof ReactorBluePrintMenu c)) return;
             c.countFuelRod = this.countFuelRod;
             c.countCooledRod = this.countCoolerRod;
             c.fuelTime = this.fuelTime;

@@ -18,16 +18,16 @@ public class IrradiatedChickenRenderer extends MobRenderer<IrradiatedChicken, Ir
     private static final ResourceLocation IRRADIATED_CHICKEN_LOCATION = CreateNuclear.asResource("textures/entity/irradiated_chicken.png");
 
     public IrradiatedChickenRenderer(EntityRendererProvider.Context context) {
-        super(context, new IrradiatedChickenModel<>(context.getPart(CNModelLayers.IRRADIATED_CHICKEN)), 0.3F);
+        super(context, new IrradiatedChickenModel<>(context.bakeLayer(CNModelLayers.IRRADIATED_CHICKEN)), 0.3F);
     }
 
     @Override
-    public ResourceLocation getTexture(IrradiatedChicken entity) {
+    public ResourceLocation getTextureLocation(IrradiatedChicken entity) {
         return IRRADIATED_CHICKEN_LOCATION;
     }
 
     @Override
-    protected float getAnimationProgress(IrradiatedChicken livingBase, float partialTicks) {
+    protected float getBob(IrradiatedChicken livingBase, float partialTicks) {
         float f = Mth.lerp(partialTicks, livingBase.oFlap, livingBase.flap);
         float g = Mth.lerp(partialTicks, livingBase.oFlapSpeed, livingBase.flapSpeed);
         return (Mth.sin(f) + 1.0F) * g;

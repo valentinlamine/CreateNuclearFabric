@@ -27,7 +27,7 @@ public class DefaultPersistenceService implements IPersistenceService {
                     : ReactorDisplayState.EMPTY
             );
         }
-        owner.setConfiguredPattern(ItemStack.fromNbt(compound.getCompound("items")));
+        owner.setConfiguredPattern(ItemStack.of(compound.getCompound("items")));
 
     }
 

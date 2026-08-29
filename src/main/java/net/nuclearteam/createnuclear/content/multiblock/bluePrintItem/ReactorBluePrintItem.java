@@ -36,8 +36,8 @@ public class ReactorBluePrintItem extends Item implements MenuProvider {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-        super.appendTooltip(stack, level, tooltip, flag);
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+        super.appendHoverText(stack, level, tooltip, flag);
 
         tooltip.add(Component.translatable("item.createnuclear.reactor_blueprint.tooltip")
                 .withStyle(ChatFormatting.GRAY));
@@ -55,12 +55,12 @@ public class ReactorBluePrintItem extends Item implements MenuProvider {
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
-        ItemStack heldItem = player.getMainHandStack();
+        ItemStack heldItem = player.getMainHandItem();
         return ReactorBluePrintMenu.create(id, inv, heldItem);
     }
 
     @Override
-    public InteractionResult useOnBlock(UseOnContext context) {
+    public InteractionResult useOn(UseOnContext context) {
         if (context.getPlayer() == null) return InteractionResult.PASS;
         return use(context.getLevel(), context.getPlayer(), context.getHand()).getResult();
     }
@@ -72,7 +72,7 @@ public class ReactorBluePrintItem extends Item implements MenuProvider {
         // Plain right-click -> Opens the Blueprint screen
         if (!player.isShiftKeyDown() && hand == InteractionHand.MAIN_HAND) {
             if (!world.isClientSide && player instanceof ServerPlayer)
-                NetworkHooks.openScreen((ServerPlayer) player, this, buf -> buf.writeItemStack(heldItem));
+                NetworkHooks.openScreen((ServerPlayer) player, this, buf -> buf.writeItem(heldItem));
             return InteractionResultHolder.success(heldItem);
         }
         // Shift + right-click -> Sends a clickable link in chat!
@@ -82,9 +82,9 @@ public class ReactorBluePrintItem extends Item implements MenuProvider {
                         .withStyle(ChatFormatting.GREEN)
                         .append(" ")
                         .append(Component.translatable("item.createnuclear.reactor_blueprint.wiki_link")
-                                .styled(style -> style
+                                .withStyle(style -> style
                                         .withColor(ChatFormatting.AQUA)
-                                        .withUnderline(true)
+                                        .withUnderlined(true)
                                         .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://wiki.createnuclear.net/wiki/block&items/reactor_blueprint_item"))
                                 ));
 
@@ -99,7 +99,7 @@ public class ReactorBluePrintItem extends Item implements MenuProvider {
         ItemStackHandler newInv = new ItemStackHandler(57);
         if (CNItems.REACTOR_BLUEPRINT.get() != stack.getItem()) throw new IllegalArgumentException("Cannot get configured items from non item: " + stack);
         if (!stack.hasTag()) return newInv;
-        CompoundTag invNBT = stack.getOrCreateSubNbt("pattern");
+        CompoundTag invNBT = stack.getOrCreateTagElement("pattern");
         if (!invNBT.isEmpty())
             newInv.deserializeNBT(invNBT);
         return newInv;

@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
+@SuppressWarnings("UnstableApiUsage")
 public class ReactorFrameDisplayManager implements ReactorFrameDisplayManagerI {
     public static final String COMPONENT_FRAME_COLUMN_MIN_Y = "frameColumnMinY";
     public static final String COMPONENT_FRAME_COLUMN_MAX_Y = "frameColumnMaxY";
@@ -19,16 +20,16 @@ public class ReactorFrameDisplayManager implements ReactorFrameDisplayManagerI {
     private FluidStack frameFluidCache = FluidStack.EMPTY;
 
     private void refreshFrameFluidCache(@Nullable Level level, ReactorInputFluidManagerI handlers) {
-        if (level == null || level.getTime() == frameFluidCacheTick) return;
-        frameFluidCacheTick = level.getTime();
+        if (level == null || level.getGameTime() == frameFluidCacheTick) return;
+        frameFluidCacheTick = level.getGameTime();
 
         long amount = 0;
         long capacity = 0;
         FluidStack first = FluidStack.EMPTY;
         for (Storage<FluidVariant> storage : handlers.getFuildHandlers(level)) {
             for (StorageView<FluidVariant> view : storage) {
-                capacity = saturatedAdd(capacity, view.getCapacity());
-                amount = saturatedAdd(amount, view.getAmount());
+                capacity += view.getCapacity();
+                amount += view.getAmount();
                 if (first.isEmpty() && !view.isResourceBlank() && view.getAmount() > 0) {
                     first = new FluidStack(view);
                 }
@@ -38,11 +39,6 @@ public class ReactorFrameDisplayManager implements ReactorFrameDisplayManagerI {
         frameFluidCache = first;
         frameFluidFillRatioCache = capacity == 0 ? 0
                 : Math.min(1, (float) ((double) amount / (double) capacity));
-    }
-
-    private static long saturatedAdd(long left, long right) {
-        if (right > 0 && left > Long.MAX_VALUE - right) return Long.MAX_VALUE;
-        return left + right;
     }
 
     @Override

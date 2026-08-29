@@ -15,12 +15,12 @@ public class CatLieOnBedGoal extends MoveToBlockGoal {
     public CatLieOnBedGoal(IrradiatedCat cat, double speedModifier, int searchRange) {
         super(cat, speedModifier, searchRange, 6);
         this.cat = cat;
-        this.lowestY = -2;
-        this.setControls(EnumSet.of(Control.JUMP, Control.MOVE));
+        this.verticalSearchStart = -2;
+        this.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE));
     }
 
     public boolean canUse() {
-        return this.cat.isTame() && !this.cat.isInSittingPose() && !this.cat.isLying() && super.canUse();
+        return this.cat.isTame() && !this.cat.isOrderedToSit() && !this.cat.isLying() && super.canUse();
     }
 
     public void start() {
@@ -28,7 +28,7 @@ public class CatLieOnBedGoal extends MoveToBlockGoal {
         this.cat.setInSittingPose(false);
     }
 
-    protected int getInterval(PathfinderMob creature) {
+    protected int nextStartTick(PathfinderMob creature) {
         return 40;
     }
 
@@ -40,7 +40,7 @@ public class CatLieOnBedGoal extends MoveToBlockGoal {
     public void tick() {
         super.tick();
         this.cat.setInSittingPose(false);
-        if (!this.hasReached()) {
+        if (!this.isReachedTarget()) {
             this.cat.setLying(false);
         } else if (!this.cat.isLying()) {
             this.cat.setLying(true);
@@ -48,7 +48,7 @@ public class CatLieOnBedGoal extends MoveToBlockGoal {
 
     }
 
-    protected boolean isTargetPos(LevelReader level, BlockPos pos) {
-        return level.isAir(pos.up()) && level.getBlockState(pos).is(BlockTags.BEDS);
+    protected boolean isValidTarget(LevelReader level, BlockPos pos) {
+        return level.isEmptyBlock(pos.above()) && level.getBlockState(pos).is(BlockTags.BEDS);
     }
 }

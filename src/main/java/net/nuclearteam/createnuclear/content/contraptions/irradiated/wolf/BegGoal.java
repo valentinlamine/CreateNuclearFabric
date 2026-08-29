@@ -24,19 +24,19 @@ public class BegGoal extends Goal {
         this.wolf = wolf;
         this.level = wolf.level();
         this.lookDistance = lookDistance;
-        this.begTargeting = TargetingConditions.createNonAttackable().setBaseMaxDistance(lookDistance);
-        this.setControls(EnumSet.of(Control.LOOK));
+        this.begTargeting = TargetingConditions.forNonCombat().range(lookDistance);
+        this.setFlags(EnumSet.of(Flag.LOOK));
     }
 
     public boolean canUse() {
-        this.player = this.level.getClosestPlayer(this.begTargeting, this.wolf);
+        this.player = this.level.getNearestPlayer(this.begTargeting, this.wolf);
         return this.player != null && this.playerHoldingInteresting(this.player);
     }
 
-    public boolean shouldContinue() {
+    public boolean canContinueToUse() {
         if (!this.player.isAlive()) {
             return false;
-        } else if (this.wolf.squaredDistanceTo(this.player) > (double)(this.lookDistance * this.lookDistance)) {
+        } else if (this.wolf.distanceToSqr(this.player) > (double)(this.lookDistance * this.lookDistance)) {
             return false;
         } else {
             return this.lookTime > 0 && this.playerHoldingInteresting(this.player);
@@ -54,7 +54,7 @@ public class BegGoal extends Goal {
     }
 
     public void tick() {
-        this.wolf.getLookControl().lookAt(this.player.getX(), this.player.getEyeY(), this.player.getZ(), 10.0F, (float)this.wolf.getMaxLookPitchChange());
+        this.wolf.getLookControl().setLookAt(this.player.getX(), this.player.getEyeY(), this.player.getZ(), 10.0F, (float)this.wolf.getMaxHeadXRot());
         --this.lookTime;
     }
 

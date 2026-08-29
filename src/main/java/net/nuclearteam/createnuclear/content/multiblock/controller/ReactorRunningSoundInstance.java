@@ -29,8 +29,8 @@ public class ReactorRunningSoundInstance extends AbstractTickableSoundInstance {
             this.y = pos.getY();
             this.z = pos.getZ();
         }
-        this.repeat = true;
-        this.repeatDelay = 0;
+        this.looping = true;
+        this.delay = 0;
         this.volume = 1.0F;
     }
 
@@ -44,7 +44,7 @@ public class ReactorRunningSoundInstance extends AbstractTickableSoundInstance {
 
             BlockState state = level.getBlockState(pos);
             if (!(state.getBlock() instanceof ReactorControllerBlock)
-                    || !state.contains(ReactorControllerBlock.ACTIVE)
+                    || !state.hasProperty(ReactorControllerBlock.ACTIVE)
                     || !state.getValue(ReactorControllerBlock.ACTIVE)) {
                 stop();
             }

@@ -21,9 +21,9 @@ public class ReactorAlarmSoundInstance extends AbstractTickableSoundInstance {
             this.y = pos.getY();
             this.z = pos.getZ();
         }
-        this.repeat = true;
-        this.repeatDelay = 0;
-        this.volume = 10.0F;
+        this.looping = true;
+        this.delay = 0;
+        this.volume = 10F;
     }
 
     @Override

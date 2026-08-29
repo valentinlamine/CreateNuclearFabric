@@ -35,6 +35,6 @@ public class AnimalUtil {
             player.displayClientMessage(Component.translatable("irradiated.taming.wip"), false);
         }
 
-        return InteractionResult.success(level.isClientSide);
+        return InteractionResult.sidedSuccess(level.isClientSide);
     }
 }

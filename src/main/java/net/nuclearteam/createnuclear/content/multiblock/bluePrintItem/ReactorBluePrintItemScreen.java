@@ -27,30 +27,29 @@ public class ReactorBluePrintItemScreen extends AbstractSimiContainerScreen<Reac
         setWindowSize(BG.width, BG.height + PLAYER_INVENTORY.getHeight());
         setWindowOffset(0, 0);
         super.init();
-        clearChildren();
+        clearWidgets();
     }
 
 
     @Override
-    protected void drawBackground(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-        int x = this.x;
-        int y = this.y + 38;
+    protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+        int x = leftPos;
+        int y = topPos+38;
 
         BG.render(guiGraphics, x+23, y-19);
         renderPlayerInventory(guiGraphics, x+23, y+175);
 
-        guiGraphics.drawText(textRenderer, title, x+26, y-12, 0x592424, false); // renders the screen title
-
+        guiGraphics.drawString(font, title, x+26, y-12, 0x592424, false); // renders the screen title
     }
 
     @Override
-    protected void handledScreenTick() {
-        super.handledScreenTick();
-        if (!ItemStack.areEqual(handler.player.getMainHandStack(), handler.contentHolder)) {
-            handler.player.closeHandledScreen();
+    protected void containerTick() {
+        super.containerTick();
+        if (!ItemStack.matches(menu.player.getMainHandItem(), menu.contentHolder)) {
+            menu.player.closeContainer();
         }
 
-        CompoundTag tag = handler.contentHolder.getOrCreateTag();
+        CompoundTag tag = menu.contentHolder.getOrCreateTag();
         if (tag.contains("pattern")) {
             sendValueUpdate(tag, tag.getFloat("heat"),
                     tag.getInt("coolerTime"),

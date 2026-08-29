@@ -5,8 +5,12 @@ import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.utility.IInteractionChecker;
 import io.github.fabricators_of_create.porting_lib.fluids.FluidStack;
+import io.github.fabricators_of_create.porting_lib.util.EnvExecutor;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.entity.player.Player;
@@ -19,10 +23,12 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 
+import net.nuclearteam.createnuclear.CNSoundEvents;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.api.multiblock.IMultiblockController;
 import net.nuclearteam.createnuclear.content.logistics.BigFluidStack;
 import net.nuclearteam.createnuclear.content.multiblock.controller.display.ReactorDisplayState;
+import net.nuclearteam.createnuclear.content.multiblock.controller.display.ReactorGoggleTooltipRenderer;
 import net.nuclearteam.createnuclear.content.multiblock.controller.service.*;
 import net.nuclearteam.createnuclear.content.multiblock.controller.snapshot.ReactorInputSnapshot;
 import net.nuclearteam.createnuclear.content.multiblock.controller.snapshot.ReactorInputSnapshotBuilder;
@@ -34,31 +40,19 @@ import net.nuclearteam.createnuclear.content.multiblock.controller.consumable.Co
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import net.nuclearteam.createnuclear.content.multiblock.input.fluid.PersistentFluidLocks;
 import net.nuclearteam.createnuclear.content.multiblock.controller.manager.*;
 import net.nuclearteam.createnuclear.content.multiblock.pattern.ReactorPattern;
 import net.nuclearteam.createnuclear.content.multiblock.reactorLogic.HeatManager;
 
+import static net.nuclearteam.createnuclear.content.multiblock.controller.ReactorControllerBlock.ACTIVE;
 import static net.nuclearteam.createnuclear.content.multiblock.controller.ReactorControllerBlock.ASSEMBLED;
 
 @SuppressWarnings({ "unused" })
 public class ReactorControllerBlockEntity extends SmartBlockEntity
         implements IInteractionChecker, IHaveGoggleInformation, IMultiblockController {
 
-    @FunctionalInterface
-    public interface GoggleTooltipRenderer {
-        void render(List<Component> tooltip, ReactorDisplayState state, int heat,
-                    boolean isPlayerSneaking, int reactorSize);
-    }
-
-    private static GoggleTooltipRenderer goggleTooltipRenderer = (tooltip, state, heat, sneaking, size) -> {
-    };
-
-    public static void setGoggleTooltipRenderer(GoggleTooltipRenderer renderer) {
-        goggleTooltipRenderer = Objects.requireNonNull(renderer);
-    }
     /**
      * The assembled state is stored in the block state
      * (`ReactorControllerBlock.ASSEMBLED`).
@@ -73,6 +67,9 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity
     private int heat;
     private int lastAppliedOutputHeat;
     private boolean isExploding = false;
+
+    @Environment(EnvType.CLIENT)
+    private ReactorRunningSoundInstance runningSound;
 
     private final ConsumptionCycleManager cycleManager = new ConsumptionCycleManager();
     private double liquidLife;
@@ -189,6 +186,10 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity
         return this.frameDisplayManager;
     }
 
+    public ReactorInputManagerI getInputManager() {
+        return this.inputManager;
+    }
+
     public ReactorInputFluidManagerI getInputFluidManager() {
         return this.inputFluidManager;
     }
@@ -248,8 +249,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity
             return false;
         }
 
-        goggleTooltipRenderer.render(tooltip, displayState, patternTag.getInt("heat"),
-                isPlayerSneaking, reactorSize);
+        ReactorGoggleTooltipRenderer.render(tooltip, displayState, patternTag.getInt("heat"), isPlayerSneaking, reactorSize);
         return true;
     }
 
@@ -297,7 +297,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity
         if (getLevel() == null)
             return false;
         try {
-            return getLevel().getBlockState(pos).getValue(ASSEMBLED);
+            return getLevel().getBlockState(worldPosition).getValue(ASSEMBLED);
         } catch (Exception e) {
             return false;
         }
@@ -306,8 +306,18 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity
     public void setAssembled(boolean assembled) {
         if (getLevel() == null)
             return;
-        getLevel().setBlockAndUpdate(pos, getBlockState().setValue(ASSEMBLED, assembled));
+        getLevel().setBlockAndUpdate(worldPosition, getBlockState().setValue(ASSEMBLED, assembled));
         this.setChanged();
+    }
+
+    public boolean isActive() {
+        if (level == null)
+            return false;
+        try {
+            return level.getBlockState(worldPosition).getValue(ACTIVE);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public void logReactorConnections(Player player) {
@@ -326,14 +336,17 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity
         boolean targetActive = isAssembled() && heatCoordinator.canRun(getConfiguredPattern(), getDisplayState(), getInputFluidManager(), getLevel(), getAssembled());
 
         if (currentActive != targetActive) {
-            getLevel().setBlock(pos, state.setValue(ReactorControllerBlock.ACTIVE, targetActive), 3);
+            getLevel().setBlock(worldPosition, state.setValue(ReactorControllerBlock.ACTIVE, targetActive), 3);
         }
     }
 
     @Override
     public void tick() {
         super.tick();
-        if (getLevel().isClientSide) return;
+        if (getLevel().isClientSide) {
+            EnvExecutor.runWhenOn(EnvType.CLIENT, () -> this::tickRunningSound);
+            return;
+        }
         if (isExploding)
             return;
         // Heat value written by the previous tick's handleAssembledState(); this tick's recalculated
@@ -368,6 +381,25 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity
 
         updateReactorStateVisibility();
         handleAssembledState();
+    }
+
+    @Environment(EnvType.CLIENT)
+    private void tickRunningSound() {
+        BlockState state = getBlockState();
+        boolean active = state.hasProperty(ACTIVE) && isActive();
+
+        if (!active) {
+            if (runningSound != null) {
+                runningSound.stopSound();
+                runningSound = null;
+            }
+            return;
+        }
+
+        if (runningSound == null || runningSound.isStopped()) {
+            runningSound = new ReactorRunningSoundInstance(level, worldPosition, CNSoundEvents.REACTOR_RUNNING.getMainEvent());
+            Minecraft.getInstance().getSoundManager().play(runningSound);
+        }
     }
 
     // --- extracted sub-steps to keep single responsibility per method ---
@@ -405,7 +437,7 @@ public class ReactorControllerBlockEntity extends SmartBlockEntity
         BigFluidStack fluidStack = currentFluidStack();
         heat = heatCoordinator.calculateAndWriteHeat(configuredPattern, fluidStack, heatBalance, heat, inventory, getLevel(), displayState);
         fluidBuffer = fluidRateCalculator.tick(fluidStack, reactorSize, getLevel(), inputFluidManager, fluidBuffer);
-        cycleManager.update(configuredPattern, getLevel(), inputManager, getLevel().getTime() % 20 == 0);
+        cycleManager.update(configuredPattern, getLevel(), inputManager, getLevel().getGameTime() % 20 == 0);
 
         if (IHeat.HeatLevel.isNotDanger(heat, getMultiblockSize()) && !outputManager.getBlocksPosition(getLevel()).isEmpty()) {
             if (Math.abs(heat - lastAppliedOutputHeat) >= ReactorOutputManager.RPM_DIVIDER / 2) {

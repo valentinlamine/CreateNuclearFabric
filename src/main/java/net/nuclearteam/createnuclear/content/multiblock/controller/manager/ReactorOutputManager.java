@@ -36,7 +36,7 @@ public class ReactorOutputManager extends AbstractReactorIOManager implements Re
         if (!compound.contains(NBT_KEY)) return;
         ListTag list = compound.getList(NBT_KEY, 10);
         for (int i = 0; i < list.size(); i++) {
-            BlockPos p = BlockPos.fromLong(list.getCompound(i).getLong("p"));
+            BlockPos p = BlockPos.of(list.getCompound(i).getLong("p"));
             positions.add(p);
         }
     }
@@ -50,7 +50,7 @@ public class ReactorOutputManager extends AbstractReactorIOManager implements Re
     public void clearInvalid(Level level) {
         List<BlockPos> toRemove = new ArrayList<>();
         for (BlockPos p : positions) {
-            if (level == null || !level.canSetBlock(p)) {
+            if (level == null || !level.isLoaded(p)) {
                 toRemove.add(p);
                 continue;
             }
@@ -96,7 +96,7 @@ public class ReactorOutputManager extends AbstractReactorIOManager implements Re
             BlockPos pos = positions.get(i);
 
             if (!(level.getBlockState(pos).getBlock() instanceof ReactorOutput block)) continue;
-            ReactorOutputEntity entity = block.getBlockEntityType().get(level, pos);
+            ReactorOutputEntity entity = block.getBlockEntityType().getBlockEntity(level, pos);
             if (entity == null) continue;
 
             if (dividedRotation > 0) {

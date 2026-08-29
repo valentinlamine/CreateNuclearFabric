@@ -20,6 +20,7 @@ import net.nuclearteam.createnuclear.content.multiblock.input.item.VirtualReacto
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("UnstableApiUsage")
 public class ReactorInputManager extends AbstractReactorIOManager implements ReactorInputManagerI {
     private static final String NBT_KEY = "ReactorInput";
 
@@ -66,17 +67,13 @@ public class ReactorInputManager extends AbstractReactorIOManager implements Rea
             for (StorageView<ItemVariant> view : storage.nonEmptyViews()) {
                 ItemStack stack = view.getResource().toStack((int) Math.min(view.getAmount(), Integer.MAX_VALUE));
                 if (TypeRodPredicate.isFuel(stack, level)) {
-                    fuel = saturatedAdd(fuel, view.getAmount());
+                    fuel += stack.getCount();
                 } else if (TypeRodPredicate.isCooled(stack, level)) {
-                    cooler = saturatedAdd(cooler, view.getAmount());
+                    cooler += stack.getCount();
                 }
             }
         }
         return new VirtualReactorInputsItem(fuel, cooler);
-    }
-
-    private static int saturatedAdd(int current, long amount) {
-        return (int) Math.min(Integer.MAX_VALUE, current + Math.min(amount, Integer.MAX_VALUE));
     }
 
     @Override
@@ -86,24 +83,29 @@ public class ReactorInputManager extends AbstractReactorIOManager implements Rea
 
         long fuelRemaining = fuelNeeded;
         long coolerRemaining = coolerNeeded;
-        try (Transaction transaction = Transaction.openOuter()) {
-            for (Storage<ItemVariant> storage : getItemHandlers(level)) {
-                for (StorageView<ItemVariant> view : storage.nonEmptyViews()) {
-                    ItemVariant variant = view.getResource();
-                    ItemStack stack = variant.toStack(1);
-                    if (fuelRemaining > 0 && TypeRodPredicate.isFuel(stack, level)) {
-                        fuelRemaining -= view.extract(variant, Math.min(fuelRemaining, view.getAmount()), transaction);
-                    } else if (coolerRemaining > 0 && TypeRodPredicate.isCooled(stack, level)) {
-                        coolerRemaining -= view.extract(variant, Math.min(coolerRemaining, view.getAmount()), transaction);
-                    }
-                    if (fuelRemaining == 0 && coolerRemaining == 0) {
+        for (Storage<ItemVariant> storage : getItemHandlers(level)) {
+            for (StorageView<ItemVariant> view : storage.nonEmptyViews()) {
+                if (fuelRemaining == 0 && coolerRemaining == 0) break;
+
+                ItemVariant variant = view.getResource();
+                ItemStack stack = variant.toStack(1);
+                if (fuelRemaining > 0 && TypeRodPredicate.isFuel(stack, level)) {
+                    try (Transaction transaction = Transaction.openOuter()) {
+                        long extracted = view.extract(variant, Math.min(fuelRemaining, view.getAmount()), transaction);
                         transaction.commit();
-                        return true;
+                        fuelRemaining -= extracted;
+                    }
+                } else if (coolerRemaining > 0 && TypeRodPredicate.isCooled(stack, level)) {
+                    try (Transaction transaction = Transaction.openOuter()) {
+                        long extracted = view.extract(variant, Math.min(coolerRemaining, view.getAmount()), transaction);
+                        transaction.commit();
+                        coolerRemaining -= extracted;
                     }
                 }
             }
+            if (fuelRemaining == 0 && coolerRemaining == 0) break;
         }
-        return false;
+        return fuelRemaining == 0 && coolerRemaining == 0;
     }
 
     @Override

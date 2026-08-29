@@ -55,7 +55,7 @@ public class ReactorHeatUpdateCoordinator implements IReactorHeatUpdateCoordinat
 
     /** Predicate applied to each pattern entry when checking availability. */
     @FunctionalInterface
-    private interface  PatternEntryCheck {
+    private interface PatternEntryCheck {
         boolean test(Item item, int requiredCount, int availableCount);
     }
 

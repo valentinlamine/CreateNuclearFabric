@@ -43,12 +43,12 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 @SuppressWarnings("deprecation")
 public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock implements IWrenchable, IBE<ReactorControllerBlockEntity> {
-    public static final BooleanProperty ASSEMBLED = BooleanProperty.of("assembled");
-    public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
+    public static final BooleanProperty ASSEMBLED = BooleanProperty.create("assembled");
+    public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
 
     public ReactorControllerBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.stateManager.defaultBlockState()
+        this.registerDefaultState(this.stateDefinition.any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(ASSEMBLED, false)
                 .setValue(ACTIVE, false) // Inactive by default
@@ -62,14 +62,14 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
     }
 
     @Override
-    public BlockState getPlacementState(BlockPlaceContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         return this.defaultBlockState()
-                .setValue(FACING, context.getHorizontalPlayerFacing().getOpposite())
+                .setValue(FACING, context.getHorizontalDirection().getOpposite())
                 .setValue(ASSEMBLED, false)
                 .setValue(ACTIVE, false);
     }
     @Override
-    public void neighborUpdate(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
                                 boolean isMoving) {
         if (worldIn.isClientSide)
             return;
@@ -83,7 +83,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
     }
 
     @Override
-    public InteractionResult onUse(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
+    public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
         if (worldIn.isClientSide)
             return InteractionResult.SUCCESS;
 
@@ -103,7 +103,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
                     be.getInventoryObject().setStackInSlot(0, heldItem);
                     be.setConfiguredPattern(heldItem);
 
-                    player.setStackInHand(handIn, ItemStack.EMPTY);
+                    player.setItemInHand(handIn, ItemStack.EMPTY);
                 });
                 // Inserting the blueprint is what starts energy production: this is the activation
                 // cue, not the multiblock assembly one (that lives in ReactorAssembler).
@@ -118,7 +118,7 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
                         be.getAdvancement().setPlayer(player.getUUID());
                         be.getAdvancement().awardPlayer(CNAdvancement.NO_TIME_TO_DIE);
                     }
-                    player.setStackInHand(handIn, be.getInventoryObject().getItem(0));
+                    player.setItemInHand(handIn, be.getInventoryObject().getItem(0));
                     be.getInventoryObject().setStackInSlot(0, ItemStack.EMPTY);
                     be.setConfiguredPattern(ItemStack.EMPTY);
                     //be.clearTimers(); // uncomment if the timer should reset when the reactor stops
@@ -171,11 +171,11 @@ public class ReactorControllerBlock extends HorizontalDirectionalReactorBlock im
     }
 
     @Override
-    public void afterBreak(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
-        super.afterBreak(level, player, pos, state, blockEntity, tool);
+    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool) {
+        super.playerDestroy(level, player, pos, state, blockEntity, tool);
         if (!(blockEntity instanceof ReactorControllerBlockEntity entity)) return;
         if (!entity.isAssembled()) return;
-        for (Player p : level.getPlayers()) {
+        for (Player p : level.players()) {
             p.displayClientMessage(Component.translatable("reactor.info.assembled.creator"), false);
         }
 //        entity.removeIOAll();

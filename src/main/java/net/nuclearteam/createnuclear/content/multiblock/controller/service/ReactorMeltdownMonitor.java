@@ -40,7 +40,7 @@ public class ReactorMeltdownMonitor implements IReactorMeltdownMonitor {
         int secondsLeft = (EXPLOSION_THRESHOLD_TICKS - explosionCountDown) / 20;
 
         if (secondsLeft <= CRITICAL_WINDOW_SECONDS && secondsLeft > 0) {
-            boolean isWhite = (level.getTime() / 5) % 2 == 0;
+            boolean isWhite = (level.getGameTime() / 5) % 2 == 0;
             ChatFormatting flashColor = isWhite ? ChatFormatting.WHITE : ChatFormatting.RED;
 
             NotifyUtil.sendActionBar(level, pos,

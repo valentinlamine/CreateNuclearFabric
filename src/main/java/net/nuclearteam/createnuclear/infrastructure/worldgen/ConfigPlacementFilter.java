@@ -18,7 +18,7 @@ public class ConfigPlacementFilter extends PlacementFilter {
     }
 
     @Override
-    public PlacementModifierType<?> getType() {
+    public PlacementModifierType<?> type() {
         return CNPlacementModifiers.CONFIG_FILTER.get();
     }
 }

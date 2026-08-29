@@ -8,6 +8,7 @@ import net.nuclearteam.createnuclear.content.multiblock.input.fluid.VirtualReact
 
 import java.util.List;
 
+@SuppressWarnings("UnstableApiUsage")
 public interface ReactorInputFluidManagerI extends ReactorIOManager {
     List<BlockPos> getBlocksPosition(Level level);
 

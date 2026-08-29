@@ -20,7 +20,7 @@ public class CatSitOnBlockGoal extends MoveToBlockGoal {
     }
 
     public boolean canUse() {
-        return this.cat.isTame() && !this.cat.isInSittingPose() && super.canUse();
+        return this.cat.isTame() && !this.cat.isOrderedToSit() && super.canUse();
     }
 
     public void start() {
@@ -35,20 +35,20 @@ public class CatSitOnBlockGoal extends MoveToBlockGoal {
 
     public void tick() {
         super.tick();
-        this.cat.setInSittingPose(this.hasReached());
+        this.cat.setInSittingPose(this.isReachedTarget());
     }
 
     @SuppressWarnings("null")
-    protected boolean isTargetPos(LevelReader level, BlockPos pos) {
-        if (!level.isAir(pos.up())) {
+    protected boolean isValidTarget(LevelReader level, BlockPos pos) {
+        if (!level.isEmptyBlock(pos.above())) {
             return false;
         } else {
             BlockState blockState = level.getBlockState(pos);
             if (blockState.is(Blocks.CHEST)) {
-                return ChestBlockEntity.getPlayersLookingInChestCount(level, pos) < 1;
+                return ChestBlockEntity.getOpenCount(level, pos) < 1;
             } else {
                 return blockState.is(Blocks.FURNACE) && blockState.getValue(FurnaceBlock.LIT) || blockState.is(BlockTags.BEDS, (blockStates) ->
-                        blockStates.getOrEmpty(BedBlock.PART)
+                        blockStates.getOptionalValue(BedBlock.PART)
                                 .map((bedPart) -> bedPart != BedPart.HEAD)
                                 .orElse(true));
             }

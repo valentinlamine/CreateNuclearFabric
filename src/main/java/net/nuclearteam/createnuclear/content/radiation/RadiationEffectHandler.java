@@ -14,9 +14,9 @@ public class RadiationEffectHandler implements OpenPipeEffectHandler {
 
     @Override
     public void apply(Level level, AABB area, FluidStack fluid) {
-        if (level.getTime() % 5 != 0) return;
+        if (level.getGameTime() % 5 != 0) return;
 
-        List<LivingEntity> entities = level.getEntitiesByClass(LivingEntity.class, area, LivingEntity::isAffectedBySplashPotions);
+        List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, area, LivingEntity::isAffectedByPotions);
         for (LivingEntity entity : entities) {
             if (!RadiationCapability.canBeIrradiated(entity)) continue;
             RadiationCapability.applyContagion(entity, PIPE_LEAK_DOSE, 20);

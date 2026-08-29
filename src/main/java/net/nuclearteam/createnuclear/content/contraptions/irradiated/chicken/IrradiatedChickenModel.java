@@ -65,7 +65,7 @@ public class IrradiatedChickenModel<T extends IrradiatedChicken> extends Ageable
     }
 
     @Override
-    public void setAngles(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.head.xRot = headPitch * ((float)Math.PI / 180);
         this.head.yRot = netHeadYaw * ((float)Math.PI / 180);
         this.pustule1.xRot = this.head.xRot;
@@ -81,7 +81,7 @@ public class IrradiatedChickenModel<T extends IrradiatedChicken> extends Ageable
     }
 
     @Override
-    public void render(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         head.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         beak.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         redThing.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
@@ -95,11 +95,11 @@ public class IrradiatedChickenModel<T extends IrradiatedChicken> extends Ageable
         pustule3.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
-    protected Iterable<ModelPart> getHeadParts() {
+    protected Iterable<ModelPart> headParts() {
         return ImmutableList.of(this.head, this.beak, this.redThing, this.pustule1);
     }
 
-    protected Iterable<ModelPart> getBodyParts() {
+    protected Iterable<ModelPart> bodyParts() {
         return ImmutableList.of(this.body, this.rightLeg, this.leftLeg, this.rightWing, this.leftWing, this.pustule2, this.pustule3);
     }
 }
