@@ -3,10 +3,10 @@
   "category": "equipment",
   "key": {
     "X": {
-      "tag": "c:ingots/lead"
+      "tag": "c:lead_ingots"
     },
     "Y": {
-      "tag": "c:ingots/brass"
+      "tag": "c:brass_ingots"
     }
   },
   "pattern": [

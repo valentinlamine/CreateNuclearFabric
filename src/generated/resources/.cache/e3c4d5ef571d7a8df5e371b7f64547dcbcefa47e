@@ -1,11 +1,11 @@
-// 1.20.1	2026-08-30T16:02:39.3347705	Create Nuclear/CreateNuclear Generated Registry Entries
+// 1.20.1	2026-08-30T16:30:09.3580682	Create Nuclear/CreateNuclear Generated Registry Entries
 c3bb421f6bf5a02b09a178d4d1f003679b86c919 data\createnuclear\worldgen\configured_feature\nitrate_ore.json
 59d61c02881d710b0426a0955f6945b7a12d219f data\createnuclear\worldgen\density_function\irradiated\erosion.json
 46e263393c1672a180bc12b99f9e39adf22e66b5 data\createnuclear\createnuclear\fluids\type\fallback.json
 148db47005efc228a743e41fd60011b8bff8e78a data\createnuclear\worldgen\placed_feature\uranium_ore.json
 2837d5ecbd5735f39c1fac545469486e09c502e0 data\createnuclear\createnuclear\fluids\type\nitrogen.json
-4f11c0a518c0de7857919983fc638ba551c6630a data\createnuclear\worldgen\configured_feature\striated_ores_overworld.json
 d0e47433fc86ee2acd9dde56f0465aae54fe5fe0 data\createnuclear\worldgen\placed_feature\striated_ores_overworld.json
+4f11c0a518c0de7857919983fc638ba551c6630a data\createnuclear\worldgen\configured_feature\striated_ores_overworld.json
 5e64cf339847e8c89e4bbb94a2382262a0ce66ac data\createnuclear\worldgen\placed_feature\thorium_ore.json
 8c374052eefd34e87959a1f643e60b674f0345f8 data\createnuclear\damage_type\radiation.json
 e69f61cbb4bf2c50a6123ddc87c024c801bb78d1 data\createnuclear\worldgen\placed_feature\nitrate_ore.json

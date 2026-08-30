@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear;
 
+import com.simibubi.create.foundation.data.recipe.CommonMetal;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
@@ -113,7 +114,7 @@ public class CNItems {
 
         STEEL_INGOT = CreateNuclear.REGISTRATE
             .item("steel_ingot", Item::new)
-            .tag(CNTags.forgeItemTag("ingots"), CNTags.forgeItemTag("ingots/steel"))
+            .tag(CNTags.forgeItemTag("ingots"), CNTags.forgeItemTag("ingots/steel"), CommonMetal.STEEL.ingots)
             .recipe((c, p) -> ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, c.get(), 9)
                     .unlockedBy("has_storage_blocks_steel", RegistrateRecipeProvider.has(CNTags.forgeItemTag("storage_blocks/steel")))
                     .requires(CNTags.forgeItemTag("storage_blocks/steel"))
@@ -134,7 +135,7 @@ public class CNItems {
 
         LEAD_INGOT = CreateNuclear.REGISTRATE
             .item("lead_ingot", Item::new)
-            .tag(CNTags.forgeItemTag("ingots"), CNTags.forgeItemTag("ingots/lead"))
+            .tag(CNTags.forgeItemTag("ingots"), CNTags.forgeItemTag("ingots/lead"), CommonMetal.LEAD.ingots)
             .recipe((c, p) -> ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, c.get(),9)
                     .unlockedBy("has_storage_blocks_lead", RegistrateRecipeProvider.has(CNTags.forgeItemTag("storage_blocks/lead")))
                     .requires(CNTags.forgeItemTag("storage_blocks/lead"))
@@ -156,7 +157,7 @@ public class CNItems {
 
         STEEL_NUGGET = CreateNuclear.REGISTRATE
             .item("steel_nugget", Item::new)
-            .tag(CNTags.forgeItemTag("nuggets"), CNTags.forgeItemTag("nuggets/steel"))
+            .tag(CNTags.forgeItemTag("nuggets"), CNTags.forgeItemTag("nuggets/steel"), CommonMetal.STEEL.nuggets)
             .recipe((c, p) -> ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, c.get(), 9)
                     .unlockedBy("has_storage_blocks_steel_nugget", RegistrateRecipeProvider.has(CNTags.forgeItemTag("ingots/steel")))
                     .requires(CNTags.forgeItemTag("ingots/steel"))
@@ -177,7 +178,7 @@ public class CNItems {
 
         LEAD_NUGGET = CreateNuclear.REGISTRATE
             .item("lead_nugget", Item::new)
-            .tag(CNTags.forgeItemTag("nuggets"), CNTags.forgeItemTag("nuggets/lead"))
+            .tag(CNTags.forgeItemTag("nuggets"), CNTags.forgeItemTag("nuggets/lead"), CommonMetal.LEAD.nuggets)
             .recipe((c, p) -> ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, c.get(), 9)
                     .unlockedBy("has_storage_blocks_lead_nugget", RegistrateRecipeProvider.has(CNTags.forgeItemTag("ingots/lead")))
                     .requires(CNTags.forgeItemTag("ingots/lead"))
@@ -232,8 +233,8 @@ public class CNItems {
         .recipe((c, p) -> {
             ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, c.get())
                 .unlockedBy("has_cloth", RegistrateRecipeProvider.has(CNItemTags.CLOTH.tag))
-                .define('X', CNTags.forgeItemTag("ingots/lead"))
-                .define('Y', CNTags.forgeItemTag("ingots/brass"))
+                .define('X', CommonMetal.LEAD.ingots)
+                .define('Y', CommonMetal.BRASS.ingots)
                 .define('Z', CNBlocks.REINFORCED_GLASS.asItem())
                 .pattern("YXY")
                 .pattern("XZX")
@@ -266,8 +267,8 @@ public class CNItems {
         .recipe((c, p) -> {
             ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, c.get())
                     .unlockedBy("has_cloth", RegistrateRecipeProvider.has(CNItemTags.CLOTH.tag))
-                    .define('X', CNTags.forgeItemTag("ingots/lead"))
-                    .define('Y', CNTags.forgeItemTag("ingots/brass"))
+                    .define('X', CommonMetal.LEAD.ingots)
+                    .define('Y', CommonMetal.BRASS.ingots)
                     .define('Z', CNItems.GRAPHITE_ROD)
                     .pattern("Y Y")
                     .pattern("XXX")
@@ -300,8 +301,8 @@ public class CNItems {
         .recipe((c, p) -> {
             ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, c.get())
                 .unlockedBy("has_cloth", RegistrateRecipeProvider.has(CNItemTags.CLOTH.tag))
-                .define('X', CNTags.forgeItemTag("ingots/lead"))
-                .define('Y', CNTags.forgeItemTag("ingots/brass"))
+                .define('X', CommonMetal.LEAD.ingots)
+                .define('Y', CommonMetal.BRASS.ingots)
                 .pattern("YXY")
                 .pattern("X X")
                 .pattern("Y Y")
@@ -334,8 +335,8 @@ public class CNItems {
         .recipe((c, p) -> {
             ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, c.get())
                 .unlockedBy("has_cloth", RegistrateRecipeProvider.has(CNItemTags.CLOTH.tag))
-                .define('X', CNTags.forgeItemTag("ingots/lead"))
-                .define('Y', CNTags.forgeItemTag("ingots/brass"))
+                .define('X', CommonMetal.LEAD.ingots)
+                .define('Y', CommonMetal.BRASS.ingots)
                 .pattern("Y Y")
                 .pattern("X X")
                 .showNotification(true)
