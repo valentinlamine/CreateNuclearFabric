@@ -54,7 +54,7 @@ public class Maths {
 
     public static VoxelShape buildShape(VoxelShape... from) {
         return (VoxelShape)Stream.of(from).reduce((v1, v2) -> {
-            return Shapes.combineAndSimplify(v1, v2, BooleanOp.OR);
+            return Shapes.join(v1, v2, BooleanOp.OR);
         }).get();
     }
 
@@ -77,7 +77,7 @@ public class Maths {
 
     public static Vec3 getGroundBelowPosition(BlockGetter level, Vec3 in) {
         BlockPos pos;
-        for(pos = BlockPos.ofFloored(in); pos.getY() > level.getBottomY() && level.getBlockState(pos).getCollisionShape(level, pos).isEmpty(); pos = pos.down()) {
+        for(pos = BlockPos.containing(in); pos.getY() > level.getMinBuildHeight() && level.getBlockState(pos).getCollisionShape(level, pos).isEmpty(); pos = pos.below()) {
         }
 
         BlockState state = level.getBlockState(pos);
@@ -87,11 +87,11 @@ public class Maths {
             top = 0.0F;
         } else {
             Vec3 modIn = new Vec3(in.x % 1.0, 1.0, in.z % 1.0);
-            Optional<Vec3> closest = shape.getClosestPointTo(modIn);
+            Optional<Vec3> closest = shape.closestPointTo(modIn);
             top = closest.isPresent() ? (float)((Vec3)closest.get()).y : 0.0F;
         }
 
-        return Vec3.ofCenter(pos, (double)top);
+        return Vec3.upFromBottomCenterOf(pos, (double)top);
     }
 
     public static Vec3 readVec3(FriendlyByteBuf buf) {
@@ -99,15 +99,15 @@ public class Maths {
     }
 
     public static FriendlyByteBuf writeVec3(FriendlyByteBuf buf, Vec3 vec3) {
-        buf.writeDouble(vec3.getX());
-        buf.writeDouble(vec3.getY());
-        buf.writeDouble(vec3.getZ());
+        buf.writeDouble(vec3.x());
+        buf.writeDouble(vec3.y());
+        buf.writeDouble(vec3.z());
         return buf;
     }
 
     public static float approachDegreesNoWrap(float from, float to, float by) {
         float f = (to - from) % 360.0F;
-        return Mth.stepTowards(from, from + f, by);
+        return Mth.approach(from, from + f, by);
     }
 
     public static float canyonStep(float heightScale, int scaleTo) {
@@ -129,7 +129,7 @@ public class Maths {
             for(int k2 = 0; k2 < k1; ++k2) {
                 int i3 = i + k2;
                 int k3 = k + j2;
-                set.add(biomeSource.getBiome(i3, j, k3, sampler));
+                set.add(biomeSource.getNoiseBiome(i3, j, k3, sampler));
             }
         }
 

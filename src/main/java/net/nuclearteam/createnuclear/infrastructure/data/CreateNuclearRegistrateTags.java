@@ -27,10 +27,6 @@ import net.nuclearteam.createnuclear.CreateNuclear;
 public class CreateNuclearRegistrateTags {
     private static final CreateRegistrate REGISTRATE = CreateNuclear.registrate();
 
-    public static <T extends Block, P> NonNullFunction<BlockBuilder<T, P>, BlockBuilder<T, P>> shovelOnly() {
-        return b -> b.tag(BlockTags.MINEABLE_WITH_SHOVEL);
-    }
-
     public static void addGenerators() {
         REGISTRATE.addDataGenerator(ProviderType.BLOCK_TAGS, CreateNuclearRegistrateTags::genBlocksTags);
         REGISTRATE.addDataGenerator(ProviderType.ITEM_TAGS, CreateNuclearRegistrateTags::genItemTags);
@@ -39,7 +35,7 @@ public class CreateNuclearRegistrateTags {
     }
 
     private static void genBlocksTags(RegistrateTagsProvider<Block> provIn) {
-        TagGen.CreateTagsProvider<Block> prov = new TagGen.CreateTagsProvider<>(provIn, Block::getRegistryEntry);
+        TagGen.CreateTagsProvider<Block> prov = new TagGen.CreateTagsProvider<>(provIn, Block::builtInRegistryHolder);
 
         prov.tag(BlockTags.CAMPFIRES)
             .add(CNBlocks.ENRICHING_CAMPFIRE.get())
@@ -66,7 +62,7 @@ public class CreateNuclearRegistrateTags {
     }
 
     private static void genItemTags(RegistrateTagsProvider<Item> provIn) {
-        TagGen.CreateTagsProvider<Item> prov = new TagGen.CreateTagsProvider<>(provIn, Item::getRegistryEntry);
+        TagGen.CreateTagsProvider<Item> prov = new TagGen.CreateTagsProvider<>(provIn, Item::builtInRegistryHolder);
 
         for (CNItemTags tag : CNItemTags.values()) {
             if (tag.alwaysDatagen) {
@@ -76,7 +72,7 @@ public class CreateNuclearRegistrateTags {
     }
 
     private static void genFluidTags(RegistrateTagsProvider<Fluid> provider) {
-        TagGen.CreateTagsProvider<Fluid> prov = new TagGen.CreateTagsProvider<>(provider, Fluid::getRegistryEntry);
+        TagGen.CreateTagsProvider<Fluid> prov = new TagGen.CreateTagsProvider<>(provider, Fluid::builtInRegistryHolder);
 
         prov.tag(CNTags.forgeFluidTag("uranium"))
                 .addTag(CNFluidTags.URANIUM.tag)
@@ -93,7 +89,7 @@ public class CreateNuclearRegistrateTags {
     }
 
     private static void genEntityTags(RegistrateTagsProvider<EntityType<?>> provIn) {
-        TagGen.CreateTagsProvider<EntityType<?>> prov = new TagGen.CreateTagsProvider<>(provIn, EntityType::getRegistryEntry);
+        TagGen.CreateTagsProvider<EntityType<?>> prov = new TagGen.CreateTagsProvider<>(provIn, EntityType::builtInRegistryHolder);
 
         prov.tag(EntityTypeTags.FALL_DAMAGE_IMMUNE)
             .add(CNEntityType.IRRADIATED_CAT.get())
@@ -106,8 +102,4 @@ public class CreateNuclearRegistrateTags {
             }
         }
     }
-
-
-
-
 }

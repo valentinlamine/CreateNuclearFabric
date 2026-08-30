@@ -1,4 +1,4 @@
-// 1.20.1	2026-08-28T19:22:01.2100663	Create Nuclear/CreateNuclear's Standard Recipes
+// 1.20.1	2026-08-30T16:02:39.3362937	Create Nuclear/CreateNuclear's Standard Recipes
 4bb3279f43b0bd71f048d2d6a5fba2a0954cd3a1 data\createnuclear\recipes\crafting\steel_ingot_from_compacting.json
 229dafab82da54169697898f94d3be266a77d5ff data\createnuclear\advancements\recipes\misc\blasting\lead_ingot_for_lead.json
 6e8a83dd9ce1ed273bedceb577670f07bc18b750 data\createnuclear\advancements\recipes\misc\crafting\thorium_ingot_from_compacting.json
@@ -7,8 +7,8 @@ fdafd5073f21bb55ca1595444ee139f92443c35b data\createnuclear\advancements\recipes
 c14100e996c2146f0c0c062ef489380e11b36b46 data\createnuclear\advancements\recipes\misc\crafting\thorium_block_from_compacting.json
 c6acb8cd38541f9baf6e9045bf2547666a48dd66 data\createnuclear\advancements\recipes\misc\crafting\lead_ingot_from_compacting.json
 bf3febf5bef2eefe373b935abbf6caed3a898ed9 data\createnuclear\advancements\recipes\misc\smelting\raw_uranium_for_uranium_ore.json
-b4005bc3aa9c3e7f45d4832decb2058d61ed915c data\createnuclear\recipes\crafting\lead_ingot_from_compacting.json
 93e75639c60d69067daddecfb2fa480a8e2040c4 data\createnuclear\recipes\crafting\white_cloth_wool.json
+b4005bc3aa9c3e7f45d4832decb2058d61ed915c data\createnuclear\recipes\crafting\lead_ingot_from_compacting.json
 6e4321d2f23376668687d71a3cba645dfdceba16 data\createnuclear\advancements\recipes\misc\blasting\lead_ingot_for_raw_lead.json
 97037f2abb6cf5bfeaf14a27b1565abb4141987f data\createnuclear\recipes\blasting\lead_ingot_for_raw_lead.json
 f2841ff83321c5bf5d43649fb204fa3a97fd596e data\createnuclear\recipes\crafting\white_cloth.json

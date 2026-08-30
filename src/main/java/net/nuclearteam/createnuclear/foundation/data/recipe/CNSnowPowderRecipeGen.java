@@ -2,6 +2,7 @@ package net.nuclearteam.createnuclear.foundation.data.recipe;
 
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.data.CachedOutput;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.nuclearteam.createnuclear.CNFluids;
@@ -29,7 +30,7 @@ public class CNSnowPowderRecipeGen extends SnowPowderRecipeGen {
                         .output(result.get()));
     }
 
-    public CNSnowPowderRecipeGen(CachedOutput generator) {
+    public CNSnowPowderRecipeGen(PackOutput generator) {
         super(generator, CreateNuclear.MOD_ID);
     }
 }

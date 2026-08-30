@@ -37,7 +37,7 @@ public class CNAdvancementBehaviour extends BlockEntityBehaviour {
     }
 
     public void setPlayer(UUID id) {
-        Player player = getWorld().getPlayerByUuid(id);
+        Player player = getWorld().getPlayerByUUID(id);
         if (player == null) return;
         playerId = id;
         removeAwarded();
@@ -82,14 +82,14 @@ public class CNAdvancementBehaviour extends BlockEntityBehaviour {
     public void write(CompoundTag nbt, boolean clientPacket) {
         super.write(nbt, clientPacket);
         if (playerId != null)
-            nbt.putUuid("Owner", playerId);
+            nbt.putUUID("Owner", playerId);
     }
 
     @Override
     public void read(CompoundTag nbt, boolean clientPacket) {
         super.read(nbt, clientPacket);
         if (nbt.contains("Owner"))
-            playerId = nbt.getUuid("Owner");
+            playerId = nbt.getUUID("Owner");
     }
 
     @Override
@@ -99,7 +99,7 @@ public class CNAdvancementBehaviour extends BlockEntityBehaviour {
 
     private Player getPlayer() {
         if (playerId == null) return null;
-        return getWorld().getPlayerByUuid(playerId);
+        return getWorld().getPlayerByUUID(playerId);
     }
 
     private void award(CreateNuclearAdvancement advancement, Player player) {

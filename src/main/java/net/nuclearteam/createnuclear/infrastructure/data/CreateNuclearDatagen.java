@@ -10,6 +10,7 @@ import net.createmod.ponder.foundation.PonderIndex;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.core.RegistrySetBuilder;
 import net.nuclearteam.createnuclear.CreateNuclear;
 import net.nuclearteam.createnuclear.CNSoundEvents;
 import net.nuclearteam.createnuclear.compat.archEx.CNArchExCompat;
@@ -36,11 +37,16 @@ public class CreateNuclearDatagen implements DataGeneratorEntrypoint {
 		CNArchExCompat.init(pack);
 	}
 
-    public static void gatherData(FabricDataGenerator.Pack pack, ExistingFileHelper existingFileHelper) {
+	@Override
+	public void buildRegistry(RegistrySetBuilder registryBuilder) {
+		CNGeneratedEntriesProvider.addBootstraps(registryBuilder);
+	}
+
+	public static void gatherData(FabricDataGenerator.Pack pack, ExistingFileHelper existingFileHelper) {
 		addExtraRegistrateData();
 
 		pack.addProvider((net.minecraft.data.DataProvider.Factory<CNAdvancement>) CNAdvancement::new);
-		pack.addProvider(GeneratedEntriesProvider::new);
+		pack.addProvider(CNGeneratedEntriesProvider::new);
 		pack.addProvider(CNSoundEvents::provider);
 		pack.addProvider(CNProcessingRecipeGen::registerAll);
 		pack.addProvider(CNStandardRecipeGen::new);

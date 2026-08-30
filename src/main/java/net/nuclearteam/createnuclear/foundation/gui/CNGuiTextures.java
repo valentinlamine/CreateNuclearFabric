@@ -47,7 +47,7 @@ public enum CNGuiTextures implements ScreenElement {
     }
 
     public void render(GuiGraphics graphics, int x, int y) {
-        graphics.drawTexture(location, x, y, startX, startY, width, height);
+        graphics.blit(location, x, y, startX, startY, width, height);
     }
 
     public void render(GuiGraphics graphics, int x, int y, Color c) {

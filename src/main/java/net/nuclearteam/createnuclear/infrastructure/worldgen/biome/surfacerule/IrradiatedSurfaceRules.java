@@ -3,7 +3,7 @@ package net.nuclearteam.createnuclear.infrastructure.worldgen.biome.surfacerule;
 import com.mojang.serialization.Codec;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
@@ -28,42 +28,42 @@ public class IrradiatedSurfaceRules {
     private static final RuleSource RAW_LEAD_BLOCK = block(CNBlocks.RAW_LEAD_BLOCK.get());
 
     private static final RuleSource IRRADIATED_PLAIN_MATERIAL =
-        SurfaceRules.condition(IS_IRRADIATED_PLAIN, RAW_LEAD_BLOCK);
+        SurfaceRules.ifTrue(IS_IRRADIATED_PLAIN, RAW_LEAD_BLOCK);
     private static final RuleSource SURFACE_GENERATION = SurfaceRules.sequence(
-        SurfaceRules.condition(SurfaceRules.STONE_DEPTH_FLOOR, IRRADIATED_PLAIN_MATERIAL),
-        SurfaceRules.condition(SurfaceRules.STONE_DEPTH_FLOOR_WITH_SURFACE_DEPTH, IRRADIATED_PLAIN_MATERIAL)
+        SurfaceRules.ifTrue(SurfaceRules.ON_FLOOR, IRRADIATED_PLAIN_MATERIAL),
+        SurfaceRules.ifTrue(SurfaceRules.UNDER_FLOOR, IRRADIATED_PLAIN_MATERIAL)
     );
 
     public static final RuleSource DEFAULT_RULE = createDefaultRule();
 
     public static @NotNull RuleSource createDefaultRule() {
         return SurfaceRules.sequence(
-            SurfaceRules.condition(
-                SurfaceRules.biome(CNBiomes.Irradiated.PLAIN),
+            SurfaceRules.ifTrue(
+                SurfaceRules.isBiome(CNBiomes.Irradiated.PLAIN),
                 SurfaceRules.sequence(
-                    SurfaceRules.condition(
-                        SurfaceRules.noiseThreshold(CNNoiseData.EROSION, 0.035, 0.0465),
+                    SurfaceRules.ifTrue(
+                        SurfaceRules.noiseCondition(CNNoiseData.EROSION, 0.035, 0.0465),
                         LEAD_ORE
                     ),
-                    SurfaceRules.condition(
-                        SurfaceRules.noiseThreshold(CNNoiseData.EROSION, 0.039, 0.0545),
+                    SurfaceRules.ifTrue(
+                        SurfaceRules.noiseCondition(CNNoiseData.EROSION, 0.039, 0.0545),
                         LEAD_BLOCK
                     ),
-                    SurfaceRules.condition(
-                        SurfaceRules.noiseThreshold(CNNoiseData.EROSION, 0.0545, 0.069),
+                    SurfaceRules.ifTrue(
+                        SurfaceRules.noiseCondition(CNNoiseData.EROSION, 0.0545, 0.069),
                         RAW_LEAD_BLOCK
                     )
                 )
             ),
 
-            SurfaceRules.condition(SurfaceRules.verticalGradient("bedrock_floor", VerticalAnchor.getBottom(), VerticalAnchor.aboveBottom(5)), BEDROCK),
-            SurfaceRules.condition(SurfaceRules.surface(), SURFACE_GENERATION),
-            SurfaceRules.condition(SurfaceRules.verticalGradient("enriched", VerticalAnchor.absolute(-4), VerticalAnchor.absolute(4)), ENRICHED_SOUL_SOIL)
+            SurfaceRules.ifTrue(SurfaceRules.verticalGradient("bedrock_floor", VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(5)), BEDROCK),
+            SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), SURFACE_GENERATION),
+            SurfaceRules.ifTrue(SurfaceRules.verticalGradient("enriched", VerticalAnchor.absolute(-4), VerticalAnchor.absolute(4)), ENRICHED_SOUL_SOIL)
         );
     }
 
     private static @NotNull RuleSource block(@NotNull Block block) {
-        return SurfaceRules.block(block.defaultBlockState());
+        return SurfaceRules.state(block.defaultBlockState());
     }
 
     public static SurfaceRules.@NotNull ConditionSource biome(@NotNull TagKey<Biome> biome) {
@@ -72,10 +72,10 @@ public class IrradiatedSurfaceRules {
 
     @SafeVarargs
     public static SurfaceRules.@NotNull ConditionSource biome(@NotNull ResourceKey<Biome> @NotNull ... keys) {
-        return SurfaceRules.biome(keys);
+        return SurfaceRules.isBiome(keys);
     }
 
     public static void register() {
-        Registry.register(Registries.MATERIAL_RULE, CreateNuclear.asResource("irradiated_surface"), Codec.unit(DEFAULT_RULE));
+        Registry.register(BuiltInRegistries.MATERIAL_RULE, CreateNuclear.asResource("irradiated_surface"), Codec.unit(DEFAULT_RULE));
     }
 }

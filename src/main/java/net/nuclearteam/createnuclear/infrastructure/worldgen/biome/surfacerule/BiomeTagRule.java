@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 public record BiomeTagRule(@NotNull TagKey<Biome> tag) implements SurfaceRules.ConditionSource {
-    private static final MapCodec<BiomeTagRule> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(TagKey.unprefixedCodec(Registries.BIOME).fieldOf("tag").forGetter(rule -> rule.tag)).apply(instance, BiomeTagRule::new));
+    private static final MapCodec<BiomeTagRule> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(TagKey.codec(Registries.BIOME).fieldOf("tag").forGetter(rule -> rule.tag)).apply(instance, BiomeTagRule::new));
 
     @Override
     public KeyDispatchDataCodec<? extends SurfaceRules.ConditionSource> codec() {

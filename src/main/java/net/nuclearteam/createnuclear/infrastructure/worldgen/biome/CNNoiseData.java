@@ -10,7 +10,7 @@ public class CNNoiseData {
     public static final ResourceKey<NoiseParameters> EROSION = createKey("irradiated/erosion");
 
     private static ResourceKey<NoiseParameters> createKey(String id) {
-        return ResourceKey.create(Registries.NOISE_PARAMETERS, CreateNuclear.asResource(id));
+        return ResourceKey.create(Registries.NOISE, CreateNuclear.asResource(id));
     }
 
     public static void bootstrapRegistries(BootstapContext<NoiseParameters> context) {

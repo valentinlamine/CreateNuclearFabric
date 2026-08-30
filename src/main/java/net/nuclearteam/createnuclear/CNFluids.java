@@ -18,7 +18,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.SolidBucketItem;
+import net.minecraft.world.item.DispensibleContainerItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.core.Registry;
@@ -39,7 +39,6 @@ public class CNFluids {
     private static final double URANIUM_FLUID_DOSE = 5.0D;
     private static final CreateRegistrate REGISTRATE = CreateNuclear.registrate();
 
-
     public static final FluidEntry<SimpleFlowableFluid.Flowing> URANIUM = REGISTRATE.fluid("uranium", CreateNuclear.asResource("fluid/uranium_still"), CreateNuclear.asResource("fluid/uranium_flow"))
             .fluidAttributes(() -> new CreateNuclearAttributeHandler("fluid.createnuclear.uranium", 2500, 1600))
             .fluidProperties(p -> p.levelDecreasePerBlock(2)
@@ -50,7 +49,7 @@ public class CNFluids {
             .tag(CNFluidTags.URANIUM.tag)
             .source(SimpleFlowableFluid.Source::new)
             .block()
-            .properties(p -> p.mapColor(MapColor.GREEN))
+            .properties(p -> p.mapColor(MapColor.COLOR_GREEN))
             .build()
             .bucket((source, settings) -> new RadiationBucketItem(() -> source, settings, 20))
             .onRegister(CNFluids::registerFluidDispenseBehavior)
@@ -108,30 +107,30 @@ public class CNFluids {
     public static void handleFluidEffect(LivingEntity entity) {
         if (!entity.isAlive() || entity.isSpectator()) return;
 
-        if (entity.updateMovementInFluid(CNFluidTags.URANIUM.tag, 0.014)) {
-            if (entity.age % 20 == 0) {
+        if (entity.updateFluidHeightAndDoFluidPushing(CNFluidTags.URANIUM.tag, 0.014)) {
+            if (entity.tickCount % 20 == 0) {
                 RadiationCapability.applyContagion(entity, URANIUM_FLUID_DOSE, 100);
             }
-        } else if (entity.updateMovementInFluid(CNFluidTags.NITROGEN.tag, 0.014)) {
-            if (entity.isOnFire()) entity.extinguish();
+        } else if (entity.updateFluidHeightAndDoFluidPushing(CNFluidTags.NITROGEN.tag, 0.014)) {
+            if (entity.isOnFire()) entity.clearFire();
             if (entity instanceof Player player && player.isSwimming()) {
                 CNAdvancement.CRYOGENIC_BAPTISM.awardTo(player);
             }
 
-            int currentTicks = entity.getFrozenTicks();
-            int maxTicks = entity.getMinFreezeDamageTicks();
+            int currentTicks = entity.getTicksFrozen();
+            int maxTicks = entity.getTicksRequiredToFreeze();
             int freezeSpeed = 3;
             if (entity.level().isClientSide) {
-                entity.setFrozenTicks(Math.min(maxTicks + 1, currentTicks + freezeSpeed + 1));
+                entity.setTicksFrozen(Math.min(maxTicks + 1, currentTicks + freezeSpeed + 1));
             } else {
-                entity.setFrozenTicks(Math.min(maxTicks + 2, currentTicks + freezeSpeed + 2));
-                if (entity.getFrozenTicks() >= maxTicks && entity.age % 10 == 0) {
-                    entity.damage(entity.getDamageSources().freeze(), 2.0F);
+                entity.setTicksFrozen(Math.min(maxTicks + 2, currentTicks + freezeSpeed + 2));
+                if (entity.getTicksFrozen() >= maxTicks && entity.tickCount % 10 == 0) {
+                    entity.hurt(entity.damageSources().freeze(), 2.0F);
                 }
-                entity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 40, 1, true, false, false));
+                entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 1, true, false, false));
             }
-        } else if (entity.updateMovementInFluid(CNFluidTags.THORIUM.tag, 0.014)) {
-            entity.setOnFireFromLava();
+        } else if (entity.updateFluidHeightAndDoFluidPushing(CNFluidTags.THORIUM.tag, 0.014)) {
+            entity.lavaHurt();
         }
     }
 
@@ -165,7 +164,7 @@ public class CNFluids {
         FluidInteractionRegistry.addInteraction(PortingLibFluids.LAVA_TYPE, new InteractionInformation(
                 URANIUM_FLUID_TYPE,
                 fluidState -> {
-                    if (fluidState.isStill()) {
+                    if (fluidState.isSource()) {
                         return CNPaletteStoneTypes.AUTUNITE.getBaseBlock().get().defaultBlockState();
                     } else {
                         return CNPaletteStoneTypes.AUTUNITE.getBaseBlock().get().defaultBlockState();
@@ -176,7 +175,7 @@ public class CNFluids {
         FluidInteractionRegistry.addInteraction(PortingLibFluids.WATER_TYPE, new InteractionInformation(
                 URANIUM_FLUID_TYPE,
                 fluidState -> {
-                    if (fluidState.isStill()) {
+                    if (fluidState.isSource()) {
                         return CNPaletteStoneTypes.AUTUNITE.getBaseBlock().get().defaultBlockState();
                     } else {
                         return CNPaletteStoneTypes.AUTUNITE.getBaseBlock().get().defaultBlockState();
@@ -189,11 +188,11 @@ public class CNFluids {
     private static final DispenseItemBehavior DEFAULT = new DefaultDispenseItemBehavior();
     private static final DispenseItemBehavior DISPENSE_FLUID = new DefaultDispenseItemBehavior(){
         @Override
-        protected ItemStack dispenseSilently(BlockSource pSource, ItemStack pStack) {
-            SolidBucketItem dispensibleContainerItem = (SolidBucketItem) pStack.getItem();
-            BlockPos pos = pSource.getPos().offset(pSource.getBlockState().getValue(DispenserBlock.FACING));
+        protected ItemStack execute(BlockSource pSource, ItemStack pStack) {
+            DispensibleContainerItem dispensibleContainerItem = (DispensibleContainerItem) pStack.getItem();
+            BlockPos pos = pSource.getPos().relative(pSource.getBlockState().getValue(DispenserBlock.FACING));
             Level level = pSource.getLevel();
-            if (dispensibleContainerItem.placeFluid(null, level, pos, null)) {
+            if (dispensibleContainerItem.emptyContents(null, level, pos, null)) {
                 return new ItemStack(Items.BUCKET);
             }
             return DEFAULT.dispense(pSource, pStack);

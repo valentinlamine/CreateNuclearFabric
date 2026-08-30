@@ -21,17 +21,17 @@ public class CNDamageSources {
     }
 
     private static DamageSource source(ResourceKey<DamageType> key, LevelReader level) {
-        Registry<DamageType> registry = level.registryAccess().getValue(Registries.DAMAGE_TYPE);
-        return new DamageSource(registry.entryOf(key));
+        Registry<DamageType> registry = level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE);
+        return new DamageSource(registry.getHolderOrThrow(key));
     }
 
     private static DamageSource source(ResourceKey<DamageType> key, LevelReader level, @Nullable Entity entity) {
-        Registry<DamageType> registry = level.registryAccess().getValue(Registries.DAMAGE_TYPE);
-        return new DamageSource(registry.entryOf(key), entity);
+        Registry<DamageType> registry = level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE);
+        return new DamageSource(registry.getHolderOrThrow(key), entity);
     }
 
     private static DamageSource source(ResourceKey<DamageType> key, LevelReader level, @Nullable Entity causingEntity, @Nullable Entity directEntity) {
-        Registry<DamageType> registry = level.registryAccess().getValue(Registries.DAMAGE_TYPE);
-        return new DamageSource(registry.entryOf(key), causingEntity, directEntity);
+        Registry<DamageType> registry = level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE);
+        return new DamageSource(registry.getHolderOrThrow(key), causingEntity, directEntity);
     }
 }

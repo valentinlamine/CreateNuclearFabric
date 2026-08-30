@@ -20,6 +20,7 @@ import net.minecraft.data.recipes.SmithingTransformRecipeBuilder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.item.Items;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -48,7 +49,7 @@ public class CNStandardRecipeGen extends BaseRecipeProvider {
     GeneratedRecipe
         WHITE_CLOTH_FROM_STRING = create(ClothItem.Cloths.WHITE_CLOTH::getItem).unlockedBy(() -> Items.STRING)
             .viaShaped(b -> b
-               .requires('#', Items.STRING)
+                .define('#', Items.STRING)
                 .pattern("###")
                 .pattern("###")
                 .showNotification(true)
@@ -56,7 +57,7 @@ public class CNStandardRecipeGen extends BaseRecipeProvider {
 
         WHITE_CLOTH_FROM_WOOL = create(ClothItem.Cloths.WHITE_CLOTH::getItem).returns(6).unlockedBy(() -> Items.WHITE_WOOL).withSuffix("_wool")
             .viaShaped(b -> b
-                .requires('#', Blocks.WHITE_WOOL)
+                .define('#', Blocks.WHITE_WOOL)
                 .pattern("###")
                 .pattern("###")
                 .showNotification(true)
@@ -134,7 +135,7 @@ public class CNStandardRecipeGen extends BaseRecipeProvider {
                     .viaShaped(b -> b.pattern("###")
                             .pattern("###")
                             .pattern("###")
-                            .requires('#', currentIngredient.get()));
+                            .define('#', currentIngredient.get()));
         }
         return result;
     }
@@ -175,15 +176,15 @@ public class CNStandardRecipeGen extends BaseRecipeProvider {
         }
 
         GeneratedRecipeBuilder unlockedBy(Supplier<? extends ItemLike> item) {
-            this.unlockedBy = () -> ItemPredicate.Builder.create()
-                    .items(item.get())
+            this.unlockedBy = () -> ItemPredicate.Builder.item()
+                    .of(item.get())
                     .build();
             return this;
         }
 
         GeneratedRecipeBuilder unlockedByTag(Supplier<TagKey<Item>> tag) {
-            this.unlockedBy = () -> ItemPredicate.Builder.create()
-                    .tag(tag.get())
+            this.unlockedBy = () -> ItemPredicate.Builder.item()
+                    .of(tag.get())
                     .build();
             return this;
         }
@@ -216,7 +217,7 @@ public class CNStandardRecipeGen extends BaseRecipeProvider {
             return register(consumer -> {
                 ShapedRecipeBuilder b = builder.apply(ShapedRecipeBuilder.shaped(category, result.get(), amount));
                 if (unlockedBy != null)
-                    b.unlockedBy("has_item", conditionsFromItemPredicates(unlockedBy.get()));
+                    b.unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(unlockedBy.get()));
                 b.save(consumer, createSimpleLocation(path));
             });
         }
@@ -225,7 +226,7 @@ public class CNStandardRecipeGen extends BaseRecipeProvider {
             return register(consumer -> {
                 ShapelessRecipeBuilder b = builder.apply(ShapelessRecipeBuilder.shapeless(category, result.get(), amount));
                 if (unlockedBy != null)
-                    b.unlockedBy("has_item", conditionsFromItemPredicates(unlockedBy.get()));
+                    b.unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(unlockedBy.get()));
                 b.save(consumer, createSimpleLocation(path));
             });
         }
@@ -234,11 +235,11 @@ public class CNStandardRecipeGen extends BaseRecipeProvider {
             this.withCategory(RecipeCategory.COMBAT);
             return register(consumer -> {
                 SmithingTransformRecipeBuilder b =
-                        SmithingTransformRecipeBuilder.create(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+                        SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
                                 Ingredient.of(base.get()), upgradeMaterial.get(), category, result.get()
                                         .asItem());
-                b.unlockedBy("has_item", conditionsFromItemPredicates(ItemPredicate.Builder.create()
-                        .items(base.get())
+                b.unlocks("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item()
+                        .of(base.get())
                         .build()));
                 b.save(consumer, createSimpleLocation(path));
             });
@@ -275,9 +276,9 @@ public class CNStandardRecipeGen extends BaseRecipeProvider {
             private float exp;
             private int cookingTime;
 
-            private final RecipeSerializer<? extends AbstractCookingRecipe> FURNACE = RecipeSerializer.SMELTING,
-                    SMOKER = RecipeSerializer.SMOKING, BLAST = RecipeSerializer.BLASTING,
-                    CAMPFIRE = RecipeSerializer.CAMPFIRE_COOKING;
+            private final RecipeSerializer<? extends AbstractCookingRecipe> FURNACE = RecipeSerializer.SMELTING_RECIPE,
+                    SMOKER = RecipeSerializer.SMOKING_RECIPE, BLAST = RecipeSerializer.BLASTING_RECIPE,
+                    CAMPFIRE = RecipeSerializer.CAMPFIRE_COOKING_RECIPE;
 
             GeneratedCookingRecipeBuilder(Supplier<Ingredient> ingredient) {
                 this.ingredient = ingredient;
@@ -332,7 +333,7 @@ public class CNStandardRecipeGen extends BaseRecipeProvider {
                             (int) (cookingTime * cookingTimeModifier), serializer));
 
                     if (unlockedBy != null)
-                        b.unlockedBy("has_item", conditionsFromItemPredicates(unlockedBy.get()));
+                        b.unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(unlockedBy.get()));
 
                     b.save(result -> {
                         consumer.accept(
@@ -358,17 +359,17 @@ public class CNStandardRecipeGen extends BaseRecipeProvider {
                                              List<ConditionJsonProvider> conditions) implements FinishedRecipe {
         @Override
         public ResourceLocation getId() {
-            return wrapped.getRecipeId();
+            return wrapped.getId();
         }
 
         @Override
         public RecipeSerializer<?> getType() {
-            return wrapped.getSerializer();
+            return wrapped.getType();
         }
 
         @Override
         public JsonObject serializeAdvancement() {
-            return wrapped.toAdvancementJson();
+            return wrapped.serializeAdvancement();
         }
 
         @Override
@@ -378,7 +379,7 @@ public class CNStandardRecipeGen extends BaseRecipeProvider {
 
         @Override
         public void serializeRecipeData(JsonObject object) {
-            wrapped.serialize(object);
+            wrapped.serializeRecipeData(object);
             object.addProperty("result", outputOverride.toString());
 
             ConditionJsonProvider.write(object, conditions.toArray(new ConditionJsonProvider[0]));

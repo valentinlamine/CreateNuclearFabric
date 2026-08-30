@@ -18,7 +18,7 @@ public class PersistentIrradiatedZones extends SavedData {
     private final Set<ChunkPos> chunks = new HashSet<>();
 
     public static PersistentIrradiatedZones get(ServerLevel level) {
-        return level.getPersistentStateManager().getOrCreate(nbt -> {
+        return level.getDataStorage().computeIfAbsent(nbt -> {
             PersistentIrradiatedZones d = new PersistentIrradiatedZones();
             d.readFrom(nbt);
 
@@ -58,7 +58,7 @@ public class PersistentIrradiatedZones extends SavedData {
     }
 
     @Override
-    public CompoundTag writeNbt(CompoundTag nbt) {
+    public CompoundTag save(CompoundTag nbt) {
         ListTag list = new ListTag();
         chunks.forEach(pos -> {
             CompoundTag e = new CompoundTag();

@@ -3,6 +3,7 @@ package net.nuclearteam.createnuclear.foundation.data.recipe;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.api.data.recipe.DeployingRecipeGen;
 import net.minecraft.data.CachedOutput;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.item.Items;
@@ -46,7 +47,7 @@ public class CNDeployingRecipeGen extends DeployingRecipeGen {
         );
     }
 
-    public CNDeployingRecipeGen(CachedOutput generator) {
+    public CNDeployingRecipeGen(PackOutput generator) {
         super(generator, CreateNuclear.MOD_ID);
     }
 }

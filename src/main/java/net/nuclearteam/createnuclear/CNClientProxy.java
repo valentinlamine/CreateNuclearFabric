@@ -33,29 +33,29 @@ public class CNClientProxy {
     }
 
     public static void preScreenRender(float partialTick) {
-        float screenEffectIntensity = Minecraft.getInstance().options.getDistortionEffectScale().getValue().floatValue();
+        float screenEffectIntensity = Minecraft.getInstance().options.screenEffectScale().get().floatValue();
         float currentNukeFlash = getNukeFlashAmount(partialTick);
 
         if (currentNukeFlash > 0 && CNConfigs.client().nuclearBombFlash.get()) {
-            int screenWidth = Minecraft.getInstance().getWindow().getScaledWidth();
-            int screenHeight = Minecraft.getInstance().getWindow().getScaledHeight();
+            int screenWidth = Minecraft.getInstance().getWindow().getGuiScaledWidth();
+            int screenHeight = Minecraft.getInstance().getWindow().getGuiScaledHeight();
 
             RenderSystem.disableDepthTest();
             RenderSystem.depthMask(false);
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
-            RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, currentNukeFlash * screenEffectIntensity);
             RenderSystem.setShaderTexture(0, BOMB_FLASH);
 
             Tesselator tesselator = Tesselator.getInstance();
-            BufferBuilder bufferbuilder = tesselator.getBuffer();
-            bufferbuilder.begin(VertexFormat.DrawMode.QUADS, DefaultVertexFormat.POSITION_TEXTURE);
+            BufferBuilder bufferbuilder = tesselator.getBuilder();
+            bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
             bufferbuilder.vertex(0.0D, screenHeight, -90.0D).uv(0.0F, 1.0F).endVertex();
             bufferbuilder.vertex(screenWidth, screenHeight, -90.0D).uv(1.0F, 1.0F).endVertex();
             bufferbuilder.vertex(screenWidth, 0.0D, -90.0D).uv(1.0F, 0.0F).endVertex();
             bufferbuilder.vertex(0.0D, 0.0D, -90.0D).uv(0.0F, 0.0F).endVertex();
-            tesselator.draw();
+            tesselator.end();
 
             RenderSystem.depthMask(true);
             RenderSystem.enableDepthTest();
@@ -64,6 +64,6 @@ public class CNClientProxy {
     }
 
     public static boolean isFarFromCamera(double x, double y, double z) {
-        return Minecraft.getInstance().gameRenderer.getCamera().getPos().squaredDistanceTo(x, y, z) >= 256.0D;
+        return Minecraft.getInstance().gameRenderer.getMainCamera().getPosition().distanceToSqr(x, y, z) >= 256.0D;
     }
 }

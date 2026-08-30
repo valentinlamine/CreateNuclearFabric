@@ -26,7 +26,7 @@ public class RenderHelper {
      */
     public static void renderOverlay(GuiGraphics graphics, ResourceLocation texture,
                                      float alpha, float coverage, boolean onlyFirstPerson) {
-        boolean isFirstPerson = Minecraft.getInstance().options.getPerspective().isFirstPerson();
+        boolean isFirstPerson = Minecraft.getInstance().options.getCameraType().isFirstPerson();
 
         // If rendering is restricted to first-person and we're not in it, skip
         if (onlyFirstPerson && !isFirstPerson) return;
@@ -37,25 +37,25 @@ public class RenderHelper {
         lastCoverage = coverage;
         lastFirstPerson = isFirstPerson;
 
-        int width = graphics.getScaledWindowWidth();
-        int height = graphics.getScaledWindowHeight();
+        int width = graphics.guiWidth();
+        int height = graphics.guiHeight();
 
-        graphics.setShaderColor(1f, 1f, 1f, alpha);
+        graphics.setColor(1f, 1f, 1f, alpha);
         RenderSystem.enableBlend();
 
         if (coverage != 1f) {
             // Center + scale
-            graphics.getMatrices().push();
-            graphics.getMatrices().translate(width / 2f, height / 2f, 0);
+            graphics.pose().pushPose();
+            graphics.pose().translate(width / 2f, height / 2f, 0);
             //graphics.pose().scale(coverage, coverage, 1f);
 
-            graphics.getMatrices().translate(-width / 2f, -height / 2f, 0);
-            graphics.drawTexture(texture, 0, 0, -90, 0, 0, width, height, width, height);
-            graphics.getMatrices().pop();
+            graphics.pose().translate(-width / 2f, -height / 2f, 0);
+            graphics.blit(texture, 0, 0, -90, 0, 0, width, height, width, height);
+            graphics.pose().popPose();
         }
 
         if (coverage == 1f) {
-            graphics.drawTexture(texture, 0, 0, -90, 0, 0, width, height, width, height);
+            graphics.blit(texture, 0, 0, -90, 0, 0, width, height, width, height);
         }
 
         RenderSystem.disableBlend();
@@ -86,15 +86,15 @@ public class RenderHelper {
      */
     public static void renderTextureOverlay(GuiGraphics graphics, ResourceLocation texture, float alpha) {
         // Skip rendering if parameters unchanged
-        int width = graphics.getScaledWindowWidth();
-        int height = graphics.getScaledWindowHeight();
+        int width = graphics.guiWidth();
+        int height = graphics.guiHeight();
 
         // Set the color with the provided alpha
-        graphics.setShaderColor(1f, 1f, 1f, alpha);
+        graphics.setColor(1f, 1f, 1f, alpha);
 
         // Simple blit without scaling (normal size)
         RenderSystem.enableBlend();
-        graphics.drawTexture(texture, 0, 0, -90, 0, 0, width, height, width, height);
+        graphics.blit(texture, 0, 0, -90, 0, 0, width, height, width, height);
         RenderSystem.disableBlend();
     }
 

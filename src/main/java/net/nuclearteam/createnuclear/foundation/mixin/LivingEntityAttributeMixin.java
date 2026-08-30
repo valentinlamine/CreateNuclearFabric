@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityAttributeMixin {
     @Inject(
-        method = "createLivingAttributes()Lnet/minecraft/entity/attribute/AttributeSupplier$Builder;",
+        method = "createLivingAttributes()Lnet/minecraft/world/entity/ai/attributes/AttributeSupplier$Builder;",
         at = @At("RETURN")
     )
     private static void createnuclear$addRadiationResistance(

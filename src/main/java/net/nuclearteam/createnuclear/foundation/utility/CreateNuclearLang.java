@@ -42,7 +42,7 @@ public class CreateNuclearLang extends Lang {
     }
 
     public static LangBuilder itemName(ItemStack stack) {
-        return builder().add(stack.getName()
+        return builder().add(stack.getHoverName()
                 .copy());
     }
 

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class GameRendererMixin {
 
     @Shadow
-    private float skyDarkness;
+    private float darkenWorldAmount;
 
     // Handles darkening the sky/world during a nuclear explosion
     @Inject(
@@ -20,8 +20,8 @@ public abstract class GameRendererMixin {
             at = @At(value = "TAIL")
     )
     public void CN$tick(CallbackInfo ci) {
-        if (CNClientProxy.renderNukeSkyDarkFor > 0 && skyDarkness < 1.0F) {
-            skyDarkness = Math.min(skyDarkness + 0.3F, 1.0F);
+        if (CNClientProxy.renderNukeSkyDarkFor > 0 && darkenWorldAmount < 1.0F) {
+            darkenWorldAmount = Math.min(darkenWorldAmount + 0.3F, 1.0F);
         }
     }
 
@@ -30,7 +30,7 @@ public abstract class GameRendererMixin {
             method = "render(FJZ)V",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/render/DiffuseLighting;enableGuiDepthLighting()V",
+                    target = "Lcom/mojang/blaze3d/platform/Lighting;setupFor3DItems()V",
                     shift = At.Shift.AFTER
             )
     )

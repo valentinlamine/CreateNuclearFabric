@@ -84,7 +84,7 @@ public class ReactorInputFluidManagerGameTest implements FabricGameTest {
 
     private static ReactorInputFluidManager manager(GameTestHelper helper, BlockPos... relPositions) {
         ReactorInputFluidManager manager = new ReactorInputFluidManager();
-        for (BlockPos rel : relPositions) manager.addBlock(helper.getAbsolutePos(rel));
+        for (BlockPos rel : relPositions) manager.addBlock(helper.absolutePos(rel));
         return manager;
     }
 
@@ -236,7 +236,7 @@ public class ReactorInputFluidManagerGameTest implements FabricGameTest {
         ReactorInputFluidManager manager = manager(helper, valid, chest, missing);
         manager.clearInvalid(helper.getLevel());
 
-        helper.assertTrue(manager.getBlocksPosition().equals(List.of(helper.getAbsolutePos(valid))),
+        helper.assertTrue(manager.getBlocksPosition().equals(List.of(helper.absolutePos(valid))),
                 "only the valid fluid input position should remain, found " + manager.getBlocksPosition());
         helper.succeed();
     }
@@ -256,7 +256,7 @@ public class ReactorInputFluidManagerGameTest implements FabricGameTest {
 
         List<BlockPos> result = manager.getBlocksPosition(helper.getLevel());
 
-        helper.assertTrue(result.equals(List.of(helper.getAbsolutePos(validRel))),
+        helper.assertTrue(result.equals(List.of(helper.absolutePos(validRel))),
                 "only the ReactorFluidInputEntity position should be returned, found " + result);
         helper.succeed();
     }

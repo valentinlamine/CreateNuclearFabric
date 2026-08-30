@@ -97,9 +97,9 @@ public class NotifyUtil {
         List<ServerPlayer> targets = getTargetPlayers(level, pos, radius, warnAll);
 
         for (ServerPlayer serverPlayer : targets) {
-            serverPlayer.networkHandler.sendPacket(new ClientboundSetTitlesAnimationPacket(fadeIn, stay, fadeOut));
-            serverPlayer.networkHandler.sendPacket(new ClientboundSetSubtitleTextPacket(subtitleComp));
-            serverPlayer.networkHandler.sendPacket(new ClientboundSetTitleTextPacket(titleComp));
+            serverPlayer.connection.send(new ClientboundSetTitlesAnimationPacket(fadeIn, stay, fadeOut));
+            serverPlayer.connection.send(new ClientboundSetSubtitleTextPacket(subtitleComp));
+            serverPlayer.connection.send(new ClientboundSetTitleTextPacket(titleComp));
         }
     }
 
@@ -143,10 +143,10 @@ public class NotifyUtil {
     private static List<ServerPlayer> getTargetPlayers(Level level, BlockPos pos, int radius, boolean warnAll) {
         if (level.getServer() == null) return List.of();
 
-        List<ServerPlayer> allPlayers = level.getServer().getPlayerManager().getPlayerList();
+        List<ServerPlayer> allPlayers = level.getServer().getPlayerList().getPlayers();
         if (warnAll) return new ArrayList<>(allPlayers);
 
-        AABB area = new AABB(pos).expand(radius);
+        AABB area = new AABB(pos).inflate(radius);
         return allPlayers.stream()
                 .filter(p -> area.contains(p.getX(), p.getY(), p.getZ()))
                 .collect(Collectors.toList());

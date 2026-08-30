@@ -8,6 +8,7 @@ import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import net.createmod.catnip.lang.Lang;
 import net.createmod.catnip.platform.CatnipServices;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.world.level.ItemLike;
@@ -77,7 +78,7 @@ public class CNCrushingRecipeGen extends CrushingRecipeGen {
             .output(0.6f, CNItems.NITRATE, 1)
             .output(0.4f, CNItems.LEAD_NUGGET, 1));
 
-    public CNCrushingRecipeGen(CachedOutput output) {
+    public CNCrushingRecipeGen(PackOutput output) {
         super(output, CreateNuclear.MOD_ID);
     }
 

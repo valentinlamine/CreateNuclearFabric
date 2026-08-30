@@ -1,5 +1,6 @@
 package net.nuclearteam.createnuclear.infrastructure.worldgen;
 
+import net.minecraft.core.HolderGetter;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceKey;
@@ -33,7 +34,7 @@ public class CNPlacedFeatures {
     }
 
     public static void bootstrap(BootstapContext<PlacedFeature> ctx) {
-        HolderLookup<ConfiguredFeature<?, ?>> featureLookup = ctx.getRegistryLookup(Registries.CONFIGURED_FEATURE);
+        HolderGetter<ConfiguredFeature<?, ?>> featureLookup = ctx.lookup(Registries.CONFIGURED_FEATURE);
         Holder<ConfiguredFeature<?, ?>> uraniumOre = featureLookup.getOrThrow(CNConfiguredFeatures.URANIUM_ORE);
         Holder<ConfiguredFeature<?, ?>> leadOre = featureLookup.getOrThrow(CNConfiguredFeatures.LEAD_ORE);
         Holder<ConfiguredFeature<?, ?>> thoriumOre = featureLookup.getOrThrow(CNConfiguredFeatures.THORIUM_ORE);
@@ -44,15 +45,15 @@ public class CNPlacedFeatures {
         register(ctx, LEAD_ORE, leadOre, placementOres(CountPlacement.of(10), -16, 60));
         register(ctx, THORIUM_ORE, thoriumOre, placementOres(CountPlacement.of(6), -16, 55));
         register(ctx, NITRATE_ORE, nitrateOre, placementOres(CountPlacement.of(6), -63, 64));
-        register(ctx, STRIATED_ORES_OVERWORLD, striatedOresOverworld, placement(RarityFilter.of(64), -63, 16));
+        register(ctx, STRIATED_ORES_OVERWORLD, striatedOresOverworld, placement(RarityFilter.onAverageOnceEvery(64), -63, 16));
 
     }
 
     private static List<PlacementModifier> placementOres(PlacementModifier frequency, int minHeight, int maxHeight) {
         return List.of(
                 frequency,
-                InSquarePlacement.of(),
-                HeightRangePlacement.trapezoid(VerticalAnchor.absolute(minHeight), VerticalAnchor.absolute(maxHeight)),
+                InSquarePlacement.spread(),
+                HeightRangePlacement.triangle(VerticalAnchor.absolute(minHeight), VerticalAnchor.absolute(maxHeight)),
                 ConfigPlacementFilter.INSTANCE
         );
     }
@@ -60,7 +61,7 @@ public class CNPlacedFeatures {
     private static List<PlacementModifier> placement(PlacementModifier frequency, int minHeight, int maxHeight) {
         return List.of(
                 frequency,
-                InSquarePlacement.of(),
+                InSquarePlacement.spread(),
                 HeightRangePlacement.uniform(VerticalAnchor.absolute(minHeight), VerticalAnchor.absolute(maxHeight)),
                 ConfigPlacementFilter.INSTANCE
         );

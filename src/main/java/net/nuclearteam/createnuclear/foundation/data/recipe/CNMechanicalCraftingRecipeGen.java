@@ -90,7 +90,7 @@ public class CNMechanicalCraftingRecipeGen extends MechanicalCraftingRecipeGen {
             .recipe(b -> b
                 .key('C', Ingredient.of(CNBlocks.REACTOR_CASING))
                 .key('P', Ingredient.of(AllItems.PRECISION_MECHANISM))
-                .key('B', Ingredient.of(CNFluids.URANIUM.get().getBucketItem()))
+                .key('B', Ingredient.of(CNFluids.URANIUM.get().getBucket()))
                 .key('S', Ingredient.of(CNTags.forgeItemTag("ingots/steel")))
                 .patternLine("CCCCC")
                 .patternLine("CPSPC")

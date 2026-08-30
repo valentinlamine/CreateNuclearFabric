@@ -4,6 +4,7 @@ import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import net.createmod.catnip.lang.Lang;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -35,10 +36,10 @@ public enum CNRecipeTypes implements IRecipeTypeInfo {
     CNRecipeTypes(Supplier<RecipeSerializer<?>> serializerSupplier, Supplier<RecipeType<?>> typeSupplier, boolean registerType) {
         String name = Lang.asId(name());
         id = CreateNuclear.asResource(name);
-        serializerObject = Registry.register(Registries.RECIPE_SERIALIZER, id, serializerSupplier.get());
+        serializerObject = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, id, serializerSupplier.get());
         if (registerType) {
             typeObject = typeSupplier.get();
-            Registry.register(Registries.RECIPE_TYPE, id, typeObject);
+            Registry.register(BuiltInRegistries.RECIPE_TYPE, id, typeObject);
         } else {
             typeObject = null;
         }
@@ -48,9 +49,9 @@ public enum CNRecipeTypes implements IRecipeTypeInfo {
     CNRecipeTypes(Supplier<RecipeSerializer<?>> serializerSupplier) {
         String name = Lang.asId(name());
         id = CreateNuclear.asResource(name);
-        serializerObject = Registry.register(Registries.RECIPE_SERIALIZER, id, serializerSupplier.get());
+        serializerObject = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, id, serializerSupplier.get());
         typeObject = simpleType(id);
-        Registry.register(Registries.RECIPE_TYPE, id, typeObject);
+        Registry.register(BuiltInRegistries.RECIPE_TYPE, id, typeObject);
         type = () -> typeObject;
     }
 
@@ -89,6 +90,6 @@ public enum CNRecipeTypes implements IRecipeTypeInfo {
 
     public <C extends Container, T extends Recipe<C>> Optional<T> find(C inv, Level world) {
         return world.getRecipeManager()
-                .getFirstMatch(getType(), inv, world);
+                .getRecipeFor(getType(), inv, world);
     }
 }

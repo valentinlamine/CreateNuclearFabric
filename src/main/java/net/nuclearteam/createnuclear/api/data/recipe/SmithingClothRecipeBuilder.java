@@ -50,8 +50,8 @@ public class SmithingClothRecipeBuilder {
 
     public void save(Consumer<FinishedRecipe> pRecipeConsumer, ResourceLocation pLocation) {
         this.ensureValid(pLocation);
-        this.advancement.parent(Advancement.Builder.ROOT_RECIPE_ADVANCEMENT).addCriterion("has_the_recipe", new RecipeUnlockedTrigger.TriggerInstance(ContextAwarePredicate.ANY, pLocation)).rewards(AdvancementRewards.Builder.recipe(pLocation)).requirements(RequirementsStrategy.OR);
-        pRecipeConsumer.accept(new SmithingClothRecipeBuilder.Result(pLocation, this.type, this.template, this.base, this.addition, this.result, this.advancement, pLocation.withPrefixedPath("recipes/" + this.category.getName() + "/")));
+        this.advancement.parent(RecipeBuilder.ROOT_RECIPE_ADVANCEMENT).addCriterion("has_the_recipe", new RecipeUnlockedTrigger.TriggerInstance(ContextAwarePredicate.ANY, pLocation)).rewards(AdvancementRewards.Builder.recipe(pLocation)).requirements(RequirementsStrategy.OR);
+        pRecipeConsumer.accept(new SmithingClothRecipeBuilder.Result(pLocation, this.type, this.template, this.base, this.addition, this.result, this.advancement, pLocation.withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
 
     private void ensureValid(ResourceLocation pLocation) {
@@ -91,11 +91,11 @@ public class SmithingClothRecipeBuilder {
          */
         @Nullable
         public JsonObject serializeAdvancement() {
-            return this.advancement.toJson();
+            return this.advancement.serializeToJson();
         }
 
         /**
-         * Gets the ID for the advancement associated with this recipe. Should not be null if {@link #getAdvancementJson}
+         * Gets the ID for the advancement associated with this recipe. Should not be null if
          * is non-null.
          */
         @Nullable

@@ -16,7 +16,6 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.pathfinder.PathComputationType;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.material.FluidState;
@@ -24,7 +23,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.sounds.SoundEvents;
@@ -47,20 +45,22 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.nuclearteam.createnuclear.CNBlockEntityTypes;
 
-import net.nuclearteam.createnuclear.CNEffects;
+import net.nuclearteam.createnuclear.content.radiation.capability.RadiationCapability;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings({"deprecation", "NullableProblems", "unused"})
 public class EnrichingCampfireBlock extends BaseEntityBlock
         implements SimpleWaterloggedBlock, IBE<EnrichingCampfireBlockEntity> {
+    private static final double CAMPFIRE_DOSE = 5.0D;
+
     protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 7.0, 16.0);
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     private final boolean spawnParticles;
 
-    public EnrichingCampfireBlock(boolean spawnParticles, int fireDamage, BlockBehaviour.Properties properties) {
-        super(properties);
+    public EnrichingCampfireBlock(Properties property, boolean spawnParticles, int fireDamage) {
+        super(property);
         this.spawnParticles = spawnParticles;
         this.registerDefaultState(this.stateDefinition.any().setValue(LIT, true).setValue(WATERLOGGED, false).setValue(FACING, Direction.NORTH));
     }
@@ -72,8 +72,8 @@ public class EnrichingCampfireBlock extends BaseEntityBlock
 
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        if (state.getValue(LIT) && entity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity)entity)) {
-            ((LivingEntity) entity).addEffect(new MobEffectInstance(CNEffects.RADIATION.get(), 100, 0));
+        if (state.getValue(LIT) && entity instanceof LivingEntity livingEntity && !EnchantmentHelper.hasFrostWalker(livingEntity)) {
+            RadiationCapability.applyContagion(livingEntity, CAMPFIRE_DOSE, 100);
         }
         super.entityInside(state, level, pos, entity);
     }
@@ -84,7 +84,7 @@ public class EnrichingCampfireBlock extends BaseEntityBlock
         BlockPos blockPos;
         Level levelAccessor = context.getLevel();
         boolean bl = levelAccessor.getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
-        return this.defaultBlockState().setValue(WATERLOGGED, bl).setValue(LIT, !bl).setValue(FACING, context.getHorizontalPlayerFacing());
+        return this.defaultBlockState().setValue(WATERLOGGED, bl).setValue(LIT, !bl).setValue(FACING, context.getHorizontalDirection());
     }
 
     @Override
@@ -111,7 +111,7 @@ public class EnrichingCampfireBlock extends BaseEntityBlock
             return;
         }
         if (random.nextInt(10) == 0) {
-            level.playSound((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.BLOCK_CAMPFIRE_CRACKLE, SoundSource.BLOCKS, 0.5f + random.nextFloat(), random.nextFloat() * 0.7f + 0.6f, false);
+            level.playLocalSound((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5, SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS, 0.5f + random.nextFloat(), random.nextFloat() * 0.7f + 0.6f, false);
         }
         if (this.spawnParticles && random.nextInt(5) == 0) {
             for (int i = 0; i < random.nextInt(1) + 1; ++i) {
@@ -217,7 +217,7 @@ public class EnrichingCampfireBlock extends BaseEntityBlock
         return false;
     }
 
-    public static boolean getLight(BlockState state) {
-        return state.is(BlockTags.CAMPFIRES, s -> s.hasProperty(WATERLOGGED) && s.hasProperty(LIT)) && !state.getValue(WATERLOGGED) && !state.getValue(LIT);
+    public static int getLight(BlockState state) {
+        return state.getValue(LIT) ? 15 : 0;
     }
 }

@@ -162,6 +162,15 @@ tasks.named<ProcessResources>("processResources") {
         "jei_version" to libs.versions.jei.get(),
         "rei_version" to libs.versions.rei.get(),
         "emi_version" to libs.versions.emi.get(),
+        "forge_config_api_port_version" to libs.versions.forge.config.get(),
+        "mod_id" to "createnuclear",
+        "mod_name" to "Create Nuclear",
+        "mod_description" to "Create nuclear is a mod that adds a whole nuclear system to the Create mod. An optimized reactor produces over eight million SU.",
+        "mod_author" to "Create Nuclear Team",
+        "mod_homepage" to "https://www.curseforge.com/minecraft/mc-mods/create-nuclear",
+        "mod_sources" to "https://github.com/Create-Nuclear-Team/CreateNuclearFabric",
+        "mod_issues" to "https://github.com/Create-Nuclear-Team/CreateNuclearFabric/issues",
+        "mod_license" to "MIT",
     )
 
     for (module: MinimalExternalModuleDependency in libs.bundles.porting.lib.get()) {

@@ -47,16 +47,16 @@ public class ClientEvents {
         if (player != null && CNConfigs.client().screenShaking.get()) {
             if (tremorAmount > 0) {
                 // Generate random offsets for the shake, once per tick
-                if (CNClientProxy.lastTremorTick != player.age) {
+                if (CNClientProxy.lastTremorTick != player.tickCount) {
                     RandomSource rng = player.level().random;
                     CNClientProxy.randomTremorOffsets[0] = rng.nextFloat();
                     CNClientProxy.randomTremorOffsets[1] = rng.nextFloat();
                     CNClientProxy.randomTremorOffsets[2] = rng.nextFloat();
-                    CNClientProxy.lastTremorTick = player.age;
+                    CNClientProxy.lastTremorTick = player.tickCount;
                 }
 
                 // Scale by Minecraft's screen-effect accessibility setting
-                double intensity = tremorAmount * Minecraft.getInstance().options.getDistortionEffectScale().getValue();
+                double intensity = tremorAmount * Minecraft.getInstance().options.screenEffectScale().get();
 
                 // Physically offset the camera
                 ((CameraAccessor) event.camera()).callMove(

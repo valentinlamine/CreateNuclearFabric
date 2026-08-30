@@ -340,13 +340,13 @@ public class CNRei implements REIClientPlugin {
 
     public static void consumeAllRecipes(Consumer<Recipe<?>> consumer) {
         Minecraft.getInstance().level.getRecipeManager()
-                .values()
+                .getRecipes()
                 .forEach(consumer);
     }
 
     public static <T extends Recipe<?>> void consumeTypedRecipes(Consumer<T> consumer, RecipeType<?> type) {
         Map<ResourceLocation, Recipe<?>> map = ((RecipeManagerAccessor) Minecraft.getInstance()
-                .getNetworkHandler()
+                .getConnection()
                 .getRecipeManager()).port_lib$getRecipes().get(type);
         if (map != null) {
             map.values().forEach(recipe -> consumer.accept((T) recipe));
@@ -374,7 +374,7 @@ public class CNRei implements REIClientPlugin {
         }
         ItemStack[] matchingStacks = recipe1.getIngredients()
                 .get(0)
-                .getMatchingStacks();
+                .getItems();
         if (matchingStacks.length == 0) {
             return false;
         }

@@ -12,9 +12,11 @@ import static com.simibubi.create.api.behaviour.display.DisplaySource.displaySou
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.providers.loot.RegistrateBlockLootTables;
 import com.tterrag.registrate.util.entry.BlockEntry;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.item.Instrument;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -204,7 +206,7 @@ public class CNBlocks {
         .properties(p -> p.explosionResistance(1200.0F).destroyTime(2F))
         .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(CNSpriteShifts.REACTOR_GLASS)))
         .onRegister(casingConnectivity((block,cc) -> cc.makeCasing(block, CNSpriteShifts.REACTOR_GLASS)))
-        .loot(RegistrateBlockLootTables::addDropWithSilkTouch)
+        .loot(RegistrateBlockLootTables::dropWhenSilkTouch)
         .tag(CNTags.forgeBlockTag("glass_blocks"), BlockTags.IMPERMEABLE)
         .recipe((c, p) -> ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, c.get())
             .unlockedBy("has_reactor_casing", RegistrateRecipeProvider.has(CNBlocks.REACTOR_CASING.get()))
@@ -236,7 +238,7 @@ public class CNBlocks {
             .properties(Properties::noOcclusion)
             .properties(EnrichingFireBlock.getLight())
             .tag(CNBlockTags.FAN_PROCESSING_CATALYSTS_ENRICHED.tag)
-            .loot((lt, b) -> lt.addDrop(b, BlockLootSubProvider.dropsNothing()))
+            .loot((lt, b) -> lt.add(b, BlockLootSubProvider.noDrop()))
             .blockstate((c, p) -> {
                 String baseFolder = "block/enriching/fire/";
                 ModelFile Floor0 = p.models().getExistingFile(p.modLoc(baseFolder + "floor0"));
@@ -288,42 +290,42 @@ public class CNBlocks {
             .register();
 
     public static final BlockEntry<EnrichingCampfireBlock> ENRICHING_CAMPFIRE = CreateNuclear.REGISTRATE
-            .block("enriching_campfire", properties -> new EnrichingCampfireBlock(true, 5, Properties.of()
-                    .mapColor(MapColor.WOOD)
-                    .instrument(Instrument.BASS)
+            .block("enriching_campfire", properties -> new EnrichingCampfireBlock(properties, true, 5))
+            .properties(p -> p.mapColor(MapColor.PODZOL)
+                    .instrument(NoteBlockInstrument.BASS)
                     .strength(2.0F)
                     .sound(SoundType.WOOD)
-                    .luminance(state -> state.getValue(EnrichingCampfireBlock.LIT) ? 15 : 0)
-                    .noOcclusion()
-                    .burnable()))
-            .properties(Properties::replaceable)
+                    .lightLevel(EnrichingCampfireBlock::getLight))
+            .properties(Properties::noOcclusion)
+            .properties(Properties::ignitedByLava)
+            .addLayer(() -> RenderType::cutoutMipped)
             .transform(axeOrPickaxe())
             .tag(CNBlockTags.ALL_CAMPFIRES.tag)
             .recipe((c, p) -> ShapedRecipeBuilder.shaped(RecipeCategory.MISC, c.get())
-                .unlockedBy("has_enriched_soul_soil", RegistrateRecipeProvider.has(CNBlocks.ENRICHED_SOUL_SOIL.get()))
-                .define('E', CNBlocks.ENRICHED_SOUL_SOIL)
-                .define('L', ItemTags.LOGS)
-                .define('S', Tags.Items.RODS_WOODEN)
-                .pattern(" S ")
-                .pattern("SES")
-                .pattern("LLL")
-                .showNotification(true)
-                .save(p, CreateNuclear.asResource("crafting/" + c.getName())))
-            .loot((lt, b) -> lt.addDrop(b, RegistrateBlockLootTables.dropsWithSilkTouch(b, lt.applyExplosionDecay(b, LootItem.lootTableItem(CNBlocks.ENRICHED_SOUL_SOIL)))))
+                    .unlockedBy("has_enriched_soul_soil", RegistrateRecipeProvider.has(CNBlocks.ENRICHED_SOUL_SOIL.get()))
+                    .define('E', CNBlocks.ENRICHED_SOUL_SOIL)
+                    .define('L', ItemTags.LOGS)
+                    .define('S', Tags.Items.RODS_WOODEN)
+                    .pattern(" S ")
+                    .pattern("SES")
+                    .pattern("LLL")
+                    .showNotification(true)
+                    .save(p, CreateNuclear.asResource("crafting/" + c.getName())))
+            .loot((lt, b) -> lt.add(b, RegistrateBlockLootTables.createSilkTouchDispatchTable(b, lt.applyExplosionDecay(b, LootItem.lootTableItem(CNBlocks.ENRICHED_SOUL_SOIL)))))
             .blockstate((c, p) ->
-                p.getVariantBuilder(c.getEntry()).forAllStatesExcept(state -> {
-                    Direction facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
-                    return ConfiguredModel.builder()
-                        .modelFile(p.models().getExistingFile(p.modLoc("block/enriching/campfire/" + (state.getValue(EnrichingCampfireBlock.LIT) ? "block" : "block_off"))))
-                        .uvLock(false)
-                        .rotationY(switch (facing) {
-                            case NORTH -> 180;
-                            case WEST -> 90;
-                            case EAST -> 270;
-                            default -> 0;
-                        })
-                        .build();
-            }, BlockStateProperties.SIGNAL_FIRE, BlockStateProperties.WATERLOGGED))
+                    p.getVariantBuilder(c.getEntry()).forAllStatesExcept(state -> {
+                        Direction facing = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
+                        return ConfiguredModel.builder()
+                                .modelFile(p.models().getExistingFile(p.modLoc("block/enriching/campfire/" + (state.getValue(EnrichingCampfireBlock.LIT) ? "block" : "block_off"))))
+                                .uvLock(false)
+                                .rotationY(switch (facing) {
+                                    case NORTH -> 180;
+                                    case WEST -> 90;
+                                    case EAST -> 270;
+                                    default -> 0;
+                                })
+                                .build();
+                    }, BlockStateProperties.SIGNAL_FIRE, BlockStateProperties.WATERLOGGED))
             .item()
             .model((c, p) -> p.withExistingParent(c.getName(), new ResourceLocation("item/generated"))
                     .texture("layer0", p.modLoc("item/enriched/campfire")))
@@ -356,8 +358,8 @@ public class CNBlocks {
             .initialProperties(() -> Blocks.DIAMOND_ORE)
             .properties(UraniumOreBlock.litBlockEmission())
             .transform(pickaxeOnly())
-            .loot((lt, b) -> lt.addDrop(b,
-                RegistrateBlockLootTables.dropsWithSilkTouch(b,
+            .loot((lt, b) -> lt.add(b,
+                RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
                     lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_URANIUM)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(3.0F, 4.0F)))
                         .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE, 1))
@@ -378,16 +380,16 @@ public class CNBlocks {
             .initialProperties(() -> Blocks.DIAMOND_ORE)
             .simpleItem()
             .transform(pickaxeOnly())
-            .loot((lt, b) -> lt.addDrop(b,
-                    RegistrateBlockLootTables.dropsWithSilkTouch(b,
-                            lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_LEAD)
-                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F)))
-                                    .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE, 4))
-                            ))))
+            .loot((lt, b) -> lt.add(b,
+                RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
+                    lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_LEAD)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F)))
+                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE, 4))
+            ))))
             .tag(BlockTags.NEEDS_IRON_TOOL,
-                    CNTags.forgeBlockTag("ores"),
-                    CNTags.forgeBlockTag("ores_in_ground/deepslate"),
-                    CNTags.forgeBlockTag("ores/lead")
+                CNTags.forgeBlockTag("ores"),
+                CNTags.forgeBlockTag("ores_in_ground/deepslate"),
+                CNTags.forgeBlockTag("ores/lead")
             )
             .item()
             .tag(CNTags.forgeItemTag("ores/lead"))
@@ -399,8 +401,8 @@ public class CNBlocks {
             .initialProperties(() -> Blocks.DIAMOND_ORE)
             .simpleItem()
             .transform(pickaxeOnly())
-            .loot((lt, b) -> lt.addDrop(b,
-                RegistrateBlockLootTables.dropsWithSilkTouch(b,
+            .loot((lt, b) -> lt.add(b,
+                RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
                     lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_THORIUM)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 5.0F)))
                         .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE, 5))
@@ -422,8 +424,8 @@ public class CNBlocks {
             .properties(UraniumOreBlock.litBlockEmission())
             .simpleItem()
             .transform(pickaxeOnly())
-            .loot((lt, b) -> lt.addDrop(b,
-                RegistrateBlockLootTables.dropsWithSilkTouch(b,
+            .loot((lt, b) -> lt.add(b,
+                RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
                     lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_URANIUM)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(3.0F, 4.0F)))
                         .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE, 1))
@@ -443,8 +445,8 @@ public class CNBlocks {
             .initialProperties(SharedProperties::stone)
             .simpleItem()
             .transform(pickaxeOnly())
-            .loot((lt, b) -> lt.addDrop(b,
-                RegistrateBlockLootTables.dropsWithSilkTouch(b,
+            .loot((lt, b) -> lt.add(b,
+                RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
                         lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_LEAD)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F)))
                                 .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE, 4))
@@ -465,8 +467,8 @@ public class CNBlocks {
             .initialProperties(SharedProperties::stone)
             .simpleItem()
             .transform(pickaxeOnly())
-            .loot((lt, b) -> lt.addDrop(b,
-                RegistrateBlockLootTables.dropsWithSilkTouch(b,
+            .loot((lt, b) -> lt.add(b,
+                RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
                     lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.RAW_THORIUM)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 5.0F)))
                         .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE, 5))
@@ -486,10 +488,10 @@ public class CNBlocks {
         CreateNuclear.REGISTRATE.block("nitrate_ore", Block::new)
             .initialProperties(SharedProperties::stone)
             .transform(pickaxeOnly())
-            .loot((lt, b) -> lt.addDrop(b,
-                RegistrateBlockLootTables.dropsWithSilkTouch(b,
+            .loot((lt, b) -> lt.add(b,
+                RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
                     lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.NITRATE)
-                        .apply(ApplyBonusCount.oreDrops(Enchantments.BLOCK_FORTUNE))
+                        .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
                 ))))
             .tag(BlockTags.NEEDS_IRON_TOOL,
                     CNTags.forgeBlockTag("ores"),
@@ -506,10 +508,10 @@ public class CNBlocks {
                     .initialProperties(SharedProperties::stone)
                     .simpleItem()
                     .transform(pickaxeOnly())
-                    .loot((lt, b) -> lt.addDrop(b,
-                            RegistrateBlockLootTables.dropsWithSilkTouch(b,
+                    .loot((lt, b) -> lt.add(b,
+                            RegistrateBlockLootTables.createSilkTouchDispatchTable(b,
                                     lt.applyExplosionDecay(b, LootItem.lootTableItem(CNItems.NITRATE)
-                                            .apply(ApplyBonusCount.oreDrops(Enchantments.BLOCK_FORTUNE))
+                                            .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
                                     ))))
                     .tag(BlockTags.NEEDS_IRON_TOOL,
                             CNTags.forgeBlockTag("ores"),

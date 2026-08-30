@@ -57,7 +57,7 @@ public record CNArchExGroup(String name, Block base, Textures textures, Recipes 
                 throw new IllegalStateException("Unknown block: " + baseBlockName + " " + baseBlockName);
 
             ResourceLocation texture = PaletteBlockPattern.toLocation(variant, pattern.getTexture(0));
-            MapColor color = baseBlock.getDefaultMapColor();
+            MapColor color = baseBlock.defaultMapColor();
 
             return this.named(baseBlockName)
                     .basedOn(baseBlock)

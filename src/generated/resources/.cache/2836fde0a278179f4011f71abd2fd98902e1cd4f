@@ -1,4 +1,4 @@
-// 1.20.1	2026-08-28T19:22:01.1971204	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2026-08-30T16:02:39.3261428	Create Nuclear/Registrate Provider for createnuclear [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 c53fd5df1d52d6e9919c9600e483697e8db75f4d data\createnuclear\advancements\recipes\building_blocks\cut_autunite_from_stone_types_autunite_stonecutting.json
 022b1c9e64c6016d9fcf09505b2299a74b92f211 data\createnuclear\recipes\smithing\default_anti_radiation_boots_brown.json
 7927b2a7c345bb178bf23fef966bed58f067ae2f data\createnuclear\advancements\recipes\building_blocks\shapeless\cloth\pink_cloth.json
@@ -32,8 +32,8 @@ fbaa7584540ddc65d80ff6b38e9e54840448a15a data\createnuclear\advancements\recipes
 d234edb3b6bc81b7300ee65722973b66db0b82d9 assets\createnuclear\models\block\uranium.json
 ad33dca8ecf90a8bc1ebb61c2007af72c427e9ed assets\createnuclear\models\item\layered_autunite.json
 f10bbdbab6112c58bebf2d98dc0ed3eb9370c09c assets\createnuclear\blockstates\lead_block.json
-1e59dcd5e24348b76c0d03a02ba08ce511e0c74e data\createnuclear\recipes\smithing\default_anti_radiation_boots_green.json
 3986bf37b8b7fb8bed679a7bba4b208c202f4b8f data\createnuclear\advancements\recipes\combat\crafting\items\armors\default_anti_radiation_leggings.json
+1e59dcd5e24348b76c0d03a02ba08ce511e0c74e data\createnuclear\recipes\smithing\default_anti_radiation_boots_green.json
 ddb01d2586a37fd31cc463ef9e6864cd6fabae4f data\c\tags\items\storage_blocks\lead.json
 ad7d418d3e8c49f2bb4929083f97eccc49add58c data\createnuclear\advancements\recipes\building_blocks\cut_autunite_wall_from_stone_types_autunite_stonecutting.json
 7a59963e3fc6fd226e9d336ec8577d29bcc3128c data\createnuclear\advancements\recipes\building_blocks\polished_cut_autunite_slab.json
@@ -205,8 +205,8 @@ dfd6b4a2aadbd3c301bb02e980f7790caa4a3746 data\createnuclear\advancements\recipes
 caa15a3ca087a40b33eb78e2156c9697b08f5c5f assets\createnuclear\models\item\colored\red_anti_radiation_helmet.json
 a4e502ad607a0b7d87a877aa94caa9ea61c3c426 data\createnuclear\advancements\recipes\combat\smithing\default_anti_radiation_helmet_orange.json
 3ee985f85be75905a3ec5c31750a6093e29332c2 assets\createnuclear\models\item\colored\pink_anti_radiation_leggings.json
-758591933d4e0c314b23457c7538631df928a0c5 data\minecraft\tags\blocks\lush_ground_replaceable.json
 1e942f7a1aaf752424e39a61d094b4736834ec30 data\createnuclear\loot_tables\blocks\nitrate_ore.json
+758591933d4e0c314b23457c7538631df928a0c5 data\minecraft\tags\blocks\lush_ground_replaceable.json
 9ef9b4b4bacb8a3513ee127aa90756ebcc973861 data\createnuclear\advancements\recipes\decorations\crafting\raw_lead_block.json
 55e956c815f423e5a94d1f113ba7301199f272f5 assets\createnuclear\models\item\nitrogen_bucket.json
 5b831354f6882ffc01cf5d4de99c80ae39eb6985 data\createnuclear\advancements\recipes\combat\smithing\default_anti_radiation_boots_yellow.json
@@ -356,8 +356,8 @@ b20e1b4dd0745ead1aa2248a91df5dde465e0938 assets\createnuclear\models\item\lime_c
 d1c3b78d9f91661325e2cad286789b5330052efa data\createnuclear\advancements\recipes\building_blocks\cut_autunite_stairs_from_stone_types_autunite_stonecutting.json
 ff034ab58f58173907a90512873a2ab4ae91bdd2 data\createnuclear\tags\fluids\nitrogen.json
 f628f8c7aa1e150ad2b5a3ce87dbe7f00b462e74 assets\createnuclear\blockstates\polished_cut_autunite_wall.json
-2cff4f5903db38589b94c589ded794a817943611 data\createnuclear\advancements\recipes\combat\smithing\default_anti_radiation_leggings_magenta.json
 a1db9d61813e073d23e899b0b70a9babf01ac73f data\createnuclear\advancements\recipes\combat\smithing\default_anti_radiation_chestplate_green.json
+2cff4f5903db38589b94c589ded794a817943611 data\createnuclear\advancements\recipes\combat\smithing\default_anti_radiation_leggings_magenta.json
 d1de8cb62519f811e925fd00de96c81076fabb8b data\createnuclear\advancements\recipes\building_blocks\shapeless\cloth\purple_cloth.json
 0da5037d78deeaded4cd7641433da7a7c6e1a5ee data\createnuclear\advancements\recipes\combat\smithing\default_anti_radiation_leggings_brown.json
 e6f5233fec76488fed7f01a8fc6dd13e369bb99c assets\createnuclear\models\item\colored\brown_anti_radiation_leggings.json

@@ -1,7 +1,7 @@
 package net.nuclearteam.createnuclear.infrastructure.worldgen.biome;
 
 import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.synth.BlendedNoise;
@@ -22,20 +22,20 @@ public class CNDensityFunctions {
     public static void bootstrapRegistries(BootstapContext<DensityFunction> context) {
         context.register(Irradiated.EROSION, DensityFunctions.add(
                 DensityFunctions.yClampedGradient(0, 90, 1, -1),
-                BlendedNoise.createBase3dNoiseFunction(0.25, 0.375, 80.0, 160.0, 8.0)
+                BlendedNoise.createUnseeded(0.25, 0.375, 80.0, 160.0, 8.0)
         ));
 
         context.register(Irradiated.FINAL_DENSITY, DensityFunctions.add(
                 DensityFunctions.yClampedGradient(0, 90, 1, -1),
-                BlendedNoise.createBase3dNoiseFunction(0.25, 0.375, 80.0, 160.0, 8.0)
+                BlendedNoise.createUnseeded(0.25, 0.375, 80.0, 160.0, 8.0)
         ));
     }
 
     private static DensityFunction registerAndWrap(BootstapContext<DensityFunction> context, ResourceKey<DensityFunction> key, DensityFunction densityFunction) {
-        return new DensityFunctions.RegistryEntryHolder(context.register(key, densityFunction));
+        return new DensityFunctions.HolderHolder(context.register(key, densityFunction));
     }
 
-    public static DensityFunction getFunction(HolderLookup<DensityFunction> densityFunctions, ResourceKey<DensityFunction> key) {
-        return new DensityFunctions.RegistryEntryHolder(densityFunctions.getOrThrow(key));
+    public static DensityFunction getFunction(HolderGetter<DensityFunction> densityFunctions, ResourceKey<DensityFunction> key) {
+        return new DensityFunctions.HolderHolder(densityFunctions.getOrThrow(key));
     }
 }

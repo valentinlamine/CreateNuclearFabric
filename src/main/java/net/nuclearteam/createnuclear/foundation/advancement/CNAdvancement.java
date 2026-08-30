@@ -8,7 +8,7 @@ import net.minecraft.advancements.critereon.RecipeCraftedTrigger;
 import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.advancements.critereon.EntityEquipmentPredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
@@ -40,16 +40,16 @@ import static net.nuclearteam.createnuclear.foundation.advancement.CreateNuclear
 public class CNAdvancement implements DataProvider {
 
     public static final EntityEquipmentPredicate FULL_ARMOR = new EntityEquipmentPredicate.Builder()
-        .head(ItemPredicate.Builder.create().items(CNItems.ANTI_RADIATION_HELMETS).build())
-        .chest(ItemPredicate.Builder.create().items(CNItems.ANTI_RADIATION_CHESTPLATES).build())
-        .legs(ItemPredicate.Builder.create().items(CNItems.ANTI_RADIATION_LEGGINGS).build())
-        .feet(ItemPredicate.Builder.create().items(CNItems.ANTI_RADIATION_BOOTS).build())
+        .head(ItemPredicate.Builder.item().of(CNItems.ANTI_RADIATION_HELMETS).build())
+        .chest(ItemPredicate.Builder.item().of(CNItems.ANTI_RADIATION_CHESTPLATES).build())
+        .legs(ItemPredicate.Builder.item().of(CNItems.ANTI_RADIATION_LEGGINGS).build())
+        .feet(ItemPredicate.Builder.item().of(CNItems.ANTI_RADIATION_BOOTS).build())
         .build();
 
     private static final List<ItemPredicate> PREDICATES = List.of(
-        ItemPredicate.Builder.create().items(CNBlocks.ENRICHED_SOUL_SOIL).build(),
-        ItemPredicate.Builder.create().tag(ItemTags.LOGS).build(),
-        ItemPredicate.Builder.create().tag(Tags.Items.RODS_WOODEN).build()
+        ItemPredicate.Builder.item().of(CNBlocks.ENRICHED_SOUL_SOIL).build(),
+        ItemPredicate.Builder.item().of(ItemTags.LOGS).build(),
+        ItemPredicate.Builder.item().of(Tags.Items.RODS_WOODEN).build()
     );
 
     public static final List<CreateNuclearAdvancement> ENTRIES = new ArrayList<>();
@@ -257,7 +257,7 @@ public class CNAdvancement implements DataProvider {
         .description("Equip anti-radiation armor for the first time")
         .after(ANTI_RADIATION_ARMOR)
         .externalTrigger(
-            new PlayerTrigger.Conditions(CriteriaTriggers.INVENTORY_CHANGED.getId(), EntityPredicate.asLootContextPredicate(EntityPredicate.Builder.create().type(EntityType.PLAYER).equipment(FULL_ARMOR).build()))
+            new PlayerTrigger.TriggerInstance(CriteriaTriggers.INVENTORY_CHANGED.getId(), EntityPredicate.wrap(EntityPredicate.Builder.entity().of(EntityType.PLAYER).equipment(FULL_ARMOR).build()))
         )
     ),
 
@@ -365,19 +365,19 @@ public class CNAdvancement implements DataProvider {
 
     ;
 
-    private final CachedOutput output;
+    private final PackOutput output;
 
     private static CreateNuclearAdvancement create(String id, UnaryOperator<Builder> b) {
         return new CreateNuclearAdvancement(id, b);
     }
 
-    public CNAdvancement(CachedOutput output) {
+    public CNAdvancement(PackOutput output) {
         this.output = output;
     }
 
     @Override
-    public CompletableFuture<?> run(DataProvider cache) {
-        CachedOutput.PathResolver pathProvider = output.getResolver(CachedOutput.OutputType.DATA_PACK, "advancements");
+    public CompletableFuture<?> run(CachedOutput cache) {
+        PackOutput.PathProvider pathProvider = output.createPathProvider(PackOutput.Target.DATA_PACK, "advancements");
         List<CompletableFuture<?>> futures = new ArrayList<>();
 
         Set<ResourceLocation> set = Sets.newHashSet();
@@ -385,9 +385,9 @@ public class CNAdvancement implements DataProvider {
             ResourceLocation id = advancement.getId();
             if (!set.add(id))
                 throw new IllegalStateException("Duplicate advancement " + id);
-            Path path = pathProvider.resolveJson(id);
-            futures.add(DataProvider.writeToPath(cache, advancement.createTask()
-                    .toJson(), path));
+            Path path = pathProvider.json(id);
+            futures.add(DataProvider.saveStable(cache, advancement.deconstruct()
+                    .serializeToJson(), path));
         };
 
         for (CreateNuclearAdvancement advancement : ENTRIES)

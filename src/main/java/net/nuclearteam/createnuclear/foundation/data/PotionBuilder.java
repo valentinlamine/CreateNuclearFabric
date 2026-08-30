@@ -6,6 +6,7 @@ import com.tterrag.registrate.builders.BuilderCallback;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import com.tterrag.registrate.util.nullness.NonnullType;
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.alchemy.Potion;
@@ -61,6 +62,6 @@ public class PotionBuilder<T extends Potion, P> extends AbstractBuilder<Potion, 
     }
 
     public T registerTest() {
-        return Registry.register(Registries.POTION, CreateNuclear.asResource(getName()), createEntry());
+        return Registry.register(BuiltInRegistries.POTION, CreateNuclear.asResource(getName()), createEntry());
     }
 }

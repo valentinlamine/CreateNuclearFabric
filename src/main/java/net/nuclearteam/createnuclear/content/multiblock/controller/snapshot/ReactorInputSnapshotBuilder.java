@@ -32,17 +32,12 @@ public final class ReactorInputSnapshotBuilder {
         for (Storage<FluidVariant> storage : inputFluidManager.getFuildHandlers(level)) {
             Iterator<StorageView<FluidVariant>> views = storage.iterator();
             if (views.hasNext()) {
-                maxFluidCapacity = saturatedAdd(maxFluidCapacity, views.next().getCapacity());
+                maxFluidCapacity += views.next().getCapacity();
             }
         }
 
         VirtualReactorInputFluid virtualFluid = inputFluidManager.getInventory(level);
         List<BigFluidStack> fluids = VirtualReactorInputFluid.toBigList(virtualFluid.fluids());
         return new ReactorInputSnapshot(items, fluids, maxFluidCapacity);
-    }
-
-    private static long saturatedAdd(long left, long right) {
-        if (right > 0 && left > Long.MAX_VALUE - right) return Long.MAX_VALUE;
-        return left + right;
     }
 }

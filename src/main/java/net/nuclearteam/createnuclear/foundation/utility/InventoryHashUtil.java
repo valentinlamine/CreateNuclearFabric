@@ -45,7 +45,7 @@ public class InventoryHashUtil {
      *         inventory. This value is suitable for quick equality/change
      *         detection but is not collision-resistant.
      * @throws NullPointerException if {@code player} is {@code null}
-     * @implNote The algorithm uses {@link Item#getRawId(net.minecraft.world.item.Item)}
+     * @implNote The algorithm uses {@link Item#getId(net.minecraft.world.item.Item)}
      *           and basic stack properties (count, tag.hashCode()). It is
      *           intentionally simple and optimized for speed rather than
      *           cryptographic strength.
@@ -53,15 +53,15 @@ public class InventoryHashUtil {
     public static long compute(Player player) {
         long hash = 1;
 
-        for (ItemStack stack : player.getInventory().main) {
+        for (ItemStack stack : player.getInventory().items) {
             hash = 31 * hash + stackHash(stack);
         }
 
-        for (ItemStack stack : player.getInventory().offHand) {
+        for (ItemStack stack : player.getInventory().offhand) {
             hash = 31 * hash + stackHash(stack);
         }
 
-        for (ItemStack stack : player.getArmorItems()) {
+        for (ItemStack stack : player.getArmorSlots()) {
             hash = 31 * hash + stackHash(stack);
         }
 
@@ -85,7 +85,7 @@ public class InventoryHashUtil {
     private static long stackHash(ItemStack stack) {
         if (stack.isEmpty()) return 0;
 
-        long h = Item.getRawId(stack.getItem());
+        long h = Item.getId(stack.getItem());
         h = 31 * h + stack.getCount();
 
         if (stack.hasTag()) {

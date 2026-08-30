@@ -22,10 +22,10 @@ public class SmithingTransformRecipeMixin {
 
     @Inject(
             at = @At("HEAD"),
-            method = "craft(Lnet/minecraft/inventory/Container;Lnet/minecraft/registry/RegistryAccess;)Lnet/minecraft/item/ItemStack;",
+            method = "assemble",
             cancellable = true
     )
-    public void CN$craft(Container pContainer, RegistryAccess pRegistryAccess, CallbackInfoReturnable<ItemStack> cir) {
+    public void CN$assemble(Container pContainer, RegistryAccess pRegistryAccess, CallbackInfoReturnable<ItemStack> cir) {
         if (pContainer.getItem(1).is(CNTags.CNItemTags.ANTI_RADIATION_ARMOR.tag)) {
             ItemStack resultItem = this.result.copy();
             ItemStack baseItem = pContainer.getItem(1);

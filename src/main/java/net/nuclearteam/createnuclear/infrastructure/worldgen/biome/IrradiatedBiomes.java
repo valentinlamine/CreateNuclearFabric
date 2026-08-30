@@ -1,6 +1,6 @@
 package net.nuclearteam.createnuclear.infrastructure.worldgen.biome;
 
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.biome.AmbientMoodSettings;
@@ -16,11 +16,11 @@ import net.nuclearteam.createnuclear.CNSoundEvents;
 import net.nuclearteam.createnuclear.content.particles.IrradiatedParticlesData;
 
 public class IrradiatedBiomes {
-    public static Biome createPlain(HolderLookup<PlacedFeature> featureLookup, HolderLookup<ConfiguredWorldCarver<?>> carverLookup, HolderLookup<SoundEvent> soundLookup) {
+    public static Biome createPlain(HolderGetter<PlacedFeature> featureLookup, HolderGetter<ConfiguredWorldCarver<?>> carverLookup, HolderGetter<SoundEvent> soundLookup) {
         return IrradiatedBiomes.irradiated(featureLookup, carverLookup, soundLookup, new BiomeGenerationSettings.Builder(featureLookup, carverLookup));
     }
 
-    public static Biome irradiated(HolderLookup<PlacedFeature> featureGetter, HolderLookup<ConfiguredWorldCarver<?>> carverGetter, HolderLookup<SoundEvent> soundLookup, BiomeGenerationSettings.Builder generation) {
+    public static Biome irradiated(HolderGetter<PlacedFeature> featureGetter, HolderGetter<ConfiguredWorldCarver<?>> carverGetter, HolderGetter<SoundEvent> soundLookup, BiomeGenerationSettings.Builder generation) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
         BiomeSpecialEffects.Builder effectBuilder = new BiomeSpecialEffects.Builder();
 
@@ -36,26 +36,26 @@ public class IrradiatedBiomes {
             .skyColor(0x324132)
 
             // Grass: sulfur yellow / scorched
-            .grassColor(0x8C8F5B)
+            .grassColorOverride(0x8C8F5B)
 
             // Foliage: withered olive
-            .foliageColor(0x565E3E)
+            .foliageColorOverride(0x565E3E)
 
-            .particleConfig(new AmbientParticleSettings(new IrradiatedParticlesData(), 0.025F))
-            .moodSound(AmbientMoodSettings.CAVE)
+            .ambientParticle(new AmbientParticleSettings(new IrradiatedParticlesData(), 0.025F))
+            .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
             // Plays continuously for as long as the player stands in the biome, under the
             // Ambient/Environment volume slider. Deliberately NOT also set as .backgroundMusic():
             // that would start a second, unsynchronised copy of the same file in the MUSIC
             // category, and the two would phase against each other.
-            .loopSound(soundLookup.getOrThrow(ResourceKey.create(Registries.SOUND_EVENT, CNSoundEvents.BIOME_WASTELAND.getId())))
+            .ambientLoopSound(soundLookup.getOrThrow(ResourceKey.create(Registries.SOUND_EVENT, CNSoundEvents.BIOME_WASTELAND.getId())))
         ;
 
-        return new Biome.Builder()
-                .spawnSettings(spawnBuilder.build())
-                .precipitation(false)
+        return new Biome.BiomeBuilder()
+                .mobSpawnSettings(spawnBuilder.build())
+                .hasPrecipitation(false)
                 .temperature(2.0f)
                 .downfall(0f)
-                .effects(effectBuilder.build())
+                .specialEffects(effectBuilder.build())
                 .generationSettings(generation.build())
                 .build();
     }

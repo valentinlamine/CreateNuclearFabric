@@ -13,7 +13,7 @@ import net.nuclearteam.createnuclear.foundation.utility.RenderHelper;
 /**
  * HUD overlay for displaying helmet condition based on durability.
  */
-public class HelmetOverlay  implements HudOverlay {
+public class HelmetOverlay implements HudOverlay {
     private static final ResourceLocation[] HELMET_TEXTURES = {
             CreateNuclear.asResource("textures/misc/helmet_vision/helmet_new.png"),
             CreateNuclear.asResource("textures/misc/helmet_vision/helmet_minor_damage.png"),
@@ -27,7 +27,7 @@ public class HelmetOverlay  implements HudOverlay {
     public boolean isActive() {
         LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) return false;
-        ItemStack helmet = player.getInventory().getArmorStack(EquipmentSlot.HEAD.getEntitySlotId());
+        ItemStack helmet = player.getInventory().getArmor(EquipmentSlot.HEAD.getIndex());
         return !helmet.isEmpty() && helmet.is(CNItemTags.ANTI_RADIATION_ARMOR.tag)
                 && helmet.getItem() instanceof net.nuclearteam.createnuclear.content.equipment.armor.AntiRadiationArmorItem.Helmet;
     }
@@ -37,11 +37,11 @@ public class HelmetOverlay  implements HudOverlay {
         if (!isActive()) return;
         LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) return;
-        ItemStack helmet = player.getInventory().getArmorStack(EquipmentSlot.HEAD.getEntitySlotId());
+        ItemStack helmet = player.getInventory().getArmor(EquipmentSlot.HEAD.getIndex());
         if (helmet.isEmpty()) return;
 
         // Calculate durability ratio
-        float durabilityRatio = (helmet.getMaxDamage() - helmet.getDamage())
+        float durabilityRatio = (helmet.getMaxDamage() - helmet.getDamageValue())
                 / (float) helmet.getMaxDamage();
         // Determine texture index based on thresholds
         int index = durabilityRatio >= 0.95f ? 0
@@ -53,17 +53,17 @@ public class HelmetOverlay  implements HudOverlay {
         // Render helmet overlay texture
         RenderHelper.renderFirstPersonOverlay(graphics, HELMET_TEXTURES[index], 1f, 1f);
         // Render the hotbar behind the helmet overlay
-        Minecraft.getInstance().inGameHud.renderHotbar(12f, graphics);
+        Minecraft.getInstance().gui.renderHotbar(12f, graphics);
     }
 
     @Override
     public int getPriority() {
         LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) return BASE_PRIORITY;
-        ItemStack helmet = player.getInventory().getArmorStack(EquipmentSlot.HEAD.getEntitySlotId());
+        ItemStack helmet = player.getInventory().getArmor(EquipmentSlot.HEAD.getIndex());
         if (helmet.isEmpty()) return BASE_PRIORITY;
 
-        float durabilityRatio = (helmet.getMaxDamage() - helmet.getDamage())
+        float durabilityRatio = (helmet.getMaxDamage() - helmet.getDamageValue())
                 / (float) helmet.getMaxDamage();
         return BASE_PRIORITY + (int) ((1f - durabilityRatio) * 100);
     }

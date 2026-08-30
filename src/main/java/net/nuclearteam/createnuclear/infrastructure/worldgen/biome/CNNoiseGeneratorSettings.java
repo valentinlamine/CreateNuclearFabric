@@ -2,7 +2,7 @@ package net.nuclearteam.createnuclear.infrastructure.worldgen.biome;
 
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -12,8 +12,8 @@ import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.NoiseSettings;
 import net.minecraft.world.level.levelgen.DensityFunction;
 import net.minecraft.world.level.levelgen.DensityFunctions;
-import net.minecraft.world.level.levelgen.DensityFunctions;
-import net.minecraft.world.level.levelgen.synth.NormalNoise;
+import net.minecraft.world.level.levelgen.Noises;
+import net.minecraft.world.level.levelgen.NoiseRouterData;
 import net.minecraft.world.level.levelgen.NoiseRouter;
 import net.nuclearteam.createnuclear.CNBlocks;
 import net.nuclearteam.createnuclear.CreateNuclear;
@@ -27,8 +27,8 @@ public class CNNoiseGeneratorSettings {
     private static final ResourceKey<DensityFunction> Y = vanillaDensityKey("y");
 
     public static void bootstrapRegistries(BootstapContext<NoiseGeneratorSettings> context) {
-        HolderLookup<DensityFunction> densityLookup = context.getRegistryLookup(Registries.DENSITY_FUNCTION);
-        HolderLookup<NormalNoise.NoiseParameters> noiseLookup = context.getRegistryLookup(Registries.NOISE_PARAMETERS);
+        HolderGetter<DensityFunction> densityLookup = context.lookup(Registries.DENSITY_FUNCTION);
+        HolderGetter<NormalNoise.NoiseParameters> noiseLookup = context.lookup(Registries.NOISE);
 
         context.register(IRRADIATED, new NoiseGeneratorSettings(
                 NoiseSettings.create(-32, 256, 1, 2),
@@ -36,7 +36,7 @@ public class CNNoiseGeneratorSettings {
                 Blocks.AIR.defaultBlockState(),
                 CNNoiseGeneratorSettings.irradiated(densityLookup, noiseLookup),
                 IrradiatedSurfaceRules.DEFAULT_RULE,
-                new OverworldBiomeBuilder().getSpawnSuitabilityNoises(),
+                new OverworldBiomeBuilder().spawnTarget(),
                 32,
                 false,
                 false,
@@ -45,7 +45,7 @@ public class CNNoiseGeneratorSettings {
         ));
     }
 
-    public static NoiseRouter irradiated(HolderLookup<DensityFunction> densityLookup, HolderLookup<NormalNoise.NoiseParameters> noiseLookup) {
+    public static NoiseRouter irradiated(HolderGetter<DensityFunction> densityLookup, HolderGetter<NormalNoise.NoiseParameters> noiseLookup) {
         DensityFunction shiftX = CNDensityFunctions.getFunction(densityLookup, SHIFT_X);
         DensityFunction shiftZ = CNDensityFunctions.getFunction(densityLookup, SHIFT_Z);
         DensityFunction y = CNDensityFunctions.getFunction(densityLookup, Y);
@@ -54,16 +54,16 @@ public class CNNoiseGeneratorSettings {
                 DensityFunctions.zero(), // fluidLevelFloodednessNoise
                 DensityFunctions.zero(), // fluidLevelSpreadNoise
                 DensityFunctions.zero(), // lavaNoise
-                DensityFunctions.shiftedNoise(
-                        shiftX, shiftZ, 0.25, noiseLookup.getOrThrow(NormalNoise.TEMPERATURE)
+                DensityFunctions.shiftedNoise2d(
+                        shiftX, shiftZ, 0.25, noiseLookup.getOrThrow(Noises.TEMPERATURE)
                 ), // temperature
-                DensityFunctions.shiftedNoise(
-                        shiftX, shiftZ, 0, noiseLookup.getOrThrow(NormalNoise.VEGETATION)
+                DensityFunctions.shiftedNoise2d(
+                        shiftX, shiftZ, 0, noiseLookup.getOrThrow(Noises.VEGETATION)
                 ), // vegetation
-                CNDensityFunctions.getFunction(densityLookup, DensityFunctions.CONTINENTS_OVERWORLD), // continents
+                CNDensityFunctions.getFunction(densityLookup, NoiseRouterData.CONTINENTS), // continents
                 CNDensityFunctions.getFunction(densityLookup, CNDensityFunctions.Irradiated.EROSION), // erosion
-                CNDensityFunctions.getFunction(densityLookup, DensityFunctions.DEPTH_OVERWORLD), // depth
-                CNDensityFunctions.getFunction(densityLookup, DensityFunctions.RIDGES_OVERWORLD), // ridges
+                CNDensityFunctions.getFunction(densityLookup, NoiseRouterData.DEPTH), // depth
+                CNDensityFunctions.getFunction(densityLookup, NoiseRouterData.RIDGES), // ridges
                 DensityFunctions.add(
                         DensityFunctions.constant(0.1171875),
                         DensityFunctions.mul(
@@ -85,8 +85,8 @@ public class CNNoiseGeneratorSettings {
                                                                         DensityFunctions.mul(
                                                                                 DensityFunctions.constant(4),
                                                                                 DensityFunctions.mul(
-                                                                                        CNDensityFunctions.getFunction(densityLookup, DensityFunctions.DEPTH_OVERWORLD),
-                                                                                        DensityFunctions.cache2d(CNDensityFunctions.getFunction(densityLookup, DensityFunctions.FACTOR_OVERWORLD))
+                                                                                        CNDensityFunctions.getFunction(densityLookup, NoiseRouterData.DEPTH),
+                                                                                        DensityFunctions.cache2d(CNDensityFunctions.getFunction(densityLookup, NoiseRouterData.FACTOR))
                                                                                 ).quarterNegative()
                                                                         )
                                                                 ).clamp(-30, 64)
@@ -104,7 +104,7 @@ public class CNNoiseGeneratorSettings {
     }
 
     private static @NotNull ResourceKey<NoiseGeneratorSettings> key(String id) {
-        return ResourceKey.create(Registries.CHUNK_GENERATOR_SETTINGS, CreateNuclear.asResource(id));
+        return ResourceKey.create(Registries.NOISE_SETTINGS, CreateNuclear.asResource(id));
     }
 
     private static ResourceKey<DensityFunction> vanillaDensityKey(String id) {

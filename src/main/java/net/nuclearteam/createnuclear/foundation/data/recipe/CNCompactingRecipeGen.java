@@ -3,6 +3,7 @@ package net.nuclearteam.createnuclear.foundation.data.recipe;
 import com.simibubi.create.api.data.recipe.CompactingRecipeGen;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.data.PackOutput;
 import net.nuclearteam.createnuclear.CNItems;
 import net.nuclearteam.createnuclear.CNTags;
 import net.nuclearteam.createnuclear.CreateNuclear;
@@ -14,7 +15,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @SuppressWarnings("unused")
 public class CNCompactingRecipeGen extends CompactingRecipeGen {
 
-    public CNCompactingRecipeGen(CachedOutput generator) {
+    public CNCompactingRecipeGen(PackOutput generator) {
         super(generator, CreateNuclear.MOD_ID);
     }
 

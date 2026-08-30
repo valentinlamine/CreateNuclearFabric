@@ -10,13 +10,14 @@ import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.resources.ResourceLocation;
 
+
 public class SimpleCreateNuclearTrigger extends CriterionTriggerBase<SimpleCreateNuclearTrigger.Instance> {
     public SimpleCreateNuclearTrigger(String id) {
         super(id);
     }
 
     @Override
-    public net.nuclearteam.createnuclear.foundation.advancement.SimpleCreateNuclearTrigger.Instance conditionsFromJson(JsonObject pJson, DeserializationContext pContext) {
+    public Instance createInstance(JsonObject pJson, DeserializationContext pContext) {
         return new SimpleCreateNuclearTrigger.Instance(getId());
     }
 
@@ -30,7 +31,7 @@ public class SimpleCreateNuclearTrigger extends CriterionTriggerBase<SimpleCreat
 
     public static class Instance extends CriterionTriggerBase.Instance {
         public Instance(ResourceLocation id) {
-            super(id, ContextAwarePredicate.EMPTY);
+            super(id, ContextAwarePredicate.ANY);
         }
 
         @Override

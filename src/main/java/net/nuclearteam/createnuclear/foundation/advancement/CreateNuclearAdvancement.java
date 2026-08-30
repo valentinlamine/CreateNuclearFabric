@@ -44,7 +44,7 @@ public class CreateNuclearAdvancement {
 
 
     public CreateNuclearAdvancement(String id, UnaryOperator<Builder> b) {
-        this.builder = Advancement.Builder.create();
+        this.builder = Advancement.Builder.advancement();
         this.id = id;
 
         Builder t = new Builder();
@@ -52,11 +52,11 @@ public class CreateNuclearAdvancement {
 
         if (!t.externalTrigger) {
             builtinTrigger = CNTriggers.addSimple(id + "_builtin");
-            builder.criterion("0", builtinTrigger.instance());
+            builder.addCriterion("0", builtinTrigger.instance());
         }
 
         builder.display(t.icon, Component.translatable(titleKey()),
-                Component.translatable(descriptionKey()).styled(s -> s.withColor(0xDBA213)),
+                Component.translatable(descriptionKey()).withStyle(s -> s.withColor(0xDBA213)),
                 id.equals("root") ? BACKGROUND : null, t.type.frame, t.type.toast, t.type.announce, t.type.hide);
 
         if (t.type == TaskType.SECRET)
@@ -77,12 +77,12 @@ public class CreateNuclearAdvancement {
         if (!(player instanceof ServerPlayer sp))
             return true;
         Advancement advancement = sp.getServer()
-                .getAdvancementLoader()
-                .get(CreateNuclear.asResource(id));
+                .getAdvancements()
+                .getAdvancement(CreateNuclear.asResource(id));
         if (advancement == null)
             return true;
         return sp.getAdvancements()
-                .getProgress(advancement)
+                .getOrStartProgress(advancement)
                 .isDone();
     }
 
@@ -98,7 +98,7 @@ public class CreateNuclearAdvancement {
     void save(Consumer<Advancement> t) {
         if (parent != null)
             builder.parent(parent.datagenResult);
-        datagenResult = builder.build(t, CreateNuclear.asResource(id)
+        datagenResult = builder.save(t, CreateNuclear.asResource(id)
                 .toString());
     }
 
@@ -188,9 +188,9 @@ public class CreateNuclearAdvancement {
         }
 
         Builder whenItemCollected(TagKey<Item> tag) {
-            return externalTrigger(InventoryChangeTrigger.Conditions
-                    .items(new ItemPredicate(tag, null, MinMaxBounds.IntRange.ANY, MinMaxBounds.IntRange.ANY,
-                            EnchantmentPredicate.ARRAY_OF_ANY, EnchantmentPredicate.ARRAY_OF_ANY, null, NbtPredicate.ANY)));
+            return externalTrigger(InventoryChangeTrigger.TriggerInstance
+                    .hasItems(new ItemPredicate(tag, null, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,
+                            EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY)));
         }
 
         Builder awardedForFree() {
@@ -198,7 +198,7 @@ public class CreateNuclearAdvancement {
         }
 
         Builder externalTrigger(CriterionTriggerInstance trigger) {
-            builder.criterion(String.valueOf(keyIndex), trigger);
+            builder.addCriterion(String.valueOf(keyIndex), trigger);
             externalTrigger = true;
             keyIndex++;
             return this;

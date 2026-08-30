@@ -20,11 +20,11 @@ import java.util.List;
 
 public final class BiomeIrradiationService {
     public static void circularArea(ServerLevel serverLevel, BlockPos center, ResourceKey<Biome> defaultTarget, int radius) {
-        Registry<Biome> biomeRegistry = serverLevel.registryAccess().getValue(Registries.BIOME);
+        Registry<Biome> biomeRegistry = serverLevel.registryAccess().registryOrThrow(Registries.BIOME);
 
         Holder<Biome> currentAtCenter = serverLevel.getBiome(center);
         ResourceKey<Biome> targetAtCenter = BiomeIrradiationMappings.resolveTarget(currentAtCenter, defaultTarget);
-        if (currentAtCenter.matchesKey(targetAtCenter)) {
+        if (currentAtCenter.is(targetAtCenter)) {
             return;
         }
 
@@ -37,19 +37,19 @@ public final class BiomeIrradiationService {
         BiomeResolver resolver = createCircularResolver(biomeRegistry, center, radiusSq, defaultTarget, serverLevel);
 
         List<ChunkAccess> chunks = new ArrayList<>();
-        for (int cz = SectionPos.getSectionCoord(minZ); cz < SectionPos.getSectionCoord(maxZ); ++cz) {
-            for (int cx = SectionPos.getSectionCoord(minX); cx < SectionPos.getSectionCoord(maxX); ++cx) {
+        for (int cz = SectionPos.blockToSectionCoord(minZ); cz < SectionPos.blockToSectionCoord(maxZ); ++cz) {
+            for (int cx = SectionPos.blockToSectionCoord(minX); cx < SectionPos.blockToSectionCoord(maxX); ++cx) {
                 ChunkAccess chunkAccess = serverLevel.getChunk(cx, cz, ChunkStatus.FULL, false);
                 if (chunkAccess != null) {
-                    chunkAccess.populateBiomes(resolver, serverLevel.getChunkSource().getNoiseConfig().getMultiNoiseSampler());
-                    chunkAccess.setNeedsSaving(true);
+                    chunkAccess.fillBiomesFromNoise(resolver, serverLevel.getChunkSource().randomState().sampler());
+                    chunkAccess.setUnsaved(true);
                     chunks.add(chunkAccess);
                 }
             }
         }
 
         PersistentIrradiatedZones.get(serverLevel).addChunks(chunks.stream().map(ChunkAccess::getPos).toList());
-        serverLevel.getChunkSource().threadedAnvilChunkStorage.sendChunkBiomePackets(chunks);
+        serverLevel.getChunkSource().chunkMap.resendBiomesForChunks(chunks);
     }
 
     public static boolean restoreArea(ServerLevel serverLevel, BlockPos pos) {
@@ -63,10 +63,10 @@ public final class BiomeIrradiationService {
             ChunkAccess chunkAccess = serverLevel.getChunk(target.x, target.z, ChunkStatus.FULL, false);
             if (chunkAccess == null) continue;
 
-            BiomeResolver resolver = (x, y, z, sample) -> serverLevel.getChunkSource().getChunkGenerator().getBiomeSource().getBiome(x, y, z, sample);
+            BiomeResolver resolver = (x, y, z, sample) -> serverLevel.getChunkSource().getGenerator().getBiomeSource().getNoiseBiome(x, y, z, sample);
 
-            chunkAccess.populateBiomes(resolver, serverLevel.getChunkSource().getNoiseConfig().getMultiNoiseSampler());
-            chunkAccess.setNeedsSaving(true);
+            chunkAccess.fillBiomesFromNoise(resolver, serverLevel.getChunkSource().randomState().sampler());
+            chunkAccess.setUnsaved(true);
             restored.add(chunkAccess);
 
             zones.removeChunk(target);
@@ -74,7 +74,7 @@ public final class BiomeIrradiationService {
 
         if (restored.isEmpty()) return false;
 
-        serverLevel.getChunkSource().threadedAnvilChunkStorage.sendChunkBiomePackets(restored);
+        serverLevel.getChunkSource().chunkMap.resendBiomesForChunks(restored);
 
         return true;
     }
@@ -110,7 +110,7 @@ public final class BiomeIrradiationService {
             if ((distX * distX) + (distZ * distZ) <= radiusSq) {
                 ResourceKey<Biome> target = BiomeIrradiationMappings.resolveTarget(current, defaultTarget);
 
-                return biomeRegistry.entryOf(target);
+                return biomeRegistry.getHolderOrThrow(target);
             }
 
             return current;

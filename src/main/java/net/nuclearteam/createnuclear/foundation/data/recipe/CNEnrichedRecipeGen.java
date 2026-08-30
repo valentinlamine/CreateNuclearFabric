@@ -2,6 +2,7 @@ package net.nuclearteam.createnuclear.foundation.data.recipe;
 
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.data.CachedOutput;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -34,7 +35,7 @@ public class CNEnrichedRecipeGen extends EnrichedRecipeGen {
                 .output(result.get()));
     }
 
-    public CNEnrichedRecipeGen(CachedOutput output) {
+    public CNEnrichedRecipeGen(PackOutput output) {
         super(output, CreateNuclear.MOD_ID);
     }
 

@@ -1,7 +1,7 @@
 package net.nuclearteam.createnuclear.infrastructure.worldgen.biome;
 
 import net.minecraft.data.worldgen.BootstapContext;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
@@ -17,9 +17,9 @@ public class CNBiomes {
     }
 
     public static void bootstrapRegistries(BootstapContext<Biome> context) {
-        HolderLookup<PlacedFeature> featureLookup = context.getRegistryLookup(Registries.PLACED_FEATURE);
-        HolderLookup<ConfiguredWorldCarver<?>> carverLookup = context.getRegistryLookup(Registries.CONFIGURED_CARVER);
-        HolderLookup<SoundEvent> soundLookup = context.getRegistryLookup(Registries.SOUND_EVENT);
+        HolderGetter<PlacedFeature> featureLookup = context.lookup(Registries.PLACED_FEATURE);
+        HolderGetter<ConfiguredWorldCarver<?>> carverLookup = context.lookup(Registries.CONFIGURED_CARVER);
+        HolderGetter<SoundEvent> soundLookup = context.lookup(Registries.SOUND_EVENT);
         context.register(Irradiated.PLAIN, IrradiatedBiomes.createPlain(featureLookup, carverLookup, soundLookup));
     }
 
