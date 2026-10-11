@@ -1,4 +1,4 @@
-// 1.20.1	2026-10-10T16:11:20.3297865	Create Nuclear/CreateNuclear's Processing Recipes
+// 1.20.1	2026-10-11T13:56:51.7798029	Create Nuclear/CreateNuclear's Processing Recipes
 57154e35ebb09170bb39f5b3a72ecd49182697f2 data\createnuclear\recipes\crushing\granite.json
 a288d32405754561c6f50164177a6466c6f28a42 data\createnuclear\recipes\compacting\uranium_fluid_to_yellowcake.json
 3540c869cc50522589aae1fe74c8a55713e010d2 data\createnuclear\recipes\crushing\raw_uranium.json
@@ -16,8 +16,8 @@ c0e1f33d8e91a3133e5acf6e4d3eb5ea5cd23471 data\createnuclear\recipes\crushing\raw
 682ceb2386fe56cd47e46d7ebb3d8185ac78515b data\createnuclear\recipes\crushing\nitrate.json
 04c671106607c2c93c0706f690cd876fb072dd56 data\createnuclear\recipes\deploying\reactor_output_from_shaft_and_reactor_casing.json
 607a5c92093fb550f3aa63e793e75dc3fade5b9e data\createnuclear\recipes\mixing\thorium_fluid.json
-7a6439ad1e849bd6a61bb762cc8ce20fd44a28b4 data\createnuclear\recipes\mixing\liquid_nitrogen.json
 21e5370f3ce9120f8ca1425a95a8c50790877f9b data\createnuclear\recipes\pressing\graphene.json
+7a6439ad1e849bd6a61bb762cc8ce20fd44a28b4 data\createnuclear\recipes\mixing\liquid_nitrogen.json
 33becbc558bd2fbe277be096b292c0093f84e44c data\createnuclear\recipes\crushing\coal.json
 2a8b609dba5bad88511d9c9a80cf6fb582b18c36 data\createnuclear\recipes\crushing\fix\crushed_raw_uranium.json
 4feb59d85e86e34ed565c18b6a4df120fe050bc7 data\createnuclear\recipes\crushing\raw_copper.json

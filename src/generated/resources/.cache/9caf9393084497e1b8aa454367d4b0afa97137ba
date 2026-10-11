@@ -1,7 +1,7 @@
-// 1.20.1	2026-10-10T16:11:20.3359965	Create Nuclear/Create Nuclear Advancements
+// 1.20.1	2026-10-11T13:56:51.7818912	Create Nuclear/Create Nuclear Advancements
 91aab6f0a18aee167c63a3aece5fa9778cf52b0b data\createnuclear\advancements\reinforced_glass.json
-5a41894d2428fb7297b98a6b78925a17af2a3095 data\createnuclear\advancements\uranium_liquid.json
 f7d455c664ca65948f6230eda0621365da68bbcd data\createnuclear\advancements\thorium_ingot.json
+5a41894d2428fb7297b98a6b78925a17af2a3095 data\createnuclear\advancements\uranium_liquid.json
 3456f765a017423c5ebab69766250523f9895ec3 data\createnuclear\advancements\chemistry_101.json
 8e89393b2e396243d12cf5b29e283ab97c814519 data\createnuclear\advancements\graphite_rod.json
 b6aa52d55ebb681fa0784c5419667c88a4b0e6db data\createnuclear\advancements\anti_radiation_armor.json
